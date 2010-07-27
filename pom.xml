@@ -50,9 +50,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
-    <url>scm:svn:https://mybatis.googlecode.com/svn/</url>
-    <connection>scm:svn:https://mybatis.googlecode.com/svn/</connection>
-    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/</developerConnection>
+    <url>scm:svn:https://mybatis.googlecode.com/svn/branches/mybatis-2-maintenance/</url>
+    <connection>scm:svn:https://mybatis.googlecode.com/svn/branches/mybatis-2-maintenance/</connection>
+    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/branches/mybatis-2-maintenance/</developerConnection>
   </scm>
   <reporting>
     <plugins>
