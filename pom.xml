@@ -22,23 +22,23 @@
   <url>http://www.mybatis.org/</url>
 
   <scm>
-    <url>http://github.com/mybatis/ibatis</url>
-    <connection>scm:git:ssh://github.com/mybatis/ibatis.git</connection>
-    <developerConnection>scm:git:git+ssh://git@github.com/mybatis/ibatis.git</developerConnection>
+    <url>http://github.com/mybatis/mybatis-2</url>
+    <connection>scm:git:ssh://github.com/mybatis/mybatis-2.git</connection>
+    <developerConnection>scm:git:git+ssh://git@github.com/mybatis/mybatis-2.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
-    <url>https://github.com/mybatis/ibatis/issues</url>
+    <url>https://github.com/mybatis/mybatis-2/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/ibatis/</url>
+    <url>https://travis-ci.org/mybatis/mybatis-2/</url>
   </ciManagement>
   <distributionManagement>
     <site>
       <id>github</id>
-      <url>gitsite:git@github.com/mybatis/ibatis.git</url>
+      <url>gitsite:git@github.com/mybatis/mybatis-2.git</url>
     </site>
   </distributionManagement>
 
