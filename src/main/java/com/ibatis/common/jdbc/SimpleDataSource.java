@@ -16,18 +16,19 @@
 package com.ibatis.common.jdbc;
 
 import com.ibatis.common.beans.ClassInfo;
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.common.logging.LogFactory;
 import com.ibatis.common.logging.Log;
 
 import javax.sql.DataSource;
+
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * This is a simple, synchronous, thread-safe database connection pool.
@@ -1119,5 +1120,20 @@ public class SimpleDataSource implements DataSource {
     }
 
 
+  }
+
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public <T> T unwrap(Class<T> iface) throws SQLException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    // TODO Auto-generated method stub
+    return false;
   }
 }
