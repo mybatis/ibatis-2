@@ -539,7 +539,7 @@ public class ClassInfo {
     while (true) {
       if (t2 instanceof InvocationTargetException) {
         t2 = ((InvocationTargetException) t).getTargetException();
-      } else if (t instanceof UndeclaredThrowableException) {
+      } else if (t2 instanceof UndeclaredThrowableException) {
         t2 = ((UndeclaredThrowableException) t).getUndeclaredThrowable();
       } else {
         return t2;
