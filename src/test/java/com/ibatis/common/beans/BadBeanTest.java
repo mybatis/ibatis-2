@@ -1,5 +1,7 @@
 package com.ibatis.common.beans;
 
+import java.lang.reflect.UndeclaredThrowableException;
+import java.sql.SQLException;
 import junit.framework.TestCase;
 import badbeans.*;
 
@@ -65,6 +67,12 @@ public class BadBeanTest extends TestCase {
     } catch (Exception e) {
       //ignore
     }
+  }
+
+  public void testUnwrapThrowable() {
+    SQLException cause = new SQLException("test");
+    UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
+    assertEquals(cause, ClassInfo.unwrapThrowable(e));
   }
 
 }
