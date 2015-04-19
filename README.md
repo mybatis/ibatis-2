@@ -1,7 +1,7 @@
 Legacy iBATIS (aka MyBatis 2) maintenance repository
 ====================================================
 
-[![Build Status](https://travis-ci.org/mybatis/mybatis-2.svg?branch=master)](https://travis-ci.org/mybatis/mybatis-2)
+[![Build Status](https://travis-ci.org/mybatis/ibatis-2.svg?branch=master)](https://travis-ci.org/mybatis/ibatis-2)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis)
 
 ![mybatis](http://mybatis.github.io/images/mybatis-logo.png)
