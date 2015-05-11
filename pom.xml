@@ -58,6 +58,11 @@
     </site>
   </distributionManagement>
 
+  <properties>
+    <maven.compiler.source>1.5</maven.compiler.source>
+    <maven.compiler.target>1.5</maven.compiler.target>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>log4j</groupId>
@@ -147,15 +152,6 @@
           <descriptors>
             <descriptor>bundle.xml</descriptor>
           </descriptors>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.2</version>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
         </configuration>
       </plugin>
       <plugin>
