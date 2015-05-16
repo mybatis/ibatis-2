@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>22-SNAPSHOT</version>
+    <version>24-SNAPSHOT</version>
   </parent>
 
   <groupId>org.mybatis</groupId>
@@ -57,6 +57,11 @@
       <url>gitsite:git@github.com/mybatis/mybatis-2.git</url>
     </site>
   </distributionManagement>
+
+  <properties>
+    <maven.compiler.source>1.5</maven.compiler.source>
+    <maven.compiler.target>1.5</maven.compiler.target>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -147,15 +152,6 @@
           <descriptors>
             <descriptor>bundle.xml</descriptor>
           </descriptors>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.2</version>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
         </configuration>
       </plugin>
       <plugin>
