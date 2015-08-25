@@ -15,13 +15,14 @@
  */
 package com.ibatis.sqlmap.engine.cache;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * Hash value generator for cache keys
  */
-public class CacheKey {
+public class CacheKey  implements Cloneable, Serializable {
 
   private static final int DEFAULT_MULTIPLYER = 37;
   private static final int DEFAULT_HASHCODE = 17;
@@ -130,5 +131,11 @@ public class CacheKey {
 
     return returnValue.toString();
   }
+
+    public CacheKey clone() throws CloneNotSupportedException {
+        CacheKey clonedCacheKey = (CacheKey) super.clone();
+        clonedCacheKey.paramList = new ArrayList<Object>(paramList);
+        return clonedCacheKey;
+    }
 
 }

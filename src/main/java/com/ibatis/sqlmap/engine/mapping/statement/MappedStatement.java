@@ -328,7 +328,21 @@ public class MappedStatement {
     ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);
     CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);
     cacheKey.update(id);
-    cacheKey.update(baseCacheKey);
+
+    // I am not sure how any clustered cache solution would ever have had any cache hits against replicated objects.  I could not make it happen
+    // The baseCacheKey value which was being used in the update below is consistent across JVMInstances on the same machine
+    // but it's not consistent across machines, and therefore breaks clustered caching.
+
+    // What would happen is the cache values were being replicated across machines but there were never any cache hits for cached objects on
+    // anything but the original machine an object was created on.
+
+    // After reviewing this implementation I could not figure out why baseCacheKey is used for this anyway as it's not needed, so I removed it.
+    // The values used from the pmap.getCacheKey, plus id, plus the params below are unique and the same accross machines, so now I get replicated
+    // cache hits when I force failover in my cluster
+
+    // I wish I could make a unit test for this, but I can't do it as the old implementaion works on 1 machine, but fails across machines.
+    // cacheKey.update(baseCacheKey);
+
     cacheKey.update(sql.getSql(statementScope, parameterObject)); //Fixes bug 953001
     return cacheKey;
   }
