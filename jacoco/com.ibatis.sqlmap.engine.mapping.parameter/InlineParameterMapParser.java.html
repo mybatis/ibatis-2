@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InlineParameterMapParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">InlineParameterMapParser.java</span></div><h1>InlineParameterMapParser.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.parameter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import com.ibatis.common.beans.Probe;
+import com.ibatis.common.beans.ProbeFactory;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
+import com.ibatis.sqlmap.engine.mapping.sql.SqlText;
+import com.ibatis.sqlmap.engine.type.CustomTypeHandler;
+import com.ibatis.sqlmap.engine.type.DomTypeMarker;
+import com.ibatis.sqlmap.engine.type.TypeHandler;
+import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
+
+<span class="fc" id="L33">public class InlineParameterMapParser {</span>
+
+<span class="fc" id="L35">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+  private static final String PARAMETER_TOKEN = &quot;#&quot;;
+<span class="fc" id="L37">  private static final String PARAM_DELIM = &quot;:&quot;;</span>
+
+  public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement) {
+<span class="fc" id="L40">    return parseInlineParameterMap(typeHandlerFactory, sqlStatement, null);</span>
+  }
+
+  public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement, Class parameterClass) {
+
+<span class="fc" id="L45">    String newSql = sqlStatement;</span>
+
+<span class="fc" id="L47">    List mappingList = new ArrayList();</span>
+
+<span class="fc" id="L49">    StringTokenizer parser = new StringTokenizer(sqlStatement, PARAMETER_TOKEN, true);</span>
+<span class="fc" id="L50">    StringBuffer newSqlBuffer = new StringBuffer();</span>
+
+<span class="fc" id="L52">    String token = null;</span>
+<span class="fc" id="L53">    String lastToken = null;</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L55">      token = parser.nextToken();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">      if (PARAMETER_TOKEN.equals(lastToken)) {</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (PARAMETER_TOKEN.equals(token)) {</span>
+<span class="nc" id="L58">          newSqlBuffer.append(PARAMETER_TOKEN);</span>
+<span class="nc" id="L59">          token = null;</span>
+<span class="nc" id="L60">        } else {</span>
+<span class="fc" id="L61">          ParameterMapping mapping = null;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">          if (token.indexOf(PARAM_DELIM) &gt; -1) {</span>
+<span class="fc" id="L63">            mapping = oldParseMapping(token, parameterClass, typeHandlerFactory);</span>
+<span class="fc" id="L64">          } else {</span>
+<span class="fc" id="L65">            mapping = newParseMapping(token, parameterClass, typeHandlerFactory);</span>
+          }
+
+<span class="fc" id="L68">          mappingList.add(mapping);</span>
+<span class="fc" id="L69">          newSqlBuffer.append(&quot;?&quot;);</span>
+<span class="fc" id="L70">          boolean hasMoreTokens = parser.hasMoreTokens();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">          if (hasMoreTokens)</span>
+<span class="fc" id="L72">              token = parser.nextToken();</span>
+<span class="pc bpc" id="L73" title="1 of 4 branches missed.">          if (!hasMoreTokens || !PARAMETER_TOKEN.equals(token)) {</span>
+<span class="fc" id="L74">              throw new SqlMapException(</span>
+<span class="fc" id="L75">        	      &quot;Unterminated inline parameter in mapped statement near '&quot;</span>
+<span class="fc" id="L76">        	      + newSqlBuffer.toString() + &quot;'&quot;);</span>
+          }
+<span class="fc" id="L78">          token = null;</span>
+        }
+<span class="fc" id="L80">      } else {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (!PARAMETER_TOKEN.equals(token)) {</span>
+<span class="fc" id="L82">          newSqlBuffer.append(token);</span>
+        }
+      }
+
+<span class="fc" id="L86">      lastToken = token;</span>
+    }
+
+<span class="fc" id="L89">    newSql = newSqlBuffer.toString();</span>
+
+<span class="fc" id="L91">    ParameterMapping[] mappingArray = (ParameterMapping[]) mappingList.toArray(new ParameterMapping[mappingList.size()]);</span>
+
+<span class="fc" id="L93">    SqlText sqlText = new SqlText();</span>
+<span class="fc" id="L94">    sqlText.setText(newSql);</span>
+<span class="fc" id="L95">    sqlText.setParameterMappings(mappingArray);</span>
+<span class="fc" id="L96">    return sqlText;</span>
+  }
+
+  private ParameterMapping newParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
+<span class="fc" id="L100">    ParameterMapping mapping = new ParameterMapping();</span>
+
+    // #propertyName,javaType=string,jdbcType=VARCHAR,mode=IN,nullValue=N/A,handler=string,numericScale=2#
+
+<span class="fc" id="L104">    StringTokenizer paramParser = new StringTokenizer(token, &quot;=,&quot;, false);</span>
+<span class="fc" id="L105">    mapping.setPropertyName(paramParser.nextToken());</span>
+
+<span class="fc bfc" id="L107" title="All 2 branches covered.">    while (paramParser.hasMoreTokens()) {</span>
+<span class="fc" id="L108">      String field = paramParser.nextToken();</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">      if (paramParser.hasMoreTokens()) {</span>
+<span class="fc" id="L110">        String value = paramParser.nextToken();</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (&quot;javaType&quot;.equals(field)) {</span>
+<span class="fc" id="L112">          value = typeHandlerFactory.resolveAlias(value);</span>
+<span class="fc" id="L113">          mapping.setJavaTypeName(value);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        } else if (&quot;jdbcType&quot;.equals(field)) {</span>
+<span class="fc" id="L115">          mapping.setJdbcTypeName(value);</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        } else if (&quot;mode&quot;.equals(field)) {</span>
+<span class="nc" id="L117">          mapping.setMode(value);</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        } else if (&quot;nullValue&quot;.equals(field)) {</span>
+<span class="fc" id="L119">          mapping.setNullValue(value);</span>
+<span class="pc bnc" id="L120" title="All 2 branches missed.">        } else if (&quot;handler&quot;.equals(field)) {</span>
+          try {
+<span class="nc" id="L122">            value = typeHandlerFactory.resolveAlias(value);</span>
+<span class="nc" id="L123">            Object impl = Resources.instantiate(value);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (impl instanceof TypeHandlerCallback) {</span>
+<span class="nc" id="L125">              mapping.setTypeHandler(new CustomTypeHandler((TypeHandlerCallback) impl));</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            } else if (impl instanceof TypeHandler) {</span>
+<span class="nc" id="L127">              mapping.setTypeHandler((TypeHandler) impl);</span>
+<span class="nc" id="L128">            } else {</span>
+<span class="nc" id="L129">              throw new SqlMapException (&quot;The class &quot; + value + &quot; is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
+            }
+<span class="nc" id="L131">          } catch (Exception e) {</span>
+<span class="nc" id="L132">            throw new SqlMapException(&quot;Error loading class specified by handler field in &quot; + token + &quot;.  Cause: &quot; + e, e);</span>
+          }
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        } else if (&quot;numericScale&quot;.equals(field)) {</span>
+          try {
+<span class="nc" id="L136">            Integer numericScale = Integer.valueOf(value);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if (numericScale.intValue() &lt; 0) {</span>
+<span class="nc" id="L138">              throw new SqlMapException(&quot;Value specified for numericScale must be greater than or equal to zero&quot;);</span>
+            }
+<span class="nc" id="L140">            mapping.setNumericScale(numericScale);</span>
+<span class="nc" id="L141">          } catch (NumberFormatException e) {</span>
+<span class="nc" id="L142">            throw new SqlMapException(&quot;Value specified for numericScale is not a valid Integer&quot;);</span>
+          }
+        } else {
+<span class="nc" id="L145">          throw new SqlMapException(&quot;Unrecognized parameter mapping field: '&quot; + field + &quot;' in &quot; + token);</span>
+        }
+      } else {
+<span class="nc" id="L148">        throw new SqlMapException(&quot;Incorrect inline parameter map format (missmatched name=value pairs): &quot; + token);</span>
+      }
+    }
+
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">    if (mapping.getTypeHandler() == null) {</span>
+      TypeHandler handler;
+<span class="fc bfc" id="L154" title="All 2 branches covered.">      if (parameterClass == null) {</span>
+<span class="fc" id="L155">        handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="fc" id="L156">      } else {</span>
+<span class="fc" id="L157">        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, mapping.getPropertyName(), mapping.getJavaTypeName(), mapping.getJdbcTypeName());</span>
+      }
+<span class="fc" id="L159">      mapping.setTypeHandler(handler);</span>
+    }
+
+<span class="fc" id="L162">    return mapping;</span>
+  }
+
+  private ParameterMapping oldParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
+<span class="fc" id="L166">    ParameterMapping mapping = new ParameterMapping();</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">    if (token.indexOf(PARAM_DELIM) &gt; -1) {</span>
+<span class="fc" id="L168">      StringTokenizer paramParser = new StringTokenizer(token, PARAM_DELIM, true);</span>
+<span class="fc" id="L169">      int n1 = paramParser.countTokens();</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">      if (n1 == 3) {</span>
+<span class="fc" id="L171">        String name = paramParser.nextToken();</span>
+<span class="fc" id="L172">        paramParser.nextToken(); //ignore &quot;:&quot;</span>
+<span class="fc" id="L173">        String type = paramParser.nextToken();</span>
+<span class="fc" id="L174">        mapping.setPropertyName(name);</span>
+<span class="fc" id="L175">        mapping.setJdbcTypeName(type);</span>
+        TypeHandler handler;
+<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (parameterClass == null) {</span>
+<span class="fc" id="L178">          handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="fc" id="L179">        } else {</span>
+<span class="fc" id="L180">          handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);</span>
+        }
+<span class="fc" id="L182">        mapping.setTypeHandler(handler);</span>
+<span class="fc" id="L183">        return mapping;</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">      } else if (n1 &gt;= 5) {</span>
+<span class="fc" id="L185">        String name = paramParser.nextToken();</span>
+<span class="fc" id="L186">        paramParser.nextToken(); //ignore &quot;:&quot;</span>
+<span class="fc" id="L187">        String type = paramParser.nextToken();</span>
+<span class="fc" id="L188">        paramParser.nextToken(); //ignore &quot;:&quot;</span>
+<span class="fc" id="L189">        String nullValue = paramParser.nextToken();</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        while (paramParser.hasMoreTokens()) {</span>
+<span class="nc" id="L191">          nullValue = nullValue + paramParser.nextToken();</span>
+        }
+<span class="fc" id="L193">        mapping.setPropertyName(name);</span>
+<span class="fc" id="L194">        mapping.setJdbcTypeName(type);</span>
+<span class="fc" id="L195">        mapping.setNullValue(nullValue);</span>
+        TypeHandler handler;
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (parameterClass == null) {</span>
+<span class="fc" id="L198">          handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="fc" id="L199">        } else {</span>
+<span class="fc" id="L200">          handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);</span>
+        }
+<span class="fc" id="L202">        mapping.setTypeHandler(handler);</span>
+<span class="fc" id="L203">        return mapping;</span>
+      } else {
+<span class="nc" id="L205">        throw new SqlMapException(&quot;Incorrect inline parameter map format: &quot; + token);</span>
+      }
+    } else {
+<span class="nc" id="L208">      mapping.setPropertyName(token);</span>
+      TypeHandler handler;
+<span class="nc bnc" id="L210" title="All 2 branches missed.">      if (parameterClass == null) {</span>
+<span class="nc" id="L211">        handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="nc" id="L212">      } else {</span>
+<span class="nc" id="L213">        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, token, null, null);</span>
+      }
+<span class="nc" id="L215">      mapping.setTypeHandler(handler);</span>
+<span class="nc" id="L216">      return mapping;</span>
+    }
+  }
+
+  private TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName, String javaType, String jdbcType) {
+<span class="fc" id="L221">    TypeHandler handler = null;</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">    if (clazz == null) {</span>
+      // Unknown
+<span class="nc" id="L224">      handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="pc bfc" id="L225" title="All 2 branches covered.">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
+      // DOM
+<span class="fc" id="L227">      handler = typeHandlerFactory.getTypeHandler(String.class, jdbcType);</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">    } else if (java.util.Map.class.isAssignableFrom(clazz)) {</span>
+      // Map
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">      if (javaType == null) {</span>
+<span class="fc" id="L231">        handler = typeHandlerFactory.getUnkownTypeHandler(); //BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);</span>
+<span class="fc" id="L232">      } else {</span>
+        try {
+<span class="nc" id="L234">          javaType = typeHandlerFactory.resolveAlias(javaType);</span>
+<span class="nc" id="L235">          Class javaClass = Resources.classForName(javaType);</span>
+<span class="nc" id="L236">          handler = typeHandlerFactory.getTypeHandler(javaClass, jdbcType);</span>
+<span class="nc" id="L237">        } catch (Exception e) {</span>
+<span class="nc" id="L238">          throw new SqlMapException(&quot;Error.  Could not set TypeHandler.  Cause: &quot; + e, e);</span>
+        }
+      }
+<span class="fc bfc" id="L241" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz, jdbcType) != null) {</span>
+      // Primitive
+<span class="fc" id="L243">      handler = typeHandlerFactory.getTypeHandler(clazz, jdbcType);</span>
+<span class="fc" id="L244">    } else {</span>
+      // JavaBean
+<span class="fc bfc" id="L246" title="All 2 branches covered.">      if (javaType == null) {</span>
+
+<span class="fc" id="L248">        Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);</span>
+<span class="fc" id="L249">        handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
+
+<span class="fc" id="L251">      } else {</span>
+        try {
+<span class="fc" id="L253">          javaType = typeHandlerFactory.resolveAlias(javaType);</span>
+<span class="fc" id="L254">          Class javaClass = Resources.classForName(javaType);</span>
+<span class="fc" id="L255">          handler = typeHandlerFactory.getTypeHandler(javaClass, jdbcType);</span>
+<span class="pc" id="L256">        } catch (Exception e) {</span>
+<span class="nc" id="L257">          throw new SqlMapException(&quot;Error.  Could not set TypeHandler.  Cause: &quot; + e, e);</span>
+        }
+      }
+    }
+<span class="fc" id="L261">    return handler;</span>
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

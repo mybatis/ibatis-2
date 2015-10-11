@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JdbcTransaction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.jdbc</a> &gt; <span class="el_source">JdbcTransaction.java</span></div><h1>JdbcTransaction.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.transaction.jdbc;
+
+import com.ibatis.common.jdbc.logging.ConnectionLogProxy;
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.sqlmap.engine.transaction.IsolationLevel;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionException;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class JdbcTransaction implements Transaction {
+
+<span class="fc" id="L31">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+
+  private DataSource dataSource;
+  private Connection connection;
+<span class="fc" id="L35">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+
+<span class="fc" id="L37">  public JdbcTransaction(DataSource ds, int isolationLevel) throws TransactionException {</span>
+    // Check Parameters
+<span class="fc" id="L39">    dataSource = ds;</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">    if (dataSource == null) {</span>
+<span class="nc" id="L41">      throw new TransactionException(&quot;JdbcTransaction initialization failed.  DataSource was null.&quot;);</span>
+    }
+<span class="fc" id="L43">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="fc" id="L44">  }</span>
+
+  private void init() throws SQLException, TransactionException {
+    // Open JDBC Transaction
+<span class="fc" id="L48">    connection = dataSource.getConnection();</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L50">      throw new TransactionException(&quot;JdbcTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);</span>
+    }
+    // Isolation Level
+<span class="fc" id="L53">    isolationLevel.applyIsolationLevel(connection);</span>
+    // AutoCommit
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    if (connection.getAutoCommit()) {</span>
+<span class="fc" id="L56">      connection.setAutoCommit(false);</span>
+    }
+    // Debug
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L60">      connection = ConnectionLogProxy.newInstance(connection);</span>
+    }
+<span class="fc" id="L62">  }</span>
+
+  public void commit() throws SQLException, TransactionException {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">    if (connection != null) {</span>
+<span class="fc" id="L66">      connection.commit();</span>
+    }
+<span class="fc" id="L68">  }</span>
+
+  public void rollback() throws SQLException, TransactionException {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">    if (connection != null) {</span>
+<span class="fc" id="L72">      connection.rollback();</span>
+    }
+<span class="fc" id="L74">  }</span>
+
+  public void close() throws SQLException, TransactionException {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (connection != null) {</span>
+      try {
+<span class="fc" id="L79">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="pc" id="L80">      } finally {</span>
+<span class="pc" id="L81">        connection.close();</span>
+<span class="pc" id="L82">        connection = null;</span>
+<span class="nc" id="L83">      }</span>
+    }
+<span class="fc" id="L85">  }</span>
+
+  public Connection getConnection() throws SQLException, TransactionException {
+<span class="fc bfc" id="L88" title="All 2 branches covered.">    if (connection == null) {</span>
+<span class="fc" id="L89">      init();</span>
+    }
+<span class="fc" id="L91">    return connection;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

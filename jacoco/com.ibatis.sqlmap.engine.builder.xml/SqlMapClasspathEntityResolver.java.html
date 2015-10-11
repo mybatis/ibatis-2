@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SqlMapClasspathEntityResolver.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">SqlMapClasspathEntityResolver.java</span></div><h1>SqlMapClasspathEntityResolver.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.builder.xml;
+
+import com.ibatis.common.resources.*;
+import org.xml.sax.*;
+
+import java.io.*;
+import java.util.*;
+
+/**
+ * Offline entity resolver for the iBATIS DTDs
+ */
+<span class="fc" id="L27">public class SqlMapClasspathEntityResolver implements EntityResolver {</span>
+
+  private static final String SQL_MAP_CONFIG_DTD = &quot;com/ibatis/sqlmap/engine/builder/xml/sql-map-config-2.dtd&quot;;
+  private static final String SQL_MAP_DTD = &quot;com/ibatis/sqlmap/engine/builder/xml/sql-map-2.dtd&quot;;
+
+<span class="fc" id="L32">  private static final Map doctypeMap = new HashMap();</span>
+
+  static {
+<span class="fc" id="L35">    doctypeMap.put(&quot;http://www.ibatis.com/dtd/sql-map-config-2.dtd&quot;.toUpperCase(), SQL_MAP_CONFIG_DTD);</span>
+<span class="fc" id="L36">    doctypeMap.put(&quot;http://ibatis.apache.org/dtd/sql-map-config-2.dtd&quot;.toUpperCase(), SQL_MAP_CONFIG_DTD);</span>
+<span class="fc" id="L37">    doctypeMap.put(&quot;-//iBATIS.com//DTD SQL Map Config 2.0//EN&quot;.toUpperCase(), SQL_MAP_CONFIG_DTD);</span>
+<span class="fc" id="L38">    doctypeMap.put(&quot;-//ibatis.apache.org//DTD SQL Map Config 2.0//EN&quot;.toUpperCase(), SQL_MAP_CONFIG_DTD);</span>
+
+<span class="fc" id="L40">    doctypeMap.put(&quot;http://www.ibatis.com/dtd/sql-map-2.dtd&quot;.toUpperCase(), SQL_MAP_DTD);</span>
+<span class="fc" id="L41">    doctypeMap.put(&quot;http://ibatis.apache.org/dtd/sql-map-2.dtd&quot;.toUpperCase(), SQL_MAP_DTD);</span>
+<span class="fc" id="L42">    doctypeMap.put(&quot;-//iBATIS.com//DTD SQL Map 2.0//EN&quot;.toUpperCase(), SQL_MAP_DTD);</span>
+<span class="fc" id="L43">    doctypeMap.put(&quot;-//ibatis.apache.org//DTD SQL Map 2.0//EN&quot;.toUpperCase(), SQL_MAP_DTD);</span>
+<span class="fc" id="L44">  }</span>
+
+
+  /**
+   * Converts a public DTD into a local one
+   *
+   * @param publicId Unused but required by EntityResolver interface
+   * @param systemId The DTD that is being requested
+   * @return The InputSource for the DTD
+   * @throws SAXException If anything goes wrong
+   */
+  public InputSource resolveEntity(String publicId, String systemId)
+      throws SAXException {
+
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    if (publicId != null) publicId = publicId.toUpperCase();</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    if (systemId != null) systemId = systemId.toUpperCase();</span>
+
+<span class="fc" id="L61">    InputSource source = null;</span>
+    try {
+<span class="fc" id="L63">      String path = (String) doctypeMap.get(publicId);</span>
+<span class="fc" id="L64">      source = getInputSource(path, source);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">      if (source == null) {</span>
+<span class="fc" id="L66">        path = (String) doctypeMap.get(systemId);</span>
+<span class="fc" id="L67">        source = getInputSource(path, source);</span>
+      }
+<span class="pc" id="L69">    } catch (Exception e) {</span>
+<span class="nc" id="L70">      throw new SAXException(e.toString());</span>
+    }
+<span class="fc" id="L72">    return source;</span>
+  }
+
+  private InputSource getInputSource(String path, InputSource source) {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    if (path != null) {</span>
+<span class="fc" id="L77">      InputStream in = null;</span>
+      try {
+<span class="fc" id="L79">        in = Resources.getResourceAsStream(path);</span>
+<span class="fc" id="L80">        source = new InputSource(in);</span>
+<span class="pc" id="L81">      } catch (IOException e) {</span>
+        // ignore, null is ok
+      }
+    }
+<span class="fc" id="L85">    return source;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

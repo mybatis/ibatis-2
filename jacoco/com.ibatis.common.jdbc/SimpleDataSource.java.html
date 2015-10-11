@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleDataSource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">SimpleDataSource.java</span></div><h1>SimpleDataSource.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.common.jdbc;
+
+import com.ibatis.common.beans.ClassInfo;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.common.logging.Log;
+
+import javax.sql.DataSource;
+
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Logger;
+
+/**
+ * This is a simple, synchronous, thread-safe database connection pool.
+ * &lt;p/&gt;
+ * REQUIRED PROPERTIES
+ * -------------------
+ * JDBC.Driver
+ * JDBC.ConnectionURL
+ * JDBC.Username
+ * JDBC.Password
+ * &lt;p/&gt;
+ * Pool.MaximumActiveConnections
+ * Pool.MaximumIdleConnections
+ * Pool.MaximumCheckoutTime
+ * Pool.TimeToWait
+ * Pool.PingQuery
+ * Pool.PingEnabled
+ * Pool.PingConnectionsOlderThan
+ * Pool.PingConnectionsNotUsedFor
+ * Pool.QuietMode
+ */
+public class SimpleDataSource implements DataSource {
+
+<span class="fc" id="L55">  private static final Log log = LogFactory.getLog(SimpleDataSource.class);</span>
+
+  // Required Properties
+  private static final String PROP_JDBC_DRIVER = &quot;JDBC.Driver&quot;;
+  private static final String PROP_JDBC_URL = &quot;JDBC.ConnectionURL&quot;;
+  private static final String PROP_JDBC_USERNAME = &quot;JDBC.Username&quot;;
+  private static final String PROP_JDBC_PASSWORD = &quot;JDBC.Password&quot;;
+  private static final String PROP_JDBC_DEFAULT_AUTOCOMMIT = &quot;JDBC.DefaultAutoCommit&quot;;
+
+  // Optional Properties
+  private static final String PROP_POOL_MAX_ACTIVE_CONN = &quot;Pool.MaximumActiveConnections&quot;;
+  private static final String PROP_POOL_MAX_IDLE_CONN = &quot;Pool.MaximumIdleConnections&quot;;
+  private static final String PROP_POOL_MAX_CHECKOUT_TIME = &quot;Pool.MaximumCheckoutTime&quot;;
+  private static final String PROP_POOL_TIME_TO_WAIT = &quot;Pool.TimeToWait&quot;;
+  private static final String PROP_POOL_PING_QUERY = &quot;Pool.PingQuery&quot;;
+  private static final String PROP_POOL_PING_CONN_OLDER_THAN = &quot;Pool.PingConnectionsOlderThan&quot;;
+  private static final String PROP_POOL_PING_ENABLED = &quot;Pool.PingEnabled&quot;;
+  private static final String PROP_POOL_PING_CONN_NOT_USED_FOR = &quot;Pool.PingConnectionsNotUsedFor&quot;;
+  private int expectedConnectionTypeCode;
+  // Additional Driver Properties prefix
+  private static final String ADD_DRIVER_PROPS_PREFIX = &quot;Driver.&quot;;
+<span class="fc" id="L76">  private static final int ADD_DRIVER_PROPS_PREFIX_LENGTH = ADD_DRIVER_PROPS_PREFIX.length();</span>
+
+  // ----- BEGIN: FIELDS LOCKED BY POOL_LOCK -----
+<span class="fc" id="L79">  private final Object POOL_LOCK = new Object();</span>
+<span class="fc" id="L80">  private List idleConnections = new ArrayList();</span>
+<span class="fc" id="L81">  private List activeConnections = new ArrayList();</span>
+<span class="fc" id="L82">  private long requestCount = 0;</span>
+<span class="fc" id="L83">  private long accumulatedRequestTime = 0;</span>
+<span class="fc" id="L84">  private long accumulatedCheckoutTime = 0;</span>
+<span class="fc" id="L85">  private long claimedOverdueConnectionCount = 0;</span>
+<span class="fc" id="L86">  private long accumulatedCheckoutTimeOfOverdueConnections = 0;</span>
+<span class="fc" id="L87">  private long accumulatedWaitTime = 0;</span>
+<span class="fc" id="L88">  private long hadToWaitCount = 0;</span>
+<span class="fc" id="L89">  private long badConnectionCount = 0;</span>
+  // ----- END: FIELDS LOCKED BY POOL_LOCK -----
+
+  // ----- BEGIN: PROPERTY FIELDS FOR CONFIGURATION -----
+  private String jdbcDriver;
+  private String jdbcUrl;
+  private String jdbcUsername;
+  private String jdbcPassword;
+  private boolean jdbcDefaultAutoCommit;
+  private Properties driverProps;
+  private boolean useDriverProps;
+
+  private int poolMaximumActiveConnections;
+  private int poolMaximumIdleConnections;
+  private int poolMaximumCheckoutTime;
+  private int poolTimeToWait;
+  private String poolPingQuery;
+  private boolean poolPingEnabled;
+  private int poolPingConnectionsOlderThan;
+  private int poolPingConnectionsNotUsedFor;
+  //----- END: PROPERTY FIELDS FOR CONFIGURATION -----
+
+  /**
+   * Constructor to allow passing in a map of properties for configuration
+   *
+   * @param props - the configuration parameters
+   */
+<span class="fc" id="L116">  public SimpleDataSource(Map props) {</span>
+<span class="fc" id="L117">    initialize(props);</span>
+<span class="fc" id="L118">  }</span>
+
+  private void initialize(Map props) {
+    try {
+<span class="fc" id="L122">      String prop_pool_ping_query = null;</span>
+    	
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">      if (props == null) {</span>
+<span class="nc" id="L125">        throw new RuntimeException(&quot;SimpleDataSource: The properties map passed to the initializer was null.&quot;);</span>
+      }
+
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">      if (!(props.containsKey(PROP_JDBC_DRIVER)</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">          &amp;&amp; props.containsKey(PROP_JDBC_URL)</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">          &amp;&amp; props.containsKey(PROP_JDBC_USERNAME)</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">          &amp;&amp; props.containsKey(PROP_JDBC_PASSWORD))) {</span>
+<span class="nc" id="L132">        throw new RuntimeException(&quot;SimpleDataSource: Some properties were not set.&quot;);</span>
+      } else {
+
+<span class="fc" id="L135">        jdbcDriver = (String) props.get(PROP_JDBC_DRIVER);</span>
+<span class="fc" id="L136">        jdbcUrl = (String) props.get(PROP_JDBC_URL);</span>
+<span class="fc" id="L137">        jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);</span>
+<span class="fc" id="L138">        jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);</span>
+
+<span class="fc" id="L140">        poolMaximumActiveConnections =</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)</span>
+<span class="fc" id="L142">            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN))</span>
+<span class="fc" id="L143">            : 10;</span>
+
+<span class="fc" id="L145">        poolMaximumIdleConnections =</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">            props.containsKey(PROP_POOL_MAX_IDLE_CONN)</span>
+<span class="fc" id="L147">            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN))</span>
+<span class="fc" id="L148">            : 5;</span>
+
+<span class="fc" id="L150">        poolMaximumCheckoutTime =</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)</span>
+<span class="fc" id="L152">            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME))</span>
+<span class="fc" id="L153">            : 20000;</span>
+
+<span class="fc" id="L155">        poolTimeToWait =</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">            props.containsKey(PROP_POOL_TIME_TO_WAIT)</span>
+<span class="fc" id="L157">            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT))</span>
+<span class="fc" id="L158">            : 20000;</span>
+
+<span class="fc" id="L160">        poolPingEnabled =</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            props.containsKey(PROP_POOL_PING_ENABLED)</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">                &amp;&amp; Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();</span>
+
+<span class="fc" id="L164">        prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY); </span>
+<span class="fc" id="L165">        poolPingQuery =</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            props.containsKey(PROP_POOL_PING_QUERY)</span>
+<span class="fc" id="L167">            ? prop_pool_ping_query </span>
+<span class="fc" id="L168">            : &quot;NO PING QUERY SET&quot;;</span>
+
+<span class="fc" id="L170">        poolPingConnectionsOlderThan =</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)</span>
+<span class="fc" id="L172">            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN))</span>
+<span class="fc" id="L173">            : 0;</span>
+
+<span class="fc" id="L175">        poolPingConnectionsNotUsedFor =</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">            props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)</span>
+<span class="fc" id="L177">            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR))</span>
+<span class="fc" id="L178">            : 0;</span>
+
+<span class="fc" id="L180">        jdbcDefaultAutoCommit =</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">                &amp;&amp; Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();</span>
+
+<span class="fc" id="L184">        useDriverProps = false;</span>
+<span class="fc" id="L185">        Iterator propIter = props.keySet().iterator();</span>
+<span class="fc" id="L186">        driverProps = new Properties();</span>
+<span class="fc" id="L187">        driverProps.put(&quot;user&quot;, jdbcUsername);</span>
+<span class="fc" id="L188">        driverProps.put(&quot;password&quot;, jdbcPassword);</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        while (propIter.hasNext()) {</span>
+<span class="fc" id="L190">          String name = (String) propIter.next();</span>
+<span class="fc" id="L191">          String value = (String) props.get(name);</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">          if (name.startsWith(ADD_DRIVER_PROPS_PREFIX)) {</span>
+<span class="nc" id="L193">            driverProps.put(name.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);</span>
+<span class="nc" id="L194">            useDriverProps = true;</span>
+          }
+        }
+
+<span class="fc" id="L198">        expectedConnectionTypeCode = assembleConnectionTypeCode(jdbcUrl, jdbcUsername, jdbcPassword);</span>
+
+<span class="fc" id="L200">        Resources.instantiate(jdbcDriver);</span>
+        
+<span class="pc bpc" id="L202" title="3 of 4 branches missed.">        if ( poolPingEnabled &amp;&amp; (!props.containsKey(PROP_POOL_PING_QUERY) ||</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        		prop_pool_ping_query.trim().length() == 0) ) {</span>
+<span class="nc" id="L204">          throw new RuntimeException(&quot;SimpleDataSource: property '&quot; + PROP_POOL_PING_ENABLED + &quot;' is true, but property '&quot; +</span>
+                                           PROP_POOL_PING_QUERY + &quot;' is not set correctly.&quot;);
+        }        
+      }
+
+<span class="nc" id="L209">    } catch (Exception e) {</span>
+<span class="nc" id="L210">      log.error(&quot;SimpleDataSource: Error while loading properties. Cause: &quot; + e.toString(), e);</span>
+<span class="nc" id="L211">      throw new RuntimeException(&quot;SimpleDataSource: Error while loading properties. Cause: &quot; + e, e);</span>
+    }
+<span class="fc" id="L213">  }</span>
+
+  private int assembleConnectionTypeCode(String url, String username, String password) {
+<span class="fc" id="L216">    return (&quot;&quot; + url + username + password).hashCode();</span>
+  }
+
+  /**
+   * @see javax.sql.DataSource#getConnection()
+   */
+  public Connection getConnection() throws SQLException {
+<span class="fc" id="L223">    return popConnection(jdbcUsername, jdbcPassword).getProxyConnection();</span>
+  }
+
+  /**
+   * @see javax.sql.DataSource#getConnection(java.lang.String, java.lang.String)
+   */
+  public Connection getConnection(String username, String password) throws SQLException {
+<span class="nc" id="L230">    return popConnection(username, password).getProxyConnection();</span>
+  }
+
+  /**
+   * @see javax.sql.DataSource#setLoginTimeout(int)
+   */
+  public void setLoginTimeout(int loginTimeout) throws SQLException {
+<span class="nc" id="L237">    DriverManager.setLoginTimeout(loginTimeout);</span>
+<span class="nc" id="L238">  }</span>
+
+  /**
+   * @see javax.sql.DataSource#getLoginTimeout()
+   */
+  public int getLoginTimeout() throws SQLException {
+<span class="nc" id="L244">    return DriverManager.getLoginTimeout();</span>
+  }
+
+  /**
+   * @see javax.sql.DataSource#setLogWriter(java.io.PrintWriter)
+   */
+  public void setLogWriter(PrintWriter logWriter) throws SQLException {
+<span class="nc" id="L251">    DriverManager.setLogWriter(logWriter);</span>
+<span class="nc" id="L252">  }</span>
+
+  /**
+   * @see javax.sql.DataSource#getLogWriter()
+   */
+  public PrintWriter getLogWriter() throws SQLException {
+<span class="nc" id="L258">    return DriverManager.getLogWriter();</span>
+  }
+
+  /**
+   * If a connection has not been used in this many milliseconds, ping the
+   * database to make sure the connection is still good.
+   *
+   * @return the number of milliseconds of inactivity that will trigger a ping
+   */
+  public int getPoolPingConnectionsNotUsedFor() {
+<span class="nc" id="L268">    return poolPingConnectionsNotUsedFor;</span>
+  }
+
+  /**
+   * Getter for the name of the JDBC driver class used
+   * @return The name of the class
+   */
+  public String getJdbcDriver() {
+<span class="nc" id="L276">    return jdbcDriver;</span>
+  }
+
+  /**
+   * Getter of the JDBC URL used
+   * @return The JDBC URL
+   */
+  public String getJdbcUrl() {
+<span class="nc" id="L284">    return jdbcUrl;</span>
+  }
+
+  /**
+   * Getter for the JDBC user name used
+   * @return The user name
+   */
+  public String getJdbcUsername() {
+<span class="nc" id="L292">    return jdbcUsername;</span>
+  }
+
+  /**
+   * Getter for the JDBC password used
+   * @return The password
+   */
+  public String getJdbcPassword() {
+<span class="nc" id="L300">    return jdbcPassword;</span>
+  }
+
+  /**
+   * Getter for the maximum number of active connections
+   * @return The maximum number of active connections
+   */
+  public int getPoolMaximumActiveConnections() {
+<span class="nc" id="L308">    return poolMaximumActiveConnections;</span>
+  }
+
+  /**
+   * Getter for the maximum number of idle connections
+   * @return The maximum number of idle connections
+   */
+  public int getPoolMaximumIdleConnections() {
+<span class="nc" id="L316">    return poolMaximumIdleConnections;</span>
+  }
+
+  /**
+   * Getter for the maximum time a connection can be used before it *may* be
+   * given away again.
+   * @return The maximum time
+   */
+  public int getPoolMaximumCheckoutTime() {
+<span class="nc" id="L325">    return poolMaximumCheckoutTime;</span>
+  }
+
+  /**
+   * Getter for the time to wait before retrying to get a connection
+   * @return The time to wait
+   */
+  public int getPoolTimeToWait() {
+<span class="nc" id="L333">    return poolTimeToWait;</span>
+  }
+
+  /**
+   * Getter for the query to be used to check a connection
+   * @return The query
+   */
+  public String getPoolPingQuery() {
+<span class="nc" id="L341">    return poolPingQuery;</span>
+  }
+
+  /**
+   * Getter to tell if we should use the ping query
+   * @return True if we need to check a connection before using it
+   */
+  public boolean isPoolPingEnabled() {
+<span class="nc" id="L349">    return poolPingEnabled;</span>
+  }
+
+  /**
+   * Getter for the age of connections that should be pinged before using
+   * @return The age
+   */
+  public int getPoolPingConnectionsOlderThan() {
+<span class="nc" id="L357">    return poolPingConnectionsOlderThan;</span>
+  }
+
+  private int getExpectedConnectionTypeCode() {
+<span class="fc" id="L361">    return expectedConnectionTypeCode;</span>
+  }
+
+  /**
+   * Getter for the number of connection requests made
+   * @return The number of connection requests made
+   */
+  public long getRequestCount() {
+<span class="nc" id="L369">    synchronized (POOL_LOCK) {</span>
+<span class="nc" id="L370">      return requestCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the average time required to get a connection to the database
+   * @return The average time
+   */
+  public long getAverageRequestTime() {
+<span class="nc" id="L379">    synchronized (POOL_LOCK) {</span>
+<span class="nc bnc" id="L380" title="All 2 branches missed.">      return requestCount == 0 ? 0 : accumulatedRequestTime / requestCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the average time spent waiting for connections that were in use
+   * @return The average time
+   */
+  public long getAverageWaitTime() {
+<span class="nc" id="L389">    synchronized (POOL_LOCK) {</span>
+<span class="nc bnc" id="L390" title="All 2 branches missed.">      return hadToWaitCount == 0 ? 0 : accumulatedWaitTime / hadToWaitCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the number of requests that had to wait for connections that were in use
+   * @return The number of requests that had to wait
+   */
+  public long getHadToWaitCount() {
+<span class="nc" id="L399">    synchronized (POOL_LOCK) {</span>
+<span class="nc" id="L400">      return hadToWaitCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the number of invalid connections that were found in the pool
+   * @return The number of invalid connections
+   */
+  public long getBadConnectionCount() {
+<span class="nc" id="L409">    synchronized (POOL_LOCK) {</span>
+<span class="nc" id="L410">      return badConnectionCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the number of connections that were claimed before they were returned
+   * @return The number of connections
+   */
+  public long getClaimedOverdueConnectionCount() {
+<span class="nc" id="L419">    synchronized (POOL_LOCK) {</span>
+<span class="nc" id="L420">      return claimedOverdueConnectionCount;</span>
+    }
+  }
+
+  /**
+   * Getter for the average age of overdue connections
+   * @return The average age
+   */
+  public long getAverageOverdueCheckoutTime() {
+<span class="nc" id="L429">    synchronized (POOL_LOCK) {</span>
+<span class="nc bnc" id="L430" title="All 2 branches missed.">      return claimedOverdueConnectionCount == 0 ? 0 : accumulatedCheckoutTimeOfOverdueConnections / claimedOverdueConnectionCount;</span>
+    }
+  }
+
+
+  /**
+   * Getter for the average age of a connection checkout
+   * @return The average age
+   */
+  public long getAverageCheckoutTime() {
+<span class="nc" id="L440">    synchronized (POOL_LOCK) {</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">      return requestCount == 0 ? 0 : accumulatedCheckoutTime / requestCount;</span>
+    }
+  }
+
+  /**
+   * Returns the status of the connection pool
+   * @return The status
+   */
+  public String getStatus() {
+<span class="nc" id="L450">    StringBuffer buffer = new StringBuffer();</span>
+
+<span class="nc" id="L452">    buffer.append(&quot;\n===============================================================&quot;);</span>
+<span class="nc" id="L453">    buffer.append(&quot;\n jdbcDriver                     &quot;).append(jdbcDriver);</span>
+<span class="nc" id="L454">    buffer.append(&quot;\n jdbcUrl                        &quot;).append(jdbcUrl);</span>
+<span class="nc" id="L455">    buffer.append(&quot;\n jdbcUsername                   &quot;).append(jdbcUsername);</span>
+<span class="nc bnc" id="L456" title="All 2 branches missed.">    buffer.append(&quot;\n jdbcPassword                   &quot;).append((jdbcPassword == null ? &quot;NULL&quot; : &quot;************&quot;));</span>
+<span class="nc" id="L457">    buffer.append(&quot;\n poolMaxActiveConnections       &quot;).append(poolMaximumActiveConnections);</span>
+<span class="nc" id="L458">    buffer.append(&quot;\n poolMaxIdleConnections         &quot;).append(poolMaximumIdleConnections);</span>
+<span class="nc" id="L459">    buffer.append(&quot;\n poolMaxCheckoutTime            &quot; + poolMaximumCheckoutTime);</span>
+<span class="nc" id="L460">    buffer.append(&quot;\n poolTimeToWait                 &quot; + poolTimeToWait);</span>
+<span class="nc" id="L461">    buffer.append(&quot;\n poolPingEnabled                &quot; + poolPingEnabled);</span>
+<span class="nc" id="L462">    buffer.append(&quot;\n poolPingQuery                  &quot; + poolPingQuery);</span>
+<span class="nc" id="L463">    buffer.append(&quot;\n poolPingConnectionsOlderThan   &quot; + poolPingConnectionsOlderThan);</span>
+<span class="nc" id="L464">    buffer.append(&quot;\n poolPingConnectionsNotUsedFor  &quot; + poolPingConnectionsNotUsedFor);</span>
+<span class="nc" id="L465">    buffer.append(&quot;\n --------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L466">    buffer.append(&quot;\n activeConnections              &quot; + activeConnections.size());</span>
+<span class="nc" id="L467">    buffer.append(&quot;\n idleConnections                &quot; + idleConnections.size());</span>
+<span class="nc" id="L468">    buffer.append(&quot;\n requestCount                   &quot; + getRequestCount());</span>
+<span class="nc" id="L469">    buffer.append(&quot;\n averageRequestTime             &quot; + getAverageRequestTime());</span>
+<span class="nc" id="L470">    buffer.append(&quot;\n averageCheckoutTime            &quot; + getAverageCheckoutTime());</span>
+<span class="nc" id="L471">    buffer.append(&quot;\n claimedOverdue                 &quot; + getClaimedOverdueConnectionCount());</span>
+<span class="nc" id="L472">    buffer.append(&quot;\n averageOverdueCheckoutTime     &quot; + getAverageOverdueCheckoutTime());</span>
+<span class="nc" id="L473">    buffer.append(&quot;\n hadToWait                      &quot; + getHadToWaitCount());</span>
+<span class="nc" id="L474">    buffer.append(&quot;\n averageWaitTime                &quot; + getAverageWaitTime());</span>
+<span class="nc" id="L475">    buffer.append(&quot;\n badConnectionCount             &quot; + getBadConnectionCount());</span>
+<span class="nc" id="L476">    buffer.append(&quot;\n===============================================================&quot;);</span>
+<span class="nc" id="L477">    return buffer.toString();</span>
+  }
+
+  /**
+   * Closes all of the connections in the pool
+   */
+  public void forceCloseAll() {
+<span class="pc" id="L484">    synchronized (POOL_LOCK) {</span>
+<span class="pc bpc" id="L485" title="1 of 2 branches missed.">      for (int i = activeConnections.size(); i &gt; 0; i--) {</span>
+        try {
+<span class="nc" id="L487">          SimplePooledConnection conn = (SimplePooledConnection) activeConnections.remove(i - 1);</span>
+<span class="nc" id="L488">          conn.invalidate();</span>
+
+<span class="nc" id="L490">          Connection realConn = conn.getRealConnection();</span>
+<span class="nc bnc" id="L491" title="All 2 branches missed.">          if (!realConn.getAutoCommit()) {</span>
+<span class="nc" id="L492">            realConn.rollback();</span>
+          }
+<span class="nc" id="L494">          realConn.close();</span>
+<span class="nc" id="L495">        } catch (Exception e) {</span>
+          // ignore
+        }
+      }
+<span class="fc bfc" id="L499" title="All 2 branches covered.">      for (int i = idleConnections.size(); i &gt; 0; i--) {</span>
+        try {
+<span class="fc" id="L501">          SimplePooledConnection conn = (SimplePooledConnection) idleConnections.remove(i - 1);</span>
+<span class="fc" id="L502">          conn.invalidate();</span>
+
+<span class="fc" id="L504">          Connection realConn = conn.getRealConnection();</span>
+<span class="fc bfc" id="L505" title="All 2 branches covered.">          if (!realConn.getAutoCommit()) {</span>
+<span class="fc" id="L506">            realConn.rollback();</span>
+          }
+<span class="fc" id="L508">          realConn.close();</span>
+<span class="fc" id="L509">        } catch (Exception e) {</span>
+          // ignore
+        }
+      }
+    }
+<span class="pc bpc" id="L514" title="1 of 2 branches missed.">    if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L515">      log.debug(&quot;SimpleDataSource forcefully closed/removed all connections.&quot;);</span>
+    }
+<span class="fc" id="L517">  }</span>
+
+  private void pushConnection(SimplePooledConnection conn)
+      throws SQLException {
+
+<span class="pc" id="L522">    synchronized (POOL_LOCK) {</span>
+<span class="fc" id="L523">      activeConnections.remove(conn);</span>
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">      if (conn.isValid()) {</span>
+<span class="pc bpc" id="L525" title="2 of 4 branches missed.">        if (idleConnections.size() &lt; poolMaximumIdleConnections &amp;&amp; conn.getConnectionTypeCode() == getExpectedConnectionTypeCode()) {</span>
+<span class="fc" id="L526">          accumulatedCheckoutTime += conn.getCheckoutTime();</span>
+<span class="fc bfc" id="L527" title="All 2 branches covered.">          if (!conn.getRealConnection().getAutoCommit()) {</span>
+<span class="fc" id="L528">            conn.getRealConnection().rollback();</span>
+          }
+<span class="fc" id="L530">          SimplePooledConnection newConn = new SimplePooledConnection(conn.getRealConnection(), this);</span>
+<span class="fc" id="L531">          idleConnections.add(newConn);</span>
+<span class="fc" id="L532">          newConn.setCreatedTimestamp(conn.getCreatedTimestamp());</span>
+<span class="fc" id="L533">          newConn.setLastUsedTimestamp(conn.getLastUsedTimestamp());</span>
+<span class="fc" id="L534">          conn.invalidate();</span>
+<span class="pc bpc" id="L535" title="1 of 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L536">            log.debug(&quot;Returned connection &quot; + newConn.getRealHashCode() + &quot; to pool.&quot;);</span>
+          }
+<span class="fc" id="L538">          POOL_LOCK.notifyAll();</span>
+<span class="fc" id="L539">        } else {</span>
+<span class="nc" id="L540">          accumulatedCheckoutTime += conn.getCheckoutTime();</span>
+<span class="nc bnc" id="L541" title="All 2 branches missed.">          if (!conn.getRealConnection().getAutoCommit()) {</span>
+<span class="nc" id="L542">            conn.getRealConnection().rollback();</span>
+          }
+<span class="nc" id="L544">          conn.getRealConnection().close();</span>
+<span class="nc bnc" id="L545" title="All 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L546">            log.debug(&quot;Closed connection &quot; + conn.getRealHashCode() + &quot;.&quot;);</span>
+          }
+<span class="nc" id="L548">          conn.invalidate();</span>
+        }
+<span class="nc" id="L550">      } else {</span>
+<span class="nc bnc" id="L551" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L552">          log.debug(&quot;A bad connection (&quot; + conn.getRealHashCode() + &quot;) attempted to return to the pool, discarding connection.&quot;);</span>
+        }
+<span class="nc" id="L554">        badConnectionCount++;</span>
+      }
+    }
+<span class="fc" id="L557">  }</span>
+
+  private SimplePooledConnection popConnection(String username, String password)
+      throws SQLException {
+<span class="fc" id="L561">    boolean countedWait = false;</span>
+<span class="fc" id="L562">    SimplePooledConnection conn = null;</span>
+<span class="fc" id="L563">    long t = System.currentTimeMillis();</span>
+<span class="fc" id="L564">    int localBadConnectionCount = 0;</span>
+
+<span class="fc bfc" id="L566" title="All 2 branches covered.">    while (conn == null) {</span>
+<span class="pc" id="L567">      synchronized (POOL_LOCK) {</span>
+<span class="fc bfc" id="L568" title="All 2 branches covered.">        if (idleConnections.size() &gt; 0) {</span>
+          // Pool has available connection
+<span class="fc" id="L570">          conn = (SimplePooledConnection) idleConnections.remove(0);</span>
+<span class="pc bpc" id="L571" title="1 of 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L572">            log.debug(&quot;Checked out connection &quot; + conn.getRealHashCode() + &quot; from pool.&quot;);</span>
+          }
+<span class="nc" id="L574">        } else {</span>
+          // Pool does not have available connection
+<span class="pc bpc" id="L576" title="1 of 2 branches missed.">          if (activeConnections.size() &lt; poolMaximumActiveConnections) {</span>
+            // Can create new connection
+<span class="pc bpc" id="L578" title="1 of 2 branches missed.">            if (useDriverProps) {</span>
+<span class="nc" id="L579">              conn = new SimplePooledConnection(DriverManager.getConnection(jdbcUrl, driverProps), this);</span>
+<span class="nc" id="L580">            } else {</span>
+<span class="fc" id="L581">              conn = new SimplePooledConnection(DriverManager.getConnection(jdbcUrl, jdbcUsername, jdbcPassword), this);</span>
+            }
+<span class="fc" id="L583">            Connection realConn = conn.getRealConnection();</span>
+<span class="fc bfc" id="L584" title="All 2 branches covered.">            if (realConn.getAutoCommit() != jdbcDefaultAutoCommit) {</span>
+<span class="fc" id="L585">              realConn.setAutoCommit(jdbcDefaultAutoCommit);</span>
+            }
+<span class="pc bpc" id="L587" title="1 of 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L588">              log.debug(&quot;Created connection &quot; + conn.getRealHashCode() + &quot;.&quot;);</span>
+            }
+<span class="nc" id="L590">          } else {</span>
+            // Cannot create new connection
+<span class="nc" id="L592">            SimplePooledConnection oldestActiveConnection = (SimplePooledConnection) activeConnections.get(0);</span>
+<span class="nc" id="L593">            long longestCheckoutTime = oldestActiveConnection.getCheckoutTime();</span>
+<span class="nc bnc" id="L594" title="All 2 branches missed.">            if (longestCheckoutTime &gt; poolMaximumCheckoutTime) {</span>
+              // Can claim overdue connection
+<span class="nc" id="L596">              claimedOverdueConnectionCount++;</span>
+<span class="nc" id="L597">              accumulatedCheckoutTimeOfOverdueConnections += longestCheckoutTime;</span>
+<span class="nc" id="L598">              accumulatedCheckoutTime += longestCheckoutTime;</span>
+<span class="nc" id="L599">              activeConnections.remove(oldestActiveConnection);</span>
+<span class="nc bnc" id="L600" title="All 2 branches missed.">              if (!oldestActiveConnection.getRealConnection().getAutoCommit()) {</span>
+<span class="nc" id="L601">                oldestActiveConnection.getRealConnection().rollback();</span>
+              }
+<span class="nc" id="L603">              conn = new SimplePooledConnection(oldestActiveConnection.getRealConnection(), this);</span>
+<span class="nc" id="L604">              oldestActiveConnection.invalidate();</span>
+<span class="nc bnc" id="L605" title="All 2 branches missed.">              if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L606">                log.debug(&quot;Claimed overdue connection &quot; + conn.getRealHashCode() + &quot;.&quot;);</span>
+              }
+<span class="nc" id="L608">            } else {</span>
+              // Must wait
+              try {
+<span class="nc bnc" id="L611" title="All 2 branches missed.">                if (!countedWait) {</span>
+<span class="nc" id="L612">                  hadToWaitCount++;</span>
+<span class="nc" id="L613">                  countedWait = true;</span>
+                }
+<span class="nc bnc" id="L615" title="All 2 branches missed.">                if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L616">                  log.debug(&quot;Waiting as long as &quot; + poolTimeToWait + &quot; milliseconds for connection.&quot;);</span>
+                }
+<span class="nc" id="L618">                long wt = System.currentTimeMillis();</span>
+<span class="nc" id="L619">                POOL_LOCK.wait(poolTimeToWait);</span>
+<span class="nc" id="L620">                accumulatedWaitTime += System.currentTimeMillis() - wt;</span>
+<span class="nc" id="L621">              } catch (InterruptedException e) {</span>
+<span class="nc" id="L622">                break;</span>
+              }
+            }
+          }
+        }
+<span class="pc bpc" id="L627" title="1 of 2 branches missed.">        if (conn != null) {</span>
+<span class="pc bpc" id="L628" title="1 of 2 branches missed.">          if (conn.isValid()) {</span>
+<span class="fc bfc" id="L629" title="All 2 branches covered.">            if (!conn.getRealConnection().getAutoCommit()) {</span>
+<span class="fc" id="L630">              conn.getRealConnection().rollback();</span>
+            }
+<span class="fc" id="L632">            conn.setConnectionTypeCode(assembleConnectionTypeCode(jdbcUrl, username, password));</span>
+<span class="fc" id="L633">            conn.setCheckoutTimestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L634">            conn.setLastUsedTimestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L635">            activeConnections.add(conn);</span>
+<span class="fc" id="L636">            requestCount++;</span>
+<span class="fc" id="L637">            accumulatedRequestTime += System.currentTimeMillis() - t;</span>
+<span class="fc" id="L638">          } else {</span>
+<span class="nc bnc" id="L639" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L640">              log.debug(&quot;A bad connection (&quot; + conn.getRealHashCode() + &quot;) was returned from the pool, getting another connection.&quot;);</span>
+            }
+<span class="nc" id="L642">            badConnectionCount++;</span>
+<span class="nc" id="L643">            localBadConnectionCount++;</span>
+<span class="nc" id="L644">            conn = null;</span>
+<span class="nc bnc" id="L645" title="All 2 branches missed.">            if (localBadConnectionCount &gt; (poolMaximumIdleConnections + 3)) {</span>
+<span class="nc bnc" id="L646" title="All 2 branches missed.">              if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L647">                log.debug(&quot;SimpleDataSource: Could not get a good connection to the database.&quot;);</span>
+              }
+<span class="nc" id="L649">              throw new SQLException(&quot;SimpleDataSource: Could not get a good connection to the database.&quot;);</span>
+            }
+          }
+        }
+      }
+
+    }
+
+<span class="pc bpc" id="L657" title="1 of 2 branches missed.">    if (conn == null) {</span>
+<span class="nc bnc" id="L658" title="All 2 branches missed.">      if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L659">        log.debug(&quot;SimpleDataSource: Unknown severe error condition.  The connection pool returned a null connection.&quot;);</span>
+      }
+<span class="nc" id="L661">      throw new SQLException(&quot;SimpleDataSource: Unknown severe error condition.  The connection pool returned a null connection.&quot;);</span>
+    }
+
+<span class="fc" id="L664">    return conn;</span>
+  }
+
+  /**
+   * Method to check to see if a connection is still usable
+   *
+   * @param conn - the connection to check
+   * @return True if the connection is still usable
+   */
+  private boolean pingConnection(SimplePooledConnection conn) {
+<span class="fc" id="L674">    boolean result = true;</span>
+
+    try {
+<span class="pc bpc" id="L677" title="1 of 2 branches missed.">      result = !conn.getRealConnection().isClosed();</span>
+<span class="pc" id="L678">    } catch (SQLException e) {</span>
+<span class="nc bnc" id="L679" title="All 2 branches missed.">      if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L680">        log.debug(&quot;Connection &quot; + conn.getRealHashCode() + &quot; is BAD: &quot; + e.getMessage());</span>
+      }    	
+<span class="nc" id="L682">      result = false;</span>
+    }
+
+<span class="pc bpc" id="L685" title="1 of 2 branches missed.">    if (result) {</span>
+<span class="pc bpc" id="L686" title="1 of 2 branches missed.">      if (poolPingEnabled) {</span>
+<span class="nc bnc" id="L687" title="All 4 branches missed.">        if ((poolPingConnectionsOlderThan &gt; 0 &amp;&amp; conn.getAge() &gt; poolPingConnectionsOlderThan)</span>
+<span class="nc bnc" id="L688" title="All 4 branches missed.">            || (poolPingConnectionsNotUsedFor &gt; 0 &amp;&amp; conn.getTimeElapsedSinceLastUse() &gt; poolPingConnectionsNotUsedFor)) {</span>
+
+          try {
+<span class="nc bnc" id="L691" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L692">              log.debug(&quot;Testing connection &quot; + conn.getRealHashCode() + &quot; ...&quot;);</span>
+            }
+<span class="nc" id="L694">            Connection realConn = conn.getRealConnection();</span>
+<span class="nc" id="L695">            Statement statement = realConn.createStatement();</span>
+<span class="nc" id="L696">            ResultSet rs = statement.executeQuery(poolPingQuery);</span>
+<span class="nc" id="L697">            rs.close();</span>
+<span class="nc" id="L698">            statement.close();</span>
+<span class="nc bnc" id="L699" title="All 2 branches missed.">            if (!realConn.getAutoCommit()) {</span>
+<span class="nc" id="L700">              realConn.rollback();</span>
+            }
+<span class="nc" id="L702">            result = true;</span>
+<span class="nc bnc" id="L703" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L704">              log.debug(&quot;Connection &quot; + conn.getRealHashCode() + &quot; is GOOD!&quot;);</span>
+            }
+<span class="nc" id="L706">          } catch (Exception e) {</span>
+<span class="nc" id="L707">            log.warn(&quot;Execution of ping query '&quot; + poolPingQuery + &quot;' failed: &quot; + e.getMessage());          	</span>
+            try {
+<span class="nc" id="L709">              conn.getRealConnection().close();</span>
+<span class="nc" id="L710">            } catch (Exception e2) {</span>
+              //ignore
+            }
+<span class="nc" id="L713">            result = false;</span>
+<span class="nc bnc" id="L714" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L715">              log.debug(&quot;Connection &quot; + conn.getRealHashCode() + &quot; is BAD: &quot; + e.getMessage());</span>
+            }
+          }
+        }
+      }
+    }
+<span class="fc" id="L721">    return result;</span>
+  }
+
+  /**
+   * Unwraps a pooled connection to get to the 'real' connection
+   *
+   * @param conn - the pooled connection to unwrap
+   * @return The 'real' connection
+   */
+  public static Connection unwrapConnection(Connection conn) {
+<span class="nc bnc" id="L731" title="All 2 branches missed.">    if (conn instanceof SimplePooledConnection) {</span>
+<span class="nc" id="L732">      return ((SimplePooledConnection) conn).getRealConnection();</span>
+    } else {
+<span class="nc" id="L734">      return conn;</span>
+    }
+  }
+
+  protected void finalize() throws Throwable {
+<span class="fc" id="L739">    forceCloseAll();</span>
+<span class="fc" id="L740">  }</span>
+
+  /**
+   * ---------------------------------------------------------------------------------------
+   * SimplePooledConnection
+   * ---------------------------------------------------------------------------------------
+   */
+  public static class SimplePooledConnection implements InvocationHandler {
+
+    private static final String CLOSE = &quot;close&quot;;
+<span class="fc" id="L750">    private static final Class[] IFACES = new Class[]{Connection.class};</span>
+
+<span class="fc" id="L752">    private int hashCode = 0;</span>
+    private SimpleDataSource dataSource;
+    private Connection realConnection;
+    private Connection proxyConnection;
+    private long checkoutTimestamp;
+    private long createdTimestamp;
+    private long lastUsedTimestamp;
+    private int connectionTypeCode;
+    private boolean valid;
+
+    /**
+     * Constructor for SimplePooledConnection that uses the Connection and SimpleDataSource passed in
+     *
+     * @param connection - the connection that is to be presented as a pooled connection
+     * @param dataSource - the dataSource that the connection is from
+     */
+<span class="fc" id="L768">    public SimplePooledConnection(Connection connection, SimpleDataSource dataSource) {</span>
+<span class="fc" id="L769">      this.hashCode = connection.hashCode();</span>
+<span class="fc" id="L770">      this.realConnection = connection;</span>
+<span class="fc" id="L771">      this.dataSource = dataSource;</span>
+<span class="fc" id="L772">      this.createdTimestamp = System.currentTimeMillis();</span>
+<span class="fc" id="L773">      this.lastUsedTimestamp = System.currentTimeMillis();</span>
+<span class="fc" id="L774">      this.valid = true;</span>
+
+<span class="fc" id="L776">      proxyConnection = (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACES, this);</span>
+<span class="fc" id="L777">    }</span>
+
+    /**
+     * Invalidates the connection
+     */
+    public void invalidate() {
+<span class="fc" id="L783">      valid = false;</span>
+<span class="fc" id="L784">    }</span>
+
+    /**
+     * Method to see if the connection is usable
+     *
+     * @return True if the connection is usable
+     */
+    public boolean isValid() {
+<span class="pc bpc" id="L792" title="3 of 6 branches missed.">      return valid &amp;&amp; realConnection != null &amp;&amp; dataSource.pingConnection(this);</span>
+    }
+
+    /**
+     * Getter for the *real* connection that this wraps
+     * @return The connection
+     */
+    public Connection getRealConnection() {
+<span class="fc" id="L800">      return realConnection;</span>
+    }
+
+    /**
+     * Getter for the proxy for the connection
+     * @return The proxy
+     */
+    public Connection getProxyConnection() {
+<span class="fc" id="L808">      return proxyConnection;</span>
+    }
+
+    /**
+     * Gets the hashcode of the real connection (or 0 if it is null)
+     *
+     * @return The hashcode of the real connection (or 0 if it is null)
+     */
+    public int getRealHashCode() {
+<span class="nc bnc" id="L817" title="All 2 branches missed.">      if (realConnection == null) {</span>
+<span class="nc" id="L818">        return 0;</span>
+      } else {
+<span class="nc" id="L820">        return realConnection.hashCode();</span>
+      }
+    }
+
+    /**
+     * Getter for the connection type (based on url + user + password)
+     * @return The connection type
+     */
+    public int getConnectionTypeCode() {
+<span class="fc" id="L829">      return connectionTypeCode;</span>
+    }
+
+    /**
+     * Setter for the connection type
+     * @param connectionTypeCode - the connection type
+     */
+    public void setConnectionTypeCode(int connectionTypeCode) {
+<span class="fc" id="L837">      this.connectionTypeCode = connectionTypeCode;</span>
+<span class="fc" id="L838">    }</span>
+
+    /**
+     * Getter for the time that the connection was created
+     * @return The creation timestamp
+     */
+    public long getCreatedTimestamp() {
+<span class="fc" id="L845">      return createdTimestamp;</span>
+    }
+
+    /**
+     * Setter for the time that the connection was created
+     * @param createdTimestamp - the timestamp
+     */
+    public void setCreatedTimestamp(long createdTimestamp) {
+<span class="fc" id="L853">      this.createdTimestamp = createdTimestamp;</span>
+<span class="fc" id="L854">    }</span>
+
+    /**
+     * Getter for the time that the connection was last used
+     * @return - the timestamp
+     */
+    public long getLastUsedTimestamp() {
+<span class="fc" id="L861">      return lastUsedTimestamp;</span>
+    }
+
+    /**
+     * Setter for the time that the connection was last used
+     * @param lastUsedTimestamp - the timestamp
+     */
+    public void setLastUsedTimestamp(long lastUsedTimestamp) {
+<span class="fc" id="L869">      this.lastUsedTimestamp = lastUsedTimestamp;</span>
+<span class="fc" id="L870">    }</span>
+
+    /**
+     * Getter for the time since this connection was last used
+     * @return - the time since the last use
+     */
+    public long getTimeElapsedSinceLastUse() {
+<span class="nc" id="L877">      return System.currentTimeMillis() - lastUsedTimestamp;</span>
+    }
+
+    /**
+     * Getter for the age of the connection
+     * @return the age
+     */
+    public long getAge() {
+<span class="nc" id="L885">      return System.currentTimeMillis() - createdTimestamp;</span>
+    }
+
+    /**
+     * Getter for the timestamp that this connection was checked out
+     * @return the timestamp
+     */
+    public long getCheckoutTimestamp() {
+<span class="nc" id="L893">      return checkoutTimestamp;</span>
+    }
+
+    /**
+     * Setter for the timestamp that this connection was checked out
+     * @param timestamp the timestamp
+     */
+    public void setCheckoutTimestamp(long timestamp) {
+<span class="fc" id="L901">      this.checkoutTimestamp = timestamp;</span>
+<span class="fc" id="L902">    }</span>
+
+    /**
+     * Getter for the time that this connection has been checked out
+     * @return the time
+     */
+    public long getCheckoutTime() {
+<span class="fc" id="L909">      return System.currentTimeMillis() - checkoutTimestamp;</span>
+    }
+
+    private Connection getValidConnection() {
+<span class="pc bpc" id="L913" title="1 of 2 branches missed.">      if (!valid) {</span>
+<span class="nc" id="L914">        throw new RuntimeException(&quot;Error accessing SimplePooledConnection. Connection is invalid.&quot;);</span>
+      }
+<span class="fc" id="L916">      return realConnection;</span>
+    }
+
+    public int hashCode() {
+<span class="nc" id="L920">      return hashCode;</span>
+    }
+
+    /**
+     * Allows comparing this connection to another
+     *
+     * @param obj - the other connection to test for equality
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L930" title="1 of 2 branches missed.">      if (obj instanceof SimplePooledConnection) {</span>
+<span class="fc bfc" id="L931" title="All 2 branches covered.">        return realConnection.hashCode() == (((SimplePooledConnection) obj).realConnection.hashCode());</span>
+<span class="nc bnc" id="L932" title="All 2 branches missed.">      } else if (obj instanceof Connection) {</span>
+<span class="nc bnc" id="L933" title="All 2 branches missed.">        return hashCode == obj.hashCode();</span>
+      } else {
+<span class="nc" id="L935">        return false;</span>
+      }
+    }
+
+    // **********************************
+    // Implemented Connection Methods -- Now handled by proxy
+    // **********************************
+
+    /**
+     * Required for InvocationHandler implementation.
+     *
+     * @param proxy  - not used
+     * @param method - the method to be executed
+     * @param args   - the parameters to be passed to the method
+     * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+     */
+    public Object invoke(Object proxy, Method method, Object[] args)
+        throws Throwable {
+<span class="fc" id="L953">      String methodName = method.getName();</span>
+<span class="pc bpc" id="L954" title="1 of 4 branches missed.">      if (CLOSE.hashCode() == methodName.hashCode() &amp;&amp; CLOSE.equals(methodName)) {</span>
+<span class="fc" id="L955">        dataSource.pushConnection(this);</span>
+<span class="fc" id="L956">        return null;</span>
+      } else {
+        try {
+<span class="fc" id="L959">          return method.invoke(getValidConnection(), args);</span>
+<span class="fc" id="L960">        } catch (Throwable t) {</span>
+<span class="fc" id="L961">          throw ClassInfo.unwrapThrowable(t);</span>
+        }
+      }
+    }
+
+    public Statement createStatement() throws SQLException {
+<span class="nc" id="L967">      return getValidConnection().createStatement();</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+<span class="nc" id="L971">      return getValidConnection().prepareStatement(sql);</span>
+    }
+
+    public CallableStatement prepareCall(String sql) throws SQLException {
+<span class="nc" id="L975">      return getValidConnection().prepareCall(sql);</span>
+    }
+
+    public String nativeSQL(String sql) throws SQLException {
+<span class="nc" id="L979">      return getValidConnection().nativeSQL(sql);</span>
+    }
+
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
+<span class="nc" id="L983">      getValidConnection().setAutoCommit(autoCommit);</span>
+<span class="nc" id="L984">    }</span>
+
+    public boolean getAutoCommit() throws SQLException {
+<span class="nc" id="L987">      return getValidConnection().getAutoCommit();</span>
+    }
+
+    public void commit() throws SQLException {
+<span class="nc" id="L991">      getValidConnection().commit();</span>
+<span class="nc" id="L992">    }</span>
+
+    public void rollback() throws SQLException {
+<span class="nc" id="L995">      getValidConnection().rollback();</span>
+<span class="nc" id="L996">    }</span>
+
+    public void close() throws SQLException {
+<span class="nc" id="L999">      dataSource.pushConnection(this);</span>
+<span class="nc" id="L1000">    }</span>
+
+    public boolean isClosed() throws SQLException {
+<span class="nc" id="L1003">      return getValidConnection().isClosed();</span>
+    }
+
+    public DatabaseMetaData getMetaData() throws SQLException {
+<span class="nc" id="L1007">      return getValidConnection().getMetaData();</span>
+    }
+
+    public void setReadOnly(boolean readOnly) throws SQLException {
+<span class="nc" id="L1011">      getValidConnection().setReadOnly(readOnly);</span>
+<span class="nc" id="L1012">    }</span>
+
+    public boolean isReadOnly() throws SQLException {
+<span class="nc" id="L1015">      return getValidConnection().isReadOnly();</span>
+    }
+
+    public void setCatalog(String catalog) throws SQLException {
+<span class="nc" id="L1019">      getValidConnection().setCatalog(catalog);</span>
+<span class="nc" id="L1020">    }</span>
+
+    public String getCatalog() throws SQLException {
+<span class="nc" id="L1023">      return getValidConnection().getCatalog();</span>
+    }
+
+    public void setTransactionIsolation(int level) throws SQLException {
+<span class="nc" id="L1027">      getValidConnection().setTransactionIsolation(level);</span>
+<span class="nc" id="L1028">    }</span>
+
+    public int getTransactionIsolation() throws SQLException {
+<span class="nc" id="L1031">      return getValidConnection().getTransactionIsolation();</span>
+    }
+
+    public SQLWarning getWarnings() throws SQLException {
+<span class="nc" id="L1035">      return getValidConnection().getWarnings();</span>
+    }
+
+    public void clearWarnings() throws SQLException {
+<span class="nc" id="L1039">      getValidConnection().clearWarnings();</span>
+<span class="nc" id="L1040">    }</span>
+
+    public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
+<span class="nc" id="L1043">      return getValidConnection().createStatement(resultSetType, resultSetConcurrency);</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+<span class="nc" id="L1047">      return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency);</span>
+    }
+
+    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+<span class="nc" id="L1051">      return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency);</span>
+    }
+
+    public Map getTypeMap() throws SQLException {
+<span class="nc" id="L1055">      return getValidConnection().getTypeMap();</span>
+    }
+
+    public void setTypeMap(Map map) throws SQLException {
+<span class="nc" id="L1059">      getValidConnection().setTypeMap(map);</span>
+<span class="nc" id="L1060">    }</span>
+
+    // **********************************
+    // JDK 1.4 JDBC 3.0 Methods below
+    // **********************************
+
+    public void setHoldability(int holdability) throws SQLException {
+<span class="nc" id="L1067">      getValidConnection().setHoldability(holdability);</span>
+<span class="nc" id="L1068">    }</span>
+
+    public int getHoldability() throws SQLException {
+<span class="nc" id="L1071">      return getValidConnection().getHoldability();</span>
+    }
+
+    public Savepoint setSavepoint() throws SQLException {
+<span class="nc" id="L1075">      return getValidConnection().setSavepoint();</span>
+    }
+
+    public Savepoint setSavepoint(String name) throws SQLException {
+<span class="nc" id="L1079">      return getValidConnection().setSavepoint(name);</span>
+    }
+
+    public void rollback(Savepoint savepoint) throws SQLException {
+<span class="nc" id="L1083">      getValidConnection().rollback(savepoint);</span>
+<span class="nc" id="L1084">    }</span>
+
+    public void releaseSavepoint(Savepoint savepoint) throws SQLException {
+<span class="nc" id="L1087">      getValidConnection().releaseSavepoint(savepoint);</span>
+<span class="nc" id="L1088">    }</span>
+
+    public Statement createStatement(int resultSetType, int resultSetConcurrency,
+                                     int resultSetHoldability) throws SQLException {
+<span class="nc" id="L1092">      return getValidConnection().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql, int resultSetType,
+                                              int resultSetConcurrency, int resultSetHoldability)
+        throws SQLException {
+<span class="nc" id="L1098">      return getValidConnection().prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);</span>
+    }
+
+    public CallableStatement prepareCall(String sql, int resultSetType,
+                                         int resultSetConcurrency,
+                                         int resultSetHoldability) throws SQLException {
+<span class="nc" id="L1104">      return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys)
+        throws SQLException {
+<span class="nc" id="L1109">      return getValidConnection().prepareStatement(sql, autoGeneratedKeys);</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql, int columnIndexes[])
+        throws SQLException {
+<span class="nc" id="L1114">      return getValidConnection().prepareStatement(sql, columnIndexes);</span>
+    }
+
+    public PreparedStatement prepareStatement(String sql, String columnNames[])
+        throws SQLException {
+<span class="nc" id="L1119">      return getValidConnection().prepareStatement(sql, columnNames);</span>
+    }
+
+
+  }
+
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    // TODO Auto-generated method stub
+<span class="nc" id="L1127">    return null;</span>
+  }
+
+  public &lt;T&gt; T unwrap(Class&lt;T&gt; iface) throws SQLException {
+    // TODO Auto-generated method stub
+<span class="nc" id="L1132">    return null;</span>
+  }
+
+  public boolean isWrapperFor(Class&lt;?&gt; iface) throws SQLException {
+    // TODO Auto-generated method stub
+<span class="nc" id="L1137">    return false;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

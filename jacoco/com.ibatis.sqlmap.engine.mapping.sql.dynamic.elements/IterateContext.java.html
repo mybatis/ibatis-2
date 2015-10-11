@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>IterateContext.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IterateContext.java</span></div><h1>IterateContext.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+/*
+ * Created on Apr 17, 2005
+ *
+ */
+package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapException;
+
+/**
+ * @author Brandon Goodin
+ */
+public class IterateContext implements Iterator {
+  
+  private static final String PROCESS_INDEX = &quot;ProcessIndex&quot;;
+  private static final String PROCESS_STRING = &quot;ProcessString&quot;;
+  
+  private Iterator iterator;
+<span class="fc" id="L42">  private int index = -1;</span>
+
+  private String property;
+<span class="fc" id="L45">  private boolean allowNext = true;</span>
+
+<span class="fc" id="L47">  private boolean isFinal = false;</span>
+  private SqlTag tag;
+  
+  private IterateContext parent;
+  
+  /**
+   * This variable is true if some of the sub elements have
+   * actually produced content.  This is used to test
+   * whether to add the open and conjunction text to the
+   * generated statement.
+   * 
+   * This variable is used to replace the deprecated and dangerous
+   * isFirst method.
+   */
+  private boolean someSubElementsHaveContent;
+  
+  /**
+   * This variable is set by the doEndFragment method in IterateTagHandler
+   * to specify that the first content producing sub element has happened.
+   * The doPrepend method will test the value to know whether or not
+   * to process the prepend.
+   * 
+   * This variable is used to replace the deprecated and dangerous
+   * isFirst method.
+   */
+  private boolean isPrependEnabled;
+  
+<span class="fc" id="L74">  public IterateContext(Object collection,SqlTag tag, IterateContext parent) {</span>
+<span class="fc" id="L75">    this.parent = parent;</span>
+<span class="fc" id="L76">    this.tag = tag;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (collection instanceof Collection) {</span>
+<span class="fc" id="L78">      this.iterator = ((Collection) collection).iterator();</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    } else if (collection instanceof Iterator) {</span>
+<span class="nc" id="L80">      this.iterator = ((Iterator) collection);</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">    } else if (collection.getClass().isArray()) {</span>
+<span class="fc" id="L82">      List list = arrayToList(collection);</span>
+<span class="fc" id="L83">      this.iterator = list.iterator();</span>
+<span class="fc" id="L84">    } else {</span>
+<span class="nc" id="L85">      throw new SqlMapException(&quot;ParameterObject or property was not a Collection, Array or Iterator.&quot;);</span>
+    }
+<span class="fc" id="L87">  }</span>
+
+  public boolean hasNext() {
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; iterator.hasNext();</span>
+  }
+
+  public Object next() {
+<span class="fc" id="L94">    index++;</span>
+<span class="fc" id="L95">    return iterator.next();</span>
+  }
+
+  public void remove() {
+<span class="nc" id="L99">    iterator.remove();</span>
+<span class="nc" id="L100">  }</span>
+
+  public int getIndex() {
+<span class="fc" id="L103">    return index;</span>
+  }
+
+  /**
+   * 
+   * @return
+   * @deprecated This method should not be used to decide whether or not to
+   * add prepend and open text to the generated statement.  Rather, use the
+   * methods isPrependEnabled() and someSubElementsHaveContent().
+   */
+  public boolean isFirst() {
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    return index == 0;</span>
+  }
+
+  public boolean isLast() {
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; !iterator.hasNext();</span>
+  }
+  
+  private List arrayToList(Object array) {
+<span class="fc" id="L122">    List list = null;</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">    if (array instanceof Object[]) {</span>
+<span class="fc" id="L124">      list = Arrays.asList((Object[]) array);</span>
+<span class="fc" id="L125">    } else {</span>
+<span class="fc" id="L126">      list = new ArrayList();</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">      for (int i = 0, n = Array.getLength(array); i &lt; n; i++) {</span>
+<span class="fc" id="L128">        list.add(Array.get(array, i));</span>
+      }
+    }
+<span class="fc" id="L131">    return list;</span>
+  }
+
+  /**
+   * @return Returns the property.
+   */
+  public String getProperty() {
+<span class="fc" id="L138">    return property;</span>
+  }
+  
+  /**
+   * This property specifies whether to increment the iterate in
+   * the doEndFragment. The ConditionalTagHandler has the ability
+   * to increment the IterateContext, so it is neccessary to avoid
+   * incrementing in both the ConditionalTag and the IterateTag.
+   *
+   * @param property The property to set.
+   */
+  public void setProperty(String property) {
+<span class="fc" id="L150">    this.property = property;</span>
+<span class="fc" id="L151">  }</span>
+  
+  /**
+   * @return Returns the allowNext.
+   */
+  public boolean isAllowNext() {
+<span class="fc" id="L157">    return allowNext;</span>
+  }
+  
+  /**
+   * @param performIterate The allowNext to set.
+   */
+  public void setAllowNext(boolean performIterate) {
+<span class="fc" id="L164">    this.allowNext = performIterate;</span>
+<span class="fc" id="L165">  }</span>
+  /**
+   * @return Returns the tag.
+   */
+  public SqlTag getTag() {
+<span class="fc" id="L170">    return tag;</span>
+  }
+  /**
+   * @param tag The tag to set.
+   */
+  public void setTag(SqlTag tag) {
+<span class="nc" id="L176">    this.tag = tag;</span>
+<span class="nc" id="L177">  }</span>
+
+  /**
+   *
+   * @return
+   */
+  public boolean isFinal() {
+<span class="fc" id="L184">    return isFinal;</span>
+  }
+
+  /**
+   * This attribute is used to mark whether an iterate tag is
+   * in it's final iteration. Since the ConditionalTagHandler
+   * can increment the iterate the final iterate in the doEndFragment
+   * of the IterateTagHandler needs to know it is in it's final iterate.
+   *
+   * @param aFinal
+   */
+  public void setFinal(boolean aFinal) {
+<span class="fc" id="L196">    isFinal = aFinal;</span>
+<span class="fc" id="L197">  }</span>
+  
+  
+  /**
+   * Returns the last property of any bean specified in this IterateContext.
+   * @return The last property of any bean specified in this IterateContext.
+   */
+  public String getEndProperty() {
+<span class="fc bfc" id="L205" title="All 2 branches covered.">      if (parent != null) {</span>
+<span class="fc" id="L206">          int parentPropertyIndex = property.indexOf(parent.getProperty());</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">          if (parentPropertyIndex &gt; -1) {</span>
+<span class="fc" id="L208">              int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);</span>
+<span class="fc" id="L209">              int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);</span>
+<span class="fc" id="L210">              return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1, property.length());</span>
+          }
+          else {
+<span class="fc" id="L213">              return property;</span>
+          }
+      }
+      else {
+<span class="fc" id="L217">          return property;</span>
+      }
+  }
+  
+  /**
+   * Replaces value of a tag property to match it's value with current iteration and all other iterations.
+   * @param tagProperty the property of a TagHandler.
+   * @return A Map containing the modified tag property in PROCESS_STRING key and the index where the modification occured in PROCESS_INDEX key.
+   */
+  protected Map processTagProperty(String tagProperty) {
+<span class="fc bfc" id="L227" title="All 2 branches covered.">      if (parent != null) {</span>
+<span class="fc" id="L228">          Map parentResult = parent.processTagProperty(tagProperty);</span>
+<span class="fc" id="L229">          return this.addIndex((String) parentResult.get(PROCESS_STRING), ((Integer) parentResult.get(PROCESS_INDEX)).intValue());</span>
+      }
+      else {
+<span class="fc" id="L232">          return this.addIndex(tagProperty, 0);</span>
+      }
+  }
+  
+  /**
+   * Replaces value of a tag property to match it's value with current iteration and all other iterations.
+   * @param tagProperty the property of a TagHandler.
+   * @return The tag property with all &quot;[]&quot; replaced with the correct iteration value.
+   */
+  public String addIndexToTagProperty(String tagProperty) {
+<span class="fc" id="L242">      Map map = this.processTagProperty(tagProperty);</span>
+<span class="fc" id="L243">      return (String) map.get(PROCESS_STRING);</span>
+  }
+  
+  /**
+   * Adds index value to the first found property matching this Iteration starting at index startIndex.
+   * @param input The input String.
+   * @param startIndex The index where search for property begins.
+   * @return A Map containing the modified tag property in PROCESS_STRING key and the index where the modification occured in PROCESS_INDEX key.
+   */
+  protected Map addIndex(String input, int startIndex) {
+<span class="fc" id="L253">      String endProperty = getEndProperty() + &quot;[&quot;;</span>
+<span class="fc" id="L254">      int propertyIndex = input.indexOf(endProperty, startIndex);</span>
+<span class="fc" id="L255">      int modificationIndex = 0;</span>
+      // Is the iterate property in the tag property at all?
+<span class="fc bfc" id="L257" title="All 2 branches covered.">      if (propertyIndex &gt; -1) {</span>
+          // Make sure the tag property does not already have a number.
+<span class="fc bfc" id="L259" title="All 2 branches covered.">          if (input.charAt(propertyIndex + endProperty.length()) == ']') {</span>
+              // Add iteration number to property.
+<span class="fc" id="L261">              input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex() + input.substring(propertyIndex + endProperty.length());</span>
+<span class="fc" id="L262">              modificationIndex = propertyIndex + endProperty.length();</span>
+          }
+      }
+<span class="fc" id="L265">      Map ret = new HashMap();</span>
+<span class="fc" id="L266">      ret.put(PROCESS_INDEX, new Integer(modificationIndex));</span>
+<span class="fc" id="L267">      ret.put(PROCESS_STRING, input);</span>
+<span class="fc" id="L268">      return ret;</span>
+  }
+  
+  
+  public IterateContext getParent() {
+<span class="nc" id="L273">    return parent;</span>
+  }
+
+  public void setParent(IterateContext parent) {
+<span class="nc" id="L277">    this.parent = parent;</span>
+<span class="nc" id="L278">  }</span>
+
+  public boolean someSubElementsHaveContent() {
+<span class="fc" id="L281">    return someSubElementsHaveContent;</span>
+  }
+
+  public void setSomeSubElementsHaveContent(boolean someSubElementsHaveContent) {
+<span class="fc" id="L285">    this.someSubElementsHaveContent = someSubElementsHaveContent;</span>
+<span class="fc" id="L286">  }</span>
+
+  public boolean isPrependEnabled() {
+<span class="fc" id="L289">    return isPrependEnabled;</span>
+  }
+
+  public void setPrependEnabled(boolean isPrependEnabled) {
+<span class="fc" id="L293">    this.isPrependEnabled = isPrependEnabled;</span>
+<span class="fc" id="L294">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

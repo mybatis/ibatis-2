@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ParameterSetterImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">ParameterSetterImpl.java</span></div><h1>ParameterSetterImpl.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.type;
+
+import com.ibatis.sqlmap.client.extensions.ParameterSetter;
+
+import java.io.InputStream;
+import java.io.Reader;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.sql.*;
+import java.util.Calendar;
+
+/**
+ * A ParameterSetter implementation
+ */
+public class ParameterSetterImpl implements ParameterSetter {
+
+  private PreparedStatement ps;
+  private int index;
+
+  /**
+   * Creates an instance for a PreparedStatement and column index
+   * 
+   * @param statement - the PreparedStatement 
+   * @param columnIndex - the column index
+   */
+<span class="fc" id="L41">  public ParameterSetterImpl(PreparedStatement statement, int columnIndex) {</span>
+<span class="fc" id="L42">    this.ps = statement;</span>
+<span class="fc" id="L43">    this.index = columnIndex;</span>
+<span class="fc" id="L44">  }</span>
+
+  public void setArray(Array x) throws SQLException {
+<span class="nc" id="L47">    ps.setArray(index, x);</span>
+<span class="nc" id="L48">  }</span>
+
+  public void setAsciiStream(InputStream x, int length) throws SQLException {
+<span class="nc" id="L51">    ps.setAsciiStream(index, x, length);</span>
+<span class="nc" id="L52">  }</span>
+
+  public void setBigDecimal(BigDecimal x) throws SQLException {
+<span class="nc" id="L55">    ps.setBigDecimal(index, x);</span>
+<span class="nc" id="L56">  }</span>
+
+  public void setBinaryStream(InputStream x, int length) throws SQLException {
+<span class="nc" id="L59">    ps.setBinaryStream(index, x, length);</span>
+<span class="nc" id="L60">  }</span>
+
+  public void setBlob(Blob x) throws SQLException {
+<span class="nc" id="L63">    ps.setBlob(index, x);</span>
+<span class="nc" id="L64">  }</span>
+
+  public void setBoolean(boolean x) throws SQLException {
+<span class="nc" id="L67">    ps.setBoolean(index, x);</span>
+<span class="nc" id="L68">  }</span>
+
+  public void setByte(byte x) throws SQLException {
+<span class="nc" id="L71">    ps.setByte(index, x);</span>
+<span class="nc" id="L72">  }</span>
+
+  public void setBytes(byte x[]) throws SQLException {
+<span class="nc" id="L75">    ps.setBytes(index, x);</span>
+<span class="nc" id="L76">  }</span>
+
+  public void setCharacterStream(Reader reader, int length) throws SQLException {
+<span class="nc" id="L79">    ps.setCharacterStream(index, reader, length);</span>
+<span class="nc" id="L80">  }</span>
+
+  public void setClob(Clob x) throws SQLException {
+<span class="nc" id="L83">    ps.setClob(index, x);</span>
+<span class="nc" id="L84">  }</span>
+
+  public void setDate(Date x) throws SQLException {
+<span class="nc" id="L87">    ps.setDate(index, x);</span>
+<span class="nc" id="L88">  }</span>
+
+  public void setDate(Date x, Calendar cal) throws SQLException {
+<span class="nc" id="L91">    ps.setDate(index, x, cal);</span>
+<span class="nc" id="L92">  }</span>
+
+  public void setDouble(double x) throws SQLException {
+<span class="nc" id="L95">    ps.setDouble(index, x);</span>
+<span class="nc" id="L96">  }</span>
+
+  public void setFloat(float x) throws SQLException {
+<span class="nc" id="L99">    ps.setFloat(index, x);</span>
+<span class="nc" id="L100">  }</span>
+
+  public void setInt(int x) throws SQLException {
+<span class="fc" id="L103">    ps.setInt(index, x);</span>
+<span class="fc" id="L104">  }</span>
+
+  public void setLong(long x) throws SQLException {
+<span class="nc" id="L107">    ps.setLong(index, x);</span>
+<span class="nc" id="L108">  }</span>
+
+  public void setNull(int sqlType) throws SQLException {
+<span class="nc" id="L111">    ps.setNull(index, sqlType);</span>
+<span class="nc" id="L112">  }</span>
+
+  public void setNull(int sqlType, String typeName) throws SQLException {
+<span class="nc" id="L115">    ps.setNull(index, sqlType, typeName);</span>
+<span class="nc" id="L116">  }</span>
+
+  public void setObject(Object x) throws SQLException {
+<span class="nc" id="L119">    ps.setObject(index, x);</span>
+<span class="nc" id="L120">  }</span>
+
+  public void setObject(Object x, int targetSqlType) throws SQLException {
+<span class="nc" id="L123">    ps.setObject(index, x, targetSqlType);</span>
+<span class="nc" id="L124">  }</span>
+
+  public void setObject(Object x, int targetSqlType, int scale) throws SQLException {
+<span class="nc" id="L127">    ps.setObject(index, x, scale);</span>
+<span class="nc" id="L128">  }</span>
+
+  public void setRef(Ref x) throws SQLException {
+<span class="nc" id="L131">    ps.setRef(index, x);</span>
+<span class="nc" id="L132">  }</span>
+
+  public void setShort(short x) throws SQLException {
+<span class="nc" id="L135">    ps.setShort(index, x);</span>
+<span class="nc" id="L136">  }</span>
+
+  public void setString(String x) throws SQLException {
+<span class="fc" id="L139">    ps.setString(index, x);</span>
+<span class="fc" id="L140">  }</span>
+
+  public void setTime(Time x) throws SQLException {
+<span class="nc" id="L143">    ps.setTime(index, x);</span>
+<span class="nc" id="L144">  }</span>
+
+  public void setTime(Time x, Calendar cal) throws SQLException {
+<span class="nc" id="L147">    ps.setTime(index, x, cal);</span>
+<span class="nc" id="L148">  }</span>
+
+  public void setTimestamp(Timestamp x) throws SQLException {
+<span class="nc" id="L151">    ps.setTimestamp(index, x);</span>
+<span class="nc" id="L152">  }</span>
+
+  public void setTimestamp(Timestamp x, Calendar cal) throws SQLException {
+<span class="nc" id="L155">    ps.setTimestamp(index, x, cal);</span>
+<span class="nc" id="L156">  }</span>
+
+  public void setURL(URL x) throws SQLException {
+<span class="nc" id="L159">    ps.setURL(index, x);</span>
+<span class="nc" id="L160">  }</span>
+
+  public PreparedStatement getPreparedStatement() {
+<span class="nc" id="L163">    return ps;</span>
+  }
+
+  public int getParameterIndex() {
+<span class="nc" id="L167">    return index;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

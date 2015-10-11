@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ResultSetLogProxy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">ResultSetLogProxy.java</span></div><h1>ResultSetLogProxy.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.common.jdbc.logging;
+
+import com.ibatis.common.beans.ClassInfo;
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.ResultSet;
+
+/**
+ * ResultSet proxy to add logging
+ */
+public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler {
+
+<span class="nc" id="L32">  private static final Log log = LogFactory.getLog(ResultSet.class);</span>
+
+<span class="nc" id="L34">  boolean first = true;</span>
+  private ResultSet rs;
+
+  private ResultSetLogProxy(ResultSet rs) {
+<span class="nc" id="L38">    super();</span>
+<span class="nc" id="L39">    this.rs = rs;</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">    if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L41">      log.debug(&quot;{rset-&quot; + id + &quot;} ResultSet&quot;);</span>
+    }
+<span class="nc" id="L43">  }</span>
+
+  public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
+    try {
+<span class="nc" id="L47">      Object o = method.invoke(rs, params);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">      if (GET_METHODS.contains(method.getName())) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (params[0] instanceof String) {</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">          if(rs.wasNull()) {</span>
+<span class="nc" id="L51">            setColumn(params[0], null);</span>
+<span class="nc" id="L52">          } else {</span>
+<span class="nc" id="L53">            setColumn(params[0], o);</span>
+          }
+        }
+<span class="nc bnc" id="L56" title="All 4 branches missed.">      } else if (&quot;next&quot;.equals(method.getName()) || &quot;close&quot;.equals(method.getName())) {     </span>
+<span class="nc" id="L57">        String s = getValueString();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (!&quot;[]&quot;.equals(s)) {</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">          if (first) {</span>
+<span class="nc" id="L60">            first = false;</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L62">              log.debug(&quot;{rset-&quot; + id + &quot;} Header: &quot; + getColumnString());</span>
+            }
+          }
+<span class="nc bnc" id="L65" title="All 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L66">            log.debug(&quot;{rset-&quot; + id + &quot;} Result: &quot; + s);</span>
+          }
+        }
+<span class="nc" id="L69">        clearColumnInfo();</span>
+      }
+<span class="nc" id="L71">      return o;</span>
+<span class="nc" id="L72">    } catch (Throwable t) {</span>
+<span class="nc" id="L73">      throw ClassInfo.unwrapThrowable(t);</span>
+    }
+  }
+
+  /**
+   * Creates a logging version of a ResultSet 
+   * 
+   * @param rs - the ResultSet to proxy
+   * @return - the ResultSet with logging
+   */
+  public static ResultSet newInstance(ResultSet rs) {
+<span class="nc" id="L84">    InvocationHandler handler = new ResultSetLogProxy(rs);</span>
+<span class="nc" id="L85">    ClassLoader cl = ResultSet.class.getClassLoader();</span>
+<span class="nc" id="L86">    return (ResultSet) Proxy.newProxyInstance(cl, new Class[]{ResultSet.class}, handler);</span>
+  }
+
+  /**
+   * Get the wrapped result set
+   * @return the resultSet
+   */
+  public ResultSet getRs() {
+<span class="nc" id="L94">    return rs;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

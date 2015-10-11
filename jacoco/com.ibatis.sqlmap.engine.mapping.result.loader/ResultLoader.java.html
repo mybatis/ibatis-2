@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ResultLoader.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result.loader</a> &gt; <span class="el_source">ResultLoader.java</span></div><h1>ResultLoader.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.result.loader;
+
+import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
+
+import java.sql.SQLException;
+import java.util.*;
+import java.lang.reflect.Array;
+
+/**
+ * Class to load results into objects
+ */
+public class ResultLoader {
+
+<span class="nc" id="L30">  private ResultLoader() {</span>
+<span class="nc" id="L31">  }</span>
+
+  /**
+   * Loads a result lazily
+   *
+   * @param client          - the client creating the object
+   * @param statementName   - the name of the statement to be used
+   * @param parameterObject - the parameters for the statement
+   * @param targetType      - the target type of the result
+   * @return the loaded result
+   * @throws SQLException
+   */
+  public static Object loadResult(SqlMapClientImpl client, String statementName, Object parameterObject, Class targetType)
+      throws SQLException {
+<span class="fc" id="L45">    Object value = null;</span>
+
+
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">    if (client.isLazyLoadingEnabled()) {</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">      if (client.isEnhancementEnabled()) {</span>
+<span class="nc" id="L50">        EnhancedLazyResultLoader lazy = new EnhancedLazyResultLoader(client, statementName, parameterObject, targetType);</span>
+<span class="nc" id="L51">        value = lazy.loadResult();</span>
+<span class="nc" id="L52">      } else {</span>
+<span class="fc" id="L53">        LazyResultLoader lazy = new LazyResultLoader(client, statementName, parameterObject, targetType);</span>
+<span class="fc" id="L54">        value = lazy.loadResult();</span>
+      }
+<span class="fc" id="L56">    } else {</span>
+<span class="nc" id="L57">      value = getResult(client, statementName, parameterObject, targetType);</span>
+    }
+
+<span class="fc" id="L60">    return value;</span>
+  }
+
+  protected static Object getResult(SqlMapClientImpl client, String statementName, Object parameterObject, Class targetType) throws SQLException {
+<span class="fc" id="L64">    Object value = null;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">    if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {</span>
+<span class="fc" id="L66">      value = client.queryForList(statementName, parameterObject);</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    } else if (Set.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L68">      value = new HashSet(client.queryForList(statementName, parameterObject));</span>
+<span class="pc bfc" id="L69" title="All 2 branches covered.">    } else if (Collection.class.isAssignableFrom(targetType)) {</span>
+<span class="fc" id="L70">      value = client.queryForList(statementName, parameterObject);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">    } else if (targetType.isArray()) {</span>
+<span class="fc" id="L72">      List list = client.queryForList(statementName, parameterObject);</span>
+<span class="fc" id="L73">      value = listToArray(list, targetType.getComponentType());</span>
+<span class="fc" id="L74">    } else {</span>
+<span class="fc" id="L75">      value = client.queryForObject(statementName, parameterObject);</span>
+    }
+<span class="fc" id="L77">    return value;</span>
+  }
+
+  private static Object listToArray(List list, Class type) {
+<span class="fc" id="L81">    Object array = java.lang.reflect.Array.newInstance(type, list.size());</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">    if (type.isPrimitive()) {</span>
+<span class="nc" id="L83">      Iterator iter = list.iterator();</span>
+<span class="nc" id="L84">      int index = 0;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">      while (iter.hasNext()) {</span>
+<span class="nc" id="L86">        Array.set(array, index++, iter.next());</span>
+      }
+<span class="nc" id="L88">    } else {</span>
+<span class="fc" id="L89">      array = list.toArray((Object[]) array);</span>
+    }
+<span class="fc" id="L91">    return array;</span>
+
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

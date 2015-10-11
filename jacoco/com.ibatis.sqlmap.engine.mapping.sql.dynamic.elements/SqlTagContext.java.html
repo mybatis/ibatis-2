@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SqlTagContext.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">SqlTagContext.java</span></div><h1>SqlTagContext.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMapping;
+
+public class SqlTagContext {
+
+  private StringWriter sw;
+  private PrintWriter out;
+
+  private HashMap attributes;
+
+  private LinkedList removeFirstPrependStack;
+  private LinkedList iterateContextStack;
+
+<span class="fc" id="L37">  private ArrayList parameterMappings = new ArrayList();</span>
+
+
+<span class="fc" id="L40">  public SqlTagContext() {</span>
+<span class="fc" id="L41">    sw = new StringWriter();</span>
+<span class="fc" id="L42">    out = new PrintWriter(sw);</span>
+<span class="fc" id="L43">    attributes = new HashMap();</span>
+<span class="fc" id="L44">    removeFirstPrependStack = new LinkedList();</span>
+<span class="fc" id="L45">    iterateContextStack = new LinkedList();</span>
+<span class="fc" id="L46">  }</span>
+
+  public PrintWriter getWriter() {
+<span class="fc" id="L49">    return out;</span>
+  }
+
+  public String getBodyText() {
+<span class="fc" id="L53">    out.flush();</span>
+<span class="fc" id="L54">    return sw.getBuffer().toString();</span>
+  }
+
+  public void setAttribute(Object key, Object value) {
+<span class="fc" id="L58">    attributes.put(key, value);</span>
+<span class="fc" id="L59">  }</span>
+
+  public Object getAttribute(Object key) {
+<span class="fc" id="L62">    return attributes.get(key);</span>
+  }
+
+  public void addParameterMapping(ParameterMapping mapping) {
+<span class="fc" id="L66">    parameterMappings.add(mapping);</span>
+<span class="fc" id="L67">  }</span>
+
+  public List getParameterMappings() {
+<span class="fc" id="L70">    return parameterMappings;</span>
+  }
+
+  public boolean isEmptyRemoveFirtPrepend() {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">    return removeFirstPrependStack.size() &lt;= 0;</span>
+  }
+  
+  /**
+   * examine the value of the top RemoveFirstPrependMarker object on the stack.
+   * 
+   * @return was the first prepend removed
+   */
+  public boolean peekRemoveFirstPrependMarker(SqlTag sqlTag) {
+    
+<span class="fc" id="L84">      RemoveFirstPrependMarker removeFirstPrepend = </span>
+<span class="fc" id="L85">        (RemoveFirstPrependMarker) removeFirstPrependStack.get(1);</span>
+      
+<span class="fc" id="L87">      return removeFirstPrepend.isRemoveFirstPrepend();</span>
+  } 
+  
+  /**
+   * pop the first RemoveFirstPrependMarker once the recursion is on it's way out
+   * of the recursion loop and return it's internal value.
+   *
+   * @param tag
+   */
+  public void popRemoveFirstPrependMarker(SqlTag tag) {
+        
+<span class="fc" id="L98">    RemoveFirstPrependMarker removeFirstPrepend = </span>
+<span class="fc" id="L99">      (RemoveFirstPrependMarker) removeFirstPrependStack.getFirst();</span>
+    
+<span class="fc bfc" id="L101" title="All 2 branches covered.">    if(tag == removeFirstPrepend.getSqlTag()) {</span>
+<span class="fc" id="L102">      removeFirstPrependStack.removeFirst();</span>
+    }
+<span class="fc" id="L104">  }</span>
+  
+  /**
+   * push a new RemoveFirstPrependMarker object with the specified internal state
+   * 
+   * @param tag
+   */
+  public void pushRemoveFirstPrependMarker(SqlTag tag) {
+    
+<span class="fc bfc" id="L113" title="All 2 branches covered.">    if(tag.getHandler() instanceof DynamicTagHandler) {</span>
+      // this was added to retain default behavior
+<span class="fc bfc" id="L115" title="All 2 branches covered.">      if(tag.isPrependAvailable()) {</span>
+<span class="fc" id="L116">        removeFirstPrependStack.addFirst(</span>
+<span class="fc" id="L117">            new RemoveFirstPrependMarker(tag,true));</span>
+<span class="fc" id="L118">      } else {</span>
+<span class="fc" id="L119">        removeFirstPrependStack.addFirst(</span>
+<span class="fc" id="L120">            new RemoveFirstPrependMarker(tag,false));</span>
+      }
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    } else if(&quot;true&quot;.equals(tag.getRemoveFirstPrepend())</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        || &quot;iterate&quot;.equals(tag.getRemoveFirstPrepend())){</span>
+      // you must be specific about the removal otherwise it
+      // will function as ibatis has always functioned and add
+      // the prepend
+<span class="fc" id="L127">      removeFirstPrependStack.addFirst(</span>
+<span class="fc" id="L128">          new RemoveFirstPrependMarker(tag,true));</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">    } else if(!tag.isPrependAvailable() &amp;&amp; </span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        !&quot;true&quot;.equals(tag.getRemoveFirstPrepend()) &amp;&amp;</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        !&quot;iterate&quot;.equals(tag.getRemoveFirstPrepend()) &amp;&amp;</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        tag.getParent() != null) {</span>
+      // if no prepend or removeFirstPrepend is specified 
+      // we need to look to the parent tag for default values
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">      if(&quot;true&quot;.equals(tag.getParent().getRemoveFirstPrepend())</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">          || &quot;iterate&quot;.equals(tag.getParent().getRemoveFirstPrepend())) {</span>
+<span class="nc" id="L137">        removeFirstPrependStack.addFirst(</span>
+<span class="nc" id="L138">            new RemoveFirstPrependMarker(tag,true));</span>
+      }
+<span class="nc" id="L140">    } else {</span>
+<span class="fc" id="L141">      removeFirstPrependStack.addFirst(</span>
+<span class="fc" id="L142">          new RemoveFirstPrependMarker(tag,false));</span>
+    }
+
+<span class="fc" id="L145">  }</span>
+  
+  /**
+   * set a new internal state for top RemoveFirstPrependMarker object
+   *
+   */
+  public void disableRemoveFirstPrependMarker() {
+<span class="fc" id="L152">    ((RemoveFirstPrependMarker) removeFirstPrependStack.get(1)).setRemoveFirstPrepend(false);</span>
+<span class="fc" id="L153">  }</span>
+
+  public void reEnableRemoveFirstPrependMarker() {
+<span class="fc" id="L156">    ((RemoveFirstPrependMarker) removeFirstPrependStack.get(0)).setRemoveFirstPrepend(true);</span>
+<span class="fc" id="L157">  }</span>
+  
+  /**
+   * iterate context is stored here for nested dynamic tags in
+   * the body of the iterate tag
+   * 
+   * @param iterateContext
+   */
+  public void pushIterateContext(IterateContext iterateContext) {
+<span class="fc" id="L166">    iterateContextStack.addFirst(iterateContext);</span>
+<span class="fc" id="L167">  }</span>
+  
+  /**
+   * iterate context is removed here from the stack when iterate tag is finished being
+   * processed
+   * 
+   * @return the top element of the context stack
+   */
+  public IterateContext popIterateContext() {
+<span class="fc" id="L176">    IterateContext retVal = null;</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">    if(!iterateContextStack.isEmpty()) {</span>
+<span class="fc" id="L178">      retVal = (IterateContext)iterateContextStack.removeFirst();</span>
+    }
+<span class="fc" id="L180">    return retVal;</span>
+  }
+  
+  /**
+   * iterate context is removed here from the stack when iterate tag is finished being
+   * processed
+   * 
+   * @return the top element on the context stack
+   */
+  public IterateContext peekIterateContext() {
+<span class="fc" id="L190">    IterateContext retVal = null;</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">    if(!iterateContextStack.isEmpty()) {</span>
+<span class="fc" id="L192">      retVal = (IterateContext)iterateContextStack.getFirst();</span>
+    }
+<span class="fc" id="L194">    return retVal;</span>
+  }
+  
+}
+
+/**
+ * 
+ * This inner class i used strictly to house whether the 
+ * removeFirstPrepend has been used in a particular nested
+ * situation. 
+ * 
+ * @author Brandon Goodin
+ */
+class RemoveFirstPrependMarker {
+  
+  private boolean removeFirstPrepend;
+  private SqlTag tag;
+  
+  /**
+   * 
+   */
+<span class="fc" id="L215">  public RemoveFirstPrependMarker(SqlTag tag, boolean removeFirstPrepend) {</span>
+<span class="fc" id="L216">    this.removeFirstPrepend = removeFirstPrepend;</span>
+<span class="fc" id="L217">    this.tag = tag;</span>
+<span class="fc" id="L218">  }</span>
+  
+  /**
+   * @return Returns the removeFirstPrepend.
+   */
+  public boolean isRemoveFirstPrepend() {
+<span class="fc" id="L224">    return removeFirstPrepend;</span>
+  }
+  
+  /**
+   * @param removeFirstPrepend The removeFirstPrepend to set.
+   */
+  public void setRemoveFirstPrepend(boolean removeFirstPrepend) {
+<span class="fc" id="L231">    this.removeFirstPrepend = removeFirstPrepend;</span>
+<span class="fc" id="L232">  }</span>
+  
+  /**
+   * @return Returns the sqlTag.
+   */
+  public SqlTag getSqlTag() {
+<span class="fc" id="L238">    return tag;</span>
+  }
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

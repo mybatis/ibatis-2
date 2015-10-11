@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SessionScope.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.scope</a> &gt; <span class="el_source">SessionScope.java</span></div><h1>SessionScope.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.scope;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.client.SqlMapExecutor;
+import com.ibatis.sqlmap.client.SqlMapTransactionManager;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionState;
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Iterator;
+
+/**
+ * A Session based implementation of the Scope interface
+ */
+public class SessionScope {
+  private static long nextId;
+  private long id;
+  // Used by Any
+  private SqlMapClient sqlMapClient;
+  private SqlMapExecutor sqlMapExecutor;
+  private SqlMapTransactionManager sqlMapTxMgr;
+  private int requestStackDepth;
+  // Used by TransactionManager
+  private Transaction transaction;
+  private TransactionState transactionState;
+  // Used by SqlMapExecutorDelegate.setUserProvidedTransaction()
+  private TransactionState savedTransactionState;
+  // Used by StandardSqlMapClient and GeneralStatement
+  private boolean inBatch;
+  // Used by SqlExecutor
+  private Object batch;
+  private boolean commitRequired;
+  private Map preparedStatements;
+
+  /**
+   * Default constructor
+   */
+<span class="fc" id="L58">  public SessionScope() {</span>
+<span class="fc" id="L59">    this.preparedStatements = new HashMap();</span>
+<span class="fc" id="L60">    this.inBatch = false;</span>
+<span class="fc" id="L61">    this.requestStackDepth = 0;</span>
+<span class="fc" id="L62">    this.id = getNextId();</span>
+<span class="fc" id="L63">  }</span>
+
+  /**
+   * Get the SqlMapClient for the session
+   *
+   * @return - the SqlMapClient
+   */
+  public SqlMapClient getSqlMapClient() {
+<span class="fc" id="L71">    return sqlMapClient;</span>
+  }
+
+  /**
+   * Set the SqlMapClient for the session
+   *
+   * @param sqlMapClient - the SqlMapClient
+   */
+  public void setSqlMapClient(SqlMapClient sqlMapClient) {
+<span class="fc" id="L80">    this.sqlMapClient = sqlMapClient;</span>
+<span class="fc" id="L81">  }</span>
+
+  /**
+   * Get the SQL executor for the session
+   *
+   * @return - the SQL executor
+   */
+  public SqlMapExecutor getSqlMapExecutor() {
+<span class="fc" id="L89">    return sqlMapExecutor;</span>
+  }
+
+  /**
+   * Get the SQL executor for the session
+   *
+   * @param sqlMapExecutor - the SQL executor
+   */
+  public void setSqlMapExecutor(SqlMapExecutor sqlMapExecutor) {
+<span class="fc" id="L98">    this.sqlMapExecutor = sqlMapExecutor;</span>
+<span class="fc" id="L99">  }</span>
+
+  /**
+   * Get the transaction manager
+   *
+   * @return - the transaction manager
+   */
+  public SqlMapTransactionManager getSqlMapTxMgr() {
+<span class="fc" id="L107">    return sqlMapTxMgr;</span>
+  }
+
+  /**
+   * Set the transaction manager
+   *
+   * @param sqlMapTxMgr - the transaction manager
+   */
+  public void setSqlMapTxMgr(SqlMapTransactionManager sqlMapTxMgr) {
+<span class="fc" id="L116">    this.sqlMapTxMgr = sqlMapTxMgr;</span>
+<span class="fc" id="L117">  }</span>
+
+  /**
+   * Tells us if we are in batch mode or not
+   *
+   * @return - true if we are working with a batch
+   */
+  public boolean isInBatch() {
+<span class="fc" id="L125">    return inBatch;</span>
+  }
+
+  /**
+   * Turn batch mode on or off
+   *
+   * @param inBatch - the switch
+   */
+  public void setInBatch(boolean inBatch) {
+<span class="fc" id="L134">    this.inBatch = inBatch;</span>
+<span class="fc" id="L135">  }</span>
+
+  /**
+   * Getter for the session transaction
+   *
+   * @return - the transaction
+   */
+  public Transaction getTransaction() {
+<span class="fc" id="L143">    return transaction;</span>
+  }
+
+  /**
+   * Setter for the session transaction
+   *
+   * @param transaction - the transaction
+   */
+  public void setTransaction(Transaction transaction) {
+<span class="fc" id="L152">    this.transaction = transaction;</span>
+<span class="fc" id="L153">  }</span>
+
+  /**
+   * Getter for the transaction state of the session
+   *
+   * @return - the state
+   */
+  public TransactionState getTransactionState() {
+<span class="fc" id="L161">    return transactionState;</span>
+  }
+
+  /**
+   * Setter for the transaction state of the session
+   *
+   * @param transactionState - the new transaction state
+   */
+  public void setTransactionState(TransactionState transactionState) {
+<span class="fc" id="L170">    this.transactionState = transactionState;</span>
+<span class="fc" id="L171">  }</span>
+
+  /**
+   * Getter for the batch of the session
+   *
+   * @return - the batch
+   */
+  public Object getBatch() {
+<span class="fc" id="L179">    return batch;</span>
+  }
+
+  /**
+   * Stter for the batch of the session
+   *
+   * @param batch the new batch
+   */
+  public void setBatch(Object batch) {
+<span class="fc" id="L188">    this.batch = batch;</span>
+<span class="fc" id="L189">  }</span>
+
+  /**
+   * Get the request stack depth
+   *
+   * @return - the stack depth
+   */
+  public int getRequestStackDepth() {
+<span class="fc" id="L197">    return requestStackDepth;</span>
+  }
+
+  /**
+   * Increment the stack depth by one.
+   */
+  public void incrementRequestStackDepth() {
+<span class="fc" id="L204">    requestStackDepth++;</span>
+<span class="fc" id="L205">  }</span>
+
+  /**
+   * Decrement the stack depth by one.
+   */
+  public void decrementRequestStackDepth() {
+<span class="fc" id="L211">    requestStackDepth--;</span>
+<span class="fc" id="L212">  }</span>
+
+  /**
+   * Getter to tell if a commit is required for the session
+   *
+   * @return - true if a commit is required
+   */
+  public boolean isCommitRequired() {
+<span class="fc" id="L220">    return commitRequired;</span>
+  }
+
+  /**
+   * Setter to tell the session that a commit is required for the session
+   *
+   * @param commitRequired - the flag
+   */
+  public void setCommitRequired(boolean commitRequired) {
+<span class="fc" id="L229">    this.commitRequired = commitRequired;</span>
+<span class="fc" id="L230">  }</span>
+
+  public boolean hasPreparedStatementFor(String sql) {
+<span class="fc" id="L233">    return preparedStatements.containsKey(sql);</span>
+  }
+
+  public boolean hasPreparedStatement(PreparedStatement ps) {
+<span class="fc" id="L237">    return preparedStatements.containsValue(ps);</span>
+  }
+
+  public PreparedStatement getPreparedStatement(String sql) throws SQLException {
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">    if (!hasPreparedStatementFor(sql))</span>
+<span class="nc" id="L242">      throw new SqlMapException(&quot;Could not get prepared statement.  This is likely a bug.&quot;);</span>
+<span class="fc" id="L243">    PreparedStatement ps = (PreparedStatement) preparedStatements.get(sql);</span>
+<span class="fc" id="L244">    return ps;</span>
+  }
+
+  public void putPreparedStatement(SqlMapExecutorDelegate delegate, String sql, PreparedStatement ps) {
+<span class="fc bfc" id="L248" title="All 2 branches covered.">    if (delegate.isStatementCacheEnabled()) {</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">      if (!isInBatch()) {</span>
+<span class="pc bpc" id="L250" title="1 of 2 branches missed.">        if (hasPreparedStatementFor(sql))</span>
+<span class="nc" id="L251">          throw new SqlMapException(&quot;Duplicate prepared statement found.  This is likely a bug.&quot;);</span>
+<span class="fc" id="L252">        preparedStatements.put(sql, ps);</span>
+      }
+    }
+<span class="fc" id="L255">  }</span>
+
+  public void closePreparedStatements() {
+<span class="fc" id="L258">    Iterator keys = preparedStatements.keySet().iterator();</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">    while (keys.hasNext()) {</span>
+<span class="fc" id="L260">      PreparedStatement ps = (PreparedStatement) preparedStatements.get(keys.next());</span>
+      try {
+<span class="fc" id="L262">        ps.close();</span>
+<span class="pc" id="L263">      } catch (Exception e) {</span>
+        // ignore -- we don't care if this fails at this point.
+      }
+    }
+<span class="fc" id="L267">    preparedStatements.clear();</span>
+<span class="fc" id="L268">  }</span>
+
+  public void cleanup() {
+<span class="fc" id="L271">    closePreparedStatements();</span>
+<span class="fc" id="L272">    preparedStatements.clear();</span>
+<span class="fc" id="L273">  }</span>
+
+  @Override
+public boolean equals(Object parameterObject) {
+<span class="nc bnc" id="L277" title="All 2 branches missed.">    if (this == parameterObject) return true;</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">    if (!(parameterObject instanceof SessionScope)) return false;</span>
+<span class="nc" id="L279">    final SessionScope sessionScope = (SessionScope) parameterObject;</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">    if (id != sessionScope.id) return false;</span>
+<span class="nc" id="L281">    return true;</span>
+  }
+
+  @Override
+public int hashCode() {
+<span class="nc" id="L286">    return (int) (id ^ (id &gt;&gt;&gt; 32));</span>
+  }
+
+  /**
+   * Method to get a unique ID
+   *
+   * @return - the new ID
+   */
+  public synchronized static long getNextId() {
+<span class="fc" id="L295">    return nextId++;</span>
+  }
+
+  /**
+   * Saves the current transaction state
+   */
+  public void saveTransactionState() {
+<span class="fc" id="L302">    savedTransactionState = transactionState;</span>
+<span class="fc" id="L303">  }</span>
+
+  /**
+   * Restores the previously saved transaction state
+   */
+  public void recallTransactionState() {
+<span class="nc" id="L309">    transactionState = savedTransactionState;</span>
+<span class="nc" id="L310">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

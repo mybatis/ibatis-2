@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserProvidedTransaction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.user</a> &gt; <span class="el_source">UserProvidedTransaction.java</span></div><h1>UserProvidedTransaction.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.transaction.user;
+
+import com.ibatis.common.jdbc.logging.ConnectionLogProxy;
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionException;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class UserProvidedTransaction implements Transaction {
+
+<span class="fc" id="L29">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+
+  private Connection connection;
+
+<span class="fc" id="L33">  public UserProvidedTransaction(Connection connection) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L35">      this.connection = ConnectionLogProxy.newInstance(connection);</span>
+<span class="nc" id="L36">    } else {</span>
+<span class="fc" id="L37">      this.connection = connection;</span>
+    }
+<span class="fc" id="L39">  }</span>
+
+  public void commit() throws SQLException, TransactionException {
+<span class="nc" id="L42">    connection.commit();</span>
+<span class="nc" id="L43">  }</span>
+
+  public void rollback() throws SQLException, TransactionException {
+<span class="nc" id="L46">    connection.rollback();</span>
+<span class="nc" id="L47">  }</span>
+
+  public void close() throws SQLException, TransactionException {
+<span class="nc" id="L50">    connection.close();</span>
+<span class="nc" id="L51">  }</span>
+
+  public Connection getConnection() throws SQLException, TransactionException {
+<span class="fc" id="L54">    return connection;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

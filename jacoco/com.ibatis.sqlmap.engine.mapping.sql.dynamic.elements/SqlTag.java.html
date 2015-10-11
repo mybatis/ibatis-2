@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SqlTag.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">SqlTag.java</span></div><h1>SqlTag.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
+
+import com.ibatis.sqlmap.engine.mapping.sql.SqlChild;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+<span class="fc" id="L24">public class SqlTag implements SqlChild, DynamicParent {</span>
+
+  private String name;
+  private SqlTagHandler handler;
+    
+  // general attributes
+  private String prependAttr;
+  private String propertyAttr;
+  private String removeFirstPrepend;
+
+  // conditional attributes
+  private String comparePropertyAttr;
+  private String compareValueAttr;
+
+  // iterate attributes
+  private String openAttr;
+  private String closeAttr;
+  private String conjunctionAttr;
+
+  private SqlTag parent;
+<span class="fc" id="L44">  private List children = new ArrayList();</span>
+
+<span class="fc" id="L46">  private boolean postParseRequired = false;</span>
+  
+  public String getName() {
+<span class="nc" id="L49">    return name;</span>
+  }
+
+  public void setName(String name) {
+<span class="fc" id="L53">    this.name = name;</span>
+<span class="fc" id="L54">  }</span>
+
+  public SqlTagHandler getHandler() {
+<span class="fc" id="L57">    return handler;</span>
+  }
+
+  public void setHandler(SqlTagHandler handler) {
+<span class="fc" id="L61">    this.handler = handler;</span>
+<span class="fc" id="L62">  }</span>
+
+  public boolean isPrependAvailable() {
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    return prependAttr != null &amp;&amp; prependAttr.length() &gt; 0;</span>
+  }
+  
+  public boolean isCloseAvailable() {
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">    return closeAttr != null &amp;&amp; closeAttr.length() &gt; 0;</span>
+  }
+  
+  public boolean isOpenAvailable() {
+<span class="pc bpc" id="L73" title="1 of 4 branches missed.">    return openAttr != null &amp;&amp; openAttr.length() &gt; 0;</span>
+  }
+  
+  public boolean isConjunctionAvailable() {
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">    return conjunctionAttr != null &amp;&amp; conjunctionAttr.length() &gt; 0;</span>
+  }
+  
+  public String getPrependAttr() {
+<span class="fc" id="L81">    return prependAttr;</span>
+  }
+
+  public void setPrependAttr(String prependAttr) {
+<span class="fc" id="L85">    this.prependAttr = prependAttr;</span>
+<span class="fc" id="L86">  }</span>
+
+  public String getPropertyAttr() {
+<span class="fc" id="L89">    return propertyAttr;</span>
+  }
+
+  public void setPropertyAttr(String propertyAttr) {
+<span class="fc" id="L93">    this.propertyAttr = propertyAttr;</span>
+<span class="fc" id="L94">  }</span>
+
+  public String getComparePropertyAttr() {
+<span class="fc" id="L97">    return comparePropertyAttr;</span>
+  }
+
+  public void setComparePropertyAttr(String comparePropertyAttr) {
+<span class="fc" id="L101">    this.comparePropertyAttr = comparePropertyAttr;</span>
+<span class="fc" id="L102">  }</span>
+
+  public String getCompareValueAttr() {
+<span class="fc" id="L105">    return compareValueAttr;</span>
+  }
+
+  public void setCompareValueAttr(String compareValueAttr) {
+<span class="fc" id="L109">    this.compareValueAttr = compareValueAttr;</span>
+<span class="fc" id="L110">  }</span>
+
+  public String getOpenAttr() {
+<span class="fc" id="L113">    return openAttr;</span>
+  }
+
+  public void setOpenAttr(String openAttr) {
+<span class="fc" id="L117">    this.openAttr = openAttr;</span>
+<span class="fc" id="L118">  }</span>
+
+  public String getCloseAttr() {
+<span class="fc" id="L121">    return closeAttr;</span>
+  }
+
+  public void setCloseAttr(String closeAttr) {
+<span class="fc" id="L125">    this.closeAttr = closeAttr;</span>
+<span class="fc" id="L126">  }</span>
+
+  public String getConjunctionAttr() {
+<span class="fc" id="L129">    return conjunctionAttr;</span>
+  }
+
+  public void setConjunctionAttr(String conjunctionAttr) {
+<span class="fc" id="L133">    this.conjunctionAttr = conjunctionAttr;</span>
+<span class="fc" id="L134">  }</span>
+
+
+  public void addChild(SqlChild child) {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    if (child instanceof SqlTag) {</span>
+<span class="fc" id="L139">      ((SqlTag) child).parent = this;</span>
+    }
+<span class="fc" id="L141">    children.add(child);</span>
+<span class="fc" id="L142">  }</span>
+
+  public Iterator getChildren() {
+<span class="fc" id="L145">    return children.iterator();</span>
+  }
+
+  public SqlTag getParent() {
+<span class="fc" id="L149">    return parent;</span>
+  }
+
+  public String getRemoveFirstPrepend() {
+<span class="fc" id="L153">    return removeFirstPrepend;</span>
+  }
+  
+  public void setRemoveFirstPrepend(String removeFirstPrepend) {
+<span class="fc" id="L157">    this.removeFirstPrepend = removeFirstPrepend;</span>
+<span class="fc" id="L158">  }</span>
+
+  /**
+   * @return Returns the postParseRequired.
+   */
+  public boolean isPostParseRequired() {
+<span class="fc" id="L164">    return postParseRequired;</span>
+  }
+  
+  /**
+   * @param iterateAncestor The postParseRequired to set.
+   */
+  public void setPostParseRequired(boolean iterateAncestor) {
+<span class="fc" id="L171">    this.postParseRequired = iterateAncestor;</span>
+<span class="fc" id="L172">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

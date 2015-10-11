@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/**
+ *    Copyright 2004-2015 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+package com.ibatis.common.beans;
+
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
+
+/**
+ * StaticBeanProbe provides methods that allow simple, reflective access to
+ * JavaBeans style properties.  Methods are provided for all simple types as
+ * well as object types.
+ * &lt;p/&gt;
+ * Examples:
+ * &lt;p/&gt;
+ * StaticBeanProbe.setObject(object, propertyName, value);
+ * &lt;p/&gt;
+ * Object value = StaticBeanProbe.getObject(object, propertyName);
+ */
+public class ComplexBeanProbe extends BaseProbe {
+
+<span class="fc" id="L36">  private static final Object[] NO_ARGUMENTS = new Object[0];</span>
+
+<span class="fc" id="L38">  protected ComplexBeanProbe() {</span>
+<span class="fc" id="L39">  }</span>
+
+  /**
+   * Returns an array of the readable properties exposed by a bean
+   *
+   * @param object The bean
+   * @return The properties
+   */
+  @Override
+  public String[] getReadablePropertyNames(Object object) {
+<span class="nc" id="L49">    return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();</span>
+  }
+
+  /**
+   * Returns an array of the writeable properties exposed by a bean
+   *
+   * @param object The bean
+   * @return The properties
+   */
+  @Override
+  public String[] getWriteablePropertyNames(Object object) {
+<span class="nc" id="L60">    return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();</span>
+  }
+
+  /**
+   * Returns the class that the setter expects to receive as a parameter when
+   * setting a property value.
+   *
+   * @param object The bean to check
+   * @param name   The name of the property
+   * @return The type of the property
+   */
+  public Class getPropertyTypeForSetter(Object object, String name) {
+<span class="fc" id="L72">    Class type = object.getClass();</span>
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">    if (object instanceof Class) {</span>
+<span class="fc" id="L75">      type = getClassPropertyTypeForSetter((Class) object, name);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    } else if (object instanceof Map) {</span>
+<span class="fc" id="L77">      Map map = (Map) object;</span>
+<span class="fc" id="L78">      Object value = map.get(name);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">      if (value == null) {</span>
+<span class="fc" id="L80">        type = Object.class;</span>
+<span class="fc" id="L81">      } else {</span>
+<span class="nc" id="L82">        type = value.getClass();</span>
+      }
+<span class="nc" id="L84">    } else {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L86">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L88">          name = parser.nextToken();</span>
+<span class="fc" id="L89">          type = ClassInfo.getInstance(type).getSetterType(name);</span>
+        }
+<span class="fc" id="L91">      } else {</span>
+<span class="fc" id="L92">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
+      }
+    }
+
+<span class="fc" id="L96">    return type;</span>
+  }
+
+  /**
+   * Returns the class that the getter will return when reading a property value.
+   *
+   * @param object The bean to check
+   * @param name   The name of the property
+   * @return The type of the property
+   */
+  public Class getPropertyTypeForGetter(Object object, String name) {
+<span class="fc" id="L107">    Class type = object.getClass();</span>
+
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">    if (object instanceof Class) {</span>
+<span class="nc" id="L110">      type = getClassPropertyTypeForGetter((Class) object, name);</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">    } else if (object instanceof Map) {</span>
+<span class="nc" id="L112">      Map map = (Map) object;</span>
+<span class="nc" id="L113">      Object value = map.get(name);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">      if (value == null) {</span>
+<span class="nc" id="L115">        type = Object.class;</span>
+<span class="nc" id="L116">      } else {</span>
+<span class="nc" id="L117">        type = value.getClass();</span>
+      }
+<span class="nc" id="L119">    } else {</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L121">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L123">          name = parser.nextToken();</span>
+<span class="fc" id="L124">          type = ClassInfo.getInstance(type).getGetterType(name);</span>
+        }
+<span class="fc" id="L126">      } else {</span>
+<span class="fc" id="L127">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
+      }
+    }
+
+<span class="fc" id="L131">    return type;</span>
+  }
+
+  /**
+   * Returns the class that the getter will return when reading a property value.
+   *
+   * @param type The class to check
+   * @param name The name of the property
+   * @return The type of the property
+   */
+  private Class getClassPropertyTypeForGetter(Class type, String name) {
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="nc" id="L144">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
+<span class="nc" id="L146">        name = parser.nextToken();</span>
+<span class="nc" id="L147">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
+      }
+<span class="nc" id="L149">    } else {</span>
+<span class="nc" id="L150">      type = ClassInfo.getInstance(type).getGetterType(name);</span>
+    }
+
+<span class="nc" id="L153">    return type;</span>
+  }
+
+  /**
+   * Returns the class that the setter expects to receive as a parameter when
+   * setting a property value.
+   *
+   * @param type The class to check
+   * @param name The name of the property
+   * @return The type of the property
+   */
+  private Class getClassPropertyTypeForSetter(Class type, String name) {
+
+<span class="fc bfc" id="L166" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L167">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L169">        name = parser.nextToken();</span>
+<span class="fc" id="L170">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
+      }
+<span class="fc" id="L172">    } else {</span>
+<span class="fc" id="L173">      type = ClassInfo.getInstance(type).getSetterType(name);</span>
+    }
+
+<span class="fc" id="L176">    return type;</span>
+  }
+
+  /**
+   * Gets an Object property from a bean
+   *
+   * @param object The bean
+   * @param name   The property name
+   * @return The property value (as an Object)
+   */
+  public Object getObject(Object object, String name) {
+<span class="fc bfc" id="L187" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L188">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc" id="L189">      Object value = object;</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L191">        value = getProperty(value, parser.nextToken());</span>
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L194">          break;</span>
+        }
+
+      }
+<span class="fc" id="L198">      return value;</span>
+    } else {
+<span class="fc" id="L200">      return getProperty(object, name);</span>
+    }
+  }
+
+  /**
+   * Sets the value of a bean property to an Object
+   *
+   * @param object The bean to change
+   * @param name   The name of the property to set
+   * @param value  The new value to set
+   */
+  public void setObject(Object object, String name, Object value) {
+<span class="fc bfc" id="L212" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L213">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc" id="L214">      String property = parser.nextToken();</span>
+<span class="fc" id="L215">      Object child = object;</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L217">        Class type = getPropertyTypeForSetter(child, property);</span>
+<span class="fc" id="L218">        Object parent = child;</span>
+<span class="fc" id="L219">        child = getProperty(parent, property);</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (child == null) {</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">          if (value == null) {</span>
+<span class="fc" id="L222">            return; // don't instantiate child path if value is null</span>
+          } else {
+            try {
+<span class="fc" id="L225">              child = ResultObjectFactoryUtil.createObjectThroughFactory(type);</span>
+<span class="fc" id="L226">              setObject(parent, property, child);</span>
+<span class="pc" id="L227">            } catch (Exception e) {</span>
+<span class="nc" id="L228">              throw new ProbeException(&quot;Cannot set value of property '&quot; + name + &quot;' because '&quot; + property + &quot;' is null and cannot be instantiated on instance of &quot; + type.getName() + &quot;. Cause:&quot; + e.toString(), e);</span>
+            }
+          }
+        }
+<span class="fc" id="L232">        property = parser.nextToken();</span>
+      }
+<span class="fc" id="L234">      setProperty(child, property, value);</span>
+<span class="fc" id="L235">    } else {</span>
+<span class="fc" id="L236">      setProperty(object, name, value);</span>
+    }
+<span class="fc" id="L238">  }</span>
+
+
+  /**
+   * Checks to see if a bean has a writable property be a given name
+   *
+   * @param object       The bean to check
+   * @param propertyName The property to check for
+   * @return True if the property exists and is writable
+   */
+  public boolean hasWritableProperty(Object object, String propertyName) {
+<span class="fc" id="L249">    boolean hasProperty = false;</span>
+<span class="pc bpc" id="L250" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
+<span class="nc" id="L251">      hasProperty = true;//((Map) object).containsKey(propertyName);</span>
+<span class="nc" id="L252">    } else {</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L254">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
+<span class="fc" id="L255">        Class type = object.getClass();</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L257">          propertyName = parser.nextToken();</span>
+<span class="fc" id="L258">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
+<span class="fc" id="L259">          hasProperty = ClassInfo.getInstance(type).hasWritableProperty(propertyName);</span>
+        }
+<span class="fc" id="L261">      } else {</span>
+<span class="fc" id="L262">        hasProperty = ClassInfo.getInstance(object.getClass()).hasWritableProperty(propertyName);</span>
+      }
+    }
+<span class="fc" id="L265">    return hasProperty;</span>
+  }
+
+  /**
+   * Checks to see if a bean has a readable property be a given name
+   *
+   * @param object       The bean to check
+   * @param propertyName The property to check for
+   * @return True if the property exists and is readable
+   */
+  public boolean hasReadableProperty(Object object, String propertyName) {
+<span class="fc" id="L276">    boolean hasProperty = false;</span>
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
+<span class="nc" id="L278">      hasProperty = true;//((Map) object).containsKey(propertyName);</span>
+<span class="nc" id="L279">    } else {</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L281">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
+<span class="fc" id="L282">        Class type = object.getClass();</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L284">          propertyName = parser.nextToken();</span>
+<span class="fc" id="L285">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
+<span class="fc" id="L286">          hasProperty = ClassInfo.getInstance(type).hasReadableProperty(propertyName);</span>
+        }
+<span class="fc" id="L288">      } else {</span>
+<span class="fc" id="L289">        hasProperty = ClassInfo.getInstance(object.getClass()).hasReadableProperty(propertyName);</span>
+      }
+    }
+<span class="fc" id="L292">    return hasProperty;</span>
+  }
+
+  @Override
+  protected Object getProperty(Object object, String name) {
+    try {
+<span class="fc" id="L298">      Object value = null;</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">      if (name.indexOf('[') &gt; -1) {</span>
+<span class="fc" id="L300">        value = getIndexedProperty(object, name);</span>
+<span class="fc" id="L301">      } else {</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (object instanceof Map) {</span>
+<span class="fc" id="L303">          int index = name.indexOf('.');</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">          if (index &gt; -1) {</span>
+<span class="fc" id="L305">            String mapId = name.substring(0, index);</span>
+<span class="fc" id="L306">            value = getProperty(((Map) object).get(mapId), name.substring(index + 1));</span>
+<span class="fc" id="L307">          } else {</span>
+<span class="fc" id="L308">            value = ((Map) object).get(name);</span>
+          }
+
+<span class="fc" id="L311">        } else {</span>
+<span class="fc" id="L312">          int index = name.indexOf('.');</span>
+<span class="fc bfc" id="L313" title="All 2 branches covered.">          if (index &gt; -1) {</span>
+<span class="fc" id="L314">            String newName = name.substring(0, index);</span>
+<span class="fc" id="L315">            value = getProperty(getObject(object, newName), name.substring(index + 1));</span>
+<span class="fc" id="L316">          } else {</span>
+<span class="fc" id="L317">            ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
+<span class="fc" id="L318">            Invoker method = classCache.getGetInvoker(name);</span>
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">            if (method == null) {</span>
+<span class="nc" id="L320">              throw new NoSuchMethodException(&quot;No GET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
+            }
+            try {
+<span class="fc" id="L323">              value = method.invoke(object, NO_ARGUMENTS);</span>
+<span class="pc" id="L324">            } catch (Throwable t) {</span>
+<span class="nc" id="L325">              throw ClassInfo.unwrapThrowable(t);</span>
+            }
+          }
+
+        }
+      }
+<span class="fc" id="L331">      return value;</span>
+<span class="nc" id="L332">    } catch (ProbeException e) {</span>
+<span class="nc" id="L333">      throw e;</span>
+<span class="nc" id="L334">    } catch (Throwable t) {</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">      if (object == null) {</span>
+<span class="nc" id="L336">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from null reference.  Cause: &quot; + t.toString(), t);</span>
+      } else {
+<span class="nc" id="L338">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from &quot; + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(), t);</span>
+      }
+    }
+  }
+
+  @Override
+  protected void setProperty(Object object, String name, Object value) {
+<span class="fc" id="L345">    ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
+    try {
+<span class="pc bpc" id="L347" title="1 of 2 branches missed.">      if (name.indexOf('[') &gt; -1) {</span>
+<span class="nc" id="L348">        setIndexedProperty(object, name, value);</span>
+<span class="nc" id="L349">      } else {</span>
+<span class="fc bfc" id="L350" title="All 2 branches covered.">        if (object instanceof Map) {</span>
+<span class="fc" id="L351">          ((Map) object).put(name, value);</span>
+<span class="fc" id="L352">        } else {</span>
+<span class="fc" id="L353">          Invoker method = classCache.getSetInvoker(name);</span>
+<span class="pc bpc" id="L354" title="1 of 2 branches missed.">          if (method == null) {</span>
+<span class="nc" id="L355">            throw new NoSuchMethodException(&quot;No SET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
+          }
+<span class="fc" id="L357">          Object[] params = new Object[1];</span>
+<span class="fc" id="L358">          params[0] = value;</span>
+          try {
+<span class="fc" id="L360">            method.invoke(object, params);</span>
+<span class="fc" id="L361">          } catch (Throwable t) {</span>
+<span class="fc" id="L362">            throw ClassInfo.unwrapThrowable(t);</span>
+          }
+        }
+      }
+<span class="nc" id="L366">    } catch (ProbeException e) {</span>
+<span class="nc" id="L367">      throw e;</span>
+<span class="fc" id="L368">    } catch (Throwable t) {</span>
+<span class="fc" id="L369">      throw new ProbeException(&quot;Could not set property '&quot; + name + &quot;' to value '&quot;+value+&quot;' for &quot; + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(), t);</span>
+    }
+<span class="fc" id="L371">  }</span>
+
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
