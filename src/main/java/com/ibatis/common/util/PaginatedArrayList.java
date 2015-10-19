@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.util;
 
@@ -19,6 +19,7 @@ import java.util.*;
 
 /**
  * Implementation of PaginatedList backed by an ArrayList
+ * 
  * @deprecated All paginated list features have been deprecated
  */
 public class PaginatedArrayList implements PaginatedList {
@@ -42,8 +43,11 @@ public class PaginatedArrayList implements PaginatedList {
 
   /**
    * Constructor to set the initial size and the page size
-   * @param initialCapacity - the initial size
-   * @param pageSize - the page size
+   * 
+   * @param initialCapacity
+   *          - the initial size
+   * @param pageSize
+   *          - the page size
    */
   public PaginatedArrayList(int initialCapacity, int pageSize) {
     this.pageSize = pageSize;
@@ -54,8 +58,11 @@ public class PaginatedArrayList implements PaginatedList {
 
   /**
    * Constructor to create an instance using an existing collection
-   * @param c - the collection to build the instance with
-   * @param pageSize - the page size
+   * 
+   * @param c
+   *          - the collection to build the instance with
+   * @param pageSize
+   *          - the page size
    */
   public PaginatedArrayList(Collection c, int pageSize) {
     this.pageSize = pageSize;

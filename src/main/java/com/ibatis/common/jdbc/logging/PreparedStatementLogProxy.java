@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc.logging;
 
@@ -52,10 +52,9 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
         clearColumnInfo();
         if ("executeQuery".equals(method.getName())) {
           ResultSet rs = (ResultSet) method.invoke(statement, params);
-          if ( rs != null ) {
+          if (rs != null) {
             return ResultSetLogProxy.newInstance(rs);
-          }
-          else {
+          } else {
             return null;
           }
         } else {
@@ -70,10 +69,9 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
         return method.invoke(statement, params);
       } else if ("getResultSet".equals(method.getName())) {
         ResultSet rs = (ResultSet) method.invoke(statement, params);
-        if ( rs != null ) {
+        if (rs != null) {
           return ResultSetLogProxy.newInstance(rs);
-        }
-        else {
+        } else {
           return null;
         }
       } else if ("equals".equals(method.getName())) {
@@ -94,18 +92,23 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
 
   /**
    * Creates a logging version of a PreparedStatement
-   * @param stmt - the statement
-   * @param sql - the sql statement
+   * 
+   * @param stmt
+   *          - the statement
+   * @param sql
+   *          - the sql statement
    * @return - the proxy
    */
   public static PreparedStatement newInstance(PreparedStatement stmt, String sql) {
     InvocationHandler handler = new PreparedStatementLogProxy(stmt, sql);
     ClassLoader cl = PreparedStatement.class.getClassLoader();
-    return (PreparedStatement) Proxy.newProxyInstance(cl, new Class[]{PreparedStatement.class, CallableStatement.class}, handler);
+    return (PreparedStatement) Proxy.newProxyInstance(cl, new Class[] { PreparedStatement.class,
+        CallableStatement.class }, handler);
   }
-  
+
   /**
    * Return the wrapped prepared statement
+   * 
    * @return the PreparedStatement
    */
   public PreparedStatement getPreparedStatement() {

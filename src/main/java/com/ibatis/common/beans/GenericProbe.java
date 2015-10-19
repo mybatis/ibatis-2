@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.beans;
 
@@ -20,9 +20,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * StaticBeanProbe provides methods that allow simple, reflective access to
- * JavaBeans style properties.  Methods are provided for all simple types as
- * well as object types.
+ * StaticBeanProbe provides methods that allow simple, reflective access to JavaBeans style properties. Methods are
+ * provided for all simple types as well as object types.
  * <p/>
  * Examples:
  * <p/>
@@ -41,13 +40,15 @@ public class GenericProbe extends BaseProbe {
   /**
    * Gets an object from a Map or bean
    *
-   * @param object - the object to probe
-   * @param name   - the name of the property (or map entry)
+   * @param object
+   *          - the object to probe
+   * @param name
+   *          - the name of the property (or map entry)
    * @return The value of the property (or map entry)
    * @see com.ibatis.common.beans.BaseProbe#getObject(java.lang.Object, java.lang.String)
    */
   public Object getObject(Object object, String name) {
-    
+
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getObject(object, name);
     } else if (object instanceof List) {
@@ -78,9 +79,12 @@ public class GenericProbe extends BaseProbe {
   /**
    * Sets an object in a Map or bean
    *
-   * @param object - the object to probe
-   * @param name   - the name of the property (or map entry)
-   * @param value  - the new value of the property (or map entry)
+   * @param object
+   *          - the object to probe
+   * @param name
+   *          - the name of the property (or map entry)
+   * @param value
+   *          - the new value of the property (or map entry)
    * @see com.ibatis.common.beans.BaseProbe#setObject(java.lang.Object, java.lang.String, java.lang.Object)
    */
   public void setObject(Object object, String name, Object value) {
@@ -94,10 +98,12 @@ public class GenericProbe extends BaseProbe {
   /**
    * Gets an array of the readable properties in a Map or JavaBean
    *
-   * @param object - the object to get properties for
+   * @param object
+   *          - the object to get properties for
    * @return The array of properties (or map entries)
    * @see com.ibatis.common.beans.BaseProbe#getReadablePropertyNames(java.lang.Object)
    */
+  @Override
   public String[] getReadablePropertyNames(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getReadablePropertyNames(object);
@@ -109,10 +115,12 @@ public class GenericProbe extends BaseProbe {
   /**
    * Gets an array of the writeable properties in a Map or JavaBean
    *
-   * @param object - the object to get properties for
+   * @param object
+   *          - the object to get properties for
    * @return The array of properties (or map entries)
    * @see com.ibatis.common.beans.BaseProbe#getWriteablePropertyNames(java.lang.Object)
    */
+  @Override
   public String[] getWriteablePropertyNames(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getWriteablePropertyNames(object);
@@ -122,11 +130,12 @@ public class GenericProbe extends BaseProbe {
   }
 
   /**
-   * Returns the class that the setter expects to receive as a parameter when
-   * setting a property value.
+   * Returns the class that the setter expects to receive as a parameter when setting a property value.
    *
-   * @param object - The class to check
-   * @param name   - the name of the property
+   * @param object
+   *          - The class to check
+   * @param name
+   *          - the name of the property
    * @return The type of the property
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForSetter(java.lang.Object, java.lang.String)
    */
@@ -143,8 +152,10 @@ public class GenericProbe extends BaseProbe {
   /**
    * Returns the class that the getter will return when reading a property value.
    *
-   * @param object The bean to check
-   * @param name   The name of the property
+   * @param object
+   *          The bean to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForGetter(java.lang.Object, java.lang.String)
    */
@@ -154,7 +165,7 @@ public class GenericProbe extends BaseProbe {
     } else if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getPropertyTypeForGetter(object, name);
     } else if (name.indexOf('[') > -1) {
-      return BEAN_PROBE.getIndexedType(object,name);
+      return BEAN_PROBE.getIndexedType(object, name);
     } else {
       return BEAN_PROBE.getPropertyTypeForGetter(object, name);
     }
@@ -163,8 +174,10 @@ public class GenericProbe extends BaseProbe {
   /**
    * Checks to see if an object has a writable property by a given name
    *
-   * @param object       The bean to check
-   * @param propertyName The property to check for
+   * @param object
+   *          The bean to check
+   * @param propertyName
+   *          The property to check for
    * @return True if the property exists and is writable
    * @see com.ibatis.common.beans.Probe#hasWritableProperty(java.lang.Object, java.lang.String)
    */
@@ -179,8 +192,10 @@ public class GenericProbe extends BaseProbe {
   /**
    * Checks to see if a bean has a readable property by a given name
    *
-   * @param object       The bean to check
-   * @param propertyName The property to check for
+   * @param object
+   *          The bean to check
+   * @param propertyName
+   *          The property to check for
    * @return True if the property exists and is readable
    * @see com.ibatis.common.beans.Probe#hasReadableProperty(java.lang.Object, java.lang.String)
    */
@@ -192,6 +207,7 @@ public class GenericProbe extends BaseProbe {
     }
   }
 
+  @Override
   protected void setProperty(Object object, String property, Object value) {
     if (object instanceof org.w3c.dom.Document) {
       DOM_PROBE.setProperty(object, property, value);
@@ -200,6 +216,7 @@ public class GenericProbe extends BaseProbe {
     }
   }
 
+  @Override
   protected Object getProperty(Object object, String property) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getProperty(object, property);
@@ -228,11 +245,12 @@ public class GenericProbe extends BaseProbe {
   }
 
   /**
-   * Returns the class that the setter expects to receive as a parameter when
-   * setting a property value.
+   * Returns the class that the setter expects to receive as a parameter when setting a property value.
    *
-   * @param type The class to check
-   * @param name The name of the property
+   * @param type
+   *          The class to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    */
   private Class getClassPropertyTypeForSetter(Class type, String name) {
@@ -254,7 +272,4 @@ public class GenericProbe extends BaseProbe {
     return type;
   }
 
-
 }
-
-

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.exchange;
 
@@ -32,7 +32,9 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
 
   /**
    * Constructor for the factory
-   * @param dataExchangeFactory - the factory
+   * 
+   * @param dataExchangeFactory
+   *          - the factory
    */
   public DomDataExchange(DataExchangeFactory dataExchangeFactory) {
     super(dataExchangeFactory);
@@ -84,7 +86,8 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
     return resultObject;
   }
 
-  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject, Object[] values) {
+  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
+      Object[] values) {
     Probe probe = ProbeFactory.getProbe(parameterObject);
 
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
@@ -99,6 +102,5 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
 
     return parameterObject;
   }
-
 
 }

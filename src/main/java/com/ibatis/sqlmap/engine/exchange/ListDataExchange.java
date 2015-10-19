@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.exchange;
 
@@ -47,24 +47,25 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
       // parse on the '.' notation and get nested properties
       String[] propertyArray = propName.split("\\.");
 
-      if(propertyArray.length > 0) {
+      if (propertyArray.length > 0) {
         // iterate list of properties to discover values
 
         Object tempData = parameterObject;
 
-        for(int x=0; x<propertyArray.length; x++) {
+        for (int x = 0; x < propertyArray.length; x++) {
 
           // is property an array reference
           int arrayStartIndex = propertyArray[x].indexOf('[');
 
-          if(arrayStartIndex == -1) {
+          if (arrayStartIndex == -1) {
 
             // is a normal property
-            tempData = ProbeFactory.getProbe().getObject(tempData,propertyArray[x]);
+            tempData = ProbeFactory.getProbe().getObject(tempData, propertyArray[x]);
 
           } else {
 
-            int index = Integer.parseInt(propertyArray[x].substring(arrayStartIndex + 1, propertyArray[x].length() - 1));
+            int index = Integer
+                .parseInt(propertyArray[x].substring(arrayStartIndex + 1, propertyArray[x].length() - 1));
             tempData = ((List) tempData).get(index);
 
           }
@@ -95,7 +96,8 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
-  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject, Object[] values) {
+  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
+      Object[] values) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
     List data = new ArrayList();
     for (int i = 0; i < mappings.length; i++) {

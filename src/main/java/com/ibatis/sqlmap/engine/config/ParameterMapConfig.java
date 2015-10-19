@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -49,21 +49,25 @@ public class ParameterMapConfig {
     client.getDelegate().addParameterMap(parameterMap);
   }
 
-  public void addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode, String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
+  public void addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode,
+      String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
     errorContext.setObjectId(propertyName + " mapping of the " + parameterMap.getId() + " parameter map");
     TypeHandler handler;
     if (typeHandlerImpl != null) {
-      errorContext.setMoreInfo("Check the parameter mapping typeHandler attribute '" + typeHandlerImpl + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
+      errorContext.setMoreInfo("Check the parameter mapping typeHandler attribute '" + typeHandlerImpl
+          + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
       if (typeHandlerImpl instanceof TypeHandlerCallback) {
         handler = new CustomTypeHandler((TypeHandlerCallback) typeHandlerImpl);
       } else if (typeHandlerImpl instanceof TypeHandler) {
         handler = (TypeHandler) typeHandlerImpl;
       } else {
-        throw new RuntimeException("The class '" + typeHandlerImpl + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException("The class '" + typeHandlerImpl
+            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
     } else {
       errorContext.setMoreInfo("Check the parameter mapping property type or name.");
-      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);
+      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(),
+          parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);
     }
     ParameterMapping mapping = new ParameterMapping();
     mapping.setPropertyName(propertyName);

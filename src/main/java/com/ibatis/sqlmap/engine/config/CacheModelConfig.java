@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -25,7 +25,8 @@ public class CacheModelConfig {
   private ErrorContext errorContext;
   private CacheModel cacheModel;
 
-  CacheModelConfig(SqlMapConfiguration config, String id, CacheController controller, boolean readOnly, boolean serialize) {
+  CacheModelConfig(SqlMapConfiguration config, String id, CacheController controller, boolean readOnly,
+      boolean serialize) {
     this.errorContext = config.getErrorContext();
     this.cacheModel = new CacheModel();
     SqlMapClientImpl client = config.getClient();
@@ -57,7 +58,8 @@ public class CacheModelConfig {
     t += minutes * 60L * 1000L;
     t += hours * 60L * 60L * 1000L;
     if (t < 1L)
-      throw new RuntimeException("A flush interval must specify one or more of milliseconds, seconds, minutes or hours.");
+      throw new RuntimeException(
+          "A flush interval must specify one or more of milliseconds, seconds, minutes or hours.");
     cacheModel.setFlushInterval(t);
   }
 

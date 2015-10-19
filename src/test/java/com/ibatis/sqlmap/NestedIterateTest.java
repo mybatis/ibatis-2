@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -24,6 +24,7 @@ import java.util.Map;
 
 public class NestedIterateTest extends BaseSqlMapTest {
 
+  @Override
   protected void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/person-init.sql");
@@ -48,8 +49,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(8));
     po.addId(new Integer(9));
     try {
-      List results =
-          sqlMap.queryForList("NestedIterateTest1", po);
+      List results = sqlMap.queryForList("NestedIterateTest1", po);
       assertEquals(9, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -189,7 +189,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(2));
     po.addId(new Integer(1));
     try {
-      List results =sqlMap.queryForList("NestedIterateTest6", po);
+      List results = sqlMap.queryForList("NestedIterateTest6", po);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -298,7 +298,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
       fail(e.getMessage());
     }
   }
-  
+
   /**
    * This test shoud return 1 row: id 4
    */
@@ -423,7 +423,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(2));
     po.addId(new Integer(1));
     try {
-      List results =sqlMap.queryForList("NestedIterateTest14", po);
+      List results = sqlMap.queryForList("NestedIterateTest14", po);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -611,9 +611,8 @@ public class NestedIterateTest extends BaseSqlMapTest {
   /**
    * This method should return nine rows: ids 1-9
    * 
-   * This method tests the open, close, and prepend attributes
-   * when no sub elements satisfy - so no where clause should be
-   * generated
+   * This method tests the open, close, and prepend attributes when no sub elements satisfy - so no where clause should
+   * be generated
    *
    */
   public void test21() {
@@ -647,8 +646,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
   /**
    * This method should return one rows: id 4
    * 
-   * This method tests the open, close, and prepend attributes
-   * when the first element doesn't satisfy
+   * This method tests the open, close, and prepend attributes when the first element doesn't satisfy
    *
    */
   public void test22() {
@@ -762,7 +760,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(9));
 
     Map params = new HashMap();
-    params.put("po",po);
+    params.put("po", po);
 
     try {
       List results = sqlMap.queryForList("NestedIterateTest26", params);
@@ -777,8 +775,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
   }
 
   /**
-   * This tests nesting when objects are maps and not a list nested in a list
-   * same as test26 except deeper
+   * This tests nesting when objects are maps and not a list nested in a list same as test26 except deeper
    */
   public void test27() {
 
@@ -799,11 +796,11 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(8));
     po.addId(new Integer(9));
 
-    params.put("po",po);
+    params.put("po", po);
 
     firstList.add(params);
 
-    firstMap.put("firstList",firstList);
+    firstMap.put("firstList", firstList);
 
     try {
       List results = sqlMap.queryForList("NestedIterateTest27", firstMap);
@@ -816,7 +813,6 @@ public class NestedIterateTest extends BaseSqlMapTest {
     }
 
   }
-
 
   /**
    * This tests nesting when objects are maps and not a list nested in a list
@@ -834,8 +830,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
     po.addId(new Integer(8));
     po.addId(new Integer(9));
 
-    SimpleNestedParameterObject simpleNestedParameterObject =
-        new SimpleNestedParameterObject();
+    SimpleNestedParameterObject simpleNestedParameterObject = new SimpleNestedParameterObject();
 
     simpleNestedParameterObject.setNestedIterateParameterObject(po);
 
@@ -852,16 +847,13 @@ public class NestedIterateTest extends BaseSqlMapTest {
   }
 
   /**
-   * This tests nesting when objects are maps and not a list nested in a list
-   * same as test26 except deeper
+   * This tests nesting when objects are maps and not a list nested in a list same as test26 except deeper
    */
   public void test29() {
 
-    SimpleNestedParameterObject firstParameterObject =
-        new SimpleNestedParameterObject();
+    SimpleNestedParameterObject firstParameterObject = new SimpleNestedParameterObject();
 
-    SimpleNestedParameterObject secondParameterObject =
-        new SimpleNestedParameterObject();
+    SimpleNestedParameterObject secondParameterObject = new SimpleNestedParameterObject();
 
     List parameterObjectList = new ArrayList();
 
@@ -893,13 +885,11 @@ public class NestedIterateTest extends BaseSqlMapTest {
     }
   }
 
-
-
- /**
-  * This tests nesting when a list is initially nested in a bean. so it tests
-  * [bean]->[list]->[property_of_object_on_exposed_index]
-  *
-  */
+  /**
+   * This tests nesting when a list is initially nested in a bean. so it tests
+   * [bean]->[list]->[property_of_object_on_exposed_index]
+   *
+   */
   public void test30() {
 
     try {
@@ -921,7 +911,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
       List productList = new ArrayList();
       productList.add(product1);
 
-      //prepare parent category
+      // prepare parent category
       Category parentCategory = new Category();
       parentCategory.setCategoryId("DOGS");
       parentCategory.setProductList(productList);

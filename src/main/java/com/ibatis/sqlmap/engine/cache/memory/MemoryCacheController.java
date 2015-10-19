@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.cache.memory;
 
@@ -36,7 +36,8 @@ public class MemoryCacheController implements CacheController {
   /**
    * Configures the cache
    *
-   * @param props Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
+   * @param props
+   *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
    */
   public void setProperties(Properties props) {
     String refType = props.getProperty("reference-type");
@@ -59,9 +60,12 @@ public class MemoryCacheController implements CacheController {
   /**
    * Add an object to the cache
    *
-   * @param cacheModel The cacheModel
-   * @param key        The key of the object to be cached
-   * @param value      The object to be cached
+   * @param cacheModel
+   *          The cacheModel
+   * @param key
+   *          The key of the object to be cached
+   * @param value
+   *          The object to be cached
    */
   public void putObject(CacheModel cacheModel, Object key, Object value) {
     Object reference = null;
@@ -78,8 +82,10 @@ public class MemoryCacheController implements CacheController {
   /**
    * Get an object out of the cache.
    *
-   * @param cacheModel The cache model
-   * @param key        The key of the object to be returned
+   * @param cacheModel
+   *          The cache model
+   * @param key
+   *          The key of the object to be returned
    * @return The cached object (or null)
    */
   public Object getObject(CacheModel cacheModel, Object key) {
@@ -115,7 +121,8 @@ public class MemoryCacheController implements CacheController {
   /**
    * Flushes the cache.
    *
-   * @param cacheModel The cache model
+   * @param cacheModel
+   *          The cache model
    */
   public void flush(CacheModel cacheModel) {
     cache.clear();
@@ -129,7 +136,9 @@ public class MemoryCacheController implements CacheController {
 
     /**
      * StrongReference constructor for an object
-     * @param object - the Object to store
+     * 
+     * @param object
+     *          - the Object to store
      */
     public StrongReference(Object object) {
       this.object = object;
@@ -137,6 +146,7 @@ public class MemoryCacheController implements CacheController {
 
     /**
      * Getter to get the object stored in the StrongReference
+     * 
      * @return - the stored Object
      */
     public Object get() {

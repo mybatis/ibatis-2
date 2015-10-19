@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.beans;
 
@@ -38,6 +38,7 @@ import com.ibatis.common.resources.Resources;
  */
 public class DomProbe extends BaseProbe {
 
+  @Override
   public String[] getReadablePropertyNames(Object object) {
     List props = new ArrayList();
     Element e = resolveElement(object);
@@ -48,6 +49,7 @@ public class DomProbe extends BaseProbe {
     return (String[]) props.toArray(new String[props.size()]);
   }
 
+  @Override
   public String[] getWriteablePropertyNames(Object object) {
     List props = new ArrayList();
     Element e = resolveElement(object);
@@ -60,7 +62,7 @@ public class DomProbe extends BaseProbe {
 
   public Class getPropertyTypeForSetter(Object object, String name) {
     Element e = findNestedNodeByName(resolveElement(object), name, false);
-    //todo alias types, don't use exceptions like this
+    // todo alias types, don't use exceptions like this
     try {
       return Resources.classForName(e.getAttribute("type"));
     } catch (ClassNotFoundException e1) {
@@ -70,7 +72,7 @@ public class DomProbe extends BaseProbe {
 
   public Class getPropertyTypeForGetter(Object object, String name) {
     Element e = findNestedNodeByName(resolveElement(object), name, false);
-    //todo alias types, don't use exceptions like this
+    // todo alias types, don't use exceptions like this
     try {
       return Resources.classForName(e.getAttribute("type"));
     } catch (ClassNotFoundException e1) {
@@ -102,6 +104,7 @@ public class DomProbe extends BaseProbe {
     }
   }
 
+  @Override
   protected void setProperty(Object object, String property, Object value) {
     Element element = findNodeByName(resolveElement(object), property, 0, true);
     if (element != null) {
@@ -109,6 +112,7 @@ public class DomProbe extends BaseProbe {
     }
   }
 
+  @Override
   protected Object getProperty(Object object, String property) {
     Object value = null;
     Element element = findNodeByName(resolveElement(object), property, 0, false);
@@ -189,7 +193,7 @@ public class DomProbe extends BaseProbe {
     }
 
     // Set type attribute
-    //prop.setAttribute("type", value == null ? "null" : value.getClass().getName());
+    // prop.setAttribute("type", value == null ? "null" : value.getClass().getName());
 
   }
 
@@ -212,8 +216,8 @@ public class DomProbe extends BaseProbe {
       }
     }
 
-    //convert to proper type
-    //value = convert(value.toString());
+    // convert to proper type
+    // value = convert(value.toString());
 
     if (value == null) {
       return null;
@@ -221,7 +225,6 @@ public class DomProbe extends BaseProbe {
       return String.valueOf(value);
     }
   }
-
 
   private Element findNestedNodeByName(Element element, String name, boolean create) {
     Element child = element;
@@ -264,8 +267,11 @@ public class DomProbe extends BaseProbe {
 
   /**
    * Converts a DOM node to a complete xml string
-   * @param node - the node to process
-   * @param indent - how to indent the children of the node
+   * 
+   * @param node
+   *          - the node to process
+   * @param indent
+   *          - how to indent the children of the node
    * @return The node as a String
    */
   public static String nodeToString(Node node, String indent) {
@@ -291,9 +297,7 @@ public class DomProbe extends BaseProbe {
         NamedNodeMap attributes = node.getAttributes();
         for (int i = 0; i < attributes.getLength(); i++) {
           Node current = attributes.item(i);
-          printWriter.print(" " + current.getNodeName() +
-              "=\"" + current.getNodeValue() +
-              "\"");
+          printWriter.print(" " + current.getNodeName() + "=\"" + current.getNodeValue() + "\"");
         }
         printWriter.print(">");
 

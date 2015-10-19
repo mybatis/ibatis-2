@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -24,11 +24,13 @@ import java.util.Map;
 
 public class DynamicTest extends BaseSqlMapTest {
 
+  @Override
   protected void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
+  @Override
   protected void tearDown() throws Exception {
   }
 
@@ -151,7 +153,7 @@ public class DynamicTest extends BaseSqlMapTest {
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
   }
-  
+
   public void testComplexDynamicQuery() throws SQLException {
     Account account = new Account();
     account.setId(2);
@@ -173,30 +175,30 @@ public class DynamicTest extends BaseSqlMapTest {
     assertAccount2((Account) list.get(0));
     assertEquals(1, list.size());
   }
-  
-// COMPLETE STATEMENT SUBSTITUTION
 
-// -- No longer supported.  Conflicted with and deemed less valuable than
-// -- iterative $substitutions[]$.
-//
-//  public void testCompleteStatementSubst() throws SQLException {
-//    String statement = "select" +
-//        "    ACC_ID          as id," +
-//        "    ACC_FIRST_NAME  as firstName," +
-//        "    ACC_LAST_NAME   as lastName," +
-//        "    ACC_EMAIL       as emailAddress" +
-//        "  from ACCOUNT" +
-//        "  WHERE ACC_ID = #id#";
-//    Integer id = new Integer(1);
-//
-//    Map params = new HashMap();
-//    params.put("id", id);
-//    params.put("statement", statement);
-//
-//    List list = sqlMap.queryForList("dynamicSubst", params);
-//    assertAccount1((Account) list.get(0));
-//    assertEquals(1, list.size());
-//  }
+  // COMPLETE STATEMENT SUBSTITUTION
+
+  // -- No longer supported. Conflicted with and deemed less valuable than
+  // -- iterative $substitutions[]$.
+  //
+  // public void testCompleteStatementSubst() throws SQLException {
+  // String statement = "select" +
+  // "    ACC_ID          as id," +
+  // "    ACC_FIRST_NAME  as firstName," +
+  // "    ACC_LAST_NAME   as lastName," +
+  // "    ACC_EMAIL       as emailAddress" +
+  // "  from ACCOUNT" +
+  // "  WHERE ACC_ID = #id#";
+  // Integer id = new Integer(1);
+  //
+  // Map params = new HashMap();
+  // params.put("id", id);
+  // params.put("statement", statement);
+  //
+  // List list = sqlMap.queryForList("dynamicSubst", params);
+  // assertAccount1((Account) list.get(0));
+  // assertEquals(1, list.size());
+  // }
 
   // Query By Example w/Prepend
 
@@ -231,9 +233,7 @@ public class DynamicTest extends BaseSqlMapTest {
     account = (Account) sqlMap.queryForObject("dynamicQueryByExample", account);
     assertAccount1(account);
 
-
   }
-
 
   public void testRemappableResults() throws SQLException {
     Account account;
@@ -252,10 +252,10 @@ public class DynamicTest extends BaseSqlMapTest {
     assertEquals("Jim", account.getFirstName());
   }
 
-  public void testIsPropertyAvailable () throws Exception {
+  public void testIsPropertyAvailable() throws Exception {
     Map account = new HashMap();
 
-    account.put("id",new Integer(1));
+    account.put("id", new Integer(1));
     account.put("name", "Clinton");
     account = (Map) sqlMap.queryForObject("selectIfPropertyAvailable", account);
 

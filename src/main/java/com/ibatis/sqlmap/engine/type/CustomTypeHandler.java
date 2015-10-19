@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -34,32 +34,29 @@ public class CustomTypeHandler extends BaseTypeHandler implements TypeHandler {
   /**
    * Constructor to provide a TypeHandlerCallback instance
    * 
-   * @param callback - the TypeHandlerCallback instance
+   * @param callback
+   *          - the TypeHandlerCallback instance
    */
   public CustomTypeHandler(TypeHandlerCallback callback) {
     this.callback = callback;
   }
 
-  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType)
-      throws SQLException {
+  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
     ParameterSetter setter = new ParameterSetterImpl(ps, i);
     callback.setParameter(setter, parameter);
   }
 
-  public Object getResult(ResultSet rs, String columnName)
-      throws SQLException {
+  public Object getResult(ResultSet rs, String columnName) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(rs, columnName);
     return callback.getResult(getter);
   }
 
-  public Object getResult(ResultSet rs, int columnIndex)
-      throws SQLException {
+  public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(rs, columnIndex);
     return callback.getResult(getter);
   }
 
-  public Object getResult(CallableStatement cs, int columnIndex)
-      throws SQLException {
+  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(new CallableStatementResultSet(cs), columnIndex);
     return callback.getResult(getter);
   }

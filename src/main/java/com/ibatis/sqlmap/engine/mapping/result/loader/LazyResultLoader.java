@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.result.loader;
 
@@ -31,8 +31,8 @@ import java.util.Set;
  */
 public class LazyResultLoader implements InvocationHandler {
 
-  private static final Class[] SET_INTERFACES = new Class[]{Set.class};
-  private static final Class[] LIST_INTERFACES = new Class[]{List.class};
+  private static final Class[] SET_INTERFACES = new Class[] { Set.class };
+  private static final Class[] LIST_INTERFACES = new Class[] { List.class };
 
   protected SqlMapClientImpl client;
   protected String statementName;
@@ -45,10 +45,14 @@ public class LazyResultLoader implements InvocationHandler {
   /**
    * Constructor for a lazy list loader
    *
-   * @param client - the client that is creating the lazy list
-   * @param statementName - the statement to be used to build the list
-   * @param parameterObject - the parameter object to be used to build the list
-   * @param targetType - the type we are putting data into
+   * @param client
+   *          - the client that is creating the lazy list
+   * @param statementName
+   *          - the statement to be used to build the list
+   * @param parameterObject
+   *          - the parameter object to be used to build the list
+   * @param targetType
+   *          - the type we are putting data into
    */
   public LazyResultLoader(SqlMapClientImpl client, String statementName, Object parameterObject, Class targetType) {
     this.client = client;
@@ -62,7 +66,8 @@ public class LazyResultLoader implements InvocationHandler {
    *
    * @return the results - a list or object
    * 
-   * @throws SQLException if there is a problem
+   * @throws SQLException
+   *           if there is a problem
    */
   public Object loadResult() throws SQLException {
     if (Collection.class.isAssignableFrom(targetType)) {
@@ -79,8 +84,7 @@ public class LazyResultLoader implements InvocationHandler {
   }
 
   public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-    if ("finalize".hashCode() == method.getName().hashCode()
-        && "finalize".equals(method.getName())) {
+    if ("finalize".hashCode() == method.getName().hashCode() && "finalize".equals(method.getName())) {
       return null;
     } else {
       loadObject();

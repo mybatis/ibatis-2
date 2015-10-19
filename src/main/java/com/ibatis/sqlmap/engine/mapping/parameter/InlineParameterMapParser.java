@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.parameter;
 
@@ -40,7 +40,8 @@ public class InlineParameterMapParser {
     return parseInlineParameterMap(typeHandlerFactory, sqlStatement, null);
   }
 
-  public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement, Class parameterClass) {
+  public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement,
+      Class parameterClass) {
 
     String newSql = sqlStatement;
 
@@ -69,11 +70,10 @@ public class InlineParameterMapParser {
           newSqlBuffer.append("?");
           boolean hasMoreTokens = parser.hasMoreTokens();
           if (hasMoreTokens)
-              token = parser.nextToken();
+            token = parser.nextToken();
           if (!hasMoreTokens || !PARAMETER_TOKEN.equals(token)) {
-              throw new SqlMapException(
-        	      "Unterminated inline parameter in mapped statement near '"
-        	      + newSqlBuffer.toString() + "'");
+            throw new SqlMapException("Unterminated inline parameter in mapped statement near '"
+                + newSqlBuffer.toString() + "'");
           }
           token = null;
         }
@@ -88,7 +88,8 @@ public class InlineParameterMapParser {
 
     newSql = newSqlBuffer.toString();
 
-    ParameterMapping[] mappingArray = (ParameterMapping[]) mappingList.toArray(new ParameterMapping[mappingList.size()]);
+    ParameterMapping[] mappingArray = (ParameterMapping[]) mappingList
+        .toArray(new ParameterMapping[mappingList.size()]);
 
     SqlText sqlText = new SqlText();
     sqlText.setText(newSql);
@@ -126,10 +127,12 @@ public class InlineParameterMapParser {
             } else if (impl instanceof TypeHandler) {
               mapping.setTypeHandler((TypeHandler) impl);
             } else {
-              throw new SqlMapException ("The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
+              throw new SqlMapException("The class " + value
+                  + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
             }
           } catch (Exception e) {
-            throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e, e);
+            throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
+                e);
           }
         } else if ("numericScale".equals(field)) {
           try {
@@ -154,7 +157,8 @@ public class InlineParameterMapParser {
       if (parameterClass == null) {
         handler = typeHandlerFactory.getUnkownTypeHandler();
       } else {
-        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, mapping.getPropertyName(), mapping.getJavaTypeName(), mapping.getJdbcTypeName());
+        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, mapping.getPropertyName(),
+            mapping.getJavaTypeName(), mapping.getJdbcTypeName());
       }
       mapping.setTypeHandler(handler);
     }
@@ -169,7 +173,7 @@ public class InlineParameterMapParser {
       int n1 = paramParser.countTokens();
       if (n1 == 3) {
         String name = paramParser.nextToken();
-        paramParser.nextToken(); //ignore ":"
+        paramParser.nextToken(); // ignore ":"
         String type = paramParser.nextToken();
         mapping.setPropertyName(name);
         mapping.setJdbcTypeName(type);
@@ -183,9 +187,9 @@ public class InlineParameterMapParser {
         return mapping;
       } else if (n1 >= 5) {
         String name = paramParser.nextToken();
-        paramParser.nextToken(); //ignore ":"
+        paramParser.nextToken(); // ignore ":"
         String type = paramParser.nextToken();
-        paramParser.nextToken(); //ignore ":"
+        paramParser.nextToken(); // ignore ":"
         String nullValue = paramParser.nextToken();
         while (paramParser.hasMoreTokens()) {
           nullValue = nullValue + paramParser.nextToken();
@@ -217,7 +221,8 @@ public class InlineParameterMapParser {
     }
   }
 
-  private TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName, String javaType, String jdbcType) {
+  private TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
+      String javaType, String jdbcType) {
     TypeHandler handler = null;
     if (clazz == null) {
       // Unknown
@@ -228,7 +233,9 @@ public class InlineParameterMapParser {
     } else if (java.util.Map.class.isAssignableFrom(clazz)) {
       // Map
       if (javaType == null) {
-        handler = typeHandlerFactory.getUnkownTypeHandler(); //BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);
+        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
+                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                             // jdbcType);
       } else {
         try {
           javaType = typeHandlerFactory.resolveAlias(javaType);
@@ -260,6 +267,5 @@ public class InlineParameterMapParser {
     }
     return handler;
   }
-
 
 }

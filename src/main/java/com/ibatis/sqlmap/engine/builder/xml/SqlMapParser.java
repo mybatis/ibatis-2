@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
@@ -103,9 +103,11 @@ public class SqlMapParser {
         String id = state.applyNamespace(attributes.getProperty("id"));
         String type = attributes.getProperty("type");
         String readOnlyAttr = attributes.getProperty("readOnly");
-        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null : new Boolean("true".equals(readOnlyAttr));
+        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null : new Boolean("true"
+            .equals(readOnlyAttr));
         String serializeAttr = attributes.getProperty("serialize");
-        Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null : new Boolean("true".equals(serializeAttr));
+        Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null : new Boolean("true"
+            .equals(serializeAttr));
         type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
         Class clazz = Resources.classForName(type);
         if (readOnly == null) {
@@ -114,7 +116,8 @@ public class SqlMapParser {
         if (serialize == null) {
           serialize = Boolean.FALSE;
         }
-        CacheModelConfig cacheConfig = state.getConfig().newCacheModelConfig(id, (CacheController) Resources.instantiate(clazz), readOnly.booleanValue(), serialize.booleanValue());
+        CacheModelConfig cacheConfig = state.getConfig().newCacheModelConfig(id,
+            (CacheController) Resources.instantiate(clazz), readOnly.booleanValue(), serialize.booleanValue());
         state.setCacheConfig(cacheConfig);
       }
     });
@@ -143,13 +146,18 @@ public class SqlMapParser {
       public void process(Node node) throws Exception {
         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
         try {
-          int milliseconds = childAttributes.getProperty("milliseconds") == null ? 0 : Integer.parseInt(childAttributes.getProperty("milliseconds"));
-          int seconds = childAttributes.getProperty("seconds") == null ? 0 : Integer.parseInt(childAttributes.getProperty("seconds"));
-          int minutes = childAttributes.getProperty("minutes") == null ? 0 : Integer.parseInt(childAttributes.getProperty("minutes"));
-          int hours = childAttributes.getProperty("hours") == null ? 0 : Integer.parseInt(childAttributes.getProperty("hours"));
+          int milliseconds = childAttributes.getProperty("milliseconds") == null ? 0 : Integer.parseInt(childAttributes
+              .getProperty("milliseconds"));
+          int seconds = childAttributes.getProperty("seconds") == null ? 0 : Integer.parseInt(childAttributes
+              .getProperty("seconds"));
+          int minutes = childAttributes.getProperty("minutes") == null ? 0 : Integer.parseInt(childAttributes
+              .getProperty("minutes"));
+          int hours = childAttributes.getProperty("hours") == null ? 0 : Integer.parseInt(childAttributes
+              .getProperty("hours"));
           state.getCacheConfig().setFlushInterval(hours, minutes, seconds, milliseconds);
         } catch (NumberFormatException e) {
-          throw new RuntimeException("Error building cache in '" + "resourceNAME" + "'.  Flush interval milliseconds must be a valid long integer value.  Cause: " + e, e);
+          throw new RuntimeException("Error building cache in '" + "resourceNAME"
+              + "'.  Flush interval milliseconds must be a valid long integer value.  Cause: " + e, e);
         }
       }
     });
@@ -171,7 +179,8 @@ public class SqlMapParser {
         parameterClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(parameterClassName);
         try {
           state.getConfig().getErrorContext().setMoreInfo("Check the parameter class.");
-          ParameterMapConfig paramConf = state.getConfig().newParameterMapConfig(id, Resources.classForName(parameterClassName));
+          ParameterMapConfig paramConf = state.getConfig().newParameterMapConfig(id,
+              Resources.classForName(parameterClassName));
           state.setParamConfig(paramConf);
         } catch (Exception e) {
           throw new SqlMapException("Error configuring ParameterMap.  Could not set ParameterClass.  Cause: " + e, e);
@@ -212,11 +221,11 @@ public class SqlMapParser {
           numericScale = new Integer(numericScaleProp);
         }
 
-        state.getParamConfig().addParameterMapping(propertyName, javaClass, jdbcType, nullValue, mode, type, numericScale, typeHandlerImpl, resultMap);
+        state.getParamConfig().addParameterMapping(propertyName, javaClass, jdbcType, nullValue, mode, type,
+            numericScale, typeHandlerImpl, resultMap);
       }
     });
   }
-
 
   private void addResultMapNodelets() {
     parser.addNodelet("/sqlMap/resultMap/end()", new Nodelet() {
@@ -271,7 +280,12 @@ public class SqlMapParser {
           throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
         }
 
-        state.getConfig().getErrorContext().setMoreInfo("Check the result mapping typeHandler attribute '" + callback + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
+        state
+            .getConfig()
+            .getErrorContext()
+            .setMoreInfo(
+                "Check the result mapping typeHandler attribute '" + callback
+                    + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
           if (callback != null && callback.length() > 0) {
@@ -291,7 +305,8 @@ public class SqlMapParser {
           }
         }
 
-        state.getResultConfig().addResultMapping(propertyName, columnName, columnIndex, javaClass, jdbcType, nullValue, notNullColumn, statementName, resultMapName, typeHandlerImpl);
+        state.getResultConfig().addResultMapping(propertyName, columnName, columnIndex, javaClass, jdbcType, nullValue,
+            notNullColumn, statementName, resultMapName, typeHandlerImpl);
       }
     });
 
@@ -326,7 +341,12 @@ public class SqlMapParser {
           throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
         }
 
-        state.getConfig().getErrorContext().setMoreInfo("Check the result mapping discriminator typeHandler attribute '" + callback + "' (must be a TypeHandlerCallback implementation).");
+        state
+            .getConfig()
+            .getErrorContext()
+            .setMoreInfo(
+                "Check the result mapping discriminator typeHandler attribute '" + callback
+                    + "' (must be a TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
           if (callback != null && callback.length() > 0) {
@@ -346,7 +366,8 @@ public class SqlMapParser {
           }
         }
 
-        state.getResultConfig().setDiscriminator(columnName, columnIndex, javaClass, jdbcType, nullValue, typeHandlerImpl);
+        state.getResultConfig().setDiscriminator(columnName, columnIndex, javaClass, jdbcType, nullValue,
+            typeHandlerImpl);
       }
     });
   }

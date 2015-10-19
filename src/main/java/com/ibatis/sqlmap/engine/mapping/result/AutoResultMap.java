@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.result;
 
@@ -32,21 +32,23 @@ public class AutoResultMap extends ResultMap {
   /**
    * Constructor to pass in the SqlMapExecutorDelegate
    *
-   * @param delegate - the delegate
+   * @param delegate
+   *          - the delegate
    */
   public AutoResultMap(SqlMapExecutorDelegate delegate, boolean allowRemapping) {
     super(delegate);
     this.allowRemapping = allowRemapping;
   }
 
-  public synchronized Object[] getResults(StatementScope statementScope, ResultSet rs)
-      throws SQLException {
+  @Override
+  public synchronized Object[] getResults(StatementScope statementScope, ResultSet rs) throws SQLException {
     if (allowRemapping || getResultMappings() == null) {
       initialize(rs);
     }
     return super.getResults(statementScope, rs);
   }
 
+  @Override
   public Object setResultObjectValues(StatementScope statementScope, Object resultObject, Object[] values) {
     // synchronization is only needed when remapping is enabled
     if (allowRemapping) {
@@ -59,7 +61,8 @@ public class AutoResultMap extends ResultMap {
 
   private void initialize(ResultSet rs) {
     if (getResultClass() == null) {
-      throw new SqlMapException("The automatic ResultMap named " + this.getId() + " had a null result class (not allowed).");
+      throw new SqlMapException("The automatic ResultMap named " + this.getId()
+          + " had a null result class (not allowed).");
     } else if (Map.class.isAssignableFrom(getResultClass())) {
       initializeMapResults(rs);
     } else if (getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()) != null) {
@@ -93,7 +96,7 @@ public class AutoResultMap extends ResultMap {
           try {
             type = p.getPropertyTypeForSetter(this.getResultClass(), columnName);
           } catch (Exception e) {
-            //TODO - add logging to this class?
+            // TODO - add logging to this class?
           }
         } else {
           type = classInfo.getSetterType(matchedProp);
@@ -103,7 +106,11 @@ public class AutoResultMap extends ResultMap {
           resultMapping.setPropertyName((matchedProp != null ? matchedProp : columnName));
           resultMapping.setColumnName(columnName);
           resultMapping.setColumnIndex(i + 1);
-          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); //map SQL to JDBC type
+          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); // map
+                                                                                                    // SQL
+                                                                                                    // to
+                                                                                                    // JDBC
+                                                                                                    // type
           resultMappingList.add(resultMapping);
         }
       }
@@ -184,4 +191,3 @@ public class AutoResultMap extends ResultMap {
   }
 
 }
-

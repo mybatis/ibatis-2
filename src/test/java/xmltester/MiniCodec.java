@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package xmltester;
 
@@ -46,16 +46,17 @@ public class MiniCodec {
   }
 
   /**
-   * This nasty method uses exception handling for flow control
-   * to reduce the number of conditional checks.  Nasty performance
-   * enhancement (hopefully).
+   * This nasty method uses exception handling for flow control to reduce the number of conditional checks. Nasty
+   * performance enhancement (hopefully).
    * <p/>
-   * For all of it's nastiness, this method replaces all occurrences
-   * of a pattern with a new pattern, and quite quickly.
+   * For all of it's nastiness, this method replaces all occurrences of a pattern with a new pattern, and quite quickly.
    *
-   * @param pattern    The pattern to match.
-   * @param newPattern The pattern to replace the matched pattern.
-   * @param string     The string in which to search and replace.
+   * @param pattern
+   *          The pattern to match.
+   * @param newPattern
+   *          The pattern to replace the matched pattern.
+   * @param string
+   *          The string in which to search and replace.
    * @return The new string with patterns replaced.
    */
   private static String replaceAll(String pattern, String newPattern, String string) {

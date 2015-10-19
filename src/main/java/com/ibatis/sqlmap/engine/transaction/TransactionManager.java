@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.transaction;
 
@@ -35,12 +35,12 @@ public class TransactionManager {
     Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
     if (state == TransactionState.STATE_STARTED) {
-      throw new TransactionException("TransactionManager could not start a new transaction.  " +
-          "A transaction is already started.");
+      throw new TransactionException("TransactionManager could not start a new transaction.  "
+          + "A transaction is already started.");
     } else if (state == TransactionState.STATE_USER_PROVIDED) {
-      throw new TransactionException("TransactionManager could not start a new transaction.  " +
-          "A user provided connection is currently being used by this session.  " +
-          "The calling .setUserConnection (null) will clear the user provided transaction.");
+      throw new TransactionException("TransactionManager could not start a new transaction.  "
+          + "A user provided connection is currently being used by this session.  "
+          + "The calling .setUserConnection (null) will clear the user provided transaction.");
     }
 
     trans = config.newTransaction(transactionIsolation);
@@ -54,11 +54,11 @@ public class TransactionManager {
     Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
     if (state == TransactionState.STATE_USER_PROVIDED) {
-      throw new TransactionException("TransactionManager could not commit.  " +
-          "A user provided connection is currently being used by this session.  " +
-          "You must call the commit() method of the Connection directly.  " +
-          "The calling .setUserConnection (null) will clear the user provided transaction.");
-    } else if (state != TransactionState.STATE_STARTED && state != TransactionState.STATE_COMMITTED ) {
+      throw new TransactionException("TransactionManager could not commit.  "
+          + "A user provided connection is currently being used by this session.  "
+          + "You must call the commit() method of the Connection directly.  "
+          + "The calling .setUserConnection (null) will clear the user provided transaction.");
+    } else if (state != TransactionState.STATE_STARTED && state != TransactionState.STATE_COMMITTED) {
       throw new TransactionException("TransactionManager could not commit.  No transaction is started.");
     }
     if (sessionScope.isCommitRequired() || config.isForceCommit()) {
@@ -73,10 +73,10 @@ public class TransactionManager {
     TransactionState state = sessionScope.getTransactionState();
 
     if (state == TransactionState.STATE_USER_PROVIDED) {
-      throw new TransactionException("TransactionManager could not end this transaction.  " +
-          "A user provided connection is currently being used by this session.  " +
-          "You must call the rollback() method of the Connection directly.  " +
-          "The calling .setUserConnection (null) will clear the user provided transaction.");
+      throw new TransactionException("TransactionManager could not end this transaction.  "
+          + "A user provided connection is currently being used by this session.  "
+          + "You must call the rollback() method of the Connection directly.  "
+          + "The calling .setUserConnection (null) will clear the user provided transaction.");
     }
 
     try {

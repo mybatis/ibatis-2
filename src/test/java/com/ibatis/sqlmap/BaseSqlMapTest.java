@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -35,26 +35,26 @@ public class BaseSqlMapTest extends TestCase {
   protected static SqlMapClient sqlMap;
 
   protected static void initSqlMap(String configFile, Properties props) throws Exception {
-      Reader reader = Resources.getResourceAsReader(configFile);
-      sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader, props);
-      reader.close();
+    Reader reader = Resources.getResourceAsReader(configFile);
+    sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader, props);
+    reader.close();
   }
 
   protected static void initScript(String script) throws Exception {
-      DataSource ds = sqlMap.getDataSource();
+    DataSource ds = sqlMap.getDataSource();
 
-      Connection conn = ds.getConnection();
+    Connection conn = ds.getConnection();
 
-      Reader reader = Resources.getResourceAsReader(script);
+    Reader reader = Resources.getResourceAsReader(script);
 
-      ScriptRunner runner = new ScriptRunner(conn, false, false);
-      runner.setLogWriter(null);
-      runner.setErrorLogWriter(null);
+    ScriptRunner runner = new ScriptRunner(conn, false, false);
+    runner.setLogWriter(null);
+    runner.setErrorLogWriter(null);
 
-      runner.runScript(reader);
-      conn.commit();
-      conn.close();
-      reader.close();
+    runner.runScript(reader);
+    conn.commit();
+    conn.close();
+    reader.close();
   }
 
   protected Account newAccount6() {
@@ -83,14 +83,14 @@ public class BaseSqlMapTest extends TestCase {
     assertEquals("Begin", account.getLastName());
     assertEquals("clinton.begin@ibatis.com", account.getEmailAddress());
   }
-  
+
   protected void assertAccount2(Account account) {
     assertEquals(2, account.getId());
     assertEquals("Jim", account.getFirstName());
     assertEquals("Smith", account.getLastName());
-    assertEquals(account.getEmailAddress(),"jim.smith@somewhere.com");
+    assertEquals(account.getEmailAddress(), "jim.smith@somewhere.com");
   }
-  
+
   protected void assertList(List list) {
     assertEquals(2, list.size());
   }

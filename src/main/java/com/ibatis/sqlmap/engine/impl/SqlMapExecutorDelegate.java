@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.impl;
 
@@ -59,9 +59,9 @@ public class SqlMapExecutorDelegate {
 
   private static final Probe PROBE = ProbeFactory.getProbe();
 
-  private boolean lazyLoadingEnabled=true;
-  private boolean cacheModelsEnabled=true;
-  private boolean enhancementEnabled=false;
+  private boolean lazyLoadingEnabled = true;
+  private boolean cacheModelsEnabled = true;
+  private boolean enhancementEnabled = false;
   private boolean useColumnLabel = true;
   private boolean forceMultipleResultSetSupport;
 
@@ -75,9 +75,9 @@ public class SqlMapExecutorDelegate {
   protected SqlExecutor sqlExecutor;
   private TypeHandlerFactory typeHandlerFactory;
   private DataExchangeFactory dataExchangeFactory;
-  
+
   private ResultObjectFactory resultObjectFactory;
-  private boolean statementCacheEnabled=true;
+  private boolean statementCacheEnabled = true;
 
   /**
    * Default constructor
@@ -98,12 +98,14 @@ public class SqlMapExecutorDelegate {
       Class factoryClass = Class.forName(sqlExecutorClass);
       sqlExecutor = (SqlExecutor) factoryClass.newInstance();
     } catch (Exception e) {
-      throw new SqlMapException("Error instantiating " + sqlExecutorClass + ". Please check the class given in properties file. Cause: " + e, e);
+      throw new SqlMapException("Error instantiating " + sqlExecutorClass
+          + ". Please check the class given in properties file. Cause: " + e, e);
     }
   }
-  
+
   /**
    * DO NOT DEPEND ON THIS. Here to avoid breaking spring integration.
+   * 
    * @deprecated
    */
   public int getMaxTransactions() {
@@ -140,7 +142,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Turn on or off lazy loading
    *
-   * @param lazyLoadingEnabled - the new state of caching
+   * @param lazyLoadingEnabled
+   *          - the new state of caching
    */
   public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
     this.lazyLoadingEnabled = lazyLoadingEnabled;
@@ -158,7 +161,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Turn on or off caching
    *
-   * @param cacheModelsEnabled - the new state of caching
+   * @param cacheModelsEnabled
+   *          - the new state of caching
    */
   public void setCacheModelsEnabled(boolean cacheModelsEnabled) {
     this.cacheModelsEnabled = cacheModelsEnabled;
@@ -176,7 +180,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Turn on or off CGLib enhancements
    *
-   * @param enhancementEnabled - the new state
+   * @param enhancementEnabled
+   *          - the new state
    */
   public void setEnhancementEnabled(boolean enhancementEnabled) {
     this.enhancementEnabled = enhancementEnabled;
@@ -202,7 +207,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Setter for the transaction manager
    *
-   * @param txManager - the transaction manager
+   * @param txManager
+   *          - the transaction manager
    */
   public void setTxManager(TransactionManager txManager) {
     this.txManager = txManager;
@@ -211,7 +217,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Add a mapped statement
    *
-   * @param ms - the mapped statement to add
+   * @param ms
+   *          - the mapped statement to add
    */
   public void addMappedStatement(MappedStatement ms) {
     if (mappedStatements.containsKey(ms.getId())) {
@@ -233,7 +240,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Get a mappedstatement by its ID
    *
-   * @param id - the statement ID
+   * @param id
+   *          - the statement ID
    * @return - the mapped statement
    */
   public MappedStatement getMappedStatement(String id) {
@@ -247,7 +255,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Add a cache model
    *
-   * @param model - the model to add
+   * @param model
+   *          - the model to add
    */
   public void addCacheModel(CacheModel model) {
     cacheModels.put(model.getId(), model);
@@ -265,7 +274,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Get a cache model by ID
    *
-   * @param id - the ID
+   * @param id
+   *          - the ID
    * @return - the cache model
    */
   public CacheModel getCacheModel(String id) {
@@ -279,7 +289,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Add a result map
    *
-   * @param map - the result map to add
+   * @param map
+   *          - the result map to add
    */
   public void addResultMap(ResultMap map) {
     resultMaps.put(map.getId(), map);
@@ -297,7 +308,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Get a result map by ID
    *
-   * @param id - the ID
+   * @param id
+   *          - the ID
    * @return - the result map
    */
   public ResultMap getResultMap(String id) {
@@ -311,7 +323,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Add a parameter map
    *
-   * @param map - the map to add
+   * @param map
+   *          - the map to add
    */
   public void addParameterMap(ParameterMap map) {
     parameterMaps.put(map.getId(), map);
@@ -329,7 +342,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Get a parameter map by ID
    *
-   * @param id - the ID
+   * @param id
+   *          - the ID
    * @return - the parameter map
    */
   public ParameterMap getParameterMap(String id) {
@@ -353,7 +367,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Flush a single cache by ID
    *
-   * @param id - the ID
+   * @param id
+   *          - the ID
    */
   public void flushDataCache(String id) {
     CacheModel model = getCacheModel(id);
@@ -362,15 +377,19 @@ public class SqlMapExecutorDelegate {
     }
   }
 
-  //-- Basic Methods
+  // -- Basic Methods
   /**
    * Call an insert statement by ID
    *
-   * @param sessionScope - the session
-   * @param id      - the statement ID
-   * @param param   - the parameter object
+   * @param sessionScope
+   *          - the session
+   * @param id
+   *          - the statement ID
+   * @param param
+   *          - the parameter object
    * @return - the generated key (or null)
-   * @throws SQLException - if the insert fails
+   * @throws SQLException
+   *           - if the insert fails
    */
   public Object insert(SessionScope sessionScope, String id, Object param) throws SQLException {
     Object generatedKey = null;
@@ -387,7 +406,8 @@ public class SqlMapExecutorDelegate {
         selectKeyStatement = ((InsertStatement) ms).getSelectKeyStatement();
       }
 
-      // Here we get the old value for the key property. We'll want it later if for some reason the
+      // Here we get the old value for the key property. We'll want it later if for some
+      // reason the
       // insert fails.
       Object oldKeyValue = null;
       String keyProperty = null;
@@ -402,10 +422,12 @@ public class SqlMapExecutorDelegate {
       StatementScope statementScope = beginStatementScope(sessionScope, ms);
       try {
         ms.executeUpdate(statementScope, trans, param);
-      }catch (SQLException e){
-        // uh-oh, the insert failed, so if we set the reset flag earlier, we'll put the old value
+      } catch (SQLException e) {
+        // uh-oh, the insert failed, so if we set the reset flag earlier, we'll put the old
+        // value
         // back...
-        if(resetKeyValueOnFailure) PROBE.setObject(param, keyProperty, oldKeyValue);
+        if (resetKeyValueOnFailure)
+          PROBE.setObject(param, keyProperty, oldKeyValue);
         // ...and still throw the exception.
         throw e;
       } finally {
@@ -424,7 +446,8 @@ public class SqlMapExecutorDelegate {
     return generatedKey;
   }
 
-  private Object executeSelectKey(SessionScope sessionScope, Transaction trans, MappedStatement ms, Object param) throws SQLException {
+  private Object executeSelectKey(SessionScope sessionScope, Transaction trans, MappedStatement ms, Object param)
+      throws SQLException {
     Object generatedKey = null;
     StatementScope statementScope;
     InsertStatement insert = (InsertStatement) ms;
@@ -447,11 +470,15 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute an update statement
    *
-   * @param sessionScope - the session scope
-   * @param id      - the statement ID
-   * @param param   - the parameter object
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param param
+   *          - the parameter object
    * @return - the number of rows updated
-   * @throws SQLException - if the update fails
+   * @throws SQLException
+   *           - if the update fails
    */
   public int update(SessionScope sessionScope, String id, Object param) throws SQLException {
     int rows = 0;
@@ -481,11 +508,15 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a delete statement
    *
-   * @param sessionScope - the session scope
-   * @param id      - the statement ID
-   * @param param   - the parameter object
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param param
+   *          - the parameter object
    * @return - the number of rows deleted
-   * @throws SQLException - if the delete fails
+   * @throws SQLException
+   *           - if the delete fails
    */
   public int delete(SessionScope sessionScope, String id, Object param) throws SQLException {
     return update(sessionScope, id, param);
@@ -494,11 +525,15 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a select for a single object
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
    * @return - the result of the query
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
   public Object queryForObject(SessionScope sessionScope, String id, Object paramObject) throws SQLException {
     return queryForObject(sessionScope, id, paramObject, null);
@@ -507,14 +542,20 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a select for a single object
    *
-   * @param sessionScope      - the session scope
-   * @param id           - the statement ID
-   * @param paramObject  - the parameter object
-   * @param resultObject - the result object (if not supplied or null, a new object will be created)
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param resultObject
+   *          - the result object (if not supplied or null, a new object will be created)
    * @return - the result of the query
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
-  public Object queryForObject(SessionScope sessionScope, String id, Object paramObject, Object resultObject) throws SQLException {
+  public Object queryForObject(SessionScope sessionScope, String id, Object paramObject, Object resultObject)
+      throws SQLException {
     Object object = null;
 
     MappedStatement ms = getMappedStatement(id);
@@ -542,11 +583,15 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a query for a list
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
    * @return - the data list
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
   public List queryForList(SessionScope sessionScope, String id, Object paramObject) throws SQLException {
     return queryForList(sessionScope, id, paramObject, SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
@@ -555,15 +600,22 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a query for a list
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
-   * @param skip        - the number of rows to skip
-   * @param max         - the maximum number of rows to return
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param skip
+   *          - the number of rows to skip
+   * @param max
+   *          - the maximum number of rows to return
    * @return - the data list
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
-  public List queryForList(SessionScope sessionScope, String id, Object paramObject, int skip, int max) throws SQLException {
+  public List queryForList(SessionScope sessionScope, String id, Object paramObject, int skip, int max)
+      throws SQLException {
     List list = null;
 
     MappedStatement ms = getMappedStatement(id);
@@ -589,16 +641,21 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a query with a row handler.
-   * The row handler is called once per row in the query results.
+   * Execute a query with a row handler. The row handler is called once per row in the query results.
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
-   * @param rowHandler  - the row handler
-   * @throws SQLException - if the query fails
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param rowHandler
+   *          - the row handler
+   * @throws SQLException
+   *           - if the query fails
    */
-  public void queryWithRowHandler(SessionScope sessionScope, String id, Object paramObject, RowHandler rowHandler) throws SQLException {
+  public void queryWithRowHandler(SessionScope sessionScope, String id, Object paramObject, RowHandler rowHandler)
+      throws SQLException {
 
     MappedStatement ms = getMappedStatement(id);
     Transaction trans = getTransaction(sessionScope);
@@ -624,46 +681,62 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a query and return a paginated list
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
-   * @param pageSize    - the page size
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param pageSize
+   *          - the page size
    * @return - the data list
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    * @deprecated All paginated list features have been deprecated
    */
-  public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize) throws SQLException {
+  public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize)
+      throws SQLException {
     return new PaginatedDataList(sessionScope.getSqlMapExecutor(), id, paramObject, pageSize);
   }
 
   /**
-   * Execute a query for a map.
-   * The map has the table key as the key, and the results as the map data
+   * Execute a query for a map. The map has the table key as the key, and the results as the map data
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
-   * @param keyProp     - the key property (from the results for the map)
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param keyProp
+   *          - the key property (from the results for the map)
    * @return - the Map
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
   public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp) throws SQLException {
     return queryForMap(sessionScope, id, paramObject, keyProp, null);
   }
 
   /**
-   * Execute a query for a map.
-   * The map has the table key as the key, and a property from the results as the map data
+   * Execute a query for a map. The map has the table key as the key, and a property from the results as the map data
    *
-   * @param sessionScope     - the session scope
-   * @param id          - the statement ID
-   * @param paramObject - the parameter object
-   * @param keyProp     - the property for the map key
-   * @param valueProp   - the property for the map data
+   * @param sessionScope
+   *          - the session scope
+   * @param id
+   *          - the statement ID
+   * @param paramObject
+   *          - the parameter object
+   * @param keyProp
+   *          - the property for the map key
+   * @param valueProp
+   *          - the property for the map data
    * @return - the Map
-   * @throws SQLException - if the query fails
+   * @throws SQLException
+   *           - if the query fails
    */
-  public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp, String valueProp) throws SQLException {
+  public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp, String valueProp)
+      throws SQLException {
     Map map = new HashMap();
 
     List list = queryForList(sessionScope, id, paramObject);
@@ -687,8 +760,10 @@ public class SqlMapExecutorDelegate {
   /**
    * Start a transaction on the session
    *
-   * @param sessionScope - the session
-   * @throws SQLException - if the transaction could not be started
+   * @param sessionScope
+   *          - the session
+   * @throws SQLException
+   *           - if the transaction could not be started
    */
   public void startTransaction(SessionScope sessionScope) throws SQLException {
     try {
@@ -701,8 +776,10 @@ public class SqlMapExecutorDelegate {
   /**
    * Start a transaction on the session with the specified isolation level.
    *
-   * @param sessionScope - the session
-   * @throws SQLException - if the transaction could not be started
+   * @param sessionScope
+   *          - the session
+   * @throws SQLException
+   *           - if the transaction could not be started
    */
   public void startTransaction(SessionScope sessionScope, int transactionIsolation) throws SQLException {
     try {
@@ -715,8 +792,10 @@ public class SqlMapExecutorDelegate {
   /**
    * Commit the transaction on a session
    *
-   * @param sessionScope - the session
-   * @throws SQLException - if the transaction could not be committed
+   * @param sessionScope
+   *          - the session
+   * @throws SQLException
+   *           - if the transaction could not be committed
    */
   public void commitTransaction(SessionScope sessionScope) throws SQLException {
     try {
@@ -734,8 +813,10 @@ public class SqlMapExecutorDelegate {
   /**
    * End the transaction on a session
    *
-   * @param sessionScope - the session
-   * @throws SQLException - if the transaction could not be ended
+   * @param sessionScope
+   *          - the session
+   * @throws SQLException
+   *           - if the transaction could not be ended
    */
   public void endTransaction(SessionScope sessionScope) throws SQLException {
     try {
@@ -752,7 +833,8 @@ public class SqlMapExecutorDelegate {
   /**
    * Start a batch for a session
    *
-   * @param sessionScope - the session
+   * @param sessionScope
+   *          - the session
    */
   public void startBatch(SessionScope sessionScope) {
     sessionScope.setInBatch(true);
@@ -761,9 +843,11 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a batch for a session
    *
-   * @param sessionScope - the session
+   * @param sessionScope
+   *          - the session
    * @return - the number of rows impacted by the batch
-   * @throws SQLException - if the batch fails
+   * @throws SQLException
+   *           - if the batch fails
    */
   public int executeBatch(SessionScope sessionScope) throws SQLException {
     sessionScope.setInBatch(false);
@@ -773,24 +857,27 @@ public class SqlMapExecutorDelegate {
   /**
    * Execute a batch for a session
    *
-   * @param sessionScope - the session
-   * @return - a List of BatchResult objects (may be null if no batch
-   *  has been initiated).  There will be one BatchResult object in the
-   *  list for each sub-batch executed
-   * @throws SQLException if a database access error occurs, or the drive
-   *   does not support batch statements
-   * @throws BatchException if the driver throws BatchUpdateException
+   * @param sessionScope
+   *          - the session
+   * @return - a List of BatchResult objects (may be null if no batch has been initiated). There will be one BatchResult
+   *         object in the list for each sub-batch executed
+   * @throws SQLException
+   *           if a database access error occurs, or the drive does not support batch statements
+   * @throws BatchException
+   *           if the driver throws BatchUpdateException
    */
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException {
     sessionScope.setInBatch(false);
     return sqlExecutor.executeBatchDetailed(sessionScope);
   }
-  
+
   /**
    * Use a user-provided transaction for a session
    *
-   * @param sessionScope        - the session scope
-   * @param userConnection - the user supplied connection
+   * @param sessionScope
+   *          - the session scope
+   * @param userConnection
+   *          - the user supplied connection
    */
   public void setUserProvidedTransaction(SessionScope sessionScope, Connection userConnection) {
     if (sessionScope.getTransactionState() == TransactionState.STATE_USER_PROVIDED) {
@@ -807,6 +894,7 @@ public class SqlMapExecutorDelegate {
       sessionScope.cleanup();
     }
   }
+
   /**
    * Get the DataSource for the session
    *
@@ -826,13 +914,14 @@ public class SqlMapExecutorDelegate {
    * @return the SqlExecutor
    */
   public SqlExecutor getSqlExecutor() {
-	  return sqlExecutor;
+    return sqlExecutor;
   }
 
   /**
    * Get a transaction for the session
    *
-   * @param sessionScope - the session
+   * @param sessionScope
+   *          - the session
    * @return - the transaction
    */
   public Transaction getTransaction(SessionScope sessionScope) {
@@ -853,7 +942,8 @@ public class SqlMapExecutorDelegate {
     }
   }
 
-  protected Transaction autoStartTransaction(SessionScope sessionScope, boolean autoStart, Transaction trans) throws SQLException {
+  protected Transaction autoStartTransaction(SessionScope sessionScope, boolean autoStart, Transaction trans)
+      throws SQLException {
     Transaction transaction = trans;
     if (autoStart) {
       sessionScope.getSqlMapTxMgr().startTransaction();
@@ -862,10 +952,12 @@ public class SqlMapExecutorDelegate {
     return transaction;
   }
 
+  @Override
   public boolean equals(Object obj) {
     return this == obj;
   }
 
+  @Override
   public int hashCode() {
     CacheKey key = new CacheKey();
     if (txManager != null) {
@@ -921,4 +1013,3 @@ public class SqlMapExecutorDelegate {
     this.forceMultipleResultSetSupport = forceMultipleResultSetSupport;
   }
 }
-

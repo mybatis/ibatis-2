@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.execution;
 
@@ -53,14 +53,20 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Execute an update
    *
-   * @param statementScope    - the request scope
-   * @param conn       - the database connection
-   * @param sql        - the sql statement to execute
-   * @param parameters - the parameters for the sql statement
+   * @param statementScope
+   *          - the request scope
+   * @param conn
+   *          - the database connection
+   * @param sql
+   *          - the sql statement to execute
+   * @param parameters
+   *          - the parameters for the sql statement
    * @return - the number of records changed
-   * @throws SQLException - if the update fails
+   * @throws SQLException
+   *           - if the update fails
    */
-  public int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters) throws SQLException {
+  public int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+      throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("executing update");
     errorContext.setObjectId(sql);
@@ -86,13 +92,19 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Adds a statement to a batch
    *
-   * @param statementScope    - the request scope
-   * @param conn       - the database connection
-   * @param sql        - the sql statement
-   * @param parameters - the parameters for the statement
-   * @throws SQLException - if the statement fails
+   * @param statementScope
+   *          - the request scope
+   * @param conn
+   *          - the database connection
+   * @param sql
+   *          - the sql statement
+   * @param parameters
+   *          - the parameters for the statement
+   * @throws SQLException
+   *           - if the statement fails
    */
-  public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters) throws SQLException {
+  public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+      throws SQLException {
     Batch batch = (Batch) statementScope.getSession().getBatch();
     if (batch == null) {
       batch = new Batch();
@@ -104,9 +116,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Execute a batch of statements
    *
-   * @param sessionScope - the session scope
+   * @param sessionScope
+   *          - the session scope
    * @return - the number of rows impacted by the batch
-   * @throws SQLException - if a statement fails
+   * @throws SQLException
+   *           - if a statement fails
    */
   public int executeBatch(SessionScope sessionScope) throws SQLException {
     int rows = 0;
@@ -124,13 +138,14 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Execute a batch of statements
    *
-   * @param sessionScope - the session scope
-   * @return - a List of BatchResult objects (may be null if no batch
-   *         has been initiated).  There will be one BatchResult object in the
-   *         list for each sub-batch executed
-   * @throws SQLException   if a database access error occurs, or the drive
-   *                        does not support batch statements
-   * @throws BatchException if the driver throws BatchUpdateException
+   * @param sessionScope
+   *          - the session scope
+   * @return - a List of BatchResult objects (may be null if no batch has been initiated). There will be one BatchResult
+   *         object in the list for each sub-batch executed
+   * @throws SQLException
+   *           if a database access error occurs, or the drive does not support batch statements
+   * @throws BatchException
+   *           if the driver throws BatchUpdateException
    */
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException {
     List answer = null;
@@ -148,16 +163,25 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Long form of the method to execute a query
    *
-   * @param statementScope     - the request scope
-   * @param conn        - the database connection
-   * @param sql         - the SQL statement to execute
-   * @param parameters  - the parameters for the statement
-   * @param skipResults - the number of results to skip
-   * @param maxResults  - the maximum number of results to return
-   * @param callback    - the row handler for the query
-   * @throws SQLException - if the query fails
+   * @param statementScope
+   *          - the request scope
+   * @param conn
+   *          - the database connection
+   * @param sql
+   *          - the SQL statement to execute
+   * @param parameters
+   *          - the parameters for the statement
+   * @param skipResults
+   *          - the number of results to skip
+   * @param maxResults
+   *          - the maximum number of results to return
+   * @param callback
+   *          - the row handler for the query
+   * @throws SQLException
+   *           - if the query fails
    */
-  public void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters, int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+  public void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
+      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("executing query");
     errorContext.setObjectId(sql);
@@ -200,14 +224,20 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Execute a stored procedure that updates data
    *
-   * @param statementScope    - the request scope
-   * @param conn       - the database connection
-   * @param sql        - the SQL to call the procedure
-   * @param parameters - the parameters for the procedure
+   * @param statementScope
+   *          - the request scope
+   * @param conn
+   *          - the database connection
+   * @param sql
+   *          - the SQL to call the procedure
+   * @param parameters
+   *          - the parameters for the procedure
    * @return - the rows impacted by the procedure
-   * @throws SQLException - if the procedure fails
+   * @throws SQLException
+   *           - if the procedure fails
    */
-  public int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters) throws SQLException {
+  public int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+      throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("executing update procedure");
     errorContext.setObjectId(sql);
@@ -239,16 +269,25 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Execute a stored procedure
    *
-   * @param statementScope     - the request scope
-   * @param conn        - the database connection
-   * @param sql         - the sql to call the procedure
-   * @param parameters  - the parameters for the procedure
-   * @param skipResults - the number of results to skip
-   * @param maxResults  - the maximum number of results to return
-   * @param callback    - a row handler for processing the results
-   * @throws SQLException - if the procedure fails
+   * @param statementScope
+   *          - the request scope
+   * @param conn
+   *          - the database connection
+   * @param sql
+   *          - the sql to call the procedure
+   * @param parameters
+   *          - the parameters for the procedure
+   * @param skipResults
+   *          - the number of results to skip
+   * @param maxResults
+   *          - the maximum number of results to return
+   * @param callback
+   *          - a row handler for processing the results
+   * @throws SQLException
+   *           - if the procedure fails
    */
-  public void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters, int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+  public void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
+      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("executing query procedure");
     errorContext.setObjectId(sql);
@@ -293,12 +332,13 @@ public class DefaultSqlExecutor implements SqlExecutor {
       }
     }
   }
-  
+
   public void init(SqlMapConfiguration config, Properties globalProps) {
     // No implementation is required in DefaultSqlExecutor.
   }
 
-  private ResultSet handleMultipleResults(PreparedStatement ps, StatementScope statementScope, int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+  private ResultSet handleMultipleResults(PreparedStatement ps, StatementScope statementScope, int skipResults,
+      int maxResults, RowHandlerCallback callback) throws SQLException {
     ResultSet rs;
     rs = getFirstResultSet(statementScope, ps);
     if (rs != null) {
@@ -315,7 +355,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
         ResultMap[] resultMaps = statement.getAdditionalResultMaps();
         int i = 0;
         while (moveToNextResultsSafely(statementScope, ps)) {
-          if (i >= resultMaps.length) break;
+          if (i >= resultMaps.length)
+            break;
           ResultMap rm = resultMaps[i];
           statementScope.setResultMap(rm);
           rs = ps.getResultSet();
@@ -327,7 +368,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
         defaultRowHandler.setList(multipleResults);
         statementScope.setResultMap(statement.getResultMap());
       } else {
-        while (moveToNextResultsSafely(statementScope, ps)) ;
+        while (moveToNextResultsSafely(statementScope, ps))
+          ;
       }
     }
     // End additional ResultSet handling
@@ -352,14 +394,14 @@ public class DefaultSqlExecutor implements SqlExecutor {
     // This is the messed up JDBC approach for determining if there are more results
     boolean movedToNextResultsSafely = moveToNextResultsSafely(scope, stmt);
     int updateCount = stmt.getUpdateCount();
-    
+
     moreResults = !(!movedToNextResultsSafely && (updateCount == -1));
-    
-    //ibatis-384: workaround for mysql not returning -1 for stmt.getUpdateCount()
-    if (moreResults == true){
-	moreResults = !(!movedToNextResultsSafely && !isMultipleResultSetSupportPresent(scope, stmt));
+
+    // ibatis-384: workaround for mysql not returning -1 for stmt.getUpdateCount()
+    if (moreResults == true) {
+      moreResults = !(!movedToNextResultsSafely && !isMultipleResultSetSupportPresent(scope, stmt));
     }
-    
+
     return moreResults;
   }
 
@@ -371,18 +413,19 @@ public class DefaultSqlExecutor implements SqlExecutor {
   }
 
   /**
-   * checks whether multiple result set support is present - either by direct support of the database driver or by forcing it
+   * checks whether multiple result set support is present - either by direct support of the database driver or by
+   * forcing it
    */
-  private boolean isMultipleResultSetSupportPresent(StatementScope scope,
-	  Statement stmt) throws SQLException {
-      return forceMultipleResultSetSupport(scope) || stmt.getConnection().getMetaData().supportsMultipleResultSets();
+  private boolean isMultipleResultSetSupportPresent(StatementScope scope, Statement stmt) throws SQLException {
+    return forceMultipleResultSetSupport(scope) || stmt.getConnection().getMetaData().supportsMultipleResultSets();
   }
 
   private boolean forceMultipleResultSetSupport(StatementScope scope) {
-    return ((SqlMapClientImpl)scope.getSession().getSqlMapClient()).getDelegate().isForceMultipleResultSetSupport();
+    return ((SqlMapClientImpl) scope.getSession().getSqlMapClient()).getDelegate().isForceMultipleResultSetSupport();
   }
 
-  private void handleResults(StatementScope statementScope, ResultSet rs, int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+  private void handleResults(StatementScope statementScope, ResultSet rs, int skipResults, int maxResults,
+      RowHandlerCallback callback) throws SQLException {
     try {
       statementScope.setResultSet(rs);
       ResultMap resultMap = statementScope.getResultMap();
@@ -413,7 +456,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  private void retrieveOutputParameters(StatementScope statementScope, CallableStatement cs, ParameterMapping[] mappings, Object[] parameters, RowHandlerCallback callback) throws SQLException {
+  private void retrieveOutputParameters(StatementScope statementScope, CallableStatement cs,
+      ParameterMapping[] mappings, Object[] parameters, RowHandlerCallback callback) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
       ParameterMapping mapping = ((ParameterMapping) mappings[i]);
       if (mapping.isOutputAllowed()) {
@@ -443,11 +487,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
     for (int i = 0; i < mappings.length; i++) {
       ParameterMapping mapping = ((ParameterMapping) mappings[i]);
       if (mapping.isOutputAllowed()) {
-        if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { //@added
+        if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { // @added
           cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
         } else {
-          if (mapping.getNumericScale() != null && (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL))
-          {
+          if (mapping.getNumericScale() != null
+              && (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {
             cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getNumericScale().intValue());
           } else {
             cs.registerOutParameter(i + 1, mapping.getJdbcType());
@@ -457,7 +501,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  private void handleOutputParameterResults(StatementScope statementScope, ResultMap resultMap, ResultSet rs, RowHandlerCallback callback) throws SQLException {
+  private void handleOutputParameterResults(StatementScope statementScope, ResultMap resultMap, ResultSet rs,
+      RowHandlerCallback callback) throws SQLException {
     ResultMap orig = statementScope.getResultMap();
     try {
       statementScope.setResultSet(rs);
@@ -479,7 +524,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
   /**
    * Clean up any batches on the session
    *
-   * @param sessionScope - the session to clean up
+   * @param sessionScope
+   *          - the session to clean up
    */
   public void cleanup(SessionScope sessionScope) {
     Batch batch = (Batch) sessionScope.getBatch();
@@ -489,7 +535,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  private PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql, Integer rsType) throws SQLException {
+  private PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
+      throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
       return sessionScope.getPreparedStatement((sql));
@@ -500,7 +547,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql, Integer rsType) throws SQLException {
+  private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
+      throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
       return (CallableStatement) sessionScope.getPreparedStatement((sql));
@@ -511,7 +559,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  private static PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql) throws SQLException {
+  private static PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql)
+      throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
       return sessionScope.getPreparedStatement((sql));
@@ -593,13 +642,19 @@ public class DefaultSqlExecutor implements SqlExecutor {
     /**
      * Add a prepared statement to the batch
      *
-     * @param statementScope    - the request scope
-     * @param conn       - the database connection
-     * @param sql        - the SQL to add
-     * @param parameters - the parameters for the SQL
-     * @throws SQLException - if the prepare for the SQL fails
+     * @param statementScope
+     *          - the request scope
+     * @param conn
+     *          - the database connection
+     * @param sql
+     *          - the SQL to add
+     * @param parameters
+     *          - the parameters for the SQL
+     * @throws SQLException
+     *           - if the prepare for the SQL fails
      */
-    public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters) throws SQLException {
+    public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+        throws SQLException {
       PreparedStatement ps = null;
       if (currentSql != null && currentSql.equals(sql)) {
         int last = statementList.size() - 1;
@@ -617,14 +672,14 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
 
     /**
-     * TODO (Jeff Butler) - maybe this method should be deprecated in some release,
-     * and then removed in some even later release.  executeBatchDetailed gives
-     * much more complete information.
+     * TODO (Jeff Butler) - maybe this method should be deprecated in some release, and then removed in some even later
+     * release. executeBatchDetailed gives much more complete information.
      * <p/>
      * Execute the current session's batch
      *
      * @return - the number of rows updated
-     * @throws SQLException - if the batch fails
+     * @throws SQLException
+     *           - if the batch fails
      */
     public int executeBatch() throws SQLException {
       int totalRowCount = 0;
@@ -645,15 +700,15 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
 
     /**
-     * Batch execution method that returns all the information
-     * the driver has to offer.
+     * Batch execution method that returns all the information the driver has to offer.
      *
      * @return a List of BatchResult objects
-     * @throws BatchException (an SQLException sub class) if any nested
-     *                        batch fails
-     * @throws SQLException   if a database access error occurs, or the drive
-     *                        does not support batch statements
-     * @throws BatchException if the driver throws BatchUpdateException
+     * @throws BatchException
+     *           (an SQLException sub class) if any nested batch fails
+     * @throws SQLException
+     *           if a database access error occurs, or the drive does not support batch statements
+     * @throws BatchException
+     *           if the driver throws BatchUpdateException
      */
     public List executeBatchDetailed() throws SQLException, BatchException {
       List answer = new ArrayList();
@@ -698,10 +753,10 @@ public class DefaultSqlExecutor implements SqlExecutor {
 
   private void setupResultObjectFactory(StatementScope statementScope) {
     SqlMapClientImpl client = (SqlMapClientImpl) statementScope.getSession().getSqlMapClient();
-    ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(),
-        statementScope.getStatement().getId());
+    ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(), statementScope.getStatement()
+        .getId());
   }
-  
+
   private void cleanupResultObjectFactory() {
     ResultObjectFactoryUtil.cleanupResultObjectFactory();
   }

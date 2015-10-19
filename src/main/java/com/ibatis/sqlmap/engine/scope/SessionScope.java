@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.scope;
 
@@ -74,7 +74,8 @@ public class SessionScope {
   /**
    * Set the SqlMapClient for the session
    *
-   * @param sqlMapClient - the SqlMapClient
+   * @param sqlMapClient
+   *          - the SqlMapClient
    */
   public void setSqlMapClient(SqlMapClient sqlMapClient) {
     this.sqlMapClient = sqlMapClient;
@@ -92,7 +93,8 @@ public class SessionScope {
   /**
    * Get the SQL executor for the session
    *
-   * @param sqlMapExecutor - the SQL executor
+   * @param sqlMapExecutor
+   *          - the SQL executor
    */
   public void setSqlMapExecutor(SqlMapExecutor sqlMapExecutor) {
     this.sqlMapExecutor = sqlMapExecutor;
@@ -110,7 +112,8 @@ public class SessionScope {
   /**
    * Set the transaction manager
    *
-   * @param sqlMapTxMgr - the transaction manager
+   * @param sqlMapTxMgr
+   *          - the transaction manager
    */
   public void setSqlMapTxMgr(SqlMapTransactionManager sqlMapTxMgr) {
     this.sqlMapTxMgr = sqlMapTxMgr;
@@ -128,7 +131,8 @@ public class SessionScope {
   /**
    * Turn batch mode on or off
    *
-   * @param inBatch - the switch
+   * @param inBatch
+   *          - the switch
    */
   public void setInBatch(boolean inBatch) {
     this.inBatch = inBatch;
@@ -146,7 +150,8 @@ public class SessionScope {
   /**
    * Setter for the session transaction
    *
-   * @param transaction - the transaction
+   * @param transaction
+   *          - the transaction
    */
   public void setTransaction(Transaction transaction) {
     this.transaction = transaction;
@@ -164,7 +169,8 @@ public class SessionScope {
   /**
    * Setter for the transaction state of the session
    *
-   * @param transactionState - the new transaction state
+   * @param transactionState
+   *          - the new transaction state
    */
   public void setTransactionState(TransactionState transactionState) {
     this.transactionState = transactionState;
@@ -182,7 +188,8 @@ public class SessionScope {
   /**
    * Stter for the batch of the session
    *
-   * @param batch the new batch
+   * @param batch
+   *          the new batch
    */
   public void setBatch(Object batch) {
     this.batch = batch;
@@ -223,7 +230,8 @@ public class SessionScope {
   /**
    * Setter to tell the session that a commit is required for the session
    *
-   * @param commitRequired - the flag
+   * @param commitRequired
+   *          - the flag
    */
   public void setCommitRequired(boolean commitRequired) {
     this.commitRequired = commitRequired;
@@ -272,14 +280,19 @@ public class SessionScope {
     preparedStatements.clear();
   }
 
+  @Override
   public boolean equals(Object parameterObject) {
-    if (this == parameterObject) return true;
-    if (!(parameterObject instanceof SessionScope)) return false;
+    if (this == parameterObject)
+      return true;
+    if (!(parameterObject instanceof SessionScope))
+      return false;
     final SessionScope sessionScope = (SessionScope) parameterObject;
-    if (id != sessionScope.id) return false;
+    if (id != sessionScope.id)
+      return false;
     return true;
   }
 
+  @Override
   public int hashCode() {
     return (int) (id ^ (id >>> 32));
   }

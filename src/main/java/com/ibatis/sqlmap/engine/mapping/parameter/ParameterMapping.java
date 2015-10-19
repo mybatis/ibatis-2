@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.parameter;
 
@@ -28,7 +28,7 @@ public class ParameterMapping {
 
   private String propertyName;
   private TypeHandler typeHandler;
-  private String typeName; // this is used for REF types or user-defined types
+  private String typeName;            // this is used for REF types or user-defined types
   private int jdbcType;
   private String jdbcTypeName;
   private String nullValue;
@@ -148,6 +148,7 @@ public class ParameterMapping {
 
   /**
    * for user-defined or REF types
+   * 
    * @param typeName
    */
   public void setTypeName(String typeName) {
@@ -155,11 +156,11 @@ public class ParameterMapping {
   }
 
   public String getResultMapName() {
-	  return resultMapName;
+    return resultMapName;
   }
 
   public void setResultMapName(String resultMapName) {
-	  this.resultMapName = resultMapName;
+    this.resultMapName = resultMapName;
   }
 
   public Integer getNumericScale() {
@@ -168,7 +169,8 @@ public class ParameterMapping {
 
   public void setNumericScale(Integer numericScale) {
     if (numericScale != null && numericScale.intValue() < 0) {
-      throw new RuntimeException("Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero");
+      throw new RuntimeException(
+          "Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero");
     }
     this.numericScale = numericScale;
   }

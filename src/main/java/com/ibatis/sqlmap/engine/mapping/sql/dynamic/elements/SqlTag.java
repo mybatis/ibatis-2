@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
@@ -25,7 +25,7 @@ public class SqlTag implements SqlChild, DynamicParent {
 
   private String name;
   private SqlTagHandler handler;
-    
+
   // general attributes
   private String prependAttr;
   private String propertyAttr;
@@ -44,7 +44,7 @@ public class SqlTag implements SqlChild, DynamicParent {
   private List children = new ArrayList();
 
   private boolean postParseRequired = false;
-  
+
   public String getName() {
     return name;
   }
@@ -64,19 +64,19 @@ public class SqlTag implements SqlChild, DynamicParent {
   public boolean isPrependAvailable() {
     return prependAttr != null && prependAttr.length() > 0;
   }
-  
+
   public boolean isCloseAvailable() {
     return closeAttr != null && closeAttr.length() > 0;
   }
-  
+
   public boolean isOpenAvailable() {
     return openAttr != null && openAttr.length() > 0;
   }
-  
+
   public boolean isConjunctionAvailable() {
     return conjunctionAttr != null && conjunctionAttr.length() > 0;
   }
-  
+
   public String getPrependAttr() {
     return prependAttr;
   }
@@ -133,7 +133,6 @@ public class SqlTag implements SqlChild, DynamicParent {
     this.conjunctionAttr = conjunctionAttr;
   }
 
-
   public void addChild(SqlChild child) {
     if (child instanceof SqlTag) {
       ((SqlTag) child).parent = this;
@@ -152,7 +151,7 @@ public class SqlTag implements SqlChild, DynamicParent {
   public String getRemoveFirstPrepend() {
     return removeFirstPrepend;
   }
-  
+
   public void setRemoveFirstPrepend(String removeFirstPrepend) {
     this.removeFirstPrepend = removeFirstPrepend;
   }
@@ -163,9 +162,10 @@ public class SqlTag implements SqlChild, DynamicParent {
   public boolean isPostParseRequired() {
     return postParseRequired;
   }
-  
+
   /**
-   * @param iterateAncestor The postParseRequired to set.
+   * @param iterateAncestor
+   *          The postParseRequired to set.
    */
   public void setPostParseRequired(boolean iterateAncestor) {
     this.postParseRequired = iterateAncestor;
