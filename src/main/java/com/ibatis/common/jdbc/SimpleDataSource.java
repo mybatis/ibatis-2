@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc;
 
@@ -33,22 +33,10 @@ import java.util.logging.Logger;
 /**
  * This is a simple, synchronous, thread-safe database connection pool.
  * <p/>
- * REQUIRED PROPERTIES
- * -------------------
- * JDBC.Driver
- * JDBC.ConnectionURL
- * JDBC.Username
- * JDBC.Password
+ * REQUIRED PROPERTIES ------------------- JDBC.Driver JDBC.ConnectionURL JDBC.Username JDBC.Password
  * <p/>
- * Pool.MaximumActiveConnections
- * Pool.MaximumIdleConnections
- * Pool.MaximumCheckoutTime
- * Pool.TimeToWait
- * Pool.PingQuery
- * Pool.PingEnabled
- * Pool.PingConnectionsOlderThan
- * Pool.PingConnectionsNotUsedFor
- * Pool.QuietMode
+ * Pool.MaximumActiveConnections Pool.MaximumIdleConnections Pool.MaximumCheckoutTime Pool.TimeToWait Pool.PingQuery
+ * Pool.PingEnabled Pool.PingConnectionsOlderThan Pool.PingConnectionsNotUsedFor Pool.QuietMode
  */
 public class SimpleDataSource implements DataSource {
 
@@ -106,12 +94,14 @@ public class SimpleDataSource implements DataSource {
   private boolean poolPingEnabled;
   private int poolPingConnectionsOlderThan;
   private int poolPingConnectionsNotUsedFor;
-  //----- END: PROPERTY FIELDS FOR CONFIGURATION -----
+
+  // ----- END: PROPERTY FIELDS FOR CONFIGURATION -----
 
   /**
    * Constructor to allow passing in a map of properties for configuration
    *
-   * @param props - the configuration parameters
+   * @param props
+   *          - the configuration parameters
    */
   public SimpleDataSource(Map props) {
     initialize(props);
@@ -120,15 +110,13 @@ public class SimpleDataSource implements DataSource {
   private void initialize(Map props) {
     try {
       String prop_pool_ping_query = null;
-    	
+
       if (props == null) {
         throw new RuntimeException("SimpleDataSource: The properties map passed to the initializer was null.");
       }
 
-      if (!(props.containsKey(PROP_JDBC_DRIVER)
-          && props.containsKey(PROP_JDBC_URL)
-          && props.containsKey(PROP_JDBC_USERNAME)
-          && props.containsKey(PROP_JDBC_PASSWORD))) {
+      if (!(props.containsKey(PROP_JDBC_DRIVER) && props.containsKey(PROP_JDBC_URL)
+          && props.containsKey(PROP_JDBC_USERNAME) && props.containsKey(PROP_JDBC_PASSWORD))) {
         throw new RuntimeException("SimpleDataSource: Some properties were not set.");
       } else {
 
@@ -137,49 +125,32 @@ public class SimpleDataSource implements DataSource {
         jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);
         jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
 
-        poolMaximumActiveConnections =
-            props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN))
-            : 10;
+        poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN) ? Integer.parseInt((String) props
+            .get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
 
-        poolMaximumIdleConnections =
-            props.containsKey(PROP_POOL_MAX_IDLE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN))
-            : 5;
+        poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN) ? Integer.parseInt((String) props
+            .get(PROP_POOL_MAX_IDLE_CONN)) : 5;
 
-        poolMaximumCheckoutTime =
-            props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME))
-            : 20000;
+        poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME) ? Integer.parseInt((String) props
+            .get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
 
-        poolTimeToWait =
-            props.containsKey(PROP_POOL_TIME_TO_WAIT)
-            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT))
-            : 20000;
+        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT) ? Integer.parseInt((String) props
+            .get(PROP_POOL_TIME_TO_WAIT)) : 20000;
 
-        poolPingEnabled =
-            props.containsKey(PROP_POOL_PING_ENABLED)
-                && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
+        poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
+            && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
 
-        prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY); 
-        poolPingQuery =
-            props.containsKey(PROP_POOL_PING_QUERY)
-            ? prop_pool_ping_query 
-            : "NO PING QUERY SET";
+        prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);
+        poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
 
-        poolPingConnectionsOlderThan =
-            props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN))
-            : 0;
+        poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN) ? Integer
+            .parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
 
-        poolPingConnectionsNotUsedFor =
-            props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR))
-            : 0;
+        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR) ? Integer
+            .parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
 
-        jdbcDefaultAutoCommit =
-            props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
-                && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
+        jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
+            && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
 
         useDriverProps = false;
         Iterator propIter = props.keySet().iterator();
@@ -198,12 +169,11 @@ public class SimpleDataSource implements DataSource {
         expectedConnectionTypeCode = assembleConnectionTypeCode(jdbcUrl, jdbcUsername, jdbcPassword);
 
         Resources.instantiate(jdbcDriver);
-        
-        if ( poolPingEnabled && (!props.containsKey(PROP_POOL_PING_QUERY) ||
-        		prop_pool_ping_query.trim().length() == 0) ) {
-          throw new RuntimeException("SimpleDataSource: property '" + PROP_POOL_PING_ENABLED + "' is true, but property '" +
-                                           PROP_POOL_PING_QUERY + "' is not set correctly.");
-        }        
+
+        if (poolPingEnabled && (!props.containsKey(PROP_POOL_PING_QUERY) || prop_pool_ping_query.trim().length() == 0)) {
+          throw new RuntimeException("SimpleDataSource: property '" + PROP_POOL_PING_ENABLED
+              + "' is true, but property '" + PROP_POOL_PING_QUERY + "' is not set correctly.");
+        }
       }
 
     } catch (Exception e) {
@@ -259,8 +229,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * If a connection has not been used in this many milliseconds, ping the
-   * database to make sure the connection is still good.
+   * If a connection has not been used in this many milliseconds, ping the database to make sure the connection is still
+   * good.
    *
    * @return the number of milliseconds of inactivity that will trigger a ping
    */
@@ -270,6 +240,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the name of the JDBC driver class used
+   * 
    * @return The name of the class
    */
   public String getJdbcDriver() {
@@ -278,6 +249,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter of the JDBC URL used
+   * 
    * @return The JDBC URL
    */
   public String getJdbcUrl() {
@@ -286,6 +258,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the JDBC user name used
+   * 
    * @return The user name
    */
   public String getJdbcUsername() {
@@ -294,6 +267,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the JDBC password used
+   * 
    * @return The password
    */
   public String getJdbcPassword() {
@@ -302,6 +276,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the maximum number of active connections
+   * 
    * @return The maximum number of active connections
    */
   public int getPoolMaximumActiveConnections() {
@@ -310,6 +285,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the maximum number of idle connections
+   * 
    * @return The maximum number of idle connections
    */
   public int getPoolMaximumIdleConnections() {
@@ -317,8 +293,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the maximum time a connection can be used before it *may* be
-   * given away again.
+   * Getter for the maximum time a connection can be used before it *may* be given away again.
+   * 
    * @return The maximum time
    */
   public int getPoolMaximumCheckoutTime() {
@@ -327,6 +303,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the time to wait before retrying to get a connection
+   * 
    * @return The time to wait
    */
   public int getPoolTimeToWait() {
@@ -335,6 +312,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the query to be used to check a connection
+   * 
    * @return The query
    */
   public String getPoolPingQuery() {
@@ -343,6 +321,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter to tell if we should use the ping query
+   * 
    * @return True if we need to check a connection before using it
    */
   public boolean isPoolPingEnabled() {
@@ -351,6 +330,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the age of connections that should be pinged before using
+   * 
    * @return The age
    */
   public int getPoolPingConnectionsOlderThan() {
@@ -363,6 +343,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the number of connection requests made
+   * 
    * @return The number of connection requests made
    */
   public long getRequestCount() {
@@ -373,6 +354,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the average time required to get a connection to the database
+   * 
    * @return The average time
    */
   public long getAverageRequestTime() {
@@ -383,6 +365,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the average time spent waiting for connections that were in use
+   * 
    * @return The average time
    */
   public long getAverageWaitTime() {
@@ -393,6 +376,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the number of requests that had to wait for connections that were in use
+   * 
    * @return The number of requests that had to wait
    */
   public long getHadToWaitCount() {
@@ -403,6 +387,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the number of invalid connections that were found in the pool
+   * 
    * @return The number of invalid connections
    */
   public long getBadConnectionCount() {
@@ -413,6 +398,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the number of connections that were claimed before they were returned
+   * 
    * @return The number of connections
    */
   public long getClaimedOverdueConnectionCount() {
@@ -423,17 +409,19 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the average age of overdue connections
+   * 
    * @return The average age
    */
   public long getAverageOverdueCheckoutTime() {
     synchronized (POOL_LOCK) {
-      return claimedOverdueConnectionCount == 0 ? 0 : accumulatedCheckoutTimeOfOverdueConnections / claimedOverdueConnectionCount;
+      return claimedOverdueConnectionCount == 0 ? 0 : accumulatedCheckoutTimeOfOverdueConnections
+          / claimedOverdueConnectionCount;
     }
   }
 
-
   /**
    * Getter for the average age of a connection checkout
+   * 
    * @return The average age
    */
   public long getAverageCheckoutTime() {
@@ -444,6 +432,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Returns the status of the connection pool
+   * 
    * @return The status
    */
   public String getStatus() {
@@ -516,13 +505,13 @@ public class SimpleDataSource implements DataSource {
     }
   }
 
-  private void pushConnection(SimplePooledConnection conn)
-      throws SQLException {
+  private void pushConnection(SimplePooledConnection conn) throws SQLException {
 
     synchronized (POOL_LOCK) {
       activeConnections.remove(conn);
       if (conn.isValid()) {
-        if (idleConnections.size() < poolMaximumIdleConnections && conn.getConnectionTypeCode() == getExpectedConnectionTypeCode()) {
+        if (idleConnections.size() < poolMaximumIdleConnections
+            && conn.getConnectionTypeCode() == getExpectedConnectionTypeCode()) {
           accumulatedCheckoutTime += conn.getCheckoutTime();
           if (!conn.getRealConnection().getAutoCommit()) {
             conn.getRealConnection().rollback();
@@ -549,15 +538,15 @@ public class SimpleDataSource implements DataSource {
         }
       } else {
         if (log.isDebugEnabled()) {
-          log.debug("A bad connection (" + conn.getRealHashCode() + ") attempted to return to the pool, discarding connection.");
+          log.debug("A bad connection (" + conn.getRealHashCode()
+              + ") attempted to return to the pool, discarding connection.");
         }
         badConnectionCount++;
       }
     }
   }
 
-  private SimplePooledConnection popConnection(String username, String password)
-      throws SQLException {
+  private SimplePooledConnection popConnection(String username, String password) throws SQLException {
     boolean countedWait = false;
     SimplePooledConnection conn = null;
     long t = System.currentTimeMillis();
@@ -637,7 +626,8 @@ public class SimpleDataSource implements DataSource {
             accumulatedRequestTime += System.currentTimeMillis() - t;
           } else {
             if (log.isDebugEnabled()) {
-              log.debug("A bad connection (" + conn.getRealHashCode() + ") was returned from the pool, getting another connection.");
+              log.debug("A bad connection (" + conn.getRealHashCode()
+                  + ") was returned from the pool, getting another connection.");
             }
             badConnectionCount++;
             localBadConnectionCount++;
@@ -658,7 +648,8 @@ public class SimpleDataSource implements DataSource {
       if (log.isDebugEnabled()) {
         log.debug("SimpleDataSource: Unknown severe error condition.  The connection pool returned a null connection.");
       }
-      throw new SQLException("SimpleDataSource: Unknown severe error condition.  The connection pool returned a null connection.");
+      throw new SQLException(
+          "SimpleDataSource: Unknown severe error condition.  The connection pool returned a null connection.");
     }
 
     return conn;
@@ -667,7 +658,8 @@ public class SimpleDataSource implements DataSource {
   /**
    * Method to check to see if a connection is still usable
    *
-   * @param conn - the connection to check
+   * @param conn
+   *          - the connection to check
    * @return True if the connection is still usable
    */
   private boolean pingConnection(SimplePooledConnection conn) {
@@ -678,7 +670,7 @@ public class SimpleDataSource implements DataSource {
     } catch (SQLException e) {
       if (log.isDebugEnabled()) {
         log.debug("Connection " + conn.getRealHashCode() + " is BAD: " + e.getMessage());
-      }    	
+      }
       result = false;
     }
 
@@ -704,11 +696,11 @@ public class SimpleDataSource implements DataSource {
               log.debug("Connection " + conn.getRealHashCode() + " is GOOD!");
             }
           } catch (Exception e) {
-            log.warn("Execution of ping query '" + poolPingQuery + "' failed: " + e.getMessage());          	
+            log.warn("Execution of ping query '" + poolPingQuery + "' failed: " + e.getMessage());
             try {
               conn.getRealConnection().close();
             } catch (Exception e2) {
-              //ignore
+              // ignore
             }
             result = false;
             if (log.isDebugEnabled()) {
@@ -724,7 +716,8 @@ public class SimpleDataSource implements DataSource {
   /**
    * Unwraps a pooled connection to get to the 'real' connection
    *
-   * @param conn - the pooled connection to unwrap
+   * @param conn
+   *          - the pooled connection to unwrap
    * @return The 'real' connection
    */
   public static Connection unwrapConnection(Connection conn) {
@@ -740,14 +733,13 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * ---------------------------------------------------------------------------------------
-   * SimplePooledConnection
+   * --------------------------------------------------------------------------------------- SimplePooledConnection
    * ---------------------------------------------------------------------------------------
    */
   public static class SimplePooledConnection implements InvocationHandler {
 
     private static final String CLOSE = "close";
-    private static final Class[] IFACES = new Class[]{Connection.class};
+    private static final Class[] IFACES = new Class[] { Connection.class };
 
     private int hashCode = 0;
     private SimpleDataSource dataSource;
@@ -762,8 +754,10 @@ public class SimpleDataSource implements DataSource {
     /**
      * Constructor for SimplePooledConnection that uses the Connection and SimpleDataSource passed in
      *
-     * @param connection - the connection that is to be presented as a pooled connection
-     * @param dataSource - the dataSource that the connection is from
+     * @param connection
+     *          - the connection that is to be presented as a pooled connection
+     * @param dataSource
+     *          - the dataSource that the connection is from
      */
     public SimplePooledConnection(Connection connection, SimpleDataSource dataSource) {
       this.hashCode = connection.hashCode();
@@ -794,6 +788,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the *real* connection that this wraps
+     * 
      * @return The connection
      */
     public Connection getRealConnection() {
@@ -802,6 +797,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the proxy for the connection
+     * 
      * @return The proxy
      */
     public Connection getProxyConnection() {
@@ -823,6 +819,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the connection type (based on url + user + password)
+     * 
      * @return The connection type
      */
     public int getConnectionTypeCode() {
@@ -831,7 +828,9 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Setter for the connection type
-     * @param connectionTypeCode - the connection type
+     * 
+     * @param connectionTypeCode
+     *          - the connection type
      */
     public void setConnectionTypeCode(int connectionTypeCode) {
       this.connectionTypeCode = connectionTypeCode;
@@ -839,6 +838,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the time that the connection was created
+     * 
      * @return The creation timestamp
      */
     public long getCreatedTimestamp() {
@@ -847,7 +847,9 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Setter for the time that the connection was created
-     * @param createdTimestamp - the timestamp
+     * 
+     * @param createdTimestamp
+     *          - the timestamp
      */
     public void setCreatedTimestamp(long createdTimestamp) {
       this.createdTimestamp = createdTimestamp;
@@ -855,6 +857,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the time that the connection was last used
+     * 
      * @return - the timestamp
      */
     public long getLastUsedTimestamp() {
@@ -863,7 +866,9 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Setter for the time that the connection was last used
-     * @param lastUsedTimestamp - the timestamp
+     * 
+     * @param lastUsedTimestamp
+     *          - the timestamp
      */
     public void setLastUsedTimestamp(long lastUsedTimestamp) {
       this.lastUsedTimestamp = lastUsedTimestamp;
@@ -871,6 +876,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the time since this connection was last used
+     * 
      * @return - the time since the last use
      */
     public long getTimeElapsedSinceLastUse() {
@@ -879,6 +885,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the age of the connection
+     * 
      * @return the age
      */
     public long getAge() {
@@ -887,6 +894,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the timestamp that this connection was checked out
+     * 
      * @return the timestamp
      */
     public long getCheckoutTimestamp() {
@@ -895,7 +903,9 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Setter for the timestamp that this connection was checked out
-     * @param timestamp the timestamp
+     * 
+     * @param timestamp
+     *          the timestamp
      */
     public void setCheckoutTimestamp(long timestamp) {
       this.checkoutTimestamp = timestamp;
@@ -903,6 +913,7 @@ public class SimpleDataSource implements DataSource {
 
     /**
      * Getter for the time that this connection has been checked out
+     * 
      * @return the time
      */
     public long getCheckoutTime() {
@@ -923,7 +934,8 @@ public class SimpleDataSource implements DataSource {
     /**
      * Allows comparing this connection to another
      *
-     * @param obj - the other connection to test for equality
+     * @param obj
+     *          - the other connection to test for equality
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -943,13 +955,15 @@ public class SimpleDataSource implements DataSource {
     /**
      * Required for InvocationHandler implementation.
      *
-     * @param proxy  - not used
-     * @param method - the method to be executed
-     * @param args   - the parameters to be passed to the method
+     * @param proxy
+     *          - not used
+     * @param method
+     *          - the method to be executed
+     * @param args
+     *          - the parameters to be passed to the method
      * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
      */
-    public Object invoke(Object proxy, Method method, Object[] args)
-        throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       String methodName = method.getName();
       if (CLOSE.hashCode() == methodName.hashCode() && CLOSE.equals(methodName)) {
         dataSource.pushConnection(this);
@@ -1043,7 +1057,8 @@ public class SimpleDataSource implements DataSource {
       return getValidConnection().createStatement(resultSetType, resultSetConcurrency);
     }
 
-    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
+        throws SQLException {
       return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency);
     }
 
@@ -1087,38 +1102,32 @@ public class SimpleDataSource implements DataSource {
       getValidConnection().releaseSavepoint(savepoint);
     }
 
-    public Statement createStatement(int resultSetType, int resultSetConcurrency,
-                                     int resultSetHoldability) throws SQLException {
+    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability)
+        throws SQLException {
       return getValidConnection().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
-    public PreparedStatement prepareStatement(String sql, int resultSetType,
-                                              int resultSetConcurrency, int resultSetHoldability)
-        throws SQLException {
+    public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency,
+        int resultSetHoldability) throws SQLException {
       return getValidConnection().prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
-    public CallableStatement prepareCall(String sql, int resultSetType,
-                                         int resultSetConcurrency,
-                                         int resultSetHoldability) throws SQLException {
+    public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency,
+        int resultSetHoldability) throws SQLException {
       return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
-    public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys)
-        throws SQLException {
+    public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
       return getValidConnection().prepareStatement(sql, autoGeneratedKeys);
     }
 
-    public PreparedStatement prepareStatement(String sql, int columnIndexes[])
-        throws SQLException {
+    public PreparedStatement prepareStatement(String sql, int columnIndexes[]) throws SQLException {
       return getValidConnection().prepareStatement(sql, columnIndexes);
     }
 
-    public PreparedStatement prepareStatement(String sql, String columnNames[])
-        throws SQLException {
+    public PreparedStatement prepareStatement(String sql, String columnNames[]) throws SQLException {
       return getValidConnection().prepareStatement(sql, columnNames);
     }
-
 
   }
 

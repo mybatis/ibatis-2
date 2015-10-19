@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -37,6 +37,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
+  @Override
   protected void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
@@ -44,6 +45,7 @@ public class StatementTest extends BaseSqlMapTest {
     initScript("scripts/line_item-init.sql");
   }
 
+  @Override
   protected void tearDown() throws Exception {
   }
 
@@ -127,7 +129,7 @@ public class StatementTest extends BaseSqlMapTest {
     Account account = (Account) sqlMap.queryForObject("getAccountViaResultClassIgnoreCaseTypeAlias", new Integer(1));
     assertAccount1(account);
   }
-  
+
   public void testExecuteQueryForObjectViaResultClassPlusOne() throws SQLException {
     List list = sqlMap.queryForList("getAccountViaResultClassPlusOne", new Integer(1));
     assertList(list);
@@ -210,18 +212,12 @@ public class StatementTest extends BaseSqlMapTest {
    * for bug 976614 - bug squashed 07-14-04 By Brandon Goodin
    */
   /*
-  public void testBrokenExecuteQueryForListWithResultMap() throws SQLException {
-    List list = sqlMap.queryForList("getBrokenAllAccountsViaResultMap", null);
-    
-    assertAccount1((Account) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
-  }
-  */
+   * public void testBrokenExecuteQueryForListWithResultMap() throws SQLException { List list =
+   * sqlMap.queryForList("getBrokenAllAccountsViaResultMap", null); assertAccount1((Account) list.get(0));
+   * assertEquals(5, list.size()); assertEquals(1, ((Account) list.get(0)).getId()); assertEquals(2, ((Account)
+   * list.get(1)).getId()); assertEquals(3, ((Account) list.get(2)).getId()); assertEquals(4, ((Account)
+   * list.get(3)).getId()); assertEquals(5, ((Account) list.get(4)).getId()); }
+   */
   public void testExecuteQueryForPaginatedList() throws SQLException {
 
     // Get List of all 5
@@ -368,11 +364,9 @@ public class StatementTest extends BaseSqlMapTest {
     list.nextPage();
     assertEquals(5, list.size());
 
-
     list.isPreviousPageAvailable();
     list.previousPage();
     assertEquals(5, list.size());
-
 
   }
 
@@ -523,11 +517,9 @@ public class StatementTest extends BaseSqlMapTest {
     list.nextPage();
     assertEquals(5, list.size());
 
-
     list.isPreviousPageAvailable();
     list.previousPage();
     assertEquals(5, list.size());
-
 
   }
 
@@ -641,14 +633,11 @@ public class StatementTest extends BaseSqlMapTest {
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
     assertEquals(5, handler.getIndex());
     /*
-    assertEquals(5, list.size());
-    assertAccount1((Account) list.get(0));
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
-    */
+     * assertEquals(5, list.size()); assertAccount1((Account) list.get(0)); assertEquals(1, ((Account)
+     * list.get(0)).getId()); assertEquals(2, ((Account) list.get(1)).getId()); assertEquals(3, ((Account)
+     * list.get(2)).getId()); assertEquals(4, ((Account) list.get(3)).getId()); assertEquals(5, ((Account)
+     * list.get(4)).getId());
+     */
   }
 
   // MAP TESTS
@@ -711,9 +700,9 @@ public class StatementTest extends BaseSqlMapTest {
 
     Object key = new Integer(-1);
 
-    try{
+    try {
       key = sqlMap.insert("insertLineItemOrDie", item);
-    }catch(SQLException e){
+    } catch (SQLException e) {
       // this is expected
     }
 
@@ -824,14 +813,14 @@ public class StatementTest extends BaseSqlMapTest {
   /**
    * For bug 959140
    */
-//  public void testExecuteUpdateWithDuplicateParams() throws SQLException {
-//
-//    sqlMap.update("deleteAccountByDuplicateInteger", new Integer (5));
-//
-//    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", new Integer(5));
-//
-//    assertNull(account);
-//  }
+  // public void testExecuteUpdateWithDuplicateParams() throws SQLException {
+  //
+  // sqlMap.update("deleteAccountByDuplicateInteger", new Integer (5));
+  //
+  // Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", new Integer(5));
+  //
+  // assertNull(account);
+  // }
 
   // DYNAMIC SQL
 
@@ -877,45 +866,45 @@ public class StatementTest extends BaseSqlMapTest {
 
   public void testNestedResultMaps() throws SQLException {
     List list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
-    
+
     assertEquals(10, list.size());
-    
+
     Order order = (Order) list.get(0);
     assertEquals(1, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(1);
     assertEquals(4, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(2);
     assertEquals(3, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(3);
     assertEquals(2, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(4);
     assertEquals(5, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(5);
     assertEquals(5, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(6);
     assertEquals(4, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(7);
     assertEquals(3, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(8);
     assertEquals(2, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());
-    
+
     order = (Order) list.get(9);
     assertEquals(1, order.getAccount().getId());
     assertEquals(2, order.getLineItems().size());

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -43,10 +43,9 @@ public class MappedStatementConfig {
   private MappedStatement rootStatement;
 
   MappedStatementConfig(SqlMapConfiguration config, String id, MappedStatement statement, SqlSource processor,
-                        String parameterMapName, Class parameterClass, String resultMapName,
-                        String[] additionalResultMapNames, Class resultClass, Class[] additionalResultClasses,
-                        String cacheModelName, String resultSetType, Integer fetchSize, boolean allowRemapping,
-                        Integer timeout, Integer defaultStatementTimeout, String xmlResultName) {
+      String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
+      Class resultClass, Class[] additionalResultClasses, String cacheModelName, String resultSetType,
+      Integer fetchSize, boolean allowRemapping, Integer timeout, Integer defaultStatementTimeout, String xmlResultName) {
     this.errorContext = config.getErrorContext();
     this.client = config.getClient();
     SqlMapExecutorDelegate delegate = client.getDelegate();
@@ -103,7 +102,8 @@ public class MappedStatementConfig {
       statement.setResultMap(resultMap);
       if (additionalResultClasses != null) {
         for (int i = 0; i < additionalResultClasses.length; i++) {
-          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i], xmlResultName));
+          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i],
+              xmlResultName));
         }
       }
 
@@ -113,7 +113,8 @@ public class MappedStatementConfig {
       try {
         statement.setTimeout(timeout);
       } catch (NumberFormatException e) {
-        throw new SqlMapException("Specified timeout value for statement " + statement.getId() + " is not a valid integer");
+        throw new SqlMapException("Specified timeout value for statement " + statement.getId()
+            + " is not a valid integer");
       }
     }
     errorContext.setMoreInfo(null);
@@ -129,7 +130,8 @@ public class MappedStatementConfig {
     delegate.addMappedStatement(mappedStatement);
   }
 
-  public void setSelectKeyStatement(SqlSource processor, String resultClassName, String keyPropName, boolean runAfterSQL, String type) {
+  public void setSelectKeyStatement(SqlSource processor, String resultClassName, String keyPropName,
+      boolean runAfterSQL, String type) {
     if (rootStatement instanceof InsertStatement) {
       InsertStatement insertStatement = ((InsertStatement) rootStatement);
       Class parameterClass = insertStatement.getParameterClass();
@@ -177,7 +179,8 @@ public class MappedStatementConfig {
       errorContext.setMoreInfo(null);
       insertStatement.setSelectKeyStatement(selectKeyStatement);
     } else {
-      throw new SqlMapException("You cant set a select key statement on statement named " + rootStatement.getId() + " because it is not an InsertStatement.");
+      throw new SqlMapException("You cant set a select key statement on statement named " + rootStatement.getId()
+          + " because it is not an InsertStatement.");
     }
   }
 
@@ -201,7 +204,8 @@ public class MappedStatementConfig {
       map.setParameterClass(statement.getParameterClass());
       map.setResource(statement.getResource());
       statement.setParameterMap(map);
-      SqlText sqlText = PARAM_PARSER.parseInlineParameterMap(client.getDelegate().getTypeHandlerFactory(), newSql, statement.getParameterClass());
+      SqlText sqlText = PARAM_PARSER.parseInlineParameterMap(client.getDelegate().getTypeHandlerFactory(), newSql,
+          statement.getParameterClass());
       newSql = sqlText.getText();
       List mappingList = Arrays.asList(sqlText.getParameterMappings());
       map.setParameterMappingList(mappingList);
@@ -216,7 +220,8 @@ public class MappedStatementConfig {
 
   }
 
-  private ResultMap buildAutoResultMap(boolean allowRemapping, MappedStatement statement, Class firstResultClass, String xmlResultName) {
+  private ResultMap buildAutoResultMap(boolean allowRemapping, MappedStatement statement, Class firstResultClass,
+      String xmlResultName) {
     ResultMap resultMap;
     resultMap = new AutoResultMap(client.getDelegate(), allowRemapping);
     resultMap.setId(statement.getId() + "-AutoResultMap");
@@ -225,7 +230,6 @@ public class MappedStatementConfig {
     resultMap.setResource(statement.getResource());
     return resultMap;
   }
-
 
   public MappedStatement getMappedStatement() {
     return mappedStatement;

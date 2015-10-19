@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic;
 
@@ -93,12 +93,14 @@ public class DynamicSql implements Sql, DynamicParent {
     statementScope.setDynamicParameterMap(map);
   }
 
-  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject, Iterator localChildren) {
+  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,
+      Iterator localChildren) {
     PrintWriter out = ctx.getWriter();
     processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);
   }
 
-  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject, Iterator localChildren, PrintWriter out) {
+  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,
+      Iterator localChildren, PrintWriter out) {
     while (localChildren.hasNext()) {
       SqlChild child = (SqlChild) localChildren.next();
       if (child instanceof SqlText) {
@@ -121,15 +123,15 @@ public class DynamicSql implements Sql, DynamicParent {
 
           IterateContext itCtx = ctx.peekIterateContext();
 
-          if(null != itCtx && itCtx.isAllowNext()){
+          if (null != itCtx && itCtx.isAllowNext()) {
             itCtx.next();
             itCtx.setAllowNext(false);
-            if(!itCtx.hasNext()) {
+            if (!itCtx.hasNext()) {
               itCtx.setFinal(true);
             }
           }
 
-          if(itCtx!=null) {
+          if (itCtx != null) {
             StringBuffer sqlStatementBuffer = new StringBuffer(sqlStatement);
             iteratePropertyReplace(sqlStatementBuffer, itCtx);
             sqlStatement = sqlStatementBuffer.toString();
@@ -140,9 +142,9 @@ public class DynamicSql implements Sql, DynamicParent {
           ParameterMapping[] mappings = sqlText.getParameterMappings();
           out.print(sqlText.getText());
           if (mappings != null) {
-             for (int i = 0, n = mappings.length; i < n; i++) {
-               ctx.addParameterMapping(mappings[i]);
-             }
+            for (int i = 0, n = mappings.length; i < n; i++) {
+              ctx.addParameterMapping(mappings[i]);
+            }
           }
         }
       } else if (child instanceof SqlTag) {
@@ -152,7 +154,7 @@ public class DynamicSql implements Sql, DynamicParent {
         do {
           StringWriter sw = new StringWriter();
           PrintWriter pw = new PrintWriter(sw);
-          
+
           response = handler.doStartFragment(ctx, tag, parameterObject);
           if (response != SqlTagHandler.SKIP_BODY) {
 
@@ -162,7 +164,7 @@ public class DynamicSql implements Sql, DynamicParent {
             StringBuffer body = sw.getBuffer();
             response = handler.doEndFragment(ctx, tag, parameterObject, body);
             handler.doPrepend(ctx, tag, parameterObject, body);
-            
+
             if (response != SqlTagHandler.SKIP_BODY) {
               if (body.length() > 0) {
                 out.print(body.toString());
@@ -174,7 +176,7 @@ public class DynamicSql implements Sql, DynamicParent {
 
         ctx.popRemoveFirstPrependMarker(tag);
 
-        if(ctx.peekIterateContext()!= null && ctx.peekIterateContext().getTag() == tag) {
+        if (ctx.peekIterateContext() != null && ctx.peekIterateContext().getTag() == tag) {
           ctx.setAttribute(ctx.peekIterateContext().getTag(), null);
           ctx.popIterateContext();
         }
@@ -189,18 +191,19 @@ public class DynamicSql implements Sql, DynamicParent {
    * @param iterate
    */
   protected void iteratePropertyReplace(StringBuffer bodyContent, IterateContext iterate) {
-    if(iterate!=null) {
-      String[] mappings = new String[] {"#", "$"};
+    if (iterate != null) {
+      String[] mappings = new String[] { "#", "$" };
       for (int i = 0; i < mappings.length; i++) {
-          int startIndex = 0;
-          int endIndex = -1;
-          while (startIndex > -1 && startIndex < bodyContent.length()) {
-              startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
-              endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
-              if (startIndex > -1 && endIndex > -1) {
-                  bodyContent.replace(startIndex + 1, endIndex, iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));
-              }
+        int startIndex = 0;
+        int endIndex = -1;
+        while (startIndex > -1 && startIndex < bodyContent.length()) {
+          startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
+          endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
+          if (startIndex > -1 && endIndex > -1) {
+            bodyContent.replace(startIndex + 1, endIndex,
+                iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));
           }
+        }
       }
     }
   }
@@ -213,6 +216,7 @@ public class DynamicSql implements Sql, DynamicParent {
       pos = buffer.toString().indexOf(find);
     }
   }
+
   public void addChild(SqlChild child) {
     children.add(child);
   }

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -29,11 +29,13 @@ public class CacheStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
+  @Override
   protected void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
+  @Override
   protected void tearDown() throws Exception {
   }
 
@@ -271,6 +273,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
       this.statementName = statementName;
     }
 
+    @Override
     public void run() {
       try {
         SqlMapSession session = sqlMap.openSession();
@@ -278,7 +281,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
         int firstId = System.identityHashCode(list);
         list = session.queryForList(statementName, null);
         int secondId = System.identityHashCode(list);
-        //assertEquals(firstId, secondId);
+        // assertEquals(firstId, secondId);
         results.put("id", new Integer(System.identityHashCode(list)));
         results.put("list", list);
         session.close();
@@ -297,6 +300,5 @@ public class CacheStatementTest extends BaseSqlMapTest {
       }
     }
   }
-
 
 }

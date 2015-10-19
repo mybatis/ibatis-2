@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * A way to make a CallableStatement look like a ResultSet 
+ * A way to make a CallableStatement look like a ResultSet
  */
 public class CallableStatementResultSet implements ResultSet {
 
@@ -32,8 +32,9 @@ public class CallableStatementResultSet implements ResultSet {
 
   /**
    * Constructor to stretch a ResultSet interface over a CallableStatement
-   *  
-   * @param cs - the CallableStatement
+   * 
+   * @param cs
+   *          - the CallableStatement
    */
   public CallableStatementResultSet(CallableStatement cs) {
     this.cs = cs;
@@ -617,12 +618,12 @@ public class CallableStatementResultSet implements ResultSet {
 
   public void updateRowId(int columnIndex, RowId x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateRowId(String columnLabel, RowId x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public int getHoldability() throws SQLException {
@@ -637,22 +638,22 @@ public class CallableStatementResultSet implements ResultSet {
 
   public void updateNString(int columnIndex, String nString) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNString(String columnLabel, String nString) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(int columnIndex, NClob nClob) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(String columnLabel, NClob nClob) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public NClob getNClob(int columnIndex) throws SQLException {
@@ -677,12 +678,12 @@ public class CallableStatementResultSet implements ResultSet {
 
   public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public String getNString(int columnIndex) throws SQLException {
@@ -707,142 +708,142 @@ public class CallableStatementResultSet implements ResultSet {
 
   public void updateNCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateAsciiStream(int columnIndex, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBinaryStream(int columnIndex, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateAsciiStream(String columnLabel, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBinaryStream(String columnLabel, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBlob(int columnIndex, InputStream inputStream, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBlob(String columnLabel, InputStream inputStream, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateClob(int columnIndex, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateClob(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(int columnIndex, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNCharacterStream(int columnIndex, Reader x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNCharacterStream(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateAsciiStream(int columnIndex, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBinaryStream(int columnIndex, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateCharacterStream(int columnIndex, Reader x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateAsciiStream(String columnLabel, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBinaryStream(String columnLabel, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateCharacterStream(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBlob(int columnIndex, InputStream inputStream) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateBlob(String columnLabel, InputStream inputStream) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateClob(int columnIndex, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateClob(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(int columnIndex, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void updateNClob(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {

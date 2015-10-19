@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package xmltester;
 
@@ -54,13 +54,16 @@ public class MiniParser extends DefaultHandler {
     return dom;
   }
 
+  @Override
   public void startDocument() {
     dom = new MiniDom();
   }
 
+  @Override
   public void endDocument() {
   }
 
+  @Override
   public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     MiniElement element = new MiniElement(qName);
     if (attributes != null) {
@@ -76,12 +79,14 @@ public class MiniParser extends DefaultHandler {
     currentElement = element;
   }
 
+  @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     if (currentElement != null && currentElement != dom.getRootElement()) {
       currentElement = currentElement.getParent();
     }
   }
 
+  @Override
   public void characters(char ch[], int start, int length) {
     if (currentElement != null) {
       StringBuffer buffer;
@@ -96,7 +101,7 @@ public class MiniParser extends DefaultHandler {
     }
   }
 
-
+  @Override
   public void fatalError(SAXParseException e) throws SAXException {
     throw new RuntimeException("MiniXmlParser error parsing XML.  Cause: " + e, e);
   }

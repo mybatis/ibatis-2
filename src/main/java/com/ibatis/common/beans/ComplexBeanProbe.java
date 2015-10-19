@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.beans;
 
@@ -21,9 +21,8 @@ import java.util.StringTokenizer;
 import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
 
 /**
- * StaticBeanProbe provides methods that allow simple, reflective access to
- * JavaBeans style properties.  Methods are provided for all simple types as
- * well as object types.
+ * StaticBeanProbe provides methods that allow simple, reflective access to JavaBeans style properties. Methods are
+ * provided for all simple types as well as object types.
  * <p/>
  * Examples:
  * <p/>
@@ -41,9 +40,11 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Returns an array of the readable properties exposed by a bean
    *
-   * @param object The bean
+   * @param object
+   *          The bean
    * @return The properties
    */
+  @Override
   public String[] getReadablePropertyNames(Object object) {
     return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();
   }
@@ -51,19 +52,22 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Returns an array of the writeable properties exposed by a bean
    *
-   * @param object The bean
+   * @param object
+   *          The bean
    * @return The properties
    */
+  @Override
   public String[] getWriteablePropertyNames(Object object) {
     return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();
   }
 
   /**
-   * Returns the class that the setter expects to receive as a parameter when
-   * setting a property value.
+   * Returns the class that the setter expects to receive as a parameter when setting a property value.
    *
-   * @param object The bean to check
-   * @param name   The name of the property
+   * @param object
+   *          The bean to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    */
   public Class getPropertyTypeForSetter(Object object, String name) {
@@ -97,8 +101,10 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Returns the class that the getter will return when reading a property value.
    *
-   * @param object The bean to check
-   * @param name   The name of the property
+   * @param object
+   *          The bean to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    */
   public Class getPropertyTypeForGetter(Object object, String name) {
@@ -132,8 +138,10 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Returns the class that the getter will return when reading a property value.
    *
-   * @param type The class to check
-   * @param name The name of the property
+   * @param type
+   *          The class to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    */
   private Class getClassPropertyTypeForGetter(Class type, String name) {
@@ -152,11 +160,12 @@ public class ComplexBeanProbe extends BaseProbe {
   }
 
   /**
-   * Returns the class that the setter expects to receive as a parameter when
-   * setting a property value.
+   * Returns the class that the setter expects to receive as a parameter when setting a property value.
    *
-   * @param type The class to check
-   * @param name The name of the property
+   * @param type
+   *          The class to check
+   * @param name
+   *          The name of the property
    * @return The type of the property
    */
   private Class getClassPropertyTypeForSetter(Class type, String name) {
@@ -177,8 +186,10 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Gets an Object property from a bean
    *
-   * @param object The bean
-   * @param name   The property name
+   * @param object
+   *          The bean
+   * @param name
+   *          The property name
    * @return The property value (as an Object)
    */
   public Object getObject(Object object, String name) {
@@ -202,9 +213,12 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Sets the value of a bean property to an Object
    *
-   * @param object The bean to change
-   * @param name   The name of the property to set
-   * @param value  The new value to set
+   * @param object
+   *          The bean to change
+   * @param name
+   *          The name of the property to set
+   * @param value
+   *          The new value to set
    */
   public void setObject(Object object, String name, Object value) {
     if (name.indexOf('.') > -1) {
@@ -223,7 +237,10 @@ public class ComplexBeanProbe extends BaseProbe {
               child = ResultObjectFactoryUtil.createObjectThroughFactory(type);
               setObject(parent, property, child);
             } catch (Exception e) {
-              throw new ProbeException("Cannot set value of property '" + name + "' because '" + property + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:" + e.toString(), e);
+              throw new ProbeException(
+                  "Cannot set value of property '" + name + "' because '" + property
+                      + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:"
+                      + e.toString(), e);
             }
           }
         }
@@ -235,18 +252,19 @@ public class ComplexBeanProbe extends BaseProbe {
     }
   }
 
-
   /**
    * Checks to see if a bean has a writable property be a given name
    *
-   * @param object       The bean to check
-   * @param propertyName The property to check for
+   * @param object
+   *          The bean to check
+   * @param propertyName
+   *          The property to check for
    * @return True if the property exists and is writable
    */
   public boolean hasWritableProperty(Object object, String propertyName) {
     boolean hasProperty = false;
     if (object instanceof Map) {
-      hasProperty = true;//((Map) object).containsKey(propertyName);
+      hasProperty = true;// ((Map) object).containsKey(propertyName);
     } else {
       if (propertyName.indexOf('.') > -1) {
         StringTokenizer parser = new StringTokenizer(propertyName, ".");
@@ -266,14 +284,16 @@ public class ComplexBeanProbe extends BaseProbe {
   /**
    * Checks to see if a bean has a readable property be a given name
    *
-   * @param object       The bean to check
-   * @param propertyName The property to check for
+   * @param object
+   *          The bean to check
+   * @param propertyName
+   *          The property to check for
    * @return True if the property exists and is readable
    */
   public boolean hasReadableProperty(Object object, String propertyName) {
     boolean hasProperty = false;
     if (object instanceof Map) {
-      hasProperty = true;//((Map) object).containsKey(propertyName);
+      hasProperty = true;// ((Map) object).containsKey(propertyName);
     } else {
       if (propertyName.indexOf('.') > -1) {
         StringTokenizer parser = new StringTokenizer(propertyName, ".");
@@ -290,6 +310,7 @@ public class ComplexBeanProbe extends BaseProbe {
     return hasProperty;
   }
 
+  @Override
   protected Object getProperty(Object object, String name) {
     try {
       Object value = null;
@@ -314,7 +335,8 @@ public class ComplexBeanProbe extends BaseProbe {
             ClassInfo classCache = ClassInfo.getInstance(object.getClass());
             Invoker method = classCache.getGetInvoker(name);
             if (method == null) {
-              throw new NoSuchMethodException("No GET method for property " + name + " on instance of " + object.getClass().getName());
+              throw new NoSuchMethodException("No GET method for property " + name + " on instance of "
+                  + object.getClass().getName());
             }
             try {
               value = method.invoke(object, NO_ARGUMENTS);
@@ -330,13 +352,16 @@ public class ComplexBeanProbe extends BaseProbe {
       throw e;
     } catch (Throwable t) {
       if (object == null) {
-        throw new ProbeException("Could not get property '" + name + "' from null reference.  Cause: " + t.toString(), t);
+        throw new ProbeException("Could not get property '" + name + "' from null reference.  Cause: " + t.toString(),
+            t);
       } else {
-        throw new ProbeException("Could not get property '" + name + "' from " + object.getClass().getName() + ".  Cause: " + t.toString(), t);
+        throw new ProbeException("Could not get property '" + name + "' from " + object.getClass().getName()
+            + ".  Cause: " + t.toString(), t);
       }
     }
   }
 
+  @Override
   protected void setProperty(Object object, String name, Object value) {
     ClassInfo classCache = ClassInfo.getInstance(object.getClass());
     try {
@@ -348,7 +373,8 @@ public class ComplexBeanProbe extends BaseProbe {
         } else {
           Invoker method = classCache.getSetInvoker(name);
           if (method == null) {
-            throw new NoSuchMethodException("No SET method for property " + name + " on instance of " + object.getClass().getName());
+            throw new NoSuchMethodException("No SET method for property " + name + " on instance of "
+                + object.getClass().getName());
           }
           Object[] params = new Object[1];
           params[0] = value;
@@ -362,14 +388,9 @@ public class ComplexBeanProbe extends BaseProbe {
     } catch (ProbeException e) {
       throw e;
     } catch (Throwable t) {
-      if (object == null) {
-        throw new ProbeException("Could not set property '" + name + "' to value '"+value+"' for null reference.  Cause: " + t.toString(), t);
-      } else {
-        throw new ProbeException("Could not set property '" + name + "' to value '"+value+"' for " + object.getClass().getName() + ".  Cause: " + t.toString(), t);
-      }
+      throw new ProbeException("Could not set property '" + name + "' to value '" + value + "' for "
+          + object.getClass().getName() + ".  Cause: " + t.toString(), t);
     }
   }
 
 }
-
-

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
@@ -41,9 +41,12 @@ public class RowHandlerCallback {
   /**
    * Constructor
    *
-   * @param resultMap    - the result map
-   * @param resultObject - the result object
-   * @param rowHandler   - the row handler object
+   * @param resultMap
+   *          - the result map
+   * @param resultObject
+   *          - the result object
+   * @param rowHandler
+   *          - the row handler object
    */
   public RowHandlerCallback(ResultMap resultMap, Object resultObject, RowHandler rowHandler) {
     this.rowHandler = rowHandler;
@@ -54,8 +57,10 @@ public class RowHandlerCallback {
   /**
    * Prepares the row object, and passes it to the row handler
    *
-   * @param statementScope - the request scope
-   * @param results - the result data
+   * @param statementScope
+   *          - the request scope
+   * @param results
+   *          - the result data
    */
   public void handleResultObject(StatementScope statementScope, Object[] results, ResultSet rs) throws SQLException {
     Object object;
@@ -64,12 +69,11 @@ public class RowHandlerCallback {
     object = resultMap.resolveSubMap(statementScope, rs).setResultObjectValues(statementScope, resultObject, results);
 
     if (object != ResultMap.NO_VALUE) {
-      //  XML Only special processing. (converts elements to string for easy insertion).
+      // XML Only special processing. (converts elements to string for easy insertion).
       int stackDepth = statementScope.getSession().getRequestStackDepth();
       if (stackDepth == 1) {
         Class targetType = statementScope.getResultMap().getResultClass();
-        if (XmlTypeMarker.class.isAssignableFrom(targetType)
-            && object instanceof Document) {
+        if (XmlTypeMarker.class.isAssignableFrom(targetType) && object instanceof Document) {
           object = documentToString((Document) object);
         }
       }

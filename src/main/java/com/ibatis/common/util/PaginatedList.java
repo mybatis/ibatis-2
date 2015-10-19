@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.util;
 
@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Interface for lists that support paging
+ * 
  * @deprecated All paginated list features have been deprecated
  */
 public interface PaginatedList extends List {
@@ -33,25 +34,22 @@ public interface PaginatedList extends List {
   /**
    * Is the current page the first page?
    *
-   * @return True if the current page is the first page or if only
-   *         a single page exists.
+   * @return True if the current page is the first page or if only a single page exists.
    */
   public boolean isFirstPage();
 
   /**
    * Is the current page a middle page (ie not first or last)?
    *
-   * @return True if the current page is not the first or last page,
-   *         and more than one page exists (always returns false if only a
-   *         single page exists).
+   * @return True if the current page is not the first or last page, and more than one page exists (always returns false
+   *         if only a single page exists).
    */
   public boolean isMiddlePage();
 
   /**
    * Is the current page the last page?
    *
-   * @return True if the current page is the last page or if only
-   *         a single page exists.
+   * @return True if the current page is the last page or if only a single page exists.
    */
   public boolean isLastPage();
 
@@ -70,35 +68,31 @@ public interface PaginatedList extends List {
   public boolean isPreviousPageAvailable();
 
   /**
-   * Moves to the next page after the current page.  If the current
-   * page is the last page, wrap to the first page.
+   * Moves to the next page after the current page. If the current page is the last page, wrap to the first page.
    *
    * @return True if the page changed
    */
   public boolean nextPage();
 
   /**
-   * Moves to the page before the current page.  If the current
-   * page is the first page, wrap to the last page.
+   * Moves to the page before the current page. If the current page is the first page, wrap to the last page.
    *
    * @return True if the page changed
    */
   public boolean previousPage();
 
   /**
-   * Moves to a specified page.  If the specified
-   * page is beyond the last page, wrap to the first page.
-   * If the specified page is before the first page, wrap
-   * to the last page.
+   * Moves to a specified page. If the specified page is beyond the last page, wrap to the first page. If the specified
+   * page is before the first page, wrap to the last page.
    *
-   * @param pageNumber The page to go to
+   * @param pageNumber
+   *          The page to go to
    */
   public void gotoPage(int pageNumber);
 
   /**
-   * Returns the current page index, which is a zero based integer.
-   * All paginated list implementations should know what index they are
-   * on, even if they don't know the ultimate boundaries (min/max).
+   * Returns the current page index, which is a zero based integer. All paginated list implementations should know what
+   * index they are on, even if they don't know the ultimate boundaries (min/max).
    *
    * @return The current page
    */

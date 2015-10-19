@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.impl;
 
@@ -44,7 +44,8 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * Constructor
    *
-   * @param client - the client that will use the session
+   * @param client
+   *          - the client that will use the session
    */
   public SqlMapSessionImpl(SqlMapClientImpl client) {
     this.delegate = client.getDelegate();
@@ -72,10 +73,14 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   public void close() {
-    if (delegate != null && sessionScope != null) delegate.endSessionScope(sessionScope);
-    if (sessionScope != null) sessionScope = null;
-    if (delegate != null) delegate = null;
-    if (!closed) closed = true;
+    if (delegate != null && sessionScope != null)
+      delegate.endSessionScope(sessionScope);
+    if (sessionScope != null)
+      sessionScope = null;
+    if (delegate != null)
+      delegate = null;
+    if (!closed)
+      closed = true;
   }
 
   public Object insert(String id, Object param) throws SQLException {
@@ -187,7 +192,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   public List executeBatchDetailed() throws SQLException, BatchException {
     return delegate.executeBatchDetailed(sessionScope);
   }
-  
+
   public void setUserConnection(Connection connection) throws SQLException {
     delegate.setUserProvidedTransaction(sessionScope, connection);
   }
@@ -223,7 +228,8 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * Gets a mapped statement by ID
    *
-   * @param id - the ID
+   * @param id
+   *          - the ID
    * @return - the mapped statement
    */
   public MappedStatement getMappedStatement(String id) {
@@ -251,7 +257,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * Get the SQL executor
    *
-   * @return -  the executor
+   * @return - the executor
    */
   public SqlExecutor getSqlExecutor() {
     return delegate.getSqlExecutor();

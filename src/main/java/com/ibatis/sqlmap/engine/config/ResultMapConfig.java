@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -34,7 +34,8 @@ public class ResultMapConfig {
   private int resultMappingIndex;
   private Discriminator discriminator;
 
-  ResultMapConfig(SqlMapConfiguration config, String id, Class resultClass, String groupBy, String extendsResultMap, String xmlName) {
+  ResultMapConfig(SqlMapConfiguration config, String id, Class resultClass, String groupBy, String extendsResultMap,
+      String xmlName) {
     this.config = config;
     this.errorContext = config.getErrorContext();
     this.client = config.getClient();
@@ -83,7 +84,8 @@ public class ResultMapConfig {
     client.getDelegate().addResultMap(resultMap);
   }
 
-  public void setDiscriminator(String columnName, Integer columnIndex, Class javaClass, String jdbcType, String nullValue, Object typeHandlerImpl) {
+  public void setDiscriminator(String columnName, Integer columnIndex, Class javaClass, String jdbcType,
+      String nullValue, Object typeHandlerImpl) {
     TypeHandler handler;
     if (typeHandlerImpl != null) {
       if (typeHandlerImpl instanceof TypeHandlerCallback) {
@@ -94,7 +96,8 @@ public class ResultMapConfig {
         throw new RuntimeException("The class '' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
     } else {
-      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), "", javaClass, jdbcType, true);
+      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), "",
+          javaClass, jdbcType, true);
     }
     ResultMapping mapping = new ResultMapping();
     mapping.setColumnName(columnName);
@@ -116,7 +119,8 @@ public class ResultMapConfig {
     discriminator.addSubMap(value.toString(), resultMap);
   }
 
-  public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass, String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName, Object impl) {
+  public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass,
+      String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName, Object impl) {
     errorContext.setObjectId(propertyName + " mapping of the " + resultMap.getId() + " result map");
     TypeHandler handler;
     if (impl != null) {
@@ -125,10 +129,12 @@ public class ResultMapConfig {
       } else if (impl instanceof TypeHandler) {
         handler = (TypeHandler) impl;
       } else {
-        throw new RuntimeException("The class '" + impl + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException("The class '" + impl
+            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
     } else {
-      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), propertyName, javaClass, jdbcType, true);
+      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(),
+          propertyName, javaClass, jdbcType, true);
     }
     ResultMapping mapping = new ResultMapping();
     mapping.setPropertyName(propertyName);

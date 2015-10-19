@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -69,27 +69,27 @@ public class SqlMapConfiguration {
     return delegate;
   }
 
-  public void setClassInfoCacheEnabled (boolean classInfoCacheEnabled) {
+  public void setClassInfoCacheEnabled(boolean classInfoCacheEnabled) {
     errorContext.setActivity("setting class info cache enabled/disabled");
     ClassInfo.setCacheEnabled(classInfoCacheEnabled);
   }
 
-  public void setLazyLoadingEnabled (boolean lazyLoadingEnabled) {
+  public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
     errorContext.setActivity("setting lazy loading enabled/disabled");
     client.getDelegate().setLazyLoadingEnabled(lazyLoadingEnabled);
   }
 
-  public void setStatementCachingEnabled (boolean statementCachingEnabled) {
+  public void setStatementCachingEnabled(boolean statementCachingEnabled) {
     errorContext.setActivity("setting statement caching enabled/disabled");
     client.getDelegate().setStatementCacheEnabled(statementCachingEnabled);
   }
 
-  public void setCacheModelsEnabled (boolean cacheModelsEnabled) {
+  public void setCacheModelsEnabled(boolean cacheModelsEnabled) {
     errorContext.setActivity("setting cache models enabled/disabled");
     client.getDelegate().setCacheModelsEnabled(cacheModelsEnabled);
   }
 
-  public void setEnhancementEnabled (boolean enhancementEnabled) {
+  public void setEnhancementEnabled(boolean enhancementEnabled) {
     errorContext.setActivity("setting enhancement enabled/disabled");
     try {
       enhancementEnabled = enhancementEnabled && Resources.classForName("net.sf.cglib.proxy.InvocationHandler") != null;
@@ -137,9 +137,11 @@ public class SqlMapConfiguration {
       } else if (callback instanceof TypeHandler) {
         typeHandler = (TypeHandler) callback;
       } else {
-        throw new RuntimeException("The object '" + callback + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException("The object '" + callback
+            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
-      errorContext.setMoreInfo("Check the javaType attribute '" + javaType + "' (must be a classname) or the jdbcType '" + jdbcType + "' (must be a JDBC type name).");
+      errorContext.setMoreInfo("Check the javaType attribute '" + javaType
+          + "' (must be a classname) or the jdbcType '" + jdbcType + "' (must be a JDBC type name).");
       if (jdbcType != null && jdbcType.length() > 0) {
         typeHandlerFactory.register(javaType, jdbcType, typeHandler);
       } else {
@@ -160,17 +162,15 @@ public class SqlMapConfiguration {
     return new ParameterMapConfig(this, id, parameterClass);
   }
 
-  public ResultMapConfig newResultMapConfig(String id, Class resultClass, String groupBy, String extended, String xmlName) {
+  public ResultMapConfig newResultMapConfig(String id, Class resultClass, String groupBy, String extended,
+      String xmlName) {
     return new ResultMapConfig(this, id, resultClass, groupBy, extended, xmlName);
   }
 
   public MappedStatementConfig newMappedStatementConfig(String id, MappedStatement statement, SqlSource processor,
-                                                        String parameterMapName, Class parameterClass,
-                                                        String resultMapName, String[] additionalResultMapNames,
-                                                        Class resultClass, Class[] additionalResultClasses, 
-                                                        String resultSetType, Integer fetchSize,
-                                                        boolean allowRemapping, Integer timeout, String cacheModelName,
-                                                        String xmlResultName) {
+      String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
+      Class resultClass, Class[] additionalResultClasses, String resultSetType, Integer fetchSize,
+      boolean allowRemapping, Integer timeout, String cacheModelName, String xmlResultName) {
     return new MappedStatementConfig(this, id, statement, processor, parameterMapName, parameterClass, resultMapName,
         additionalResultMapNames, resultClass, additionalResultClasses, cacheModelName, resultSetType, fetchSize,
         allowRemapping, timeout, defaultStatementTimeout, xmlResultName);
@@ -181,11 +181,13 @@ public class SqlMapConfiguration {
     bindResultMapDiscriminators();
   }
 
-  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName, Class javaType, String jdbcType) {
+  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
+      Class javaType, String jdbcType) {
     return resolveTypeHandler(typeHandlerFactory, clazz, propertyName, javaType, jdbcType, false);
   }
 
-  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName, Class javaType, String jdbcType, boolean useSetterToResolve) {
+  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
+      Class javaType, String jdbcType, boolean useSetterToResolve) {
     TypeHandler handler;
     if (clazz == null) {
       // Unknown
@@ -196,7 +198,9 @@ public class SqlMapConfiguration {
     } else if (java.util.Map.class.isAssignableFrom(clazz)) {
       // Map
       if (javaType == null) {
-        handler = typeHandlerFactory.getUnkownTypeHandler(); //BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);
+        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
+                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                             // jdbcType);
       } else {
         handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
       }
@@ -258,7 +262,8 @@ public class SqlMapConfiguration {
         if (statement != null) {
           statement.addExecuteListener(cacheModel);
         } else {
-          throw new RuntimeException("Could not find statement named '" + statementName + "' for use as a flush trigger for the cache model named '" + cacheName + "'.");
+          throw new RuntimeException("Could not find statement named '" + statementName
+              + "' for use as a flush trigger for the cache model named '" + cacheName + "'.");
         }
       }
     }

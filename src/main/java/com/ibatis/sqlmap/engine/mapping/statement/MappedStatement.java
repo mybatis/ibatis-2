@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
@@ -111,13 +111,14 @@ public class MappedStatement {
     }
   }
 
-  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject, Object resultObject)
-      throws SQLException {
+  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,
+      Object resultObject) throws SQLException {
     try {
       Object object = null;
 
       DefaultRowHandler rowHandler = new DefaultRowHandler();
-      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, resultObject, rowHandler, SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
+      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, resultObject, rowHandler,
+          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
       List list = rowHandler.getList();
 
       if (list.size() > 1) {
@@ -132,32 +133,34 @@ public class MappedStatement {
     }
   }
 
-  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject, int skipResults, int maxResults)
-      throws SQLException {
+  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,
+      int skipResults, int maxResults) throws SQLException {
     try {
       DefaultRowHandler rowHandler = new DefaultRowHandler();
-      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler, skipResults, maxResults);
+      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler, skipResults,
+          maxResults);
       return rowHandler.getList();
     } catch (TransactionException e) {
       throw new NestedSQLException("Error getting Connection from Transaction.  Cause: " + e, e);
     }
   }
 
-  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject, RowHandler rowHandler)
-      throws SQLException {
+  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,
+      RowHandler rowHandler) throws SQLException {
     try {
-      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler, SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
+      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler,
+          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
     } catch (TransactionException e) {
       throw new NestedSQLException("Error getting Connection from Transaction.  Cause: " + e, e);
     }
   }
 
   //
-  //  PROTECTED METHODS
+  // PROTECTED METHODS
   //
 
-  protected void executeQueryWithCallback(StatementScope statementScope, Connection conn, Object parameterObject, Object resultObject, RowHandler rowHandler, int skipResults, int maxResults)
-      throws SQLException {
+  protected void executeQueryWithCallback(StatementScope statementScope, Connection conn, Object parameterObject,
+      Object resultObject, RowHandler rowHandler, int skipResults, int maxResults) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("preparing the mapped statement for execution");
     errorContext.setObjectId(this.getId());
@@ -208,7 +211,8 @@ public class MappedStatement {
   protected void postProcessParameterObject(StatementScope statementScope, Object parameterObject, Object[] parameters) {
   }
 
-  protected int sqlExecuteUpdate(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters) throws SQLException {
+  protected int sqlExecuteUpdate(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters)
+      throws SQLException {
     if (statementScope.getSession().isInBatch()) {
       getSqlExecutor().addBatch(statementScope, conn, sqlString, parameters);
       return 0;
@@ -217,39 +221,41 @@ public class MappedStatement {
     }
   }
 
-  protected void sqlExecuteQuery(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters, int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+  protected void sqlExecuteQuery(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters,
+      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     getSqlExecutor().executeQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);
   }
 
-  protected Object validateParameter(Object param)
-      throws SQLException {
+  protected Object validateParameter(Object param) throws SQLException {
     Object newParam = param;
     Class parameterClass = getParameterClass();
     if (newParam != null && parameterClass != null) {
       if (DomTypeMarker.class.isAssignableFrom(parameterClass)) {
         if (XmlTypeMarker.class.isAssignableFrom(parameterClass)) {
-          if (!(newParam instanceof String)
-              && !(newParam instanceof Document)) {
-            throw new SQLException("Invalid parameter object type.  Expected '" + String.class.getName() + "' or '" + Document.class.getName() + "' but found '" + newParam.getClass().getName() + "'.");
+          if (!(newParam instanceof String) && !(newParam instanceof Document)) {
+            throw new SQLException("Invalid parameter object type.  Expected '" + String.class.getName() + "' or '"
+                + Document.class.getName() + "' but found '" + newParam.getClass().getName() + "'.");
           }
           if (!(newParam instanceof Document)) {
-            newParam = stringToDocument ((String)newParam);
+            newParam = stringToDocument((String) newParam);
           }
         } else {
           if (!Document.class.isAssignableFrom(newParam.getClass())) {
-            throw new SQLException("Invalid parameter object type.  Expected '" + Document.class.getName() + "' but found '" + newParam.getClass().getName() + "'.");
+            throw new SQLException("Invalid parameter object type.  Expected '" + Document.class.getName()
+                + "' but found '" + newParam.getClass().getName() + "'.");
           }
         }
       } else {
         if (!parameterClass.isAssignableFrom(newParam.getClass())) {
-          throw new SQLException("Invalid parameter object type.  Expected '" + parameterClass.getName() + "' but found '" + newParam.getClass().getName() + "'.");
+          throw new SQLException("Invalid parameter object type.  Expected '" + parameterClass.getName()
+              + "' but found '" + newParam.getClass().getName() + "'.");
         }
       }
     }
     return newParam;
   }
 
-  private Document stringToDocument (String s) {
+  private Document stringToDocument(String s) {
     try {
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -329,21 +335,27 @@ public class MappedStatement {
     CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);
     cacheKey.update(id);
 
-    // I am not sure how any clustered cache solution would ever have had any cache hits against replicated objects.  I could not make it happen
-    // The baseCacheKey value which was being used in the update below is consistent across JVMInstances on the same machine
+    // I am not sure how any clustered cache solution would ever have had any cache hits against
+    // replicated objects. I could not make it happen
+    // The baseCacheKey value which was being used in the update below is consistent across
+    // JVMInstances on the same machine
     // but it's not consistent across machines, and therefore breaks clustered caching.
 
-    // What would happen is the cache values were being replicated across machines but there were never any cache hits for cached objects on
+    // What would happen is the cache values were being replicated across machines but there
+    // were never any cache hits for cached objects on
     // anything but the original machine an object was created on.
 
-    // After reviewing this implementation I could not figure out why baseCacheKey is used for this anyway as it's not needed, so I removed it.
-    // The values used from the pmap.getCacheKey, plus id, plus the params below are unique and the same accross machines, so now I get replicated
+    // After reviewing this implementation I could not figure out why baseCacheKey is used for
+    // this anyway as it's not needed, so I removed it.
+    // The values used from the pmap.getCacheKey, plus id, plus the params below are unique and
+    // the same accross machines, so now I get replicated
     // cache hits when I force failover in my cluster
 
-    // I wish I could make a unit test for this, but I can't do it as the old implementaion works on 1 machine, but fails across machines.
+    // I wish I could make a unit test for this, but I can't do it as the old implementaion
+    // works on 1 machine, but fails across machines.
     // cacheKey.update(baseCacheKey);
 
-    cacheKey.update(sql.getSql(statementScope, parameterObject)); //Fixes bug 953001
+    cacheKey.update(sql.getSql(statementScope, parameterObject)); // Fixes bug 953001
     return cacheKey;
   }
 
@@ -392,7 +404,7 @@ public class MappedStatement {
     List resultMapList = Arrays.asList(additionalResultMaps);
     resultMapList = new ArrayList(resultMapList);
     resultMapList.add(resultMap);
-    additionalResultMaps = (ResultMap[])resultMapList.toArray(new ResultMap[resultMapList.size()]);
+    additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);
   }
 
   public boolean hasMultipleResultMaps() {

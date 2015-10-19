@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.beans;
 
@@ -29,7 +29,8 @@ public abstract class BaseProbe implements Probe {
   /**
    * Returns an array of the readable properties exposed by an object
    *
-   * @param object - the object
+   * @param object
+   *          - the object
    * @return The array of property names
    */
   public abstract String[] getReadablePropertyNames(Object object);
@@ -37,7 +38,8 @@ public abstract class BaseProbe implements Probe {
   /**
    * Returns an array of the writeable properties exposed by an object
    *
-   * @param object - the object
+   * @param object
+   *          - the object
    * @return The array of property names
    */
   public abstract String[] getWriteablePropertyNames(Object object);
@@ -50,8 +52,8 @@ public abstract class BaseProbe implements Probe {
       String name = indexedName.substring(0, indexedName.indexOf('['));
       int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
       Object list = null;
-      if("".equals(name)) {
-        list = object;        
+      if ("".equals(name)) {
+        list = object;
       } else {
         list = getProperty(object, name);
       }
@@ -77,7 +79,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         value = new Short(((short[]) list)[i]);
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
+        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
+            + " class is not a List or Array.");
       }
 
     } catch (ProbeException e) {
@@ -97,7 +100,7 @@ public abstract class BaseProbe implements Probe {
       String name = indexedName.substring(0, indexedName.indexOf('['));
       int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
       Object list = null;
-      if(!"".equals(name)) {
+      if (!"".equals(name)) {
         list = getProperty(object, name);
       } else {
         list = object;
@@ -124,7 +127,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         value = Short.class;
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
+        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
+            + " class is not a List or Array.");
       }
 
     } catch (ProbeException e) {
@@ -163,7 +167,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         ((short[]) list)[i] = ((Short) value).shortValue();
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
+        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
+            + " class is not a List or Array.");
       }
     } catch (ProbeException e) {
       throw e;

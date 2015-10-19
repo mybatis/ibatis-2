@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.scope;
 
@@ -38,7 +38,8 @@ public class ErrorContext {
   /**
    * Setter for the resource causing the problem
    * 
-   * @param resource - the resource
+   * @param resource
+   *          - the resource
    */
   public void setResource(String resource) {
     this.resource = resource;
@@ -56,7 +57,8 @@ public class ErrorContext {
   /**
    * Getter for the activity that was happening when the error happened
    * 
-   * @param activity - the activity
+   * @param activity
+   *          - the activity
    */
   public void setActivity(String activity) {
     this.activity = activity;
@@ -74,7 +76,8 @@ public class ErrorContext {
   /**
    * Setter for the object ID where the problem happened
    * 
-   * @param objectId - the object id
+   * @param objectId
+   *          - the object id
    */
   public void setObjectId(String objectId) {
     this.objectId = objectId;
@@ -92,7 +95,8 @@ public class ErrorContext {
   /**
    * Setter for more information about the error
    * 
-   * @param moreInfo - more information
+   * @param moreInfo
+   *          - more information
    */
   public void setMoreInfo(String moreInfo) {
     this.moreInfo = moreInfo;
@@ -110,12 +114,14 @@ public class ErrorContext {
   /**
    * Setter for the cause of the error
    * 
-   * @param cause - the cause
+   * @param cause
+   *          - the cause
    */
   public void setCause(Throwable cause) {
     this.cause = cause;
   }
 
+  @Override
   public String toString() {
     StringBuffer message = new StringBuffer();
 
@@ -165,6 +171,5 @@ public class ErrorContext {
     moreInfo = null;
     cause = null;
   }
-
 
 }

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap;
 
@@ -24,25 +24,27 @@ import java.util.List;
 
 public class DynamicPrependTest extends BaseSqlMapTest {
 
+  @Override
   protected void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
+  @Override
   protected void tearDown() throws Exception {
   }
 
   // Iterate with prepend
 
   public void testIterateWithPrepend1() throws SQLException {
-    List params = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
+    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
     List list = sqlMap.queryForList("dynamicIterateWithPrepend1", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
   }
 
   public void testIterateWithPrepend2() throws SQLException {
-    List params = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
+    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
@@ -60,13 +62,13 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     account3 = new Account();
     account3.setId(3);
 
-    List params = Arrays.asList(new Account[]{account1, account2, account3});
+    List params = Arrays.asList(new Account[] { account1, account2, account3 });
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2b", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
   }
 
-    public void testIterateWithPrepend2c() throws SQLException {
+  public void testIterateWithPrepend2c() throws SQLException {
 
     Account account1, account2, account3;
     account1 = new Account();
@@ -78,7 +80,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     account3 = new Account();
     account3.setId(3);
 
-    List params = Arrays.asList(new Account[]{account1, account2, account3});
+    List params = Arrays.asList(new Account[] { account1, account2, account3 });
 
     MyBean x = new MyBean();
     x.setMyList(params);
@@ -86,14 +88,14 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2c", x);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
-    assertEquals(1,((Account) list.get(0)).getId());
-    assertEquals(2,((Account) list.get(1)).getId());
+    assertEquals(1, ((Account) list.get(0)).getId());
+    assertEquals(2, ((Account) list.get(1)).getId());
 
   }
 
   public void testIterateWithPrepend2d() throws SQLException {
 
-    List params = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
+    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
 
     MyBean x = new MyBean();
     x.setMyList(params);
@@ -101,14 +103,14 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2d", x);
     assertAccount1((Account) list.get(0));
     assertEquals(2, list.size());
-    assertEquals(1,((Account) list.get(0)).getId());
-    assertEquals(3,((Account) list.get(1)).getId());
+    assertEquals(1, ((Account) list.get(0)).getId());
+    assertEquals(3, ((Account) list.get(1)).getId());
 
   }
 
   public void testIterateWithPrepend2e() throws SQLException {
 
-    Object[] params = new Object[]{new Integer(1), new Integer(2), new Integer(3)};
+    Object[] params = new Object[] { new Integer(1), new Integer(2), new Integer(3) };
 
     MyBean x = new MyBean();
     x.setMyArray(params);
@@ -116,14 +118,14 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2e", x);
     assertAccount1((Account) list.get(0));
     assertEquals(2, list.size());
-    assertEquals(1,((Account) list.get(0)).getId());
-    assertEquals(3,((Account) list.get(1)).getId());
+    assertEquals(1, ((Account) list.get(0)).getId());
+    assertEquals(3, ((Account) list.get(1)).getId());
 
   }
 
   public void testIterateWithPrepend2f() throws SQLException {
 
-    int[] params = new int[]{1,2,3};
+    int[] params = new int[] { 1, 2, 3 };
 
     MyBean x = new MyBean();
     x.setIntArray(params);
@@ -131,13 +133,13 @@ public class DynamicPrependTest extends BaseSqlMapTest {
     List list = sqlMap.queryForList("dynamicIterateWithPrepend2f", x);
     assertAccount1((Account) list.get(0));
     assertEquals(2, list.size());
-    assertEquals(1,((Account) list.get(0)).getId());
-    assertEquals(3,((Account) list.get(1)).getId());
+    assertEquals(1, ((Account) list.get(0)).getId());
+    assertEquals(3, ((Account) list.get(1)).getId());
 
   }
 
   public void testIterateWithPrepend3() throws SQLException {
-    List params = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
+    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
     List list = sqlMap.queryForList("dynamicIterateWithPrepend3", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());

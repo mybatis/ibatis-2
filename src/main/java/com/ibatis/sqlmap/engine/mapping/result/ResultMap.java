@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.result;
 
@@ -83,7 +83,8 @@ public class ResultMap {
   /**
    * Constructor to pass a SqlMapExecutorDelegate in
    *
-   * @param delegate - the SqlMapExecutorDelegate
+   * @param delegate
+   *          - the SqlMapExecutorDelegate
    */
   public ResultMap(SqlMapExecutorDelegate delegate) {
     this.delegate = delegate;
@@ -105,7 +106,8 @@ public class ResultMap {
   /**
    * Setter for the ID
    *
-   * @param id - the new ID
+   * @param id
+   *          - the new ID
    */
   public void setId(String id) {
     this.id = id;
@@ -118,8 +120,10 @@ public class ResultMap {
   public Object getUniqueKey(String keyPrefix, Object[] values) {
     if (groupByProps != null) {
       StringBuffer keyBuffer;
-      if ( keyPrefix != null ) keyBuffer = new StringBuffer(keyPrefix);
-      else keyBuffer = new StringBuffer();
+      if (keyPrefix != null)
+        keyBuffer = new StringBuffer(keyPrefix);
+      else
+        keyBuffer = new StringBuffer();
       for (int i = 0; i < getResultMappings().length; i++) {
         String propertyName = getResultMappings()[i].getPropertyName();
         if (groupByProps.contains(propertyName)) {
@@ -130,8 +134,8 @@ public class ResultMap {
       if (keyBuffer.length() < 1) {
         return null;
       } else {
-      	// seperator value not likely to appear in a database
-      	keyBuffer.append(KEY_SEPARATOR);
+        // seperator value not likely to appear in a database
+        keyBuffer.append(KEY_SEPARATOR);
         return keyBuffer.toString();
       }
     } else {
@@ -140,13 +144,14 @@ public class ResultMap {
   }
 
   public Object getUniqueKey(Object[] values) {
-  	return getUniqueKey(null, values);
+    return getUniqueKey(null, values);
   }
 
   /**
    * Setter for the result class (what the results will be mapped into)
    *
-   * @param resultClass - the result class
+   * @param resultClass
+   *          - the result class
    */
   public void setResultClass(Class resultClass) {
     this.resultClass = resultClass;
@@ -164,7 +169,8 @@ public class ResultMap {
   /**
    * Setter for the DataExchange object to be used
    *
-   * @param dataExchange - the new DataExchange object
+   * @param dataExchange
+   *          - the new DataExchange object
    */
   public void setDataExchange(DataExchange dataExchange) {
     this.dataExchange = dataExchange;
@@ -182,7 +188,8 @@ public class ResultMap {
   /**
    * Setter (used by the SqlMapBuilder) for the xml name of the results
    *
-   * @param xmlName - the name
+   * @param xmlName
+   *          - the name
    */
   public void setXmlName(String xmlName) {
     this.xmlName = xmlName;
@@ -200,7 +207,8 @@ public class ResultMap {
   /**
    * Setter for the resource (used by the SqlMapBuilder)
    *
-   * @param resource - the resource name
+   * @param resource
+   *          - the resource name
    */
   public void setResource(String resource) {
     this.resource = resource;
@@ -231,7 +239,7 @@ public class ResultMap {
   public List getNestedResultMappings() {
     return nestedResultMappings;
   }
-  
+
   public ResultMapping[] getResultMappings() {
     if (allowRemapping) {
       return (ResultMapping[]) remappableResultMappings.get();
@@ -240,9 +248,9 @@ public class ResultMap {
     }
   }
 
-  public void setDiscriminator (Discriminator discriminator) {
+  public void setDiscriminator(Discriminator discriminator) {
     if (this.discriminator != null) {
-      throw new SqlMapException ("A discriminator may only be set once per result map.");
+      throw new SqlMapException("A discriminator may only be set once per result map.");
     }
     this.discriminator = discriminator;
   }
@@ -251,10 +259,10 @@ public class ResultMap {
     return discriminator;
   }
 
-  public ResultMap resolveSubMap (StatementScope statementScope, ResultSet rs) throws SQLException {
+  public ResultMap resolveSubMap(StatementScope statementScope, ResultSet rs) throws SQLException {
     ResultMap subMap = this;
     if (discriminator != null) {
-      ResultMapping mapping = (ResultMapping)discriminator.getResultMapping();
+      ResultMapping mapping = (ResultMapping) discriminator.getResultMapping();
       Object value = getPrimitiveResultMappingValue(rs, mapping);
       if (value == null) {
         value = doNullMapping(value, mapping);
@@ -272,15 +280,16 @@ public class ResultMap {
   /**
    * Setter for a list of the individual ResultMapping objects
    *
-   * @param resultMappingList - the list
+   * @param resultMappingList
+   *          - the list
    */
   public void setResultMappingList(List resultMappingList) {
     if (allowRemapping) {
-      this.remappableResultMappings.set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]));
+      this.remappableResultMappings.set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList
+          .size()]));
     } else {
       this.resultMappings = (ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]);
     }
-
 
     Map props = new HashMap();
     props.put("map", this);
@@ -300,15 +309,16 @@ public class ResultMap {
   /**
    * Read a row from a resultset and map results to an array.
    *
-   * @param statementScope scope of the request
-   * @param rs ResultSet to read from
+   * @param statementScope
+   *          scope of the request
+   * @param rs
+   *          ResultSet to read from
    *
    * @return row read as an array of column values.
    *
    * @throws java.sql.SQLException
    */
-  public Object[] getResults(StatementScope statementScope, ResultSet rs)
-      throws SQLException {
+  public Object[] getResults(StatementScope statementScope, ResultSet rs) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
     errorContext.setActivity("applying a result map");
     errorContext.setObjectId(this.getId());
@@ -322,7 +332,8 @@ public class ResultMap {
       errorContext.setMoreInfo(mapping.getErrorString());
       if (mapping.getStatementName() != null) {
         if (resultClass == null) {
-          throw new SqlMapException("The result class was null when trying to get results for ResultMap named " + getId() + ".");
+          throw new SqlMapException("The result class was null when trying to get results for ResultMap named "
+              + getId() + ".");
         } else if (Map.class.isAssignableFrom(resultClass)) {
           Class javaType = mapping.getJavaType();
           if (javaType == null) {
@@ -358,16 +369,18 @@ public class ResultMap {
 
   public Object setResultObjectValues(StatementScope statementScope, Object resultObject, Object[] values) {
     final String previousNestedKey = statementScope.getCurrentNestedKey();
-    String ukey = (String)getUniqueKey(statementScope.getCurrentNestedKey(), values);
+    String ukey = (String) getUniqueKey(statementScope.getCurrentNestedKey(), values);
     Map uniqueKeys = statementScope.getUniqueKeys(this);
     statementScope.setCurrentNestedKey(ukey);
     if (uniqueKeys != null && uniqueKeys.containsKey(ukey)) {
-      // Unique key is already known, so get the existing result object and process additional results.
+      // Unique key is already known, so get the existing result object and process additional
+      // results.
       resultObject = uniqueKeys.get(ukey);
       applyNestedResultMap(statementScope, resultObject, values);
       resultObject = NO_VALUE;
     } else if (ukey == null || uniqueKeys == null || !uniqueKeys.containsKey(ukey)) {
-      // Unique key is NOT known, so create a new result object and then process additional results.
+      // Unique key is NOT known, so create a new result object and then process additional
+      // results.
       resultObject = dataExchange.setData(statementScope, this, resultObject, values);
       // Lazy init key set, only if we're grouped by something (i.e. ukey != null)
       if (ukey != null) {
@@ -401,10 +414,10 @@ public class ResultMap {
   /**
    * Some changes in this method for IBATIS-225:
    * <ul>
-   *   <li>We no longer require the nested property to be a collection.  This
-   *       will allow reuses of resultMaps on 1:1 relationships</li>
-   *   <li>If the nested property is not a collection, then it will be
-   *       created/replaced by the values generated from the current row.</li>
+   * <li>We no longer require the nested property to be a collection. This will allow reuses of resultMaps on 1:1
+   * relationships</li>
+   * <li>If the nested property is not a collection, then it will be created/replaced by the values generated from the
+   * current row.</li>
    * </ul>
    * 
    * @param mapping
@@ -412,14 +425,15 @@ public class ResultMap {
    * @param resultObject
    * @param values
    */
-  protected void setNestedResultMappingValue(ResultMapping mapping, StatementScope statementScope, Object resultObject, Object[] values) {
+  protected void setNestedResultMappingValue(ResultMapping mapping, StatementScope statementScope, Object resultObject,
+      Object[] values) {
     try {
 
       String resultMapName = mapping.getNestedResultMapName();
       ResultMap resultMap = getDelegate().getResultMap(resultMapName);
       // get the discriminated submap if it exists
       resultMap = resultMap.resolveSubMap(statementScope, statementScope.getResultSet());
-      
+
       Class type = mapping.getJavaType();
       String propertyName = mapping.getPropertyName();
 
@@ -429,9 +443,9 @@ public class ResultMap {
         if (type == null) {
           type = PROBE.getPropertyTypeForSetter(resultObject, propertyName);
         }
-        
+
         try {
-          // create the object if is it a Collection.  If not a Collection
+          // create the object if is it a Collection. If not a Collection
           // then we will just set the property to the object created
           // in processing the nested result map
           if (Collection.class.isAssignableFrom(type)) {
@@ -439,18 +453,20 @@ public class ResultMap {
             PROBE.setObject(resultObject, propertyName, obj);
           }
         } catch (Exception e) {
-          throw new SqlMapException("Error instantiating collection property for mapping '" + mapping.getPropertyName() + "'.  Cause: " + e, e);
+          throw new SqlMapException("Error instantiating collection property for mapping '" + mapping.getPropertyName()
+              + "'.  Cause: " + e, e);
         }
       }
 
-      //JIRA 375 "Provide a way for not creating items from nested ResultMaps when the items contain only null values"
+      // JIRA 375
+      // "Provide a way for not creating items from nested ResultMaps when the items contain only null values"
       boolean subResultObjectAbsent = false;
-      if(mapping.getNotNullColumn() != null) {
-        if(statementScope.getResultSet().getObject(mapping.getNotNullColumn()) == null) {
+      if (mapping.getNotNullColumn() != null) {
+        if (statementScope.getResultSet().getObject(mapping.getNotNullColumn()) == null) {
           subResultObjectAbsent = true;
         }
       }
-      if(!subResultObjectAbsent) {
+      if (!subResultObjectAbsent) {
         values = resultMap.getResults(statementScope, statementScope.getResultSet());
         if (statementScope.isRowDataFound()) {
           Object o = resultMap.setResultObjectValues(statementScope, null, values);
@@ -464,12 +480,13 @@ public class ResultMap {
         }
       }
     } catch (SQLException e) {
-      throw new SqlMapException("Error getting nested result map values for '" + mapping.getPropertyName() + "'.  Cause: " + e, e);
+      throw new SqlMapException("Error getting nested result map values for '" + mapping.getPropertyName()
+          + "'.  Cause: " + e, e);
     }
   }
 
-  protected Object getNestedSelectMappingValue(StatementScope statementScope, ResultSet rs, ResultMapping mapping, Class targetType)
-      throws SQLException {
+  protected Object getNestedSelectMappingValue(StatementScope statementScope, ResultSet rs, ResultMapping mapping,
+      Class targetType) throws SQLException {
     try {
       TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
 
@@ -526,7 +543,8 @@ public class ResultMap {
 
   }
 
-  private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType) throws SQLException {
+  private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType)
+      throws SQLException {
     Object parameterObject;
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
     TypeHandler th = typeHandlerFactory.getTypeHandler(parameterType);
@@ -571,9 +589,8 @@ public class ResultMap {
     return doc;
   }
 
-
-  private Object prepareBeanParameterObject(StatementScope statementScope, ResultSet rs, ResultMapping mapping, Class parameterType)
-      throws InstantiationException, IllegalAccessException, SQLException {
+  private Object prepareBeanParameterObject(StatementScope statementScope, ResultSet rs, ResultMapping mapping,
+      Class parameterType) throws InstantiationException, IllegalAccessException, SQLException {
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
 
     Object parameterObject;
@@ -584,8 +601,7 @@ public class ResultMap {
     }
     String complexName = mapping.getColumnName();
 
-    if (complexName.indexOf('=') > -1
-        || complexName.indexOf(',') > -1) {
+    if (complexName.indexOf('=') > -1 || complexName.indexOf(',') > -1) {
       StringTokenizer parser = new StringTokenizer(complexName, "{}=, ", false);
       while (parser.hasMoreTokens()) {
         String propName = parser.nextToken();
@@ -619,25 +635,28 @@ public class ResultMap {
         value = typeHandler.getResult(rs, columnName);
       }
     } else {
-      throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName() + "' to the column '" + mapping.getColumnName() + "'.  One or both of the types, or the combination of types is not supported.");
+      throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
+          + "' to the column '" + mapping.getColumnName()
+          + "'.  One or both of the types, or the combination of types is not supported.");
     }
     return value;
   }
 
   protected Object doNullMapping(Object value, ResultMapping mapping) throws SqlMapException {
-      if ( value == null )  {
-      	TypeHandler typeHandler = mapping.getTypeHandler();
-        if (typeHandler != null) {
-            String nullValue = mapping.getNullValue();
-            if ( nullValue != null )
-              value = typeHandler.valueOf(nullValue);
-            return value;
-          } else {
-            throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName() + "' to the column '" + mapping.getColumnName() + "'.  One or both of the types, or the combination of types is not supported.");
-          }
-      }
-      else  {
+    if (value == null) {
+      TypeHandler typeHandler = mapping.getTypeHandler();
+      if (typeHandler != null) {
+        String nullValue = mapping.getNullValue();
+        if (nullValue != null)
+          value = typeHandler.valueOf(nullValue);
         return value;
+      } else {
+        throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
+            + "' to the column '" + mapping.getColumnName()
+            + "'.  One or both of the types, or the combination of types is not supported.");
       }
+    } else {
+      return value;
+    }
   }
 }

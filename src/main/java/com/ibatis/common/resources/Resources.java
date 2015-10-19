@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.resources;
 
@@ -29,10 +29,9 @@ import java.util.Properties;
 public class Resources extends Object {
 
   private static ClassLoader defaultClassLoader;
-  
+
   /**
-   * Charset to use when calling getResourceAsReader.
-   * null means use the system default.
+   * Charset to use when calling getResourceAsReader. null means use the system default.
    */
   private static Charset charset;
 
@@ -51,7 +50,8 @@ public class Resources extends Object {
   /**
    * Sets the default classloader
    *
-   * @param defaultClassLoader - the new default ClassLoader
+   * @param defaultClassLoader
+   *          - the new default ClassLoader
    */
   public static void setDefaultClassLoader(ClassLoader defaultClassLoader) {
     Resources.defaultClassLoader = defaultClassLoader;
@@ -60,9 +60,11 @@ public class Resources extends Object {
   /**
    * Returns the URL of the resource on the classpath
    *
-   * @param resource The resource to find
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static URL getResourceURL(String resource) throws IOException {
     return getResourceURL(getClassLoader(), resource);
@@ -71,25 +73,33 @@ public class Resources extends Object {
   /**
    * Returns the URL of the resource on the classpath
    *
-   * @param loader   The classloader used to load the resource
-   * @param resource The resource to find
+   * @param loader
+   *          The classloader used to load the resource
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static URL getResourceURL(ClassLoader loader, String resource) throws IOException {
     URL url = null;
-    if (loader != null) url = loader.getResource(resource);
-    if (url == null) url = ClassLoader.getSystemResource(resource);
-    if (url == null) throw new IOException("Could not find resource " + resource);
+    if (loader != null)
+      url = loader.getResource(resource);
+    if (url == null)
+      url = ClassLoader.getSystemResource(resource);
+    if (url == null)
+      throw new IOException("Could not find resource " + resource);
     return url;
   }
 
   /**
    * Returns a resource on the classpath as a Stream object
    *
-   * @param resource The resource to find
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static InputStream getResourceAsStream(String resource) throws IOException {
     return getResourceAsStream(getClassLoader(), resource);
@@ -98,28 +108,35 @@ public class Resources extends Object {
   /**
    * Returns a resource on the classpath as a Stream object
    *
-   * @param loader   The classloader used to load the resource
-   * @param resource The resource to find
+   * @param loader
+   *          The classloader used to load the resource
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static InputStream getResourceAsStream(ClassLoader loader, String resource) throws IOException {
     InputStream in = null;
-    if (loader != null) in = loader.getResourceAsStream(resource);
-    if (in == null) in = ClassLoader.getSystemResourceAsStream(resource);
-    if (in == null) throw new IOException("Could not find resource " + resource);
+    if (loader != null)
+      in = loader.getResourceAsStream(resource);
+    if (in == null)
+      in = ClassLoader.getSystemResourceAsStream(resource);
+    if (in == null)
+      throw new IOException("Could not find resource " + resource);
     return in;
   }
 
   /**
    * Returns a resource on the classpath as a Properties object
    *
-   * @param resource The resource to find
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
-  public static Properties getResourceAsProperties(String resource)
-      throws IOException {
+  public static Properties getResourceAsProperties(String resource) throws IOException {
     Properties props = new Properties();
     InputStream in = null;
     String propfile = resource;
@@ -132,13 +149,15 @@ public class Resources extends Object {
   /**
    * Returns a resource on the classpath as a Properties object
    *
-   * @param loader   The classloader used to load the resource
-   * @param resource The resource to find
+   * @param loader
+   *          The classloader used to load the resource
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
-  public static Properties getResourceAsProperties(ClassLoader loader, String resource)
-      throws IOException {
+  public static Properties getResourceAsProperties(ClassLoader loader, String resource) throws IOException {
     Properties props = new Properties();
     InputStream in = null;
     String propfile = resource;
@@ -151,9 +170,11 @@ public class Resources extends Object {
   /**
    * Returns a resource on the classpath as a Reader object
    *
-   * @param resource The resource to find
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static Reader getResourceAsReader(String resource) throws IOException {
     Reader reader;
@@ -162,17 +183,20 @@ public class Resources extends Object {
     } else {
       reader = new InputStreamReader(getResourceAsStream(resource), charset);
     }
-    
+
     return reader;
   }
 
   /**
    * Returns a resource on the classpath as a Reader object
    *
-   * @param loader   The classloader used to load the resource
-   * @param resource The resource to find
+   * @param loader
+   *          The classloader used to load the resource
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static Reader getResourceAsReader(ClassLoader loader, String resource) throws IOException {
     Reader reader;
@@ -181,16 +205,18 @@ public class Resources extends Object {
     } else {
       reader = new InputStreamReader(getResourceAsStream(loader, resource), charset);
     }
-    
+
     return reader;
   }
 
   /**
    * Returns a resource on the classpath as a File object
    *
-   * @param resource The resource to find
+   * @param resource
+   *          The resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(String resource) throws IOException {
     return new File(getResourceURL(resource).getFile());
@@ -199,10 +225,13 @@ public class Resources extends Object {
   /**
    * Returns a resource on the classpath as a File object
    *
-   * @param loader   - the classloader used to load the resource
-   * @param resource - the resource to find
+   * @param loader
+   *          - the classloader used to load the resource
+   * @param resource
+   *          - the resource to find
    * @return The resource
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(ClassLoader loader, String resource) throws IOException {
     return new File(getResourceURL(loader, resource).getFile());
@@ -211,9 +240,11 @@ public class Resources extends Object {
   /**
    * Gets a URL as an input stream
    *
-   * @param urlString - the URL to get
+   * @param urlString
+   *          - the URL to get
    * @return An input stream with the data from the URL
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static InputStream getUrlAsStream(String urlString) throws IOException {
     URL url = new URL(urlString);
@@ -224,9 +255,11 @@ public class Resources extends Object {
   /**
    * Gets a URL as a Reader
    *
-   * @param urlString - the URL to get
+   * @param urlString
+   *          - the URL to get
    * @return A Reader with the data from the URL
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static Reader getUrlAsReader(String urlString) throws IOException {
     return new InputStreamReader(getUrlAsStream(urlString));
@@ -235,9 +268,11 @@ public class Resources extends Object {
   /**
    * Gets a URL as a Properties object
    *
-   * @param urlString - the URL to get
+   * @param urlString
+   *          - the URL to get
    * @return A Properties object with the data from the URL
-   * @throws IOException If the resource cannot be found or read
+   * @throws IOException
+   *           If the resource cannot be found or read
    */
   public static Properties getUrlAsProperties(String urlString) throws IOException {
     Properties props = new Properties();
@@ -252,16 +287,18 @@ public class Resources extends Object {
   /**
    * Loads a class
    *
-   * @param className - the class to load
+   * @param className
+   *          - the class to load
    * @return The loaded class
-   * @throws ClassNotFoundException If the class cannot be found (duh!)
+   * @throws ClassNotFoundException
+   *           If the class cannot be found (duh!)
    */
   public static Class classForName(String className) throws ClassNotFoundException {
     Class clazz = null;
     try {
       clazz = getClassLoader().loadClass(className);
     } catch (Exception e) {
-      // Ignore.  Failsafe below.
+      // Ignore. Failsafe below.
     }
     if (clazz == null) {
       clazz = Class.forName(className);
@@ -272,24 +309,31 @@ public class Resources extends Object {
   /**
    * Creates an instance of a class
    *
-   * @param className - the class to create
+   * @param className
+   *          - the class to create
    * @return An instance of the class
-   * @throws ClassNotFoundException If the class cannot be found (duh!)
-   * @throws InstantiationException If the class cannot be instantiaed
-   * @throws IllegalAccessException If the class is not public, or other access problems arise
+   * @throws ClassNotFoundException
+   *           If the class cannot be found (duh!)
+   * @throws InstantiationException
+   *           If the class cannot be instantiaed
+   * @throws IllegalAccessException
+   *           If the class is not public, or other access problems arise
    */
-  public static Object instantiate(String className)
-      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+  public static Object instantiate(String className) throws ClassNotFoundException, InstantiationException,
+      IllegalAccessException {
     return instantiate(classForName(className));
   }
 
   /**
    * Creates an instance of a class
    *
-   * @param clazz - the class to create
+   * @param clazz
+   *          - the class to create
    * @return An instance of the class
-   * @throws InstantiationException If the class cannot be instantiaed
-   * @throws IllegalAccessException If the class is not public, or other access problems arise
+   * @throws InstantiationException
+   *           If the class cannot be instantiaed
+   * @throws IllegalAccessException
+   *           If the class is not public, or other access problems arise
    */
   public static Object instantiate(Class clazz) throws InstantiationException, IllegalAccessException {
     try {
@@ -298,7 +342,7 @@ public class Resources extends Object {
       // Try alternative...theoretically should fail for the exact same
       // reason, but in case of a weird security manager, this will help
       // some cases.
-      //return clazz.newInstance();
+      // return clazz.newInstance();
       return clazz.newInstance();
     }
   }
@@ -316,10 +360,8 @@ public class Resources extends Object {
   }
 
   /**
-   * Use this method to set the Charset to be used when
-   * calling the getResourceAsReader methods.  This will
-   * allow iBATIS to function properly when the system default
-   * encoding doesn't deal well with unicode (IBATIS-340, IBATIS-349)
+   * Use this method to set the Charset to be used when calling the getResourceAsReader methods. This will allow iBATIS
+   * to function properly when the system default encoding doesn't deal well with unicode (IBATIS-340, IBATIS-349)
    * 
    * @param charset
    */

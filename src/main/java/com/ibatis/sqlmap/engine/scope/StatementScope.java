@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.scope;
 
@@ -58,7 +58,8 @@ public class StatementScope {
   }
 
   /**
-   * @param currentNestedKey The currentNestedKey to set.
+   * @param currentNestedKey
+   *          The currentNestedKey to set.
    */
   public void setCurrentNestedKey(String currentNestedKey) {
     this.currentNestedKey = currentNestedKey;
@@ -94,7 +95,8 @@ public class StatementScope {
   /**
    * Set the statement for the request
    *
-   * @param statement - the statement
+   * @param statement
+   *          - the statement
    */
   public void setStatement(MappedStatement statement) {
     this.statement = statement;
@@ -112,7 +114,8 @@ public class StatementScope {
   /**
    * Set the parameter map for the request
    *
-   * @param parameterMap - the new parameter map
+   * @param parameterMap
+   *          - the new parameter map
    */
   public void setParameterMap(ParameterMap parameterMap) {
     this.parameterMap = parameterMap;
@@ -130,7 +133,8 @@ public class StatementScope {
   /**
    * Set the result map for the request
    *
-   * @param resultMap - the result map
+   * @param resultMap
+   *          - the result map
    */
   public void setResultMap(ResultMap resultMap) {
     this.resultMap = resultMap;
@@ -148,7 +152,8 @@ public class StatementScope {
   /**
    * Set the SQL for the request
    *
-   * @param sql - the sql
+   * @param sql
+   *          - the sql
    */
   public void setSql(Sql sql) {
     this.sql = sql;
@@ -166,7 +171,8 @@ public class StatementScope {
   /**
    * Set the dynamic parameter for the request
    *
-   * @param dynamicParameterMap - the dynamic parameter
+   * @param dynamicParameterMap
+   *          - the dynamic parameter
    */
   public void setDynamicParameterMap(ParameterMap dynamicParameterMap) {
     this.dynamicParameterMap = dynamicParameterMap;
@@ -184,7 +190,8 @@ public class StatementScope {
   /**
    * Set the dynamic SQL for the request
    *
-   * @param dynamicSql - the dynamic SQL
+   * @param dynamicSql
+   *          - the dynamic SQL
    */
   public void setDynamicSql(String dynamicSql) {
     this.dynamicSql = dynamicSql;
@@ -219,6 +226,5 @@ public class StatementScope {
   public void setRowDataFound(boolean rowDataFound) {
     this.rowDataFound = rowDataFound;
   }
-
 
 }

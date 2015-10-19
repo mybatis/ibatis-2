@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -29,16 +29,17 @@ public class TypeHandlerFactory {
   private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);
   private final HashMap typeAliases = new HashMap();
 
-  private static final Map reversePrimitiveMap = new HashMap() {{
-    put(Byte.class, byte.class);
-    put(Short.class, short.class);
-    put(Integer.class, int.class);
-    put(Long.class, long.class);
-    put(Float.class, float.class);
-    put(Double.class, double.class);
-    put(Boolean.class, boolean.class);
-  }};
-
+  private static final Map reversePrimitiveMap = new HashMap() {
+    {
+      put(Byte.class, byte.class);
+      put(Short.class, short.class);
+      put(Integer.class, int.class);
+      put(Long.class, long.class);
+      put(Float.class, float.class);
+      put(Double.class, double.class);
+      put(Boolean.class, boolean.class);
+    }
+  };
 
   /* Constructor */
 
@@ -93,7 +94,6 @@ public class TypeHandlerFactory {
     register(Date.class, "DATE", new DateOnlyTypeHandler());
     register(Date.class, "TIME", new TimeOnlyTypeHandler());
 
-
     register(java.sql.Date.class, new SqlDateTypeHandler());
     register(java.sql.Time.class, new SqlTimeTypeHandler());
     register(java.sql.Timestamp.class, new SqlTimestampTypeHandler());
@@ -125,7 +125,8 @@ public class TypeHandlerFactory {
   /**
    * Get a TypeHandler for a class
    * 
-   * @param type - the class you want a TypeHandler for
+   * @param type
+   *          - the class you want a TypeHandler for
    * 
    * @return - the handler
    */
@@ -136,8 +137,10 @@ public class TypeHandlerFactory {
   /**
    * Get a TypeHandler for a class and a JDBC type
    * 
-   * @param type - the class
-   * @param jdbcType - the jdbc type
+   * @param type
+   *          - the class
+   * @param jdbcType
+   *          - the jdbc type
    * 
    * @return - the handler
    */
@@ -165,11 +168,11 @@ public class TypeHandlerFactory {
     return unknownTypeHandler;
   }
 
-
   /**
    * Tells you if a particular class has a TypeHandler
    * 
-   * @param type - the class
+   * @param type
+   *          - the class
    * 
    * @return - true if there is a TypeHandler
    */
@@ -180,8 +183,10 @@ public class TypeHandlerFactory {
   /**
    * Register (add) a type handler for a class
    * 
-   * @param type - the class
-   * @param handler - the handler instance
+   * @param type
+   *          - the class
+   * @param handler
+   *          - the handler instance
    */
   public void register(Class type, TypeHandler handler) {
     register(type, null, handler);
@@ -190,9 +195,12 @@ public class TypeHandlerFactory {
   /**
    * Register (add) a type handler for a class and JDBC type
    * 
-   * @param type - the class
-   * @param jdbcType - the JDBC type
-   * @param handler - the handler instance
+   * @param type
+   *          - the class
+   * @param jdbcType
+   *          - the JDBC type
+   * @param handler
+   *          - the handler instance
    */
   public void register(Class type, String jdbcType, TypeHandler handler) {
     Map map = (Map) typeHandlerMap.get(type);
@@ -203,20 +211,21 @@ public class TypeHandlerFactory {
     map.put(jdbcType, handler);
 
     if (reversePrimitiveMap.containsKey(type)) {
-      register((Class)reversePrimitiveMap.get(type),jdbcType,handler);
+      register((Class) reversePrimitiveMap.get(type), jdbcType, handler);
     }
   }
 
   /**
    * Lookup an aliased class and return it's REAL name
    * 
-   * @param string - the alias
+   * @param string
+   *          - the alias
    * 
    * @return - the REAL name
    */
   public String resolveAlias(String string) {
     String key = null;
-    if(string != null)
+    if (string != null)
       key = string.toLowerCase();
     String value = null;
     if (typeAliases.containsKey(key)) {
@@ -229,16 +238,21 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Adds a type alias that is case insensitive.  All of the following String, string, StRiNg will equate to the same alias.
-   * @param alias - the alias
-   * @param value - the real class name
+   * Adds a type alias that is case insensitive. All of the following String, string, StRiNg will equate to the same
+   * alias.
+   * 
+   * @param alias
+   *          - the alias
+   * @param value
+   *          - the real class name
    */
   public void putTypeAlias(String alias, String value) {
     String key = null;
-    if(alias != null)
+    if (alias != null)
       key = alias.toLowerCase();
     if (typeAliases.containsKey(key) && !typeAliases.get(key).equals(value)) {
-      throw new SqlMapException("Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '" + key + "' is already mapped to the value '" + typeAliases.get(alias) + "'.");
+      throw new SqlMapException("Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '" + key
+          + "' is already mapped to the value '" + typeAliases.get(alias) + "'.");
     }
     typeAliases.put(key, value);
   }

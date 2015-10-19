@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
@@ -34,10 +34,11 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
 
   public abstract boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject);
 
+  @Override
   public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
-    
+
     ctx.pushRemoveFirstPrependMarker(tag);
-    
+
     if (isCondition(ctx, tag, parameterObject)) {
       return SqlTagHandler.INCLUDE_BODY;
     } else {
@@ -45,21 +46,22 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     }
   }
 
+  @Override
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
-    
+
     IterateContext iterate = ctx.peekIterateContext();
-    
-    if(null != iterate && iterate.isAllowNext()){
+
+    if (null != iterate && iterate.isAllowNext()) {
       iterate.next();
       iterate.setAllowNext(false);
-      if(!iterate.hasNext()) {
+      if (!iterate.hasNext()) {
         iterate.setFinal(true);
       }
     }
-    
-    //iteratePropertyReplace(bodyContent,ctx.peekIterateContext());
-    
-    return super.doEndFragment(ctx,tag,parameterObject,bodyContent);
+
+    // iteratePropertyReplace(bodyContent,ctx.peekIterateContext());
+
+    return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
   }
 
   protected long compare(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
@@ -143,10 +145,9 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     }
 
   }
-  
+
   /**
-   * This method will add the proper index values to an indexed property
-   * string if we are inside an iterate tag
+   * This method will add the proper index values to an indexed property string if we are inside an iterate tag
    * 
    * @param ctx
    * @param tag
@@ -157,21 +158,21 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
 
     if (prop != null) {
 
-      if(null != itCtx && itCtx.isAllowNext()){
+      if (null != itCtx && itCtx.isAllowNext()) {
         itCtx.next();
         itCtx.setAllowNext(false);
-        if(!itCtx.hasNext()) {
+        if (!itCtx.hasNext()) {
           itCtx.setFinal(true);
         }
       }
 
-      if(prop.indexOf(START_INDEX) > -1) {
+      if (prop.indexOf(START_INDEX) > -1) {
         if (itCtx != null) {
           prop = itCtx.addIndexToTagProperty(prop);
         }
       }
     }
-      
+
     return prop;
   }
 }

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
@@ -50,7 +50,8 @@ public class SqlMapConfigParser {
   }
 
   public SqlMapClient parse(Reader reader, Properties props) {
-    if (props != null) state.setGlobalProps(props);
+    if (props != null)
+      state.setGlobalProps(props);
     return parse(reader);
   }
 
@@ -66,7 +67,8 @@ public class SqlMapConfigParser {
   }
 
   public SqlMapClient parse(InputStream inputStream, Properties props) {
-    if (props != null) state.setGlobalProps(props);
+    if (props != null)
+      state.setGlobalProps(props);
     return parse(inputStream);
   }
 
@@ -115,7 +117,8 @@ public class SqlMapConfigParser {
         config.setLazyLoadingEnabled(lazyLoadingEnabled);
 
         String statementCachingEnabledAttr = attributes.getProperty("statementCachingEnabled");
-        boolean statementCachingEnabled = (statementCachingEnabledAttr == null || "true".equals(statementCachingEnabledAttr));
+        boolean statementCachingEnabled = (statementCachingEnabledAttr == null || "true"
+            .equals(statementCachingEnabledAttr));
         config.setStatementCachingEnabled(statementCachingEnabled);
 
         String cacheModelsEnabledAttr = attributes.getProperty("cacheModelsEnabled");
@@ -204,7 +207,8 @@ public class SqlMapConfigParser {
           if (e instanceof SqlMapException) {
             throw (SqlMapException) e;
           } else {
-            throw new SqlMapException("Error initializing TransactionManager.  Could not instantiate TransactionConfig.  Cause: " + e, e);
+            throw new SqlMapException(
+                "Error initializing TransactionManager.  Could not instantiate TransactionConfig.  Cause: " + e, e);
           }
         }
         state.getConfig().setTransactionManager(txManager);
@@ -239,13 +243,13 @@ public class SqlMapConfigParser {
           if (e instanceof SqlMapException) {
             throw (SqlMapException) e;
           } else {
-            throw new SqlMapException("Error initializing DataSource.  Could not instantiate DataSourceFactory.  Cause: " + e, e);
+            throw new SqlMapException(
+                "Error initializing DataSource.  Could not instantiate DataSourceFactory.  Cause: " + e, e);
           }
         }
       }
     });
   }
-
 
   protected void addSqlMapNodelets() {
     parser.addNodelet("/sqlMapConfig/sqlMap", new Nodelet() {

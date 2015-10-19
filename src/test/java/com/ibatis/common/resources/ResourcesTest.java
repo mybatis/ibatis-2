@@ -1,23 +1,21 @@
 /**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /*
- * Created on Apr 18, 2004
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * Created on Apr 18, 2004 To change the template for this generated file go to Window - Preferences - Java - Code
+ * Generation - Code and Comments
  */
 package com.ibatis.common.resources;
 
@@ -30,8 +28,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 /**
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * To change the template for this generated type comment go to Window - Preferences - Java - Code Generation - Code and
+ * Comments
  */
 public class ResourcesTest extends TestCase {
   private boolean isUsingPrivateClassloader = false;
@@ -43,6 +41,7 @@ public class ResourcesTest extends TestCase {
   /*
    * @see TestCase#setUp()
    */
+  @Override
   protected void setUp() throws Exception {
     super.setUp();
   }
@@ -50,6 +49,7 @@ public class ResourcesTest extends TestCase {
   /*
    * @see TestCase#tearDown()
    */
+  @Override
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -86,7 +86,7 @@ public class ResourcesTest extends TestCase {
       Resources.getResourceURL(resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
     } catch (IOException e) {
-      //  This is expected...
+      // This is expected...
       assertNull(url);
     }
   }
@@ -121,7 +121,7 @@ public class ResourcesTest extends TestCase {
       Resources.getResourceURL(classLoader, resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
     } catch (IOException e) {
-      //  This is expected...
+      // This is expected...
       assertNull(url);
       assertTrue(isUsingPrivateClassloader);
     }
@@ -149,7 +149,7 @@ public class ResourcesTest extends TestCase {
       Resources.getResourceURL(resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
     } catch (IOException e) {
-      //  This is expected...
+      // This is expected...
       assertNull(inputStream);
     }
   }
@@ -183,7 +183,7 @@ public class ResourcesTest extends TestCase {
       Resources.getResourceURL(classLoader, resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
     } catch (IOException e) {
-      //  This is expected...
+      // This is expected...
       assertNull(inputStream);
       assertTrue(isUsingPrivateClassloader);
     }
@@ -310,93 +310,103 @@ public class ResourcesTest extends TestCase {
   public void testInstantiateClass() {
   }
 
-  /* A stupid simple classloader for testing
+  /*
+   * A stupid simple classloader for testing
    */
   private class TestCL extends ClassLoader {
 
+    public TestCL(ClassLoader parent) {
+      super(parent);
+    }
 
-	  public TestCL(ClassLoader parent) {
-		  super(parent);
-	  }
-
-	  public synchronized void clearAssertionStatus() {
+    @Override
+    public synchronized void clearAssertionStatus() {
       isUsingPrivateClassloader = true;
       super.clearAssertionStatus();
     }
 
-    protected Package definePackage(String name, String specTitle,
-                                    String specVersion, String specVendor, String implTitle,
-                                    String implVersion, String implVendor, URL sealBase)
-        throws IllegalArgumentException {
+    @Override
+    protected Package definePackage(String name, String specTitle, String specVersion, String specVendor,
+        String implTitle, String implVersion, String implVendor, URL sealBase) throws IllegalArgumentException {
       isUsingPrivateClassloader = true;
-      return super.definePackage(name, specTitle, specVersion,
-          specVendor, implTitle, implVersion, implVendor, sealBase);
+      return super
+          .definePackage(name, specTitle, specVersion, specVendor, implTitle, implVersion, implVendor, sealBase);
     }
 
+    @Override
     protected Class findClass(String name) throws ClassNotFoundException {
       isUsingPrivateClassloader = true;
       return super.findClass(name);
     }
 
+    @Override
     protected String findLibrary(String libname) {
       isUsingPrivateClassloader = true;
       return super.findLibrary(libname);
     }
 
+    @Override
     protected URL findResource(String name) {
       isUsingPrivateClassloader = true;
       return super.findResource(name);
     }
 
+    @Override
     protected Enumeration findResources(String name) throws IOException {
       isUsingPrivateClassloader = true;
       return super.findResources(name);
     }
 
+    @Override
     protected Package getPackage(String name) {
       isUsingPrivateClassloader = true;
       return super.getPackage(name);
     }
 
+    @Override
     protected Package[] getPackages() {
       isUsingPrivateClassloader = true;
       return super.getPackages();
     }
 
+    @Override
     public URL getResource(String name) {
       isUsingPrivateClassloader = true;
       return super.getResource(name);
     }
 
+    @Override
     public InputStream getResourceAsStream(String name) {
       isUsingPrivateClassloader = true;
       return super.getResourceAsStream(name);
     }
 
-    protected synchronized Class loadClass(String name, boolean resolve)
-        throws ClassNotFoundException {
+    @Override
+    protected synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
       isUsingPrivateClassloader = true;
       return super.loadClass(name, resolve);
     }
 
+    @Override
     public Class loadClass(String name) throws ClassNotFoundException {
       isUsingPrivateClassloader = true;
       return super.loadClass(name);
     }
 
-    public synchronized void setClassAssertionStatus(String className,
-                                                     boolean enabled) {
+    @Override
+    public synchronized void setClassAssertionStatus(String className, boolean enabled) {
       isUsingPrivateClassloader = true;
       super.setClassAssertionStatus(className, enabled);
     }
 
+    @Override
     public synchronized void setDefaultAssertionStatus(boolean enabled) {
       isUsingPrivateClassloader = true;
       super.setDefaultAssertionStatus(enabled);
     }
 
-    public synchronized void setPackageAssertionStatus(String packageName,
-                                                       boolean enabled) {
+    @Override
+    public synchronized void setPackageAssertionStatus(String packageName, boolean enabled) {
       isUsingPrivateClassloader = true;
       super.setPackageAssertionStatus(packageName, enabled);
     }
