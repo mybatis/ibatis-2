@@ -449,11 +449,10 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>This exception is thrown if a <code>java.sql.BatchUpdateException</code> is caught
- during the execution of any nested batch.  The exception contains the
- java.sql.BatchUpdateException that is the root cause, as well as
- the results from any prior nested batch that executed successfully.  This exception
- is only thrown from the executeBatchDetailed method.</p>
+<p>This exception is thrown if a <code>java.sql.BatchUpdateException</code> is caught during the execution of any nested
+ batch. The exception contains the java.sql.BatchUpdateException that is the root cause, as well as the results from
+ any prior nested batch that executed successfully. This exception is only thrown from the executeBatchDetailed
+ method.</p>
 
 
 
@@ -550,8 +549,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../../com/ibatis/sqlmap/engine/execution/BatchException.html#getBatchUpdateException()">getBatchUpdateException</a></span>()
         
-        <div class="jd-descrdiv">Returns the BatchUpdateException that caused the nested batch
- to fail.</div>
+        <div class="jd-descrdiv">Returns the BatchUpdateException that caused the nested batch to fail.</div>
   
   </td></tr>
 
@@ -569,8 +567,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../../com/ibatis/sqlmap/engine/execution/BatchException.html#getFailingSqlStatement()">getFailingSqlStatement</a></span>()
         
-        <div class="jd-descrdiv">Returns the SQL statement that caused the failure
- (not the parameters) </div>
+        <div class="jd-descrdiv">Returns the SQL statement that caused the failure (not the parameters)</div>
   
   </td></tr>
 
@@ -1170,10 +1167,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the BatchUpdateException that caused the nested batch
- to fail.  That exception contains an array of row counts
- that can be used to determine exactly which statemtn of the 
- batch caused the failure (or failures).</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the BatchUpdateException that caused the nested batch to fail. That exception contains an array of row
+ counts that can be used to determine exactly which statemtn of the batch caused the failure (or failures).</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the root BatchUpdateException
@@ -1209,8 +1204,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the SQL statement that caused the failure
- (not the parameters) </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the SQL statement that caused the failure (not the parameters)</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the failing SQL string
@@ -1282,13 +1276,11 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of BatchResult objects.  There will be one entry
- in the list for each successful sub-batch executed before the failing
- batch.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of BatchResult objects. There will be one entry in the list for each successful sub-batch executed
+ before the failing batch.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the previously successful batch results (may be an empty list
-  if no batch has executed successfully)
+      <ul class="nolist"><li>the previously successful batch results (may be an empty list if no batch has executed successfully)
 </li></ul>
   </div>
 

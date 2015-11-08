@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DynamicSql.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic</a> &gt; <span class="el_source">DynamicSql.java</span></div><h1>DynamicSql.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic;
 
@@ -33,189 +33,193 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+<span class="fc" id="L36"></span>
 public class DynamicSql implements Sql, DynamicParent {
-
-<span class="fc" id="L39">  private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();</span>
+<span class="fc" id="L38"></span>
+  private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();
 
 <span class="fc" id="L41">  private List children = new ArrayList();</span>
-  private SqlMapExecutorDelegate delegate;
-
-<span class="fc" id="L44">  public DynamicSql(SqlMapExecutorDelegate delegate) {</span>
-<span class="fc" id="L45">    this.delegate = delegate;</span>
+<span class="fc" id="L42">  private SqlMapExecutorDelegate delegate;</span>
+<span class="fc" id="L43"></span>
+  public DynamicSql(SqlMapExecutorDelegate delegate) {
+    this.delegate = delegate;
 <span class="fc" id="L46">  }</span>
-
-  public String getSql(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L49">    String sql = statementScope.getDynamicSql();</span>
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">    if (sql == null) {</span>
-<span class="nc" id="L51">      process(statementScope, parameterObject);</span>
-<span class="nc" id="L52">      sql = statementScope.getDynamicSql();</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed."></span>
+<span class="nc" id="L48">  public String getSql(StatementScope statementScope, Object parameterObject) {</span>
+<span class="nc" id="L49">    String sql = statementScope.getDynamicSql();</span>
+    if (sql == null) {
+<span class="fc" id="L51">      process(statementScope, parameterObject);</span>
+      sql = statementScope.getDynamicSql();
     }
-<span class="fc" id="L54">    return sql;</span>
-  }
-
-  public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject) {
+    return sql;
+<span class="fc" id="L55">  }</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered."></span>
+<span class="fc" id="L57">  public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject) {</span>
 <span class="fc" id="L58">    ParameterMap map = statementScope.getDynamicParameterMap();</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">    if (map == null) {</span>
+    if (map == null) {
 <span class="fc" id="L60">      process(statementScope, parameterObject);</span>
-<span class="fc" id="L61">      map = statementScope.getDynamicParameterMap();</span>
+      map = statementScope.getDynamicParameterMap();
     }
-<span class="fc" id="L63">    return map;</span>
-  }
+    return map;
+<span class="fc" id="L64">  }</span>
 
   public ResultMap getResultMap(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L67">    return statementScope.getResultMap();</span>
-  }
-
-  public void cleanup(StatementScope statementScope) {
-<span class="fc" id="L71">    statementScope.setDynamicSql(null);</span>
-<span class="fc" id="L72">    statementScope.setDynamicParameterMap(null);</span>
+    return statementScope.getResultMap();
+<span class="fc" id="L68">  }</span>
+<span class="fc" id="L69"></span>
+<span class="fc" id="L70">  public void cleanup(StatementScope statementScope) {</span>
+    statementScope.setDynamicSql(null);
+    statementScope.setDynamicParameterMap(null);
 <span class="fc" id="L73">  }</span>
-
-  private void process(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L76">    SqlTagContext ctx = new SqlTagContext();</span>
+<span class="fc" id="L74"></span>
+<span class="fc" id="L75">  private void process(StatementScope statementScope, Object parameterObject) {</span>
+    SqlTagContext ctx = new SqlTagContext();
 <span class="fc" id="L77">    List localChildren = children;</span>
 <span class="fc" id="L78">    processBodyChildren(statementScope, ctx, parameterObject, localChildren.iterator());</span>
-
+<span class="fc" id="L79"></span>
 <span class="fc" id="L80">    ParameterMap map = new ParameterMap(delegate);</span>
-<span class="fc" id="L81">    map.setId(statementScope.getStatement().getId() + &quot;-InlineParameterMap&quot;);</span>
+    map.setId(statementScope.getStatement().getId() + &quot;-InlineParameterMap&quot;);
 <span class="fc" id="L82">    map.setParameterClass(((MappedStatement) statementScope.getStatement()).getParameterClass());</span>
-<span class="fc" id="L83">    map.setParameterMappingList(ctx.getParameterMappings());</span>
+    map.setParameterMappingList(ctx.getParameterMappings());
 
-<span class="fc" id="L85">    String dynSql = ctx.getBodyText();</span>
-
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    String dynSql = ctx.getBodyText();</span>
+<span class="fc" id="L86"></span>
     // Processes $substitutions$ after DynamicSql
-<span class="fc bfc" id="L88" title="All 2 branches covered.">    if (SimpleDynamicSql.isSimpleDynamicSql(dynSql)) {</span>
+    if (SimpleDynamicSql.isSimpleDynamicSql(dynSql)) {
 <span class="fc" id="L89">      dynSql = new SimpleDynamicSql(delegate, dynSql).getSql(statementScope, parameterObject);</span>
-    }
+<span class="fc" id="L90">    }</span>
+<span class="fc" id="L91"></span>
+    statementScope.setDynamicSql(dynSql);
+    statementScope.setDynamicParameterMap(map);
+  }
+<span class="fc" id="L95"></span>
+<span class="fc" id="L96">  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,</span>
+<span class="fc" id="L97">      Iterator localChildren) {</span>
+    PrintWriter out = ctx.getWriter();
+    processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);
+  }
+<span class="fc bfc" id="L101" title="All 2 branches covered."></span>
+<span class="fc" id="L102">  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">      Iterator localChildren, PrintWriter out) {</span>
+<span class="fc" id="L104">    while (localChildren.hasNext()) {</span>
+<span class="fc" id="L105">      SqlChild child = (SqlChild) localChildren.next();</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">      if (child instanceof SqlText) {</span>
+<span class="fc" id="L107">        SqlText sqlText = (SqlText) child;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        String sqlStatement = sqlText.getText();</span>
+        if (sqlText.isWhiteSpace()) {
+          out.print(sqlStatement);
+<span class="fc" id="L111">        } else if (!sqlText.isPostParseRequired()) {</span>
 
-<span class="fc" id="L92">    statementScope.setDynamicSql(dynSql);</span>
-<span class="fc" id="L93">    statementScope.setDynamicParameterMap(map);</span>
-<span class="fc" id="L94">  }</span>
-
-  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject, Iterator localChildren) {
-<span class="fc" id="L97">    PrintWriter out = ctx.getWriter();</span>
-<span class="fc" id="L98">    processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);</span>
-<span class="fc" id="L99">  }</span>
-
-  private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject, Iterator localChildren, PrintWriter out) {
-<span class="fc bfc" id="L102" title="All 2 branches covered.">    while (localChildren.hasNext()) {</span>
-<span class="fc" id="L103">      SqlChild child = (SqlChild) localChildren.next();</span>
-<span class="fc bfc" id="L104" title="All 2 branches covered.">      if (child instanceof SqlText) {</span>
-<span class="fc" id="L105">        SqlText sqlText = (SqlText) child;</span>
-<span class="fc" id="L106">        String sqlStatement = sqlText.getText();</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (sqlText.isWhiteSpace()) {</span>
-<span class="fc" id="L108">          out.print(sqlStatement);</span>
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        } else if (!sqlText.isPostParseRequired()) {</span>
-
-          // BODY OUT
-<span class="fc" id="L112">          out.print(sqlStatement);</span>
-
-<span class="fc" id="L114">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">          if (mappings != null) {</span>
-<span class="fc bfc" id="L116" title="All 2 branches covered.">            for (int i = 0, n = mappings.length; i &lt; n; i++) {</span>
-<span class="fc" id="L117">              ctx.addParameterMapping(mappings[i]);</span>
+<span class="fc" id="L113">          // BODY OUT</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">          out.print(sqlStatement);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered."></span>
+<span class="fc" id="L116">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
+          if (mappings != null) {
+            for (int i = 0, n = mappings.length; i &lt; n; i++) {
+<span class="fc" id="L119">              ctx.addParameterMapping(mappings[i]);</span>
             }
+<span class="fc" id="L121">          }</span>
+        } else {
+<span class="pc bpc" id="L123" title="1 of 4 branches missed."></span>
+<span class="fc" id="L124">          IterateContext itCtx = ctx.peekIterateContext();</span>
+<span class="fc" id="L125"></span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">          if (null != itCtx &amp;&amp; itCtx.isAllowNext()) {</span>
+<span class="fc" id="L127">            itCtx.next();</span>
+            itCtx.setAllowNext(false);
+            if (!itCtx.hasNext()) {
+              itCtx.setFinal(true);
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">            }</span>
+<span class="fc" id="L132">          }</span>
+<span class="fc" id="L133"></span>
+<span class="fc" id="L134">          if (itCtx != null) {</span>
+            StringBuffer sqlStatementBuffer = new StringBuffer(sqlStatement);
+            iteratePropertyReplace(sqlStatementBuffer, itCtx);
+<span class="fc" id="L137">            sqlStatement = sqlStatementBuffer.toString();</span>
           }
-<span class="fc" id="L120">        } else {</span>
-
-<span class="fc" id="L122">          IterateContext itCtx = ctx.peekIterateContext();</span>
-
-<span class="pc bpc" id="L124" title="1 of 4 branches missed.">          if(null != itCtx &amp;&amp; itCtx.isAllowNext()){</span>
-<span class="fc" id="L125">            itCtx.next();</span>
-<span class="fc" id="L126">            itCtx.setAllowNext(false);</span>
-<span class="fc bfc" id="L127" title="All 2 branches covered.">            if(!itCtx.hasNext()) {</span>
-<span class="fc" id="L128">              itCtx.setFinal(true);</span>
-            }
-          }
-
-<span class="pc bpc" id="L132" title="1 of 2 branches missed.">          if(itCtx!=null) {</span>
-<span class="fc" id="L133">            StringBuffer sqlStatementBuffer = new StringBuffer(sqlStatement);</span>
-<span class="fc" id="L134">            iteratePropertyReplace(sqlStatementBuffer, itCtx);</span>
-<span class="fc" id="L135">            sqlStatement = sqlStatementBuffer.toString();</span>
-          }
-
-<span class="fc" id="L138">          sqlText = PARAM_PARSER.parseInlineParameterMap(delegate.getTypeHandlerFactory(), sqlStatement);</span>
-
-<span class="fc" id="L140">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
-<span class="fc" id="L141">          out.print(sqlText.getText());</span>
-<span class="pc bpc" id="L142" title="1 of 2 branches missed.">          if (mappings != null) {</span>
-<span class="fc bfc" id="L143" title="All 2 branches covered.">             for (int i = 0, n = mappings.length; i &lt; n; i++) {</span>
-<span class="fc" id="L144">               ctx.addParameterMapping(mappings[i]);</span>
-             }
-          }
-        }
-<span class="pc bpc" id="L148" title="1 of 2 branches missed.">      } else if (child instanceof SqlTag) {</span>
-<span class="fc" id="L149">        SqlTag tag = (SqlTag) child;</span>
-<span class="fc" id="L150">        SqlTagHandler handler = tag.getHandler();</span>
-<span class="fc" id="L151">        int response = SqlTagHandler.INCLUDE_BODY;</span>
+<span class="fc" id="L139"></span>
+<span class="fc" id="L140">          sqlText = PARAM_PARSER.parseInlineParameterMap(delegate.getTypeHandlerFactory(), sqlStatement);</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed."></span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
+<span class="fc" id="L143">          out.print(sqlText.getText());</span>
+          if (mappings != null) {
+            for (int i = 0, n = mappings.length; i &lt; n; i++) {
+              ctx.addParameterMapping(mappings[i]);
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">            }</span>
+<span class="fc" id="L148">          }</span>
+<span class="fc" id="L149">        }</span>
+<span class="fc" id="L150">      } else if (child instanceof SqlTag) {</span>
+        SqlTag tag = (SqlTag) child;
+<span class="fc" id="L152">        SqlTagHandler handler = tag.getHandler();</span>
+<span class="fc" id="L153">        int response = SqlTagHandler.INCLUDE_BODY;</span>
         do {
-<span class="fc" id="L153">          StringWriter sw = new StringWriter();</span>
-<span class="fc" id="L154">          PrintWriter pw = new PrintWriter(sw);</span>
-          
-<span class="fc" id="L156">          response = handler.doStartFragment(ctx, tag, parameterObject);</span>
-<span class="fc bfc" id="L157" title="All 2 branches covered.">          if (response != SqlTagHandler.SKIP_BODY) {</span>
+<span class="fc" id="L155">          StringWriter sw = new StringWriter();</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">          PrintWriter pw = new PrintWriter(sw);</span>
 
-<span class="fc" id="L159">            processBodyChildren(statementScope, ctx, parameterObject, tag.getChildren(), pw);</span>
-<span class="fc" id="L160">            pw.flush();</span>
-<span class="fc" id="L161">            pw.close();</span>
-<span class="fc" id="L162">            StringBuffer body = sw.getBuffer();</span>
-<span class="fc" id="L163">            response = handler.doEndFragment(ctx, tag, parameterObject, body);</span>
-<span class="fc" id="L164">            handler.doPrepend(ctx, tag, parameterObject, body);</span>
-            
-<span class="pc bpc" id="L166" title="1 of 2 branches missed.">            if (response != SqlTagHandler.SKIP_BODY) {</span>
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">              if (body.length() &gt; 0) {</span>
-<span class="fc" id="L168">                out.print(body.toString());</span>
+<span class="fc" id="L158">          response = handler.doStartFragment(ctx, tag, parameterObject);</span>
+<span class="fc" id="L159">          if (response != SqlTagHandler.SKIP_BODY) {</span>
+<span class="fc" id="L160"></span>
+<span class="fc" id="L161">            processBodyChildren(statementScope, ctx, parameterObject, tag.getChildren(), pw);</span>
+<span class="fc" id="L162">            pw.flush();</span>
+<span class="fc" id="L163">            pw.close();</span>
+            StringBuffer body = sw.getBuffer();
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">            response = handler.doEndFragment(ctx, tag, parameterObject, body);</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">            handler.doPrepend(ctx, tag, parameterObject, body);</span>
+<span class="fc" id="L167"></span>
+            if (response != SqlTagHandler.SKIP_BODY) {
+              if (body.length() &gt; 0) {
+                out.print(body.toString());
               }
-            }
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            }</span>
 
-          }
-<span class="fc bfc" id="L173" title="All 2 branches covered.">        } while (response == SqlTagHandler.REPEAT_BODY);</span>
-
-<span class="fc" id="L175">        ctx.popRemoveFirstPrependMarker(tag);</span>
-
-<span class="fc bfc" id="L177" title="All 4 branches covered.">        if(ctx.peekIterateContext()!= null &amp;&amp; ctx.peekIterateContext().getTag() == tag) {</span>
-<span class="fc" id="L178">          ctx.setAttribute(ctx.peekIterateContext().getTag(), null);</span>
-<span class="fc" id="L179">          ctx.popIterateContext();</span>
-        }
-
+<span class="fc" id="L174">          }</span>
+        } while (response == SqlTagHandler.REPEAT_BODY);
+<span class="fc bfc" id="L176" title="All 4 branches covered."></span>
+<span class="fc" id="L177">        ctx.popRemoveFirstPrependMarker(tag);</span>
+<span class="fc" id="L178"></span>
+        if (ctx.peekIterateContext() != null &amp;&amp; ctx.peekIterateContext().getTag() == tag) {
+          ctx.setAttribute(ctx.peekIterateContext().getTag(), null);
+          ctx.popIterateContext();
+<span class="fc" id="L182">        }</span>
+<span class="fc" id="L183"></span>
       }
     }
-<span class="fc" id="L184">  }</span>
+  }
 
   /**
    * 
    * @param bodyContent
-   * @param iterate
-   */
-  protected void iteratePropertyReplace(StringBuffer bodyContent, IterateContext iterate) {
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">    if(iterate!=null) {</span>
-<span class="fc" id="L193">      String[] mappings = new String[] {&quot;#&quot;, &quot;$&quot;};</span>
-<span class="fc bfc" id="L194" title="All 2 branches covered.">      for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="fc" id="L195">          int startIndex = 0;</span>
-<span class="fc" id="L196">          int endIndex = -1;</span>
-<span class="pc bpc" id="L197" title="1 of 4 branches missed.">          while (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {</span>
-<span class="fc" id="L198">              startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);</span>
-<span class="fc" id="L199">              endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);</span>
-<span class="fc bfc" id="L200" title="All 4 branches covered.">              if (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {</span>
-<span class="fc" id="L201">                  bodyContent.replace(startIndex + 1, endIndex, iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));</span>
-              }
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">   * @param iterate</span>
+<span class="fc" id="L192">   */</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">  protected void iteratePropertyReplace(StringBuffer bodyContent, IterateContext iterate) {</span>
+<span class="fc" id="L194">    if (iterate != null) {</span>
+<span class="fc" id="L195">      String[] mappings = new String[] { &quot;#&quot;, &quot;$&quot; };</span>
+<span class="pc bpc" id="L196" title="1 of 4 branches missed.">      for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="fc" id="L197">        int startIndex = 0;</span>
+<span class="fc" id="L198">        int endIndex = -1;</span>
+<span class="fc bfc" id="L199" title="All 4 branches covered.">        while (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {</span>
+<span class="fc" id="L200">          startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);</span>
+          endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
+          if (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {
+            bodyContent.replace(startIndex + 1, endIndex,
+                iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));
           }
+<span class="fc" id="L206">        }</span>
       }
     }
-<span class="fc" id="L206">  }</span>
-
-  protected static void replace(StringBuffer buffer, String find, String replace) {
-<span class="nc" id="L209">    int pos = buffer.toString().indexOf(find);</span>
-<span class="nc" id="L210">    int len = find.length();</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">    while (pos &gt; -1) {</span>
-<span class="nc" id="L212">      buffer.replace(pos, pos + len, replace);</span>
-<span class="nc" id="L213">      pos = buffer.toString().indexOf(find);</span>
+<span class="nc" id="L209">  }</span>
+<span class="nc" id="L210"></span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">  protected static void replace(StringBuffer buffer, String find, String replace) {</span>
+<span class="nc" id="L212">    int pos = buffer.toString().indexOf(find);</span>
+<span class="nc" id="L213">    int len = find.length();</span>
+    while (pos &gt; -1) {
+<span class="nc" id="L215">      buffer.replace(pos, pos + len, replace);</span>
+      pos = buffer.toString().indexOf(find);
     }
-<span class="nc" id="L215">  }</span>
-  public void addChild(SqlChild child) {
-<span class="fc" id="L217">    children.add(child);</span>
 <span class="fc" id="L218">  }</span>
+<span class="fc" id="L219"></span>
+  public void addChild(SqlChild child) {
+    children.add(child);
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

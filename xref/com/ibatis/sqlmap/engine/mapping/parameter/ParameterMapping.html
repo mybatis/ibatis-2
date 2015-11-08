@@ -7,19 +7,19 @@
 <body>
 <div id="overview"><a href="../../../../../../../apidocs/com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2004-2015 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *    See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *    limitations under the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.mapping.parameter;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>    <strong class="jxr_keyword">private</strong> String propertyName;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>    <strong class="jxr_keyword">private</strong> <a href="../../../../../../com/ibatis/sqlmap/engine/type/TypeHandler.html">TypeHandler</a> typeHandler;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">private</strong> String typeName; <em class="jxr_comment">// this is used for REF types or user-defined types</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">private</strong> String typeName;            <em class="jxr_comment">// this is used for REF types or user-defined types</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> jdbcType;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> String jdbcTypeName;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> String nullValue;
@@ -156,32 +156,34 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">   * for user-defined or REF types</em>
-<a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">   * @param typeName</em>
-<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTypeName(String typeName) {
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>     <strong class="jxr_keyword">this</strong>.typeName = typeName;
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>   }
-<a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>   <strong class="jxr_keyword">public</strong> String getResultMapName() {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> 	  <strong class="jxr_keyword">return</strong> resultMapName;
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>   }
-<a class="jxr_linenumber" name="L160" href="#L160">160</a> 
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setResultMapName(String resultMapName) {
-<a class="jxr_linenumber" name="L162" href="#L162">162</a> 	  <strong class="jxr_keyword">this</strong>.resultMapName = resultMapName;
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>   }
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> 
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>   <strong class="jxr_keyword">public</strong> Integer getNumericScale() {
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">return</strong> numericScale;
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>   }
-<a class="jxr_linenumber" name="L168" href="#L168">168</a> 
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setNumericScale(Integer numericScale) {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>     <strong class="jxr_keyword">if</strong> (numericScale != <strong class="jxr_keyword">null</strong> &amp;&amp; numericScale.intValue() &lt; 0) {
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero"</span>);
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     }
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">this</strong>.numericScale = numericScale;
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>   }
-<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> }
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">   * @param typeName</em>
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTypeName(String typeName) {
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">this</strong>.typeName = typeName;
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>   }
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>   <strong class="jxr_keyword">public</strong> String getResultMapName() {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">return</strong> resultMapName;
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>   }
+<a class="jxr_linenumber" name="L161" href="#L161">161</a> 
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setResultMapName(String resultMapName) {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">this</strong>.resultMapName = resultMapName;
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>   }
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>   <strong class="jxr_keyword">public</strong> Integer getNumericScale() {
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     <strong class="jxr_keyword">return</strong> numericScale;
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>   }
+<a class="jxr_linenumber" name="L169" href="#L169">169</a> 
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setNumericScale(Integer numericScale) {
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <strong class="jxr_keyword">if</strong> (numericScale != <strong class="jxr_keyword">null</strong> &amp;&amp; numericScale.intValue() &lt; 0) {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>           <span class="jxr_string">"Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero"</span>);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     }
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">this</strong>.numericScale = numericScale;
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>   }
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> 
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>

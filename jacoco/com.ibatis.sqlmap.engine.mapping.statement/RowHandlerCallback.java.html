@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RowHandlerCallback.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">RowHandlerCallback.java</span></div><h1>RowHandlerCallback.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
@@ -41,65 +41,69 @@ public class RowHandlerCallback {
   /**
    * Constructor
    *
-   * @param resultMap    - the result map
-   * @param resultObject - the result object
-   * @param rowHandler   - the row handler object
-   */
-<span class="fc" id="L48">  public RowHandlerCallback(ResultMap resultMap, Object resultObject, RowHandler rowHandler) {</span>
-<span class="fc" id="L49">    this.rowHandler = rowHandler;</span>
-<span class="fc" id="L50">    this.resultMap = resultMap;</span>
-<span class="fc" id="L51">    this.resultObject = resultObject;</span>
-<span class="fc" id="L52">  }</span>
+   * @param resultMap
+   *          - the result map
+   * @param resultObject
+   *          - the result object
+<span class="fc" id="L48">   * @param rowHandler</span>
+<span class="fc" id="L49">   *          - the row handler object</span>
+<span class="fc" id="L50">   */</span>
+<span class="fc" id="L51">  public RowHandlerCallback(ResultMap resultMap, Object resultObject, RowHandler rowHandler) {</span>
+<span class="fc" id="L52">    this.rowHandler = rowHandler;</span>
+    this.resultMap = resultMap;
+    this.resultObject = resultObject;
+  }
 
   /**
    * Prepares the row object, and passes it to the row handler
    *
-   * @param statementScope - the request scope
-   * @param results - the result data
+   * @param statementScope
+   *          - the request scope
+   * @param results
+   *          - the result data
    */
-  public void handleResultObject(StatementScope statementScope, Object[] results, ResultSet rs) throws SQLException {
-    Object object;
+<span class="fc" id="L65">  public void handleResultObject(StatementScope statementScope, Object[] results, ResultSet rs) throws SQLException {</span>
+<span class="fc" id="L66">    Object object;</span>
 
-<span class="fc" id="L63">    statementScope.setCurrentNestedKey(null);</span>
-<span class="fc" id="L64">    object = resultMap.resolveSubMap(statementScope, rs).setResultObjectValues(statementScope, resultObject, results);</span>
-
-<span class="fc bfc" id="L66" title="All 2 branches covered.">    if (object != ResultMap.NO_VALUE) {</span>
-      //  XML Only special processing. (converts elements to string for easy insertion).
-<span class="fc" id="L68">      int stackDepth = statementScope.getSession().getRequestStackDepth();</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">      if (stackDepth == 1) {</span>
-<span class="fc" id="L70">        Class targetType = statementScope.getResultMap().getResultClass();</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (XmlTypeMarker.class.isAssignableFrom(targetType)</span>
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">            &amp;&amp; object instanceof Document) {</span>
-<span class="fc" id="L73">          object = documentToString((Document) object);</span>
-        }
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    statementScope.setCurrentNestedKey(null);</span>
+    object = resultMap.resolveSubMap(statementScope, rs).setResultObjectValues(statementScope, resultObject, results);
+<span class="fc" id="L70"></span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">    if (object != ResultMap.NO_VALUE) {</span>
+<span class="fc" id="L72">      // XML Only special processing. (converts elements to string for easy insertion).</span>
+<span class="pc bpc" id="L73" title="1 of 4 branches missed.">      int stackDepth = statementScope.getSession().getRequestStackDepth();</span>
+<span class="fc" id="L74">      if (stackDepth == 1) {</span>
+        Class targetType = statementScope.getResultMap().getResultClass();
+        if (XmlTypeMarker.class.isAssignableFrom(targetType) &amp;&amp; object instanceof Document) {
+          object = documentToString((Document) object);
+<span class="fc" id="L78">        }</span>
       }
-
-<span class="fc" id="L77">      rowHandler.handleRow(object);</span>
+<span class="fc" id="L80"></span>
+      rowHandler.handleRow(object);
     }
-<span class="fc" id="L79">  }</span>
+<span class="fc" id="L83">  }</span>
 
   private String documentToString(Document document) {
-<span class="fc" id="L82">    String s = null;</span>
-
+<span class="fc" id="L86">    String s = null;</span>
+<span class="fc" id="L87"></span>
     try {
-<span class="fc" id="L85">      TransformerFactory tFactory = TransformerFactory.newInstance();</span>
-<span class="fc" id="L86">      Transformer transformer = tFactory.newTransformer();</span>
-
-<span class="fc" id="L88">      DOMSource source = new DOMSource(document);</span>
-<span class="fc" id="L89">      StringWriter writer = new StringWriter();</span>
-<span class="fc" id="L90">      StreamResult result = new StreamResult(writer);</span>
-<span class="fc" id="L91">      transformer.transform(source, result);</span>
-<span class="fc" id="L92">      s = writer.getBuffer().toString();</span>
-
-<span class="pc" id="L94">    } catch (TransformerException e) {</span>
-<span class="nc" id="L95">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L89">      TransformerFactory tFactory = TransformerFactory.newInstance();</span>
+<span class="fc" id="L90">      Transformer transformer = tFactory.newTransformer();</span>
+<span class="fc" id="L91"></span>
+<span class="fc" id="L92">      DOMSource source = new DOMSource(document);</span>
+<span class="fc" id="L93">      StringWriter writer = new StringWriter();</span>
+      StreamResult result = new StreamResult(writer);
+<span class="nc" id="L95">      transformer.transform(source, result);</span>
+<span class="nc" id="L96">      s = writer.getBuffer().toString();</span>
+<span class="fc" id="L97"></span>
+    } catch (TransformerException e) {
+<span class="fc" id="L99">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
     }
 
-<span class="fc" id="L98">    return s;</span>
-  }
+    return s;
+<span class="fc" id="L103">  }</span>
 
   public RowHandler getRowHandler() {
-<span class="fc" id="L102">    return rowHandler;</span>
+    return rowHandler;
   }
 
 }

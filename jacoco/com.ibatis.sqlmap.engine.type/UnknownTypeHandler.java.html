@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnknownTypeHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">UnknownTypeHandler.java</span></div><h1>UnknownTypeHandler.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -26,118 +26,112 @@ import java.lang.NoSuchMethodException;
  * Implementation of TypeHandler for dealing with unknown types
  */
 public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
-
+<span class="fc" id="L29"></span>
   private TypeHandlerFactory factory;
-  
-<span class="fc" id="L32">  static private boolean usingJavaPre5 = false;</span>
-  
+
+  static private boolean usingJavaPre5 = false;
+
   static {
-    try  {
-      // try getBaseClass, if it throws no exception
-      // were in Java &lt;5
-<span class="fc" id="L38">      getBaseClass(Class.class);</span>
+<span class="fc" id="L35">    try {</span>
+<span class="fc" id="L36">      // try getBaseClass, if it throws no exception</span>
+<span class="nc" id="L37">      // were in Java &lt;5</span>
+<span class="nc" id="L38">      getBaseClass(Class.class);</span>
 <span class="fc" id="L39">      usingJavaPre5 = false;</span>
-<span class="pc" id="L40">    } catch ( NoSuchMethodException ex )  {</span>
-<span class="nc" id="L41">      usingJavaPre5 = true;</span>
+<span class="fc" id="L40">    } catch (NoSuchMethodException ex) {</span>
+      usingJavaPre5 = true;
     }
-<span class="fc" id="L43">  };</span>
+  };
 
   /**
    * Constructor to create via a factory
    * 
-   * @param factory - the factory to associate this with
-   */
-<span class="fc" id="L50">  public UnknownTypeHandler(TypeHandlerFactory factory) {</span>
-<span class="fc" id="L51">    this.factory = factory;</span>
-<span class="fc" id="L52">  }</span>
-
-  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType)
-      throws SQLException {	
-<span class="fc" id="L56">	Class searchClass = parameter.getClass();</span>
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">	if ( usingJavaPre5 )  {</span>
-		try  {
-<span class="nc" id="L59">	        searchClass = getBaseClass(searchClass);</span>
-<span class="nc" id="L60">		}</span>
-<span class="nc" id="L61">		catch ( Exception ex ) {</span>
-<span class="nc" id="L62">			searchClass = null;</span>
-		}
-	}
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">    if ( searchClass == null )  {</span>
-<span class="nc" id="L66">        searchClass = parameter.getClass();</span>
-    }	
-<span class="fc" id="L68">    TypeHandler handler = factory.getTypeHandler(searchClass, jdbcType);</span>
-<span class="fc" id="L69">    handler.setParameter(ps, i, parameter, jdbcType);</span>
-<span class="fc" id="L70">  } </span>
-
-  public Object getResult(ResultSet rs, String columnName)
-      throws SQLException {
-<span class="fc" id="L74">    Object object = rs.getObject(columnName);</span>
-<span class="fc bfc" id="L75" title="All 2 branches covered.">    if (rs.wasNull()) {</span>
-<span class="fc" id="L76">      return null;</span>
-    } else {
-<span class="fc" id="L78">      return object;</span>
+<span class="fc" id="L48">   * @param factory</span>
+<span class="fc" id="L49">   *          - the factory to associate this with</span>
+<span class="fc" id="L50">   */</span>
+  public UnknownTypeHandler(TypeHandlerFactory factory) {
+    this.factory = factory;
+<span class="fc" id="L53">  }</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed."></span>
+  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
+<span class="nc" id="L56">    Class searchClass = parameter.getClass();</span>
+<span class="nc" id="L57">    if (usingJavaPre5) {</span>
+<span class="nc" id="L58">      try {</span>
+<span class="nc" id="L59">        searchClass = getBaseClass(searchClass);</span>
+      } catch (Exception ex) {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        searchClass = null;</span>
+<span class="nc" id="L62">      }</span>
     }
-  }
-
-  public Object getResult(ResultSet rs, int columnIndex)
-      throws SQLException {
-<span class="nc" id="L84">    Object object = rs.getObject(columnIndex);</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">    if (rs.wasNull()) {</span>
-<span class="nc" id="L86">      return null;</span>
+<span class="fc" id="L64">    if (searchClass == null) {</span>
+<span class="fc" id="L65">      searchClass = parameter.getClass();</span>
+<span class="fc" id="L66">    }</span>
+    TypeHandler handler = factory.getTypeHandler(searchClass, jdbcType);
+    handler.setParameter(ps, i, parameter, jdbcType);
+<span class="fc" id="L69">  }</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered."></span>
+<span class="fc" id="L71">  public Object getResult(ResultSet rs, String columnName) throws SQLException {</span>
+    Object object = rs.getObject(columnName);
+<span class="fc" id="L73">    if (rs.wasNull()) {</span>
+      return null;
     } else {
-<span class="nc" id="L88">      return object;</span>
+      return object;
     }
-  }
-
-  public Object getResult(CallableStatement cs, int columnIndex)
-      throws SQLException {
-<span class="nc" id="L94">    Object object = cs.getObject(columnIndex);</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">    if (cs.wasNull()) {</span>
-<span class="nc" id="L96">      return null;</span>
+<span class="nc" id="L78">  }</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed."></span>
+<span class="nc" id="L80">  public Object getResult(ResultSet rs, int columnIndex) throws SQLException {</span>
+    Object object = rs.getObject(columnIndex);
+<span class="nc" id="L82">    if (rs.wasNull()) {</span>
+      return null;
     } else {
-<span class="nc" id="L98">      return object;</span>
+      return object;
     }
-  }
+<span class="nc" id="L87">  }</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed."></span>
+<span class="nc" id="L89">  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {</span>
+    Object object = cs.getObject(columnIndex);
+<span class="nc" id="L91">    if (cs.wasNull()) {</span>
+      return null;
+    } else {
+      return object;
+    }
+<span class="nc" id="L96">  }</span>
 
   public Object valueOf(String s) {
-<span class="nc" id="L103">    return s;</span>
+    return s;
   }
-
-  @Override
-public boolean equals(Object object, String string) {
-<span class="pc bpc" id="L108" title="2 of 4 branches missed.">    if (object == null || string == null) {</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">      return object == string;</span>
-    } else {
-<span class="fc" id="L111">      TypeHandler handler = factory.getTypeHandler(object.getClass());</span>
-<span class="fc" id="L112">      Object castedObject = handler.valueOf(string);</span>
-<span class="fc" id="L113">      return object.equals(castedObject);</span>
+<span class="pc bpc" id="L101" title="2 of 4 branches missed."></span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">  @Override</span>
+  public boolean equals(Object object, String string) {
+<span class="fc" id="L104">    if (object == null || string == null) {</span>
+<span class="fc" id="L105">      return object == string;</span>
+<span class="fc" id="L106">    } else {</span>
+      TypeHandler handler = factory.getTypeHandler(object.getClass());
+      Object castedObject = handler.valueOf(string);
+      return object.equals(castedObject);
     }
   }
 
   /**
-   * Get the base class of classParam, for top level classes
-   * this returns null. For enums, inner and anonymous 
-   * classes it returns the enclosing class. The intent 
-   * is to use this for enum support in Java 5+.
+   * Get the base class of classParam, for top level classes this returns null. For enums, inner and anonymous classes
+   * it returns the enclosing class. The intent is to use this for enum support in Java 5+.
    * 
-   * @param classParam class to get enclosing class of
+   * @param classParam
+   *          class to get enclosing class of
    * @return Enclosing class
-   * @throws NoSuchMethodException when run in pre Java 5.
+   * @throws NoSuchMethodException
+<span class="fc" id="L121">   *           when run in pre Java 5.</span>
    */
-  private static Class getBaseClass(Class classParam) 
-  	throws NoSuchMethodException  {
-<span class="fc" id="L129">      String methodName = &quot;getEnclosingClass&quot;;</span>
+<span class="fc" id="L123">  private static Class getBaseClass(Class classParam) throws NoSuchMethodException {</span>
+<span class="fc" id="L124">    String methodName = &quot;getEnclosingClass&quot;;</span>
 
-<span class="fc" id="L131">      Method method = null;</span>
-<span class="fc" id="L132">      Class result = null;</span>
-      try  {
-<span class="fc" id="L134">        method = classParam.getClass().getMethod(methodName, (Class[])null);</span>
-<span class="fc" id="L135">	    result = (Class)method.invoke(classParam, (Object[])null);</span>
-<span class="fc" id="L136">      }</span>
-<span class="nc" id="L137">      catch ( Exception ex )  {</span>
-<span class="nc" id="L138">    	  throw new NoSuchMethodException(ex.getMessage());</span>
-      }
-<span class="fc" id="L140">      return result; </span>
-  } 
+<span class="fc" id="L126">    Method method = null;</span>
+<span class="fc" id="L127">    Class result = null;</span>
+<span class="nc" id="L128">    try {</span>
+<span class="nc" id="L129">      method = classParam.getClass().getMethod(methodName, (Class[]) null);</span>
+<span class="fc" id="L130">      result = (Class) method.invoke(classParam, (Object[]) null);</span>
+<span class="fc" id="L131">    } catch (Exception ex) {</span>
+      throw new NoSuchMethodException(ex.getMessage());
+    }
+    return result;
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

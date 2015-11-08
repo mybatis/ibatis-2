@@ -472,8 +472,7 @@ Summary:
           final
           <a href="../../../../../../com/ibatis/sqlmap/engine/cache/memory/MemoryCacheLevel.html">MemoryCacheLevel</a></td>
           <td class="jd-linkcol"><a href="../../../../../../com/ibatis/sqlmap/engine/cache/memory/MemoryCacheLevel.html#WEAK">WEAK</a></td>
-          <td class="jd-descrcol" width="100%">Constant for weak caching
- This cache model is probably the best choice in most cases.</td>
+          <td class="jd-descrcol" width="100%">Constant for weak caching This cache model is probably the best choice in most cases.</td>
       </tr>
       
     
@@ -801,11 +800,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Constant for soft caching.
- This cache model will reduce the likelihood of running out of memory in case the
- results are not currently in use and the memory is needed for other objects.
- However, this is not the most aggressive cache-model in that regard. Hence,
- memory still might be allocated and unavailable for more important objects.
+  <div class="jd-tagdata jd-tagdescr"><p>Constant for soft caching. This cache model will reduce the likelihood of running out of memory in case the results
+ are not currently in use and the memory is needed for other objects. However, this is not the most aggressive
+ cache-model in that regard. Hence, memory still might be allocated and unavailable for more important objects.
 </p></div>
 
     
@@ -836,18 +833,16 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Constant for strong caching.
- This cache model will guarantee that the results stay in memory until the cache
- is explicitly flushed. This is ideal for results that are:
+  <div class="jd-tagdata jd-tagdescr"><p>Constant for strong caching. This cache model will guarantee that the results stay in memory until the cache is
+ explicitly flushed. This is ideal for results that are:
  <ol>
  <li>very small</li>
  <li>absolutely static</li>
  <li>used very often</li>
  </ol>
- The advantage is that performance will be very good for this particular query.
- The disadvantage is that if the memory used by these results is needed, then it
- will not be released to make room for other objects (possibly more important
- objects).
+ The advantage is that performance will be very good for this particular query. The disadvantage is that if the
+ memory used by these results is needed, then it will not be released to make room for other objects (possibly more
+ important objects).
 </p></div>
 
     
@@ -878,11 +873,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Constant for weak caching
- This cache model is probably the best choice in most cases. It will increase
- performance for popular results, but it will absolutely release the memory to
- be used in allocating other objects, assuming that the results are not currently
- in use.
+  <div class="jd-tagdata jd-tagdescr"><p>Constant for weak caching This cache model is probably the best choice in most cases. It will increase performance
+ for popular results, but it will absolutely release the memory to be used in allocating other objects, assuming
+ that the results are not currently in use.
 </p></div>
 
     

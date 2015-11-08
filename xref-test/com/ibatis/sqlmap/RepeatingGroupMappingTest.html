@@ -7,19 +7,19 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/com/ibatis/sqlmap/RepeatingGroupMappingTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2004-2015 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *    See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *    limitations under the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -30,61 +30,57 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/ibatis/sqlmap/RepeatingGroupMappingTest.html">RepeatingGroupMappingTest</a> <strong class="jxr_keyword">extends</strong> <a href="../../../com/ibatis/sqlmap/BaseSqlMapTest.html">BaseSqlMapTest</a> {
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>    @Override
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      initSqlMap(<span class="jxr_string">"com/ibatis/sqlmap/maps/SqlMapConfig.xml"</span>, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      initScript(<span class="jxr_string">"scripts/jpetstore-hsqldb-schema.sql"</span>);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      initScript(<span class="jxr_string">"scripts/jpetstore-hsqldb-dataload.sql"</span>);
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>    }
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGroupBy() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllCategories"</span>,<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      assertEquals (5, list.size());
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllCategories"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      assertEquals(5, list.size());
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>    }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGroupByExtended() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllCategoriesExtended"</span>,<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      assertEquals (5, list.size());
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllCategoriesExtended"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      assertEquals(5, list.size());
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>    }
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNestedProperties() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getFish"</span>,<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      assertEquals (1, list.size());
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getFish"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      assertEquals(1, list.size());
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <a href="../../../testdomain/Category.html">Category</a> cat = (Category)list.get(0);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      assertEquals (<span class="jxr_string">"FISH"</span>,cat.getCategoryId());
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      assertEquals (<span class="jxr_string">"Fish"</span>,cat.getName());
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      assertNotNull (<span class="jxr_string">"Expected product list."</span>, cat.getProductList());
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      assertEquals (4, cat.getProductList().size());
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <a href="../../../testdomain/Category.html">Category</a> cat = (Category) list.get(0);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      assertEquals(<span class="jxr_string">"FISH"</span>, cat.getCategoryId());
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      assertEquals(<span class="jxr_string">"Fish"</span>, cat.getName());
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      assertNotNull(<span class="jxr_string">"Expected product list."</span>, cat.getProductList());
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      assertEquals(4, cat.getProductList().size());
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <a href="../../../testdomain/Product.html">Product</a> product = (Product)cat.getProductList().get(0);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      assertEquals (2, product.getItemList().size());
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <a href="../../../testdomain/Product.html">Product</a> product = (Product) cat.getProductList().get(0);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      assertEquals(2, product.getItemList().size());
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>    }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * This is a test case for iBATIS JIRA-250 "SELECT statement</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   * returns unexpected result when 'groupBy' and 'nullValue'</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   * are specified in resultMaps."</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">   * The problem was that when a child object in a resultmap only</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">   * contained null values it would still be created when one of the</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">   * properties of the child object contained a nullValue attribute</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">   * in the ResultMap. The nullValue would be applied before checking</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">   * whether all properties of the child were 'null', so at least 1</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">   * property would always be non-null (the reason for the</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">   * nullValue attribute).</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">   * The fix is to first check whether all properties of the child are</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">   * 'null', and if the child object contains at least 1 non-null property</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">   * to then only create the child object and apply the nullValue attribute.</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">   * @throws Exception none should be thrown.</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGroupByJIRA250() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllProductCategoriesJIRA250"</span>,<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <a href="../../../testdomain/Category.html">Category</a> cat = (Category)list.get(0);
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      assertEquals (0, cat.getProductList().size());
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>    }
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  }
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * This is a test case for iBATIS JIRA-250 "SELECT statement returns unexpected result when 'groupBy' and 'nullValue'</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   * are specified in resultMaps."</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">   * The problem was that when a child object in a resultmap only contained null values it would still be created when</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">   * one of the properties of the child object contained a nullValue attribute in the ResultMap. The nullValue would be</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">   * applied before checking whether all properties of the child were 'null', so at least 1 property would always be</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">   * non-null (the reason for the nullValue attribute).</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">   * The fix is to first check whether all properties of the child are 'null', and if the child object contains at least</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">   * 1 non-null property to then only create the child object and apply the nullValue attribute.</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">   * @throws Exception</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">   *           none should be thrown.</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGroupByJIRA250() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      List list = sqlMap.queryForList(<span class="jxr_string">"getAllProductCategoriesJIRA250"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <a href="../../../testdomain/Category.html">Category</a> cat = (Category) list.get(0);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      assertEquals(0, cat.getProductList().size());
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>    }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>

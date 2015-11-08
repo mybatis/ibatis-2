@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>XmlList.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">XmlList.java</span></div><h1>XmlList.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.result;
 
@@ -30,112 +30,113 @@ public class XmlList implements List {
   /**
    * Build a list from another list
    * 
-   * @param list - a base list
-   */
-<span class="nc" id="L35">  public XmlList(List list) {</span>
-<span class="nc" id="L36">    this.list = list;</span>
-<span class="nc" id="L37">  }</span>
+<span class="nc" id="L33">   * @param list</span>
+<span class="nc" id="L34">   *          - a base list</span>
+<span class="nc" id="L35">   */</span>
+  public XmlList(List list) {
+    this.list = list;
+<span class="nc" id="L38">  }</span>
 
   public int size() {
-<span class="nc" id="L40">    return list.size();</span>
-  }
+    return list.size();
+<span class="nc" id="L42">  }</span>
 
   public boolean isEmpty() {
-<span class="nc" id="L44">    return list.isEmpty();</span>
-  }
+    return list.isEmpty();
+<span class="nc" id="L46">  }</span>
 
   public boolean contains(Object o) {
-<span class="nc" id="L48">    return list.contains(o);</span>
-  }
+    return list.contains(o);
+<span class="nc" id="L50">  }</span>
 
   public Iterator iterator() {
-<span class="nc" id="L52">    return list.iterator();</span>
-  }
+    return list.iterator();
+<span class="nc" id="L54">  }</span>
 
   public Object[] toArray() {
-<span class="nc" id="L56">    return list.toArray();</span>
-  }
+    return list.toArray();
+<span class="nc" id="L58">  }</span>
 
   public Object[] toArray(Object a[]) {
-<span class="nc" id="L60">    return list.toArray(a);</span>
-  }
+    return list.toArray(a);
+<span class="nc" id="L62">  }</span>
 
   public boolean add(Object o) {
-<span class="nc" id="L64">    return list.add(o);</span>
-  }
+    return list.add(o);
+<span class="nc" id="L66">  }</span>
 
   public boolean remove(Object o) {
-<span class="nc" id="L68">    return list.remove(o);</span>
-  }
+    return list.remove(o);
+<span class="nc" id="L70">  }</span>
 
   public boolean containsAll(Collection c) {
-<span class="nc" id="L72">    return list.containsAll(c);</span>
-  }
+    return list.containsAll(c);
+<span class="nc" id="L74">  }</span>
 
   public boolean addAll(Collection c) {
-<span class="nc" id="L76">    return list.addAll(c);</span>
-  }
+    return list.addAll(c);
+<span class="nc" id="L78">  }</span>
 
   public boolean addAll(int index, Collection c) {
-<span class="nc" id="L80">    return list.addAll(index, c);</span>
-  }
+    return list.addAll(index, c);
+<span class="nc" id="L82">  }</span>
 
   public boolean removeAll(Collection c) {
-<span class="nc" id="L84">    return list.removeAll(c);</span>
-  }
+    return list.removeAll(c);
+<span class="nc" id="L86">  }</span>
 
   public boolean retainAll(Collection c) {
-<span class="nc" id="L88">    return list.retainAll(c);</span>
-  }
-
+    return list.retainAll(c);
+<span class="nc" id="L90">  }</span>
+<span class="nc" id="L91"></span>
   public void clear() {
-<span class="nc" id="L92">    list.clear();</span>
-<span class="nc" id="L93">  }</span>
+    list.clear();
+<span class="nc" id="L94">  }</span>
 
   public Object get(int index) {
-<span class="nc" id="L96">    return list.get(index);</span>
-  }
+    return list.get(index);
+<span class="nc" id="L98">  }</span>
 
   public Object set(int index, Object element) {
-<span class="nc" id="L100">    return list.set(index, element);</span>
-  }
-
+    return list.set(index, element);
+<span class="nc" id="L102">  }</span>
+<span class="nc" id="L103"></span>
   public void add(int index, Object element) {
-<span class="nc" id="L104">    list.add(index, element);</span>
-<span class="nc" id="L105">  }</span>
+    list.add(index, element);
+<span class="nc" id="L106">  }</span>
 
   public Object remove(int index) {
-<span class="nc" id="L108">    return list.remove(index);</span>
-  }
+    return list.remove(index);
+<span class="nc" id="L110">  }</span>
 
   public int indexOf(Object o) {
-<span class="nc" id="L112">    return list.indexOf(o);</span>
-  }
+    return list.indexOf(o);
+<span class="nc" id="L114">  }</span>
 
   public int lastIndexOf(Object o) {
-<span class="nc" id="L116">    return list.lastIndexOf(o);</span>
-  }
+    return list.lastIndexOf(o);
+<span class="nc" id="L118">  }</span>
 
   public ListIterator listIterator() {
-<span class="nc" id="L120">    return list.listIterator();</span>
-  }
+    return list.listIterator();
+<span class="nc" id="L122">  }</span>
 
   public ListIterator listIterator(int index) {
-<span class="nc" id="L124">    return list.listIterator(index);</span>
-  }
+    return list.listIterator(index);
+<span class="nc" id="L126">  }</span>
 
   public List subList(int fromIndex, int toIndex) {
-<span class="nc" id="L128">    return list.subList(fromIndex, toIndex);</span>
+    return list.subList(fromIndex, toIndex);
   }
-
-  @Override
-public String toString() {
-<span class="nc" id="L133">    StringBuffer buffer = new StringBuffer();</span>
-<span class="nc bnc" id="L134" title="All 2 branches missed.">    for (int i = 0, n = list.size(); i &lt; n; i++) {</span>
-<span class="nc" id="L135">      buffer.append(list.get(i));</span>
-<span class="nc" id="L136">      buffer.append(&quot;\r\n&quot;);</span>
+<span class="nc" id="L131"></span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">  @Override</span>
+<span class="nc" id="L133">  public String toString() {</span>
+<span class="nc" id="L134">    StringBuffer buffer = new StringBuffer();</span>
+    for (int i = 0, n = list.size(); i &lt; n; i++) {
+<span class="nc" id="L136">      buffer.append(list.get(i));</span>
+      buffer.append(&quot;\r\n&quot;);
     }
-<span class="nc" id="L138">    return buffer.toString();</span>
+    return buffer.toString();
   }
 
 }

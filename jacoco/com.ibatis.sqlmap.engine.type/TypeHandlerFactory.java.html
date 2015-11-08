@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TypeHandlerFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">TypeHandlerFactory.java</span></div><h1>TypeHandlerFactory.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">/**</span>
- *    Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TypeHandlerFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">TypeHandlerFactory.java</span></div><h1>TypeHandlerFactory.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -22,82 +22,82 @@ import java.util.*;
 
 /**
  * Not much of a suprise, this is a factory class for TypeHandler objects.
- */
-public class TypeHandlerFactory {
-
-<span class="fc" id="L28">  private final Map typeHandlerMap = new HashMap();</span>
+<span class="fc" id="L25"> */</span>
+<span class="fc" id="L26">public class TypeHandlerFactory {</span>
+<span class="fc" id="L27"></span>
+  private final Map typeHandlerMap = new HashMap();
 <span class="fc" id="L29">  private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);</span>
-<span class="fc" id="L30">  private final HashMap typeAliases = new HashMap();</span>
-
-<span class="fc" id="L32">  private static final Map reversePrimitiveMap = new HashMap() {{</span>
-<span class="fc" id="L33">    put(Byte.class, byte.class);</span>
-<span class="fc" id="L34">    put(Short.class, short.class);</span>
-<span class="fc" id="L35">    put(Integer.class, int.class);</span>
-<span class="fc" id="L36">    put(Long.class, long.class);</span>
-<span class="fc" id="L37">    put(Float.class, float.class);</span>
-<span class="fc" id="L38">    put(Double.class, double.class);</span>
-<span class="fc" id="L39">    put(Boolean.class, boolean.class);</span>
-<span class="fc" id="L40">  }};</span>
-
+  private final HashMap typeAliases = new HashMap();
+<span class="fc" id="L31"></span>
+<span class="fc" id="L32">  private static final Map reversePrimitiveMap = new HashMap() {</span>
+<span class="fc" id="L33">    {</span>
+<span class="fc" id="L34">      put(Byte.class, byte.class);</span>
+<span class="fc" id="L35">      put(Short.class, short.class);</span>
+<span class="fc" id="L36">      put(Integer.class, int.class);</span>
+<span class="fc" id="L37">      put(Long.class, long.class);</span>
+<span class="fc" id="L38">      put(Float.class, float.class);</span>
+      put(Double.class, double.class);
+      put(Boolean.class, boolean.class);
+    }
+  };
 
   /* Constructor */
 
-  /**
+<span class="fc" id="L46">  /**</span>
    * Default constructor
    */
-<span class="fc" id="L48">  public TypeHandlerFactory() {</span>
-    TypeHandler handler;
+<span class="fc" id="L49">  public TypeHandlerFactory() {</span>
+<span class="fc" id="L50">    TypeHandler handler;</span>
+<span class="fc" id="L51"></span>
+    handler = new BooleanTypeHandler();
+<span class="fc" id="L53">    register(Boolean.class, handler);</span>
+<span class="fc" id="L54">    register(boolean.class, handler);</span>
+<span class="fc" id="L55"></span>
+    handler = new ByteTypeHandler();
+<span class="fc" id="L57">    register(Byte.class, handler);</span>
+<span class="fc" id="L58">    register(byte.class, handler);</span>
+<span class="fc" id="L59"></span>
+    handler = new ShortTypeHandler();
+<span class="fc" id="L61">    register(Short.class, handler);</span>
+<span class="fc" id="L62">    register(short.class, handler);</span>
+<span class="fc" id="L63"></span>
+    handler = new IntegerTypeHandler();
+<span class="fc" id="L65">    register(Integer.class, handler);</span>
+<span class="fc" id="L66">    register(int.class, handler);</span>
+<span class="fc" id="L67"></span>
+    handler = new LongTypeHandler();
+<span class="fc" id="L69">    register(Long.class, handler);</span>
+<span class="fc" id="L70">    register(long.class, handler);</span>
+<span class="fc" id="L71"></span>
+    handler = new FloatTypeHandler();
+<span class="fc" id="L73">    register(Float.class, handler);</span>
+<span class="fc" id="L74">    register(float.class, handler);</span>
+<span class="fc" id="L75"></span>
+    handler = new DoubleTypeHandler();
+<span class="fc" id="L77">    register(Double.class, handler);</span>
+<span class="fc" id="L78">    register(double.class, handler);</span>
+<span class="fc" id="L79"></span>
+    register(String.class, new StringTypeHandler());
+<span class="fc" id="L81">    register(String.class, &quot;CLOB&quot;, new CustomTypeHandler(new ClobTypeHandlerCallback()));</span>
+    register(String.class, &quot;LONGVARCHAR&quot;, new CustomTypeHandler(new ClobTypeHandlerCallback()));
+<span class="fc" id="L83"></span>
+<span class="fc" id="L84">    register(BigDecimal.class, new BigDecimalTypeHandler());</span>
+<span class="fc" id="L85"></span>
+    register(byte[].class, new ByteArrayTypeHandler());
+<span class="fc" id="L87">    register(byte[].class, &quot;BLOB&quot;, new CustomTypeHandler(new BlobTypeHandlerCallback()));</span>
+<span class="fc" id="L88">    register(byte[].class, &quot;LONGVARBINARY&quot;, new CustomTypeHandler(new BlobTypeHandlerCallback()));</span>
 
-<span class="fc" id="L51">    handler = new BooleanTypeHandler();</span>
-<span class="fc" id="L52">    register(Boolean.class, handler);</span>
-<span class="fc" id="L53">    register(boolean.class, handler);</span>
-
-<span class="fc" id="L55">    handler = new ByteTypeHandler();</span>
-<span class="fc" id="L56">    register(Byte.class, handler);</span>
-<span class="fc" id="L57">    register(byte.class, handler);</span>
-
-<span class="fc" id="L59">    handler = new ShortTypeHandler();</span>
-<span class="fc" id="L60">    register(Short.class, handler);</span>
-<span class="fc" id="L61">    register(short.class, handler);</span>
-
-<span class="fc" id="L63">    handler = new IntegerTypeHandler();</span>
-<span class="fc" id="L64">    register(Integer.class, handler);</span>
-<span class="fc" id="L65">    register(int.class, handler);</span>
-
-<span class="fc" id="L67">    handler = new LongTypeHandler();</span>
-<span class="fc" id="L68">    register(Long.class, handler);</span>
-<span class="fc" id="L69">    register(long.class, handler);</span>
-
-<span class="fc" id="L71">    handler = new FloatTypeHandler();</span>
-<span class="fc" id="L72">    register(Float.class, handler);</span>
-<span class="fc" id="L73">    register(float.class, handler);</span>
-
-<span class="fc" id="L75">    handler = new DoubleTypeHandler();</span>
-<span class="fc" id="L76">    register(Double.class, handler);</span>
-<span class="fc" id="L77">    register(double.class, handler);</span>
-
-<span class="fc" id="L79">    register(String.class, new StringTypeHandler());</span>
-<span class="fc" id="L80">    register(String.class, &quot;CLOB&quot;, new CustomTypeHandler(new ClobTypeHandlerCallback()));</span>
-<span class="fc" id="L81">    register(String.class, &quot;LONGVARCHAR&quot;, new CustomTypeHandler(new ClobTypeHandlerCallback()));</span>
-
-<span class="fc" id="L83">    register(BigDecimal.class, new BigDecimalTypeHandler());</span>
-
-<span class="fc" id="L85">    register(byte[].class, new ByteArrayTypeHandler());</span>
-<span class="fc" id="L86">    register(byte[].class, &quot;BLOB&quot;, new CustomTypeHandler(new BlobTypeHandlerCallback()));</span>
-<span class="fc" id="L87">    register(byte[].class, &quot;LONGVARBINARY&quot;, new CustomTypeHandler(new BlobTypeHandlerCallback()));</span>
-
-<span class="fc" id="L89">    register(Object.class, new ObjectTypeHandler());</span>
-<span class="fc" id="L90">    register(Object.class, &quot;OBJECT&quot;, new ObjectTypeHandler());</span>
-
-<span class="fc" id="L92">    register(Date.class, new DateTypeHandler());</span>
-<span class="fc" id="L93">    register(Date.class, &quot;DATE&quot;, new DateOnlyTypeHandler());</span>
-<span class="fc" id="L94">    register(Date.class, &quot;TIME&quot;, new TimeOnlyTypeHandler());</span>
-
-
-<span class="fc" id="L97">    register(java.sql.Date.class, new SqlDateTypeHandler());</span>
+<span class="fc" id="L90">    register(Object.class, new ObjectTypeHandler());</span>
+<span class="fc" id="L91">    register(Object.class, &quot;OBJECT&quot;, new ObjectTypeHandler());</span>
+<span class="fc" id="L92"></span>
+    register(Date.class, new DateTypeHandler());
+<span class="fc" id="L94">    register(Date.class, &quot;DATE&quot;, new DateOnlyTypeHandler());</span>
+<span class="fc" id="L95">    register(Date.class, &quot;TIME&quot;, new TimeOnlyTypeHandler());</span>
+<span class="fc" id="L96"></span>
+    register(java.sql.Date.class, new SqlDateTypeHandler());
 <span class="fc" id="L98">    register(java.sql.Time.class, new SqlTimeTypeHandler());</span>
 <span class="fc" id="L99">    register(java.sql.Timestamp.class, new SqlTimestampTypeHandler());</span>
-
+<span class="fc" id="L100"></span>
 <span class="fc" id="L101">    putTypeAlias(&quot;string&quot;, String.class.getName());</span>
 <span class="fc" id="L102">    putTypeAlias(&quot;byte&quot;, Byte.class.getName());</span>
 <span class="fc" id="L103">    putTypeAlias(&quot;long&quot;, Long.class.getName());</span>
@@ -114,134 +114,148 @@ public class TypeHandlerFactory {
 <span class="fc" id="L114">    putTypeAlias(&quot;hashmap&quot;, HashMap.class.getName());</span>
 <span class="fc" id="L115">    putTypeAlias(&quot;list&quot;, List.class.getName());</span>
 <span class="fc" id="L116">    putTypeAlias(&quot;arraylist&quot;, ArrayList.class.getName());</span>
-<span class="fc" id="L117">    putTypeAlias(&quot;collection&quot;, Collection.class.getName());</span>
+    putTypeAlias(&quot;collection&quot;, Collection.class.getName());
 <span class="fc" id="L118">    putTypeAlias(&quot;iterator&quot;, Iterator.class.getName());</span>
-<span class="fc" id="L119">    putTypeAlias(&quot;cursor&quot;, java.sql.ResultSet.class.getName());</span>
+    putTypeAlias(&quot;cursor&quot;, java.sql.ResultSet.class.getName());
 
-<span class="fc" id="L121">  }</span>
+  }
 
   /* Public Methods */
 
   /**
    * Get a TypeHandler for a class
    * 
-   * @param type - the class you want a TypeHandler for
+   * @param type
+   *          - the class you want a TypeHandler for
    * 
-   * @return - the handler
+<span class="fc" id="L131">   * @return - the handler</span>
    */
   public TypeHandler getTypeHandler(Class type) {
-<span class="fc" id="L133">    return getTypeHandler(type, null);</span>
+    return getTypeHandler(type, null);
   }
 
   /**
    * Get a TypeHandler for a class and a JDBC type
    * 
-   * @param type - the class
-   * @param jdbcType - the jdbc type
+   * @param type
+   *          - the class
+   * @param jdbcType
+   *          - the jdbc type
    * 
-   * @return - the handler
-   */
-  public TypeHandler getTypeHandler(Class type, String jdbcType) {
-<span class="fc" id="L145">    Map jdbcHandlerMap = (Map) typeHandlerMap.get(type);</span>
-<span class="fc" id="L146">    TypeHandler handler = null;</span>
-<span class="fc bfc" id="L147" title="All 2 branches covered.">    if (jdbcHandlerMap != null) {</span>
-<span class="fc" id="L148">      handler = (TypeHandler) jdbcHandlerMap.get(jdbcType);</span>
-<span class="fc bfc" id="L149" title="All 2 branches covered.">      if (handler == null) {</span>
-<span class="fc" id="L150">        handler = (TypeHandler) jdbcHandlerMap.get(null);</span>
-      }
+<span class="fc" id="L145">   * @return - the handler</span>
+<span class="fc" id="L146">   */</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">  public TypeHandler getTypeHandler(Class type, String jdbcType) {</span>
+<span class="fc" id="L148">    Map jdbcHandlerMap = (Map) typeHandlerMap.get(type);</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">    TypeHandler handler = null;</span>
+<span class="fc" id="L150">    if (jdbcHandlerMap != null) {</span>
+      handler = (TypeHandler) jdbcHandlerMap.get(jdbcType);
+      if (handler == null) {
+<span class="pc bpc" id="L153" title="1 of 6 branches missed.">        handler = (TypeHandler) jdbcHandlerMap.get(null);</span>
+<span class="fc" id="L154">      }</span>
     }
-<span class="pc bpc" id="L153" title="1 of 6 branches missed.">    if (handler == null &amp;&amp; type != null &amp;&amp; Enum.class.isAssignableFrom(type)) {</span>
-<span class="fc" id="L154">      handler = new EnumTypeHandler(type);</span>
+<span class="fc" id="L156">    if (handler == null &amp;&amp; type != null &amp;&amp; Enum.class.isAssignableFrom(type)) {</span>
+      handler = new EnumTypeHandler(type);
     }
-<span class="fc" id="L156">    return handler;</span>
+    return handler;
   }
 
   /**
    * When in doubt, get the &quot;unknown&quot; type handler
    * 
-   * @return - if I told you, it would not be unknown, would it?
+<span class="fc" id="L165">   * @return - if I told you, it would not be unknown, would it?</span>
    */
   public TypeHandler getUnkownTypeHandler() {
-<span class="fc" id="L165">    return unknownTypeHandler;</span>
+    return unknownTypeHandler;
   }
-
 
   /**
    * Tells you if a particular class has a TypeHandler
    * 
-   * @param type - the class
+   * @param type
+   *          - the class
    * 
-   * @return - true if there is a TypeHandler
+<span class="pc bpc" id="L177" title="2 of 6 branches missed.">   * @return - true if there is a TypeHandler</span>
    */
   public boolean hasTypeHandler(Class type) {
-<span class="pc bpc" id="L177" title="2 of 6 branches missed.">    return type != null &amp;&amp; (getTypeHandler(type) != null || Enum.class.isAssignableFrom(type));</span>
+    return type != null &amp;&amp; (getTypeHandler(type) != null || Enum.class.isAssignableFrom(type));
   }
 
   /**
    * Register (add) a type handler for a class
    * 
-   * @param type - the class
-   * @param handler - the handler instance
-   */
+   * @param type
+   *          - the class
+   * @param handler
+<span class="fc" id="L189">   *          - the handler instance</span>
+<span class="fc" id="L190">   */</span>
   public void register(Class type, TypeHandler handler) {
-<span class="fc" id="L187">    register(type, null, handler);</span>
-<span class="fc" id="L188">  }</span>
+    register(type, null, handler);
+  }
 
   /**
    * Register (add) a type handler for a class and JDBC type
    * 
-   * @param type - the class
-   * @param jdbcType - the JDBC type
-   * @param handler - the handler instance
-   */
-  public void register(Class type, String jdbcType, TypeHandler handler) {
-<span class="fc" id="L198">    Map map = (Map) typeHandlerMap.get(type);</span>
-<span class="fc bfc" id="L199" title="All 2 branches covered.">    if (map == null) {</span>
-<span class="fc" id="L200">      map = new HashMap();</span>
-<span class="fc" id="L201">      typeHandlerMap.put(type, map);</span>
-    }
-<span class="fc" id="L203">    map.put(jdbcType, handler);</span>
+   * @param type
+   *          - the class
+   * @param jdbcType
+   *          - the JDBC type
+   * @param handler
+<span class="fc" id="L203">   *          - the handler instance</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">   */</span>
+<span class="fc" id="L205">  public void register(Class type, String jdbcType, TypeHandler handler) {</span>
+<span class="fc" id="L206">    Map map = (Map) typeHandlerMap.get(type);</span>
+    if (map == null) {
+<span class="fc" id="L208">      map = new HashMap();</span>
+      typeHandlerMap.put(type, map);
+<span class="fc bfc" id="L210" title="All 2 branches covered.">    }</span>
+<span class="fc" id="L211">    map.put(jdbcType, handler);</span>
 
-<span class="fc bfc" id="L205" title="All 2 branches covered.">    if (reversePrimitiveMap.containsKey(type)) {</span>
-<span class="fc" id="L206">      register((Class)reversePrimitiveMap.get(type),jdbcType,handler);</span>
+<span class="fc" id="L213">    if (reversePrimitiveMap.containsKey(type)) {</span>
+      register((Class) reversePrimitiveMap.get(type), jdbcType, handler);
     }
-<span class="fc" id="L208">  }</span>
+  }
 
   /**
    * Lookup an aliased class and return it's REAL name
    * 
-   * @param string - the alias
+   * @param string
+   *          - the alias
    * 
-   * @return - the REAL name
-   */
-  public String resolveAlias(String string) {
-<span class="fc" id="L218">    String key = null;</span>
-<span class="fc bfc" id="L219" title="All 2 branches covered.">    if(string != null)</span>
-<span class="fc" id="L220">      key = string.toLowerCase();</span>
-<span class="fc" id="L221">    String value = null;</span>
-<span class="fc bfc" id="L222" title="All 2 branches covered.">    if (typeAliases.containsKey(key)) {</span>
-<span class="fc" id="L223">      value = (String) typeAliases.get(key);</span>
-<span class="fc" id="L224">    } else {</span>
-<span class="fc" id="L225">      value = string;</span>
+<span class="fc" id="L224">   * @return - the REAL name</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">   */</span>
+<span class="fc" id="L226">  public String resolveAlias(String string) {</span>
+<span class="fc" id="L227">    String key = null;</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">    if (string != null)</span>
+<span class="fc" id="L229">      key = string.toLowerCase();</span>
+    String value = null;
+<span class="fc" id="L231">    if (typeAliases.containsKey(key)) {</span>
+      value = (String) typeAliases.get(key);
+    } else {
+<span class="fc" id="L234">      value = string;</span>
     }
 
-<span class="fc" id="L228">    return value;</span>
+    return value;
   }
 
   /**
-   * Adds a type alias that is case insensitive.  All of the following String, string, StRiNg will equate to the same alias.
-   * @param alias - the alias
-   * @param value - the real class name
-   */
-  public void putTypeAlias(String alias, String value) {
-<span class="fc" id="L237">    String key = null;</span>
-<span class="pc bpc" id="L238" title="1 of 2 branches missed.">    if(alias != null)</span>
-<span class="fc" id="L239">      key = alias.toLowerCase();</span>
-<span class="pc bpc" id="L240" title="1 of 4 branches missed.">    if (typeAliases.containsKey(key) &amp;&amp; !typeAliases.get(key).equals(value)) {</span>
-<span class="nc" id="L241">      throw new SqlMapException(&quot;Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '&quot; + key + &quot;' is already mapped to the value '&quot; + typeAliases.get(alias) + &quot;'.&quot;);</span>
+   * Adds a type alias that is case insensitive. All of the following String, string, StRiNg will equate to the same
+   * alias.
+   * 
+   * @param alias
+   *          - the alias
+   * @param value
+<span class="fc" id="L247">   *          - the real class name</span>
+<span class="pc bpc" id="L248" title="1 of 2 branches missed.">   */</span>
+<span class="fc" id="L249">  public void putTypeAlias(String alias, String value) {</span>
+<span class="pc bpc" id="L250" title="1 of 4 branches missed.">    String key = null;</span>
+<span class="nc" id="L251">    if (alias != null)</span>
+      key = alias.toLowerCase();
+    if (typeAliases.containsKey(key) &amp;&amp; !typeAliases.get(key).equals(value)) {
+<span class="fc" id="L254">      throw new SqlMapException(&quot;Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '&quot; + key</span>
+<span class="fc" id="L255">          + &quot;' is already mapped to the value '&quot; + typeAliases.get(alias) + &quot;'.&quot;);</span>
     }
-<span class="fc" id="L243">    typeAliases.put(key, value);</span>
-<span class="fc" id="L244">  }</span>
+    typeAliases.put(key, value);
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

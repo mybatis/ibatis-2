@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DateTypeHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">DateTypeHandler.java</span></div><h1>DateTypeHandler.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -21,50 +21,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-/**
+<span class="fc" id="L24">/**</span>
  * Date (and time) implementation of TypeHandler
  */
-<span class="fc" id="L27">public class DateTypeHandler extends BaseTypeHandler implements TypeHandler {</span>
+public class DateTypeHandler extends BaseTypeHandler implements TypeHandler {
 
-  private static final String DATE_FORMAT = &quot;yyyy/MM/dd hh:mm:ss&quot;;
-
-  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType)
-      throws SQLException {
-<span class="nc" id="L33">    ps.setTimestamp(i, new java.sql.Timestamp(((Date) parameter).getTime()));</span>
-<span class="nc" id="L34">  }</span>
-
-  public Object getResult(ResultSet rs, String columnName)
-      throws SQLException {
-<span class="fc" id="L38">    java.sql.Timestamp sqlTimestamp = rs.getTimestamp(columnName);</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">    if (rs.wasNull()) {</span>
-<span class="nc" id="L40">      return null;</span>
+<span class="nc" id="L29">  private static final String DATE_FORMAT = &quot;yyyy/MM/dd hh:mm:ss&quot;;</span>
+<span class="nc" id="L30"></span>
+  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
+    ps.setTimestamp(i, new java.sql.Timestamp(((Date) parameter).getTime()));
+<span class="fc" id="L33">  }</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed."></span>
+<span class="nc" id="L35">  public Object getResult(ResultSet rs, String columnName) throws SQLException {</span>
+    java.sql.Timestamp sqlTimestamp = rs.getTimestamp(columnName);
+<span class="fc" id="L37">    if (rs.wasNull()) {</span>
+      return null;
     } else {
-<span class="fc" id="L42">      return new java.util.Date(sqlTimestamp.getTime());</span>
+      return new java.util.Date(sqlTimestamp.getTime());
     }
-  }
-
-  public Object getResult(ResultSet rs, int columnIndex)
-      throws SQLException {
-<span class="nc" id="L48">    java.sql.Timestamp sqlTimestamp = rs.getTimestamp(columnIndex);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">    if (rs.wasNull()) {</span>
-<span class="nc" id="L50">      return null;</span>
+<span class="nc" id="L42">  }</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed."></span>
+<span class="nc" id="L44">  public Object getResult(ResultSet rs, int columnIndex) throws SQLException {</span>
+    java.sql.Timestamp sqlTimestamp = rs.getTimestamp(columnIndex);
+<span class="nc" id="L46">    if (rs.wasNull()) {</span>
+      return null;
     } else {
-<span class="nc" id="L52">      return new java.util.Date(sqlTimestamp.getTime());</span>
+      return new java.util.Date(sqlTimestamp.getTime());
     }
-  }
-
-  public Object getResult(CallableStatement cs, int columnIndex)
-      throws SQLException {
-<span class="nc" id="L58">    java.sql.Timestamp sqlTimestamp = cs.getTimestamp(columnIndex);</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">    if (cs.wasNull()) {</span>
-<span class="nc" id="L60">      return null;</span>
+<span class="nc" id="L51">  }</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed."></span>
+<span class="nc" id="L53">  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {</span>
+    java.sql.Timestamp sqlTimestamp = cs.getTimestamp(columnIndex);
+<span class="nc" id="L55">    if (cs.wasNull()) {</span>
+      return null;
     } else {
-<span class="nc" id="L62">      return new java.util.Date(sqlTimestamp.getTime());</span>
+      return new java.util.Date(sqlTimestamp.getTime());
     }
-  }
+<span class="nc" id="L60">  }</span>
 
   public Object valueOf(String s) {
-<span class="nc" id="L67">    return SimpleDateFormatter.format(DATE_FORMAT, s);</span>
+    return SimpleDateFormatter.format(DATE_FORMAT, s);
   }
 
 }

@@ -399,16 +399,13 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Allows values to be retrieved from the underlying result set.
- TypeHandlerCallback implementations use this interface to
- get values that they can subsequently manipulate before
- having them returned.  Each of these methods has a corresponding
- method on the ResultSet (or CallableStatement) class, the only
- difference being that there is no need to specify the column name
- or index with these methods.
+<p>Allows values to be retrieved from the underlying result set. TypeHandlerCallback implementations use this interface
+ to get values that they can subsequently manipulate before having them returned. Each of these methods has a
+ corresponding method on the ResultSet (or CallableStatement) class, the only difference being that there is no need
+ to specify the column name or index with these methods.
  <p/>
- <b>NOTE:</b> There is no need to implement this.  The implementation
- will be passed into the TypeHandlerCallback automatically.
+ <b>NOTE:</b> There is no need to implement this. The implementation will be passed into the TypeHandlerCallback
+ automatically.
 </p>
 
 
@@ -1342,9 +1339,8 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the index of the column being got in the underlying ResultSet.
- Only use this method if the value returned from <code>getColumnName</code>
- is null.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the index of the column being got in the underlying ResultSet. Only use this method if the value returned
+ from <code>getColumnName</code> is null.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the index of the column (if zero then use the column name)
@@ -1380,9 +1376,8 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the name of the column being got in the underlying ResultSet.
- May be <code>null</code> in which case the <code>getColumnIndex</code>
- method should be used.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the name of the column being got in the underlying ResultSet. May be <code>null</code> in which case the
+ <code>getColumnIndex</code> method should be used.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the column name (may be null)

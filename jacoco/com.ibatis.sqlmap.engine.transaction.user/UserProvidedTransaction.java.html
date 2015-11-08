@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserProvidedTransaction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.user</a> &gt; <span class="el_source">UserProvidedTransaction.java</span></div><h1>UserProvidedTransaction.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.transaction.user;
 
@@ -23,35 +23,35 @@ import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+<span class="fc" id="L26"></span>
 public class UserProvidedTransaction implements Transaction {
 
-<span class="fc" id="L29">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
-
-  private Connection connection;
-
-<span class="fc" id="L33">  public UserProvidedTransaction(Connection connection) {</span>
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
-<span class="nc" id="L35">      this.connection = ConnectionLogProxy.newInstance(connection);</span>
-<span class="nc" id="L36">    } else {</span>
-<span class="fc" id="L37">      this.connection = connection;</span>
+  private static final Log connectionLog = LogFactory.getLog(Connection.class);
+<span class="fc" id="L30"></span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">  private Connection connection;</span>
+<span class="nc" id="L32"></span>
+  public UserProvidedTransaction(Connection connection) {
+<span class="fc" id="L34">    if (connectionLog.isDebugEnabled()) {</span>
+      this.connection = ConnectionLogProxy.newInstance(connection);
+<span class="fc" id="L36">    } else {</span>
+      this.connection = connection;
     }
-<span class="fc" id="L39">  }</span>
-
+<span class="nc" id="L39">  }</span>
+<span class="nc" id="L40"></span>
   public void commit() throws SQLException, TransactionException {
-<span class="nc" id="L42">    connection.commit();</span>
+    connection.commit();
 <span class="nc" id="L43">  }</span>
-
+<span class="nc" id="L44"></span>
   public void rollback() throws SQLException, TransactionException {
-<span class="nc" id="L46">    connection.rollback();</span>
+    connection.rollback();
 <span class="nc" id="L47">  }</span>
-
+<span class="nc" id="L48"></span>
   public void close() throws SQLException, TransactionException {
-<span class="nc" id="L50">    connection.close();</span>
-<span class="nc" id="L51">  }</span>
+    connection.close();
+<span class="fc" id="L51">  }</span>
 
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="fc" id="L54">    return connection;</span>
+    return connection;
   }
 
 }

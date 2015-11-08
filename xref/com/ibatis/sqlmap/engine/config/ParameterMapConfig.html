@@ -7,19 +7,19 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/config/ParameterMapConfig.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2004-2015 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *    See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *    limitations under the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.config;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -57,39 +57,43 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      client.getDelegate().addParameterMap(parameterMap);
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>    }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode, String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      errorContext.setObjectId(propertyName + <span class="jxr_string">" mapping of the "</span> + parameterMap.getId() + <span class="jxr_string">" parameter map"</span>);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <a href="../../../../../com/ibatis/sqlmap/engine/type/TypeHandler.html">TypeHandler</a> handler;
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">if</strong> (typeHandlerImpl != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>        errorContext.setMoreInfo(<span class="jxr_string">"Check the parameter mapping typeHandler attribute '"</span> + typeHandlerImpl + <span class="jxr_string">"' (must be a TypeHandler or TypeHandlerCallback implementation)."</span>);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>        <strong class="jxr_keyword">if</strong> (typeHandlerImpl instanceof TypeHandlerCallback) {
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          handler = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/ibatis/sqlmap/engine/type/CustomTypeHandler.html">CustomTypeHandler</a>((TypeHandlerCallback) typeHandlerImpl);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>        } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (typeHandlerImpl instanceof TypeHandler) {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          handler = (TypeHandler) typeHandlerImpl;
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>        } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"The class '"</span> + typeHandlerImpl + <span class="jxr_string">"' is not a valid implementation of TypeHandler or TypeHandlerCallback"</span>);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>        }
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>        errorContext.setMoreInfo(<span class="jxr_string">"Check the parameter mapping property type or name."</span>);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>        handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <a href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a> mapping = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>();
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      mapping.setPropertyName(propertyName);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      mapping.setJdbcTypeName(jdbcType);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      mapping.setTypeName(outParamType);
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      mapping.setResultMapName(resultMap);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      mapping.setNullValue(nullValue);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">if</strong> (mode != <strong class="jxr_keyword">null</strong> &amp;&amp; mode.length() &gt; 0) {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>        mapping.setMode(mode);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      mapping.setTypeHandler(handler);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      mapping.setJavaType(javaClass);
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      mapping.setNumericScale(numericScale);
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      parameterMappingList.add(mapping);
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      parameterMap.setParameterMappingList(parameterMappingList);
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>    }
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode,
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>        String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      errorContext.setObjectId(propertyName + <span class="jxr_string">" mapping of the "</span> + parameterMap.getId() + <span class="jxr_string">" parameter map"</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a href="../../../../../com/ibatis/sqlmap/engine/type/TypeHandler.html">TypeHandler</a> handler;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">if</strong> (typeHandlerImpl != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>        errorContext.setMoreInfo(<span class="jxr_string">"Check the parameter mapping typeHandler attribute '"</span> + typeHandlerImpl
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>            + <span class="jxr_string">"' (must be a TypeHandler or TypeHandlerCallback implementation)."</span>);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>        <strong class="jxr_keyword">if</strong> (typeHandlerImpl instanceof TypeHandlerCallback) {
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          handler = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/ibatis/sqlmap/engine/type/CustomTypeHandler.html">CustomTypeHandler</a>((TypeHandlerCallback) typeHandlerImpl);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>        } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (typeHandlerImpl instanceof TypeHandler) {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          handler = (TypeHandler) typeHandlerImpl;
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>        } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"The class '"</span> + typeHandlerImpl
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>              + <span class="jxr_string">"' is not a valid implementation of TypeHandler or TypeHandlerCallback"</span>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>        }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>        errorContext.setMoreInfo(<span class="jxr_string">"Check the parameter mapping property type or name."</span>);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>        handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(),
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>            parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <a href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a> mapping = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      mapping.setPropertyName(propertyName);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      mapping.setJdbcTypeName(jdbcType);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      mapping.setTypeName(outParamType);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      mapping.setResultMapName(resultMap);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      mapping.setNullValue(nullValue);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">if</strong> (mode != <strong class="jxr_keyword">null</strong> &amp;&amp; mode.length() &gt; 0) {
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>        mapping.setMode(mode);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      mapping.setTypeHandler(handler);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      mapping.setJavaType(javaClass);
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      mapping.setNumericScale(numericScale);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      parameterMappingList.add(mapping);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      parameterMap.setParameterMappingList(parameterMappingList);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>    }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>

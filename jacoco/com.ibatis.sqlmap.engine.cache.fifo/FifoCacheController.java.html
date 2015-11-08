@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FifoCacheController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.fifo</a> &gt; <span class="el_source">FifoCacheController.java</span></div><h1>FifoCacheController.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.cache.fifo;
 
@@ -34,83 +34,90 @@ public class FifoCacheController implements CacheController {
   private Map cache;
   private List keyList;
 
-  /**
-   * Default constructor
-   */
+<span class="fc" id="L37">  /**</span>
+<span class="fc" id="L38">   * Default constructor</span>
+<span class="fc" id="L39">   */</span>
 <span class="fc" id="L40">  public FifoCacheController() {</span>
 <span class="fc" id="L41">    this.cacheSize = 100;</span>
-<span class="fc" id="L42">    this.cache = Collections.synchronizedMap(new HashMap());</span>
-<span class="fc" id="L43">    this.keyList = Collections.synchronizedList(new LinkedList());</span>
-<span class="fc" id="L44">  }</span>
+    this.cache = Collections.synchronizedMap(new HashMap());
+    this.keyList = Collections.synchronizedList(new LinkedList());
+<span class="nc" id="L44">  }</span>
 
   public int getCacheSize() {
-<span class="nc" id="L47">    return cacheSize;</span>
-  }
-
+    return cacheSize;
+<span class="nc" id="L48">  }</span>
+<span class="nc" id="L49"></span>
   public void setCacheSize(int cacheSize) {
-<span class="nc" id="L51">    this.cacheSize = cacheSize;</span>
-<span class="nc" id="L52">  }</span>
+    this.cacheSize = cacheSize;
+  }
 
   /**
    * Configures the cache
    *
-   * @param props Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
-   */
-  public void setProperties(Properties props) {
-<span class="fc" id="L60">    String size = props.getProperty(&quot;cache-size&quot;);</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">    if (size == null) {</span>
-<span class="fc" id="L62">      size = props.getProperty(&quot;size&quot;);</span>
+   * @param props
+<span class="fc" id="L58">   *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">   */</span>
+<span class="fc" id="L60">  public void setProperties(Properties props) {</span>
+    String size = props.getProperty(&quot;cache-size&quot;);
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">    if (size == null) {</span>
+<span class="fc" id="L63">      size = props.getProperty(&quot;size&quot;);</span>
     }
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">    if (size != null) {</span>
-<span class="fc" id="L65">      cacheSize = Integer.parseInt(size);</span>
+<span class="fc" id="L65">    if (size != null) {</span>
+      cacheSize = Integer.parseInt(size);
     }
-<span class="fc" id="L67">  }</span>
+  }
 
   /**
    * Add an object to the cache
    *
-   * @param cacheModel The cacheModel
-   * @param key        The key of the object to be cached
-   * @param value      The object to be cached
-   */
-  public void putObject(CacheModel cacheModel, Object key, Object value) {
-<span class="fc" id="L77">    cache.put(key, value);</span>
-<span class="fc" id="L78">    keyList.add(key);</span>
-<span class="fc bfc" id="L79" title="All 2 branches covered.">    if (keyList.size() &gt; cacheSize) {</span>
-      try {
-<span class="fc" id="L81">        Object oldestKey = keyList.remove(0);</span>
-<span class="fc" id="L82">        cache.remove(oldestKey);</span>
-<span class="pc" id="L83">      } catch (IndexOutOfBoundsException e) {</span>
-        //ignore
+   * @param cacheModel
+   *          The cacheModel
+   * @param key
+   *          The key of the object to be cached
+   * @param value
+<span class="fc" id="L78">   *          The object to be cached</span>
+<span class="fc" id="L79">   */</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">  public void putObject(CacheModel cacheModel, Object key, Object value) {</span>
+    cache.put(key, value);
+<span class="fc" id="L82">    keyList.add(key);</span>
+<span class="fc" id="L83">    if (keyList.size() &gt; cacheSize) {</span>
+<span class="nc" id="L84">      try {</span>
+        Object oldestKey = keyList.remove(0);
+<span class="fc" id="L86">        cache.remove(oldestKey);</span>
+      } catch (IndexOutOfBoundsException e) {
+<span class="fc" id="L88">        // ignore</span>
       }
     }
-<span class="fc" id="L87">  }</span>
+  }
 
   /**
    * Get an object out of the cache.
    *
-   * @param cacheModel The cache model
-   * @param key        The key of the object to be returned
-   * @return The cached object (or null)
+   * @param cacheModel
+   *          The cache model
+   * @param key
+   *          The key of the object to be returned
+<span class="fc" id="L100">   * @return The cached object (or null)</span>
    */
   public Object getObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L97">    return cache.get(key);</span>
-  }
-
+    return cache.get(key);
+<span class="fc" id="L104">  }</span>
+<span class="fc" id="L105"></span>
   public Object removeObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L101">    keyList.remove(key);</span>
-<span class="fc" id="L102">    return cache.remove(key);</span>
+    keyList.remove(key);
+    return cache.remove(key);
   }
 
   /**
    * Flushes the cache.
    *
-   * @param cacheModel The cache model
-   */
-  public void flush(CacheModel cacheModel) {
-<span class="fc" id="L111">    cache.clear();</span>
-<span class="fc" id="L112">    keyList.clear();</span>
-<span class="fc" id="L113">  }</span>
+   * @param cacheModel
+<span class="fc" id="L115">   *          The cache model</span>
+<span class="fc" id="L116">   */</span>
+<span class="fc" id="L117">  public void flush(CacheModel cacheModel) {</span>
+    cache.clear();
+    keyList.clear();
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

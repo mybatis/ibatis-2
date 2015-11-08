@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TransactionManager.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction</a> &gt; <span class="el_source">TransactionManager.java</span></div><h1>TransactionManager.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.transaction;
 
@@ -20,87 +20,87 @@ import com.ibatis.sqlmap.engine.scope.SessionScope;
 import java.sql.SQLException;
 
 public class TransactionManager {
-
-  private TransactionConfig config;
-
-<span class="fc" id="L26">  public TransactionManager(TransactionConfig transactionConfig) {</span>
-<span class="fc" id="L27">    this.config = transactionConfig;</span>
+<span class="fc" id="L23"></span>
+<span class="fc" id="L24">  private TransactionConfig config;</span>
+<span class="fc" id="L25"></span>
+  public TransactionManager(TransactionConfig transactionConfig) {
+    this.config = transactionConfig;
 <span class="fc" id="L28">  }</span>
-
+<span class="fc" id="L29"></span>
   public void begin(SessionScope sessionScope) throws SQLException, TransactionException {
-<span class="fc" id="L31">    begin(sessionScope, IsolationLevel.UNSET_ISOLATION_LEVEL);</span>
+    begin(sessionScope, IsolationLevel.UNSET_ISOLATION_LEVEL);
 <span class="fc" id="L32">  }</span>
-
-  public void begin(SessionScope sessionScope, int transactionIsolation) throws SQLException, TransactionException {
+<span class="fc" id="L33"></span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">  public void begin(SessionScope sessionScope, int transactionIsolation) throws SQLException, TransactionException {</span>
 <span class="fc" id="L35">    Transaction trans = sessionScope.getTransaction();</span>
-<span class="fc" id="L36">    TransactionState state = sessionScope.getTransactionState();</span>
+    TransactionState state = sessionScope.getTransactionState();
 <span class="fc bfc" id="L37" title="All 2 branches covered.">    if (state == TransactionState.STATE_STARTED) {</span>
-<span class="fc" id="L38">      throw new TransactionException(&quot;TransactionManager could not start a new transaction.  &quot; +</span>
-          &quot;A transaction is already started.&quot;);
-<span class="fc bfc" id="L40" title="All 2 branches covered.">    } else if (state == TransactionState.STATE_USER_PROVIDED) {</span>
-<span class="fc" id="L41">      throw new TransactionException(&quot;TransactionManager could not start a new transaction.  &quot; +</span>
-          &quot;A user provided connection is currently being used by this session.  &quot; +
-          &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);
-    }
+<span class="fc" id="L38">      throw new TransactionException(&quot;TransactionManager could not start a new transaction.  &quot;</span>
+          + &quot;A transaction is already started.&quot;);
+    } else if (state == TransactionState.STATE_USER_PROVIDED) {
+      throw new TransactionException(&quot;TransactionManager could not start a new transaction.  &quot;
+          + &quot;A user provided connection is currently being used by this session.  &quot;
+<span class="fc" id="L43">          + &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);</span>
+<span class="fc" id="L44">    }</span>
 
 <span class="fc" id="L46">    trans = config.newTransaction(transactionIsolation);</span>
 <span class="fc" id="L47">    sessionScope.setCommitRequired(false);</span>
-
-<span class="fc" id="L49">    sessionScope.setTransaction(trans);</span>
-<span class="fc" id="L50">    sessionScope.setTransactionState(TransactionState.STATE_STARTED);</span>
+<span class="fc" id="L48"></span>
+    sessionScope.setTransaction(trans);
+    sessionScope.setTransactionState(TransactionState.STATE_STARTED);
 <span class="fc" id="L51">  }</span>
-
-  public void commit(SessionScope sessionScope) throws SQLException, TransactionException {
+<span class="fc" id="L52"></span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">  public void commit(SessionScope sessionScope) throws SQLException, TransactionException {</span>
 <span class="fc" id="L54">    Transaction trans = sessionScope.getTransaction();</span>
-<span class="fc" id="L55">    TransactionState state = sessionScope.getTransactionState();</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (state == TransactionState.STATE_USER_PROVIDED) {</span>
-<span class="fc" id="L57">      throw new TransactionException(&quot;TransactionManager could not commit.  &quot; +</span>
-          &quot;A user provided connection is currently being used by this session.  &quot; +
-          &quot;You must call the commit() method of the Connection directly.  &quot; +
-          &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);
-<span class="pc bpc" id="L61" title="1 of 4 branches missed.">    } else if (state != TransactionState.STATE_STARTED &amp;&amp; state != TransactionState.STATE_COMMITTED ) {</span>
+    TransactionState state = sessionScope.getTransactionState();
+    if (state == TransactionState.STATE_USER_PROVIDED) {
+      throw new TransactionException(&quot;TransactionManager could not commit.  &quot;
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">          + &quot;A user provided connection is currently being used by this session.  &quot;</span>
+<span class="fc" id="L59">          + &quot;You must call the commit() method of the Connection directly.  &quot;</span>
+          + &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">    } else if (state != TransactionState.STATE_STARTED &amp;&amp; state != TransactionState.STATE_COMMITTED) {</span>
 <span class="fc" id="L62">      throw new TransactionException(&quot;TransactionManager could not commit.  No transaction is started.&quot;);</span>
-    }
-<span class="pc bpc" id="L64" title="1 of 4 branches missed.">    if (sessionScope.isCommitRequired() || config.isForceCommit()) {</span>
+<span class="fc" id="L63">    }</span>
+    if (sessionScope.isCommitRequired() || config.isForceCommit()) {
 <span class="fc" id="L65">      trans.commit();</span>
 <span class="fc" id="L66">      sessionScope.setCommitRequired(false);</span>
     }
-<span class="fc" id="L68">    sessionScope.setTransactionState(TransactionState.STATE_COMMITTED);</span>
+    sessionScope.setTransactionState(TransactionState.STATE_COMMITTED);
 <span class="fc" id="L69">  }</span>
-
+<span class="fc" id="L70"></span>
   public void end(SessionScope sessionScope) throws SQLException, TransactionException {
-<span class="fc" id="L72">    Transaction trans = sessionScope.getTransaction();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    Transaction trans = sessionScope.getTransaction();</span>
 <span class="fc" id="L73">    TransactionState state = sessionScope.getTransactionState();</span>
 
-<span class="fc bfc" id="L75" title="All 2 branches covered.">    if (state == TransactionState.STATE_USER_PROVIDED) {</span>
-<span class="fc" id="L76">      throw new TransactionException(&quot;TransactionManager could not end this transaction.  &quot; +</span>
-          &quot;A user provided connection is currently being used by this session.  &quot; +
-          &quot;You must call the rollback() method of the Connection directly.  &quot; +
-          &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);
-    }
+    if (state == TransactionState.STATE_USER_PROVIDED) {
+      throw new TransactionException(&quot;TransactionManager could not end this transaction.  &quot;
+          + &quot;A user provided connection is currently being used by this session.  &quot;
+          + &quot;You must call the rollback() method of the Connection directly.  &quot;
+          + &quot;The calling .setUserConnection (null) will clear the user provided transaction.&quot;);
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">    }</span>
 
-    try {
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">      if (trans != null) {</span>
-        try {
-<span class="fc bfc" id="L85" title="All 2 branches covered.">          if (state != TransactionState.STATE_COMMITTED) {</span>
-<span class="pc bpc" id="L86" title="1 of 4 branches missed.">            if (sessionScope.isCommitRequired() || config.isForceCommit()) {</span>
-<span class="fc" id="L87">              trans.rollback();</span>
-<span class="fc" id="L88">              sessionScope.setCommitRequired(false);</span>
-            }
-          }
-<span class="pc" id="L91">        } finally {</span>
-<span class="pc" id="L92">          sessionScope.closePreparedStatements();</span>
-<span class="pc" id="L93">          trans.close();</span>
-<span class="nc" id="L94">        }</span>
-      }
-<span class="pc" id="L96">    } finally {</span>
-<span class="pc" id="L97">      sessionScope.setTransaction(null);</span>
-<span class="pc" id="L98">      sessionScope.setTransactionState(TransactionState.STATE_ENDED);</span>
-<span class="nc" id="L99">    }</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">    try {</span>
+<span class="pc bpc" id="L83" title="1 of 4 branches missed.">      if (trans != null) {</span>
+<span class="fc" id="L84">        try {</span>
+<span class="fc" id="L85">          if (state != TransactionState.STATE_COMMITTED) {</span>
+            if (sessionScope.isCommitRequired() || config.isForceCommit()) {
+              trans.rollback();
+              sessionScope.setCommitRequired(false);
+<span class="pc" id="L89">            }</span>
+<span class="pc" id="L90">          }</span>
+<span class="fc" id="L91">        } finally {</span>
+          sessionScope.closePreparedStatements();
+          trans.close();
+<span class="pc" id="L94">        }</span>
+<span class="pc" id="L95">      }</span>
+<span class="fc" id="L96">    } finally {</span>
+<span class="fc" id="L97">      sessionScope.setTransaction(null);</span>
+      sessionScope.setTransactionState(TransactionState.STATE_ENDED);
+    }
 <span class="fc" id="L100">  }</span>
 
   public TransactionConfig getConfig() {
-<span class="fc" id="L103">    return config;</span>
+    return config;
   }
 
 }

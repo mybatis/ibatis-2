@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JavaBeanDataExchange.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">JavaBeanDataExchange.java</span></div><h1>JavaBeanDataExchange.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.exchange;
-
 
 import com.ibatis.sqlmap.engine.accessplan.AccessPlan;
 import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
@@ -32,117 +31,118 @@ import java.util.Map;
 
 /**
  * DataExchange implementation for beans
- */
+<span class="fc" id="L34"> */</span>
 public class JavaBeanDataExchange extends BaseDataExchange implements DataExchange {
 
-<span class="fc" id="L38">  private static final Object[] NO_DATA = new Object[0];</span>
+  private static final Object[] NO_DATA = new Object[0];
 
   private AccessPlan resultPlan;
   private AccessPlan parameterPlan;
-  private AccessPlan outParamPlan;
-
+<span class="fc" id="L41">  private AccessPlan outParamPlan;</span>
+<span class="fc" id="L42"></span>
   protected JavaBeanDataExchange(DataExchangeFactory dataExchangeFactory) {
-<span class="fc" id="L45">    super(dataExchangeFactory);</span>
-<span class="fc" id="L46">  }</span>
+    super(dataExchangeFactory);
+  }
 
   /**
    * Initializes the data exchange instance.
    *
-   * @param properties
-   */
-  public void initialize(Map properties) {
-<span class="fc" id="L54">    Object map = properties.get(&quot;map&quot;);</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">    if (map instanceof ParameterMap) {</span>
-<span class="fc" id="L56">      ParameterMap parameterMap = (ParameterMap) map;</span>
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">      if (parameterMap != null) {</span>
-<span class="fc" id="L58">        ParameterMapping[] parameterMappings = parameterMap.getParameterMappings();</span>
-<span class="fc" id="L59">        String[] parameterPropNames = new String[parameterMappings.length];</span>
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (int i = 0; i &lt; parameterPropNames.length; i++) {</span>
-<span class="fc" id="L61">          parameterPropNames[i] = parameterMappings[i].getPropertyName();</span>
+<span class="fc" id="L50">   * @param properties</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">   */</span>
+<span class="fc" id="L52">  public void initialize(Map properties) {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">    Object map = properties.get(&quot;map&quot;);</span>
+<span class="fc" id="L54">    if (map instanceof ParameterMap) {</span>
+<span class="fc" id="L55">      ParameterMap parameterMap = (ParameterMap) map;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">      if (parameterMap != null) {</span>
+<span class="fc" id="L57">        ParameterMapping[] parameterMappings = parameterMap.getParameterMappings();</span>
+        String[] parameterPropNames = new String[parameterMappings.length];
+<span class="fc" id="L59">        for (int i = 0; i &lt; parameterPropNames.length; i++) {</span>
+          parameterPropNames[i] = parameterMappings[i].getPropertyName();
         }
-<span class="fc" id="L63">        parameterPlan = AccessPlanFactory.getAccessPlan(parameterMap.getParameterClass(), parameterPropNames);</span>
-
-        // OUTPUT PARAMS
-<span class="fc" id="L66">        List outParamList = new ArrayList();</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (int i = 0; i &lt; parameterPropNames.length; i++) {</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">          if (parameterMappings[i].isOutputAllowed()) {</span>
-<span class="fc" id="L69">            outParamList.add(parameterMappings[i].getPropertyName());</span>
-          }
+<span class="fc" id="L62">        parameterPlan = AccessPlanFactory.getAccessPlan(parameterMap.getParameterClass(), parameterPropNames);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered."></span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        // OUTPUT PARAMS</span>
+<span class="fc" id="L65">        List outParamList = new ArrayList();</span>
+        for (int i = 0; i &lt; parameterPropNames.length; i++) {
+          if (parameterMappings[i].isOutputAllowed()) {
+<span class="fc" id="L68">            outParamList.add(parameterMappings[i].getPropertyName());</span>
+<span class="fc" id="L69">          }</span>
         }
-<span class="fc" id="L72">        String[] outParams = (String[]) outParamList.toArray(new String[outParamList.size()]);</span>
-<span class="fc" id="L73">        outParamPlan = AccessPlanFactory.getAccessPlan(parameterMap.getParameterClass(), outParams);</span>
-      }
-
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">    } else if (map instanceof ResultMap) {</span>
-<span class="fc" id="L77">      ResultMap resultMap = (ResultMap) map;</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">      if (resultMap != null) {</span>
-<span class="fc" id="L79">        ResultMapping[] resultMappings = resultMap.getResultMappings();</span>
-<span class="fc" id="L80">        String[] resultPropNames = new String[resultMappings.length];</span>
-<span class="fc bfc" id="L81" title="All 2 branches covered.">        for (int i = 0; i &lt; resultPropNames.length; i++) {</span>
-<span class="fc" id="L82">          resultPropNames[i] = resultMappings[i].getPropertyName();</span>
+        String[] outParams = (String[]) outParamList.toArray(new String[outParamList.size()]);
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        outParamPlan = AccessPlanFactory.getAccessPlan(parameterMap.getParameterClass(), outParams);</span>
+<span class="fc" id="L73">      }</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed."></span>
+<span class="fc" id="L75">    } else if (map instanceof ResultMap) {</span>
+<span class="fc" id="L76">      ResultMap resultMap = (ResultMap) map;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">      if (resultMap != null) {</span>
+<span class="fc" id="L78">        ResultMapping[] resultMappings = resultMap.getResultMappings();</span>
+        String[] resultPropNames = new String[resultMappings.length];
+<span class="fc" id="L80">        for (int i = 0; i &lt; resultPropNames.length; i++) {</span>
+          resultPropNames[i] = resultMappings[i].getPropertyName();
         }
-<span class="fc" id="L84">        resultPlan = AccessPlanFactory.getAccessPlan(resultMap.getResultClass(), resultPropNames);</span>
+<span class="fc" id="L83">        resultPlan = AccessPlanFactory.getAccessPlan(resultMap.getResultClass(), resultPropNames);</span>
       }
     }
-<span class="fc" id="L87">  }</span>
-
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">  }</span>
+<span class="fc" id="L87"></span>
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">    if (parameterPlan != null) {</span>
-<span class="fc" id="L91">      return parameterPlan.getProperties(parameterObject);</span>
+<span class="nc" id="L89">    if (parameterPlan != null) {</span>
+      return parameterPlan.getProperties(parameterObject);
     } else {
-<span class="nc" id="L93">      return NO_DATA;</span>
+      return NO_DATA;
     }
-  }
-
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">  }</span>
+<span class="fc" id="L95"></span>
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">    if (resultPlan != null) {</span>
-<span class="fc" id="L99">      Object object = resultObject;</span>
+<span class="fc" id="L97">    if (resultPlan != null) {</span>
+      Object object = resultObject;
+<span class="fc bfc" id="L99" title="All 2 branches covered."></span>
+<span class="fc" id="L100">      ErrorContext errorContext = statementScope.getErrorContext();</span>
 
-<span class="fc" id="L101">      ErrorContext errorContext = statementScope.getErrorContext();</span>
-
-<span class="fc bfc" id="L103" title="All 2 branches covered.">      if (object == null) {</span>
-<span class="fc" id="L104">        errorContext.setMoreInfo(&quot;The error occured while instantiating the result object&quot;);</span>
-        try {
-<span class="fc" id="L106">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
-<span class="pc" id="L107">        } catch (Exception e) {</span>
-<span class="nc" id="L108">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
-        }
-      }
-<span class="fc" id="L111">      errorContext.setMoreInfo(&quot;The error happened while setting a property on the result object.&quot;);</span>
-<span class="fc" id="L112">      resultPlan.setProperties(object, values);</span>
-<span class="fc" id="L113">      return object;</span>
+<span class="fc" id="L102">      if (object == null) {</span>
+<span class="nc" id="L103">        errorContext.setMoreInfo(&quot;The error occured while instantiating the result object&quot;);</span>
+<span class="nc" id="L104">        try {</span>
+<span class="fc" id="L105">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
+        } catch (Exception e) {
+<span class="fc" id="L107">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L108">        }</span>
+<span class="fc" id="L109">      }</span>
+      errorContext.setMoreInfo(&quot;The error happened while setting a property on the result object.&quot;);
+<span class="nc" id="L111">      resultPlan.setProperties(object, values);</span>
+      return object;
     } else {
-<span class="nc" id="L115">      return null;</span>
+      return null;
     }
   }
 
-  // Bug ibatis-12
-  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject, Object[] values) {
-<span class="nc bnc" id="L121" title="All 2 branches missed.">    if (outParamPlan != null) {</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">  // Bug ibatis-12</span>
+<span class="nc" id="L119">  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">      Object[] values) {</span>
+    if (outParamPlan != null) {
 <span class="nc" id="L122">      Object object = parameterObject;</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">      if (object == null) {</span>
-        try {
+<span class="nc" id="L123">      if (object == null) {</span>
+<span class="nc" id="L124">        try {</span>
 <span class="nc" id="L125">          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());</span>
-<span class="nc" id="L126">        } catch (Exception e) {</span>
+        } catch (Exception e) {
 <span class="nc" id="L127">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate parameter class. Cause: &quot; + e, e);</span>
-        }
-      }
-<span class="nc" id="L130">      values = getOutputParamValues(parameterMap.getParameterMappings(), values);</span>
+<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">      }</span>
+      values = getOutputParamValues(parameterMap.getParameterMappings(), values);
 <span class="nc" id="L131">      outParamPlan.setProperties(object, values);</span>
-<span class="nc" id="L132">      return object;</span>
+      return object;
     } else {
-<span class="nc" id="L134">      return null;</span>
+      return null;
     }
-  }
-
-  private Object[] getOutputParamValues(ParameterMapping[] mappings, Object[] values) {
+<span class="nc" id="L136">  }</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed."></span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">  private Object[] getOutputParamValues(ParameterMapping[] mappings, Object[] values) {</span>
 <span class="nc" id="L139">    List outParamValues = new ArrayList();</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="nc bnc" id="L141" title="All 2 branches missed.">      if (mappings[i].isOutputAllowed()) {</span>
+    for (int i = 0; i &lt; mappings.length; i++) {
+      if (mappings[i].isOutputAllowed()) {
 <span class="nc" id="L142">        outParamValues.add(values[i]);</span>
       }
     }
-<span class="nc" id="L145">    return outParamValues.toArray();</span>
+    return outParamValues.toArray();
   }
 
 }

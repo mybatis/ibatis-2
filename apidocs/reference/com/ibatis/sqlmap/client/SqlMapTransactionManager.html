@@ -408,8 +408,8 @@ Summary:
               <td class="jd-descrcol" width="100%">
       <em>
   This interface is deprecated.
-      - this class is uneccessary and should be removed as
- soon as possible. Currently spring integration depends on it.
+      - this class is uneccessary and should be removed as soon as possible. Currently spring integration
+             depends on it.
 </em>&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
@@ -611,8 +611,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/ibatis/sqlmap/client/SqlMapTransactionManager.html#setUserConnection(java.sql.Connection)">setUserConnection</a></span>(Connection connnection)
         
-        <div class="jd-descrdiv">Allows the developer to easily use an externally supplied connection
- when executing statements.</div>
+        <div class="jd-descrdiv">Allows the developer to easily use an externally supplied connection when executing statements.</div>
   
   </td></tr>
 
@@ -648,8 +647,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/ibatis/sqlmap/client/SqlMapTransactionManager.html#startTransaction(int)">startTransaction</a></span>(int transactionIsolation)
         
-        <div class="jd-descrdiv">Demarcates the beginning of a transaction scope using the specified transaction
- isolation.</div>
+        <div class="jd-descrdiv">Demarcates the beginning of a transaction scope using the specified transaction isolation.</div>
   
   </td></tr>
 
@@ -733,8 +731,7 @@ Summary:
       <table class="jd-tagtable">  
         <tr>
             <th>SQLException</td>
-            <td>If an error occurs while committing the transaction, or
-                      the transaction could not be committed.
+            <td>If an error occurs while committing the transaction, or the transaction could not be committed.
 </td>
         </tr>
       </table>
@@ -769,16 +766,14 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Ends a transaction and rolls back if necessary.  If the transaction has
- been started, but not committed, it will be rolled back upon calling
- endTransaction().</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Ends a transaction and rolls back if necessary. If the transaction has been started, but not committed, it will be
+ rolled back upon calling endTransaction().</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
             <th>SQLException</td>
-            <td>If an error occurs during rollback or the transaction could
-                      not be ended.
+            <td>If an error occurs during rollback or the transaction could not be ended.
 </td>
         </tr>
       </table>
@@ -813,9 +808,8 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Returns the current connection in use.  If no connection exists null will
- be returned. There may be no connection if no transaction has been started,
- and if no user provided connection has been set.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the current connection in use. If no connection exists null will be returned. There may be no connection if
+ no transaction has been started, and if no user provided connection has been set.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>The current connection or null.</li></ul>
@@ -950,11 +944,11 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Allows the developer to easily use an externally supplied connection
- when executing statements.
+  <div class="jd-tagdata jd-tagdescr"><p>Allows the developer to easily use an externally supplied connection when executing statements.
  <p/>
- <b>Important:</b> Using a user supplied connection basically sidesteps the transaction manager,
- so you are responsible for appropriately.  Here's a (very) simple example (throws SQLException):
+ <b>Important:</b> Using a user supplied connection basically sidesteps the transaction manager, so you are
+ responsible for appropriately. Here's a (very) simple example (throws SQLException):
+ 
  <pre>
  try {
    Connection connection = dataSource.getConnection();
@@ -962,15 +956,17 @@ Summary:
    // do work
    connection.commit();
  } catch (SQLException e) {
-     try {
-       if (connection != null) commit.rollback();
-     } catch (SQLException ignored) {
-       // generally ignored
-     }
-     throw e;  // rethrow the exception
+   try {
+     if (connection != null)
+       commit.rollback();
+   } catch (SQLException ignored) {
+     // generally ignored
+   }
+   throw e; // rethrow the exception
  } finally {
    try {
-     if (connection != null) connection.close();
+     if (connection != null)
+       connection.close();
    } catch (SQLException ignored) {
      // generally ignored
    }
@@ -1015,9 +1011,9 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Demarcates the beginning of a transaction scope.  Transactions must be properly
- committed or rolled back to be effective.  Use the following pattern when working
- with transactions:
+  <div class="jd-tagdata jd-tagdescr"><p>Demarcates the beginning of a transaction scope. Transactions must be properly committed or rolled back to be
+ effective. Use the following pattern when working with transactions:
+ 
  <pre>
  try {
    sqlMap.startTransaction();
@@ -1034,8 +1030,7 @@ Summary:
       <table class="jd-tagtable">  
         <tr>
             <th>SQLException</td>
-            <td>If an error occurs while starting the transaction, or
-                               the transaction could not be started.
+            <td>If an error occurs while starting the transaction, or the transaction could not be started.
 </td>
         </tr>
       </table>
@@ -1070,9 +1065,9 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Demarcates the beginning of a transaction scope using the specified transaction
- isolation.  Transactions must be properly committed or rolled back to be effective.
- Use the following pattern when working with transactions:
+  <div class="jd-tagdata jd-tagdescr"><p>Demarcates the beginning of a transaction scope using the specified transaction isolation. Transactions must be
+ properly committed or rolled back to be effective. Use the following pattern when working with transactions:
+ 
  <pre>
  try {
    sqlMap.startTransaction(Connection.TRANSACTION_REPEATABLE_READ);
@@ -1089,8 +1084,7 @@ Summary:
       <table class="jd-tagtable">  
         <tr>
             <th>SQLException</td>
-            <td>If an error occurs while starting the transaction, or
-                               the transaction could not be started.
+            <td>If an error occurs while starting the transaction, or the transaction could not be started.
 </td>
         </tr>
       </table>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ScriptRunner.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">ScriptRunner.java</span></div><h1>ScriptRunner.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc;
 
@@ -42,224 +42,230 @@ public class ScriptRunner {
   private String username;
   private String password;
 
-  private boolean stopOnError;
-  private boolean autoCommit;
+<span class="pc" id="L45">  private boolean stopOnError;</span>
+<span class="pc" id="L46">  private boolean autoCommit;</span>
 
 <span class="pc" id="L48">  private PrintWriter logWriter = new PrintWriter(System.out);</span>
 <span class="pc" id="L49">  private PrintWriter errorLogWriter = new PrintWriter(System.err);</span>
 
-<span class="pc" id="L51">  private String delimiter = DEFAULT_DELIMITER;</span>
-<span class="pc" id="L52">  private boolean fullLineDelimiter = false;</span>
+  private String delimiter = DEFAULT_DELIMITER;
+  private boolean fullLineDelimiter = false;
 
-  /**
-   * Default constructor
-   */
+<span class="fc" id="L54">  /**</span>
+<span class="fc" id="L55">   * Default constructor</span>
+<span class="fc" id="L56">   */</span>
 <span class="fc" id="L57">  public ScriptRunner(Connection connection, boolean autoCommit, boolean stopOnError) {</span>
 <span class="fc" id="L58">    this.connection = connection;</span>
-<span class="fc" id="L59">    this.autoCommit = autoCommit;</span>
-<span class="fc" id="L60">    this.stopOnError = stopOnError;</span>
-<span class="fc" id="L61">  }</span>
-
-  public void setDelimiter(String delimiter, boolean fullLineDelimiter) {
-<span class="nc" id="L64">    this.delimiter = delimiter;</span>
-<span class="nc" id="L65">    this.fullLineDelimiter = fullLineDelimiter;</span>
+    this.autoCommit = autoCommit;
+    this.stopOnError = stopOnError;
+<span class="nc" id="L61">  }</span>
+<span class="nc" id="L62"></span>
+<span class="nc" id="L63">  public void setDelimiter(String delimiter, boolean fullLineDelimiter) {</span>
+    this.delimiter = delimiter;
+    this.fullLineDelimiter = fullLineDelimiter;
 <span class="nc" id="L66">  }</span>
-
-<span class="nc" id="L68">  public ScriptRunner(String driver, String url, String username, String password, boolean autoCommit, boolean stopOnError) {</span>
-<span class="nc" id="L69">    this.driver = driver;</span>
-<span class="nc" id="L70">    this.url = url;</span>
-<span class="nc" id="L71">    this.username = username;</span>
-<span class="nc" id="L72">    this.password = password;</span>
-<span class="nc" id="L73">    this.autoCommit = autoCommit;</span>
-<span class="nc" id="L74">    this.stopOnError = stopOnError;</span>
-<span class="nc" id="L75">  }</span>
+<span class="nc" id="L67"></span>
+<span class="nc" id="L68">  public ScriptRunner(String driver, String url, String username, String password, boolean autoCommit,</span>
+<span class="nc" id="L69">      boolean stopOnError) {</span>
+<span class="nc" id="L70">    this.driver = driver;</span>
+<span class="nc" id="L71">    this.url = url;</span>
+<span class="nc" id="L72">    this.username = username;</span>
+<span class="nc" id="L73">    this.password = password;</span>
+    this.autoCommit = autoCommit;
+    this.stopOnError = stopOnError;
+  }
 
   /**
    * Setter for logWriter property
    *
-   * @param logWriter - the new value of the logWriter property
-   */
+   * @param logWriter
+<span class="fc" id="L82">   *          - the new value of the logWriter property</span>
+<span class="fc" id="L83">   */</span>
   public void setLogWriter(PrintWriter logWriter) {
-<span class="fc" id="L83">    this.logWriter = logWriter;</span>
-<span class="fc" id="L84">  }</span>
+    this.logWriter = logWriter;
+  }
 
   /**
    * Setter for errorLogWriter property
    *
-   * @param errorLogWriter - the new value of the errorLogWriter property
-   */
+   * @param errorLogWriter
+<span class="fc" id="L92">   *          - the new value of the errorLogWriter property</span>
+<span class="fc" id="L93">   */</span>
   public void setErrorLogWriter(PrintWriter errorLogWriter) {
-<span class="fc" id="L92">    this.errorLogWriter = errorLogWriter;</span>
-<span class="fc" id="L93">  }</span>
+    this.errorLogWriter = errorLogWriter;
+  }
 
   /**
    * Runs an SQL script (read in using the Reader parameter)
    *
-   * @param reader - the source of the script
-   */
-  public void runScript(Reader reader) throws IOException, SQLException{
-    try {
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">      if (connection == null) {</span>
-<span class="nc" id="L103">        DriverManager.registerDriver((Driver) Resources.instantiate(driver));</span>
-<span class="nc" id="L104">        Connection conn = DriverManager.getConnection(url, username, password);</span>
+   * @param reader
+   *          - the source of the script
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">   */</span>
+<span class="nc" id="L104">  public void runScript(Reader reader) throws IOException, SQLException {</span>
+<span class="nc" id="L105">    try {</span>
+      if (connection == null) {
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        DriverManager.registerDriver((Driver) Resources.instantiate(driver));</span>
+<span class="nc" id="L108">        Connection conn = DriverManager.getConnection(url, username, password);</span>
         try {
-<span class="nc bnc" id="L106" title="All 2 branches missed.">          if (conn.getAutoCommit() != autoCommit) {</span>
-<span class="nc" id="L107">            conn.setAutoCommit(autoCommit);</span>
-          }
-<span class="nc" id="L109">          runScript(conn, reader);</span>
-<span class="nc" id="L110">        } finally {</span>
-<span class="nc" id="L111">          conn.close();</span>
-<span class="nc" id="L112">        }</span>
-<span class="nc" id="L113">      } else {</span>
-<span class="fc" id="L114">        boolean originalAutoCommit = connection.getAutoCommit();</span>
+<span class="nc" id="L110">          if (conn.getAutoCommit() != autoCommit) {</span>
+            conn.setAutoCommit(autoCommit);
+<span class="nc" id="L112">          }</span>
+<span class="nc" id="L113">          runScript(conn, reader);</span>
+<span class="nc" id="L114">        } finally {</span>
+<span class="fc" id="L115">          conn.close();</span>
+        }
+<span class="fc bfc" id="L117" title="All 2 branches covered.">      } else {</span>
+<span class="fc" id="L118">        boolean originalAutoCommit = connection.getAutoCommit();</span>
         try {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">          if (originalAutoCommit != this.autoCommit) {</span>
-<span class="fc" id="L117">            connection.setAutoCommit(this.autoCommit);</span>
-          }
-<span class="fc" id="L119">          runScript(connection, reader);</span>
-<span class="pc" id="L120">        } finally {</span>
-<span class="pc" id="L121">          connection.setAutoCommit(originalAutoCommit);</span>
-<span class="nc" id="L122">        }</span>
-      }
-<span class="pc" id="L124">    } catch (IOException e) {</span>
-<span class="nc" id="L125">      throw e;</span>
-<span class="nc" id="L126">    } catch (SQLException e) {</span>
-<span class="nc" id="L127">      throw e;</span>
-<span class="nc" id="L128">    } catch (Exception e) {</span>
-<span class="nc" id="L129">      throw new RuntimeException(&quot;Error running script.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L120">          if (originalAutoCommit != this.autoCommit) {</span>
+            connection.setAutoCommit(this.autoCommit);
+<span class="pc" id="L122">          }</span>
+<span class="fc" id="L123">          runScript(connection, reader);</span>
+        } finally {
+<span class="nc" id="L125">          connection.setAutoCommit(originalAutoCommit);</span>
+<span class="nc" id="L126">        }</span>
+<span class="nc" id="L127">      }</span>
+<span class="nc" id="L128">    } catch (IOException e) {</span>
+<span class="nc" id="L129">      throw e;</span>
+<span class="nc" id="L130">    } catch (SQLException e) {</span>
+<span class="fc" id="L131">      throw e;</span>
+<span class="fc" id="L132">    } catch (Exception e) {</span>
+      throw new RuntimeException(&quot;Error running script.  Cause: &quot; + e, e);
     }
-<span class="fc" id="L131">  }</span>
+  }
 
   /**
    * Runs an SQL script (read in using the Reader parameter) using the connection passed in
    *
-   * @param conn   - the connection to use for the script
-   * @param reader - the source of the script
-   * @throws SQLException if any SQL errors occur
-   * @throws IOException  if there is an error reading from the Reader
+   * @param conn
+   *          - the connection to use for the script
+   * @param reader
+   *          - the source of the script
+   * @throws SQLException
+   *           if any SQL errors occur
+   * @throws IOException
+<span class="fc" id="L147">   *           if there is an error reading from the Reader</span>
    */
-  private void runScript(Connection conn, Reader reader)
-      throws IOException, SQLException {
-<span class="fc" id="L143">    StringBuffer command = null;</span>
-    try {
-<span class="fc" id="L145">      LineNumberReader lineReader = new LineNumberReader(reader);</span>
-<span class="fc" id="L146">      String line = null;</span>
-<span class="fc bfc" id="L147" title="All 2 branches covered.">      while ((line = lineReader.readLine()) != null) {</span>
-<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (command == null) {</span>
-<span class="fc" id="L149">          command = new StringBuffer();</span>
-        }
-<span class="fc" id="L151">        String trimmedLine = line.trim();</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (trimmedLine.startsWith(&quot;--&quot;)) {</span>
-<span class="fc" id="L153">          println(trimmedLine);</span>
-<span class="pc bpc" id="L154" title="1 of 4 branches missed.">        } else if (trimmedLine.length() &lt; 1 || trimmedLine.startsWith(&quot;//&quot;)) {</span>
-          //Do nothing
-<span class="pc bpc" id="L156" title="2 of 4 branches missed.">        } else if (trimmedLine.length() &lt; 1 || trimmedLine.startsWith(&quot;--&quot;)) {</span>
-          //Do nothing
-<span class="pc bpc" id="L158" title="1 of 4 branches missed.">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter())</span>
-<span class="pc bpc" id="L159" title="3 of 4 branches missed.">            || fullLineDelimiter &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
-<span class="fc" id="L160">          command.append(line.substring(0, line.lastIndexOf(getDelimiter())));</span>
-<span class="fc" id="L161">          command.append(&quot; &quot;);</span>
-<span class="fc" id="L162">          Statement statement = conn.createStatement();</span>
+<span class="fc" id="L149">  private void runScript(Connection conn, Reader reader) throws IOException, SQLException {</span>
+<span class="fc" id="L150">    StringBuffer command = null;</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">    try {</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">      LineNumberReader lineReader = new LineNumberReader(reader);</span>
+<span class="fc" id="L153">      String line = null;</span>
+      while ((line = lineReader.readLine()) != null) {
+<span class="fc" id="L155">        if (command == null) {</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">          command = new StringBuffer();</span>
+<span class="fc" id="L157">        }</span>
+<span class="pc bpc" id="L158" title="1 of 4 branches missed.">        String trimmedLine = line.trim();</span>
+        if (trimmedLine.startsWith(&quot;--&quot;)) {
+<span class="pc bpc" id="L160" title="2 of 4 branches missed.">          println(trimmedLine);</span>
+        } else if (trimmedLine.length() &lt; 1 || trimmedLine.startsWith(&quot;//&quot;)) {
+<span class="pc bpc" id="L162" title="4 of 8 branches missed.">          // Do nothing</span>
+        } else if (trimmedLine.length() &lt; 1 || trimmedLine.startsWith(&quot;--&quot;)) {
+<span class="fc" id="L164">          // Do nothing</span>
+<span class="fc" id="L165">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter()) || fullLineDelimiter</span>
+<span class="fc" id="L166">            &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
+          command.append(line.substring(0, line.lastIndexOf(getDelimiter())));
+<span class="fc" id="L168">          command.append(&quot; &quot;);</span>
+          Statement statement = conn.createStatement();
+<span class="fc" id="L170"></span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">          println(command);</span>
+<span class="nc" id="L172"></span>
+          boolean hasResults = false;
+          if (stopOnError) {
+<span class="fc" id="L175">            hasResults = statement.execute(command.toString());</span>
+<span class="fc" id="L176">          } else {</span>
+<span class="fc" id="L177">            try {</span>
+<span class="fc" id="L178">              statement.execute(command.toString());</span>
+<span class="fc" id="L179">            } catch (SQLException e) {</span>
+<span class="fc" id="L180">              e.fillInStackTrace();</span>
+              printlnError(&quot;Error executing: &quot; + command);
+              printlnError(e);
+<span class="pc bpc" id="L183" title="3 of 4 branches missed.">            }</span>
+<span class="nc" id="L184">          }</span>
 
-<span class="fc" id="L164">          println(command);</span>
-
-<span class="fc" id="L166">          boolean hasResults = false;</span>
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">          if (stopOnError) {</span>
-<span class="nc" id="L168">            hasResults = statement.execute(command.toString());</span>
-<span class="nc" id="L169">          } else {</span>
-            try {
-<span class="fc" id="L171">              statement.execute(command.toString());</span>
-<span class="fc" id="L172">            } catch (SQLException e) {</span>
-<span class="fc" id="L173">              e.fillInStackTrace();</span>
-<span class="fc" id="L174">              printlnError(&quot;Error executing: &quot; + command);</span>
-<span class="fc" id="L175">              printlnError(e);</span>
-            }
-          }
-
-<span class="pc bpc" id="L179" title="3 of 4 branches missed.">          if (autoCommit &amp;&amp; !conn.getAutoCommit()) {</span>
-<span class="nc" id="L180">            conn.commit();</span>
-          }
-
-<span class="fc" id="L183">          ResultSet rs = statement.getResultSet();</span>
-<span class="pc bpc" id="L184" title="3 of 4 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
-<span class="nc" id="L185">            ResultSetMetaData md = rs.getMetaData();</span>
-<span class="nc" id="L186">            int cols = md.getColumnCount();</span>
-<span class="nc bnc" id="L187" title="All 2 branches missed.">            for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L188">              String name = md.getColumnLabel(i + 1);</span>
-<span class="nc" id="L189">              print(name + &quot;\t&quot;);</span>
-            }
-<span class="nc" id="L191">            println(&quot;&quot;);</span>
-<span class="nc bnc" id="L192" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc bnc" id="L193" title="All 2 branches missed.">              for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L194">                String value = rs.getString(i + 1);</span>
-<span class="nc" id="L195">                print(value + &quot;\t&quot;);</span>
+          if (autoCommit &amp;&amp; !conn.getAutoCommit()) {
+<span class="fc" id="L187">            conn.commit();</span>
+<span class="pc bpc" id="L188" title="3 of 4 branches missed.">          }</span>
+<span class="nc" id="L189"></span>
+<span class="nc" id="L190">          ResultSet rs = statement.getResultSet();</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
+<span class="nc" id="L192">            ResultSetMetaData md = rs.getMetaData();</span>
+<span class="nc" id="L193">            int cols = md.getColumnCount();</span>
+            for (int i = 0; i &lt; cols; i++) {
+<span class="nc" id="L195">              String name = md.getColumnLabel(i + 1);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">              print(name + &quot;\t&quot;);</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">            }</span>
+<span class="nc" id="L198">            println(&quot;&quot;);</span>
+<span class="nc" id="L199">            while (rs.next()) {</span>
+              for (int i = 0; i &lt; cols; i++) {
+<span class="nc" id="L201">                String value = rs.getString(i + 1);</span>
+                print(value + &quot;\t&quot;);
               }
-<span class="nc" id="L197">              println(&quot;&quot;);</span>
-            }
+              println(&quot;&quot;);
+<span class="fc" id="L205">            }</span>
           }
-
-<span class="fc" id="L201">          command = null;</span>
+<span class="fc" id="L207"></span>
+<span class="nc" id="L208">          command = null;</span>
           try {
-<span class="fc" id="L203">            statement.close();</span>
-<span class="pc" id="L204">          } catch (Exception e) {</span>
-            // Ignore to workaround a bug in Jakarta DBCP
-          }
-<span class="fc" id="L207">          Thread.yield();</span>
-<span class="fc" id="L208">        } else {</span>
-<span class="fc" id="L209">          command.append(line);</span>
-<span class="fc" id="L210">          command.append(&quot; &quot;);</span>
-        }
+<span class="fc" id="L210">            statement.close();</span>
+<span class="fc" id="L211">          } catch (Exception e) {</span>
+<span class="fc" id="L212">            // Ignore to workaround a bug in Jakarta DBCP</span>
+<span class="fc" id="L213">          }</span>
+<span class="fc" id="L214">          Thread.yield();</span>
+        } else {
+<span class="fc" id="L216">          command.append(line);</span>
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">          command.append(&quot; &quot;);</span>
+<span class="fc" id="L218">        }</span>
       }
-<span class="pc bpc" id="L213" title="1 of 2 branches missed.">      if (!autoCommit) {</span>
-<span class="fc" id="L214">        conn.commit();</span>
-      }
-<span class="pc" id="L216">    } catch (SQLException e) {</span>
-<span class="nc" id="L217">      e.fillInStackTrace();</span>
-<span class="nc" id="L218">      printlnError(&quot;Error executing: &quot; + command);</span>
-<span class="nc" id="L219">      printlnError(e);</span>
-<span class="nc" id="L220">      throw e;</span>
-<span class="nc" id="L221">    } catch (IOException e) {</span>
-<span class="nc" id="L222">      e.fillInStackTrace();</span>
-<span class="nc" id="L223">      printlnError(&quot;Error executing: &quot; + command);</span>
-<span class="nc" id="L224">      printlnError(e);</span>
-<span class="nc" id="L225">      throw e;</span>
-<span class="nc" id="L226">    } finally {</span>
-<span class="pc" id="L227">      conn.rollback();</span>
-<span class="pc" id="L228">      flush();</span>
-<span class="nc" id="L229">    }</span>
-<span class="fc" id="L230">  }</span>
+<span class="nc" id="L220">      if (!autoCommit) {</span>
+<span class="nc" id="L221">        conn.commit();</span>
+<span class="nc" id="L222">      }</span>
+<span class="nc" id="L223">    } catch (SQLException e) {</span>
+<span class="nc" id="L224">      e.fillInStackTrace();</span>
+<span class="nc" id="L225">      printlnError(&quot;Error executing: &quot; + command);</span>
+<span class="nc" id="L226">      printlnError(e);</span>
+<span class="nc" id="L227">      throw e;</span>
+<span class="nc" id="L228">    } catch (IOException e) {</span>
+<span class="nc" id="L229">      e.fillInStackTrace();</span>
+      printlnError(&quot;Error executing: &quot; + command);
+<span class="pc" id="L231">      printlnError(e);</span>
+<span class="pc" id="L232">      throw e;</span>
+<span class="fc" id="L233">    } finally {</span>
+<span class="fc" id="L234">      conn.rollback();</span>
+      flush();
+    }
+<span class="fc" id="L237">  }</span>
 
   private String getDelimiter() {
-<span class="fc" id="L233">    return delimiter;</span>
-  }
-
+    return delimiter;
+<span class="nc bnc" id="L241" title="All 2 branches missed.">  }</span>
+<span class="nc" id="L242"></span>
   private void print(Object o) {
-<span class="nc bnc" id="L237" title="All 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L238">      System.out.print(o);</span>
+<span class="nc" id="L244">    if (logWriter != null) {</span>
+      System.out.print(o);
     }
-<span class="nc" id="L240">  }</span>
-
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">  }</span>
+<span class="nc" id="L248"></span>
   private void println(Object o) {
-<span class="pc bpc" id="L243" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L244">      logWriter.println(o);</span>
+<span class="fc" id="L250">    if (logWriter != null) {</span>
+      logWriter.println(o);
     }
-<span class="fc" id="L246">  }</span>
-
+<span class="pc bpc" id="L253" title="1 of 2 branches missed.">  }</span>
+<span class="nc" id="L254"></span>
   private void printlnError(Object o) {
-<span class="pc bpc" id="L249" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L250">      errorLogWriter.println(o);</span>
+<span class="fc" id="L256">    if (errorLogWriter != null) {</span>
+      errorLogWriter.println(o);
     }
-<span class="fc" id="L252">  }</span>
-
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">  }</span>
+<span class="nc" id="L260"></span>
   private void flush() {
-<span class="pc bpc" id="L255" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L256">      logWriter.flush();</span>
+<span class="pc bpc" id="L262" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
+<span class="nc" id="L263">      logWriter.flush();</span>
     }
-<span class="pc bpc" id="L258" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L259">      errorLogWriter.flush();</span>
+<span class="fc" id="L265">    if (errorLogWriter != null) {</span>
+      errorLogWriter.flush();
     }
-<span class="fc" id="L261">  }</span>
-
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

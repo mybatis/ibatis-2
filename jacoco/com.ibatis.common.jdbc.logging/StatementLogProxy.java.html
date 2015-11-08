@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StatementLogProxy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">StatementLogProxy.java</span></div><h1>StatementLogProxy.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc.logging;
 
@@ -27,77 +27,77 @@ import java.sql.Statement;
 
 /**
  * Statement proxy to add logging
- */
+<span class="nc" id="L30"> */</span>
 public class StatementLogProxy extends BaseLogProxy implements InvocationHandler {
 
-<span class="nc" id="L33">  private static final Log log = LogFactory.getLog(Statement.class);</span>
+  private static final Log log = LogFactory.getLog(Statement.class);
 
-  private Statement statement;
-
-  private StatementLogProxy(Statement stmt) {
-<span class="nc" id="L38">    super();</span>
-<span class="nc" id="L39">    this.statement = stmt;</span>
-<span class="nc" id="L40">  }</span>
-
-  public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
-    try {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">      if (EXECUTE_METHODS.contains(method.getName())) {</span>
+<span class="nc" id="L35">  private Statement statement;</span>
+<span class="nc" id="L36"></span>
+<span class="nc" id="L37">  private StatementLogProxy(Statement stmt) {</span>
+    super();
+    this.statement = stmt;
+  }
+<span class="nc bnc" id="L41" title="All 2 branches missed."></span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">  public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {</span>
+<span class="nc" id="L43">    try {</span>
+      if (EXECUTE_METHODS.contains(method.getName())) {
 <span class="nc bnc" id="L45" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
 <span class="nc" id="L46">          log.debug(&quot;{stmt-&quot; + id + &quot;} Statement: &quot; + removeBreakingWhitespace((String) params[0]));</span>
-        }
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (&quot;executeQuery&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L49">          ResultSet rs = (ResultSet) method.invoke(statement, params);</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">          if ( rs != null ) {</span>
-<span class="nc" id="L51">            return ResultSetLogProxy.newInstance(rs);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L48">        if (&quot;executeQuery&quot;.equals(method.getName())) {</span>
+          ResultSet rs = (ResultSet) method.invoke(statement, params);
+<span class="nc" id="L50">          if (rs != null) {</span>
+            return ResultSetLogProxy.newInstance(rs);
+          } else {
+<span class="nc" id="L53">            return null;</span>
           }
-          else {
-<span class="nc" id="L54">            return null;</span>
-          }
-        } else {
-<span class="nc" id="L57">          return method.invoke(statement, params);</span>
-        }
-<span class="nc bnc" id="L59" title="All 2 branches missed.">      } else if (&quot;getResultSet&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L60">        ResultSet rs = (ResultSet) method.invoke(statement, params);</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if ( rs != null ) {</span>
-<span class="nc" id="L62">          return ResultSetLogProxy.newInstance(rs);</span>
-        }
-        else {
-<span class="nc" id="L65">          return null;</span>
-        }
-<span class="nc bnc" id="L67" title="All 2 branches missed.">      } else if (&quot;equals&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L68">        Object ps = params[0];</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (ps instanceof Proxy) {</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">          return new Boolean(proxy == ps);</span>
-        }
-<span class="nc" id="L72">        return new Boolean(false);</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">      } else if (&quot;hashCode&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L74">        return new Integer(proxy.hashCode());</span>
-      } else {
-<span class="nc" id="L76">        return method.invoke(statement, params);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        } else {</span>
+<span class="nc" id="L56">          return method.invoke(statement, params);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L58">      } else if (&quot;getResultSet&quot;.equals(method.getName())) {</span>
+        ResultSet rs = (ResultSet) method.invoke(statement, params);
+<span class="nc" id="L60">        if (rs != null) {</span>
+          return ResultSetLogProxy.newInstance(rs);
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        } else {</span>
+<span class="nc" id="L63">          return null;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        }</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">      } else if (&quot;equals&quot;.equals(method.getName())) {</span>
+        Object ps = params[0];
+<span class="nc" id="L67">        if (ps instanceof Proxy) {</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">          return new Boolean(proxy == ps);</span>
+<span class="nc" id="L69">        }</span>
+        return new Boolean(false);
+<span class="nc" id="L71">      } else if (&quot;hashCode&quot;.equals(method.getName())) {</span>
+        return new Integer(proxy.hashCode());
+<span class="nc" id="L73">      } else {</span>
+<span class="nc" id="L74">        return method.invoke(statement, params);</span>
       }
-<span class="nc" id="L78">    } catch (Throwable t) {</span>
-<span class="nc" id="L79">      throw ClassInfo.unwrapThrowable(t);</span>
+    } catch (Throwable t) {
+      throw ClassInfo.unwrapThrowable(t);
     }
   }
 
   /**
    * Creates a logging version of a Statement
-   * @param stmt - the statement
-   * @return - the proxy
-   */
-  public static Statement newInstance(Statement stmt) {
-<span class="nc" id="L89">    InvocationHandler handler = new StatementLogProxy(stmt);</span>
-<span class="nc" id="L90">    ClassLoader cl = Statement.class.getClassLoader();</span>
-<span class="nc" id="L91">    return (Statement) Proxy.newProxyInstance(cl, new Class[]{Statement.class}, handler);</span>
+   * 
+   * @param stmt
+   *          - the statement
+<span class="nc" id="L86">   * @return - the proxy</span>
+<span class="nc" id="L87">   */</span>
+<span class="nc" id="L88">  public static Statement newInstance(Statement stmt) {</span>
+    InvocationHandler handler = new StatementLogProxy(stmt);
+    ClassLoader cl = Statement.class.getClassLoader();
+    return (Statement) Proxy.newProxyInstance(cl, new Class[] { Statement.class }, handler);
   }
 
   /**
    * return the wrapped statement
    * 
-   * @return the statement
+<span class="nc" id="L97">   * @return the statement</span>
    */
   public Statement getStatement() {
-<span class="nc" id="L100">    return statement;</span>
+    return statement;
   }
 
 }

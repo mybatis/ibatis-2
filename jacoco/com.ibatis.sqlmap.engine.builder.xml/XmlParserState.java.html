@@ -1,174 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>XmlParserState.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">XmlParserState.java</span></div><h1>XmlParserState.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
 import com.ibatis.common.resources.*;
 import com.ibatis.sqlmap.engine.config.*;
 
-import javax.sql.DataSource;
+<span class="fc" id="L21">import javax.sql.DataSource;</span>
 import java.util.*;
-
-<span class="fc" id="L24">public class XmlParserState {</span>
-
+<span class="fc" id="L23"></span>
+public class XmlParserState {
+<span class="fc" id="L25"></span>
 <span class="fc" id="L26">  private SqlMapConfiguration config = new SqlMapConfiguration();</span>
-
+<span class="fc" id="L27"></span>
 <span class="fc" id="L28">  private Properties globalProps = new Properties();</span>
 <span class="fc" id="L29">  private Properties txProps = new Properties();</span>
 <span class="fc" id="L30">  private Properties dsProps = new Properties();</span>
-<span class="fc" id="L31">  private Properties cacheProps = new Properties();</span>
-<span class="fc" id="L32">  private boolean useStatementNamespaces = false;</span>
-<span class="fc" id="L33">  private Map sqlIncludes = new HashMap();</span>
+  private Properties cacheProps = new Properties();
+  private boolean useStatementNamespaces = false;
+  private Map sqlIncludes = new HashMap();
 
   private ParameterMapConfig paramConfig;
   private ResultMapConfig resultConfig;
   private CacheModelConfig cacheConfig;
 
   private String namespace;
-  private DataSource dataSource;
+<span class="fc" id="L40">  private DataSource dataSource;</span>
 
   public SqlMapConfiguration getConfig() {
-<span class="fc" id="L43">    return config;</span>
-  }
-
+    return config;
+<span class="fc" id="L44">  }</span>
+<span class="fc" id="L45"></span>
   public void setGlobalProps(Properties props) {
-<span class="fc" id="L47">    globalProps = props;</span>
+    globalProps = props;
 <span class="fc" id="L48">  }</span>
 
   public Properties getGlobalProps() {
-<span class="fc" id="L51">    return globalProps;</span>
-  }
+    return globalProps;
+<span class="fc" id="L52">  }</span>
 
   public Properties getTxProps() {
-<span class="fc" id="L55">    return txProps;</span>
-  }
+    return txProps;
+<span class="fc" id="L56">  }</span>
 
   public Properties getDsProps() {
-<span class="fc" id="L59">    return dsProps;</span>
-  }
+    return dsProps;
+<span class="fc" id="L60">  }</span>
 
   public Properties getCacheProps() {
-<span class="fc" id="L63">    return cacheProps;</span>
-  }
-
+    return cacheProps;
+<span class="fc" id="L64">  }</span>
+<span class="fc" id="L65"></span>
   public void setUseStatementNamespaces(boolean useStatementNamespaces) {
-<span class="fc" id="L67">    this.useStatementNamespaces = useStatementNamespaces;</span>
+    this.useStatementNamespaces = useStatementNamespaces;
 <span class="fc" id="L68">  }</span>
 
   public boolean isUseStatementNamespaces() {
-<span class="fc" id="L71">    return useStatementNamespaces;</span>
-  }
+    return useStatementNamespaces;
+<span class="fc" id="L72">  }</span>
 
   public Map getSqlIncludes() {
-<span class="fc" id="L75">    return sqlIncludes;</span>
-  }
-
+    return sqlIncludes;
+<span class="fc" id="L76">  }</span>
+<span class="fc" id="L77"></span>
   public void setNamespace(String namespace) {
-<span class="fc" id="L79">    this.namespace = namespace;</span>
+    this.namespace = namespace;
 <span class="fc" id="L80">  }</span>
-
-  public String applyNamespace(String id) {
-<span class="fc" id="L83">    String newId = id;</span>
-<span class="pc bpc" id="L84" title="2 of 8 branches missed.">    if (namespace != null &amp;&amp; namespace.length() &gt; 0 &amp;&amp; id != null &amp;&amp; id.indexOf('.') &lt; 0) {</span>
-<span class="fc" id="L85">      newId = namespace + &quot;.&quot; + id;</span>
+<span class="pc bpc" id="L81" title="2 of 8 branches missed."></span>
+<span class="fc" id="L82">  public String applyNamespace(String id) {</span>
+    String newId = id;
+<span class="fc" id="L84">    if (namespace != null &amp;&amp; namespace.length() &gt; 0 &amp;&amp; id != null &amp;&amp; id.indexOf('.') &lt; 0) {</span>
+      newId = namespace + &quot;.&quot; + id;
     }
-<span class="fc" id="L87">    return newId;</span>
-  }
+    return newId;
+<span class="fc" id="L88">  }</span>
 
   public CacheModelConfig getCacheConfig() {
-<span class="fc" id="L91">    return cacheConfig;</span>
-  }
-
+    return cacheConfig;
+<span class="fc" id="L92">  }</span>
+<span class="fc" id="L93"></span>
   public void setCacheConfig(CacheModelConfig cacheConfig) {
-<span class="fc" id="L95">    this.cacheConfig = cacheConfig;</span>
+    this.cacheConfig = cacheConfig;
 <span class="fc" id="L96">  }</span>
 
   public ParameterMapConfig getParamConfig() {
-<span class="fc" id="L99">    return paramConfig;</span>
-  }
-
+    return paramConfig;
+<span class="fc" id="L100">  }</span>
+<span class="fc" id="L101"></span>
   public void setParamConfig(ParameterMapConfig paramConfig) {
-<span class="fc" id="L103">    this.paramConfig = paramConfig;</span>
+    this.paramConfig = paramConfig;
 <span class="fc" id="L104">  }</span>
 
   public ResultMapConfig getResultConfig() {
-<span class="fc" id="L107">    return resultConfig;</span>
-  }
-
+    return resultConfig;
+<span class="fc" id="L108">  }</span>
+<span class="fc" id="L109"></span>
   public void setResultConfig(ResultMapConfig resultConfig) {
-<span class="fc" id="L111">    this.resultConfig = resultConfig;</span>
+    this.resultConfig = resultConfig;
 <span class="fc" id="L112">  }</span>
 
   public String getFirstToken(String s) {
-<span class="fc" id="L115">    return new StringTokenizer(s, &quot;, &quot;, false).nextToken();</span>
-  }
-
-  public String[] getAllButFirstToken(String s) {
-<span class="fc" id="L119">    List strings = new ArrayList();</span>
+    return new StringTokenizer(s, &quot;, &quot;, false).nextToken();
+<span class="fc" id="L116">  }</span>
+<span class="fc" id="L117"></span>
+<span class="fc" id="L118">  public String[] getAllButFirstToken(String s) {</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">    List strings = new ArrayList();</span>
 <span class="fc" id="L120">    StringTokenizer parser = new StringTokenizer(s, &quot;, &quot;, false);</span>
-<span class="fc" id="L121">    parser.nextToken();</span>
-<span class="fc bfc" id="L122" title="All 2 branches covered.">    while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L123">      strings.add(parser.nextToken());</span>
+    parser.nextToken();
+<span class="fc" id="L122">    while (parser.hasMoreTokens()) {</span>
+      strings.add(parser.nextToken());
     }
-<span class="fc" id="L125">    return (String[]) strings.toArray(new String[strings.size()]);</span>
-  }
+    return (String[]) strings.toArray(new String[strings.size()]);
+<span class="fc" id="L126">  }</span>
 
   public void setGlobalProperties(String resource, String url) {
-<span class="fc" id="L129">    config.getErrorContext().setActivity(&quot;loading global properties&quot;);</span>
-    try {
-      Properties props;
-<span class="pc bpc" id="L132" title="1 of 2 branches missed.">      if (resource != null) {</span>
-<span class="fc" id="L133">        config.getErrorContext().setResource(resource);</span>
-<span class="fc" id="L134">        props = Resources.getResourceAsProperties(resource);</span>
-<span class="pc bnc" id="L135" title="All 2 branches missed.">      } else if (url != null) {</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">    config.getErrorContext().setActivity(&quot;loading global properties&quot;);</span>
+<span class="fc" id="L130">    try {</span>
+<span class="fc" id="L131">      Properties props;</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">      if (resource != null) {</span>
+<span class="nc" id="L133">        config.getErrorContext().setResource(resource);</span>
+<span class="nc" id="L134">        props = Resources.getResourceAsProperties(resource);</span>
+      } else if (url != null) {
 <span class="nc" id="L136">        config.getErrorContext().setResource(url);</span>
-<span class="nc" id="L137">        props = Resources.getUrlAsProperties(url);</span>
-<span class="nc" id="L138">      } else {</span>
-<span class="nc" id="L139">        throw new RuntimeException(&quot;The &quot; + &quot;properties&quot; + &quot; element requires either a resource or a url attribute.&quot;);</span>
-      }
-
-      // Merge properties with those passed in programmatically
-<span class="pc bpc" id="L143" title="1 of 2 branches missed.">      if (props != null) {</span>
-<span class="fc" id="L144">        props.putAll(globalProps);</span>
-<span class="fc" id="L145">        globalProps = props;</span>
-      }
-
-      // Check for custom executors
-<span class="fc" id="L149">      String customizedSQLExecutor = globalProps.getProperty(&quot;sql_executor_class&quot;);</span>
-<span class="fc" id="L150">      config.getErrorContext().setActivity(&quot;Loading SQLExecutor.&quot;);</span>
-<span class="pc bpc" id="L151" title="1 of 2 branches missed.">      if (customizedSQLExecutor != null) {</span>
-        try {
+        props = Resources.getUrlAsProperties(url);
+      } else {
+        throw new RuntimeException(&quot;The &quot; + &quot;properties&quot; + &quot; element requires either a resource or a url attribute.&quot;);
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">      }</span>
+<span class="fc" id="L141"></span>
+<span class="fc" id="L142">      // Merge properties with those passed in programmatically</span>
+      if (props != null) {
+        props.putAll(globalProps);
+        globalProps = props;
+<span class="fc" id="L146">      }</span>
+<span class="fc" id="L147"></span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">      // Check for custom executors</span>
+      String customizedSQLExecutor = globalProps.getProperty(&quot;sql_executor_class&quot;);
+<span class="nc" id="L150">      config.getErrorContext().setActivity(&quot;Loading SQLExecutor.&quot;);</span>
+<span class="nc" id="L151">      if (customizedSQLExecutor != null) {</span>
+<span class="nc" id="L152">        try {</span>
 <span class="nc" id="L153">          config.getClient().getDelegate().setCustomExecutor(customizedSQLExecutor);</span>
 <span class="nc" id="L154">          config.getClient().getDelegate().getSqlExecutor().init(config, globalProps);</span>
-<span class="nc" id="L155">        } catch (Exception e) {</span>
+        } catch (Exception e) {
 <span class="nc" id="L156">          config.getErrorContext().setCause(e);</span>
-<span class="nc" id="L157">          config.getErrorContext().setMoreInfo(&quot;Loading of customizedSQLExecutor failed. Please check Properties file.&quot;);</span>
-        }
-      }
-      
-<span class="nc" id="L161">    } catch (Exception e) {</span>
-<span class="nc" id="L162">      throw new RuntimeException(&quot;Error loading properties.  Cause: &quot; + e, e);</span>
+          config.getErrorContext()
+              .setMoreInfo(&quot;Loading of customizedSQLExecutor failed. Please check Properties file.&quot;);
+<span class="nc" id="L159">        }</span>
+<span class="nc" id="L160">      }</span>
+<span class="fc" id="L161"></span>
+<span class="fc" id="L162">    } catch (Exception e) {</span>
+      throw new RuntimeException(&quot;Error loading properties.  Cause: &quot; + e, e);
     }
-<span class="fc" id="L164">  }</span>
+<span class="fc" id="L165">  }</span>
 
   public DataSource getDataSource() {
-<span class="fc" id="L167">    return dataSource;</span>
-  }
-
+    return dataSource;
+<span class="fc" id="L169">  }</span>
+<span class="fc" id="L170"></span>
   public void setDataSource(DataSource dataSource) {
-<span class="fc" id="L171">    this.dataSource = dataSource;</span>
-<span class="fc" id="L172">  }</span>
+    this.dataSource = dataSource;
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

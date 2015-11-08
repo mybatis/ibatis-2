@@ -428,22 +428,10 @@ Summary:
 <h2>Class Overview</h2>
 <p>This is a simple, synchronous, thread-safe database connection pool.
  <p/>
- REQUIRED PROPERTIES
- -------------------
- JDBC.Driver
- JDBC.ConnectionURL
- JDBC.Username
- JDBC.Password
+ REQUIRED PROPERTIES ------------------- JDBC.Driver JDBC.ConnectionURL JDBC.Username JDBC.Password
  <p/>
- Pool.MaximumActiveConnections
- Pool.MaximumIdleConnections
- Pool.MaximumCheckoutTime
- Pool.TimeToWait
- Pool.PingQuery
- Pool.PingEnabled
- Pool.PingConnectionsOlderThan
- Pool.PingConnectionsNotUsedFor
- Pool.QuietMode
+ Pool.MaximumActiveConnections Pool.MaximumIdleConnections Pool.MaximumCheckoutTime Pool.TimeToWait Pool.PingQuery
+ Pool.PingEnabled Pool.PingConnectionsOlderThan Pool.PingConnectionsNotUsedFor Pool.QuietMode
 </p>
 
 
@@ -487,8 +475,7 @@ Summary:
         
         class</td>
       <td class="jd-linkcol"><a href="../../../../com/ibatis/common/jdbc/SimpleDataSource.SimplePooledConnection.html">SimpleDataSource.SimplePooledConnection</a></td>
-      <td class="jd-descrcol" width="100%">---------------------------------------------------------------------------------------
- SimplePooledConnection
+      <td class="jd-descrcol" width="100%">--------------------------------------------------------------------------------------- SimplePooledConnection
  ---------------------------------------------------------------------------------------
 &nbsp;</td>
     </tr>
@@ -882,8 +869,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/ibatis/common/jdbc/SimpleDataSource.html#getPoolMaximumCheckoutTime()">getPoolMaximumCheckoutTime</a></span>()
         
-        <div class="jd-descrdiv">Getter for the maximum time a connection can be used before it *may* be
- given away again.</div>
+        <div class="jd-descrdiv">Getter for the maximum time a connection can be used before it *may* be given away again.</div>
   
   </td></tr>
 
@@ -919,8 +905,8 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/ibatis/common/jdbc/SimpleDataSource.html#getPoolPingConnectionsNotUsedFor()">getPoolPingConnectionsNotUsedFor</a></span>()
         
-        <div class="jd-descrdiv">If a connection has not been used in this many milliseconds, ping the
- database to make sure the connection is still good.</div>
+        <div class="jd-descrdiv">If a connection has not been used in this many milliseconds, ping the database to make sure the connection is still
+ good.</div>
   
   </td></tr>
 
@@ -2377,8 +2363,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Getter for the maximum time a connection can be used before it *may* be
- given away again.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Getter for the maximum time a connection can be used before it *may* be given away again.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>The maximum time
@@ -2450,8 +2435,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>If a connection has not been used in this many milliseconds, ping the
- database to make sure the connection is still good.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>If a connection has not been used in this many milliseconds, ping the database to make sure the connection is still
+ good.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the number of milliseconds of inactivity that will trigger a ping

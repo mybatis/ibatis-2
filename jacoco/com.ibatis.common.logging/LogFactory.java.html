@@ -1,89 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LogFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.logging</a> &gt; <span class="el_source">LogFactory.java</span></div><h1>LogFactory.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.logging;
 
 import java.lang.reflect.Constructor;
-
+<span class="nc" id="L19"></span>
 import com.ibatis.common.resources.Resources;
 
-<span class="nc" id="L22">public class LogFactory {</span>
+public class LogFactory {
 
-  private static Constructor logConstructor;
+<span class="fc" id="L24">  private static Constructor logConstructor;</span>
 
-  static {
-<span class="fc" id="L27">    tryImplementation(&quot;org.apache.commons.logging.LogFactory&quot;, &quot;com.ibatis.common.logging.jakarta.JakartaCommonsLoggingImpl&quot;);</span>
-<span class="fc" id="L28">    tryImplementation(&quot;org.apache.log4j.Logger&quot;, &quot;com.ibatis.common.logging.log4j.Log4jImpl&quot;);</span>
-<span class="fc" id="L29">    tryImplementation(&quot;java.util.logging.Logger&quot;, &quot;com.ibatis.common.logging.jdk14.Jdk14LoggingImpl&quot;);</span>
-<span class="fc" id="L30">    tryImplementation(&quot;java.lang.Object&quot;, &quot;com.ibatis.common.logging.nologging.NoLoggingImpl&quot;);</span>
-<span class="fc" id="L31">  }</span>
+<span class="fc" id="L26">  static {</span>
+<span class="fc" id="L27">    tryImplementation(&quot;org.apache.commons.logging.LogFactory&quot;,</span>
+<span class="fc" id="L28">        &quot;com.ibatis.common.logging.jakarta.JakartaCommonsLoggingImpl&quot;);</span>
+<span class="fc" id="L29">    tryImplementation(&quot;org.apache.log4j.Logger&quot;, &quot;com.ibatis.common.logging.log4j.Log4jImpl&quot;);</span>
+    tryImplementation(&quot;java.util.logging.Logger&quot;, &quot;com.ibatis.common.logging.jdk14.Jdk14LoggingImpl&quot;);
+    tryImplementation(&quot;java.lang.Object&quot;, &quot;com.ibatis.common.logging.nologging.NoLoggingImpl&quot;);
+<span class="fc bfc" id="L32" title="All 2 branches covered.">  }</span>
 
-  private static void tryImplementation(String testClassName, String implClassName) {
-<span class="fc bfc" id="L34" title="All 2 branches covered.">    if (logConstructor == null) {</span>
-      try {
-<span class="fc" id="L36">        Resources.classForName(testClassName);</span>
-<span class="fc" id="L37">        Class implClass = Resources.classForName(implClassName);</span>
-<span class="fc" id="L38">        logConstructor = implClass.getConstructor(new Class[]{Class.class});</span>
-<span class="pc" id="L39">      } catch (Throwable t) {</span>
+<span class="fc" id="L34">  private static void tryImplementation(String testClassName, String implClassName) {</span>
+<span class="fc" id="L35">    if (logConstructor == null) {</span>
+<span class="fc" id="L36">      try {</span>
+<span class="nc" id="L37">        Resources.classForName(testClassName);</span>
+<span class="fc" id="L38">        Class implClass = Resources.classForName(implClassName);</span>
+        logConstructor = implClass.getConstructor(new Class[] { Class.class });
+<span class="fc" id="L40">      } catch (Throwable t) {</span>
       }
     }
-<span class="fc" id="L42">  }</span>
-
-  public static Log getLog(Class aClass) {
-    try {
-<span class="fc" id="L46">      return (Log)logConstructor.newInstance(new Object[]{aClass});</span>
-<span class="nc" id="L47">    } catch (Throwable t) {</span>
-<span class="nc" id="L48">      throw new RuntimeException(&quot;Error creating logger for class &quot; + aClass + &quot;.  Cause: &quot; + t, t);</span>
+  }
+<span class="fc" id="L44"></span>
+<span class="nc" id="L45">  public static Log getLog(Class aClass) {</span>
+<span class="nc" id="L46">    try {</span>
+      return (Log) logConstructor.newInstance(new Object[] { aClass });
+    } catch (Throwable t) {
+      throw new RuntimeException(&quot;Error creating logger for class &quot; + aClass + &quot;.  Cause: &quot; + t, t);
     }
   }
 
   /**
-   * This method will switch the logging implementation to Log4J if
-   * Log4J is available on the classpath.  This is useful in situations
-   * where you want to use Log4J to log iBATIS activity but
-   * commons logging is on the classpath.  Note that this method is only
-   * effective for log classes obtained after calling this method.  If you
-   * intend to use this method you should call it before calling any other
-   * iBATIS method.
+   * This method will switch the logging implementation to Log4J if Log4J is available on the classpath. This is useful
+   * in situations where you want to use Log4J to log iBATIS activity but commons logging is on the classpath. Note that
+   * this method is only effective for log classes obtained after calling this method. If you intend to use this method
+   * you should call it before calling any other iBATIS method.
    *
-   */
-  public static synchronized void selectLog4JLogging() {
-    try {
-<span class="nc" id="L64">      Resources.classForName(&quot;org.apache.log4j.Logger&quot;);</span>
-<span class="nc" id="L65">      Class implClass = Resources.classForName(&quot;com.ibatis.common.logging.log4j.Log4jImpl&quot;);</span>
-<span class="nc" id="L66">      logConstructor = implClass.getConstructor(new Class[]{Class.class});</span>
-<span class="nc" id="L67">    } catch (Throwable t) {</span>
+<span class="nc" id="L59">   */</span>
+<span class="nc" id="L60">  public static synchronized void selectLog4JLogging() {</span>
+<span class="nc" id="L61">    try {</span>
+<span class="nc" id="L62">      Resources.classForName(&quot;org.apache.log4j.Logger&quot;);</span>
+<span class="nc" id="L63">      Class implClass = Resources.classForName(&quot;com.ibatis.common.logging.log4j.Log4jImpl&quot;);</span>
+<span class="nc" id="L64">      logConstructor = implClass.getConstructor(new Class[] { Class.class });</span>
+    } catch (Throwable t) {
     }
-<span class="nc" id="L69">  }</span>
-  
+  }
+
   /**
-   * This method will switch the logging implementation to Java native logging if
-   * you are running in JRE 1.4 or above.  This is useful in situations
-   * where you want to use Java native logging to log iBATIS activity but
-   * commons logging or Log4J is on the classpath.  Note that this method is only
-   * effective for log classes obtained after calling this method.  If you
-   * intend to use this method you should call it before calling any other
-   * iBATIS method.
-   */
-  public static synchronized void selectJavaLogging() {
-    try {
-<span class="nc" id="L82">      Resources.classForName(&quot;java.util.logging.Logger&quot;);</span>
-<span class="nc" id="L83">      Class implClass = Resources.classForName(&quot;com.ibatis.common.logging.jdk14.Jdk14LoggingImpl&quot;);</span>
-<span class="nc" id="L84">      logConstructor = implClass.getConstructor(new Class[]{Class.class});</span>
-<span class="nc" id="L85">    } catch (Throwable t) {</span>
+   * This method will switch the logging implementation to Java native logging if you are running in JRE 1.4 or above.
+   * This is useful in situations where you want to use Java native logging to log iBATIS activity but commons logging
+   * or Log4J is on the classpath. Note that this method is only effective for log classes obtained after calling this
+   * method. If you intend to use this method you should call it before calling any other iBATIS method.
+<span class="nc" id="L74">   */</span>
+<span class="nc" id="L75">  public static synchronized void selectJavaLogging() {</span>
+<span class="nc" id="L76">    try {</span>
+<span class="nc" id="L77">      Resources.classForName(&quot;java.util.logging.Logger&quot;);</span>
+<span class="nc" id="L78">      Class implClass = Resources.classForName(&quot;com.ibatis.common.logging.jdk14.Jdk14LoggingImpl&quot;);</span>
+<span class="nc" id="L79">      logConstructor = implClass.getConstructor(new Class[] { Class.class });</span>
+    } catch (Throwable t) {
     }
-<span class="nc" id="L87">  }</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

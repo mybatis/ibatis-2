@@ -398,18 +398,14 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>This class is used to create instances of result objects.  It will
- use the configured ResultObjectFactory if there is one, otherwise
- it will use iBATIS' normal methods.
+<p>This class is used to create instances of result objects. It will use the configured ResultObjectFactory if there is
+ one, otherwise it will use iBATIS' normal methods.
  
- Note that this class is somewhat tightly coupled with
- SqlExecuter - SqlExecute must call the setStatementId() and
- setResultObjectFactory() methods before executing a statement.
- This is a result of using a ThreadLocal to hold the current
- configuration for the statement under execution.  Using a
- ThreadLocal is a solution for IBATIS-366.  Without a ThreadLocal,
- the current factory and statement id would have to be added to 
- many method signatures - often in inappropriate places.</p>
+ Note that this class is somewhat tightly coupled with SqlExecuter - SqlExecute must call the setStatementId() and
+ setResultObjectFactory() methods before executing a statement. This is a result of using a ThreadLocal to hold the
+ current configuration for the statement under execution. Using a ThreadLocal is a solution for IBATIS-366. Without a
+ ThreadLocal, the current factory and statement id would have to be added to many method signatures - often in
+ inappropriate places.</p>
 
 
 
@@ -502,13 +498,13 @@ Summary:
         <div class="jd-descrdiv">Algorithm:
  
  <ul>
-   <li>If factory is null, then create object internally()</li>
-   <li>Otherwise try to create object through factory</li>
-   <li>If null returned from factory, then create object internally</li>
+ <li>If factory is null, then create object internally()</li>
+ <li>Otherwise try to create object through factory</li>
+ <li>If null returned from factory, then create object internally</li>
  </ul>
  
- This allows the factory to selectively create objects, also allows for
- the common possibility that a factory is not configured.</div>
+ This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
+ configured.</div>
   
   </td></tr>
 
@@ -814,9 +810,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Removes the FactorySettings bound to the current thread to avoid classloader leak issues.
- This method pops the top item off the stack, and kills the stack if there
- are no items left.
+  <div class="jd-tagdata jd-tagdescr"><p>Removes the FactorySettings bound to the current thread to avoid classloader leak issues. This method pops the top
+ item off the stack, and kills the stack if there are no items left.
 </p></div>
 
     </div>
@@ -851,13 +846,13 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Algorithm:
  
  <ul>
-   <li>If factory is null, then create object internally()</li>
-   <li>Otherwise try to create object through factory</li>
-   <li>If null returned from factory, then create object internally</li>
+ <li>If factory is null, then create object internally()</li>
+ <li>Otherwise try to create object through factory</li>
+ <li>If null returned from factory, then create object internally</li>
  </ul>
  
- This allows the factory to selectively create objects, also allows for
- the common possibility that a factory is not configured.</p></div>
+ This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
+ configured.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -869,22 +864,20 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a new instance of the specified class.  The instance must
-   be castable to the specified class.</li></ul>
+      <ul class="nolist"><li>a new instance of the specified class. The instance must be castable to the specified class.</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
             <th>InstantiationException</td>
-            <td>if the instance cannot be created. If you throw this Exception,
-           iBATIS will throw a runtime exception in response and will end.</td>
+            <td>if the instance cannot be created. If you throw this Exception, iBATIS will throw a runtime exception in
+           response and will end.</td>
         </tr>  
         <tr>
             <th>IllegalAccessException</td>
-            <td>if the constructor cannot be accessed. If you throw this
-           Exception, iBATIS will throw a runtime exception in response and
-           will end.
+            <td>if the constructor cannot be accessed. If you throw this Exception, iBATIS will throw a runtime exception
+           in response and will end.
 </td>
         </tr>
       </table>
@@ -919,10 +912,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>This method pushes a new result object factory configuration onto the stack.
- We use a stack because the method can be called in a "nested" fashion if there
- are sub-selects.  Calls to this method should be equally balanced
- with calls to cleanupResultObjectFactory().</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>This method pushes a new result object factory configuration onto the stack. We use a stack because the method can
+ be called in a "nested" fashion if there are sub-selects. Calls to this method should be equally balanced with
+ calls to cleanupResultObjectFactory().</p></div>
 
     </div>
 </div>

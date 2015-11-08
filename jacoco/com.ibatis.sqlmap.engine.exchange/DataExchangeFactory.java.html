@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DataExchangeFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">DataExchangeFactory.java</span></div><h1>DataExchangeFactory.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.exchange;
 
@@ -36,46 +36,51 @@ public class DataExchangeFactory {
 
   /**
    * Constructor for the factory
-   * @param typeHandlerFactory - a type handler factory for the factory
-   */
-<span class="fc" id="L41">  public DataExchangeFactory(TypeHandlerFactory typeHandlerFactory) {</span>
-<span class="fc" id="L42">    this.typeHandlerFactory = typeHandlerFactory;</span>
-<span class="fc" id="L43">    domDataExchange = new DomDataExchange(this);</span>
-<span class="fc" id="L44">    listDataExchange = new ListDataExchange(this);</span>
-<span class="fc" id="L45">    mapDataExchange = new ComplexDataExchange(this);</span>
-<span class="fc" id="L46">    primitiveDataExchange = new PrimitiveDataExchange(this);</span>
-<span class="fc" id="L47">    complexDataExchange = new ComplexDataExchange(this);</span>
-<span class="fc" id="L48">  }</span>
+   * 
+<span class="fc" id="L40">   * @param typeHandlerFactory</span>
+<span class="fc" id="L41">   *          - a type handler factory for the factory</span>
+<span class="fc" id="L42">   */</span>
+<span class="fc" id="L43">  public DataExchangeFactory(TypeHandlerFactory typeHandlerFactory) {</span>
+<span class="fc" id="L44">    this.typeHandlerFactory = typeHandlerFactory;</span>
+<span class="fc" id="L45">    domDataExchange = new DomDataExchange(this);</span>
+<span class="fc" id="L46">    listDataExchange = new ListDataExchange(this);</span>
+<span class="fc" id="L47">    mapDataExchange = new ComplexDataExchange(this);</span>
+    primitiveDataExchange = new PrimitiveDataExchange(this);
+    complexDataExchange = new ComplexDataExchange(this);
+  }
 
   /**
    * Getter for the type handler factory
-   * @return - the type handler factory
+   * 
+<span class="fc" id="L55">   * @return - the type handler factory</span>
    */
   public TypeHandlerFactory getTypeHandlerFactory() {
-<span class="fc" id="L55">    return typeHandlerFactory;</span>
+    return typeHandlerFactory;
   }
 
   /**
    * Get a DataExchange object for the passed in Class
-   * @param clazz - the class to get a DataExchange object for
-   * @return - the DataExchange object
-   */
-  public DataExchange getDataExchangeForClass(Class clazz) {
-<span class="fc" id="L64">    DataExchange dataExchange = null;</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">    if (clazz == null) {</span>
-<span class="fc" id="L66">      dataExchange = complexDataExchange;</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L68">      dataExchange = domDataExchange;</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">    } else if (List.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L70">      dataExchange = listDataExchange;</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L72">      dataExchange = mapDataExchange;</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz) != null) {</span>
-<span class="fc" id="L74">      dataExchange = primitiveDataExchange;</span>
-<span class="fc" id="L75">    } else {</span>
-<span class="fc" id="L76">      dataExchange = new JavaBeanDataExchange(this);</span>
+   * 
+   * @param clazz
+   *          - the class to get a DataExchange object for
+<span class="fc" id="L66">   * @return - the DataExchange object</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">   */</span>
+<span class="fc" id="L68">  public DataExchange getDataExchangeForClass(Class clazz) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">    DataExchange dataExchange = null;</span>
+<span class="fc" id="L70">    if (clazz == null) {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">      dataExchange = complexDataExchange;</span>
+<span class="fc" id="L72">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">      dataExchange = domDataExchange;</span>
+<span class="fc" id="L74">    } else if (List.class.isAssignableFrom(clazz)) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">      dataExchange = listDataExchange;</span>
+<span class="fc" id="L76">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
+      dataExchange = mapDataExchange;
+<span class="fc" id="L78">    } else if (typeHandlerFactory.getTypeHandler(clazz) != null) {</span>
+      dataExchange = primitiveDataExchange;
+<span class="fc" id="L80">    } else {</span>
+      dataExchange = new JavaBeanDataExchange(this);
     }
-<span class="fc" id="L78">    return dataExchange;</span>
+    return dataExchange;
   }
 
 }

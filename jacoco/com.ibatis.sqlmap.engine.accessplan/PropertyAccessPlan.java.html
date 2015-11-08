@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PropertyAccessPlan.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">PropertyAccessPlan.java</span></div><h1>PropertyAccessPlan.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.accessplan;
 
@@ -20,53 +20,54 @@ import com.ibatis.common.beans.Invoker;
 
 /**
  * Property access plan (for working with beans)
- */
+<span class="fc" id="L23"> */</span>
 public class PropertyAccessPlan extends BaseAccessPlan {
 
-<span class="fc" id="L26">  protected static final Object[] NO_ARGUMENTS = new Object[0];</span>
+  protected static final Object[] NO_ARGUMENTS = new Object[0];
 
   protected Invoker[] setters;
-  protected Invoker[] getters;
-
-  PropertyAccessPlan(Class clazz, String[] propertyNames) {
+<span class="fc" id="L29">  protected Invoker[] getters;</span>
+<span class="fc" id="L30"></span>
+<span class="fc" id="L31">  PropertyAccessPlan(Class clazz, String[] propertyNames) {</span>
 <span class="fc" id="L32">    super(clazz, propertyNames);</span>
-<span class="fc" id="L33">    setters = getSetters(propertyNames);</span>
-<span class="fc" id="L34">    getters = getGetters(propertyNames);</span>
+    setters = getSetters(propertyNames);
+    getters = getGetters(propertyNames);
 <span class="fc" id="L35">  }</span>
 
-  public void setProperties(Object object, Object[] values) {
-<span class="fc" id="L38">  	int i = 0;</span>
-    try {
-<span class="fc" id="L40">      Object[] arg = new Object[1];</span>
-<span class="fc bfc" id="L41" title="All 2 branches covered.">      for (i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="fc" id="L42">        arg[0] = values[i];</span>
-        try {
+<span class="fc" id="L37">  public void setProperties(Object object, Object[] values) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">    int i = 0;</span>
+<span class="fc" id="L39">    try {</span>
+      Object[] arg = new Object[1];
+<span class="fc" id="L41">      for (i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L42">        arg[0] = values[i];</span>
+<span class="nc" id="L43">        try {</span>
 <span class="fc" id="L44">          setters[i].invoke(object, arg);</span>
-<span class="pc" id="L45">        } catch (Throwable t) {</span>
+        } catch (Throwable t) {
 <span class="nc" id="L46">          throw ClassInfo.unwrapThrowable(t);</span>
-        }
+<span class="nc" id="L47">        }</span>
       }
-<span class="pc" id="L49">    } catch (Throwable t) {</span>
-<span class="nc" id="L50">      throw new RuntimeException(&quot;Error setting property '&quot; + setters[i].getName() + &quot;' of '&quot; + </span>
-<span class="nc" id="L51">      		                     object + &quot;'.  Cause: &quot; + t, t);</span>
+<span class="fc" id="L49">    } catch (Throwable t) {</span>
+<span class="fc" id="L50">      throw new RuntimeException(&quot;Error setting property '&quot; + setters[i].getName() + &quot;' of '&quot; + object + &quot;'.  Cause: &quot;</span>
+          + t, t);
     }
 <span class="fc" id="L53">  }</span>
-
+<span class="fc" id="L54"></span>
   public Object[] getProperties(Object object) {
-<span class="fc" id="L56">  	int i = 0;</span>
-<span class="fc" id="L57">    Object[] values = new Object[propertyNames.length];</span>
-    try {
-<span class="fc bfc" id="L59" title="All 2 branches covered.">      for (i = 0; i &lt; propertyNames.length; i++) {</span>
-        try {
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    int i = 0;</span>
+    Object[] values = new Object[propertyNames.length];
+<span class="fc" id="L58">    try {</span>
+<span class="fc" id="L59">      for (i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc" id="L60">        try {</span>
 <span class="fc" id="L61">          values[i] = getters[i].invoke(object, NO_ARGUMENTS);</span>
-<span class="fc" id="L62">        } catch (Throwable t) {</span>
+        } catch (Throwable t) {
 <span class="fc" id="L63">          throw ClassInfo.unwrapThrowable(t);</span>
-        }
+<span class="fc" id="L64">        }</span>
       }
 <span class="fc" id="L66">    } catch (Throwable t) {</span>
-<span class="fc" id="L67">      throw new RuntimeException(&quot;Error getting property '&quot; + getters[i].getName() + &quot;' of '&quot; + object + &quot;'.  Cause: &quot; + t, t);</span>
+<span class="fc" id="L67">      throw new RuntimeException(&quot;Error getting property '&quot; + getters[i].getName() + &quot;' of '&quot; + object + &quot;'.  Cause: &quot;</span>
+          + t, t);
     }
-<span class="fc" id="L69">    return values;</span>
+    return values;
   }
 
 }

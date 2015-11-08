@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JndiDataSourceFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.datasource</a> &gt; <span class="el_source">JndiDataSourceFactory.java</span></div><h1>JndiDataSourceFactory.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.datasource;
 
@@ -26,62 +26,63 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-/**
+<span class="nc" id="L29">/**</span>
  * DataSourceFactory implementation for JNDI
  */
-<span class="nc" id="L32">public class JndiDataSourceFactory implements DataSourceFactory {</span>
+public class JndiDataSourceFactory implements DataSourceFactory {
 
   private DataSource dataSource;
-
-  public void initialize(Map properties) {
+<span class="nc" id="L35"></span>
+<span class="nc" id="L36">  public void initialize(Map properties) {</span>
     try {
-<span class="nc" id="L38">      InitialContext initCtx = null;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">      InitialContext initCtx = null;</span>
 <span class="nc" id="L39">      Hashtable context = getContextProperties(properties);</span>
 
-<span class="nc bnc" id="L41" title="All 2 branches missed.">      if (context == null) {</span>
-<span class="nc" id="L42">        initCtx = new InitialContext();</span>
-<span class="nc" id="L43">      } else {</span>
-<span class="nc" id="L44">        initCtx = new InitialContext(context);</span>
-      }
-
-<span class="nc bnc" id="L47" title="All 2 branches missed.">      if (properties.containsKey(&quot;DataSource&quot;)) {</span>
-<span class="nc" id="L48">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DataSource&quot;));</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBJndiContext&quot;)) { // LEGACY --Backward compatibility        </span>
+<span class="nc" id="L41">      if (context == null) {</span>
+        initCtx = new InitialContext();
+      } else {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        initCtx = new InitialContext(context);</span>
+<span class="nc" id="L45">      }</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed."></span>
+<span class="nc" id="L47">      if (properties.containsKey(&quot;DataSource&quot;)) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DataSource&quot;));</span>
+      } else if (properties.containsKey(&quot;DBJndiContext&quot;)) { // LEGACY --Backward compatibility
 <span class="nc" id="L50">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBJndiContext&quot;));</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBFullJndiContext&quot;)) { // LEGACY --Backward compatibility</span>
-<span class="nc" id="L52">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBFullJndiContext&quot;));</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBInitialContext&quot;)</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">          &amp;&amp; properties.containsKey(&quot;DBLookup&quot;)) { // LEGACY --Backward compatibility</span>
-<span class="nc" id="L55">        Context ctx = (Context) initCtx.lookup((String) properties.get(&quot;DBInitialContext&quot;));</span>
-<span class="nc" id="L56">        dataSource = (DataSource) ctx.lookup((String) properties.get(&quot;DBLookup&quot;));</span>
-      }
-
-<span class="nc" id="L59">    } catch (NamingException e) {</span>
-<span class="nc" id="L60">      throw new SqlMapException(&quot;There was an error configuring JndiDataSourceTransactionPool. Cause: &quot; + e, e);</span>
+<span class="nc bnc" id="L51" title="All 4 branches missed.">      } else if (properties.containsKey(&quot;DBFullJndiContext&quot;)) { // LEGACY --Backward</span>
+                                                                // compatibility
+        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBFullJndiContext&quot;));
+<span class="nc" id="L54">      } else if (properties.containsKey(&quot;DBInitialContext&quot;) &amp;&amp; properties.containsKey(&quot;DBLookup&quot;)) { // LEGACY</span>
+<span class="nc" id="L55">                                                                                                     // --Backward</span>
+                                                                                                     // compatibility
+        Context ctx = (Context) initCtx.lookup((String) properties.get(&quot;DBInitialContext&quot;));
+<span class="nc" id="L58">        dataSource = (DataSource) ctx.lookup((String) properties.get(&quot;DBLookup&quot;));</span>
+<span class="nc" id="L59">      }</span>
+<span class="nc" id="L60"></span>
+<span class="nc" id="L61">    } catch (NamingException e) {</span>
+      throw new SqlMapException(&quot;There was an error configuring JndiDataSourceTransactionPool. Cause: &quot; + e, e);
     }
-<span class="nc" id="L62">  }</span>
+<span class="nc" id="L64">  }</span>
 
   public DataSource getDataSource() {
-<span class="nc" id="L65">    return dataSource;</span>
-  }
-
-  private static Hashtable getContextProperties(Map allProps) {
-<span class="nc" id="L69">    final String PREFIX = &quot;context.&quot;;</span>
-<span class="nc" id="L70">    Hashtable contextProperties = null;</span>
-<span class="nc" id="L71">    Iterator keys = allProps.keySet().iterator();</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">    while (keys.hasNext()) {</span>
-<span class="nc" id="L73">      String key = (String) keys.next();</span>
-<span class="nc" id="L74">      String value = (String) allProps.get(key);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">      if (key.startsWith(PREFIX)) {</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (contextProperties == null) {</span>
-<span class="nc" id="L77">          contextProperties = new Properties();</span>
-        }
-<span class="nc" id="L79">        contextProperties.put(key.substring(PREFIX.length()), value);</span>
+    return dataSource;
+<span class="nc" id="L68">  }</span>
+<span class="nc" id="L69"></span>
+<span class="nc" id="L70">  private static Hashtable getContextProperties(Map allProps) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">    final String PREFIX = &quot;context.&quot;;</span>
+<span class="nc" id="L72">    Hashtable contextProperties = null;</span>
+<span class="nc" id="L73">    Iterator keys = allProps.keySet().iterator();</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">    while (keys.hasNext()) {</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">      String key = (String) keys.next();</span>
+<span class="nc" id="L76">      String value = (String) allProps.get(key);</span>
+      if (key.startsWith(PREFIX)) {
+<span class="nc" id="L78">        if (contextProperties == null) {</span>
+          contextProperties = new Properties();
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">        contextProperties.put(key.substring(PREFIX.length()), value);</span>
       }
     }
-<span class="nc" id="L82">    return contextProperties;</span>
+    return contextProperties;
   }
 
 }
-
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

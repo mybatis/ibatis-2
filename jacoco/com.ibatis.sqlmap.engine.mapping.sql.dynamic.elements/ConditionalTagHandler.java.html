@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConditionalTagHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">ConditionalTagHandler.java</span></div><h1>ConditionalTagHandler.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
@@ -20,161 +20,160 @@ import com.ibatis.common.beans.ProbeFactory;
 import com.ibatis.sqlmap.engine.type.SimpleDateFormatter;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
+<span class="fc" id="L23">import java.math.BigInteger;</span>
 import java.util.Date;
+<span class="fc" id="L25"></span>
+public abstract class ConditionalTagHandler extends BaseTagHandler {
 
-<span class="fc" id="L26">public abstract class ConditionalTagHandler extends BaseTagHandler {</span>
-
-<span class="fc" id="L28">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+  private static final Probe PROBE = ProbeFactory.getProbe();
 
   public static final long NOT_COMPARABLE = Long.MIN_VALUE;
   private static final String DATE_MASK = &quot;yyyy/MM/dd hh:mm:ss&quot;;
 
-<span class="fc" id="L33">  private static final String START_INDEX = &quot;[&quot;;</span>
+  private static final String START_INDEX = &quot;[&quot;;
 
   public abstract boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject);
 
-  @Override
-public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
-    
+<span class="fc" id="L37">  @Override</span>
+  public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
+<span class="fc bfc" id="L39" title="All 2 branches covered."></span>
 <span class="fc" id="L40">    ctx.pushRemoveFirstPrependMarker(tag);</span>
-    
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (isCondition(ctx, tag, parameterObject)) {</span>
-<span class="fc" id="L43">      return SqlTagHandler.INCLUDE_BODY;</span>
+
+<span class="fc" id="L42">    if (isCondition(ctx, tag, parameterObject)) {</span>
+      return SqlTagHandler.INCLUDE_BODY;
     } else {
-<span class="fc" id="L45">      return SqlTagHandler.SKIP_BODY;</span>
+      return SqlTagHandler.SKIP_BODY;
     }
   }
 
-  @Override
-public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
-    
-<span class="fc" id="L52">    IterateContext iterate = ctx.peekIterateContext();</span>
-    
-<span class="pc bpc" id="L54" title="1 of 4 branches missed.">    if(null != iterate &amp;&amp; iterate.isAllowNext()){</span>
+<span class="fc" id="L49">  @Override</span>
+  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
+<span class="pc bpc" id="L51" title="1 of 4 branches missed."></span>
+<span class="nc" id="L52">    IterateContext iterate = ctx.peekIterateContext();</span>
+<span class="nc" id="L53"></span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (null != iterate &amp;&amp; iterate.isAllowNext()) {</span>
 <span class="nc" id="L55">      iterate.next();</span>
-<span class="nc" id="L56">      iterate.setAllowNext(false);</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">      if(!iterate.hasNext()) {</span>
-<span class="nc" id="L58">        iterate.setFinal(true);</span>
+      iterate.setAllowNext(false);
+      if (!iterate.hasNext()) {
+        iterate.setFinal(true);
       }
     }
-    
-    //iteratePropertyReplace(bodyContent,ctx.peekIterateContext());
-    
-<span class="fc" id="L64">    return super.doEndFragment(ctx,tag,parameterObject,bodyContent);</span>
-  }
+<span class="fc" id="L61"></span>
+    // iteratePropertyReplace(bodyContent,ctx.peekIterateContext());
 
+    return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
+<span class="fc" id="L65">  }</span>
+<span class="fc" id="L66"></span>
   protected long compare(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
 <span class="fc" id="L68">    String comparePropertyName = tag.getComparePropertyAttr();</span>
-<span class="fc" id="L69">    String compareValue = tag.getCompareValueAttr();</span>
+    String compareValue = tag.getCompareValueAttr();
 
-<span class="fc" id="L71">    String prop = getResolvedProperty(ctx, tag);</span>
-    Object value1;
-    Class type;
-
-<span class="fc bfc" id="L75" title="All 2 branches covered.">    if (prop != null) {</span>
+    String prop = getResolvedProperty(ctx, tag);
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    Object value1;</span>
+<span class="fc" id="L73">    Class type;</span>
+<span class="fc" id="L74"></span>
+    if (prop != null) {
 <span class="fc" id="L76">      value1 = PROBE.getObject(parameterObject, prop);</span>
-<span class="fc" id="L77">      type = PROBE.getPropertyTypeForGetter(parameterObject, prop);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">      type = PROBE.getPropertyTypeForGetter(parameterObject, prop);</span>
 <span class="fc" id="L78">    } else {</span>
-<span class="fc" id="L79">      value1 = parameterObject;</span>
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">      if (value1 != null) {</span>
-<span class="fc" id="L81">        type = parameterObject.getClass();</span>
-<span class="fc" id="L82">      } else {</span>
-<span class="nc" id="L83">        type = Object.class;</span>
-      }
-    }
-<span class="fc bfc" id="L86" title="All 2 branches covered.">    if (comparePropertyName != null) {</span>
+      value1 = parameterObject;
+<span class="nc" id="L80">      if (value1 != null) {</span>
+        type = parameterObject.getClass();
+      } else {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        type = Object.class;</span>
+<span class="fc" id="L84">      }</span>
+<span class="fc" id="L85">    }</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    if (comparePropertyName != null) {</span>
 <span class="fc" id="L87">      Object value2 = PROBE.getObject(parameterObject, comparePropertyName);</span>
-<span class="fc" id="L88">      return compareValues(type, value1, value2);</span>
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    } else if (compareValue != null) {</span>
-<span class="fc" id="L90">      return compareValues(type, value1, compareValue);</span>
+      return compareValues(type, value1, value2);
+<span class="nc" id="L89">    } else if (compareValue != null) {</span>
+      return compareValues(type, value1, compareValue);
     } else {
-<span class="nc" id="L92">      throw new RuntimeException(&quot;Error comparing in conditional fragment.  Uknown 'compare to' values.&quot;);</span>
+      throw new RuntimeException(&quot;Error comparing in conditional fragment.  Uknown 'compare to' values.&quot;);
     }
-  }
+<span class="fc" id="L94">  }</span>
 
-  protected long compareValues(Class type, Object value1, Object value2) {
-<span class="fc" id="L97">    long result = NOT_COMPARABLE;</span>
+<span class="pc bpc" id="L96" title="1 of 4 branches missed.">  protected long compareValues(Class type, Object value1, Object value2) {</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">    long result = NOT_COMPARABLE;</span>
 
-<span class="pc bpc" id="L99" title="1 of 4 branches missed.">    if (value1 == null || value2 == null) {</span>
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">      result = value1 == value2 ? 0 : NOT_COMPARABLE;</span>
-<span class="fc" id="L101">    } else {</span>
-<span class="fc bfc" id="L102" title="All 2 branches covered.">      if (value2.getClass() != type) {</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">    if (value1 == null || value2 == null) {</span>
+<span class="fc" id="L100">      result = value1 == value2 ? 0 : NOT_COMPARABLE;</span>
+    } else {
+<span class="fc bfc" id="L102" title="All 4 branches covered.">      if (value2.getClass() != type) {</span>
 <span class="fc" id="L103">        value2 = convertValue(type, value2.toString());</span>
       }
-<span class="fc bfc" id="L105" title="All 4 branches covered.">      if (value2 instanceof String &amp;&amp; type != String.class) {</span>
-<span class="fc" id="L106">        value1 = value1.toString();</span>
-      }
-<span class="pc bpc" id="L108" title="2 of 4 branches missed.">      if (!(value1 instanceof Comparable &amp;&amp; value2 instanceof Comparable)) {</span>
-<span class="nc" id="L109">        value1 = value1.toString();</span>
-<span class="nc" id="L110">        value2 = value2.toString();</span>
+<span class="pc bpc" id="L105" title="2 of 4 branches missed.">      if (value2 instanceof String &amp;&amp; type != String.class) {</span>
+<span class="nc" id="L106">        value1 = value1.toString();</span>
+<span class="nc" id="L107">      }</span>
+      if (!(value1 instanceof Comparable &amp;&amp; value2 instanceof Comparable)) {
+<span class="fc" id="L109">        value1 = value1.toString();</span>
+        value2 = value2.toString();
       }
 <span class="fc" id="L112">      result = ((Comparable) value1).compareTo(value2);</span>
     }
 
-<span class="fc" id="L115">    return result;</span>
-  }
-
-  protected Object convertValue(Class type, String value) {
-<span class="pc bpc" id="L119" title="1 of 2 branches missed.">    if (type == String.class) {</span>
-<span class="nc" id="L120">      return value;</span>
-<span class="pc bpc" id="L121" title="2 of 4 branches missed.">    } else if (type == Byte.class || type == byte.class) {</span>
-<span class="nc" id="L122">      return Byte.valueOf(value);</span>
-<span class="pc bpc" id="L123" title="2 of 4 branches missed.">    } else if (type == Short.class || type == short.class) {</span>
-<span class="nc" id="L124">      return Short.valueOf(value);</span>
-<span class="pc bpc" id="L125" title="2 of 4 branches missed.">    } else if (type == Character.class || type == char.class) {</span>
-<span class="nc" id="L126">      return new Character(value.charAt(0));</span>
-<span class="fc bfc" id="L127" title="All 4 branches covered.">    } else if (type == Integer.class || type == int.class) {</span>
-<span class="fc" id="L128">      return Integer.valueOf(value);</span>
-<span class="pc bpc" id="L129" title="2 of 4 branches missed.">    } else if (type == Long.class || type == long.class) {</span>
-<span class="nc" id="L130">      return Long.valueOf(value);</span>
-<span class="pc bpc" id="L131" title="2 of 4 branches missed.">    } else if (type == Float.class || type == float.class) {</span>
-<span class="nc" id="L132">      return Float.valueOf(value);</span>
-<span class="pc bpc" id="L133" title="2 of 4 branches missed.">    } else if (type == Double.class || type == double.class) {</span>
-<span class="nc" id="L134">      return Double.valueOf(value);</span>
-<span class="pc bpc" id="L135" title="2 of 4 branches missed.">    } else if (type == Boolean.class || type == boolean.class) {</span>
-<span class="nc" id="L136">      return Boolean.valueOf(value);</span>
-<span class="pc bpc" id="L137" title="1 of 2 branches missed.">    } else if (type == Date.class) {</span>
-<span class="nc" id="L138">      return SimpleDateFormatter.format(DATE_MASK, value);</span>
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">    } else if (type == BigInteger.class) {</span>
-<span class="nc" id="L140">      return new BigInteger(value);</span>
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">    } else if (type == BigDecimal.class) {</span>
-<span class="nc" id="L142">      return new BigDecimal(value);</span>
+    return result;
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">  }</span>
+<span class="nc" id="L117"></span>
+<span class="pc bpc" id="L118" title="2 of 4 branches missed.">  protected Object convertValue(Class type, String value) {</span>
+<span class="nc" id="L119">    if (type == String.class) {</span>
+<span class="pc bpc" id="L120" title="2 of 4 branches missed.">      return value;</span>
+<span class="nc" id="L121">    } else if (type == Byte.class || type == byte.class) {</span>
+<span class="pc bpc" id="L122" title="2 of 4 branches missed.">      return Byte.valueOf(value);</span>
+<span class="nc" id="L123">    } else if (type == Short.class || type == short.class) {</span>
+<span class="fc bfc" id="L124" title="All 4 branches covered.">      return Short.valueOf(value);</span>
+<span class="fc" id="L125">    } else if (type == Character.class || type == char.class) {</span>
+<span class="pc bpc" id="L126" title="2 of 4 branches missed.">      return new Character(value.charAt(0));</span>
+<span class="nc" id="L127">    } else if (type == Integer.class || type == int.class) {</span>
+<span class="pc bpc" id="L128" title="2 of 4 branches missed.">      return Integer.valueOf(value);</span>
+<span class="nc" id="L129">    } else if (type == Long.class || type == long.class) {</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">      return Long.valueOf(value);</span>
+<span class="nc" id="L131">    } else if (type == Float.class || type == float.class) {</span>
+<span class="pc bpc" id="L132" title="2 of 4 branches missed.">      return Float.valueOf(value);</span>
+<span class="nc" id="L133">    } else if (type == Double.class || type == double.class) {</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">      return Double.valueOf(value);</span>
+<span class="nc" id="L135">    } else if (type == Boolean.class || type == boolean.class) {</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">      return Boolean.valueOf(value);</span>
+<span class="nc" id="L137">    } else if (type == Date.class) {</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">      return SimpleDateFormatter.format(DATE_MASK, value);</span>
+<span class="nc" id="L139">    } else if (type == BigInteger.class) {</span>
+      return new BigInteger(value);
+<span class="fc" id="L141">    } else if (type == BigDecimal.class) {</span>
+      return new BigDecimal(value);
     } else {
-<span class="fc" id="L144">      return value;</span>
+      return value;
     }
 
   }
-  
+
   /**
-   * This method will add the proper index values to an indexed property
-   * string if we are inside an iterate tag
+   * This method will add the proper index values to an indexed property string if we are inside an iterate tag
    * 
    * @param ctx
-   * @param tag
-   */
+<span class="fc" id="L153">   * @param tag</span>
+<span class="fc" id="L154">   */</span>
   protected String getResolvedProperty(SqlTagContext ctx, SqlTag tag) {
-<span class="fc" id="L157">    String prop = tag.getPropertyAttr();</span>
-<span class="fc" id="L158">    IterateContext itCtx = ctx.peekIterateContext();</span>
-
-<span class="fc bfc" id="L160" title="All 2 branches covered.">    if (prop != null) {</span>
-
-<span class="fc bfc" id="L162" title="All 4 branches covered.">      if(null != itCtx &amp;&amp; itCtx.isAllowNext()){</span>
-<span class="fc" id="L163">        itCtx.next();</span>
-<span class="fc" id="L164">        itCtx.setAllowNext(false);</span>
-<span class="fc bfc" id="L165" title="All 2 branches covered.">        if(!itCtx.hasNext()) {</span>
-<span class="fc" id="L166">          itCtx.setFinal(true);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    String prop = tag.getPropertyAttr();</span>
+    IterateContext itCtx = ctx.peekIterateContext();
+<span class="fc bfc" id="L158" title="All 4 branches covered."></span>
+<span class="fc" id="L159">    if (prop != null) {</span>
+<span class="fc" id="L160"></span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">      if (null != itCtx &amp;&amp; itCtx.isAllowNext()) {</span>
+<span class="fc" id="L162">        itCtx.next();</span>
+        itCtx.setAllowNext(false);
+        if (!itCtx.hasNext()) {
+          itCtx.setFinal(true);
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        }</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">      }</span>
+<span class="fc" id="L168"></span>
+      if (prop.indexOf(START_INDEX) &gt; -1) {
+        if (itCtx != null) {
+          prop = itCtx.addIndexToTagProperty(prop);
         }
-      }
-
-<span class="fc bfc" id="L170" title="All 2 branches covered.">      if(prop.indexOf(START_INDEX) &gt; -1) {</span>
-<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (itCtx != null) {</span>
-<span class="fc" id="L172">          prop = itCtx.addIndexToTagProperty(prop);</span>
-        }
-      }
+<span class="fc" id="L173">      }</span>
     }
-      
-<span class="fc" id="L177">    return prop;</span>
+
+    return prop;
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ParameterMapping.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">ParameterMapping.java</span></div><h1>ParameterMapping.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.parameter;
 
@@ -28,7 +28,7 @@ public class ParameterMapping {
 
   private String propertyName;
   private TypeHandler typeHandler;
-  private String typeName; // this is used for REF types or user-defined types
+  private String typeName;            // this is used for REF types or user-defined types
   private int jdbcType;
   private String jdbcTypeName;
   private String nullValue;
@@ -38,140 +38,142 @@ public class ParameterMapping {
   private Class javaType;
   private String resultMapName;
   private Integer numericScale;
-
-  private String errorString;
-
+<span class="fc" id="L41"></span>
+<span class="fc" id="L42">  private String errorString;</span>
+<span class="fc" id="L43"></span>
 <span class="fc" id="L44">  public ParameterMapping() {</span>
-<span class="fc" id="L45">    mode = &quot;IN&quot;;</span>
+    mode = &quot;IN&quot;;
 <span class="fc" id="L46">    inputAllowed = true;</span>
 <span class="fc" id="L47">    outputAllowed = false;</span>
     // Default JDBC type if UNKNOWN_TYPE
-<span class="fc" id="L49">    jdbcType = JdbcTypeRegistry.UNKNOWN_TYPE;</span>
+    jdbcType = JdbcTypeRegistry.UNKNOWN_TYPE;
 <span class="fc" id="L50">  }</span>
 
   public String getNullValue() {
-<span class="fc" id="L53">    return nullValue;</span>
-  }
-
+    return nullValue;
+<span class="fc" id="L54">  }</span>
+<span class="fc" id="L55"></span>
   public void setNullValue(String nullValue) {
-<span class="fc" id="L57">    this.nullValue = nullValue;</span>
+    this.nullValue = nullValue;
 <span class="fc" id="L58">  }</span>
 
   public String getPropertyName() {
-<span class="fc" id="L61">    return propertyName;</span>
-  }
-
-  public void setPropertyName(String propertyName) {
-<span class="fc" id="L65">    this.errorString = &quot;Check the parameter mapping for the '&quot; + propertyName + &quot;' property.&quot;;</span>
-<span class="fc" id="L66">    this.propertyName = propertyName;</span>
+    return propertyName;
+<span class="fc" id="L62">  }</span>
+<span class="fc" id="L63"></span>
+<span class="fc" id="L64">  public void setPropertyName(String propertyName) {</span>
+    this.errorString = &quot;Check the parameter mapping for the '&quot; + propertyName + &quot;' property.&quot;;
+    this.propertyName = propertyName;
 <span class="fc" id="L67">  }</span>
 
   public String getErrorString() {
-<span class="fc" id="L70">    return errorString;</span>
-  }
+    return errorString;
+<span class="fc" id="L71">  }</span>
 
   public TypeHandler getTypeHandler() {
-<span class="fc" id="L74">    return typeHandler;</span>
-  }
-
+    return typeHandler;
+<span class="fc" id="L75">  }</span>
+<span class="fc" id="L76"></span>
   public void setTypeHandler(TypeHandler typeHandler) {
-<span class="fc" id="L78">    this.typeHandler = typeHandler;</span>
-<span class="fc" id="L79">  }</span>
+    this.typeHandler = typeHandler;
+<span class="nc" id="L79">  }</span>
 
   public Class getJavaType() {
-<span class="nc" id="L82">    return javaType;</span>
-  }
-
+    return javaType;
+<span class="fc" id="L83">  }</span>
+<span class="fc" id="L84"></span>
   public void setJavaType(Class javaType) {
-<span class="fc" id="L86">    this.javaType = javaType;</span>
-<span class="fc" id="L87">  }</span>
-
+    this.javaType = javaType;
+<span class="fc bfc" id="L87" title="All 2 branches covered.">  }</span>
+<span class="fc" id="L88"></span>
   public String getJavaTypeName() {
-<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (javaType == null) {</span>
-<span class="fc" id="L91">      return null;</span>
+<span class="fc" id="L90">    if (javaType == null) {</span>
+      return null;
     } else {
-<span class="fc" id="L93">      return javaType.getName();</span>
+      return javaType.getName();
     }
   }
-
-  public void setJavaTypeName(String javaTypeName) {
+<span class="pc bpc" id="L96" title="1 of 2 branches missed."></span>
+<span class="nc" id="L97">  public void setJavaTypeName(String javaTypeName) {</span>
     try {
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">      if (javaTypeName == null) {</span>
-<span class="nc" id="L100">        this.javaType = null;</span>
+<span class="fc" id="L99">      if (javaTypeName == null) {</span>
+        this.javaType = null;
 <span class="nc" id="L101">      } else {</span>
-<span class="fc" id="L102">        this.javaType = Resources.classForName(javaTypeName);</span>
-      }
-<span class="pc" id="L104">    } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L105">      throw new SqlMapException(&quot;Error setting javaType property of ParameterMap.  Cause: &quot; + e, e);</span>
+<span class="nc" id="L102">        this.javaType = Resources.classForName(javaTypeName);</span>
+<span class="fc" id="L103">      }</span>
+<span class="fc" id="L104">    } catch (ClassNotFoundException e) {</span>
+      throw new SqlMapException(&quot;Error setting javaType property of ParameterMap.  Cause: &quot; + e, e);
     }
 <span class="fc" id="L107">  }</span>
 
   public int getJdbcType() {
-<span class="fc" id="L110">    return jdbcType;</span>
-  }
+    return jdbcType;
+<span class="fc" id="L111">  }</span>
 
   public String getJdbcTypeName() {
-<span class="fc" id="L114">    return jdbcTypeName;</span>
-  }
-
-  public void setJdbcTypeName(String jdbcTypeName) {
-<span class="fc" id="L118">    this.jdbcTypeName = jdbcTypeName;</span>
-<span class="fc" id="L119">    this.jdbcType = JdbcTypeRegistry.getType(jdbcTypeName);</span>
-<span class="fc" id="L120">  }</span>
+    return jdbcTypeName;
+<span class="fc" id="L115">  }</span>
+<span class="fc" id="L116"></span>
+<span class="fc" id="L117">  public void setJdbcTypeName(String jdbcTypeName) {</span>
+    this.jdbcTypeName = jdbcTypeName;
+    this.jdbcType = JdbcTypeRegistry.getType(jdbcTypeName);
+<span class="nc" id="L120">  }</span>
 
   public String getMode() {
-<span class="nc" id="L123">    return mode;</span>
-  }
-
-  public void setMode(String mode) {
+    return mode;
+<span class="fc" id="L124">  }</span>
+<span class="pc bpc" id="L125" title="1 of 4 branches missed."></span>
+<span class="pc bpc" id="L126" title="1 of 4 branches missed.">  public void setMode(String mode) {</span>
 <span class="fc" id="L127">    this.mode = mode;</span>
-<span class="pc bpc" id="L128" title="1 of 4 branches missed.">    inputAllowed = MODE_IN.equals(mode) || MODE_INOUT.equals(mode);</span>
-<span class="pc bpc" id="L129" title="1 of 4 branches missed.">    outputAllowed = MODE_OUT.equals(mode) || MODE_INOUT.equals(mode);</span>
+    inputAllowed = MODE_IN.equals(mode) || MODE_INOUT.equals(mode);
+    outputAllowed = MODE_OUT.equals(mode) || MODE_INOUT.equals(mode);
 <span class="fc" id="L130">  }</span>
 
   public boolean isInputAllowed() {
-<span class="fc" id="L133">    return inputAllowed;</span>
-  }
+    return inputAllowed;
+<span class="fc" id="L134">  }</span>
 
   public boolean isOutputAllowed() {
-<span class="fc" id="L137">    return outputAllowed;</span>
+    return outputAllowed;
   }
 
   /**
    * user-defined or REF types
    *
-   * @return typeName
+<span class="nc" id="L143">   * @return typeName</span>
    */
   public String getTypeName() {
-<span class="nc" id="L146">    return typeName;</span>
+    return typeName;
   }
 
   /**
    * for user-defined or REF types
-   * @param typeName
-   */
+   * 
+<span class="fc" id="L152">   * @param typeName</span>
+<span class="fc" id="L153">   */</span>
   public void setTypeName(String typeName) {
-<span class="fc" id="L154">    this.typeName = typeName;</span>
-<span class="fc" id="L155">  }</span>
+    this.typeName = typeName;
+<span class="nc" id="L156">  }</span>
 
   public String getResultMapName() {
-<span class="nc" id="L158">	  return resultMapName;</span>
-  }
-
+    return resultMapName;
+<span class="fc" id="L160">  }</span>
+<span class="fc" id="L161"></span>
   public void setResultMapName(String resultMapName) {
-<span class="fc" id="L162">	  this.resultMapName = resultMapName;</span>
-<span class="fc" id="L163">  }</span>
+    this.resultMapName = resultMapName;
+<span class="nc" id="L164">  }</span>
 
   public Integer getNumericScale() {
-<span class="nc" id="L166">    return numericScale;</span>
-  }
-
+    return numericScale;
+<span class="pc bpc" id="L168" title="3 of 4 branches missed.">  }</span>
+<span class="nc" id="L169"></span>
   public void setNumericScale(Integer numericScale) {
-<span class="pc bpc" id="L170" title="3 of 4 branches missed.">    if (numericScale != null &amp;&amp; numericScale.intValue() &lt; 0) {</span>
-<span class="nc" id="L171">      throw new RuntimeException(&quot;Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero&quot;);</span>
+    if (numericScale != null &amp;&amp; numericScale.intValue() &lt; 0) {
+<span class="fc" id="L172">      throw new RuntimeException(</span>
+<span class="fc" id="L173">          &quot;Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero&quot;);</span>
     }
-<span class="fc" id="L173">    this.numericScale = numericScale;</span>
-<span class="fc" id="L174">  }</span>
+    this.numericScale = numericScale;
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

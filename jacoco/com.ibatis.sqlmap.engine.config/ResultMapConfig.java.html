@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ResultMapConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">ResultMapConfig.java</span></div><h1>ResultMapConfig.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -32,126 +32,132 @@ public class ResultMapConfig {
   private ResultMap resultMap;
   private List resultMappingList;
   private int resultMappingIndex;
-  private Discriminator discriminator;
-
-<span class="fc" id="L37">  ResultMapConfig(SqlMapConfiguration config, String id, Class resultClass, String groupBy, String extendsResultMap, String xmlName) {</span>
-<span class="fc" id="L38">    this.config = config;</span>
-<span class="fc" id="L39">    this.errorContext = config.getErrorContext();</span>
-<span class="fc" id="L40">    this.client = config.getClient();</span>
-<span class="fc" id="L41">    this.delegate = config.getDelegate();</span>
-<span class="fc" id="L42">    this.typeHandlerFactory = config.getTypeHandlerFactory();</span>
-<span class="fc" id="L43">    this.resultMap = new ResultMap(client.getDelegate());</span>
-<span class="fc" id="L44">    this.resultMappingList = new ArrayList();</span>
-<span class="fc" id="L45">    errorContext.setActivity(&quot;building a result map&quot;);</span>
-<span class="fc" id="L46">    errorContext.setObjectId(id + &quot; result map&quot;);</span>
-<span class="fc" id="L47">    resultMap.setId(id);</span>
-<span class="fc" id="L48">    resultMap.setXmlName(xmlName);</span>
-<span class="fc" id="L49">    resultMap.setResource(errorContext.getResource());</span>
-<span class="pc bpc" id="L50" title="1 of 4 branches missed.">    if (groupBy != null &amp;&amp; groupBy.length() &gt; 0) {</span>
-<span class="fc" id="L51">      StringTokenizer parser = new StringTokenizer(groupBy, &quot;, &quot;, false);</span>
-<span class="fc bfc" id="L52" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L53">        resultMap.addGroupByProperty(parser.nextToken());</span>
-      }
-    }
-<span class="fc" id="L56">    resultMap.setResultClass(resultClass);</span>
-<span class="fc" id="L57">    errorContext.setMoreInfo(&quot;Check the extended result map.&quot;);</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">    if (extendsResultMap != null) {</span>
-<span class="fc" id="L59">      ResultMap extendedResultMap = (ResultMap) client.getDelegate().getResultMap(extendsResultMap);</span>
-<span class="fc" id="L60">      ResultMapping[] resultMappings = extendedResultMap.getResultMappings();</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">      for (int i = 0; i &lt; resultMappings.length; i++) {</span>
-<span class="fc" id="L62">        resultMappingList.add(resultMappings[i]);</span>
-      }
-<span class="fc" id="L64">      List nestedResultMappings = extendedResultMap.getNestedResultMappings();</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">      if (nestedResultMappings != null) {</span>
-<span class="fc" id="L66">        Iterator iter = nestedResultMappings.iterator();</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        while (iter.hasNext()) {</span>
-<span class="fc" id="L68">          resultMap.addNestedResultMappings((ResultMapping) iter.next());</span>
-        }
-      }
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">      if (groupBy == null || groupBy.length() == 0) {</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (extendedResultMap.hasGroupBy()) {</span>
-<span class="fc" id="L73">          Iterator i = extendedResultMap.groupByProps();</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">          while (i.hasNext()) {</span>
-<span class="fc" id="L75">            resultMap.addGroupByProperty((String) i.next());</span>
+<span class="fc" id="L35">  private Discriminator discriminator;</span>
+<span class="fc" id="L36"></span>
+<span class="fc" id="L37">  ResultMapConfig(SqlMapConfiguration config, String id, Class resultClass, String groupBy, String extendsResultMap,</span>
+<span class="fc" id="L38">      String xmlName) {</span>
+<span class="fc" id="L39">    this.config = config;</span>
+<span class="fc" id="L40">    this.errorContext = config.getErrorContext();</span>
+<span class="fc" id="L41">    this.client = config.getClient();</span>
+<span class="fc" id="L42">    this.delegate = config.getDelegate();</span>
+<span class="fc" id="L43">    this.typeHandlerFactory = config.getTypeHandlerFactory();</span>
+<span class="fc" id="L44">    this.resultMap = new ResultMap(client.getDelegate());</span>
+<span class="fc" id="L45">    this.resultMappingList = new ArrayList();</span>
+<span class="fc" id="L46">    errorContext.setActivity(&quot;building a result map&quot;);</span>
+<span class="fc" id="L47">    errorContext.setObjectId(id + &quot; result map&quot;);</span>
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">    resultMap.setId(id);</span>
+<span class="fc" id="L49">    resultMap.setXmlName(xmlName);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    resultMap.setResource(errorContext.getResource());</span>
+<span class="fc" id="L51">    if (groupBy != null &amp;&amp; groupBy.length() &gt; 0) {</span>
+      StringTokenizer parser = new StringTokenizer(groupBy, &quot;, &quot;, false);
+      while (parser.hasMoreTokens()) {
+<span class="fc" id="L54">        resultMap.addGroupByProperty(parser.nextToken());</span>
+<span class="fc" id="L55">      }</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    }</span>
+<span class="fc" id="L57">    resultMap.setResultClass(resultClass);</span>
+<span class="fc" id="L58">    errorContext.setMoreInfo(&quot;Check the extended result map.&quot;);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    if (extendsResultMap != null) {</span>
+<span class="fc" id="L60">      ResultMap extendedResultMap = (ResultMap) client.getDelegate().getResultMap(extendsResultMap);</span>
+      ResultMapping[] resultMappings = extendedResultMap.getResultMappings();
+<span class="fc" id="L62">      for (int i = 0; i &lt; resultMappings.length; i++) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        resultMappingList.add(resultMappings[i]);</span>
+<span class="fc" id="L64">      }</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">      List nestedResultMappings = extendedResultMap.getNestedResultMappings();</span>
+<span class="fc" id="L66">      if (nestedResultMappings != null) {</span>
+        Iterator iter = nestedResultMappings.iterator();
+        while (iter.hasNext()) {
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">          resultMap.addNestedResultMappings((ResultMapping) iter.next());</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L71">      }</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">      if (groupBy == null || groupBy.length() == 0) {</span>
+<span class="fc" id="L73">        if (extendedResultMap.hasGroupBy()) {</span>
+          Iterator i = extendedResultMap.groupByProps();
+          while (i.hasNext()) {
+            resultMap.addGroupByProperty((String) i.next());
           }
-        }
-      }
-    }
-<span class="fc" id="L80">    errorContext.setMoreInfo(&quot;Check the result mappings.&quot;);</span>
-<span class="fc" id="L81">    resultMappingIndex = resultMappingList.size();</span>
-<span class="fc" id="L82">    resultMap.setResultMappingList(resultMappingList);</span>
-<span class="fc" id="L83">    client.getDelegate().addResultMap(resultMap);</span>
-<span class="fc" id="L84">  }</span>
+<span class="fc" id="L78">        }</span>
+<span class="fc" id="L79">      }</span>
+<span class="fc" id="L80">    }</span>
+<span class="fc" id="L81">    errorContext.setMoreInfo(&quot;Check the result mappings.&quot;);</span>
+<span class="fc" id="L82">    resultMappingIndex = resultMappingList.size();</span>
+    resultMap.setResultMappingList(resultMappingList);
+    client.getDelegate().addResultMap(resultMap);
+  }
 
-  public void setDiscriminator(String columnName, Integer columnIndex, Class javaClass, String jdbcType, String nullValue, Object typeHandlerImpl) {
-    TypeHandler handler;
-<span class="pc bpc" id="L88" title="1 of 2 branches missed.">    if (typeHandlerImpl != null) {</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">      if (typeHandlerImpl instanceof TypeHandlerCallback) {</span>
-<span class="nc" id="L90">        handler = new CustomTypeHandler((TypeHandlerCallback) typeHandlerImpl);</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">      } else if (typeHandlerImpl instanceof TypeHandler) {</span>
-<span class="nc" id="L92">        handler = (TypeHandler) typeHandlerImpl;</span>
-<span class="nc" id="L93">      } else {</span>
-<span class="nc" id="L94">        throw new RuntimeException(&quot;The class '' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">  public void setDiscriminator(String columnName, Integer columnIndex, Class javaClass, String jdbcType,</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">      String nullValue, Object typeHandlerImpl) {</span>
+<span class="nc" id="L89">    TypeHandler handler;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (typeHandlerImpl != null) {</span>
+<span class="nc" id="L91">      if (typeHandlerImpl instanceof TypeHandlerCallback) {</span>
+        handler = new CustomTypeHandler((TypeHandlerCallback) typeHandlerImpl);
+<span class="nc" id="L93">      } else if (typeHandlerImpl instanceof TypeHandler) {</span>
+        handler = (TypeHandler) typeHandlerImpl;
+      } else {
+<span class="fc" id="L96">        throw new RuntimeException(&quot;The class '' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
       }
     } else {
-<span class="fc" id="L97">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), &quot;&quot;, javaClass, jdbcType, true);</span>
-    }
-<span class="fc" id="L99">    ResultMapping mapping = new ResultMapping();</span>
-<span class="fc" id="L100">    mapping.setColumnName(columnName);</span>
-<span class="fc" id="L101">    mapping.setJdbcTypeName(jdbcType);</span>
-<span class="fc" id="L102">    mapping.setTypeHandler(handler);</span>
-<span class="fc" id="L103">    mapping.setNullValue(nullValue);</span>
-<span class="fc" id="L104">    mapping.setJavaType(javaClass);</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    if (columnIndex != null) {</span>
-<span class="nc" id="L106">      mapping.setColumnIndex(columnIndex.intValue());</span>
-    }
-<span class="fc" id="L108">    discriminator = new Discriminator(delegate, mapping);</span>
-<span class="fc" id="L109">    resultMap.setDiscriminator(discriminator);</span>
-<span class="fc" id="L110">  }</span>
-
+<span class="fc" id="L99">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), &quot;&quot;,</span>
+<span class="fc" id="L100">          javaClass, jdbcType, true);</span>
+<span class="fc" id="L101">    }</span>
+<span class="fc" id="L102">    ResultMapping mapping = new ResultMapping();</span>
+<span class="fc" id="L103">    mapping.setColumnName(columnName);</span>
+<span class="fc" id="L104">    mapping.setJdbcTypeName(jdbcType);</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    mapping.setTypeHandler(handler);</span>
+<span class="nc" id="L106">    mapping.setNullValue(nullValue);</span>
+    mapping.setJavaType(javaClass);
+<span class="fc" id="L108">    if (columnIndex != null) {</span>
+<span class="fc" id="L109">      mapping.setColumnIndex(columnIndex.intValue());</span>
+<span class="fc" id="L110">    }</span>
+    discriminator = new Discriminator(delegate, mapping);
+    resultMap.setDiscriminator(discriminator);
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">  }</span>
+<span class="nc" id="L114"></span>
   public void addDiscriminatorSubMap(Object value, String resultMap) {
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">    if (discriminator == null) {</span>
-<span class="nc" id="L114">      throw new RuntimeException(&quot;The discriminator is null, but somehow a subMap was reached.  This is a bug.&quot;);</span>
+<span class="fc" id="L116">    if (discriminator == null) {</span>
+<span class="fc" id="L117">      throw new RuntimeException(&quot;The discriminator is null, but somehow a subMap was reached.  This is a bug.&quot;);</span>
     }
-<span class="fc" id="L116">    discriminator.addSubMap(value.toString(), resultMap);</span>
-<span class="fc" id="L117">  }</span>
-
-  public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass, String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName, Object impl) {
-<span class="fc" id="L120">    errorContext.setObjectId(propertyName + &quot; mapping of the &quot; + resultMap.getId() + &quot; result map&quot;);</span>
-    TypeHandler handler;
-<span class="fc bfc" id="L122" title="All 2 branches covered.">    if (impl != null) {</span>
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if (impl instanceof TypeHandlerCallback) {</span>
-<span class="fc" id="L124">        handler = new CustomTypeHandler((TypeHandlerCallback) impl);</span>
-<span class="pc bnc" id="L125" title="All 2 branches missed.">      } else if (impl instanceof TypeHandler) {</span>
-<span class="nc" id="L126">        handler = (TypeHandler) impl;</span>
-<span class="nc" id="L127">      } else {</span>
-<span class="nc" id="L128">        throw new RuntimeException(&quot;The class '&quot; + impl + &quot;' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
+    discriminator.addSubMap(value.toString(), resultMap);
+  }
+<span class="fc" id="L121"></span>
+  public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass,
+<span class="fc bfc" id="L123" title="All 2 branches covered.">      String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName, Object impl) {</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">    errorContext.setObjectId(propertyName + &quot; mapping of the &quot; + resultMap.getId() + &quot; result map&quot;);</span>
+<span class="fc" id="L125">    TypeHandler handler;</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">    if (impl != null) {</span>
+<span class="nc" id="L127">      if (impl instanceof TypeHandlerCallback) {</span>
+        handler = new CustomTypeHandler((TypeHandlerCallback) impl);
+<span class="nc" id="L129">      } else if (impl instanceof TypeHandler) {</span>
+        handler = (TypeHandler) impl;
+      } else {
+        throw new RuntimeException(&quot;The class '&quot; + impl
+<span class="fc" id="L133">            + &quot;' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
       }
     } else {
-<span class="fc" id="L131">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(), propertyName, javaClass, jdbcType, true);</span>
-    }
-<span class="fc" id="L133">    ResultMapping mapping = new ResultMapping();</span>
-<span class="fc" id="L134">    mapping.setPropertyName(propertyName);</span>
-<span class="fc" id="L135">    mapping.setColumnName(columnName);</span>
-<span class="fc" id="L136">    mapping.setJdbcTypeName(jdbcType);</span>
-<span class="fc" id="L137">    mapping.setTypeHandler(handler);</span>
-<span class="fc" id="L138">    mapping.setNullValue(nullValue);</span>
-<span class="fc" id="L139">    mapping.setNotNullColumn(notNullColumn);</span>
-<span class="fc" id="L140">    mapping.setStatementName(statementName);</span>
-<span class="fc" id="L141">    mapping.setNestedResultMapName(resultMapName);</span>
-<span class="pc bpc" id="L142" title="1 of 4 branches missed.">    if (resultMapName != null &amp;&amp; resultMapName.length() &gt; 0) {</span>
-<span class="fc" id="L143">      resultMap.addNestedResultMappings(mapping);</span>
-    }
-<span class="fc" id="L145">    mapping.setJavaType(javaClass);</span>
-<span class="fc bfc" id="L146" title="All 2 branches covered.">    if (columnIndex != null) {</span>
-<span class="fc" id="L147">      mapping.setColumnIndex(columnIndex.intValue());</span>
-<span class="fc" id="L148">    } else {</span>
-<span class="fc" id="L149">      resultMappingIndex++;</span>
-<span class="fc" id="L150">      mapping.setColumnIndex(resultMappingIndex);</span>
-    }
-<span class="fc" id="L152">    resultMappingList.add(mapping);</span>
-<span class="fc" id="L153">    resultMap.setResultMappingList(resultMappingList);</span>
-<span class="fc" id="L154">  }</span>
+<span class="fc" id="L136">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(),</span>
+<span class="fc" id="L137">          propertyName, javaClass, jdbcType, true);</span>
+<span class="fc" id="L138">    }</span>
+<span class="fc" id="L139">    ResultMapping mapping = new ResultMapping();</span>
+<span class="fc" id="L140">    mapping.setPropertyName(propertyName);</span>
+<span class="fc" id="L141">    mapping.setColumnName(columnName);</span>
+<span class="fc" id="L142">    mapping.setJdbcTypeName(jdbcType);</span>
+<span class="fc" id="L143">    mapping.setTypeHandler(handler);</span>
+<span class="fc" id="L144">    mapping.setNullValue(nullValue);</span>
+<span class="pc bpc" id="L145" title="1 of 4 branches missed.">    mapping.setNotNullColumn(notNullColumn);</span>
+<span class="fc" id="L146">    mapping.setStatementName(statementName);</span>
+    mapping.setNestedResultMapName(resultMapName);
+<span class="fc" id="L148">    if (resultMapName != null &amp;&amp; resultMapName.length() &gt; 0) {</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">      resultMap.addNestedResultMappings(mapping);</span>
+<span class="fc" id="L150">    }</span>
+    mapping.setJavaType(javaClass);
+<span class="fc" id="L152">    if (columnIndex != null) {</span>
+<span class="fc" id="L153">      mapping.setColumnIndex(columnIndex.intValue());</span>
+    } else {
+<span class="fc" id="L155">      resultMappingIndex++;</span>
+<span class="fc" id="L156">      mapping.setColumnIndex(resultMappingIndex);</span>
+<span class="fc" id="L157">    }</span>
+    resultMappingList.add(mapping);
+    resultMap.setResultMappingList(resultMappingList);
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Discriminator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">Discriminator.java</span></div><h1>Discriminator.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.result;
 
@@ -22,54 +22,51 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * Created by IntelliJ IDEA.
- * User: cbegin
- * Date: May 13, 2005
- * Time: 11:11:05 PM
- * To change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: cbegin Date: May 13, 2005 Time: 11:11:05 PM To change this template use File |
+ * Settings | File Templates.
  */
 public class Discriminator {
 
   private SqlMapExecutorDelegate delegate;
-  private ResultMapping resultMapping;
-  private Map subMaps;
-
-<span class="fc" id="L37">  public Discriminator(SqlMapExecutorDelegate delegate, ResultMapping resultMapping) {</span>
-<span class="fc" id="L38">    this.delegate = delegate;</span>
-<span class="fc" id="L39">    this.resultMapping = resultMapping;</span>
-<span class="fc" id="L40">  }</span>
-
+<span class="fc" id="L31">  private ResultMapping resultMapping;</span>
+<span class="fc" id="L32">  private Map subMaps;</span>
+<span class="fc" id="L33"></span>
+<span class="fc" id="L34">  public Discriminator(SqlMapExecutorDelegate delegate, ResultMapping resultMapping) {</span>
+    this.delegate = delegate;
+    this.resultMapping = resultMapping;
+<span class="nc" id="L37">  }</span>
+<span class="nc" id="L38"></span>
   public void setResultMapping(ResultMapping resultMapping) {
-<span class="nc" id="L43">    this.resultMapping = resultMapping;</span>
-<span class="nc" id="L44">  }</span>
+    this.resultMapping = resultMapping;
+<span class="fc" id="L41">  }</span>
 
   public ResultMapping getResultMapping() {
-<span class="fc" id="L47">    return resultMapping;</span>
-  }
-
+    return resultMapping;
+<span class="fc bfc" id="L45" title="All 2 branches covered.">  }</span>
+<span class="fc" id="L46"></span>
   public void addSubMap(String discriminatorValue, String resultMapName) {
-<span class="fc bfc" id="L51" title="All 2 branches covered.">    if (subMaps == null) {</span>
-<span class="fc" id="L52">      subMaps = new HashMap();</span>
+<span class="fc" id="L48">    if (subMaps == null) {</span>
+<span class="fc" id="L49">      subMaps = new HashMap();</span>
     }
-<span class="fc" id="L54">    subMaps.put(discriminatorValue, resultMapName);</span>
-<span class="fc" id="L55">  }</span>
+    subMaps.put(discriminatorValue, resultMapName);
+<span class="fc" id="L52">  }</span>
 
   public ResultMap getSubMap(String s) {
-<span class="fc" id="L58">    return (ResultMap) subMaps.get(s);</span>
-  }
-
-  public void bindSubMaps() {
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">    if (subMaps != null) {</span>
-<span class="fc" id="L63">      Iterator keys = subMaps.keySet().iterator();</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">      while (keys.hasNext()) {</span>
-<span class="fc" id="L65">        Object key = keys.next();</span>
-<span class="fc" id="L66">        Object id = subMaps.get(key);</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if(id instanceof String) {</span>
-<span class="fc" id="L68">          subMaps.put(key, delegate.getResultMap((String)id));</span>
-        }
+    return (ResultMap) subMaps.get(s);
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">  }</span>
+<span class="fc" id="L57"></span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">  public void bindSubMaps() {</span>
+<span class="fc" id="L59">    if (subMaps != null) {</span>
+<span class="fc" id="L60">      Iterator keys = subMaps.keySet().iterator();</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">      while (keys.hasNext()) {</span>
+<span class="fc" id="L62">        Object key = keys.next();</span>
+        Object id = subMaps.get(key);
+<span class="fc" id="L64">        if (id instanceof String) {</span>
+          subMaps.put(key, delegate.getResultMap((String) id));
+<span class="fc" id="L66">        }</span>
       }
     }
-<span class="fc" id="L72">  }</span>
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

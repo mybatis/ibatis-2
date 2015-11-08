@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NodeletParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.xml</a> &gt; <span class="el_source">NodeletParser.java</span></div><h1>NodeletParser.java</h1><pre class="source lang-java linenums"><span class="pc" id="L1">/**</span>
- *    Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NodeletParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.xml</a> &gt; <span class="el_source">NodeletParser.java</span></div><h1>NodeletParser.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.xml;
 
@@ -27,228 +27,222 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.*;
 
-
-
 /**
- * The NodeletParser is a callback based parser similar to SAX.  The big
- * difference is that rather than having a single callback for all nodes,
- * the NodeletParser has a number of callbacks mapped to
- * various nodes.   The callback is called a Nodelet and it is registered
- * with the NodeletParser against a specific XPath.
- */
-<span class="fc" id="L39">public class NodeletParser {</span>
+ * The NodeletParser is a callback based parser similar to SAX. The big difference is that rather than having a single
+<span class="fc" id="L32"> * callback for all nodes, the NodeletParser has a number of callbacks mapped to various nodes. The callback is called a</span>
+ * Nodelet and it is registered with the NodeletParser against a specific XPath.
+<span class="fc" id="L34"> */</span>
+public class NodeletParser {
 
-<span class="fc" id="L41">  private Map letMap = new HashMap();</span>
+  private Map letMap = new HashMap();
 
   private boolean validation;
   private EntityResolver entityResolver;
 
   /**
-   * Registers a nodelet for the specified XPath.  Current XPaths supported
-   * are:
+   * Registers a nodelet for the specified XPath. Current XPaths supported are:
    * &lt;ul&gt;
-   * &lt;li&gt; Text Path - /rootElement/childElement/text()
-   * &lt;li&gt; Attribute Path  - /rootElement/childElement/@theAttribute
-   * &lt;li&gt; Element Path - /rootElement/childElement/theElement
-   * &lt;li&gt; All Elements Named - //theElement
-   * &lt;/ul&gt;
-   */
+   * &lt;li&gt;Text Path - /rootElement/childElement/text()
+   * &lt;li&gt;Attribute Path - /rootElement/childElement/@theAttribute
+   * &lt;li&gt;Element Path - /rootElement/childElement/theElement
+   * &lt;li&gt;All Elements Named - //theElement
+<span class="fc" id="L49">   * &lt;/ul&gt;</span>
+<span class="fc" id="L50">   */</span>
   public void addNodelet(String xpath, Nodelet nodelet) {
-<span class="fc" id="L57">    letMap.put(xpath, nodelet);</span>
-<span class="fc" id="L58">  }</span>
+    letMap.put(xpath, nodelet);
+  }
 
   /**
    * Begins parsing from the provided Reader.
-   */
-  public void parse(Reader reader) throws NodeletException {
-    try {
-<span class="fc" id="L65">      Document doc = createDocument(reader);</span>
-<span class="fc" id="L66">      parse(doc.getLastChild());</span>
-<span class="pc" id="L67">    } catch (Exception e) {</span>
-<span class="nc" id="L68">      throw new NodeletException(&quot;Error parsing XML.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L57">   */</span>
+<span class="fc" id="L58">  public void parse(Reader reader) throws NodeletException {</span>
+<span class="nc" id="L59">    try {</span>
+<span class="nc" id="L60">      Document doc = createDocument(reader);</span>
+<span class="fc" id="L61">      parse(doc.getLastChild());</span>
+<span class="fc" id="L62">    } catch (Exception e) {</span>
+      throw new NodeletException(&quot;Error parsing XML.  Cause: &quot; + e, e);
     }
-<span class="fc" id="L70">  }</span>
-
-  public void parse(InputStream inputStream) throws NodeletException {
-    try {
-<span class="nc" id="L74">      Document doc = createDocument(inputStream);</span>
-<span class="nc" id="L75">      parse(doc.getLastChild());</span>
-<span class="nc" id="L76">    } catch (Exception e) {</span>
-<span class="nc" id="L77">      throw new NodeletException(&quot;Error parsing XML.  Cause: &quot; + e, e);</span>
+  }
+<span class="nc" id="L66"></span>
+<span class="nc" id="L67">  public void parse(InputStream inputStream) throws NodeletException {</span>
+<span class="nc" id="L68">    try {</span>
+<span class="nc" id="L69">      Document doc = createDocument(inputStream);</span>
+<span class="nc" id="L70">      parse(doc.getLastChild());</span>
+<span class="nc" id="L71">    } catch (Exception e) {</span>
+      throw new NodeletException(&quot;Error parsing XML.  Cause: &quot; + e, e);
     }
-<span class="nc" id="L79">  }</span>
-  
-  /**
-   * Begins parsing from the provided Node.
-   */
-  public void parse(Node node) {
-<span class="fc" id="L85">    Path path = new Path();</span>
-<span class="fc" id="L86">    processNodelet(node, &quot;/&quot;);</span>
-<span class="fc" id="L87">    process(node, path);</span>
-<span class="fc" id="L88">  }</span>
+  }
 
   /**
-   * A recursive method that walkes the DOM tree, registers XPaths and
-   * calls Nodelets registered under those XPaths.
+<span class="fc" id="L77">   * Begins parsing from the provided Node.</span>
+<span class="fc" id="L78">   */</span>
+<span class="fc" id="L79">  public void parse(Node node) {</span>
+<span class="fc" id="L80">    Path path = new Path();</span>
+    processNodelet(node, &quot;/&quot;);
+    process(node, path);
+  }
+
+  /**
+<span class="fc bfc" id="L86" title="All 2 branches covered.">   * A recursive method that walkes the DOM tree, registers XPaths and calls Nodelets registered under those XPaths.</span>
    */
-  private void process(Node node, Path path) {
-<span class="fc bfc" id="L95" title="All 2 branches covered.">    if (node instanceof Element) {</span>
-      // Element
-<span class="fc" id="L97">      String elementName = node.getNodeName();</span>
-<span class="fc" id="L98">      path.add(elementName);</span>
-<span class="fc" id="L99">      processNodelet(node, path.toString());</span>
-<span class="fc" id="L100">      processNodelet(node, new StringBuffer(&quot;//&quot;).append(elementName).toString());</span>
-
-      // Attribute
-<span class="fc" id="L103">      NamedNodeMap attributes = node.getAttributes();</span>
-<span class="fc" id="L104">      int n = attributes.getLength();</span>
-<span class="fc bfc" id="L105" title="All 2 branches covered.">      for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L106">        Node att = attributes.item(i);</span>
-<span class="fc" id="L107">        String attrName = att.getNodeName();</span>
-<span class="fc" id="L108">        path.add(&quot;@&quot; + attrName);</span>
-<span class="fc" id="L109">        processNodelet(att, path.toString());</span>
-<span class="fc" id="L110">        processNodelet(node, new StringBuffer(&quot;//@&quot;).append(attrName).toString());</span>
-<span class="fc" id="L111">        path.remove();</span>
-      }
-
-      // Children
-<span class="fc" id="L115">      NodeList children = node.getChildNodes();</span>
-<span class="fc bfc" id="L116" title="All 2 branches covered.">      for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L117">        process(children.item(i), path);</span>
-      }
-<span class="fc" id="L119">      path.add(&quot;end()&quot;);</span>
-<span class="fc" id="L120">      processNodelet(node, path.toString());</span>
-<span class="fc" id="L121">      path.remove();</span>
-<span class="fc" id="L122">      path.remove();</span>
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">    } else if (node instanceof Text) {</span>
-      // Text
-<span class="fc" id="L125">      path.add(&quot;text()&quot;);</span>
-<span class="fc" id="L126">      processNodelet(node, path.toString());</span>
-<span class="fc" id="L127">      processNodelet(node, &quot;//text()&quot;);</span>
-<span class="fc" id="L128">      path.remove();</span>
+<span class="fc" id="L88">  private void process(Node node, Path path) {</span>
+<span class="fc" id="L89">    if (node instanceof Element) {</span>
+<span class="fc" id="L90">      // Element</span>
+<span class="fc" id="L91">      String elementName = node.getNodeName();</span>
+      path.add(elementName);
+      processNodelet(node, path.toString());
+<span class="fc" id="L94">      processNodelet(node, new StringBuffer(&quot;//&quot;).append(elementName).toString());</span>
+<span class="fc" id="L95"></span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">      // Attribute</span>
+<span class="fc" id="L97">      NamedNodeMap attributes = node.getAttributes();</span>
+<span class="fc" id="L98">      int n = attributes.getLength();</span>
+<span class="fc" id="L99">      for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L100">        Node att = attributes.item(i);</span>
+<span class="fc" id="L101">        String attrName = att.getNodeName();</span>
+<span class="fc" id="L102">        path.add(&quot;@&quot; + attrName);</span>
+        processNodelet(att, path.toString());
+        processNodelet(node, new StringBuffer(&quot;//@&quot;).append(attrName).toString());
+        path.remove();
+<span class="fc" id="L106">      }</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered."></span>
+<span class="fc" id="L108">      // Children</span>
+      NodeList children = node.getChildNodes();
+<span class="fc" id="L110">      for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L111">        process(children.item(i), path);</span>
+<span class="fc" id="L112">      }</span>
+<span class="fc" id="L113">      path.add(&quot;end()&quot;);</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      processNodelet(node, path.toString());</span>
+      path.remove();
+<span class="fc" id="L116">      path.remove();</span>
+<span class="fc" id="L117">    } else if (node instanceof Text) {</span>
+<span class="fc" id="L118">      // Text</span>
+<span class="fc" id="L119">      path.add(&quot;text()&quot;);</span>
+      processNodelet(node, path.toString());
+<span class="fc" id="L121">      processNodelet(node, &quot;//text()&quot;);</span>
+      path.remove();
     }
-<span class="fc" id="L130">  }</span>
-
+<span class="fc" id="L124">  }</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered."></span>
   private void processNodelet(Node node, String pathString) {
-<span class="fc" id="L133">    Nodelet nodelet = (Nodelet) letMap.get(pathString);</span>
-<span class="fc bfc" id="L134" title="All 2 branches covered.">    if (nodelet != null) {</span>
-      try {
-<span class="fc" id="L136">        nodelet.process(node);</span>
-<span class="pc" id="L137">      } catch (Exception e) {</span>
-<span class="nc" id="L138">        throw new RuntimeException(&quot;Error parsing XPath '&quot; + pathString + &quot;'.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L127">    Nodelet nodelet = (Nodelet) letMap.get(pathString);</span>
+<span class="nc" id="L128">    if (nodelet != null) {</span>
+<span class="nc" id="L129">      try {</span>
+<span class="fc" id="L130">        nodelet.process(node);</span>
+      } catch (Exception e) {
+<span class="fc" id="L132">        throw new RuntimeException(&quot;Error parsing XPath '&quot; + pathString + &quot;'.  Cause: &quot; + e, e);</span>
       }
     }
-<span class="fc" id="L141">  }</span>
+  }
 
   /**
    * Creates a JAXP Document from a reader.
-   */
-  private Document createDocument(Reader reader) throws ParserConfigurationException, FactoryConfigurationError,
+<span class="fc" id="L139">   */</span>
+<span class="fc" id="L140">  private Document createDocument(Reader reader) throws ParserConfigurationException, FactoryConfigurationError,</span>
       SAXException, IOException {
-<span class="fc" id="L148">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
-<span class="fc" id="L149">    factory.setValidating(validation);</span>
-
-<span class="fc" id="L151">    factory.setNamespaceAware(false);</span>
-<span class="fc" id="L152">    factory.setIgnoringComments(true);</span>
-<span class="fc" id="L153">    factory.setIgnoringElementContentWhitespace(false);</span>
-<span class="fc" id="L154">    factory.setCoalescing(false);</span>
-<span class="fc" id="L155">    factory.setExpandEntityReferences(true);</span>
-
-<span class="fc" id="L157">    DocumentBuilder builder = factory.newDocumentBuilder();</span>
-<span class="fc" id="L158">    builder.setEntityResolver(entityResolver);</span>
-<span class="fc" id="L159">    builder.setErrorHandler(new ErrorHandler() {</span>
+<span class="fc" id="L142">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L143">    factory.setValidating(validation);</span>
+<span class="fc" id="L144"></span>
+<span class="fc" id="L145">    factory.setNamespaceAware(false);</span>
+<span class="fc" id="L146">    factory.setIgnoringComments(true);</span>
+    factory.setIgnoringElementContentWhitespace(false);
+<span class="fc" id="L148">    factory.setCoalescing(false);</span>
+<span class="fc" id="L149">    factory.setExpandEntityReferences(true);</span>
+<span class="fc" id="L150"></span>
+    DocumentBuilder builder = factory.newDocumentBuilder();
+<span class="nc" id="L152">    builder.setEntityResolver(entityResolver);</span>
+    builder.setErrorHandler(new ErrorHandler() {
       public void error(SAXParseException exception) throws SAXException {
-<span class="nc" id="L161">        throw exception;</span>
-      }
+        throw exception;
+<span class="nc" id="L156">      }</span>
 
       public void fatalError(SAXParseException exception) throws SAXException {
-<span class="nc" id="L165">        throw exception;</span>
-      }
+        throw exception;
+<span class="nc" id="L160">      }</span>
 
       public void warning(SAXParseException exception) throws SAXException {
-<span class="nc" id="L169">      }</span>
+<span class="fc" id="L163">      }</span>
     });
 
-<span class="fc" id="L172">    return builder.parse(new InputSource(reader));</span>
+    return builder.parse(new InputSource(reader));
   }
 
   /**
    * Creates a JAXP Document from an InoutStream.
-   */
-  private Document createDocument(InputStream inputStream) throws ParserConfigurationException, FactoryConfigurationError,
-      SAXException, IOException {
-<span class="nc" id="L180">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L181">    factory.setValidating(validation);</span>
-
-<span class="nc" id="L183">    factory.setNamespaceAware(false);</span>
-<span class="nc" id="L184">    factory.setIgnoringComments(true);</span>
-<span class="nc" id="L185">    factory.setIgnoringElementContentWhitespace(false);</span>
-<span class="nc" id="L186">    factory.setCoalescing(false);</span>
-<span class="nc" id="L187">    factory.setExpandEntityReferences(true);</span>
-
-<span class="nc" id="L189">    DocumentBuilder builder = factory.newDocumentBuilder();</span>
-<span class="nc" id="L190">    builder.setEntityResolver(entityResolver);</span>
-<span class="nc" id="L191">    builder.setErrorHandler(new ErrorHandler() {</span>
+<span class="nc" id="L171">   */</span>
+<span class="nc" id="L172">  private Document createDocument(InputStream inputStream) throws ParserConfigurationException,</span>
+      FactoryConfigurationError, SAXException, IOException {
+<span class="nc" id="L174">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L175">    factory.setValidating(validation);</span>
+<span class="nc" id="L176"></span>
+<span class="nc" id="L177">    factory.setNamespaceAware(false);</span>
+<span class="nc" id="L178">    factory.setIgnoringComments(true);</span>
+    factory.setIgnoringElementContentWhitespace(false);
+<span class="nc" id="L180">    factory.setCoalescing(false);</span>
+<span class="nc" id="L181">    factory.setExpandEntityReferences(true);</span>
+<span class="nc" id="L182"></span>
+    DocumentBuilder builder = factory.newDocumentBuilder();
+<span class="nc" id="L184">    builder.setEntityResolver(entityResolver);</span>
+    builder.setErrorHandler(new ErrorHandler() {
       public void error(SAXParseException exception) throws SAXException {
-<span class="nc" id="L193">        throw exception;</span>
-      }
+        throw exception;
+<span class="nc" id="L188">      }</span>
 
       public void fatalError(SAXParseException exception) throws SAXException {
-<span class="nc" id="L197">        throw exception;</span>
-      }
+        throw exception;
+<span class="nc" id="L192">      }</span>
 
       public void warning(SAXParseException exception) throws SAXException {
-<span class="nc" id="L201">      }</span>
+<span class="nc" id="L195">      }</span>
     });
 
-<span class="nc" id="L204">    return builder.parse(new InputSource(inputStream));</span>
-  }
-  
+    return builder.parse(new InputSource(inputStream));
+<span class="fc" id="L199">  }</span>
+<span class="fc" id="L200"></span>
   public void setValidation(boolean validation) {
-<span class="fc" id="L208">    this.validation = validation;</span>
-<span class="fc" id="L209">  }</span>
-
+    this.validation = validation;
+<span class="fc" id="L203">  }</span>
+<span class="fc" id="L204"></span>
   public void setEntityResolver(EntityResolver resolver) {
-<span class="fc" id="L212">    this.entityResolver = resolver;</span>
-<span class="fc" id="L213">  }</span>
+    this.entityResolver = resolver;
+  }
 
   /**
    * Inner helper class that assists with building XPath paths.
-   * &lt;p/&gt;
-   * Note:  Currently this is a bit slow and could be optimized.
-   */
+<span class="fc" id="L211">   * &lt;p/&gt;</span>
+   * Note: Currently this is a bit slow and could be optimized.
+<span class="pc" id="L213">   */</span>
   private static class Path {
+<span class="fc" id="L215"></span>
+<span class="fc" id="L216">    private List nodeList = new ArrayList();</span>
 
-<span class="pc" id="L222">    private List nodeList = new ArrayList();</span>
-
-<span class="fc" id="L224">    public Path() {</span>
-<span class="fc" id="L225">    }</span>
-
-<span class="nc" id="L227">    public Path(String path) {</span>
-<span class="nc" id="L228">      StringTokenizer parser = new StringTokenizer(path, &quot;/&quot;, false);</span>
-<span class="nc bnc" id="L229" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
-<span class="nc" id="L230">        nodeList.add(parser.nextToken());</span>
+<span class="nc" id="L218">    public Path() {</span>
+<span class="nc" id="L219">    }</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed."></span>
+<span class="nc" id="L221">    public Path(String path) {</span>
+      StringTokenizer parser = new StringTokenizer(path, &quot;/&quot;, false);
+<span class="nc" id="L223">      while (parser.hasMoreTokens()) {</span>
+        nodeList.add(parser.nextToken());
       }
-<span class="nc" id="L232">    }</span>
-
+<span class="fc" id="L226">    }</span>
+<span class="fc" id="L227"></span>
     public void add(String node) {
-<span class="fc" id="L235">      nodeList.add(node);</span>
-<span class="fc" id="L236">    }</span>
-
+      nodeList.add(node);
+<span class="fc" id="L230">    }</span>
+<span class="fc" id="L231"></span>
     public void remove() {
-<span class="fc" id="L239">      nodeList.remove(nodeList.size() - 1);</span>
-<span class="fc" id="L240">    }</span>
-
-    @Override
-    public String toString() {
-<span class="fc" id="L244">      StringBuffer buffer = new StringBuffer(&quot;/&quot;);</span>
-<span class="fc bfc" id="L245" title="All 2 branches covered.">      for (int i = 0; i &lt; nodeList.size(); i++) {</span>
-<span class="fc" id="L246">        buffer.append(nodeList.get(i));</span>
-<span class="fc bfc" id="L247" title="All 2 branches covered.">        if (i &lt; nodeList.size() - 1) {</span>
-<span class="fc" id="L248">          buffer.append(&quot;/&quot;);</span>
+      nodeList.remove(nodeList.size() - 1);
+    }
+<span class="fc" id="L235"></span>
+<span class="fc bfc" id="L236" title="All 2 branches covered.">    @Override</span>
+<span class="fc" id="L237">    public String toString() {</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">      StringBuffer buffer = new StringBuffer(&quot;/&quot;);</span>
+<span class="fc" id="L239">      for (int i = 0; i &lt; nodeList.size(); i++) {</span>
+        buffer.append(nodeList.get(i));
+        if (i &lt; nodeList.size() - 1) {
+<span class="fc" id="L242">          buffer.append(&quot;/&quot;);</span>
         }
       }
-<span class="fc" id="L251">      return buffer.toString();</span>
+      return buffer.toString();
     }
   }
 

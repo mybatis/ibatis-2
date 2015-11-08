@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BaseProbe.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">BaseProbe.java</span></div><h1>BaseProbe.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.beans;
 
 import java.util.List;
 
-/**
+<span class="fc" id="L20">/**</span>
  * Abstract class used to help development of Probe implementations
  */
-<span class="fc" id="L23">public abstract class BaseProbe implements Probe {</span>
+public abstract class BaseProbe implements Probe {
 
   protected abstract void setProperty(Object object, String property, Object value);
 
@@ -29,7 +29,8 @@ import java.util.List;
   /**
    * Returns an array of the readable properties exposed by an object
    *
-   * @param object - the object
+   * @param object
+   *          - the object
    * @return The array of property names
    */
   public abstract String[] getReadablePropertyNames(Object object);
@@ -37,139 +38,143 @@ import java.util.List;
   /**
    * Returns an array of the writeable properties exposed by an object
    *
-   * @param object - the object
+   * @param object
+   *          - the object
    * @return The array of property names
    */
   public abstract String[] getWriteablePropertyNames(Object object);
-
+<span class="fc" id="L46"></span>
   protected Object getIndexedProperty(Object object, String indexedName) {
 
-<span class="fc" id="L47">    Object value = null;</span>
-
-    try {
-<span class="fc" id="L50">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
-<span class="fc" id="L51">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
-<span class="fc" id="L52">      Object list = null;</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">      if(&quot;&quot;.equals(name)) {</span>
-<span class="fc" id="L54">        list = object;        </span>
-<span class="fc" id="L55">      } else {</span>
-<span class="fc" id="L56">        list = getProperty(object, name);</span>
-      }
-
-<span class="fc bfc" id="L59" title="All 2 branches covered.">      if (list instanceof List) {</span>
-<span class="fc" id="L60">        value = ((List) list).get(i);</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">      } else if (list instanceof Object[]) {</span>
-<span class="fc" id="L62">        value = ((Object[]) list)[i];</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">      } else if (list instanceof char[]) {</span>
-<span class="nc" id="L64">        value = new Character(((char[]) list)[i]);</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">      } else if (list instanceof boolean[]) {</span>
-<span class="nc" id="L66">        value = new Boolean(((boolean[]) list)[i]);</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">      } else if (list instanceof byte[]) {</span>
-<span class="nc" id="L68">        value = new Byte(((byte[]) list)[i]);</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      } else if (list instanceof double[]) {</span>
-<span class="nc" id="L70">        value = new Double(((double[]) list)[i]);</span>
-<span class="pc bfc" id="L71" title="All 2 branches covered.">      } else if (list instanceof float[]) {</span>
-<span class="fc" id="L72">        value = new Float(((float[]) list)[i]);</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">      } else if (list instanceof int[]) {</span>
-<span class="fc" id="L74">        value = new Integer(((int[]) list)[i]);</span>
-<span class="pc bnc" id="L75" title="All 2 branches missed.">      } else if (list instanceof long[]) {</span>
-<span class="nc" id="L76">        value = new Long(((long[]) list)[i]);</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">      } else if (list instanceof short[]) {</span>
-<span class="nc" id="L78">        value = new Short(((short[]) list)[i]);</span>
-<span class="nc" id="L79">      } else {</span>
-<span class="nc" id="L80">        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName() + &quot; class is not a List or Array.&quot;);</span>
-      }
-
-<span class="nc" id="L83">    } catch (ProbeException e) {</span>
-<span class="nc" id="L84">      throw e;</span>
-<span class="nc" id="L85">    } catch (Exception e) {</span>
-<span class="nc" id="L86">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
+<span class="fc" id="L49">    Object value = null;</span>
+<span class="fc" id="L50"></span>
+<span class="fc" id="L51">    try {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
+<span class="fc" id="L53">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
+      Object list = null;
+<span class="fc" id="L55">      if (&quot;&quot;.equals(name)) {</span>
+        list = object;
+      } else {
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        list = getProperty(object, name);</span>
+<span class="fc" id="L59">      }</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered."></span>
+<span class="fc" id="L61">      if (list instanceof List) {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        value = ((List) list).get(i);</span>
+<span class="nc" id="L63">      } else if (list instanceof Object[]) {</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        value = ((Object[]) list)[i];</span>
+<span class="nc" id="L65">      } else if (list instanceof char[]) {</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        value = new Character(((char[]) list)[i]);</span>
+<span class="nc" id="L67">      } else if (list instanceof boolean[]) {</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        value = new Boolean(((boolean[]) list)[i]);</span>
+<span class="nc" id="L69">      } else if (list instanceof byte[]) {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        value = new Byte(((byte[]) list)[i]);</span>
+<span class="fc" id="L71">      } else if (list instanceof double[]) {</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        value = new Double(((double[]) list)[i]);</span>
+<span class="fc" id="L73">      } else if (list instanceof float[]) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        value = new Float(((float[]) list)[i]);</span>
+<span class="nc" id="L75">      } else if (list instanceof int[]) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        value = new Integer(((int[]) list)[i]);</span>
+<span class="nc" id="L77">      } else if (list instanceof long[]) {</span>
+        value = new Long(((long[]) list)[i]);
+<span class="nc" id="L79">      } else if (list instanceof short[]) {</span>
+        value = new Short(((short[]) list)[i]);
+      } else {
+        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName()
+<span class="nc" id="L83">            + &quot; class is not a List or Array.&quot;);</span>
+<span class="nc" id="L84">      }</span>
+<span class="nc" id="L85"></span>
+<span class="nc" id="L86">    } catch (ProbeException e) {</span>
+<span class="fc" id="L87">      throw e;</span>
+    } catch (Exception e) {
+<span class="fc" id="L89">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
     }
 
-<span class="fc" id="L89">    return value;</span>
+    return value;
   }
-
+<span class="fc" id="L94"></span>
   protected Class getIndexedType(Object object, String indexedName) {
 
-<span class="fc" id="L94">    Class value = null;</span>
-
-    try {
-<span class="fc" id="L97">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
-<span class="fc" id="L98">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
-<span class="fc" id="L99">      Object list = null;</span>
-<span class="fc bfc" id="L100" title="All 2 branches covered.">      if(!&quot;&quot;.equals(name)) {</span>
-<span class="fc" id="L101">        list = getProperty(object, name);</span>
-<span class="fc" id="L102">      } else {</span>
-<span class="fc" id="L103">        list = object;</span>
-      }
-
-<span class="fc bfc" id="L106" title="All 2 branches covered.">      if (list instanceof List) {</span>
-<span class="fc" id="L107">        value = ((List) list).get(i).getClass();</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">      } else if (list instanceof Object[]) {</span>
-<span class="fc" id="L109">        value = ((Object[]) list)[i].getClass();</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">      } else if (list instanceof char[]) {</span>
-<span class="nc" id="L111">        value = Character.class;</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">      } else if (list instanceof boolean[]) {</span>
-<span class="nc" id="L113">        value = Boolean.class;</span>
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      } else if (list instanceof byte[]) {</span>
-<span class="nc" id="L115">        value = Byte.class;</span>
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">      } else if (list instanceof double[]) {</span>
-<span class="nc" id="L117">        value = Double.class;</span>
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">      } else if (list instanceof float[]) {</span>
-<span class="nc" id="L119">        value = Float.class;</span>
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">      } else if (list instanceof int[]) {</span>
-<span class="fc" id="L121">        value = Integer.class;</span>
-<span class="pc bnc" id="L122" title="All 2 branches missed.">      } else if (list instanceof long[]) {</span>
-<span class="nc" id="L123">        value = Long.class;</span>
-<span class="nc bnc" id="L124" title="All 2 branches missed.">      } else if (list instanceof short[]) {</span>
-<span class="nc" id="L125">        value = Short.class;</span>
-<span class="nc" id="L126">      } else {</span>
-<span class="nc" id="L127">        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName() + &quot; class is not a List or Array.&quot;);</span>
-      }
-
-<span class="nc" id="L130">    } catch (ProbeException e) {</span>
-<span class="nc" id="L131">      throw e;</span>
-<span class="nc" id="L132">    } catch (Exception e) {</span>
-<span class="nc" id="L133">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
+<span class="fc" id="L97">    Class value = null;</span>
+<span class="fc" id="L98"></span>
+<span class="fc" id="L99">    try {</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
+<span class="fc" id="L101">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
+      Object list = null;
+<span class="fc" id="L103">      if (!&quot;&quot;.equals(name)) {</span>
+        list = getProperty(object, name);
+      } else {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        list = object;</span>
+<span class="fc" id="L107">      }</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered."></span>
+<span class="fc" id="L109">      if (list instanceof List) {</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        value = ((List) list).get(i).getClass();</span>
+<span class="nc" id="L111">      } else if (list instanceof Object[]) {</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        value = ((Object[]) list)[i].getClass();</span>
+<span class="nc" id="L113">      } else if (list instanceof char[]) {</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        value = Character.class;</span>
+<span class="nc" id="L115">      } else if (list instanceof boolean[]) {</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        value = Boolean.class;</span>
+<span class="nc" id="L117">      } else if (list instanceof byte[]) {</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        value = Byte.class;</span>
+<span class="nc" id="L119">      } else if (list instanceof double[]) {</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        value = Double.class;</span>
+<span class="fc" id="L121">      } else if (list instanceof float[]) {</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        value = Float.class;</span>
+<span class="nc" id="L123">      } else if (list instanceof int[]) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        value = Integer.class;</span>
+<span class="nc" id="L125">      } else if (list instanceof long[]) {</span>
+        value = Long.class;
+<span class="nc" id="L127">      } else if (list instanceof short[]) {</span>
+        value = Short.class;
+      } else {
+        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName()
+<span class="nc" id="L131">            + &quot; class is not a List or Array.&quot;);</span>
+<span class="nc" id="L132">      }</span>
+<span class="nc" id="L133"></span>
+<span class="nc" id="L134">    } catch (ProbeException e) {</span>
+<span class="fc" id="L135">      throw e;</span>
+    } catch (Exception e) {
+<span class="fc" id="L137">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
     }
 
-<span class="fc" id="L136">    return value;</span>
+    return value;
   }
 
-  protected void setIndexedProperty(Object object, String indexedName, Object value) {
-
-    try {
-<span class="nc" id="L142">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
-<span class="nc" id="L143">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
-<span class="nc" id="L144">      Object list = getProperty(object, name);</span>
-<span class="nc bnc" id="L145" title="All 2 branches missed.">      if (list instanceof List) {</span>
-<span class="nc" id="L146">        ((List) list).set(i, value);</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">      } else if (list instanceof Object[]) {</span>
-<span class="nc" id="L148">        ((Object[]) list)[i] = value;</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">      } else if (list instanceof char[]) {</span>
-<span class="nc" id="L150">        ((char[]) list)[i] = ((Character) value).charValue();</span>
-<span class="nc bnc" id="L151" title="All 2 branches missed.">      } else if (list instanceof boolean[]) {</span>
-<span class="nc" id="L152">        ((boolean[]) list)[i] = ((Boolean) value).booleanValue();</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">      } else if (list instanceof byte[]) {</span>
-<span class="nc" id="L154">        ((byte[]) list)[i] = ((Byte) value).byteValue();</span>
-<span class="nc bnc" id="L155" title="All 2 branches missed.">      } else if (list instanceof double[]) {</span>
-<span class="nc" id="L156">        ((double[]) list)[i] = ((Double) value).doubleValue();</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">      } else if (list instanceof float[]) {</span>
-<span class="nc" id="L158">        ((float[]) list)[i] = ((Float) value).floatValue();</span>
-<span class="nc bnc" id="L159" title="All 2 branches missed.">      } else if (list instanceof int[]) {</span>
-<span class="nc" id="L160">        ((int[]) list)[i] = ((Integer) value).intValue();</span>
-<span class="nc bnc" id="L161" title="All 2 branches missed.">      } else if (list instanceof long[]) {</span>
-<span class="nc" id="L162">        ((long[]) list)[i] = ((Long) value).longValue();</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">      } else if (list instanceof short[]) {</span>
-<span class="nc" id="L164">        ((short[]) list)[i] = ((Short) value).shortValue();</span>
-<span class="nc" id="L165">      } else {</span>
-<span class="nc" id="L166">        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName() + &quot; class is not a List or Array.&quot;);</span>
-      }
-<span class="nc" id="L168">    } catch (ProbeException e) {</span>
-<span class="nc" id="L169">      throw e;</span>
-<span class="nc" id="L170">    } catch (Exception e) {</span>
-<span class="nc" id="L171">      throw new ProbeException(&quot;Error getting ordinal value from JavaBean. Cause &quot; + e, e);</span>
+<span class="nc" id="L143">  protected void setIndexedProperty(Object object, String indexedName, Object value) {</span>
+<span class="nc" id="L144"></span>
+<span class="nc" id="L145">    try {</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
+<span class="nc" id="L147">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">      Object list = getProperty(object, name);</span>
+<span class="nc" id="L149">      if (list instanceof List) {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        ((List) list).set(i, value);</span>
+<span class="nc" id="L151">      } else if (list instanceof Object[]) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        ((Object[]) list)[i] = value;</span>
+<span class="nc" id="L153">      } else if (list instanceof char[]) {</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        ((char[]) list)[i] = ((Character) value).charValue();</span>
+<span class="nc" id="L155">      } else if (list instanceof boolean[]) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        ((boolean[]) list)[i] = ((Boolean) value).booleanValue();</span>
+<span class="nc" id="L157">      } else if (list instanceof byte[]) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        ((byte[]) list)[i] = ((Byte) value).byteValue();</span>
+<span class="nc" id="L159">      } else if (list instanceof double[]) {</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        ((double[]) list)[i] = ((Double) value).doubleValue();</span>
+<span class="nc" id="L161">      } else if (list instanceof float[]) {</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        ((float[]) list)[i] = ((Float) value).floatValue();</span>
+<span class="nc" id="L163">      } else if (list instanceof int[]) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        ((int[]) list)[i] = ((Integer) value).intValue();</span>
+<span class="nc" id="L165">      } else if (list instanceof long[]) {</span>
+        ((long[]) list)[i] = ((Long) value).longValue();
+<span class="nc" id="L167">      } else if (list instanceof short[]) {</span>
+        ((short[]) list)[i] = ((Short) value).shortValue();
+      } else {
+<span class="nc" id="L170">        throw new ProbeException(&quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName()</span>
+<span class="nc" id="L171">            + &quot; class is not a List or Array.&quot;);</span>
+<span class="nc" id="L172">      }</span>
+<span class="nc" id="L173">    } catch (ProbeException e) {</span>
+<span class="nc" id="L174">      throw e;</span>
+<span class="nc" id="L175">    } catch (Exception e) {</span>
+      throw new ProbeException(&quot;Error getting ordinal value from JavaBean. Cause &quot; + e, e);
     }
-<span class="nc" id="L173">  }</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

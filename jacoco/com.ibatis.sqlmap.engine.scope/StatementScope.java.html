@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StatementScope.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.scope</a> &gt; <span class="el_source">StatementScope.java</span></div><h1>StatementScope.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.scope;
 
@@ -41,185 +41,191 @@ public class StatementScope {
   // Used by N+1 Select solution
   private ResultSet resultSet;
   private Map uniqueKeys;
-  private boolean rowDataFound;
-  private String currentNestedKey;
-
+<span class="fc" id="L44">  private boolean rowDataFound;</span>
+<span class="fc" id="L45">  private String currentNestedKey;</span>
+<span class="fc" id="L46"></span>
 <span class="fc" id="L47">  public StatementScope(SessionScope sessionScope) {</span>
 <span class="fc" id="L48">    this.errorContext = new ErrorContext();</span>
-<span class="fc" id="L49">    this.rowDataFound = true;</span>
-<span class="fc" id="L50">    this.sessionScope = sessionScope;</span>
-<span class="fc" id="L51">  }</span>
-
-  /**
-   * @return Returns the currentNestedKey.
-   */
-  public String getCurrentNestedKey() {
-<span class="fc" id="L57">    return currentNestedKey;</span>
+    this.rowDataFound = true;
+    this.sessionScope = sessionScope;
   }
 
   /**
-   * @param currentNestedKey The currentNestedKey to set.
+<span class="fc" id="L54">   * @return Returns the currentNestedKey.</span>
    */
+  public String getCurrentNestedKey() {
+    return currentNestedKey;
+  }
+
+  /**
+   * @param currentNestedKey
+<span class="fc" id="L62">   *          The currentNestedKey to set.</span>
+<span class="fc" id="L63">   */</span>
   public void setCurrentNestedKey(String currentNestedKey) {
-<span class="fc" id="L64">    this.currentNestedKey = currentNestedKey;</span>
-<span class="fc" id="L65">  }</span>
+    this.currentNestedKey = currentNestedKey;
+  }
 
   /**
    * Get the request's error context
    *
-   * @return - the request's error context
+<span class="fc" id="L71">   * @return - the request's error context</span>
    */
   public ErrorContext getErrorContext() {
-<span class="fc" id="L73">    return errorContext;</span>
+    return errorContext;
   }
 
   /**
    * Get the session of the request
    *
-   * @return - the session
+<span class="fc" id="L80">   * @return - the session</span>
    */
   public SessionScope getSession() {
-<span class="fc" id="L82">    return sessionScope;</span>
+    return sessionScope;
   }
 
   /**
    * Get the statement for the request
    *
-   * @return - the statement
+<span class="fc" id="L89">   * @return - the statement</span>
    */
   public MappedStatement getStatement() {
-<span class="fc" id="L91">    return statement;</span>
+    return statement;
   }
 
   /**
    * Set the statement for the request
    *
-   * @param statement - the statement
-   */
+   * @param statement
+<span class="fc" id="L99">   *          - the statement</span>
+<span class="fc" id="L100">   */</span>
   public void setStatement(MappedStatement statement) {
-<span class="fc" id="L100">    this.statement = statement;</span>
-<span class="fc" id="L101">  }</span>
+    this.statement = statement;
+  }
 
   /**
    * Get the parameter map for the request
    *
-   * @return - the parameter map
+<span class="fc" id="L108">   * @return - the parameter map</span>
    */
   public ParameterMap getParameterMap() {
-<span class="fc" id="L109">    return parameterMap;</span>
+    return parameterMap;
   }
 
   /**
    * Set the parameter map for the request
    *
-   * @param parameterMap - the new parameter map
-   */
+   * @param parameterMap
+<span class="fc" id="L118">   *          - the new parameter map</span>
+<span class="fc" id="L119">   */</span>
   public void setParameterMap(ParameterMap parameterMap) {
-<span class="fc" id="L118">    this.parameterMap = parameterMap;</span>
-<span class="fc" id="L119">  }</span>
+    this.parameterMap = parameterMap;
+  }
 
   /**
    * Get the result map for the request
    *
-   * @return - the result map
+<span class="fc" id="L127">   * @return - the result map</span>
    */
   public ResultMap getResultMap() {
-<span class="fc" id="L127">    return resultMap;</span>
+    return resultMap;
   }
 
   /**
    * Set the result map for the request
    *
-   * @param resultMap - the result map
-   */
+   * @param resultMap
+<span class="fc" id="L137">   *          - the result map</span>
+<span class="fc" id="L138">   */</span>
   public void setResultMap(ResultMap resultMap) {
-<span class="fc" id="L136">    this.resultMap = resultMap;</span>
-<span class="fc" id="L137">  }</span>
+    this.resultMap = resultMap;
+  }
 
   /**
    * Get the SQL for the request
    *
-   * @return - the sql
+<span class="fc" id="L146">   * @return - the sql</span>
    */
   public Sql getSql() {
-<span class="fc" id="L145">    return sql;</span>
+    return sql;
   }
 
   /**
    * Set the SQL for the request
    *
-   * @param sql - the sql
-   */
+   * @param sql
+<span class="fc" id="L156">   *          - the sql</span>
+<span class="fc" id="L157">   */</span>
   public void setSql(Sql sql) {
-<span class="fc" id="L154">    this.sql = sql;</span>
-<span class="fc" id="L155">  }</span>
+    this.sql = sql;
+  }
 
   /**
    * Get the dynamic parameter for the request
    *
-   * @return - the dynamic parameter
+<span class="fc" id="L165">   * @return - the dynamic parameter</span>
    */
   public ParameterMap getDynamicParameterMap() {
-<span class="fc" id="L163">    return dynamicParameterMap;</span>
+    return dynamicParameterMap;
   }
 
   /**
    * Set the dynamic parameter for the request
    *
-   * @param dynamicParameterMap - the dynamic parameter
-   */
+   * @param dynamicParameterMap
+<span class="fc" id="L175">   *          - the dynamic parameter</span>
+<span class="fc" id="L176">   */</span>
   public void setDynamicParameterMap(ParameterMap dynamicParameterMap) {
-<span class="fc" id="L172">    this.dynamicParameterMap = dynamicParameterMap;</span>
-<span class="fc" id="L173">  }</span>
+    this.dynamicParameterMap = dynamicParameterMap;
+  }
 
   /**
    * Get the dynamic SQL for the request
    *
-   * @return - the dynamic SQL
+<span class="fc" id="L184">   * @return - the dynamic SQL</span>
    */
   public String getDynamicSql() {
-<span class="fc" id="L181">    return dynamicSql;</span>
+    return dynamicSql;
   }
 
   /**
    * Set the dynamic SQL for the request
    *
-   * @param dynamicSql - the dynamic SQL
-   */
+   * @param dynamicSql
+<span class="fc" id="L194">   *          - the dynamic SQL</span>
+<span class="fc" id="L195">   */</span>
   public void setDynamicSql(String dynamicSql) {
-<span class="fc" id="L190">    this.dynamicSql = dynamicSql;</span>
-<span class="fc" id="L191">  }</span>
+    this.dynamicSql = dynamicSql;
+<span class="fc" id="L198">  }</span>
 
   public ResultSet getResultSet() {
-<span class="fc" id="L194">    return resultSet;</span>
-  }
-
+    return resultSet;
+<span class="fc" id="L202">  }</span>
+<span class="fc" id="L203"></span>
   public void setResultSet(ResultSet resultSet) {
-<span class="fc" id="L198">    this.resultSet = resultSet;</span>
-<span class="fc" id="L199">  }</span>
-
+    this.resultSet = resultSet;
+<span class="fc bfc" id="L206" title="All 2 branches covered.">  }</span>
+<span class="fc" id="L207"></span>
   public Map getUniqueKeys(ResultMap map) {
-<span class="fc bfc" id="L202" title="All 2 branches covered.">    if (uniqueKeys == null) {</span>
-<span class="fc" id="L203">      return null;</span>
+<span class="fc" id="L209">    if (uniqueKeys == null) {</span>
+      return null;
     }
-<span class="fc" id="L205">    return (Map) uniqueKeys.get(map);</span>
-  }
-
+    return (Map) uniqueKeys.get(map);
+<span class="fc bfc" id="L213" title="All 2 branches covered.">  }</span>
+<span class="fc" id="L214"></span>
   public void setUniqueKeys(ResultMap map, Map keys) {
-<span class="fc bfc" id="L209" title="All 2 branches covered.">    if (uniqueKeys == null) {</span>
-<span class="fc" id="L210">      uniqueKeys = new HashMap();</span>
+<span class="fc" id="L216">    if (uniqueKeys == null) {</span>
+<span class="fc" id="L217">      uniqueKeys = new HashMap();</span>
     }
-<span class="fc" id="L212">    this.uniqueKeys.put(map, keys);</span>
-<span class="fc" id="L213">  }</span>
+    this.uniqueKeys.put(map, keys);
+<span class="fc" id="L220">  }</span>
 
   public boolean isRowDataFound() {
-<span class="fc" id="L216">    return rowDataFound;</span>
-  }
-
+    return rowDataFound;
+<span class="fc" id="L224">  }</span>
+<span class="fc" id="L225"></span>
   public void setRowDataFound(boolean rowDataFound) {
-<span class="fc" id="L220">    this.rowDataFound = rowDataFound;</span>
-<span class="fc" id="L221">  }</span>
-
+    this.rowDataFound = rowDataFound;
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

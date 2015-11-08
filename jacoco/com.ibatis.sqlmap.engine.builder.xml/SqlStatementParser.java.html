@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SqlStatementParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">SqlStatementParser.java</span></div><h1>SqlStatementParser.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
@@ -26,16 +26,16 @@ import org.w3c.dom.*;
 import java.util.Properties;
 
 public class SqlStatementParser {
+<span class="fc" id="L29"></span>
+<span class="fc" id="L30">  private XmlParserState state;</span>
+<span class="fc" id="L31"></span>
+  public SqlStatementParser(XmlParserState config) {
+    this.state = config;
+  }
 
-  private XmlParserState state;
-
-<span class="fc" id="L32">  public SqlStatementParser(XmlParserState config) {</span>
-<span class="fc" id="L33">    this.state = config;</span>
-<span class="fc" id="L34">  }</span>
-
-  public void parseGeneralStatement(Node node, MappedStatement statement) {
-
-    // get attributes
+<span class="fc" id="L36">  public void parseGeneralStatement(Node node, MappedStatement statement) {</span>
+<span class="fc" id="L37"></span>
+<span class="fc" id="L38">    // get attributes</span>
 <span class="fc" id="L39">    Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
 <span class="fc" id="L40">    String id = attributes.getProperty(&quot;id&quot;);</span>
 <span class="fc" id="L41">    String parameterMapName = state.applyNamespace(attributes.getProperty(&quot;parameterMap&quot;));</span>
@@ -45,92 +45,89 @@ public class SqlStatementParser {
 <span class="fc" id="L45">    String cacheModelName = state.applyNamespace(attributes.getProperty(&quot;cacheModel&quot;));</span>
 <span class="fc" id="L46">    String xmlResultName = attributes.getProperty(&quot;xmlResultName&quot;);</span>
 <span class="fc" id="L47">    String resultSetType = attributes.getProperty(&quot;resultSetType&quot;);</span>
-<span class="fc" id="L48">    String fetchSize = attributes.getProperty(&quot;fetchSize&quot;);</span>
-<span class="fc" id="L49">    String allowRemapping = attributes.getProperty(&quot;remapResults&quot;);</span>
-<span class="fc" id="L50">    String timeout = attributes.getProperty(&quot;timeout&quot;);</span>
+    String fetchSize = attributes.getProperty(&quot;fetchSize&quot;);
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">    String allowRemapping = attributes.getProperty(&quot;remapResults&quot;);</span>
+<span class="nc" id="L50">    String timeout = attributes.getProperty(&quot;timeout&quot;);</span>
 
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">    if (state.isUseStatementNamespaces()) {</span>
-<span class="nc" id="L53">      id = state.applyNamespace(id);</span>
-    }
+<span class="fc" id="L52">    if (state.isUseStatementNamespaces()) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">      id = state.applyNamespace(id);</span>
+<span class="fc" id="L54">    }</span>
 <span class="fc" id="L55">    String[] additionalResultMapNames = null;</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (resultMapName != null) {</span>
-<span class="fc" id="L57">      additionalResultMapNames = state.getAllButFirstToken(resultMapName);</span>
+<span class="fc" id="L56">    if (resultMapName != null) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">      additionalResultMapNames = state.getAllButFirstToken(resultMapName);</span>
 <span class="fc" id="L58">      resultMapName = state.getFirstToken(resultMapName);</span>
-<span class="fc" id="L59">      resultMapName = state.applyNamespace(resultMapName);</span>
-<span class="fc bfc" id="L60" title="All 2 branches covered.">      for (int i = 0; i &lt; additionalResultMapNames.length; i++) {</span>
-<span class="fc" id="L61">        additionalResultMapNames[i] = state.applyNamespace(additionalResultMapNames[i]);</span>
-      }
-    }
-
+      resultMapName = state.applyNamespace(resultMapName);
+      for (int i = 0; i &lt; additionalResultMapNames.length; i++) {
+        additionalResultMapNames[i] = state.applyNamespace(additionalResultMapNames[i]);
+<span class="fc" id="L62">      }</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">    }</span>
+<span class="fc" id="L64"></span>
 <span class="fc" id="L65">    String[] additionalResultClassNames = null;</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">    if (resultClassName != null) {</span>
+    if (resultClassName != null) {
 <span class="fc" id="L67">      additionalResultClassNames = state.getAllButFirstToken(resultClassName);</span>
-<span class="fc" id="L68">      resultClassName = state.getFirstToken(resultClassName);</span>
-    }
-<span class="fc" id="L70">    Class[] additionalResultClasses = null;</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">    if (additionalResultClassNames != null) {</span>
-<span class="fc" id="L72">      additionalResultClasses = new Class[additionalResultClassNames.length];</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">      for (int i = 0; i &lt; additionalResultClassNames.length; i++) {</span>
-<span class="fc" id="L74">        additionalResultClasses[i] = resolveClass(additionalResultClassNames[i]);</span>
-      }
-    }
+<span class="fc bfc" id="L68" title="All 2 branches covered.">      resultClassName = state.getFirstToken(resultClassName);</span>
+<span class="fc" id="L69">    }</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">    Class[] additionalResultClasses = null;</span>
+<span class="fc" id="L71">    if (additionalResultClassNames != null) {</span>
+      additionalResultClasses = new Class[additionalResultClassNames.length];
+      for (int i = 0; i &lt; additionalResultClassNames.length; i++) {
+        additionalResultClasses[i] = resolveClass(additionalResultClassNames[i]);
+<span class="fc" id="L75">      }</span>
+<span class="fc" id="L76">    }</span>
 
 <span class="fc" id="L78">    state.getConfig().getErrorContext().setMoreInfo(&quot;Check the parameter class.&quot;);</span>
 <span class="fc" id="L79">    Class parameterClass = resolveClass(parameterClassName);</span>
 
-<span class="fc" id="L81">    state.getConfig().getErrorContext().setMoreInfo(&quot;Check the result class.&quot;);</span>
-<span class="fc" id="L82">    Class resultClass = resolveClass(resultClassName);</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">    state.getConfig().getErrorContext().setMoreInfo(&quot;Check the result class.&quot;);</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">    Class resultClass = resolveClass(resultClassName);</span>
+<span class="fc" id="L83"></span>
+    Integer timeoutInt = timeout == null ? null : new Integer(timeout);
+<span class="fc" id="L85">    Integer fetchSizeInt = fetchSize == null ? null : new Integer(fetchSize);</span>
+    boolean allowRemappingBool = &quot;true&quot;.equals(allowRemapping);
 
-<span class="pc bpc" id="L84" title="1 of 2 branches missed.">    Integer timeoutInt = timeout == null ? null : new Integer(timeout);</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">    Integer fetchSizeInt = fetchSize == null ? null : new Integer(fetchSize);</span>
-<span class="fc" id="L86">    boolean allowRemappingBool = &quot;true&quot;.equals(allowRemapping);</span>
+    MappedStatementConfig statementConf = state.getConfig().newMappedStatementConfig(id, statement,
+        new XMLSqlSource(state, node), parameterMapName, parameterClass, resultMapName, additionalResultMapNames,
+<span class="fc" id="L90">        resultClass, additionalResultClasses, resultSetType, fetchSizeInt, allowRemappingBool, timeoutInt,</span>
+<span class="fc" id="L91">        cacheModelName, xmlResultName);</span>
 
-<span class="fc" id="L88">    MappedStatementConfig statementConf = state.getConfig().newMappedStatementConfig(id, statement,</span>
-<span class="fc" id="L89">        new XMLSqlSource(state, node), parameterMapName, parameterClass, resultMapName, additionalResultMapNames,</span>
-<span class="fc" id="L90">        resultClass, additionalResultClasses, resultSetType, fetchSizeInt, allowRemappingBool, timeoutInt, cacheModelName,</span>
-<span class="fc" id="L91">        xmlResultName);</span>
-
-<span class="fc" id="L93">    findAndParseSelectKey(node, statementConf);</span>
-<span class="fc" id="L94">  }</span>
-
-  private Class resolveClass(String resultClassName) {
-    try {
-<span class="fc bfc" id="L98" title="All 2 branches covered.">      if (resultClassName != null) {</span>
-<span class="fc" id="L99">        return Resources.classForName(state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName));</span>
-      } else {
-<span class="fc" id="L101">        return null;</span>
-      }
-<span class="nc" id="L103">    } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L104">      throw new SqlMapException(&quot;Error.  Could not initialize class.  Cause: &quot; + e, e);</span>
-    }
+    findAndParseSelectKey(node, statementConf);
   }
-
-  private void findAndParseSelectKey(Node node, MappedStatementConfig config) {
-<span class="fc" id="L109">      state.getConfig().getErrorContext().setActivity(&quot;parsing select key tags&quot;);</span>
-<span class="fc" id="L110">      boolean foundSQLFirst = false;</span>
-<span class="fc" id="L111">      NodeList children = node.getChildNodes();</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">      for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L113">        Node child = children.item(i);</span>
-<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (child.getNodeType() == Node.CDATA_SECTION_NODE</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">            || child.getNodeType() == Node.TEXT_NODE) {</span>
-<span class="fc" id="L116">          String data = ((CharacterData) child).getData();</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">          if (data.trim().length() &gt; 0) {</span>
-<span class="fc" id="L118">            foundSQLFirst = true;</span>
-          }
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        } else if (child.getNodeType() == Node.ELEMENT_NODE</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">            &amp;&amp; &quot;selectKey&quot;.equals(child.getNodeName())) {</span>
-<span class="fc" id="L122">          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
-<span class="fc" id="L123">          String keyPropName = attributes.getProperty(&quot;keyProperty&quot;);</span>
-<span class="fc" id="L124">          String resultClassName = attributes.getProperty(&quot;resultClass&quot;);</span>
-<span class="fc" id="L125">          String type = attributes.getProperty(&quot;type&quot;);</span>
-<span class="fc" id="L126">          config.setSelectKeyStatement(new XMLSqlSource(state, child), resultClassName, keyPropName, foundSQLFirst, type);</span>
-<span class="fc" id="L127">          break;</span>
-        }
+<span class="fc bfc" id="L95" title="All 2 branches covered."></span>
+<span class="fc" id="L96">  private Class resolveClass(String resultClassName) {</span>
+    try {
+<span class="fc" id="L98">      if (resultClassName != null) {</span>
+        return Resources.classForName(state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName));
+<span class="nc" id="L100">      } else {</span>
+<span class="nc" id="L101">        return null;</span>
       }
-<span class="fc" id="L130">      state.getConfig().getErrorContext().setMoreInfo(null);</span>
-    
-<span class="fc" id="L132">  }</span>
+    } catch (ClassNotFoundException e) {
+      throw new SqlMapException(&quot;Error.  Could not initialize class.  Cause: &quot; + e, e);
+    }
+<span class="fc" id="L106">  }</span>
+<span class="fc" id="L107"></span>
+<span class="fc" id="L108">  private void findAndParseSelectKey(Node node, MappedStatementConfig config) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">    state.getConfig().getErrorContext().setActivity(&quot;parsing select key tags&quot;);</span>
+<span class="fc" id="L110">    boolean foundSQLFirst = false;</span>
+<span class="fc bfc" id="L111" title="All 4 branches covered.">    NodeList children = node.getChildNodes();</span>
+<span class="fc" id="L112">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">      Node child = children.item(i);</span>
+<span class="fc" id="L114">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
+        String data = ((CharacterData) child).getData();
+<span class="pc bpc" id="L116" title="1 of 4 branches missed.">        if (data.trim().length() &gt; 0) {</span>
+<span class="fc" id="L117">          foundSQLFirst = true;</span>
+<span class="fc" id="L118">        }</span>
+<span class="fc" id="L119">      } else if (child.getNodeType() == Node.ELEMENT_NODE &amp;&amp; &quot;selectKey&quot;.equals(child.getNodeName())) {</span>
+<span class="fc" id="L120">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L121">        String keyPropName = attributes.getProperty(&quot;keyProperty&quot;);</span>
+<span class="fc" id="L122">        String resultClassName = attributes.getProperty(&quot;resultClass&quot;);</span>
+        String type = attributes.getProperty(&quot;type&quot;);
+        config.setSelectKeyStatement(new XMLSqlSource(state, child), resultClassName, keyPropName, foundSQLFirst, type);
+<span class="fc" id="L125">        break;</span>
+      }
+<span class="fc" id="L127">    }</span>
+    state.getConfig().getErrorContext().setMoreInfo(null);
 
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

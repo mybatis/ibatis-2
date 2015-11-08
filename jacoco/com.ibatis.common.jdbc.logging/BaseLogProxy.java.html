@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BaseLogProxy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">BaseLogProxy.java</span></div><h1>BaseLogProxy.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc.logging;
 
@@ -19,29 +19,29 @@ import java.util.*;
 
 /**
  * Base class for proxies to do logging
- */
-public class BaseLogProxy {
-
+<span class="nc" id="L22"> */</span>
+<span class="nc" id="L23">public class BaseLogProxy {</span>
+<span class="nc" id="L24"></span>
 <span class="nc" id="L25">  private static int nextId = 100000;</span>
-<span class="nc" id="L26">  protected static final Set SET_METHODS = new HashSet();</span>
+  protected static final Set SET_METHODS = new HashSet();
 <span class="nc" id="L27">  protected static final Set GET_METHODS = new HashSet();</span>
-<span class="nc" id="L28">  protected static final Set EXECUTE_METHODS = new HashSet();</span>
-
+  protected static final Set EXECUTE_METHODS = new HashSet();
+<span class="nc" id="L29"></span>
 <span class="nc" id="L30">  private Map columnMap = new HashMap();</span>
 
-<span class="nc" id="L32">  private List columnNames = new ArrayList();</span>
-<span class="nc" id="L33">  private List columnValues = new ArrayList();</span>
+  private List columnNames = new ArrayList();
+  private List columnValues = new ArrayList();
 
   protected int id;
 
-  /**
-   * Default constructor
-   */
-<span class="nc" id="L40">  public BaseLogProxy() {</span>
-<span class="nc" id="L41">    id = getNextId();</span>
+<span class="nc" id="L37">  /**</span>
+<span class="nc" id="L38">   * Default constructor</span>
+<span class="nc" id="L39">   */</span>
+  public BaseLogProxy() {
+    id = getNextId();
 <span class="nc" id="L42">  }</span>
-
-  static {
+<span class="nc" id="L43"></span>
+<span class="nc" id="L44">  static {</span>
 <span class="nc" id="L45">    SET_METHODS.add(&quot;setString&quot;);</span>
 <span class="nc" id="L46">    SET_METHODS.add(&quot;setInt&quot;);</span>
 <span class="nc" id="L47">    SET_METHODS.add(&quot;setByte&quot;);</span>
@@ -60,10 +60,10 @@ public class BaseLogProxy {
 <span class="nc" id="L60">    SET_METHODS.add(&quot;setBoolean&quot;);</span>
 <span class="nc" id="L61">    SET_METHODS.add(&quot;setBytes&quot;);</span>
 <span class="nc" id="L62">    SET_METHODS.add(&quot;setCharacterStream&quot;);</span>
-<span class="nc" id="L63">    SET_METHODS.add(&quot;setClob&quot;);</span>
+    SET_METHODS.add(&quot;setClob&quot;);
 <span class="nc" id="L64">    SET_METHODS.add(&quot;setObject&quot;);</span>
 <span class="nc" id="L65">    SET_METHODS.add(&quot;setNull&quot;);</span>
-
+<span class="nc" id="L66"></span>
 <span class="nc" id="L67">    GET_METHODS.add(&quot;getString&quot;);</span>
 <span class="nc" id="L68">    GET_METHODS.add(&quot;getInt&quot;);</span>
 <span class="nc" id="L69">    GET_METHODS.add(&quot;getByte&quot;);</span>
@@ -82,59 +82,59 @@ public class BaseLogProxy {
 <span class="nc" id="L82">    GET_METHODS.add(&quot;getBoolean&quot;);</span>
 <span class="nc" id="L83">    GET_METHODS.add(&quot;getBytes&quot;);</span>
 <span class="nc" id="L84">    GET_METHODS.add(&quot;getCharacterStream&quot;);</span>
-<span class="nc" id="L85">    GET_METHODS.add(&quot;getClob&quot;);</span>
+    GET_METHODS.add(&quot;getClob&quot;);
 <span class="nc" id="L86">    GET_METHODS.add(&quot;getObject&quot;);</span>
 <span class="nc" id="L87">    GET_METHODS.add(&quot;getNull&quot;);</span>
-
-<span class="nc" id="L89">    EXECUTE_METHODS.add(&quot;execute&quot;);</span>
+<span class="nc" id="L88"></span>
+    EXECUTE_METHODS.add(&quot;execute&quot;);
 <span class="nc" id="L90">    EXECUTE_METHODS.add(&quot;executeUpdate&quot;);</span>
-<span class="nc" id="L91">    EXECUTE_METHODS.add(&quot;executeQuery&quot;);</span>
+    EXECUTE_METHODS.add(&quot;executeQuery&quot;);
 
 <span class="nc" id="L93">  }</span>
-
-  protected void setColumn(Object key, Object value) {
+<span class="nc" id="L94"></span>
+<span class="nc" id="L95">  protected void setColumn(Object key, Object value) {</span>
 <span class="nc" id="L96">    columnMap.put(key, value);</span>
-<span class="nc" id="L97">    columnNames.add(key);</span>
-<span class="nc" id="L98">    columnValues.add(value);</span>
+    columnNames.add(key);
+    columnValues.add(value);
 <span class="nc" id="L99">  }</span>
 
   protected Object getColumn(Object key) {
-<span class="nc" id="L102">    return columnMap.get(key);</span>
-  }
+    return columnMap.get(key);
+<span class="nc" id="L103">  }</span>
 
   protected String getValueString() {
-<span class="nc" id="L106">    return columnValues.toString();</span>
-  }
-
-  protected String getTypeString() {
-<span class="nc" id="L110">    List typeList = new ArrayList(columnValues.size());</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">    for (int i = 0; i &lt; columnValues.size(); i++) {</span>
-<span class="nc" id="L112">      Object value = columnValues.get(i);</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">      if (value == null) {</span>
-<span class="nc" id="L114">        typeList.add(&quot;null&quot;);</span>
-<span class="nc" id="L115">      } else {</span>
+    return columnValues.toString();
+<span class="nc" id="L107">  }</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed."></span>
+<span class="nc" id="L109">  protected String getTypeString() {</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">    List typeList = new ArrayList(columnValues.size());</span>
+<span class="nc" id="L111">    for (int i = 0; i &lt; columnValues.size(); i++) {</span>
+      Object value = columnValues.get(i);
+<span class="nc" id="L113">      if (value == null) {</span>
+        typeList.add(&quot;null&quot;);
+      } else {
 <span class="nc" id="L116">        typeList.add(value.getClass().getName());</span>
       }
     }
-<span class="nc" id="L119">    return typeList.toString();</span>
-  }
+    return typeList.toString();
+<span class="nc" id="L120">  }</span>
 
   protected String getColumnString() {
-<span class="nc" id="L123">    return columnNames.toString();</span>
-  }
-
-  protected void clearColumnInfo() {
+    return columnNames.toString();
+<span class="nc" id="L124">  }</span>
+<span class="nc" id="L125"></span>
+<span class="nc" id="L126">  protected void clearColumnInfo() {</span>
 <span class="nc" id="L127">    columnMap.clear();</span>
-<span class="nc" id="L128">    columnNames.clear();</span>
-<span class="nc" id="L129">    columnValues.clear();</span>
+    columnNames.clear();
+    columnValues.clear();
 <span class="nc" id="L130">  }</span>
 
   protected String removeBreakingWhitespace(String original) {
-<span class="nc" id="L133">    return original.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ');</span>
-  }
+    return original.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ');
+<span class="nc" id="L134">  }</span>
 
   protected synchronized static int getNextId() {
-<span class="nc" id="L137">    return nextId++;</span>
+    return nextId++;
   }
 
 }

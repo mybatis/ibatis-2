@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JdbcTypeRegistry.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">JdbcTypeRegistry.java</span></div><h1>JdbcTypeRegistry.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.type;
 
@@ -26,10 +26,10 @@ public class JdbcTypeRegistry {
 
   /**
    * Value for the unknown type
-   */
+<span class="fc" id="L29">   */</span>
   public static final int UNKNOWN_TYPE = -99999999;
-  
-<span class="fc" id="L32">  private static final Map TYPE_MAP = new HashMap();</span>
+
+  private static final Map TYPE_MAP = new HashMap();
 
   /**
    * Value for a JDBC 3.o datalink type
@@ -39,89 +39,90 @@ public class JdbcTypeRegistry {
   /**
    * Value for a JDBC 3.o boolean type
    */
-  public final static int JDBC_30_BOOLEAN = 16;
-
+<span class="fc" id="L42">  public final static int JDBC_30_BOOLEAN = 16;</span>
+<span class="fc" id="L43"></span>
   static {
-<span class="fc" id="L45">    initializeTypes();</span>
-<span class="fc" id="L46">  }</span>
+<span class="nc" id="L45">    initializeTypes();</span>
+<span class="nc" id="L46">  }</span>
 
-<span class="nc" id="L48">  private JdbcTypeRegistry() {</span>
-<span class="nc" id="L49">  }</span>
-
+  private JdbcTypeRegistry() {
+<span class="fc" id="L49">  }</span>
+<span class="fc" id="L50"></span>
   public static void setType(String name, int value) {
-<span class="fc" id="L52">    TYPE_MAP.put(name, new Integer(value));</span>
-<span class="fc" id="L53">  }</span>
+    TYPE_MAP.put(name, new Integer(value));
+  }
 
   /**
    * Looks up a type by name, and returns it's int value (from java.sql.Types)
    * 
-   * @param name - the type name
+   * @param name
+   *          - the type name
    * 
-   * @return - the int value (from java.sql.Types)
-   */
-  public static int getType(String name) {
-<span class="fc bfc" id="L63" title="All 2 branches covered.">    if (name == null)</span>
-<span class="fc" id="L64">      return UNKNOWN_TYPE;</span>
-<span class="fc" id="L65">    Integer i = (Integer) TYPE_MAP.get(name);</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">    if (i != null) {</span>
-<span class="fc" id="L67">      return i.intValue();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">   * @return - the int value (from java.sql.Types)</span>
+<span class="fc" id="L62">   */</span>
+<span class="fc" id="L63">  public static int getType(String name) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">    if (name == null)</span>
+<span class="fc" id="L65">      return UNKNOWN_TYPE;</span>
+    Integer i = (Integer) TYPE_MAP.get(name);
+<span class="fc" id="L67">    if (i != null) {</span>
+      return i.intValue();
     } else {
-<span class="fc" id="L69">      return UNKNOWN_TYPE;</span>
+      return UNKNOWN_TYPE;
     }
+<span class="fc" id="L72">  }</span>
+<span class="fc" id="L73"></span>
+<span class="fc" id="L74">  private static void initializeTypes() {</span>
+<span class="fc" id="L75">    setType(&quot;ARRAY&quot;, Types.ARRAY);</span>
+<span class="fc" id="L76">    setType(&quot;BIGINT&quot;, Types.BIGINT);</span>
+<span class="fc" id="L77">    setType(&quot;BINARY&quot;, Types.BINARY);</span>
+<span class="fc" id="L78">    setType(&quot;BIT&quot;, Types.BIT);</span>
+<span class="fc" id="L79">    setType(&quot;BLOB&quot;, Types.BLOB);</span>
+<span class="fc" id="L80">    setType(&quot;BOOLEAN&quot;, JDBC_30_BOOLEAN);</span>
+<span class="fc" id="L81">    setType(&quot;CHAR&quot;, Types.CHAR);</span>
+<span class="fc" id="L82">    setType(&quot;CLOB&quot;, Types.CLOB);</span>
+<span class="fc" id="L83">    setType(&quot;DATALINK&quot;, JDBC_30_DATALINK);</span>
+<span class="fc" id="L84">    setType(&quot;DATE&quot;, Types.DATE);</span>
+<span class="fc" id="L85">    setType(&quot;DECIMAL&quot;, Types.DECIMAL);</span>
+<span class="fc" id="L86">    setType(&quot;DISTINCT&quot;, Types.DISTINCT);</span>
+<span class="fc" id="L87">    setType(&quot;DOUBLE&quot;, Types.DOUBLE);</span>
+<span class="fc" id="L88">    setType(&quot;FLOAT&quot;, Types.FLOAT);</span>
+<span class="fc" id="L89">    setType(&quot;INTEGER&quot;, Types.INTEGER);</span>
+<span class="fc" id="L90">    setType(&quot;JAVA_OBJECT&quot;, Types.JAVA_OBJECT);</span>
+<span class="fc" id="L91">    setType(&quot;LONGVARBINARY&quot;, Types.LONGVARBINARY);</span>
+<span class="fc" id="L92">    setType(&quot;LONGVARCHAR&quot;, Types.LONGVARCHAR);</span>
+<span class="fc" id="L93">    setType(&quot;NULL&quot;, Types.NULL);</span>
+<span class="fc" id="L94">    setType(&quot;NUMERIC&quot;, Types.NUMERIC);</span>
+<span class="fc" id="L95">    setType(&quot;OTHER&quot;, Types.OTHER);</span>
+<span class="fc" id="L96">    setType(&quot;REAL&quot;, Types.REAL);</span>
+<span class="fc" id="L97">    setType(&quot;REF&quot;, Types.REF);</span>
+<span class="fc" id="L98">    setType(&quot;SMALLINT&quot;, Types.SMALLINT);</span>
+<span class="fc" id="L99">    setType(&quot;STRUCT&quot;, Types.STRUCT);</span>
+<span class="fc" id="L100">    setType(&quot;TIME&quot;, Types.TIME);</span>
+<span class="fc" id="L101">    setType(&quot;TIMESTAMP&quot;, Types.TIMESTAMP);</span>
+    setType(&quot;TINYINT&quot;, Types.TINYINT);
+<span class="fc" id="L103">    setType(&quot;VARBINARY&quot;, Types.VARBINARY);</span>
+<span class="fc" id="L104">    setType(&quot;VARCHAR&quot;, Types.VARCHAR);</span>
+
+<span class="fc" id="L106">    setType(&quot;CH&quot;, Types.CHAR);</span>
+<span class="fc" id="L107">    setType(&quot;VC&quot;, Types.VARCHAR);</span>
+<span class="fc" id="L108"></span>
+    setType(&quot;DT&quot;, Types.DATE);
+<span class="fc" id="L110">    setType(&quot;TM&quot;, Types.TIME);</span>
+<span class="fc" id="L111">    setType(&quot;TS&quot;, Types.TIMESTAMP);</span>
+<span class="fc" id="L112"></span>
+<span class="fc" id="L113">    setType(&quot;NM&quot;, Types.NUMERIC);</span>
+<span class="fc" id="L114">    setType(&quot;II&quot;, Types.INTEGER);</span>
+    setType(&quot;BI&quot;, Types.BIGINT);
+<span class="fc" id="L116">    setType(&quot;SI&quot;, Types.SMALLINT);</span>
+<span class="fc" id="L117">    setType(&quot;TI&quot;, Types.TINYINT);</span>
+<span class="fc" id="L118"></span>
+    setType(&quot;DC&quot;, Types.DECIMAL);
+<span class="fc" id="L120">    setType(&quot;DB&quot;, Types.DOUBLE);</span>
+    setType(&quot;FL&quot;, Types.FLOAT);
+<span class="fc" id="L122"></span>
+    setType(&quot;ORACLECURSOR&quot;, -10);
+
   }
-
-  private static void initializeTypes() {
-<span class="fc" id="L74">    setType(&quot;ARRAY&quot;, Types.ARRAY);</span>
-<span class="fc" id="L75">    setType(&quot;BIGINT&quot;, Types.BIGINT);</span>
-<span class="fc" id="L76">    setType(&quot;BINARY&quot;, Types.BINARY);</span>
-<span class="fc" id="L77">    setType(&quot;BIT&quot;, Types.BIT);</span>
-<span class="fc" id="L78">    setType(&quot;BLOB&quot;, Types.BLOB);</span>
-<span class="fc" id="L79">    setType(&quot;BOOLEAN&quot;, JDBC_30_BOOLEAN);</span>
-<span class="fc" id="L80">    setType(&quot;CHAR&quot;, Types.CHAR);</span>
-<span class="fc" id="L81">    setType(&quot;CLOB&quot;, Types.CLOB);</span>
-<span class="fc" id="L82">    setType(&quot;DATALINK&quot;, JDBC_30_DATALINK);</span>
-<span class="fc" id="L83">    setType(&quot;DATE&quot;, Types.DATE);</span>
-<span class="fc" id="L84">    setType(&quot;DECIMAL&quot;, Types.DECIMAL);</span>
-<span class="fc" id="L85">    setType(&quot;DISTINCT&quot;, Types.DISTINCT);</span>
-<span class="fc" id="L86">    setType(&quot;DOUBLE&quot;, Types.DOUBLE);</span>
-<span class="fc" id="L87">    setType(&quot;FLOAT&quot;, Types.FLOAT);</span>
-<span class="fc" id="L88">    setType(&quot;INTEGER&quot;, Types.INTEGER);</span>
-<span class="fc" id="L89">    setType(&quot;JAVA_OBJECT&quot;, Types.JAVA_OBJECT);</span>
-<span class="fc" id="L90">    setType(&quot;LONGVARBINARY&quot;, Types.LONGVARBINARY);</span>
-<span class="fc" id="L91">    setType(&quot;LONGVARCHAR&quot;, Types.LONGVARCHAR);</span>
-<span class="fc" id="L92">    setType(&quot;NULL&quot;, Types.NULL);</span>
-<span class="fc" id="L93">    setType(&quot;NUMERIC&quot;, Types.NUMERIC);</span>
-<span class="fc" id="L94">    setType(&quot;OTHER&quot;, Types.OTHER);</span>
-<span class="fc" id="L95">    setType(&quot;REAL&quot;, Types.REAL);</span>
-<span class="fc" id="L96">    setType(&quot;REF&quot;, Types.REF);</span>
-<span class="fc" id="L97">    setType(&quot;SMALLINT&quot;, Types.SMALLINT);</span>
-<span class="fc" id="L98">    setType(&quot;STRUCT&quot;, Types.STRUCT);</span>
-<span class="fc" id="L99">    setType(&quot;TIME&quot;, Types.TIME);</span>
-<span class="fc" id="L100">    setType(&quot;TIMESTAMP&quot;, Types.TIMESTAMP);</span>
-<span class="fc" id="L101">    setType(&quot;TINYINT&quot;, Types.TINYINT);</span>
-<span class="fc" id="L102">    setType(&quot;VARBINARY&quot;, Types.VARBINARY);</span>
-<span class="fc" id="L103">    setType(&quot;VARCHAR&quot;, Types.VARCHAR);</span>
-
-<span class="fc" id="L105">    setType(&quot;CH&quot;, Types.CHAR);</span>
-<span class="fc" id="L106">    setType(&quot;VC&quot;, Types.VARCHAR);</span>
-
-<span class="fc" id="L108">    setType(&quot;DT&quot;, Types.DATE);</span>
-<span class="fc" id="L109">    setType(&quot;TM&quot;, Types.TIME);</span>
-<span class="fc" id="L110">    setType(&quot;TS&quot;, Types.TIMESTAMP);</span>
-
-<span class="fc" id="L112">    setType(&quot;NM&quot;, Types.NUMERIC);</span>
-<span class="fc" id="L113">    setType(&quot;II&quot;, Types.INTEGER);</span>
-<span class="fc" id="L114">    setType(&quot;BI&quot;, Types.BIGINT);</span>
-<span class="fc" id="L115">    setType(&quot;SI&quot;, Types.SMALLINT);</span>
-<span class="fc" id="L116">    setType(&quot;TI&quot;, Types.TINYINT);</span>
-
-<span class="fc" id="L118">    setType(&quot;DC&quot;, Types.DECIMAL);</span>
-<span class="fc" id="L119">    setType(&quot;DB&quot;, Types.DOUBLE);</span>
-<span class="fc" id="L120">    setType(&quot;FL&quot;, Types.FLOAT);</span>
-
-<span class="fc" id="L122">    setType(&quot;ORACLECURSOR&quot;, -10);</span>
-
-<span class="fc" id="L124">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

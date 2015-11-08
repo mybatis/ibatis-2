@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleDynamicSql.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.simple</a> &gt; <span class="el_source">SimpleDynamicSql.java</span></div><h1>SimpleDynamicSql.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.mapping.sql.simple;
 
@@ -25,87 +25,85 @@ import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 import java.util.StringTokenizer;
-
+<span class="fc" id="L28"></span>
 public class SimpleDynamicSql implements Sql {
 
-<span class="fc" id="L31">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+  private static final Probe PROBE = ProbeFactory.getProbe();
 
-<span class="fc" id="L33">  private static final String ELEMENT_TOKEN = &quot;$&quot;;</span>
+  private static final String ELEMENT_TOKEN = &quot;$&quot;;
 
   private String sqlStatement;
-
-  private SqlMapExecutorDelegate delegate;
-
+<span class="fc" id="L36"></span>
+<span class="fc" id="L37">  private SqlMapExecutorDelegate delegate;</span>
+<span class="fc" id="L38"></span>
 <span class="fc" id="L39">  public SimpleDynamicSql(SqlMapExecutorDelegate delegate, String sqlStatement) {</span>
-<span class="fc" id="L40">    this.delegate = delegate;</span>
-<span class="fc" id="L41">    this.sqlStatement = sqlStatement;</span>
+    this.delegate = delegate;
+    this.sqlStatement = sqlStatement;
 <span class="fc" id="L42">  }</span>
 
   public String getSql(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L45">    return processDynamicElements(sqlStatement, parameterObject);</span>
-  }
+    return processDynamicElements(sqlStatement, parameterObject);
+<span class="fc" id="L46">  }</span>
 
   public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L49">    return statementScope.getParameterMap();</span>
-  }
+    return statementScope.getParameterMap();
+<span class="fc" id="L50">  }</span>
 
   public ResultMap getResultMap(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L53">    return statementScope.getResultMap();</span>
-  }
+    return statementScope.getResultMap();
+<span class="fc" id="L54">  }</span>
 
   public void cleanup(StatementScope statementScope) {
-<span class="fc" id="L57">  }</span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">  }</span>
 
   public static boolean isSimpleDynamicSql(String sql) {
-<span class="pc bpc" id="L60" title="1 of 4 branches missed.">    return sql != null &amp;&amp; sql.indexOf(ELEMENT_TOKEN) &gt; -1;</span>
-  }
-
+    return sql != null &amp;&amp; sql.indexOf(ELEMENT_TOKEN) &gt; -1;
+<span class="fc" id="L61">  }</span>
+<span class="fc" id="L62"></span>
   private String processDynamicElements(String sql, Object parameterObject) {
 <span class="fc" id="L64">    StringTokenizer parser = new StringTokenizer(sql, ELEMENT_TOKEN, true);</span>
 <span class="fc" id="L65">    StringBuffer newSql = new StringBuffer();</span>
-
+<span class="fc bfc" id="L66" title="All 2 branches covered."></span>
 <span class="fc" id="L67">    String token = null;</span>
-<span class="fc" id="L68">    String lastToken = null;</span>
+    String lastToken = null;
 <span class="fc bfc" id="L69" title="All 2 branches covered.">    while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L70">      token = parser.nextToken();</span>
-
-<span class="fc bfc" id="L72" title="All 2 branches covered.">      if (ELEMENT_TOKEN.equals(lastToken)) {</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (ELEMENT_TOKEN.equals(token)) {</span>
-<span class="nc" id="L74">          newSql.append(ELEMENT_TOKEN);</span>
-<span class="nc" id="L75">          token = null;</span>
-<span class="nc" id="L76">        } else {</span>
-
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">      token = parser.nextToken();</span>
+<span class="nc" id="L71"></span>
+<span class="nc" id="L72">      if (ELEMENT_TOKEN.equals(lastToken)) {</span>
+        if (ELEMENT_TOKEN.equals(token)) {
+          newSql.append(ELEMENT_TOKEN);
+<span class="fc" id="L75">          token = null;</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        } else {</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered."></span>
 <span class="fc" id="L78">          Object value = null;</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">          if (parameterObject != null) {</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (delegate.getTypeHandlerFactory().hasTypeHandler(parameterObject.getClass())) {</span>
-<span class="fc" id="L81">              value = parameterObject;</span>
-<span class="fc" id="L82">            } else {</span>
-<span class="fc" id="L83">              value = PROBE.getObject(parameterObject, token);</span>
-            }
+          if (parameterObject != null) {
+<span class="fc" id="L80">            if (delegate.getTypeHandlerFactory().hasTypeHandler(parameterObject.getClass())) {</span>
+              value = parameterObject;
+            } else {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">              value = PROBE.getObject(parameterObject, token);</span>
+<span class="fc" id="L84">            }</span>
           }
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">          if (value != null) {</span>
+          if (value != null) {
 <span class="fc" id="L87">            newSql.append(String.valueOf(value));</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">          }</span>
+<span class="nc" id="L89"></span>
+          token = parser.nextToken();
+<span class="fc" id="L91">          if (!ELEMENT_TOKEN.equals(token)) {</span>
+<span class="fc" id="L92">            throw new SqlMapException(&quot;Unterminated dynamic element in sql (&quot; + sql + &quot;).&quot;);</span>
           }
-
-<span class="fc" id="L90">          token = parser.nextToken();</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">          if (!ELEMENT_TOKEN.equals(token)) {</span>
-<span class="nc" id="L92">            throw new SqlMapException(&quot;Unterminated dynamic element in sql (&quot; + sql + &quot;).&quot;);</span>
-          }
-<span class="fc" id="L94">          token = null;</span>
-        }
-<span class="fc" id="L96">      } else {</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (!ELEMENT_TOKEN.equals(token)) {</span>
-<span class="fc" id="L98">          newSql.append(token);</span>
-        }
+<span class="fc bfc" id="L94" title="All 2 branches covered.">          token = null;</span>
+<span class="fc" id="L95">        }</span>
+      } else {
+        if (!ELEMENT_TOKEN.equals(token)) {
+          newSql.append(token);
+<span class="fc" id="L99">        }</span>
       }
 
 <span class="fc" id="L102">      lastToken = token;</span>
     }
 
-<span class="fc" id="L105">    return newSql.toString();</span>
+    return newSql.toString();
   }
 
-
 }
-
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

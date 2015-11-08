@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CacheModel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache</a> &gt; <span class="el_source">CacheModel.java</span></div><h1>CacheModel.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.cache;
 
@@ -25,25 +25,24 @@ import java.util.*;
 
 /**
  * Wrapper for Caches.
- */
+<span class="fc" id="L28"> */</span>
 public class CacheModel implements ExecuteListener {
 
-<span class="fc" id="L31">  private static final Log log = LogFactory.getLog(CacheModel.class);</span>
+  private static final Log log = LogFactory.getLog(CacheModel.class);
 
   private static final int MAX_OBJECT_LOG_SIZE = 200;
 
-  /**
-   * This is used to represent null objects that are returned from the cache so
-   * that they can be cached, too.
-   */
-<span class="fc" id="L39">  public static final Object NULL_OBJECT = new String(&quot;SERIALIZABLE_NULL_OBJECT&quot;);</span>
-<span class="fc" id="L40">  private int requests = 0;</span>
-<span class="fc" id="L41">  private int hits = 0;</span>
+<span class="fc" id="L35">  /**</span>
+<span class="fc" id="L36">   * This is used to represent null objects that are returned from the cache so that they can be cached, too.</span>
+<span class="fc" id="L37">   */</span>
+  public static final Object NULL_OBJECT = new String(&quot;SERIALIZABLE_NULL_OBJECT&quot;);
+  private int requests = 0;
+  private int hits = 0;
 
   /**
    * Constant to turn off periodic cache flushes
    */
-<span class="fc" id="L46">  private static final long NO_FLUSH_INTERVAL = -99999;</span>
+  private static final long NO_FLUSH_INTERVAL = -99999;
 
   private String id;
 
@@ -59,308 +58,313 @@ public class CacheModel implements ExecuteListener {
 
   private String resource;
 
-  /**
-   * Default constructor
-   */
-<span class="fc" id="L65">  public CacheModel() {</span>
-<span class="fc" id="L66">    this.flushInterval = NO_FLUSH_INTERVAL;</span>
-<span class="fc" id="L67">    this.flushIntervalSeconds = NO_FLUSH_INTERVAL;</span>
-<span class="fc" id="L68">    this.lastFlush = System.currentTimeMillis();</span>
-<span class="fc" id="L69">    this.flushTriggerStatements = new HashSet();</span>
-<span class="fc" id="L70">  }</span>
+<span class="fc" id="L61">  /**</span>
+<span class="fc" id="L62">   * Default constructor</span>
+<span class="fc" id="L63">   */</span>
+<span class="fc" id="L64">  public CacheModel() {</span>
+<span class="fc" id="L65">    this.flushInterval = NO_FLUSH_INTERVAL;</span>
+<span class="fc" id="L66">    this.flushIntervalSeconds = NO_FLUSH_INTERVAL;</span>
+    this.lastFlush = System.currentTimeMillis();
+    this.flushTriggerStatements = new HashSet();
+  }
 
   /**
    * Getter for the cache model's id
    *
-   * @return the id
+<span class="fc" id="L74">   * @return the id</span>
    */
   public String getId() {
-<span class="fc" id="L78">    return id;</span>
+    return id;
   }
 
   /**
    * Setter for the cache model's id
    *
-   * @param id - the new id
-   */
+   * @param id
+<span class="fc" id="L84">   *          - the new id</span>
+<span class="fc" id="L85">   */</span>
   public void setId(String id) {
-<span class="fc" id="L87">    this.id = id;</span>
-<span class="fc" id="L88">  }</span>
+    this.id = id;
+  }
 
   /**
    * Getter for read-only property
    *
-   * @return true if a read-only model
+<span class="fc" id="L93">   * @return true if a read-only model</span>
    */
   public boolean isReadOnly() {
-<span class="fc" id="L96">    return readOnly;</span>
+    return readOnly;
   }
 
   /**
    * Setter for read-only property
    *
-   * @param readOnly - the new setting
-   */
+   * @param readOnly
+<span class="fc" id="L103">   *          - the new setting</span>
+<span class="fc" id="L104">   */</span>
   public void setReadOnly(boolean readOnly) {
-<span class="fc" id="L105">    this.readOnly = readOnly;</span>
-<span class="fc" id="L106">  }</span>
+    this.readOnly = readOnly;
+  }
 
   /**
    * Getter to tell if the cache serializes
    *
-   * @return true if the cache model serializes objects
+<span class="fc" id="L112">   * @return true if the cache model serializes objects</span>
    */
   public boolean isSerialize() {
-<span class="fc" id="L114">    return serialize;</span>
+    return serialize;
   }
 
   /**
    * Setter to tell the cache to serialize objects
    *
-   * @param serialize - if the cache model is to serialize objects
-   */
+   * @param serialize
+<span class="fc" id="L122">   *          - if the cache model is to serialize objects</span>
+<span class="fc" id="L123">   */</span>
   public void setSerialize(boolean serialize) {
-<span class="fc" id="L123">    this.serialize = serialize;</span>
-<span class="fc" id="L124">  }</span>
+    this.serialize = serialize;
+  }
 
   /**
    * Getter for resource property
    *
-   * @return the value of the resource property
+<span class="nc" id="L131">   * @return the value of the resource property</span>
    */
   public String getResource() {
-<span class="nc" id="L132">    return resource;</span>
+    return resource;
   }
 
   /**
    * Setter for resource property
    *
-   * @param resource - the new value
-   */
+   * @param resource
+<span class="fc" id="L141">   *          - the new value</span>
+<span class="fc" id="L142">   */</span>
   public void setResource(String resource) {
-<span class="fc" id="L141">    this.resource = resource;</span>
-<span class="fc" id="L142">  }</span>
+    this.resource = resource;
+  }
 
   /**
    * Sets up the controller for the cache model
    *
-   * @throws ClassNotFoundException - if the class cannot be found
-   * @throws InstantiationException - if the class cannot be instantiated
-   * @throws IllegalAccessException - if the classes constructor is not accessible
-   */
-  public void setCacheController(CacheController controller)
-      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-<span class="fc" id="L153">    this.controller = controller;</span>
-<span class="fc" id="L154">  }</span>
-
-  /**
-   * Getter for flushInterval property
-   *
-   * @return The flushInterval (in milliseconds)
-   */
-  public long getFlushInterval() {
-<span class="nc" id="L162">    return flushInterval;</span>
+   * @throws ClassNotFoundException
+   *           - if the class cannot be found
+   * @throws InstantiationException
+   *           - if the class cannot be instantiated
+   * @throws IllegalAccessException
+   *           - if the classes constructor is not accessible
+<span class="fc" id="L156">   */</span>
+<span class="fc" id="L157">  public void setCacheController(CacheController controller) throws ClassNotFoundException, InstantiationException,</span>
+      IllegalAccessException {
+    this.controller = controller;
   }
 
   /**
    * Getter for flushInterval property
    *
-   * @return The flushInterval (in milliseconds)
+<span class="nc" id="L165">   * @return The flushInterval (in milliseconds)</span>
+   */
+  public long getFlushInterval() {
+    return flushInterval;
+  }
+
+  /**
+   * Getter for flushInterval property
+   *
+<span class="nc" id="L174">   * @return The flushInterval (in milliseconds)</span>
    */
   public long getFlushIntervalSeconds() {
-<span class="nc" id="L171">    return flushIntervalSeconds;</span>
+    return flushIntervalSeconds;
   }
 
   /**
    * Setter for flushInterval property
    *
-   * @param flushInterval The new flushInterval (in milliseconds)
-   */
-  public void setFlushInterval(long flushInterval) {
-<span class="fc" id="L180">    this.flushInterval = flushInterval;</span>
-<span class="fc" id="L181">    this.flushIntervalSeconds = flushInterval / 1000;</span>
-<span class="fc" id="L182">  }</span>
+   * @param flushInterval
+<span class="fc" id="L184">   *          The new flushInterval (in milliseconds)</span>
+<span class="fc" id="L185">   */</span>
+<span class="fc" id="L186">  public void setFlushInterval(long flushInterval) {</span>
+    this.flushInterval = flushInterval;
+    this.flushIntervalSeconds = flushInterval / 1000;
+  }
 
   /**
-   * Adds a flushTriggerStatment. When a flushTriggerStatment is executed, the
-   * cache is flushed (cleared).
+   * Adds a flushTriggerStatment. When a flushTriggerStatment is executed, the cache is flushed (cleared).
    *
-   * @param statementName The statement to add.
-   */
+   * @param statementName
+<span class="fc" id="L195">   *          The statement to add.</span>
+<span class="fc" id="L196">   */</span>
   public void addFlushTriggerStatement(String statementName) {
-<span class="fc" id="L191">    flushTriggerStatements.add(statementName);</span>
-<span class="fc" id="L192">  }</span>
+    flushTriggerStatements.add(statementName);
+  }
 
   /**
    * Gets an Iterator containing all flushTriggerStatment objects for this cache.
    *
-   * @return The Iterator
+<span class="fc" id="L204">   * @return The Iterator</span>
    */
   public Iterator getFlushTriggerStatementNames() {
-<span class="fc" id="L200">    return flushTriggerStatements.iterator();</span>
+    return flushTriggerStatements.iterator();
   }
 
   /**
-   * ExecuteListener event.  This will be called by a MappedStatement
-   * for which this cache is registered as a ExecuteListener.  It will
-   * be called each time an executeXXXXXX method is called.  In the
-   * case of the Cache class, it is registered in order to flush the
-   * cache whenever a certain statement is executed.
-   * (i.e. the flushOnExecute cache policy)
+   * ExecuteListener event. This will be called by a MappedStatement for which this cache is registered as a
+   * ExecuteListener. It will be called each time an executeXXXXXX method is called. In the case of the Cache class, it
+   * is registered in order to flush the cache whenever a certain statement is executed. (i.e. the flushOnExecute cache
+   * policy)
    *
-   * @param statement The statement to execute
-   */
+   * @param statement
+<span class="fc" id="L217">   *          The statement to execute</span>
+<span class="fc" id="L218">   */</span>
   public void onExecuteStatement(MappedStatement statement) {
-<span class="fc" id="L214">    flush();</span>
-<span class="fc" id="L215">  }</span>
-
+    flush();
+  }
 
   /**
    * Returns statistical information about the cache.
    *
-   * @return the number of cache hits divided by the total requests
+<span class="nc" id="L226">   * @return the number of cache hits divided by the total requests</span>
    */
   public double getHitRatio() {
-<span class="nc" id="L224">    return (double) hits / (double) requests;</span>
+    return (double) hits / (double) requests;
   }
 
   /**
    * Configures the cache
    *
-   * @param props
-   */
+<span class="nc" id="L235">   * @param props</span>
+<span class="nc" id="L236">   */</span>
   public void configure(Properties props) {
-<span class="nc" id="L233">    controller.setProperties(props);</span>
-<span class="nc" id="L234">  }</span>
+    controller.setProperties(props);
+  }
 
   /**
-   * Clears the cache
-   */
-  public void flush() {
-<span class="pc" id="L240">  	synchronized (this)  {</span>
-<span class="fc" id="L241">      controller.flush(this);</span>
-<span class="fc" id="L242">      lastFlush = System.currentTimeMillis();</span>
-<span class="pc bpc" id="L243" title="1 of 2 branches missed.">      if ( log.isDebugEnabled() )  {</span>
-<span class="nc" id="L244">        log(&quot;flushed&quot;, false, null);</span>
+<span class="fc" id="L242">   * Clears the cache</span>
+<span class="fc" id="L243">   */</span>
+<span class="fc" id="L244">  public void flush() {</span>
+<span class="pc bpc" id="L245" title="1 of 2 branches missed.">    synchronized (this) {</span>
+<span class="nc" id="L246">      controller.flush(this);</span>
+      lastFlush = System.currentTimeMillis();
+<span class="pc" id="L248">      if (log.isDebugEnabled()) {</span>
+<span class="fc" id="L249">        log(&quot;flushed&quot;, false, null);</span>
       }
     }
-<span class="fc" id="L247">  }</span>
+  }
 
   /**
-   * Get an object out of the cache.
-   * A side effect of this method is that is may clear the cache if it has not been
+   * Get an object out of the cache. A side effect of this method is that is may clear the cache if it has not been
    * cleared in the flushInterval.
    *
-   * @param key The key of the object to be returned
-   * @return The cached object (or null)
-   */
-  public Object getObject(CacheKey key) {
-<span class="fc" id="L258">  	Object value = null;</span>
-<span class="pc" id="L259">    synchronized (this) {</span>
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">      if (flushInterval != NO_FLUSH_INTERVAL</span>
-<span class="pc bpc" id="L261" title="1 of 2 branches missed.">          &amp;&amp; System.currentTimeMillis() - lastFlush &gt; flushInterval) {</span>
-<span class="nc" id="L262">        flush();</span>
-      }
+   * @param key
+   *          The key of the object to be returned
+<span class="fc" id="L260">   * @return The cached object (or null)</span>
+<span class="fc" id="L261">   */</span>
+<span class="pc bpc" id="L262" title="2 of 4 branches missed.">  public Object getObject(CacheKey key) {</span>
+<span class="nc" id="L263">    Object value = null;</span>
+    synchronized (this) {
+      if (flushInterval != NO_FLUSH_INTERVAL &amp;&amp; System.currentTimeMillis() - lastFlush &gt; flushInterval) {
+<span class="fc" id="L266">        flush();</span>
+<span class="pc bpc" id="L267" title="2 of 8 branches missed.">      }</span>
 
-<span class="fc" id="L265">      value = controller.getObject(this, key);</span>
-<span class="pc bpc" id="L266" title="1 of 4 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp;</span>
-<span class="pc bpc" id="L267" title="1 of 4 branches missed.">       	    (value != NULL_OBJECT &amp;&amp; value != null)) {</span>
-        try {
-<span class="fc" id="L269">          ByteArrayInputStream bis = new ByteArrayInputStream((byte[]) value);</span>
-<span class="fc" id="L270">          ObjectInputStream ois = new ObjectInputStream(bis);</span>
-<span class="fc" id="L271">          value = ois.readObject();</span>
-<span class="fc" id="L272">          ois.close();</span>
-<span class="pc" id="L273">        } catch (Exception e) {</span>
-<span class="nc" id="L274">          throw new RuntimeException(&quot;Error caching serializable object.  Be sure you're not attempting to use &quot; +</span>
-<span class="nc" id="L275">                                           &quot;a serialized cache for an object that may be taking advantage of lazy loading.  Cause: &quot; + e, e);</span>
-        }
-      }
-<span class="fc" id="L278">      requests++;</span>
-<span class="fc bfc" id="L279" title="All 2 branches covered.">      if (value != null) {</span>
-<span class="fc" id="L280">        hits++;</span>
-      }
-<span class="pc bpc" id="L282" title="1 of 2 branches missed.">      if ( log.isDebugEnabled() )  {</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">      	if ( value != null )  {</span>
-<span class="nc" id="L284">            log(&quot;retrieved object&quot;, true, value);</span>
-<span class="nc" id="L285">      	}</span>
-      	else  {
-<span class="nc" id="L287">      		log(&quot;cache miss&quot;, false, null);</span>
-      	}
+<span class="fc" id="L269">      value = controller.getObject(this, key);</span>
+<span class="fc" id="L270">      if (serialize &amp;&amp; !readOnly &amp;&amp; (value != NULL_OBJECT &amp;&amp; value != null)) {</span>
+<span class="fc" id="L271">        try {</span>
+<span class="fc" id="L272">          ByteArrayInputStream bis = new ByteArrayInputStream((byte[]) value);</span>
+<span class="nc" id="L273">          ObjectInputStream ois = new ObjectInputStream(bis);</span>
+<span class="nc" id="L274">          value = ois.readObject();</span>
+          ois.close();
+<span class="fc" id="L276">        } catch (Exception e) {</span>
+          throw new RuntimeException(&quot;Error caching serializable object.  Be sure you're not attempting to use &quot;
+<span class="fc" id="L278">              + &quot;a serialized cache for an object that may be taking advantage of lazy loading.  Cause: &quot; + e, e);</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L280">      }</span>
+      requests++;
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">      if (value != null) {</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">        hits++;</span>
+<span class="nc" id="L284">      }</span>
+      if (log.isDebugEnabled()) {
+<span class="nc" id="L286">        if (value != null) {</span>
+          log(&quot;retrieved object&quot;, true, value);
+        } else {
+<span class="pc" id="L289">          log(&quot;cache miss&quot;, false, null);</span>
+<span class="fc" id="L290">        }</span>
       }
     }
-<span class="fc" id="L291">    return value;</span>
+    return value;
   }
 
   /**
    * Add an object to the cache
    *
-   * @param key   The key of the object to be cached
-   * @param value The object to be cached
-   */
-  public void putObject(CacheKey key, Object value) {
-<span class="pc bpc" id="L301" title="1 of 2 branches missed.">  	if (null == value) value = NULL_OBJECT;</span>
-<span class="pc" id="L302">  	synchronized ( this )  {</span>
-<span class="pc bpc" id="L303" title="2 of 6 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp; value != NULL_OBJECT) {</span>
-        try {
-<span class="fc" id="L305">          ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
-<span class="fc" id="L306">          ObjectOutputStream oos = new ObjectOutputStream(bos);</span>
-<span class="fc" id="L307">          oos.writeObject(value);</span>
-<span class="fc" id="L308">          oos.flush();</span>
-<span class="fc" id="L309">          oos.close();</span>
-<span class="fc" id="L310">          value = bos.toByteArray();</span>
-<span class="pc" id="L311">        } catch (IOException e) {</span>
-<span class="nc" id="L312">          throw new RuntimeException(&quot;Error caching serializable object.  Cause: &quot; + e, e);</span>
-        }
-      }
-<span class="fc" id="L315">      controller.putObject(this, key, value);</span>
-<span class="pc bpc" id="L316" title="1 of 2 branches missed.">      if ( log.isDebugEnabled() )  {</span>
-<span class="nc" id="L317">        log(&quot;stored object&quot;, true, value);</span>
+   * @param key
+   *          The key of the object to be cached
+   * @param value
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">   *          The object to be cached</span>
+<span class="nc" id="L303">   */</span>
+<span class="fc" id="L304">  public void putObject(CacheKey key, Object value) {</span>
+<span class="pc bpc" id="L305" title="2 of 6 branches missed.">    if (null == value)</span>
+      value = NULL_OBJECT;
+<span class="fc" id="L307">    synchronized (this) {</span>
+<span class="fc" id="L308">      if (serialize &amp;&amp; !readOnly &amp;&amp; value != NULL_OBJECT) {</span>
+<span class="fc" id="L309">        try {</span>
+<span class="fc" id="L310">          ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="fc" id="L311">          ObjectOutputStream oos = new ObjectOutputStream(bos);</span>
+<span class="fc" id="L312">          oos.writeObject(value);</span>
+<span class="nc" id="L313">          oos.flush();</span>
+<span class="nc" id="L314">          oos.close();</span>
+<span class="fc" id="L315">          value = bos.toByteArray();</span>
+        } catch (IOException e) {
+<span class="fc" id="L317">          throw new RuntimeException(&quot;Error caching serializable object.  Cause: &quot; + e, e);</span>
+<span class="pc bpc" id="L318" title="1 of 2 branches missed.">        }</span>
+<span class="nc" id="L319">      }</span>
+      controller.putObject(this, key, value);
+<span class="pc" id="L321">      if (log.isDebugEnabled()) {</span>
+<span class="fc" id="L322">        log(&quot;stored object&quot;, true, value);</span>
       }
     }
-<span class="fc" id="L320">  }</span>
+  }
 
   /**
    * Get the maximum size of an object in the log output.
    *
-   * @return Maximum size of a logged object in the output
+<span class="nc" id="L330">   * @return Maximum size of a logged object in the output</span>
    */
-  protected int getMaxObjectLogSize()  {
-<span class="nc" id="L328">      return MAX_OBJECT_LOG_SIZE;</span>
+  protected int getMaxObjectLogSize() {
+    return MAX_OBJECT_LOG_SIZE;
   }
 
   /**
-   * Log a cache action. Since this method is pretty heavy
-   * weight, it's best to enclose it with a log.isDebugEnabled()
+   * Log a cache action. Since this method is pretty heavy weight, it's best to enclose it with a log.isDebugEnabled()
    * when called.
    *
-   * @param action String to output
-   * @param addValue Add the value being cached to the log
-   * @param cacheValue The value being logged
-   */
-  protected void log(String action, boolean addValue,
-  		             Object cacheValue)  {
-<span class="nc" id="L342">    StringBuffer output = new StringBuffer(&quot;Cache '&quot;);</span>
-<span class="nc" id="L343">    output.append(getId());</span>
-<span class="nc" id="L344">    output.append(&quot;': &quot;);</span>
-<span class="nc" id="L345">    output.append(action);</span>
-<span class="nc bnc" id="L346" title="All 2 branches missed.">    if ( addValue )  {</span>
-<span class="nc bnc" id="L347" title="All 2 branches missed.">      String cacheObjectStr = (cacheValue == null ? &quot;null&quot; : cacheValue.toString());</span>
-<span class="nc" id="L348">      output.append(&quot; '&quot;);</span>
-<span class="nc bnc" id="L349" title="All 2 branches missed.">      if ( cacheObjectStr.length() &lt; getMaxObjectLogSize() )  {</span>
-<span class="nc" id="L350">      	output.append(cacheObjectStr.toString());</span>
-<span class="nc" id="L351">      }</span>
-      else  {
-<span class="nc" id="L353">      	output.append(cacheObjectStr.substring(1,</span>
-<span class="nc" id="L354">      			                 getMaxObjectLogSize()));</span>
-<span class="nc" id="L355">      	output.append(&quot;...&quot;);</span>
-      }
-<span class="nc" id="L357">      output.append(&quot;'&quot;);</span>
+   * @param action
+   *          String to output
+   * @param addValue
+   *          Add the value being cached to the log
+   * @param cacheValue
+<span class="nc" id="L345">   *          The value being logged</span>
+<span class="nc" id="L346">   */</span>
+<span class="nc" id="L347">  protected void log(String action, boolean addValue, Object cacheValue) {</span>
+<span class="nc" id="L348">    StringBuffer output = new StringBuffer(&quot;Cache '&quot;);</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">    output.append(getId());</span>
+<span class="nc bnc" id="L350" title="All 2 branches missed.">    output.append(&quot;': &quot;);</span>
+<span class="nc" id="L351">    output.append(action);</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">    if (addValue) {</span>
+<span class="nc" id="L353">      String cacheObjectStr = (cacheValue == null ? &quot;null&quot; : cacheValue.toString());</span>
+      output.append(&quot; '&quot;);
+<span class="nc" id="L355">      if (cacheObjectStr.length() &lt; getMaxObjectLogSize()) {</span>
+<span class="nc" id="L356">        output.append(cacheObjectStr.toString());</span>
+      } else {
+<span class="nc" id="L358">        output.append(cacheObjectStr.substring(1, getMaxObjectLogSize()));</span>
+        output.append(&quot;...&quot;);
+<span class="nc" id="L360">      }</span>
+<span class="nc" id="L361">      output.append(&quot;'&quot;);</span>
     }
-<span class="nc" id="L359">    log.debug(output.toString());</span>
-<span class="nc" id="L360">  }</span>
-
-  public void setControllerProperties(Properties cacheProps) {
-<span class="fc" id="L363">    controller.setProperties(cacheProps);</span>
+    log.debug(output.toString());
 <span class="fc" id="L364">  }</span>
+<span class="fc" id="L365"></span>
+  public void setControllerProperties(Properties cacheProps) {
+    controller.setProperties(cacheProps);
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

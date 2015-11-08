@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CacheModelConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">CacheModelConfig.java</span></div><h1>CacheModelConfig.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.config;
 
@@ -23,55 +23,57 @@ import java.util.Properties;
 
 public class CacheModelConfig {
   private ErrorContext errorContext;
-  private CacheModel cacheModel;
-
-<span class="fc" id="L28">  CacheModelConfig(SqlMapConfiguration config, String id, CacheController controller, boolean readOnly, boolean serialize) {</span>
-<span class="fc" id="L29">    this.errorContext = config.getErrorContext();</span>
-<span class="fc" id="L30">    this.cacheModel = new CacheModel();</span>
-<span class="fc" id="L31">    SqlMapClientImpl client = config.getClient();</span>
-<span class="fc" id="L32">    errorContext.setActivity(&quot;building a cache model&quot;);</span>
-<span class="fc" id="L33">    cacheModel.setReadOnly(readOnly);</span>
-<span class="fc" id="L34">    cacheModel.setSerialize(serialize);</span>
-<span class="fc" id="L35">    errorContext.setObjectId(id + &quot; cache model&quot;);</span>
-<span class="fc" id="L36">    errorContext.setMoreInfo(&quot;Check the cache model type.&quot;);</span>
-<span class="fc" id="L37">    cacheModel.setId(id);</span>
-<span class="fc" id="L38">    cacheModel.setResource(errorContext.getResource());</span>
-    try {
-<span class="fc" id="L40">      cacheModel.setCacheController(controller);</span>
-<span class="pc" id="L41">    } catch (Exception e) {</span>
-<span class="nc" id="L42">      throw new RuntimeException(&quot;Error setting Cache Controller Class.  Cause: &quot; + e, e);</span>
-    }
-<span class="fc" id="L44">    errorContext.setMoreInfo(&quot;Check the cache model configuration.&quot;);</span>
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (client.getDelegate().isCacheModelsEnabled()) {</span>
-<span class="fc" id="L46">      client.getDelegate().addCacheModel(cacheModel);</span>
-    }
-<span class="fc" id="L48">    errorContext.setMoreInfo(null);</span>
-<span class="fc" id="L49">    errorContext.setObjectId(null);</span>
-<span class="fc" id="L50">  }</span>
-
-  public void setFlushInterval(long hours, long minutes, long seconds, long milliseconds) {
-<span class="fc" id="L53">    errorContext.setMoreInfo(&quot;Check the cache model flush interval.&quot;);</span>
-<span class="fc" id="L54">    long t = 0L;</span>
-<span class="fc" id="L55">    t += milliseconds;</span>
-<span class="fc" id="L56">    t += seconds * 1000L;</span>
-<span class="fc" id="L57">    t += minutes * 60L * 1000L;</span>
-<span class="fc" id="L58">    t += hours * 60L * 60L * 1000L;</span>
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">    if (t &lt; 1L)</span>
-<span class="nc" id="L60">      throw new RuntimeException(&quot;A flush interval must specify one or more of milliseconds, seconds, minutes or hours.&quot;);</span>
-<span class="fc" id="L61">    cacheModel.setFlushInterval(t);</span>
-<span class="fc" id="L62">  }</span>
-
-  public void addFlushTriggerStatement(String statement) {
-<span class="fc" id="L65">    errorContext.setMoreInfo(&quot;Check the cache model flush on statement elements.&quot;);</span>
-<span class="fc" id="L66">    cacheModel.addFlushTriggerStatement(statement);</span>
-<span class="fc" id="L67">  }</span>
+<span class="fc" id="L26">  private CacheModel cacheModel;</span>
+<span class="fc" id="L27"></span>
+<span class="fc" id="L28">  CacheModelConfig(SqlMapConfiguration config, String id, CacheController controller, boolean readOnly,</span>
+<span class="fc" id="L29">      boolean serialize) {</span>
+<span class="fc" id="L30">    this.errorContext = config.getErrorContext();</span>
+<span class="fc" id="L31">    this.cacheModel = new CacheModel();</span>
+<span class="fc" id="L32">    SqlMapClientImpl client = config.getClient();</span>
+<span class="fc" id="L33">    errorContext.setActivity(&quot;building a cache model&quot;);</span>
+<span class="fc" id="L34">    cacheModel.setReadOnly(readOnly);</span>
+<span class="fc" id="L35">    cacheModel.setSerialize(serialize);</span>
+<span class="fc" id="L36">    errorContext.setObjectId(id + &quot; cache model&quot;);</span>
+    errorContext.setMoreInfo(&quot;Check the cache model type.&quot;);
+<span class="fc" id="L38">    cacheModel.setId(id);</span>
+<span class="nc" id="L39">    cacheModel.setResource(errorContext.getResource());</span>
+<span class="nc" id="L40">    try {</span>
+<span class="fc" id="L41">      cacheModel.setCacheController(controller);</span>
+<span class="fc" id="L42">    } catch (Exception e) {</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">      throw new RuntimeException(&quot;Error setting Cache Controller Class.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L44">    }</span>
+    errorContext.setMoreInfo(&quot;Check the cache model configuration.&quot;);
+<span class="fc" id="L46">    if (client.getDelegate().isCacheModelsEnabled()) {</span>
+<span class="fc" id="L47">      client.getDelegate().addCacheModel(cacheModel);</span>
+<span class="fc" id="L48">    }</span>
+    errorContext.setMoreInfo(null);
+    errorContext.setObjectId(null);
+<span class="fc" id="L51">  }</span>
+<span class="fc" id="L52"></span>
+<span class="fc" id="L53">  public void setFlushInterval(long hours, long minutes, long seconds, long milliseconds) {</span>
+<span class="fc" id="L54">    errorContext.setMoreInfo(&quot;Check the cache model flush interval.&quot;);</span>
+<span class="fc" id="L55">    long t = 0L;</span>
+<span class="fc" id="L56">    t += milliseconds;</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    t += seconds * 1000L;</span>
+<span class="nc" id="L58">    t += minutes * 60L * 1000L;</span>
+    t += hours * 60L * 60L * 1000L;
+<span class="fc" id="L60">    if (t &lt; 1L)</span>
+<span class="fc" id="L61">      throw new RuntimeException(</span>
+          &quot;A flush interval must specify one or more of milliseconds, seconds, minutes or hours.&quot;);
+    cacheModel.setFlushInterval(t);
+<span class="fc" id="L64">  }</span>
+<span class="fc" id="L65"></span>
+<span class="fc" id="L66">  public void addFlushTriggerStatement(String statement) {</span>
+    errorContext.setMoreInfo(&quot;Check the cache model flush on statement elements.&quot;);
+    cacheModel.addFlushTriggerStatement(statement);
+<span class="nc" id="L69">  }</span>
 
   public CacheModel getCacheModel() {
-<span class="nc" id="L70">    return cacheModel;</span>
-  }
-
+    return cacheModel;
+<span class="fc" id="L73">  }</span>
+<span class="fc" id="L74"></span>
   public void setControllerProperties(Properties cacheProps) {
-<span class="fc" id="L74">    cacheModel.setControllerProperties(cacheProps);</span>
-<span class="fc" id="L75">  }</span>
+    cacheModel.setControllerProperties(cacheProps);
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

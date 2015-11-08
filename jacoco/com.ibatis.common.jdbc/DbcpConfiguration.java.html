@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DbcpConfiguration.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">DbcpConfiguration.java</span></div><h1>DbcpConfiguration.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.common.jdbc;
 
@@ -26,121 +26,121 @@ import java.util.Map;
 
 /**
  * Wrapper class to simplify use of DBCP
- */
+<span class="nc" id="L29"> */</span>
 public class DbcpConfiguration {
-
-<span class="nc" id="L32">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+<span class="nc" id="L31"></span>
+  private static final Probe PROBE = ProbeFactory.getProbe();
   private static final String ADD_DRIVER_PROPS_PREFIX = &quot;Driver.&quot;;
-<span class="nc" id="L34">  private static final int ADD_DRIVER_PROPS_PREFIX_LENGTH = ADD_DRIVER_PROPS_PREFIX.length();</span>
+  private static final int ADD_DRIVER_PROPS_PREFIX_LENGTH = ADD_DRIVER_PROPS_PREFIX.length();
   private DataSource dataSource;
 
   /**
    * Constructor to supply a map of properties
    *
-   * @param properties - the map of configuration properties
+<span class="nc" id="L40">   * @param properties</span>
+   *          - the map of configuration properties
    */
-<span class="nc" id="L42">  public DbcpConfiguration(Map properties) {</span>
-    try {
-
-<span class="nc" id="L45">      dataSource = legacyDbcpConfiguration(properties);</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">      if (dataSource == null) {</span>
-<span class="nc" id="L47">        dataSource = newDbcpConfiguration(properties);</span>
-      }
-
-<span class="nc" id="L50">    } catch (Exception e) {</span>
-<span class="nc" id="L51">      throw new RuntimeException(&quot;Error initializing DbcpDataSourceFactory.  Cause: &quot; + e, e);</span>
+<span class="nc" id="L43">  public DbcpConfiguration(Map properties) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">    try {</span>
+<span class="nc" id="L45"></span>
+      dataSource = legacyDbcpConfiguration(properties);
+      if (dataSource == null) {
+<span class="nc" id="L48">        dataSource = newDbcpConfiguration(properties);</span>
+<span class="nc" id="L49">      }</span>
+<span class="nc" id="L50"></span>
+<span class="nc" id="L51">    } catch (Exception e) {</span>
+      throw new RuntimeException(&quot;Error initializing DbcpDataSourceFactory.  Cause: &quot; + e, e);
     }
-<span class="nc" id="L53">  }</span>
+  }
 
   /**
    * Getter for DataSource
    *
-   * @return The DataSource
+<span class="nc" id="L59">   * @return The DataSource</span>
    */
   public DataSource getDataSource() {
-<span class="nc" id="L61">    return dataSource;</span>
-  }
-
-  private BasicDataSource newDbcpConfiguration(Map map) {
-<span class="nc" id="L65">    BasicDataSource basicDataSource = new BasicDataSource();</span>
-<span class="nc" id="L66">    Iterator props = map.keySet().iterator();</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">    while (props.hasNext()) {</span>
-<span class="nc" id="L68">      String propertyName = (String) props.next();</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">      if (propertyName.startsWith(ADD_DRIVER_PROPS_PREFIX)) {</span>
-<span class="nc" id="L70">        String value = (String) map.get(propertyName);</span>
-<span class="nc" id="L71">        basicDataSource.addConnectionProperty(propertyName.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">      } else if (PROBE.hasWritableProperty(basicDataSource, propertyName)) {</span>
-<span class="nc" id="L73">        String value = (String) map.get(propertyName);</span>
-<span class="nc" id="L74">        Object convertedValue = convertValue(basicDataSource, propertyName, value);</span>
-<span class="nc" id="L75">        PROBE.setObject(basicDataSource, propertyName, convertedValue);</span>
+    return dataSource;
+<span class="nc" id="L63">  }</span>
+<span class="nc" id="L64"></span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">  private BasicDataSource newDbcpConfiguration(Map map) {</span>
+<span class="nc" id="L66">    BasicDataSource basicDataSource = new BasicDataSource();</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    Iterator props = map.keySet().iterator();</span>
+<span class="nc" id="L68">    while (props.hasNext()) {</span>
+<span class="nc" id="L69">      String propertyName = (String) props.next();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">      if (propertyName.startsWith(ADD_DRIVER_PROPS_PREFIX)) {</span>
+<span class="nc" id="L71">        String value = (String) map.get(propertyName);</span>
+<span class="nc" id="L72">        basicDataSource.addConnectionProperty(propertyName.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);</span>
+<span class="nc" id="L73">      } else if (PROBE.hasWritableProperty(basicDataSource, propertyName)) {</span>
+        String value = (String) map.get(propertyName);
+<span class="nc" id="L75">        Object convertedValue = convertValue(basicDataSource, propertyName, value);</span>
+<span class="nc" id="L76">        PROBE.setObject(basicDataSource, propertyName, convertedValue);</span>
       }
     }
-<span class="nc" id="L78">    return basicDataSource;</span>
-  }
-
-  private Object convertValue(Object object, String propertyName, String value) {
-<span class="nc" id="L82">    Object convertedValue = value;</span>
-<span class="nc" id="L83">    Class targetType = PROBE.getPropertyTypeForSetter(object, propertyName);</span>
-<span class="nc bnc" id="L84" title="All 4 branches missed.">    if (targetType == Integer.class || targetType == int.class) {</span>
-<span class="nc" id="L85">      convertedValue = Integer.valueOf(value);</span>
-<span class="nc bnc" id="L86" title="All 4 branches missed.">    } else if (targetType == Long.class || targetType == long.class) {</span>
-<span class="nc" id="L87">      convertedValue = Long.valueOf(value);</span>
-<span class="nc bnc" id="L88" title="All 4 branches missed.">    } else if (targetType == Boolean.class || targetType == boolean.class) {</span>
-<span class="nc" id="L89">      convertedValue = Boolean.valueOf(value);</span>
+    return basicDataSource;
+<span class="nc" id="L80">  }</span>
+<span class="nc" id="L81"></span>
+<span class="nc bnc" id="L82" title="All 4 branches missed.">  private Object convertValue(Object object, String propertyName, String value) {</span>
+<span class="nc" id="L83">    Object convertedValue = value;</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">    Class targetType = PROBE.getPropertyTypeForSetter(object, propertyName);</span>
+<span class="nc" id="L85">    if (targetType == Integer.class || targetType == int.class) {</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">      convertedValue = Integer.valueOf(value);</span>
+<span class="nc" id="L87">    } else if (targetType == Long.class || targetType == long.class) {</span>
+      convertedValue = Long.valueOf(value);
+<span class="nc" id="L89">    } else if (targetType == Boolean.class || targetType == boolean.class) {</span>
+      convertedValue = Boolean.valueOf(value);
     }
-<span class="nc" id="L91">    return convertedValue;</span>
-  }
+    return convertedValue;
+<span class="nc" id="L93">  }</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed."></span>
+<span class="nc" id="L95">  private BasicDataSource legacyDbcpConfiguration(Map map) {</span>
+<span class="nc" id="L96">    BasicDataSource basicDataSource = null;</span>
+<span class="nc" id="L97">    if (map.containsKey(&quot;JDBC.Driver&quot;)) {</span>
+<span class="nc" id="L98">      basicDataSource = new BasicDataSource();</span>
+<span class="nc" id="L99">      String driver = (String) map.get(&quot;JDBC.Driver&quot;);</span>
+<span class="nc" id="L100">      String url = (String) map.get(&quot;JDBC.ConnectionURL&quot;);</span>
+<span class="nc" id="L101">      String username = (String) map.get(&quot;JDBC.Username&quot;);</span>
+<span class="nc" id="L102">      String password = (String) map.get(&quot;JDBC.Password&quot;);</span>
+<span class="nc" id="L103">      String validationQuery = (String) map.get(&quot;Pool.ValidationQuery&quot;);</span>
+      String maxActive = (String) map.get(&quot;Pool.MaximumActiveConnections&quot;);
+<span class="nc" id="L105">      String maxIdle = (String) map.get(&quot;Pool.MaximumIdleConnections&quot;);</span>
+<span class="nc" id="L106">      String maxWait = (String) map.get(&quot;Pool.MaximumWait&quot;);</span>
+<span class="nc" id="L107"></span>
+<span class="nc" id="L108">      basicDataSource.setUrl(url);</span>
+      basicDataSource.setDriverClassName(driver);
+<span class="nc bnc" id="L110" title="All 2 branches missed.">      basicDataSource.setUsername(username);</span>
+<span class="nc" id="L111">      basicDataSource.setPassword(password);</span>
 
-  private BasicDataSource legacyDbcpConfiguration(Map map) {
-<span class="nc" id="L95">    BasicDataSource basicDataSource = null;</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">    if (map.containsKey(&quot;JDBC.Driver&quot;)) {</span>
-<span class="nc" id="L97">      basicDataSource = new BasicDataSource();</span>
-<span class="nc" id="L98">      String driver = (String) map.get(&quot;JDBC.Driver&quot;);</span>
-<span class="nc" id="L99">      String url = (String) map.get(&quot;JDBC.ConnectionURL&quot;);</span>
-<span class="nc" id="L100">      String username = (String) map.get(&quot;JDBC.Username&quot;);</span>
-<span class="nc" id="L101">      String password = (String) map.get(&quot;JDBC.Password&quot;);</span>
-<span class="nc" id="L102">      String validationQuery = (String) map.get(&quot;Pool.ValidationQuery&quot;);</span>
-<span class="nc" id="L103">      String maxActive = (String) map.get(&quot;Pool.MaximumActiveConnections&quot;);</span>
-<span class="nc" id="L104">      String maxIdle = (String) map.get(&quot;Pool.MaximumIdleConnections&quot;);</span>
-<span class="nc" id="L105">      String maxWait = (String) map.get(&quot;Pool.MaximumWait&quot;);</span>
+      if (notEmpty(validationQuery)) {
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        basicDataSource.setValidationQuery(validationQuery);</span>
+<span class="nc" id="L115">      }</span>
 
-<span class="nc" id="L107">      basicDataSource.setUrl(url);</span>
-<span class="nc" id="L108">      basicDataSource.setDriverClassName(driver);</span>
-<span class="nc" id="L109">      basicDataSource.setUsername(username);</span>
-<span class="nc" id="L110">      basicDataSource.setPassword(password);</span>
+      if (notEmpty(maxActive)) {
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        basicDataSource.setMaxActive(Integer.parseInt(maxActive));</span>
+<span class="nc" id="L119">      }</span>
 
-<span class="nc bnc" id="L112" title="All 2 branches missed.">      if (notEmpty(validationQuery)) {</span>
-<span class="nc" id="L113">        basicDataSource.setValidationQuery(validationQuery);</span>
-      }
+      if (notEmpty(maxIdle)) {
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        basicDataSource.setMaxIdle(Integer.parseInt(maxIdle));</span>
+<span class="nc" id="L123">      }</span>
 
-<span class="nc bnc" id="L116" title="All 2 branches missed.">      if (notEmpty(maxActive)) {</span>
-<span class="nc" id="L117">        basicDataSource.setMaxActive(Integer.parseInt(maxActive));</span>
-      }
-
-<span class="nc bnc" id="L120" title="All 2 branches missed.">      if (notEmpty(maxIdle)) {</span>
-<span class="nc" id="L121">        basicDataSource.setMaxIdle(Integer.parseInt(maxIdle));</span>
-      }
-
-<span class="nc bnc" id="L124" title="All 2 branches missed.">      if (notEmpty(maxWait)) {</span>
-<span class="nc" id="L125">        basicDataSource.setMaxWait(Integer.parseInt(maxWait));</span>
-      }
-
-<span class="nc" id="L128">      Iterator props = map.keySet().iterator();</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">      while (props.hasNext()) {</span>
-<span class="nc" id="L130">        String propertyName = (String) props.next();</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (propertyName.startsWith(ADD_DRIVER_PROPS_PREFIX)) {</span>
-<span class="nc" id="L132">          String value = (String) map.get(propertyName);</span>
-<span class="nc" id="L133">          basicDataSource.addConnectionProperty(propertyName.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);</span>
-        }
+      if (notEmpty(maxWait)) {
+<span class="nc" id="L126">        basicDataSource.setMaxWait(Integer.parseInt(maxWait));</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">      }</span>
+<span class="nc" id="L128"></span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">      Iterator props = map.keySet().iterator();</span>
+<span class="nc" id="L130">      while (props.hasNext()) {</span>
+<span class="nc" id="L131">        String propertyName = (String) props.next();</span>
+        if (propertyName.startsWith(ADD_DRIVER_PROPS_PREFIX)) {
+<span class="nc" id="L133">          String value = (String) map.get(propertyName);</span>
+          basicDataSource.addConnectionProperty(propertyName.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);
+<span class="nc" id="L135">        }</span>
       }
     }
-<span class="nc" id="L137">    return basicDataSource;</span>
-  }
+    return basicDataSource;
+<span class="nc bnc" id="L139" title="All 4 branches missed.">  }</span>
 
   private boolean notEmpty(String s) {
-<span class="nc bnc" id="L141" title="All 4 branches missed.">    return s != null &amp;&amp; s.length() &gt; 0;</span>
+    return s != null &amp;&amp; s.length() &gt; 0;
   }
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

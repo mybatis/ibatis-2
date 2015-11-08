@@ -7,19 +7,19 @@
 <body>
 <div id="overview"><a href="../../../../../../../../apidocs/com/ibatis/sqlmap/engine/mapping/sql/dynamic/DynamicSql.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2004-2015 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *    See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *    limitations under the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.mapping.sql.dynamic;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -101,131 +101,135 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      statementScope.setDynamicParameterMap(map);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>    }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processBodyChildren(<a href="../../../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html">StatementScope</a> statementScope, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html">SqlTagContext</a> ctx, Object parameterObject, Iterator localChildren) {
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      PrintWriter out = ctx.getWriter();
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>    }
-<a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processBodyChildren(<a href="../../../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html">StatementScope</a> statementScope, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html">SqlTagContext</a> ctx, Object parameterObject, Iterator localChildren, PrintWriter out) {
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">while</strong> (localChildren.hasNext()) {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>       <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html">SqlChild</a> child = (SqlChild) localChildren.next();
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>       <strong class="jxr_keyword">if</strong> (child instanceof SqlText) {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlText.html">SqlText</a> sqlText = (SqlText) child;
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         String sqlStatement = sqlText.getText();
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">if</strong> (sqlText.isWhiteSpace()) {
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>           out.print(sqlStatement);
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!sqlText.isPostParseRequired()) {
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>           <em class="jxr_comment">// BODY OUT</em>
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>           out.print(sqlStatement);
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>               ctx.addParameterMapping(mappings[i]);
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>             }
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>           }
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html">IterateContext</a> itCtx = ctx.peekIterateContext();
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processBodyChildren(<a href="../../../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html">StatementScope</a> statementScope, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html">SqlTagContext</a> ctx, Object parameterObject,
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>        Iterator localChildren) {
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      PrintWriter out = ctx.getWriter();
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>   }
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processBodyChildren(<a href="../../../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html">StatementScope</a> statementScope, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html">SqlTagContext</a> ctx, Object parameterObject,
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>       Iterator localChildren, PrintWriter out) {
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">while</strong> (localChildren.hasNext()) {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>       <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html">SqlChild</a> child = (SqlChild) localChildren.next();
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>       <strong class="jxr_keyword">if</strong> (child instanceof SqlText) {
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlText.html">SqlText</a> sqlText = (SqlText) child;
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         String sqlStatement = sqlText.getText();
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">if</strong> (sqlText.isWhiteSpace()) {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>           out.print(sqlStatement);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!sqlText.isPostParseRequired()) {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> 
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>           <em class="jxr_comment">// BODY OUT</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>           out.print(sqlStatement);
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> 
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>               ctx.addParameterMapping(mappings[i]);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>             }
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>           }
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>           <strong class="jxr_keyword">if</strong>(<strong class="jxr_keyword">null</strong> != itCtx &amp;&amp; itCtx.isAllowNext()){
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             itCtx.next();
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>             itCtx.setAllowNext(false);
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">if</strong>(!itCtx.hasNext()) {
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>               itCtx.setFinal(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>             }
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>           }
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>           <strong class="jxr_keyword">if</strong>(itCtx!=<strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>             StringBuffer sqlStatementBuffer = <strong class="jxr_keyword">new</strong> StringBuffer(sqlStatement);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             iteratePropertyReplace(sqlStatementBuffer, itCtx);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>             sqlStatement = sqlStatementBuffer.toString();
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>           }
-<a class="jxr_linenumber" name="L137" href="#L137">137</a> 
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>           sqlText = PARAM_PARSER.parseInlineParameterMap(delegate.getTypeHandlerFactory(), sqlStatement);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html">IterateContext</a> itCtx = ctx.peekIterateContext();
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> 
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>           <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">null</strong> != itCtx &amp;&amp; itCtx.isAllowNext()) {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>             itCtx.next();
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             itCtx.setAllowNext(false);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>             <strong class="jxr_keyword">if</strong> (!itCtx.hasNext()) {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>               itCtx.setFinal(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             }
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>           }
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>           <strong class="jxr_keyword">if</strong> (itCtx != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>             StringBuffer sqlStatementBuffer = <strong class="jxr_keyword">new</strong> StringBuffer(sqlStatement);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>             iteratePropertyReplace(sqlStatementBuffer, itCtx);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>             sqlStatement = sqlStatementBuffer.toString();
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>           }
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>           out.print(sqlText.getText());
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>              <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>                ctx.addParameterMapping(mappings[i]);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>              }
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>           }
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         }
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (child instanceof SqlTag) {
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html">SqlTag</a> tag = (SqlTag) child;
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagHandler.html">SqlTagHandler</a> handler = tag.getHandler();
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">int</strong> response = SqlTagHandler.INCLUDE_BODY;
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         <strong class="jxr_keyword">do</strong> {
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>           StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>           PrintWriter pw = <strong class="jxr_keyword">new</strong> PrintWriter(sw);
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>           
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>           response = handler.doStartFragment(ctx, tag, parameterObject);
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>           <strong class="jxr_keyword">if</strong> (response != SqlTagHandler.SKIP_BODY) {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> 
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>             processBodyChildren(statementScope, ctx, parameterObject, tag.getChildren(), pw);
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>             pw.flush();
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>             pw.close();
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>             StringBuffer body = sw.getBuffer();
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             response = handler.doEndFragment(ctx, tag, parameterObject, body);
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>             handler.doPrepend(ctx, tag, parameterObject, body);
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>             
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>             <strong class="jxr_keyword">if</strong> (response != SqlTagHandler.SKIP_BODY) {
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>               <strong class="jxr_keyword">if</strong> (body.length() &gt; 0) {
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>                 out.print(body.toString());
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>               }
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>             }
-<a class="jxr_linenumber" name="L171" href="#L171">171</a> 
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>           }
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         } <strong class="jxr_keyword">while</strong> (response == SqlTagHandler.REPEAT_BODY);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         ctx.popRemoveFirstPrependMarker(tag);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>           sqlText = PARAM_PARSER.parseInlineParameterMap(delegate.getTypeHandlerFactory(), sqlStatement);
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>           <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>           out.print(sqlText.getText());
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>               ctx.addParameterMapping(mappings[i]);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             }
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>           }
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         }
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (child instanceof SqlTag) {
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html">SqlTag</a> tag = (SqlTag) child;
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagHandler.html">SqlTagHandler</a> handler = tag.getHandler();
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">int</strong> response = SqlTagHandler.INCLUDE_BODY;
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">do</strong> {
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>           StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>           PrintWriter pw = <strong class="jxr_keyword">new</strong> PrintWriter(sw);
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>           response = handler.doStartFragment(ctx, tag, parameterObject);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>           <strong class="jxr_keyword">if</strong> (response != SqlTagHandler.SKIP_BODY) {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> 
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>             processBodyChildren(statementScope, ctx, parameterObject, tag.getChildren(), pw);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>             pw.flush();
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             pw.close();
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             StringBuffer body = sw.getBuffer();
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>             response = handler.doEndFragment(ctx, tag, parameterObject, body);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>             handler.doPrepend(ctx, tag, parameterObject, body);
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">if</strong> (response != SqlTagHandler.SKIP_BODY) {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>               <strong class="jxr_keyword">if</strong> (body.length() &gt; 0) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                 out.print(body.toString());
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>               }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>             }
+<a class="jxr_linenumber" name="L173" href="#L173">173</a> 
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>           }
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         } <strong class="jxr_keyword">while</strong> (response == SqlTagHandler.REPEAT_BODY);
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> 
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">if</strong>(ctx.peekIterateContext()!= <strong class="jxr_keyword">null</strong> &amp;&amp; ctx.peekIterateContext().getTag() == tag) {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>           ctx.setAttribute(ctx.peekIterateContext().getTag(), <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>           ctx.popIterateContext();
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         }
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> 
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>       }
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>     }
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>   }
-<a class="jxr_linenumber" name="L185" href="#L185">185</a> 
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">   * </em>
-<a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">   * @param bodyContent</em>
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">   * @param iterate</em>
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> iteratePropertyReplace(StringBuffer bodyContent, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html">IterateContext</a> iterate) {
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">if</strong>(iterate!=<strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>       String[] mappings = <strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"#"</span>, <span class="jxr_string">"$"</span>};
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; mappings.length; i++) {
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>           <strong class="jxr_keyword">int</strong> startIndex = 0;
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>           <strong class="jxr_keyword">int</strong> endIndex = -1;
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>           <strong class="jxr_keyword">while</strong> (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>               startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>               endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>               <strong class="jxr_keyword">if</strong> (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>                   bodyContent.replace(startIndex + 1, endIndex, iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>               }
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>           }
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>       }
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>   }
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> replace(StringBuffer buffer, String find, String replace) {
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">int</strong> pos = buffer.toString().indexOf(find);
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>     <strong class="jxr_keyword">int</strong> len = find.length();
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>     <strong class="jxr_keyword">while</strong> (pos &gt; -1) {
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>       buffer.replace(pos, pos + len, replace);
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>       pos = buffer.toString().indexOf(find);
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     }
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>   }
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addChild(<a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html">SqlChild</a> child) {
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     children.add(child);
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         ctx.popRemoveFirstPrependMarker(tag);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">if</strong> (ctx.peekIterateContext() != <strong class="jxr_keyword">null</strong> &amp;&amp; ctx.peekIterateContext().getTag() == tag) {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>           ctx.setAttribute(ctx.peekIterateContext().getTag(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>           ctx.popIterateContext();
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         }
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>       }
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     }
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>   }
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">   * @param bodyContent</em>
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">   * @param iterate</em>
+<a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> iteratePropertyReplace(StringBuffer bodyContent, <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html">IterateContext</a> iterate) {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">if</strong> (iterate != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>       String[] mappings = <strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"#"</span>, <span class="jxr_string">"$"</span> };
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; mappings.length; i++) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">int</strong> startIndex = 0;
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">int</strong> endIndex = -1;
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">while</strong> (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>           startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>           endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>           <strong class="jxr_keyword">if</strong> (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>             bodyContent.replace(startIndex + 1, endIndex,
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>                 iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>           }
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         }
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>       }
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>     }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>   }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> 
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> replace(StringBuffer buffer, String find, String replace) {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">int</strong> pos = buffer.toString().indexOf(find);
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>     <strong class="jxr_keyword">int</strong> len = find.length();
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">while</strong> (pos &gt; -1) {
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>       buffer.replace(pos, pos + len, replace);
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>       pos = buffer.toString().indexOf(find);
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>   }
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> 
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> }
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addChild(<a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html">SqlChild</a> child) {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     children.add(child);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>   }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>

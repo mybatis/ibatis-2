@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ComplexDataExchange.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">ComplexDataExchange.java</span></div><h1>ComplexDataExchange.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2004-2015 the original author or authors.
+ * Copyright 2004-2015 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.exchange;
 
@@ -30,86 +30,89 @@ import java.util.Map;
 
 /**
  * A DataExchange implemtation for working with beans
- */
+<span class="fc" id="L33"> */</span>
 public class ComplexDataExchange extends BaseDataExchange implements DataExchange {
 
-<span class="fc" id="L36">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+  private static final Probe PROBE = ProbeFactory.getProbe();
 
   /**
    * Constructor for the factory
-   * @param dataExchangeFactory - the factory
-   */
+   * 
+   * @param dataExchangeFactory
+<span class="fc" id="L42">   *          - the factory</span>
+<span class="fc" id="L43">   */</span>
   public ComplexDataExchange(DataExchangeFactory dataExchangeFactory) {
-<span class="fc" id="L43">    super(dataExchangeFactory);</span>
-<span class="fc" id="L44">  }</span>
+    super(dataExchangeFactory);
+<span class="fc" id="L46">  }</span>
 
   public void initialize(Map properties) {
-<span class="fc" id="L47">  }</span>
-
-  public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
-<span class="fc" id="L50">    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">    if (parameterObject == null) {</span>
-<span class="fc" id="L52">      return new Object[1];</span>
-    } else {
-<span class="fc bfc" id="L54" title="All 2 branches covered.">      if (typeHandlerFactory.hasTypeHandler(parameterObject.getClass())) {</span>
-<span class="fc" id="L55">        ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
-<span class="fc" id="L56">        Object[] data = new Object[mappings.length];</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="fc" id="L58">          data[i] = parameterObject;</span>
+<span class="fc" id="L49">  }</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered."></span>
+<span class="fc" id="L51">  public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {</span>
+    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    if (parameterObject == null) {</span>
+<span class="fc" id="L54">      return new Object[1];</span>
+<span class="fc" id="L55">    } else {</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">      if (typeHandlerFactory.hasTypeHandler(parameterObject.getClass())) {</span>
+<span class="fc" id="L57">        ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
+        Object[] data = new Object[mappings.length];
+<span class="fc" id="L59">        for (int i = 0; i &lt; mappings.length; i++) {</span>
+          data[i] = parameterObject;
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">        return data;</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">      } else {</span>
+<span class="fc" id="L64">        Object[] data = new Object[parameterMap.getParameterMappings().length];</span>
+        ParameterMapping[] mappings = parameterMap.getParameterMappings();
+<span class="fc" id="L66">        for (int i = 0; i &lt; mappings.length; i++) {</span>
+          data[i] = PROBE.getObject(parameterObject, mappings[i].getPropertyName());
         }
-<span class="fc" id="L60">        return data;</span>
-      } else {
-<span class="fc" id="L62">        Object[] data = new Object[parameterMap.getParameterMappings().length];</span>
-<span class="fc" id="L63">        ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="fc" id="L65">          data[i] = PROBE.getObject(parameterObject, mappings[i].getPropertyName());</span>
-        }
-<span class="fc" id="L67">        return data;</span>
+        return data;
       }
     }
-  }
-
-  public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-<span class="fc" id="L73">    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">    if (typeHandlerFactory.hasTypeHandler(resultMap.getResultClass())) {</span>
-<span class="nc" id="L75">      return values[0];</span>
+<span class="fc" id="L72">  }</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed."></span>
+<span class="nc" id="L74">  public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {</span>
+    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();
+<span class="fc" id="L76">    if (typeHandlerFactory.hasTypeHandler(resultMap.getResultClass())) {</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">      return values[0];</span>
     } else {
-<span class="fc" id="L77">      Object object = resultObject;</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">      if (object == null) {</span>
-        try {
-<span class="fc" id="L80">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
-<span class="pc" id="L81">        } catch (Exception e) {</span>
-<span class="nc" id="L82">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
-        }
+<span class="fc" id="L79">      Object object = resultObject;</span>
+<span class="nc" id="L80">      if (object == null) {</span>
+<span class="nc" id="L81">        try {</span>
+<span class="fc" id="L82">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
+        } catch (Exception e) {
+<span class="fc" id="L84">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L86">      }</span>
+      ResultMapping[] mappings = resultMap.getResultMappings();
+<span class="fc" id="L88">      for (int i = 0; i &lt; mappings.length; i++) {</span>
+        PROBE.setObject(object, mappings[i].getPropertyName(), values[i]);
       }
-<span class="fc" id="L85">      ResultMapping[] mappings = resultMap.getResultMappings();</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">      for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="fc" id="L87">        PROBE.setObject(object, mappings[i].getPropertyName(), values[i]);</span>
-      }
-<span class="fc" id="L89">      return object;</span>
+      return object;
     }
   }
-
-  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject, Object[] values) {
-<span class="fc" id="L94">    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();</span>
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">    if (typeHandlerFactory.hasTypeHandler(parameterMap.getParameterClass())) {</span>
-<span class="nc" id="L96">      return values[0];</span>
+<span class="fc" id="L94"></span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,</span>
+<span class="nc" id="L96">      Object[] values) {</span>
+    TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();
+<span class="fc" id="L98">    if (typeHandlerFactory.hasTypeHandler(parameterMap.getParameterClass())) {</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">      return values[0];</span>
     } else {
-<span class="fc" id="L98">      Object object = parameterObject;</span>
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">      if (object == null) {</span>
-        try {
-<span class="nc" id="L101">          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());</span>
-<span class="nc" id="L102">        } catch (Exception e) {</span>
-<span class="nc" id="L103">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
+<span class="nc" id="L101">      Object object = parameterObject;</span>
+<span class="nc" id="L102">      if (object == null) {</span>
+<span class="nc" id="L103">        try {</span>
+<span class="nc" id="L104">          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());</span>
+        } catch (Exception e) {
+<span class="fc" id="L106">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        }</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">      }</span>
+<span class="nc" id="L109">      ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
+      for (int i = 0; i &lt; mappings.length; i++) {
+        if (mappings[i].isOutputAllowed()) {
+<span class="fc" id="L112">          PROBE.setObject(object, mappings[i].getPropertyName(), values[i]);</span>
         }
       }
-<span class="fc" id="L106">      ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">      for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (mappings[i].isOutputAllowed()) {</span>
-<span class="nc" id="L109">          PROBE.setObject(object, mappings[i].getPropertyName(), values[i]);</span>
-        }
-      }
-<span class="fc" id="L112">      return object;</span>
+      return object;
     }
   }
 

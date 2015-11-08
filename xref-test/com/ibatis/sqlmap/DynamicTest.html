@@ -7,19 +7,19 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/com/ibatis/sqlmap/DynamicTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *    Copyright 2004-2015 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2015 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *    you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *    You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *       <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> *    Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> *    distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *    See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *    limitations under the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -33,13 +33,13 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/ibatis/sqlmap/DynamicTest.html">DynamicTest</a> <strong class="jxr_keyword">extends</strong> <a href="../../../com/ibatis/sqlmap/BaseSqlMapTest.html">BaseSqlMapTest</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>    @Override
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      initSqlMap(<span class="jxr_string">"com/ibatis/sqlmap/maps/SqlMapConfig.xml"</span>, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      initScript(<span class="jxr_string">"scripts/account-init.sql"</span>);
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>    }
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>    @Override
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> tearDown() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> tearDown() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>    }
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>    <em class="jxr_comment">// PARAMETER PRESENT</em>
@@ -161,7 +161,7 @@
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     assertAccount1((Account) list.get(0));
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     assertEquals(5, list.size());
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>   }
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>   
+<a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testComplexDynamicQuery() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     <a href="../../../testdomain/Account.html">Account</a> account = <strong class="jxr_keyword">new</strong> <a href="../../../testdomain/Account.html">Account</a>();
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     account.setId(2);
@@ -183,30 +183,30 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>     assertAccount2((Account) list.get(0));
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>     assertEquals(1, list.size());
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>   }
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>   
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_comment">// COMPLETE STATEMENT SUBSTITUTION</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>   <em class="jxr_comment">// COMPLETE STATEMENT SUBSTITUTION</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_comment">// -- No longer supported.  Conflicted with and deemed less valuable than</em>
-<a class="jxr_linenumber" name="L182" href="#L182">182</a> <em class="jxr_comment">// -- iterative $substitutions[]$.</em>
-<a class="jxr_linenumber" name="L183" href="#L183">183</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L184" href="#L184">184</a> <em class="jxr_comment">//  public void testCompleteStatementSubst() throws SQLException {</em>
-<a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_comment">//    String statement = "select" +</em>
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_comment">//        "    ACC_ID          as id," +</em>
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_comment">//        "    ACC_FIRST_NAME  as firstName," +</em>
-<a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_comment">//        "    ACC_LAST_NAME   as lastName," +</em>
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_comment">//        "    ACC_EMAIL       as emailAddress" +</em>
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_comment">//        "  from ACCOUNT" +</em>
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_comment">//        "  WHERE ACC_ID = #id#";</em>
-<a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_comment">//    Integer id = new Integer(1);</em>
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_comment">//    Map params = new HashMap();</em>
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> <em class="jxr_comment">//    params.put("id", id);</em>
-<a class="jxr_linenumber" name="L196" href="#L196">196</a> <em class="jxr_comment">//    params.put("statement", statement);</em>
-<a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> <em class="jxr_comment">//    List list = sqlMap.queryForList("dynamicSubst", params);</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_comment">//    assertAccount1((Account) list.get(0));</em>
-<a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_comment">//    assertEquals(1, list.size());</em>
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_comment">//  }</em>
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>   <em class="jxr_comment">// -- No longer supported. Conflicted with and deemed less valuable than</em>
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>   <em class="jxr_comment">// -- iterative $substitutions[]$.</em>
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>   <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>   <em class="jxr_comment">// public void testCompleteStatementSubst() throws SQLException {</em>
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>   <em class="jxr_comment">// String statement = "select" +</em>
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>   <em class="jxr_comment">// "    ACC_ID          as id," +</em>
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>   <em class="jxr_comment">// "    ACC_FIRST_NAME  as firstName," +</em>
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>   <em class="jxr_comment">// "    ACC_LAST_NAME   as lastName," +</em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>   <em class="jxr_comment">// "    ACC_EMAIL       as emailAddress" +</em>
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>   <em class="jxr_comment">// "  from ACCOUNT" +</em>
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>   <em class="jxr_comment">// "  WHERE ACC_ID = #id#";</em>
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>   <em class="jxr_comment">// Integer id = new Integer(1);</em>
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>   <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>   <em class="jxr_comment">// Map params = new HashMap();</em>
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>   <em class="jxr_comment">// params.put("id", id);</em>
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>   <em class="jxr_comment">// params.put("statement", statement);</em>
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>   <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>   <em class="jxr_comment">// List list = sqlMap.queryForList("dynamicSubst", params);</em>
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>   <em class="jxr_comment">// assertAccount1((Account) list.get(0));</em>
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>   <em class="jxr_comment">// assertEquals(1, list.size());</em>
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>   <em class="jxr_comment">// }</em>
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>   <em class="jxr_comment">// Query By Example w/Prepend</em>
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
@@ -241,38 +241,36 @@
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>     account = (Account) sqlMap.queryForObject(<span class="jxr_string">"dynamicQueryByExample"</span>, account);
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     assertAccount1(account);
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> 
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> 
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>   }
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> 
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRemappableResults() <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <a href="../../../testdomain/Account.html">Account</a> account;
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> 
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>     account = <strong class="jxr_keyword">new</strong> <a href="../../../testdomain/Account.html">Account</a>();
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>     account.setId(1);
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>     account = (Account) sqlMap.queryForObject(<span class="jxr_string">"testRemappableResults"</span>, <strong class="jxr_keyword">new</strong> Integer(1));
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>   }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRemappableResults() <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>     <a href="../../../testdomain/Account.html">Account</a> account;
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     account = <strong class="jxr_keyword">new</strong> <a href="../../../testdomain/Account.html">Account</a>();
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     account.setId(1);
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>     account = (Account) sqlMap.queryForObject(<span class="jxr_string">"testRemappableResults"</span>, <strong class="jxr_keyword">new</strong> Integer(1));
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>     assertAccount1(account);
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> 
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>     assertAccount1(account);
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     account = <strong class="jxr_keyword">new</strong> <a href="../../../testdomain/Account.html">Account</a>();
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>     account.setId(5);
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     account = (Account) sqlMap.queryForObject(<span class="jxr_string">"testRemappableResults"</span>, <strong class="jxr_keyword">new</strong> Integer(77));
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     assertEquals(0, account.getId());
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>     assertEquals(<span class="jxr_string">"Jim"</span>, account.getFirstName());
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>   }
-<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIsPropertyAvailable () <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>     Map account = <strong class="jxr_keyword">new</strong> HashMap();
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     account.put(<span class="jxr_string">"id"</span>,<strong class="jxr_keyword">new</strong> Integer(1));
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>     account.put(<span class="jxr_string">"name"</span>, <span class="jxr_string">"Clinton"</span>);
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>     account = (Map) sqlMap.queryForObject(<span class="jxr_string">"selectIfPropertyAvailable"</span>, account);
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> 
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     assertEquals(<strong class="jxr_keyword">new</strong> Integer(1), account.get(<span class="jxr_string">"ACC_ID"</span>));
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>     assertEquals(<span class="jxr_string">"Clinton"</span>, account.get(<span class="jxr_string">"ACC_FIRST_NAME"</span>));
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>   }
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> }
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>     account = <strong class="jxr_keyword">new</strong> <a href="../../../testdomain/Account.html">Account</a>();
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     account.setId(5);
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     account = (Account) sqlMap.queryForObject(<span class="jxr_string">"testRemappableResults"</span>, <strong class="jxr_keyword">new</strong> Integer(77));
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> 
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     assertEquals(0, account.getId());
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>     assertEquals(<span class="jxr_string">"Jim"</span>, account.getFirstName());
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>   }
+<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIsPropertyAvailable() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>     Map account = <strong class="jxr_keyword">new</strong> HashMap();
+<a class="jxr_linenumber" name="L257" href="#L257">257</a> 
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     account.put(<span class="jxr_string">"id"</span>, <strong class="jxr_keyword">new</strong> Integer(1));
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     account.put(<span class="jxr_string">"name"</span>, <span class="jxr_string">"Clinton"</span>);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>     account = (Map) sqlMap.queryForObject(<span class="jxr_string">"selectIfPropertyAvailable"</span>, account);
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> 
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>     assertEquals(<strong class="jxr_keyword">new</strong> Integer(1), account.get(<span class="jxr_string">"ACC_ID"</span>));
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>     assertEquals(<span class="jxr_string">"Clinton"</span>, account.get(<span class="jxr_string">"ACC_FIRST_NAME"</span>));
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>   }
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
