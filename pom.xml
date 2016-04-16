@@ -198,7 +198,7 @@
     </plugins>
     <resources>
       <resource>
-        <directory>src/main/java</directory>
+        <directory>${project.build.sourceDirectory}</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
@@ -206,7 +206,7 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>src/test/java</directory>
+        <directory>${project.build.testSourceDirectory}</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
