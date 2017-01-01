@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MappedStatement.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">MappedStatement.java</span></div><h1>MappedStatement.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MappedStatement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">MappedStatement.java</span></div><h1>MappedStatement.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -231,7 +231,7 @@ public class MappedStatement {
 <span class="fc bfc" id="L231" title="All 2 branches covered.">    Class parameterClass = getParameterClass();</span>
 <span class="pc bpc" id="L232" title="1 of 4 branches missed.">    if (newParam != null &amp;&amp; parameterClass != null) {</span>
 <span class="nc" id="L233">      if (DomTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
-        if (XmlTypeMarker.class.isAssignableFrom(parameterClass)) {
+<span class="nc" id="L234">        if (XmlTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
           if (!(newParam instanceof String) &amp;&amp; !(newParam instanceof Document)) {
 <span class="fc bfc" id="L236" title="All 2 branches covered.">            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + String.class.getName() + &quot;' or '&quot;</span>
 <span class="fc" id="L237">                + Document.class.getName() + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
@@ -239,13 +239,13 @@ public class MappedStatement {
           if (!(newParam instanceof Document)) {
 <span class="pc bpc" id="L240" title="1 of 2 branches missed.">            newParam = stringToDocument((String) newParam);</span>
 <span class="nc" id="L241">          }</span>
-        } else {
+<span class="nc" id="L242">        } else {</span>
           if (!Document.class.isAssignableFrom(newParam.getClass())) {
             throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + Document.class.getName()
                 + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);
 <span class="fc bfc" id="L246" title="All 2 branches covered.">          }</span>
 <span class="fc" id="L247">        }</span>
-      } else {
+<span class="fc" id="L248">      } else {</span>
         if (!parameterClass.isAssignableFrom(newParam.getClass())) {
           throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + parameterClass.getName()
               + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);
@@ -415,4 +415,4 @@ public class MappedStatement {
     return additionalResultMaps;
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

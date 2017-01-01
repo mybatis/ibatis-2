@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -236,8 +236,8 @@ public class ComplexBeanProbe extends BaseProbe {
 <span class="nc" id="L236">            try {</span>
 <span class="nc" id="L237">              child = ResultObjectFactoryUtil.createObjectThroughFactory(type);</span>
               setObject(parent, property, child);
-            } catch (Exception e) {
-              throw new ProbeException(
+<span class="nc" id="L239">            } catch (Exception e) {</span>
+<span class="nc" id="L240">              throw new ProbeException(</span>
 <span class="fc" id="L241">                  &quot;Cannot set value of property '&quot; + name + &quot;' because '&quot; + property</span>
                       + &quot;' is null and cannot be instantiated on instance of &quot; + type.getName() + &quot;. Cause:&quot;
                       + e.toString(), e);
@@ -333,7 +333,7 @@ public class ComplexBeanProbe extends BaseProbe {
 <span class="fc" id="L333">            value = getProperty(getObject(object, newName), name.substring(index + 1));</span>
 <span class="pc bpc" id="L334" title="1 of 2 branches missed.">          } else {</span>
 <span class="nc" id="L335">            ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
-            Invoker method = classCache.getGetInvoker(name);
+<span class="nc" id="L336">            Invoker method = classCache.getGetInvoker(name);</span>
             if (method == null) {
               throw new NoSuchMethodException(&quot;No GET method for property &quot; + name + &quot; on instance of &quot;
 <span class="fc" id="L339">                  + object.getClass().getName());</span>
@@ -353,7 +353,7 @@ public class ComplexBeanProbe extends BaseProbe {
     } catch (Throwable t) {
       if (object == null) {
 <span class="nc" id="L355">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from null reference.  Cause: &quot; + t.toString(),</span>
-            t);
+<span class="nc" id="L356">            t);</span>
       } else {
         throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from &quot; + object.getClass().getName()
             + &quot;.  Cause: &quot; + t.toString(), t);
@@ -371,7 +371,7 @@ public class ComplexBeanProbe extends BaseProbe {
 <span class="fc" id="L371">        if (object instanceof Map) {</span>
 <span class="pc bpc" id="L372" title="1 of 2 branches missed.">          ((Map) object).put(name, value);</span>
 <span class="nc" id="L373">        } else {</span>
-          Invoker method = classCache.getSetInvoker(name);
+<span class="nc" id="L374">          Invoker method = classCache.getSetInvoker(name);</span>
           if (method == null) {
 <span class="fc" id="L376">            throw new NoSuchMethodException(&quot;No SET method for property &quot; + name + &quot; on instance of &quot;</span>
 <span class="fc" id="L377">                + object.getClass().getName());</span>
@@ -386,7 +386,7 @@ public class ComplexBeanProbe extends BaseProbe {
 <span class="nc" id="L386">        }</span>
 <span class="fc" id="L387">      }</span>
 <span class="fc" id="L388">    } catch (ProbeException e) {</span>
-      throw e;
+<span class="fc" id="L389">      throw e;</span>
 <span class="fc" id="L390">    } catch (Throwable t) {</span>
 <span class="fc" id="L391">      throw new ProbeException(&quot;Could not set property '&quot; + name + &quot;' to value '&quot; + value + &quot;' for &quot;</span>
           + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(), t);
@@ -394,4 +394,4 @@ public class ComplexBeanProbe extends BaseProbe {
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

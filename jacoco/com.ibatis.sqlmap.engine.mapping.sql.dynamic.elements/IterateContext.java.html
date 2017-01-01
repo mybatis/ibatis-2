@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>IterateContext.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IterateContext.java</span></div><h1>IterateContext.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IterateContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IterateContext.java</span></div><h1>IterateContext.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -200,7 +200,7 @@ public class IterateContext implements Iterator {
 <span class="fc" id="L200">    if (parent != null) {</span>
 <span class="fc" id="L201">      int parentPropertyIndex = property.indexOf(parent.getProperty());</span>
 <span class="fc" id="L202">      if (parentPropertyIndex &gt; -1) {</span>
-        int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);
+<span class="fc" id="L203">        int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);</span>
         int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);
 <span class="fc" id="L205">        return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1,</span>
             property.length());
@@ -221,7 +221,7 @@ public class IterateContext implements Iterator {
 <span class="fc bfc" id="L221" title="All 2 branches covered.">   *         occured in PROCESS_INDEX key.</span>
 <span class="fc" id="L222">   */</span>
 <span class="fc" id="L223">  protected Map processTagProperty(String tagProperty) {</span>
-    if (parent != null) {
+<span class="fc" id="L224">    if (parent != null) {</span>
       Map parentResult = parent.processTagProperty(tagProperty);
 <span class="fc" id="L226">      return this.addIndex((String) parentResult.get(PROCESS_STRING),</span>
           ((Integer) parentResult.get(PROCESS_INDEX)).intValue());
@@ -259,7 +259,7 @@ public class IterateContext implements Iterator {
 <span class="fc bfc" id="L259" title="All 2 branches covered.">    // Is the iterate property in the tag property at all?</span>
     if (propertyIndex &gt; -1) {
 <span class="fc" id="L261">      // Make sure the tag property does not already have a number.</span>
-      if (input.charAt(propertyIndex + endProperty.length()) == ']') {
+<span class="fc" id="L262">      if (input.charAt(propertyIndex + endProperty.length()) == ']') {</span>
 <span class="fc" id="L263">        // Add iteration number to property.</span>
         input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()
             + input.substring(propertyIndex + endProperty.length());
@@ -296,4 +296,4 @@ public class IterateContext implements Iterator {
     this.isPrependEnabled = isPrependEnabled;
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

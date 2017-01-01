@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ParameterMap.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">ParameterMap.java</span></div><h1>ParameterMap.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">ParameterMap.java</span></div><h1>ParameterMap.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ public class ParameterMap {
   public ParameterMapping[] getParameterMappings() {
     return parameterMappings;
 <span class="fc" id="L89">  }</span>
-
+<span class="fc" id="L90"></span>
 <span class="fc" id="L91">  public void setParameterMappingList(List parameterMappingList) {</span>
 <span class="fc bfc" id="L92" title="All 2 branches covered.">    this.parameterMappings = (ParameterMapping[]) parameterMappingList</span>
 <span class="fc" id="L93">        .toArray(new ParameterMapping[parameterMappingList.size()]);</span>
@@ -188,8 +188,8 @@ public class ParameterMap {
 <span class="fc" id="L188">          try {</span>
 <span class="pc bpc" id="L189" title="2 of 4 branches missed.">            DatabaseMetaData dbmd = ps.getConnection().getMetaData();</span>
 <span class="nc" id="L190">            String databaseProductName = dbmd.getDatabaseProductName();</span>
-<span class="pc bpc" id="L191" title="3 of 8 branches missed.">            String jdbcDriverName = dbmd.getDriverName();</span>
-            if (databaseProductName.startsWith(&quot;Informix&quot;) || jdbcDriverName.startsWith(&quot;Microsoft SQL Server&quot;)) {
+<span class="pc bpc" id="L191" title="2 of 4 branches missed.">            String jdbcDriverName = dbmd.getDriverName();</span>
+<span class="pc bpc" id="L192" title="1 of 4 branches missed.">            if (databaseProductName.startsWith(&quot;Informix&quot;) || jdbcDriverName.startsWith(&quot;Microsoft SQL Server&quot;)) {</span>
 <span class="fc" id="L193">              useSetObjectForNullValue = Boolean.TRUE;</span>
             } else if (databaseProductName.startsWith(&quot;DB2&quot;) || jdbcDriverName.startsWith(&quot;jConnect&quot;)
 <span class="nc" id="L195">                || jdbcDriverName.startsWith(&quot;SQLServer&quot;) || jdbcDriverName.startsWith(&quot;Apache Derby Embedded&quot;)) {</span>
@@ -209,4 +209,4 @@ public class ParameterMap {
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

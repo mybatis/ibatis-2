@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ResultMap.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">ResultMap.java</span></div><h1>ResultMap.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">ResultMap.java</span></div><h1>ResultMap.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -283,7 +283,7 @@ public class ResultMap {
    * @param resultMappingList
 <span class="fc bfc" id="L284" title="All 2 branches covered.">   *          - the list</span>
 <span class="fc" id="L285">   */</span>
-  public void setResultMappingList(List resultMappingList) {
+<span class="fc" id="L286">  public void setResultMappingList(List resultMappingList) {</span>
     if (allowRemapping) {
 <span class="fc" id="L288">      this.remappableResultMappings.set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList</span>
           .size()]));
@@ -330,7 +330,7 @@ public class ResultMap {
 <span class="fc bfc" id="L330" title="All 2 branches covered.">    for (int i = 0; i &lt; getResultMappings().length; i++) {</span>
 <span class="pc bpc" id="L331" title="1 of 2 branches missed.">      ResultMapping mapping = (ResultMapping) getResultMappings()[i];</span>
 <span class="nc" id="L332">      errorContext.setMoreInfo(mapping.getErrorString());</span>
-      if (mapping.getStatementName() != null) {
+<span class="nc" id="L333">      if (mapping.getStatementName() != null) {</span>
 <span class="pc bpc" id="L334" title="1 of 2 branches missed.">        if (resultClass == null) {</span>
 <span class="nc" id="L335">          throw new SqlMapException(&quot;The result class was null when trying to get results for ResultMap named &quot;</span>
 <span class="nc bnc" id="L336" title="All 2 branches missed.">              + getId() + &quot;.&quot;);</span>
@@ -633,7 +633,7 @@ public class ResultMap {
         value = typeHandler.getResult(rs, columnIndex);
 <span class="fc" id="L634">      } else {</span>
 <span class="nc" id="L635">        value = typeHandler.getResult(rs, columnName);</span>
-      }
+<span class="nc" id="L636">      }</span>
     } else {
       throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()
 <span class="fc" id="L639">          + &quot;' to the column '&quot; + mapping.getColumnName()</span>
@@ -649,7 +649,7 @@ public class ResultMap {
 <span class="fc" id="L649">        String nullValue = mapping.getNullValue();</span>
         if (nullValue != null)
 <span class="nc" id="L651">          value = typeHandler.valueOf(nullValue);</span>
-        return value;
+<span class="nc" id="L652">        return value;</span>
       } else {
         throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()
             + &quot;' to the column '&quot; + mapping.getColumnName()
@@ -660,4 +660,4 @@ public class ResultMap {
     }
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

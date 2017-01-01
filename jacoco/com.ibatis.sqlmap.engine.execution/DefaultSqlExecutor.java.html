@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultSqlExecutor.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.execution</a> &gt; <span class="el_source">DefaultSqlExecutor.java</span></div><h1>DefaultSqlExecutor.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultSqlExecutor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.execution</a> &gt; <span class="el_source">DefaultSqlExecutor.java</span></div><h1>DefaultSqlExecutor.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -435,7 +435,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
           if (skipResults &gt; 0) {
 <span class="fc bfc" id="L436" title="All 2 branches covered.">            rs.absolute(skipResults);</span>
 <span class="fc bfc" id="L437" title="All 2 branches covered.">          }</span>
-        } else {
+<span class="fc" id="L438">        } else {</span>
           for (int i = 0; i &lt; skipResults; i++) {
             if (!rs.next()) {
               return;
@@ -487,8 +487,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
 <span class="nc bnc" id="L487" title="All 4 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
 <span class="nc" id="L488">      ParameterMapping mapping = ((ParameterMapping) mappings[i]);</span>
       if (mapping.isOutputAllowed()) {
-<span class="nc bnc" id="L490" title="All 6 branches missed.">        if (null != mapping.getTypeName() &amp;&amp; !mapping.getTypeName().equals(&quot;&quot;)) { // @added</span>
-          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
+<span class="nc bnc" id="L490" title="All 2 branches missed.">        if (null != mapping.getTypeName() &amp;&amp; !mapping.getTypeName().equals(&quot;&quot;)) { // @added</span>
+<span class="nc bnc" id="L491" title="All 4 branches missed.">          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());</span>
 <span class="nc" id="L492">        } else {</span>
           if (mapping.getNumericScale() != null
 <span class="nc" id="L494">              &amp;&amp; (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {</span>
@@ -614,7 +614,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
   }
 
   //
-<span class="fc" id="L617">  // Inner Classes</span>
+  // Inner Classes
   //
 <span class="fc" id="L619"></span>
 <span class="fc" id="L620">  private static class Batch {</span>
@@ -751,7 +751,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
 <span class="fc" id="L752">  }</span>
 <span class="fc" id="L753"></span>
-  private void setupResultObjectFactory(StatementScope statementScope) {
+<span class="fc" id="L754">  private void setupResultObjectFactory(StatementScope statementScope) {</span>
 <span class="fc" id="L755">    SqlMapClientImpl client = (SqlMapClientImpl) statementScope.getSession().getSqlMapClient();</span>
     ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(), statementScope.getStatement()
         .getId());
@@ -761,4 +761,4 @@ public class DefaultSqlExecutor implements SqlExecutor {
     ResultObjectFactoryUtil.cleanupResultObjectFactory();
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

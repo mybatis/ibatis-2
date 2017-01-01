@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleDataSource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">SimpleDataSource.java</span></div><h1>SimpleDataSource.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2015 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">SimpleDataSource.java</span></div><h1>SimpleDataSource.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2004-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -112,8 +112,8 @@ public class SimpleDataSource implements DataSource {
 <span class="nc" id="L112">      String prop_pool_ping_query = null;</span>
 
       if (props == null) {
-<span class="pc bpc" id="L115" title="4 of 8 branches missed.">        throw new RuntimeException(&quot;SimpleDataSource: The properties map passed to the initializer was null.&quot;);</span>
-      }
+<span class="pc bpc" id="L115" title="2 of 4 branches missed.">        throw new RuntimeException(&quot;SimpleDataSource: The properties map passed to the initializer was null.&quot;);</span>
+<span class="pc bpc" id="L116" title="2 of 4 branches missed.">      }</span>
 <span class="nc" id="L117"></span>
       if (!(props.containsKey(PROP_JDBC_DRIVER) &amp;&amp; props.containsKey(PROP_JDBC_URL)
           &amp;&amp; props.containsKey(PROP_JDBC_USERNAME) &amp;&amp; props.containsKey(PROP_JDBC_PASSWORD))) {
@@ -123,31 +123,31 @@ public class SimpleDataSource implements DataSource {
 <span class="fc" id="L123">        jdbcDriver = (String) props.get(PROP_JDBC_DRIVER);</span>
         jdbcUrl = (String) props.get(PROP_JDBC_URL);
 <span class="fc bfc" id="L125" title="All 2 branches covered.">        jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);</span>
-        jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
+<span class="fc" id="L126">        jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);</span>
 
 <span class="fc bfc" id="L128" title="All 2 branches covered.">        poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN) ? Integer.parseInt((String) props</span>
-            .get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
+<span class="fc" id="L129">            .get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;</span>
 
 <span class="fc bfc" id="L131" title="All 2 branches covered.">        poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN) ? Integer.parseInt((String) props</span>
-            .get(PROP_POOL_MAX_IDLE_CONN)) : 5;
+<span class="fc" id="L132">            .get(PROP_POOL_MAX_IDLE_CONN)) : 5;</span>
 
 <span class="fc bfc" id="L134" title="All 2 branches covered.">        poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME) ? Integer.parseInt((String) props</span>
-            .get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
+<span class="fc" id="L135">            .get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;</span>
 
-<span class="pc bpc" id="L137" title="1 of 4 branches missed.">        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT) ? Integer.parseInt((String) props</span>
-            .get(PROP_POOL_TIME_TO_WAIT)) : 20000;
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT) ? Integer.parseInt((String) props</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">            .get(PROP_POOL_TIME_TO_WAIT)) : 20000;</span>
 
 <span class="fc" id="L140">        poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)</span>
 <span class="fc bfc" id="L141" title="All 2 branches covered.">            &amp;&amp; Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();</span>
 
 <span class="fc bfc" id="L143" title="All 2 branches covered.">        prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);</span>
-        poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : &quot;NO PING QUERY SET&quot;;
+<span class="fc" id="L144">        poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : &quot;NO PING QUERY SET&quot;;</span>
 
 <span class="fc bfc" id="L146" title="All 2 branches covered.">        poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN) ? Integer</span>
-            .parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
+<span class="fc" id="L147">            .parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;</span>
 
-<span class="pc bpc" id="L149" title="1 of 4 branches missed.">        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR) ? Integer</span>
-            .parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR) ? Integer</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">            .parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;</span>
 
 <span class="fc" id="L152">        jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)</span>
 <span class="fc" id="L153">            &amp;&amp; Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();</span>
@@ -507,8 +507,8 @@ public class SimpleDataSource implements DataSource {
 <span class="fc" id="L507"></span>
 <span class="fc" id="L508">  private void pushConnection(SimplePooledConnection conn) throws SQLException {</span>
 <span class="pc bpc" id="L509" title="1 of 2 branches missed."></span>
-<span class="pc bpc" id="L510" title="2 of 4 branches missed.">    synchronized (POOL_LOCK) {</span>
-      activeConnections.remove(conn);
+<span class="pc bpc" id="L510" title="1 of 2 branches missed.">    synchronized (POOL_LOCK) {</span>
+<span class="pc bpc" id="L511" title="1 of 2 branches missed.">      activeConnections.remove(conn);</span>
 <span class="fc" id="L512">      if (conn.isValid()) {</span>
 <span class="fc bfc" id="L513" title="All 2 branches covered.">        if (idleConnections.size() &lt; poolMaximumIdleConnections</span>
 <span class="fc" id="L514">            &amp;&amp; conn.getConnectionTypeCode() == getExpectedConnectionTypeCode()) {</span>
@@ -673,8 +673,8 @@ public class SimpleDataSource implements DataSource {
       }
 <span class="pc bpc" id="L674" title="1 of 2 branches missed.">      result = false;</span>
 <span class="pc bpc" id="L675" title="1 of 2 branches missed.">    }</span>
-<span class="nc bnc" id="L676" title="All 8 branches missed."></span>
-    if (result) {
+<span class="nc bnc" id="L676" title="All 6 branches missed."></span>
+<span class="nc bnc" id="L677" title="All 2 branches missed.">    if (result) {</span>
       if (poolPingEnabled) {
         if ((poolPingConnectionsOlderThan &gt; 0 &amp;&amp; conn.getAge() &gt; poolPingConnectionsOlderThan)
 <span class="nc bnc" id="L680" title="All 2 branches missed.">            || (poolPingConnectionsNotUsedFor &gt; 0 &amp;&amp; conn.getTimeElapsedSinceLastUse() &gt; poolPingConnectionsNotUsedFor)) {</span>
@@ -1146,4 +1146,4 @@ public class SimpleDataSource implements DataSource {
     return false;
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
