@@ -44,6 +44,7 @@ public class SqlMapConfiguration {
   private TypeHandlerFactory typeHandlerFactory;
   private SqlMapClientImpl client;
   private Integer defaultStatementTimeout;
+  private Map staticValueMap = new HashMap();
 
   public SqlMapConfiguration() {
     errorContext = new ErrorContext();
@@ -68,6 +69,11 @@ public class SqlMapConfiguration {
   public SqlMapExecutorDelegate getDelegate() {
     return delegate;
   }
+
+  public Map getStaticValueMap() {
+    return staticValueMap;
+  }
+
 
   public void setClassInfoCacheEnabled(boolean classInfoCacheEnabled) {
     errorContext.setActivity("setting class info cache enabled/disabled");

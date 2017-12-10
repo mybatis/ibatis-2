@@ -18,6 +18,7 @@ package com.ibatis.common.xml;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.Map;
 import java.util.Properties;
 
 public class NodeletUtils {
@@ -73,6 +74,32 @@ public class NodeletUtils {
           newString = prepend + propName + append;
         } else {
           newString = prepend + propValue + append;
+        }
+        start = newString.indexOf(OPEN);
+        end = newString.indexOf(CLOSE);
+      }
+    }
+    return newString;
+  }
+
+  public static String parseStaticValue(String string, Map values) {
+    final String OPEN = "![";
+    final String CLOSE = "]";
+
+    String newString = string;
+    if (newString != null && values != null) {
+      int start = newString.indexOf(OPEN);
+      int end = newString.indexOf(CLOSE);
+
+      while (start > -1 && end > start) {
+        String prepend = newString.substring(0, start);
+        String append = newString.substring(end + CLOSE.length());
+        String staticName = newString.substring(start + OPEN.length(), end);
+        String staticValue = (String)values.get(staticName);
+        if (staticValue == null) {
+          newString = prepend + staticName + append;
+        } else {
+          newString = prepend + staticValue + append;
         }
         start = newString.indexOf(OPEN);
         end = newString.indexOf(CLOSE);

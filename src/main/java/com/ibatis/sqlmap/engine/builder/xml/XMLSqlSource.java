@@ -144,3 +144,4 @@ public class XMLSqlSource implements SqlSource {
   }
 
 }
+        data = NodeletUtils.parseStaticValue(data, state.getConfig().getStaticValueMap());

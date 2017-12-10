@@ -20,7 +20,7 @@
 A single SQL Map XML file can contain as many cache models, parameter maps, result maps and
 statements as you like. Use discretion and organize the statements and maps appropriately for your
 application (group them logically).-->
-<!ELEMENT sqlMap (typeAlias* | cacheModel* | resultMap* | parameterMap* | sql* | statement* | insert* | update* | delete* | select* | procedure*)+>
+<!ELEMENT sqlMap (staticField* | staticValue* | typeAlias* | cacheModel* | resultMap* | parameterMap* | sql* | statement* | insert* | update* | delete* | select* | procedure*)+>
 <!ATTLIST sqlMap
 xmlns:fo CDATA #IMPLIED
 namespace CDATA #IMPLIED
@@ -158,6 +158,29 @@ statement CDATA #REQUIRED
 name CDATA #REQUIRED
 value CDATA #REQUIRED
 >
+
+
+<!--The staticValue element simply allows you to specify a shorter name to refer to a static field in class. For example:
+
+<staticField name="shortname" class="com.example.Demo" field="STATICVALUE" withQuotes="true"/>-->
+<!ELEMENT staticField EMPTY>
+<!ATTLIST staticField
+        name CDATA #REQUIRED
+        class CDATA #REQUIRED
+        field CDATA #REQUIRED
+        withQuotes (true | false) #REQUIRED
+        >
+
+<!--The staticValue element simply allows you to specify a shorter name to refer to a static field in class. For example:
+
+<staticValue name="shortname" value="123456" withQuotes="false"/>-->
+<!ELEMENT staticValue EMPTY>
+<!ATTLIST staticValue
+        name CDATA #REQUIRED
+        value CDATA #REQUIRED
+        withQuotes (true | false) #REQUIRED
+        >
+
 
 <!--The typeAlias element simply allows you to specify a shorter name to refer to what is usually a long, fully
 qualified classname. For example:
