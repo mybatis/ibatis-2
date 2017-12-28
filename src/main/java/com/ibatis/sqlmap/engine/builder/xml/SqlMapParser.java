@@ -24,6 +24,7 @@ import com.ibatis.sqlmap.engine.cache.*;
 import org.w3c.dom.Node;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.Properties;
 
 public class SqlMapParser {
@@ -44,6 +45,8 @@ public class SqlMapParser {
     addSqlMapNodelets();
     addSqlNodelets();
     addTypeAliasNodelets();
+    addStaticFieldNodelets();
+    addStaticValueNodelets();
     addCacheModelNodelets();
     addParameterMapNodelets();
     addResultMapNodelets();
@@ -92,6 +95,48 @@ public class SqlMapParser {
         String alias = prop.getProperty("alias");
         String type = prop.getProperty("type");
         state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);
+      }
+    });
+  }
+
+  private void addStaticFieldNodelets() {
+    parser.addNodelet("/sqlMap/staticField", new Nodelet() {
+      public void process(Node node) throws Exception {
+        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        String name = prop.getProperty("name");
+        String className = prop.getProperty("class");
+        String field = prop.getProperty("field");
+        String withQuotes = prop.getProperty("withQuotes");
+        boolean needQuote = Boolean.parseBoolean(withQuotes);
+        Class clazz = Class.forName(className);
+        Field classField = clazz.getField(field);
+        Object value = classField.get(null);
+        if(needQuote){
+          StringBuilder buf = new StringBuilder();
+          buf.append('\'').append(value).append('\'');
+          state.getConfig().getStaticValueMap().put(name, buf.toString());
+        }else{
+          state.getConfig().getStaticValueMap().put(name, value.toString());
+        }
+      }
+    });
+  }
+
+  private void addStaticValueNodelets() {
+    parser.addNodelet("/sqlMap/staticValue", new Nodelet() {
+      public void process(Node node) throws Exception {
+        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        String name = prop.getProperty("name");
+        String value = prop.getProperty("value");
+        String withQuotes = prop.getProperty("withQuotes");
+        boolean needQuote = Boolean.parseBoolean(withQuotes);
+        if(needQuote){
+          StringBuilder buf = new StringBuilder();
+          buf.append('\'').append(value).append('\'');
+          state.getConfig().getStaticValueMap().put(name, buf.toString());
+        }else{
+          state.getConfig().getStaticValueMap().put(name, value);
+        }
       }
     });
   }
