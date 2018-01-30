@@ -32,15 +32,15 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
   private static final Map doctypeMap = new HashMap();
 
   static {
-    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-config-2.dtd".toUpperCase(), SQL_MAP_CONFIG_DTD);
-    doctypeMap.put("http://ibatis.apache.org/dtd/sql-map-config-2.dtd".toUpperCase(), SQL_MAP_CONFIG_DTD);
-    doctypeMap.put("-//iBATIS.com//DTD SQL Map Config 2.0//EN".toUpperCase(), SQL_MAP_CONFIG_DTD);
-    doctypeMap.put("-//ibatis.apache.org//DTD SQL Map Config 2.0//EN".toUpperCase(), SQL_MAP_CONFIG_DTD);
+    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-config-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
+    doctypeMap.put("http://ibatis.apache.org/dtd/sql-map-config-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
+    doctypeMap.put("-//iBATIS.com//DTD SQL Map Config 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
+    doctypeMap.put("-//ibatis.apache.org//DTD SQL Map Config 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
 
-    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-2.dtd".toUpperCase(), SQL_MAP_DTD);
-    doctypeMap.put("http://ibatis.apache.org/dtd/sql-map-2.dtd".toUpperCase(), SQL_MAP_DTD);
-    doctypeMap.put("-//iBATIS.com//DTD SQL Map 2.0//EN".toUpperCase(), SQL_MAP_DTD);
-    doctypeMap.put("-//ibatis.apache.org//DTD SQL Map 2.0//EN".toUpperCase(), SQL_MAP_DTD);
+    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
+    doctypeMap.put("http://ibatis.apache.org/dtd/sql-map-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
+    doctypeMap.put("-//iBATIS.com//DTD SQL Map 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
+    doctypeMap.put("-//ibatis.apache.org//DTD SQL Map 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
   }
 
   /**
@@ -57,9 +57,9 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
 
     if (publicId != null)
-      publicId = publicId.toUpperCase();
+      publicId = publicId.toUpperCase(Locale.ROOT);
     if (systemId != null)
-      systemId = systemId.toUpperCase();
+      systemId = systemId.toUpperCase(Locale.ROOT);
 
     InputSource source = null;
     try {
