@@ -227,7 +227,7 @@
     <profile>
       <id>jdk9on</id>
       <activation>
-        <jdk>[9),</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <properties>
         <!-- Java 5 not supported on java 9 builds so bump to 6 -->
