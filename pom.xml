@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2017 the original author or authors.
+    Copyright 2004-2018 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -225,9 +225,9 @@
 
   <profiles>
     <profile>
-      <id>jdk9</id>
+      <id>jdk9on</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9),</jdk>
       </activation>
       <properties>
         <!-- Java 5 not supported on java 9 builds so bump to 6 -->
