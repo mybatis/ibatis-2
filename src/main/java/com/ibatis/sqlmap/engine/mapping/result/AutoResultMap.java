@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,8 +61,8 @@ public class AutoResultMap extends ResultMap {
 
   private void initialize(ResultSet rs) {
     if (getResultClass() == null) {
-      throw new SqlMapException("The automatic ResultMap named " + this.getId()
-          + " had a null result class (not allowed).");
+      throw new SqlMapException(
+          "The automatic ResultMap named " + this.getId() + " had a null result class (not allowed).");
     } else if (Map.class.isAssignableFrom(getResultClass())) {
       initializeMapResults(rs);
     } else if (getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()) != null) {
@@ -107,10 +107,10 @@ public class AutoResultMap extends ResultMap {
           resultMapping.setColumnName(columnName);
           resultMapping.setColumnIndex(i + 1);
           resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); // map
-                                                                                                    // SQL
-                                                                                                    // to
-                                                                                                    // JDBC
-                                                                                                    // type
+                                                                                                   // SQL
+                                                                                                   // to
+                                                                                                   // JDBC
+                                                                                                   // type
           resultMappingList.add(resultMapping);
         }
       }

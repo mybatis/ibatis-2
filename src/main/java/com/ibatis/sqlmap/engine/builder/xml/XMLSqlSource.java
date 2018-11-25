@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,8 +74,8 @@ public class XMLSqlSource implements SqlSource {
           sqlText.setPostParseRequired(postParseRequired);
           sqlText.setText(data);
         } else {
-          sqlText = PARAM_PARSER.parseInlineParameterMap(state.getConfig().getClient().getDelegate()
-              .getTypeHandlerFactory(), data, null);
+          sqlText = PARAM_PARSER
+              .parseInlineParameterMap(state.getConfig().getClient().getDelegate().getTypeHandlerFactory(), data, null);
           sqlText.setPostParseRequired(postParseRequired);
         }
 

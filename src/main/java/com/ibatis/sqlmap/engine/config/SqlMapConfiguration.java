@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,11 +137,11 @@ public class SqlMapConfiguration {
       } else if (callback instanceof TypeHandler) {
         typeHandler = (TypeHandler) callback;
       } else {
-        throw new RuntimeException("The object '" + callback
-            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException(
+            "The object '" + callback + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
-      errorContext.setMoreInfo("Check the javaType attribute '" + javaType
-          + "' (must be a classname) or the jdbcType '" + jdbcType + "' (must be a JDBC type name).");
+      errorContext.setMoreInfo("Check the javaType attribute '" + javaType + "' (must be a classname) or the jdbcType '"
+          + jdbcType + "' (must be a JDBC type name).");
       if (jdbcType != null && jdbcType.length() > 0) {
         typeHandlerFactory.register(javaType, jdbcType, typeHandler);
       } else {
@@ -154,7 +154,8 @@ public class SqlMapConfiguration {
     errorContext.setObjectId(null);
   }
 
-  public CacheModelConfig newCacheModelConfig(String id, CacheController controller, boolean readOnly, boolean serialize) {
+  public CacheModelConfig newCacheModelConfig(String id, CacheController controller, boolean readOnly,
+      boolean serialize) {
     return new CacheModelConfig(this, id, controller, readOnly, serialize);
   }
 
@@ -199,8 +200,8 @@ public class SqlMapConfiguration {
       // Map
       if (javaType == null) {
         handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+                                                            // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                            // jdbcType);
       } else {
         handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
       }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,8 +117,8 @@ public class SqlMapConfigParser {
         config.setLazyLoadingEnabled(lazyLoadingEnabled);
 
         String statementCachingEnabledAttr = attributes.getProperty("statementCachingEnabled");
-        boolean statementCachingEnabled = (statementCachingEnabledAttr == null || "true"
-            .equals(statementCachingEnabledAttr));
+        boolean statementCachingEnabled = (statementCachingEnabledAttr == null
+            || "true".equals(statementCachingEnabledAttr));
         config.setStatementCachingEnabled(statementCachingEnabled);
 
         String cacheModelsEnabledAttr = attributes.getProperty("cacheModelsEnabled");

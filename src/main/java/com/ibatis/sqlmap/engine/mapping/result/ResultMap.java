@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -285,8 +285,8 @@ public class ResultMap {
    */
   public void setResultMappingList(List resultMappingList) {
     if (allowRemapping) {
-      this.remappableResultMappings.set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList
-          .size()]));
+      this.remappableResultMappings
+          .set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]));
     } else {
       this.resultMappings = (ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]);
     }
@@ -332,8 +332,8 @@ public class ResultMap {
       errorContext.setMoreInfo(mapping.getErrorString());
       if (mapping.getStatementName() != null) {
         if (resultClass == null) {
-          throw new SqlMapException("The result class was null when trying to get results for ResultMap named "
-              + getId() + ".");
+          throw new SqlMapException(
+              "The result class was null when trying to get results for ResultMap named " + getId() + ".");
         } else if (Map.class.isAssignableFrom(resultClass)) {
           Class javaType = mapping.getJavaType();
           if (javaType == null) {
@@ -453,8 +453,9 @@ public class ResultMap {
             PROBE.setObject(resultObject, propertyName, obj);
           }
         } catch (Exception e) {
-          throw new SqlMapException("Error instantiating collection property for mapping '" + mapping.getPropertyName()
-              + "'.  Cause: " + e, e);
+          throw new SqlMapException(
+              "Error instantiating collection property for mapping '" + mapping.getPropertyName() + "'.  Cause: " + e,
+              e);
         }
       }
 
@@ -480,8 +481,8 @@ public class ResultMap {
         }
       }
     } catch (SQLException e) {
-      throw new SqlMapException("Error getting nested result map values for '" + mapping.getPropertyName()
-          + "'.  Cause: " + e, e);
+      throw new SqlMapException(
+          "Error getting nested result map values for '" + mapping.getPropertyName() + "'.  Cause: " + e, e);
     }
   }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,8 @@ public class MappedStatementConfig {
   MappedStatementConfig(SqlMapConfiguration config, String id, MappedStatement statement, SqlSource processor,
       String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
       Class resultClass, Class[] additionalResultClasses, String cacheModelName, String resultSetType,
-      Integer fetchSize, boolean allowRemapping, Integer timeout, Integer defaultStatementTimeout, String xmlResultName) {
+      Integer fetchSize, boolean allowRemapping, Integer timeout, Integer defaultStatementTimeout,
+      String xmlResultName) {
     this.errorContext = config.getErrorContext();
     this.client = config.getClient();
     SqlMapExecutorDelegate delegate = client.getDelegate();
@@ -102,8 +103,8 @@ public class MappedStatementConfig {
       statement.setResultMap(resultMap);
       if (additionalResultClasses != null) {
         for (int i = 0; i < additionalResultClasses.length; i++) {
-          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i],
-              xmlResultName));
+          statement
+              .addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i], xmlResultName));
         }
       }
 
@@ -113,8 +114,8 @@ public class MappedStatementConfig {
       try {
         statement.setTimeout(timeout);
       } catch (NumberFormatException e) {
-        throw new SqlMapException("Specified timeout value for statement " + statement.getId()
-            + " is not a valid integer");
+        throw new SqlMapException(
+            "Specified timeout value for statement " + statement.getId() + " is not a valid integer");
       }
     }
     errorContext.setMoreInfo(null);

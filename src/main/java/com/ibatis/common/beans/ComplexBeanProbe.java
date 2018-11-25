@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -237,10 +237,9 @@ public class ComplexBeanProbe extends BaseProbe {
               child = ResultObjectFactoryUtil.createObjectThroughFactory(type);
               setObject(parent, property, child);
             } catch (Exception e) {
-              throw new ProbeException(
-                  "Cannot set value of property '" + name + "' because '" + property
-                      + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:"
-                      + e.toString(), e);
+              throw new ProbeException("Cannot set value of property '" + name + "' because '" + property
+                  + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:" + e.toString(),
+                  e);
             }
           }
         }
@@ -335,8 +334,8 @@ public class ComplexBeanProbe extends BaseProbe {
             ClassInfo classCache = ClassInfo.getInstance(object.getClass());
             Invoker method = classCache.getGetInvoker(name);
             if (method == null) {
-              throw new NoSuchMethodException("No GET method for property " + name + " on instance of "
-                  + object.getClass().getName());
+              throw new NoSuchMethodException(
+                  "No GET method for property " + name + " on instance of " + object.getClass().getName());
             }
             try {
               value = method.invoke(object, NO_ARGUMENTS);
@@ -355,8 +354,9 @@ public class ComplexBeanProbe extends BaseProbe {
         throw new ProbeException("Could not get property '" + name + "' from null reference.  Cause: " + t.toString(),
             t);
       } else {
-        throw new ProbeException("Could not get property '" + name + "' from " + object.getClass().getName()
-            + ".  Cause: " + t.toString(), t);
+        throw new ProbeException(
+            "Could not get property '" + name + "' from " + object.getClass().getName() + ".  Cause: " + t.toString(),
+            t);
       }
     }
   }
@@ -373,8 +373,8 @@ public class ComplexBeanProbe extends BaseProbe {
         } else {
           Invoker method = classCache.getSetInvoker(name);
           if (method == null) {
-            throw new NoSuchMethodException("No SET method for property " + name + " on instance of "
-                + object.getClass().getName());
+            throw new NoSuchMethodException(
+                "No SET method for property " + name + " on instance of " + object.getClass().getName());
           }
           Object[] params = new Object[1];
           params[0] = value;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,8 +98,9 @@ public class SqlMapExecutorDelegate {
       Class factoryClass = Class.forName(sqlExecutorClass);
       sqlExecutor = (SqlExecutor) factoryClass.newInstance();
     } catch (Exception e) {
-      throw new SqlMapException("Error instantiating " + sqlExecutorClass
-          + ". Please check the class given in properties file. Cause: " + e, e);
+      throw new SqlMapException(
+          "Error instantiating " + sqlExecutorClass + ". Please check the class given in properties file. Cause: " + e,
+          e);
     }
   }
 

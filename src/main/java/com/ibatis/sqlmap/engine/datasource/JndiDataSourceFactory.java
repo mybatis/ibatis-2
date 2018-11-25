@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,11 +49,11 @@ public class JndiDataSourceFactory implements DataSourceFactory {
       } else if (properties.containsKey("DBJndiContext")) { // LEGACY --Backward compatibility
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DBJndiContext"));
       } else if (properties.containsKey("DBFullJndiContext")) { // LEGACY --Backward
-                                                                // compatibility
+                                                                 // compatibility
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DBFullJndiContext"));
       } else if (properties.containsKey("DBInitialContext") && properties.containsKey("DBLookup")) { // LEGACY
-                                                                                                     // --Backward
-                                                                                                     // compatibility
+                                                                                                      // --Backward
+                                                                                                    // compatibility
         Context ctx = (Context) initCtx.lookup((String) properties.get("DBInitialContext"));
         dataSource = (DataSource) ctx.lookup((String) properties.get("DBLookup"));
       }

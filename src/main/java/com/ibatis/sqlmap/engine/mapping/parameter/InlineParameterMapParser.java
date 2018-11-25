@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,8 +72,8 @@ public class InlineParameterMapParser {
           if (hasMoreTokens)
             token = parser.nextToken();
           if (!hasMoreTokens || !PARAMETER_TOKEN.equals(token)) {
-            throw new SqlMapException("Unterminated inline parameter in mapped statement near '"
-                + newSqlBuffer.toString() + "'");
+            throw new SqlMapException(
+                "Unterminated inline parameter in mapped statement near '" + newSqlBuffer.toString() + "'");
           }
           token = null;
         }
@@ -127,8 +127,8 @@ public class InlineParameterMapParser {
             } else if (impl instanceof TypeHandler) {
               mapping.setTypeHandler((TypeHandler) impl);
             } else {
-              throw new SqlMapException("The class " + value
-                  + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
+              throw new SqlMapException(
+                  "The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
             }
           } catch (Exception e) {
             throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
@@ -234,8 +234,8 @@ public class InlineParameterMapParser {
       // Map
       if (javaType == null) {
         handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+                                                            // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                            // jdbcType);
       } else {
         try {
           javaType = typeHandlerFactory.resolveAlias(javaType);
