@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -373,12 +373,12 @@ public class ClassInfo {
   public Method getSetter(String propertyName) {
     Invoker method = (Invoker) setMethods.get(propertyName);
     if (method == null) {
-      throw new ProbeException("There is no WRITEABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no WRITEABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     if (!(method instanceof MethodInvoker)) {
-      throw new ProbeException("Can't get setter method because '" + propertyName + "' is a field in class '"
-          + className + "'");
+      throw new ProbeException(
+          "Can't get setter method because '" + propertyName + "' is a field in class '" + className + "'");
     }
     return ((MethodInvoker) method).getMethod();
   }
@@ -393,12 +393,12 @@ public class ClassInfo {
   public Method getGetter(String propertyName) {
     Invoker method = (Invoker) getMethods.get(propertyName);
     if (method == null) {
-      throw new ProbeException("There is no READABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no READABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     if (!(method instanceof MethodInvoker)) {
-      throw new ProbeException("Can't get getter method because '" + propertyName + "' is a field in class '"
-          + className + "'");
+      throw new ProbeException(
+          "Can't get getter method because '" + propertyName + "' is a field in class '" + className + "'");
     }
     return ((MethodInvoker) method).getMethod();
   }
@@ -406,8 +406,8 @@ public class ClassInfo {
   public Invoker getSetInvoker(String propertyName) {
     Invoker method = (Invoker) setMethods.get(propertyName);
     if (method == null) {
-      throw new ProbeException("There is no WRITEABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no WRITEABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     return method;
   }
@@ -415,8 +415,8 @@ public class ClassInfo {
   public Invoker getGetInvoker(String propertyName) {
     Invoker method = (Invoker) getMethods.get(propertyName);
     if (method == null) {
-      throw new ProbeException("There is no READABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no READABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     return method;
   }
@@ -431,8 +431,8 @@ public class ClassInfo {
   public Class getSetterType(String propertyName) {
     Class clazz = (Class) setTypes.get(propertyName);
     if (clazz == null) {
-      throw new ProbeException("There is no WRITEABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no WRITEABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     return clazz;
   }
@@ -447,8 +447,8 @@ public class ClassInfo {
   public Class getGetterType(String propertyName) {
     Class clazz = (Class) getTypes.get(propertyName);
     if (clazz == null) {
-      throw new ProbeException("There is no READABLE property named '" + propertyName + "' in class '" + className
-          + "'");
+      throw new ProbeException(
+          "There is no READABLE property named '" + propertyName + "' in class '" + className + "'");
     }
     return clazz;
   }

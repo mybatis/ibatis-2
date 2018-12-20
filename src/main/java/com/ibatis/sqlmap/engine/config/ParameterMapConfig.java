@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,8 +61,8 @@ public class ParameterMapConfig {
       } else if (typeHandlerImpl instanceof TypeHandler) {
         handler = (TypeHandler) typeHandlerImpl;
       } else {
-        throw new RuntimeException("The class '" + typeHandlerImpl
-            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException(
+            "The class '" + typeHandlerImpl + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
     } else {
       errorContext.setMoreInfo("Check the parameter mapping property type or name.");

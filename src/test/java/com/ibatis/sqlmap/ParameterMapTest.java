@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,10 +75,8 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   protected void assertMessageIsNullValueNotAllowed(String message) {
-    assertTrue(
-        "Invalid exception message",
-        message
-            .indexOf("Attempt to insert null into a non-nullable column: column: ACC_ID table: ACCOUNT in statement") > -1);
+    assertTrue("Invalid exception message", message
+        .indexOf("Attempt to insert null into a non-nullable column: column: ACC_ID table: ACCOUNT in statement") > -1);
   }
 
   public void testSpecifiedType() throws SQLException {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,17 +125,17 @@ public class SimpleDataSource implements DataSource {
         jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);
         jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
 
-        poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN) ? Integer.parseInt((String) props
-            .get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
+        poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
 
-        poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN) ? Integer.parseInt((String) props
-            .get(PROP_POOL_MAX_IDLE_CONN)) : 5;
+        poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN)
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN)) : 5;
 
-        poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME) ? Integer.parseInt((String) props
-            .get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
+        poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
 
-        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT) ? Integer.parseInt((String) props
-            .get(PROP_POOL_TIME_TO_WAIT)) : 20000;
+        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT)
+            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
 
         poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
             && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
@@ -143,11 +143,11 @@ public class SimpleDataSource implements DataSource {
         prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);
         poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
 
-        poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN) ? Integer
-            .parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
+        poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
 
-        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR) ? Integer
-            .parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
+        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
 
         jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
             && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
@@ -170,7 +170,8 @@ public class SimpleDataSource implements DataSource {
 
         Resources.instantiate(jdbcDriver);
 
-        if (poolPingEnabled && (!props.containsKey(PROP_POOL_PING_QUERY) || prop_pool_ping_query.trim().length() == 0)) {
+        if (poolPingEnabled
+            && (!props.containsKey(PROP_POOL_PING_QUERY) || prop_pool_ping_query.trim().length() == 0)) {
           throw new RuntimeException("SimpleDataSource: property '" + PROP_POOL_PING_ENABLED
               + "' is true, but property '" + PROP_POOL_PING_QUERY + "' is not set correctly.");
         }
@@ -414,8 +415,8 @@ public class SimpleDataSource implements DataSource {
    */
   public long getAverageOverdueCheckoutTime() {
     synchronized (POOL_LOCK) {
-      return claimedOverdueConnectionCount == 0 ? 0 : accumulatedCheckoutTimeOfOverdueConnections
-          / claimedOverdueConnectionCount;
+      return claimedOverdueConnectionCount == 0 ? 0
+          : accumulatedCheckoutTimeOfOverdueConnections / claimedOverdueConnectionCount;
     }
   }
 
@@ -677,7 +678,8 @@ public class SimpleDataSource implements DataSource {
     if (result) {
       if (poolPingEnabled) {
         if ((poolPingConnectionsOlderThan > 0 && conn.getAge() > poolPingConnectionsOlderThan)
-            || (poolPingConnectionsNotUsedFor > 0 && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor)) {
+            || (poolPingConnectionsNotUsedFor > 0
+                && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor)) {
 
           try {
             if (log.isDebugEnabled()) {

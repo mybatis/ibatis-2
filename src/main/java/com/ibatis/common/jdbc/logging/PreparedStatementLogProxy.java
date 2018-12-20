@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,8 +102,8 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
   public static PreparedStatement newInstance(PreparedStatement stmt, String sql) {
     InvocationHandler handler = new PreparedStatementLogProxy(stmt, sql);
     ClassLoader cl = PreparedStatement.class.getClassLoader();
-    return (PreparedStatement) Proxy.newProxyInstance(cl, new Class[] { PreparedStatement.class,
-        CallableStatement.class }, handler);
+    return (PreparedStatement) Proxy.newProxyInstance(cl,
+        new Class[] { PreparedStatement.class, CallableStatement.class }, handler);
   }
 
   /**

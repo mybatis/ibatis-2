@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,8 +162,8 @@ public class ScriptRunner {
           // Do nothing
         } else if (trimmedLine.length() < 1 || trimmedLine.startsWith("--")) {
           // Do nothing
-        } else if (!fullLineDelimiter && trimmedLine.endsWith(getDelimiter()) || fullLineDelimiter
-            && trimmedLine.equals(getDelimiter())) {
+        } else if (!fullLineDelimiter && trimmedLine.endsWith(getDelimiter())
+            || fullLineDelimiter && trimmedLine.equals(getDelimiter())) {
           command.append(line.substring(0, line.lastIndexOf(getDelimiter())));
           command.append(" ");
           Statement statement = conn.createStatement();

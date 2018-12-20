@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -329,8 +329,8 @@ public class ResourcesTest extends TestCase {
     protected Package definePackage(String name, String specTitle, String specVersion, String specVendor,
         String implTitle, String implVersion, String implVendor, URL sealBase) throws IllegalArgumentException {
       isUsingPrivateClassloader = true;
-      return super
-          .definePackage(name, specTitle, specVersion, specVendor, implTitle, implVersion, implVendor, sealBase);
+      return super.definePackage(name, specTitle, specVersion, specVendor, implTitle, implVersion, implVendor,
+          sealBase);
     }
 
     @Override

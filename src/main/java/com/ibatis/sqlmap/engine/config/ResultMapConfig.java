@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,7 +120,8 @@ public class ResultMapConfig {
   }
 
   public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass,
-      String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName, Object impl) {
+      String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName,
+      Object impl) {
     errorContext.setObjectId(propertyName + " mapping of the " + resultMap.getId() + " result map");
     TypeHandler handler;
     if (impl != null) {
@@ -129,8 +130,8 @@ public class ResultMapConfig {
       } else if (impl instanceof TypeHandler) {
         handler = (TypeHandler) impl;
       } else {
-        throw new RuntimeException("The class '" + impl
-            + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
+        throw new RuntimeException(
+            "The class '" + impl + "' is not a valid implementation of TypeHandler or TypeHandlerCallback");
       }
     } else {
       handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(), resultMap.getResultClass(),

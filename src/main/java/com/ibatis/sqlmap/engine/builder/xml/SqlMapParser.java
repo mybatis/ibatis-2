@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,11 +103,11 @@ public class SqlMapParser {
         String id = state.applyNamespace(attributes.getProperty("id"));
         String type = attributes.getProperty("type");
         String readOnlyAttr = attributes.getProperty("readOnly");
-        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null : new Boolean("true"
-            .equals(readOnlyAttr));
+        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null
+            : new Boolean("true".equals(readOnlyAttr));
         String serializeAttr = attributes.getProperty("serialize");
-        Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null : new Boolean("true"
-            .equals(serializeAttr));
+        Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null
+            : new Boolean("true".equals(serializeAttr));
         type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
         Class clazz = Resources.classForName(type);
         if (readOnly == null) {
@@ -146,14 +146,14 @@ public class SqlMapParser {
       public void process(Node node) throws Exception {
         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
         try {
-          int milliseconds = childAttributes.getProperty("milliseconds") == null ? 0 : Integer.parseInt(childAttributes
-              .getProperty("milliseconds"));
-          int seconds = childAttributes.getProperty("seconds") == null ? 0 : Integer.parseInt(childAttributes
-              .getProperty("seconds"));
-          int minutes = childAttributes.getProperty("minutes") == null ? 0 : Integer.parseInt(childAttributes
-              .getProperty("minutes"));
-          int hours = childAttributes.getProperty("hours") == null ? 0 : Integer.parseInt(childAttributes
-              .getProperty("hours"));
+          int milliseconds = childAttributes.getProperty("milliseconds") == null ? 0
+              : Integer.parseInt(childAttributes.getProperty("milliseconds"));
+          int seconds = childAttributes.getProperty("seconds") == null ? 0
+              : Integer.parseInt(childAttributes.getProperty("seconds"));
+          int minutes = childAttributes.getProperty("minutes") == null ? 0
+              : Integer.parseInt(childAttributes.getProperty("minutes"));
+          int hours = childAttributes.getProperty("hours") == null ? 0
+              : Integer.parseInt(childAttributes.getProperty("hours"));
           state.getCacheConfig().setFlushInterval(hours, minutes, seconds, milliseconds);
         } catch (NumberFormatException e) {
           throw new RuntimeException("Error building cache in '" + "resourceNAME"
@@ -280,12 +280,8 @@ public class SqlMapParser {
           throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
         }
 
-        state
-            .getConfig()
-            .getErrorContext()
-            .setMoreInfo(
-                "Check the result mapping typeHandler attribute '" + callback
-                    + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
+        state.getConfig().getErrorContext().setMoreInfo("Check the result mapping typeHandler attribute '" + callback
+            + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
           if (callback != null && callback.length() > 0) {
@@ -341,12 +337,8 @@ public class SqlMapParser {
           throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
         }
 
-        state
-            .getConfig()
-            .getErrorContext()
-            .setMoreInfo(
-                "Check the result mapping discriminator typeHandler attribute '" + callback
-                    + "' (must be a TypeHandlerCallback implementation).");
+        state.getConfig().getErrorContext().setMoreInfo("Check the result mapping discriminator typeHandler attribute '"
+            + callback + "' (must be a TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
           if (callback != null && callback.length() > 0) {

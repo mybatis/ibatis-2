@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,8 +154,8 @@ public class CacheModel implements ExecuteListener {
    * @throws IllegalAccessException
    *           - if the classes constructor is not accessible
    */
-  public void setCacheController(CacheController controller) throws ClassNotFoundException, InstantiationException,
-      IllegalAccessException {
+  public void setCacheController(CacheController controller)
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
     this.controller = controller;
   }
 

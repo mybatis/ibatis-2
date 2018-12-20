@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,8 +79,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         value = new Short(((short[]) list)[i]);
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
-            + " class is not a List or Array.");
+        throw new ProbeException(
+            "The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
       }
 
     } catch (ProbeException e) {
@@ -127,8 +127,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         value = Short.class;
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
-            + " class is not a List or Array.");
+        throw new ProbeException(
+            "The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
       }
 
     } catch (ProbeException e) {
@@ -167,8 +167,8 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof short[]) {
         ((short[]) list)[i] = ((Short) value).shortValue();
       } else {
-        throw new ProbeException("The '" + name + "' property of the " + object.getClass().getName()
-            + " class is not a List or Array.");
+        throw new ProbeException(
+            "The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
       }
     } catch (ProbeException e) {
       throw e;

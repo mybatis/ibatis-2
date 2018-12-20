@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ public class PropertyAccessPlanTest extends TestCase {
       "account.emailAddress", "cardType", "cardNumber", "cardExpiry", "favouriteLineItem.itemCode",
       "favouriteLineItem.quantity", "favouriteLineItem.price" };
 
-  private static final Object[] values = { new Integer(100), new Integer(100), "Clinton", "Begin",
-      "clinton@ibatis.com", "VISA", "1234567890", "05/06", "M100", new Integer(3), new BigDecimal(150) };
+  private static final Object[] values = { new Integer(100), new Integer(100), "Clinton", "Begin", "clinton@ibatis.com",
+      "VISA", "1234567890", "05/06", "M100", new Integer(3), new BigDecimal(150) };
 
   public void testSetAndGetProperties() {
 

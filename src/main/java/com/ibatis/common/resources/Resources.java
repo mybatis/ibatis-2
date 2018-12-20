@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -319,8 +319,8 @@ public class Resources extends Object {
    * @throws IllegalAccessException
    *           If the class is not public, or other access problems arise
    */
-  public static Object instantiate(String className) throws ClassNotFoundException, InstantiationException,
-      IllegalAccessException {
+  public static Object instantiate(String className)
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
     return instantiate(classForName(className));
   }
 

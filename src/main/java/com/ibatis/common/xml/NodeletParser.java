@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,8 +137,8 @@ public class NodeletParser {
   /**
    * Creates a JAXP Document from a reader.
    */
-  private Document createDocument(Reader reader) throws ParserConfigurationException, FactoryConfigurationError,
-      SAXException, IOException {
+  private Document createDocument(Reader reader)
+      throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(validation);
 
@@ -169,8 +169,8 @@ public class NodeletParser {
   /**
    * Creates a JAXP Document from an InoutStream.
    */
-  private Document createDocument(InputStream inputStream) throws ParserConfigurationException,
-      FactoryConfigurationError, SAXException, IOException {
+  private Document createDocument(InputStream inputStream)
+      throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(validation);
 
