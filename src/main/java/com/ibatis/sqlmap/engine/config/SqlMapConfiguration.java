@@ -200,8 +200,8 @@ public class SqlMapConfiguration {
       // Map
       if (javaType == null) {
         handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                            // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                            // jdbcType);
+                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                             // jdbcType);
       } else {
         handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
       }

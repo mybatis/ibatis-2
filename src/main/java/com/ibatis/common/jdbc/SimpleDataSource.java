@@ -126,16 +126,20 @@ public class SimpleDataSource implements DataSource {
         jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
 
         poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN))
+            : 10;
 
         poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN)) : 5;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN))
+            : 5;
 
         poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME))
+            : 20000;
 
         poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT)
-            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
+            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT))
+            : 20000;
 
         poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
             && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
@@ -144,10 +148,12 @@ public class SimpleDataSource implements DataSource {
         poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
 
         poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN))
+            : 0;
 
         poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR))
+            : 0;
 
         jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
             && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
