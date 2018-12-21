@@ -234,8 +234,8 @@ public class InlineParameterMapParser {
       // Map
       if (javaType == null) {
         handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                            // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                            // jdbcType);
+                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+                                                             // jdbcType);
       } else {
         try {
           javaType = typeHandlerFactory.resolveAlias(javaType);

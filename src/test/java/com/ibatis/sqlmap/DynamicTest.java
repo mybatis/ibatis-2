@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -183,12 +183,12 @@ public class DynamicTest extends BaseSqlMapTest {
   //
   // public void testCompleteStatementSubst() throws SQLException {
   // String statement = "select" +
-  // "    ACC_ID          as id," +
-  // "    ACC_FIRST_NAME  as firstName," +
-  // "    ACC_LAST_NAME   as lastName," +
-  // "    ACC_EMAIL       as emailAddress" +
-  // "  from ACCOUNT" +
-  // "  WHERE ACC_ID = #id#";
+  // " ACC_ID as id," +
+  // " ACC_FIRST_NAME as firstName," +
+  // " ACC_LAST_NAME as lastName," +
+  // " ACC_EMAIL as emailAddress" +
+  // " from ACCOUNT" +
+  // " WHERE ACC_ID = #id#";
   // Integer id = new Integer(1);
   //
   // Map params = new HashMap();

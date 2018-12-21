@@ -107,10 +107,10 @@ public class AutoResultMap extends ResultMap {
           resultMapping.setColumnName(columnName);
           resultMapping.setColumnIndex(i + 1);
           resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); // map
-                                                                                                   // SQL
-                                                                                                   // to
-                                                                                                   // JDBC
-                                                                                                   // type
+                                                                                                    // SQL
+                                                                                                    // to
+                                                                                                    // JDBC
+                                                                                                    // type
           resultMappingList.add(resultMapping);
         }
       }
