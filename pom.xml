@@ -67,6 +67,7 @@
   <properties>
     <maven.compiler.source>1.5</maven.compiler.source>
     <maven.compiler.target>1.5</maven.compiler.target>
+    <module.name>org.mybatis.mybatis2</module.name>
   </properties>
 
   <dependencies>
