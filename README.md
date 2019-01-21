@@ -3,7 +3,6 @@ Legacy iBATIS (aka MyBatis 2) maintenance repository
 
 [![Build Status](https://travis-ci.org/mybatis/ibatis-2.svg?branch=master)](https://travis-ci.org/mybatis/ibatis-2)
 [![Coverage Status](https://coveralls.io/repos/mybatis/ibatis-2/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/ibatis-2?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/5619af9ba193340f2800047f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5619af9ba193340f2800047f)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
