@@ -197,7 +197,7 @@ public class SqlMapConfigParser {
           state.getConfig().getErrorContext().setMoreInfo("Check the transaction manager type or class.");
           TransactionConfig config = (TransactionConfig) Resources.instantiate(type);
           config.setDataSource(state.getDataSource());
-          state.getConfig().getErrorContext().setMoreInfo("Check the transactio nmanager properties or configuration.");
+          state.getConfig().getErrorContext().setMoreInfo("Check the transaction manager properties or configuration.");
           config.setProperties(state.getTxProps());
           config.setForceCommit(commitRequired);
           config.setDataSource(state.getDataSource());
