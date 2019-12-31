@@ -65,8 +65,8 @@
   </distributionManagement>
 
   <properties>
-    <maven.compiler.source>1.5</maven.compiler.source>
-    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
     <module.name>org.mybatis.mybatis2</module.name>
   </properties>
 
@@ -149,15 +149,7 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <tagBase>https://mybatis.googlecode.com/svn/tags/</tagBase>
-          <branchName>mybatis-2-maintenance</branchName>
-          <mavenExecutorId>forked-path</mavenExecutorId>
-        </configuration>
-      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -184,6 +176,8 @@
         </configuration>
       </plugin>
     </plugins>
+
+    <!-- TODO: We should fix resources to be in correct place -->
     <resources>
       <resource>
         <directory>${project.build.sourceDirectory}</directory>
@@ -202,18 +196,4 @@
     </testResources>
   </build>
 
-  <profiles>
-    <profile>
-      <id>jdk9on</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <properties>
-        <!-- Java 5 not supported on java 9 builds so bump to 6 -->
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
-      </properties>
-    </profile>
-  </profiles>
-  
 </project>
