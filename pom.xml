@@ -176,6 +176,8 @@
         </configuration>
       </plugin>
     </plugins>
+
+    <!-- TODO: We should fix resources to be in correct place -->
     <resources>
       <resource>
         <directory>${project.build.sourceDirectory}</directory>
