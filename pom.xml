@@ -65,8 +65,8 @@
   </distributionManagement>
 
   <properties>
-    <maven.compiler.source>1.5</maven.compiler.source>
-    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
     <module.name>org.mybatis.mybatis2</module.name>
   </properties>
 
@@ -202,18 +202,4 @@
     </testResources>
   </build>
 
-  <profiles>
-    <profile>
-      <id>jdk9on</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <properties>
-        <!-- Java 5 not supported on java 9 builds so bump to 6 -->
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
-      </properties>
-    </profile>
-  </profiles>
-  
 </project>
