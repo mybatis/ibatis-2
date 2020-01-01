@@ -34,7 +34,7 @@ public class ByteTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Byte(b);
+      return Byte.valueOf(b);
     }
   }
 
@@ -43,7 +43,7 @@ public class ByteTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Byte(b);
+      return Byte.valueOf(b);
     }
   }
 
@@ -52,7 +52,7 @@ public class ByteTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Byte(b);
+      return Byte.valueOf(b);
     }
   }
 
