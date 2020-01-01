@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,46 +28,46 @@ public class PaginatedArrayListTest extends TestCase {
   @Override
   protected void setUp() throws Exception {
     smallPageList = new PaginatedArrayList(5);
-    smallPageList.add(new Integer(0));
-    smallPageList.add(new Integer(1));
-    smallPageList.add(new Integer(2));
+    smallPageList.add(Integer.valueOf(0));
+    smallPageList.add(Integer.valueOf(1));
+    smallPageList.add(Integer.valueOf(2));
 
     oddPageList = new PaginatedArrayList(5);
-    oddPageList.add(new Integer(0));
-    oddPageList.add(new Integer(1));
-    oddPageList.add(new Integer(2));
-    oddPageList.add(new Integer(3));
-    oddPageList.add(new Integer(4));
-    oddPageList.add(new Integer(5));
-    oddPageList.add(new Integer(6));
-    oddPageList.add(new Integer(7));
-    oddPageList.add(new Integer(8));
-    oddPageList.add(new Integer(9));
-    oddPageList.add(new Integer(10));
-    oddPageList.add(new Integer(11));
-    oddPageList.add(new Integer(12));
-    oddPageList.add(new Integer(13));
-    oddPageList.add(new Integer(14));
-    oddPageList.add(new Integer(15));
-    oddPageList.add(new Integer(16));
-    oddPageList.add(new Integer(17));
+    oddPageList.add(Integer.valueOf(0));
+    oddPageList.add(Integer.valueOf(1));
+    oddPageList.add(Integer.valueOf(2));
+    oddPageList.add(Integer.valueOf(3));
+    oddPageList.add(Integer.valueOf(4));
+    oddPageList.add(Integer.valueOf(5));
+    oddPageList.add(Integer.valueOf(6));
+    oddPageList.add(Integer.valueOf(7));
+    oddPageList.add(Integer.valueOf(8));
+    oddPageList.add(Integer.valueOf(9));
+    oddPageList.add(Integer.valueOf(10));
+    oddPageList.add(Integer.valueOf(11));
+    oddPageList.add(Integer.valueOf(12));
+    oddPageList.add(Integer.valueOf(13));
+    oddPageList.add(Integer.valueOf(14));
+    oddPageList.add(Integer.valueOf(15));
+    oddPageList.add(Integer.valueOf(16));
+    oddPageList.add(Integer.valueOf(17));
 
     evenPageList = new PaginatedArrayList(5);
-    evenPageList.add(new Integer(0));
-    evenPageList.add(new Integer(1));
-    evenPageList.add(new Integer(2));
-    evenPageList.add(new Integer(3));
-    evenPageList.add(new Integer(4));
-    evenPageList.add(new Integer(5));
-    evenPageList.add(new Integer(6));
-    evenPageList.add(new Integer(7));
-    evenPageList.add(new Integer(8));
-    evenPageList.add(new Integer(9));
-    evenPageList.add(new Integer(10));
-    evenPageList.add(new Integer(11));
-    evenPageList.add(new Integer(12));
-    evenPageList.add(new Integer(13));
-    evenPageList.add(new Integer(14));
+    evenPageList.add(Integer.valueOf(0));
+    evenPageList.add(Integer.valueOf(1));
+    evenPageList.add(Integer.valueOf(2));
+    evenPageList.add(Integer.valueOf(3));
+    evenPageList.add(Integer.valueOf(4));
+    evenPageList.add(Integer.valueOf(5));
+    evenPageList.add(Integer.valueOf(6));
+    evenPageList.add(Integer.valueOf(7));
+    evenPageList.add(Integer.valueOf(8));
+    evenPageList.add(Integer.valueOf(9));
+    evenPageList.add(Integer.valueOf(10));
+    evenPageList.add(Integer.valueOf(11));
+    evenPageList.add(Integer.valueOf(12));
+    evenPageList.add(Integer.valueOf(13));
+    evenPageList.add(Integer.valueOf(14));
 
   }
 
@@ -126,18 +126,18 @@ public class PaginatedArrayListTest extends TestCase {
 
     oddPageList.previousPage();
 
-    assertEquals(new Integer(10), oddPageList.get(0));
-    assertEquals(new Integer(12), oddPageList.get(2));
+    assertEquals(Integer.valueOf(10), oddPageList.get(0));
+    assertEquals(Integer.valueOf(12), oddPageList.get(2));
 
     oddPageList.gotoPage(500);
 
-    assertEquals(new Integer(0), oddPageList.get(0));
-    assertEquals(new Integer(4), oddPageList.get(4));
+    assertEquals(Integer.valueOf(0), oddPageList.get(0));
+    assertEquals(Integer.valueOf(4), oddPageList.get(4));
 
     oddPageList.gotoPage(-500);
 
-    assertEquals(new Integer(15), oddPageList.get(0));
-    assertEquals(new Integer(17), oddPageList.get(2));
+    assertEquals(Integer.valueOf(15), oddPageList.get(0));
+    assertEquals(Integer.valueOf(17), oddPageList.get(2));
   }
 
   public void testEvenPaginatedIterator() {
@@ -180,23 +180,23 @@ public class PaginatedArrayListTest extends TestCase {
 
     evenPageList.nextPage();
 
-    assertEquals(new Integer(10), evenPageList.get(0));
-    assertEquals(new Integer(14), evenPageList.get(4));
+    assertEquals(Integer.valueOf(10), evenPageList.get(0));
+    assertEquals(Integer.valueOf(14), evenPageList.get(4));
 
     evenPageList.previousPage();
 
-    assertEquals(new Integer(5), evenPageList.get(0));
-    assertEquals(new Integer(9), evenPageList.get(4));
+    assertEquals(Integer.valueOf(5), evenPageList.get(0));
+    assertEquals(Integer.valueOf(9), evenPageList.get(4));
 
     evenPageList.gotoPage(500);
 
-    assertEquals(new Integer(0), evenPageList.get(0));
-    assertEquals(new Integer(4), evenPageList.get(4));
+    assertEquals(Integer.valueOf(0), evenPageList.get(0));
+    assertEquals(Integer.valueOf(4), evenPageList.get(4));
 
     evenPageList.gotoPage(-500);
 
-    assertEquals(new Integer(10), evenPageList.get(0));
-    assertEquals(new Integer(14), evenPageList.get(4));
+    assertEquals(Integer.valueOf(10), evenPageList.get(0));
+    assertEquals(Integer.valueOf(14), evenPageList.get(4));
   }
 
   public void testSmallPaginatedIterator() {
@@ -243,23 +243,23 @@ public class PaginatedArrayListTest extends TestCase {
 
     smallPageList.nextPage();
 
-    assertEquals(new Integer(0), smallPageList.get(0));
-    assertEquals(new Integer(2), smallPageList.get(2));
+    assertEquals(Integer.valueOf(0), smallPageList.get(0));
+    assertEquals(Integer.valueOf(2), smallPageList.get(2));
 
     smallPageList.previousPage();
 
-    assertEquals(new Integer(0), smallPageList.get(0));
-    assertEquals(new Integer(2), smallPageList.get(2));
+    assertEquals(Integer.valueOf(0), smallPageList.get(0));
+    assertEquals(Integer.valueOf(2), smallPageList.get(2));
 
     smallPageList.gotoPage(500);
 
-    assertEquals(new Integer(0), smallPageList.get(0));
-    assertEquals(new Integer(2), smallPageList.get(2));
+    assertEquals(Integer.valueOf(0), smallPageList.get(0));
+    assertEquals(Integer.valueOf(2), smallPageList.get(2));
 
     smallPageList.gotoPage(-500);
 
-    assertEquals(new Integer(0), smallPageList.get(0));
-    assertEquals(new Integer(2), smallPageList.get(2));
+    assertEquals(Integer.valueOf(0), smallPageList.get(0));
+    assertEquals(Integer.valueOf(2), smallPageList.get(2));
 
     assertEquals(true, smallPageList.isFirstPage());
     assertEquals(true, smallPageList.isLastPage());

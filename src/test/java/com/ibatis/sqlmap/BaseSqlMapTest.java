@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,7 +129,7 @@ public class BaseSqlMapTest extends TestCase {
       emailAddress = (String) account.get("EMAILADDRESS");
     }
 
-    assertEquals(new Integer(1), id);
+    assertEquals(Integer.valueOf(1), id);
     assertEquals("Clinton", firstName);
     assertEquals("Begin", lastName);
     assertEquals("clinton.begin@ibatis.com", emailAddress);
@@ -152,7 +152,7 @@ public class BaseSqlMapTest extends TestCase {
   protected void assertOrder1(Map order) {
     Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
 
-    assertEquals(new Integer(1), order.get("id"));
+    assertEquals(Integer.valueOf(1), order.get("id"));
     assertEquals(cal.getTime().getTime(), ((Date) order.get("date")).getTime());
     assertEquals("VISA", order.get("cardType"));
     assertEquals("999999999999", order.get("cardNumber"));

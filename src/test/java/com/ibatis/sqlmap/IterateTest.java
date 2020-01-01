@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class IterateTest extends BaseSqlMapTest {
   // Iterate
 
   public void testIterate() throws SQLException {
-    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
+    List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterate", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
@@ -44,7 +44,7 @@ public class IterateTest extends BaseSqlMapTest {
   // Iterate
 
   public void testIterateInConditional() throws SQLException {
-    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
+    List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterateInConditional", params);
     assertEquals(2, list.size());
     assertAccount1((Account) list.get(0));
@@ -53,21 +53,21 @@ public class IterateTest extends BaseSqlMapTest {
   }
 
   public void testIterateLiteral() throws SQLException {
-    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
+    List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterateLiteral", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
   }
 
   public void testMultiIterate() throws SQLException {
-    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
+    List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("multiDynamicIterate", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
   }
 
   public void testMultiIterateLiteral() throws SQLException {
-    List params = Arrays.asList(new Integer[] { new Integer(1), new Integer(2), new Integer(3) });
+    List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("multiDynamicIterateLiteral", params);
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
@@ -105,9 +105,9 @@ public class IterateTest extends BaseSqlMapTest {
 
   public void testListInMap() throws SQLException {
     List paramList = new Vector();
-    paramList.add(new Integer(1));
-    paramList.add(new Integer(2));
-    paramList.add(new Integer(3));
+    paramList.add(Integer.valueOf(1));
+    paramList.add(Integer.valueOf(2));
+    paramList.add(Integer.valueOf(3));
 
     Map paramMap = new HashMap();
     paramMap.put("paramList", paramList);
@@ -119,9 +119,9 @@ public class IterateTest extends BaseSqlMapTest {
 
   public void testListDirect() throws SQLException {
     List paramList = new Vector();
-    paramList.add(new Integer(1));
-    paramList.add(new Integer(2));
-    paramList.add(new Integer(3));
+    paramList.add(Integer.valueOf(1));
+    paramList.add(Integer.valueOf(2));
+    paramList.add(Integer.valueOf(3));
 
     List list = sqlMap.queryForList("iterateListDirect", paramList);
     assertAccount1((Account) list.get(0));

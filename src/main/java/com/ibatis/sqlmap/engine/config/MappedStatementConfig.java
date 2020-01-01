@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,11 +70,11 @@ public class MappedStatementConfig {
     statement.setResource(errorContext.getResource());
     if (resultSetType != null) {
       if ("FORWARD_ONLY".equals(resultSetType)) {
-        statement.setResultSetType(new Integer(ResultSet.TYPE_FORWARD_ONLY));
+        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
       } else if ("SCROLL_INSENSITIVE".equals(resultSetType)) {
-        statement.setResultSetType(new Integer(ResultSet.TYPE_SCROLL_INSENSITIVE));
+        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_INSENSITIVE));
       } else if ("SCROLL_SENSITIVE".equals(resultSetType)) {
-        statement.setResultSetType(new Integer(ResultSet.TYPE_SCROLL_SENSITIVE));
+        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_SENSITIVE));
       }
     }
     if (fetchSize != null) {

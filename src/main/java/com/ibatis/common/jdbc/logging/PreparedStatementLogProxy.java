@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
         }
         return new Boolean(false);
       } else if ("hashCode".equals(method.getName())) {
-        return new Integer(proxy.hashCode());
+        return Integer.valueOf(proxy.hashCode());
       } else {
         return method.invoke(statement, params);
       }

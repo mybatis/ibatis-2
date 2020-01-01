@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import java.sql.Connection;
  * // autocommit simple query --these are just examples...not patterns
  * //
  * </font></i>
- * Employee emp = (Employee) <b>sqlMap.queryForObject("getEmployee", new Integer(1))</b>;
+ * Employee emp = (Employee) <b>sqlMap.queryForObject("getEmployee", Integer.valueOf(1))</b>;
  * <i><font color="green">
  * //
  * // transaction --these are just examples...not patterns

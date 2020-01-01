@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class TransactionTest extends BaseSqlMapTest {
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
     assertAccount6(account);
   }
@@ -70,7 +70,7 @@ public class TransactionTest extends BaseSqlMapTest {
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertAccount6(account);
     assertTrue(exceptionThrownAsExpected);
   }
@@ -89,7 +89,7 @@ public class TransactionTest extends BaseSqlMapTest {
 
     // This will use autocommit...
     assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertAccount6(account);
   }
 
@@ -107,7 +107,7 @@ public class TransactionTest extends BaseSqlMapTest {
 
     // This will use autocommit...
     assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertAccount6(account);
   }
 
@@ -126,7 +126,7 @@ public class TransactionTest extends BaseSqlMapTest {
 
     // This will use autocommit...
     assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertAccount6(account);
   }
 
@@ -142,7 +142,7 @@ public class TransactionTest extends BaseSqlMapTest {
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertNull(account);
   }
 
@@ -151,12 +151,12 @@ public class TransactionTest extends BaseSqlMapTest {
   public void testAutoCommitUpdate() throws SQLException {
     Account account = newAccount6();
     sqlMap.update("insertAccountViaParameterMap", account);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
     assertAccount6(account);
   }
 
   public void testAutoCommitQuery() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(1));
+    Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
     assertAccount1(account);
   }
 

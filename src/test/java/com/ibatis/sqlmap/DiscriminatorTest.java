@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,9 @@ public class DiscriminatorTest extends BaseSqlMapTest {
     assertEquals(5, ((Document) list.get(4)).getId());
     assertEquals(6, ((Document) list.get(5)).getId());
 
-    assertEquals(new Integer(55), ((Book) list.get(0)).getPages());
+    assertEquals(Integer.valueOf(55), ((Book) list.get(0)).getPages());
     assertEquals("Lyon", ((Magazine) list.get(1)).getCity());
-    assertEquals(new Integer(3587), ((Book) list.get(2)).getPages());
+    assertEquals(Integer.valueOf(3587), ((Book) list.get(2)).getPages());
     assertEquals("Paris", ((Magazine) list.get(3)).getCity());
   }
 

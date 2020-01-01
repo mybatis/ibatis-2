@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class ResultObjectFactoryTest extends BaseSqlMapTest {
   public void testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
     List results = sqlMap.queryForList("getAllItemsROF");
     assertEquals(28, results.size());
-    assertEquals(new Integer(1), ((IItem) results.get(2)).getSupplier().getSupplierId());
+    assertEquals(Integer.valueOf(1), ((IItem) results.get(2)).getSupplier().getSupplierId());
   }
 
 }
