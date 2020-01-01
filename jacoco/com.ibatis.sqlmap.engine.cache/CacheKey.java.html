@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheKey.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache</a> &gt; <span class="el_source">CacheKey.java</span></div><h1>CacheKey.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -20,139 +20,151 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Hash value generator for cache keys
+ * Hash value generator for cache keys.
  */
 public class CacheKey implements Cloneable, Serializable {
 
+  /** The Constant DEFAULT_MULTIPLYER. */
   private static final int DEFAULT_MULTIPLYER = 37;
+
+  /** The Constant DEFAULT_HASHCODE. */
   private static final int DEFAULT_HASHCODE = 17;
 
+  /** The multiplier. */
   private int multiplier;
-<span class="pc" id="L31">  private int hashcode;</span>
+
+  /** The hashcode. */
+  private int hashcode;
+
+  /** The checksum. */
   private long checksum;
+
+  /** The count. */
   private int count;
-  private List paramList = new ArrayList();
 
-<span class="fc" id="L36">  /**</span>
-<span class="fc" id="L37">   * Default constructor</span>
-<span class="fc" id="L38">   */</span>
-<span class="fc" id="L39">  public CacheKey() {</span>
-<span class="fc" id="L40">    hashcode = DEFAULT_HASHCODE;</span>
-    multiplier = DEFAULT_MULTIPLYER;
-    count = 0;
-  }
+  /** The param list. */
+<span class="pc" id="L46">  private List paramList = new ArrayList();</span>
 
   /**
-   * Constructor that supplies an initial hashcode
-   *
-<span class="nc" id="L48">   * @param initialNonZeroOddNumber</span>
-<span class="nc" id="L49">   *          - the hashcode to use</span>
-<span class="nc" id="L50">   */</span>
-<span class="nc" id="L51">  public CacheKey(int initialNonZeroOddNumber) {</span>
-<span class="nc" id="L52">    hashcode = initialNonZeroOddNumber;</span>
-    multiplier = DEFAULT_MULTIPLYER;
-    count = 0;
-  }
+   * Default constructor.
+   */
+<span class="fc" id="L51">  public CacheKey() {</span>
+<span class="fc" id="L52">    hashcode = DEFAULT_HASHCODE;</span>
+<span class="fc" id="L53">    multiplier = DEFAULT_MULTIPLYER;</span>
+<span class="fc" id="L54">    count = 0;</span>
+<span class="fc" id="L55">  }</span>
 
   /**
-   * Costructor that supplies an initial hashcode and multiplier
+   * Constructor that supplies an initial hashcode.
    *
    * @param initialNonZeroOddNumber
    *          - the hashcode to use
-<span class="nc" id="L62">   * @param multiplierNonZeroOddNumber</span>
-<span class="nc" id="L63">   *          - the multiplier to use</span>
-<span class="nc" id="L64">   */</span>
-<span class="nc" id="L65">  public CacheKey(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {</span>
-<span class="nc" id="L66">    hashcode = initialNonZeroOddNumber;</span>
-    multiplier = multiplierNonZeroOddNumber;
-    count = 0;
-  }
+   */
+<span class="nc" id="L63">  public CacheKey(int initialNonZeroOddNumber) {</span>
+<span class="nc" id="L64">    hashcode = initialNonZeroOddNumber;</span>
+<span class="nc" id="L65">    multiplier = DEFAULT_MULTIPLYER;</span>
+<span class="nc" id="L66">    count = 0;</span>
+<span class="nc" id="L67">  }</span>
 
   /**
-   * Updates this object with new information based on an int value
+   * Costructor that supplies an initial hashcode and multiplier.
+   *
+   * @param initialNonZeroOddNumber
+   *          - the hashcode to use
+   * @param multiplierNonZeroOddNumber
+   *          - the multiplier to use
+   */
+<span class="nc" id="L77">  public CacheKey(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {</span>
+<span class="nc" id="L78">    hashcode = initialNonZeroOddNumber;</span>
+<span class="nc" id="L79">    multiplier = multiplierNonZeroOddNumber;</span>
+<span class="nc" id="L80">    count = 0;</span>
+<span class="nc" id="L81">  }</span>
+
+  /**
+   * Updates this object with new information based on an int value.
    *
    * @param x
    *          - the int value
-<span class="fc" id="L76">   * @return the cache key</span>
-<span class="fc" id="L77">   */</span>
+   * @return the cache key
+   */
   public CacheKey update(int x) {
-    update(new Integer(x));
-    return this;
+<span class="fc" id="L91">    update(Integer.valueOf(x));</span>
+<span class="fc" id="L92">    return this;</span>
   }
 
   /**
-   * Updates this object with new information based on an object
+   * Updates this object with new information based on an object.
    *
    * @param object
    *          - the object
-<span class="fc" id="L88">   * @return the cachekey</span>
+   * @return the cachekey
    */
-<span class="fc" id="L90">  public CacheKey update(Object object) {</span>
-<span class="fc" id="L91">    int baseHashCode = object.hashCode();</span>
-<span class="fc" id="L92"></span>
-    count++;
-<span class="fc" id="L94">    checksum += baseHashCode;</span>
-    baseHashCode *= count;
-<span class="fc" id="L96"></span>
-    hashcode = multiplier * hashcode + baseHashCode;
-<span class="fc" id="L98"></span>
-    paramList.add(object);
+  public CacheKey update(Object object) {
+<span class="fc" id="L103">    int baseHashCode = object.hashCode();</span>
 
-    return this;
+<span class="fc" id="L105">    count++;</span>
+<span class="fc" id="L106">    checksum += baseHashCode;</span>
+<span class="fc" id="L107">    baseHashCode *= count;</span>
+
+<span class="fc" id="L109">    hashcode = multiplier * hashcode + baseHashCode;</span>
+
+<span class="fc" id="L111">    paramList.add(object);</span>
+
+<span class="fc" id="L113">    return this;</span>
   }
-<span class="pc bpc" id="L103" title="1 of 2 branches missed."></span>
-<span class="nc" id="L104">  @Override</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">  public boolean equals(Object object) {</span>
-<span class="nc" id="L106">    if (this == object)</span>
-      return true;
-<span class="fc" id="L108">    if (!(object instanceof CacheKey))</span>
-      return false;
-<span class="pc bpc" id="L110" title="1 of 2 branches missed."></span>
-<span class="nc" id="L111">    final CacheKey cacheKey = (CacheKey) object;</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed."></span>
-<span class="nc" id="L113">    if (hashcode != cacheKey.hashcode)</span>
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      return false;</span>
-<span class="nc" id="L115">    if (checksum != cacheKey.checksum)</span>
-      return false;
-<span class="fc bfc" id="L117" title="All 2 branches covered.">    if (count != cacheKey.count)</span>
-<span class="fc" id="L118">      return false;</span>
-<span class="fc" id="L119"></span>
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
-<span class="nc bnc" id="L121" title="All 2 branches missed.">      Object thisParam = paramList.get(i);</span>
-<span class="nc" id="L122">      Object thatParam = cacheKey.paramList.get(i);</span>
-      if (thisParam == null) {
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (thatParam != null)</span>
-<span class="fc" id="L125">          return false;</span>
+
+  @Override
+  public boolean equals(Object object) {
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">    if (this == object)</span>
+<span class="nc" id="L119">      return true;</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">    if (!(object instanceof CacheKey))</span>
+<span class="nc" id="L121">      return false;</span>
+
+<span class="fc" id="L123">    final CacheKey cacheKey = (CacheKey) object;</span>
+
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">    if (hashcode != cacheKey.hashcode)</span>
+<span class="nc" id="L126">      return false;</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">    if (checksum != cacheKey.checksum)</span>
+<span class="nc" id="L128">      return false;</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">    if (count != cacheKey.count)</span>
+<span class="nc" id="L130">      return false;</span>
+
+<span class="fc bfc" id="L132" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
+<span class="fc" id="L133">      Object thisParam = paramList.get(i);</span>
+<span class="fc" id="L134">      Object thatParam = cacheKey.paramList.get(i);</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">      if (thisParam == null) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (thatParam != null)</span>
+<span class="nc" id="L137">          return false;</span>
       } else {
-        if (!thisParam.equals(thatParam))
-          return false;
-<span class="fc" id="L129">      }</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (!thisParam.equals(thatParam))</span>
+<span class="fc" id="L140">          return false;</span>
+      }
     }
 
-    return true;
+<span class="fc" id="L144">    return true;</span>
   }
-<span class="fc" id="L134"></span>
+
   @Override
   public int hashCode() {
-    return hashcode;
+<span class="fc" id="L149">    return hashcode;</span>
   }
-<span class="fc" id="L139"></span>
-<span class="fc bfc" id="L140" title="All 2 branches covered.">  @Override</span>
-<span class="fc" id="L141">  public String toString() {</span>
-    StringBuffer returnValue = new StringBuffer().append(hashcode).append('|').append(checksum);
-    for (int i = 0; i &lt; paramList.size(); i++) {
-<span class="fc" id="L144">      returnValue.append('|').append(paramList.get(i));</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L154">    StringBuilder returnValue = new StringBuilder().append(hashcode).append('|').append(checksum);</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
+<span class="fc" id="L156">      returnValue.append('|').append(paramList.get(i));</span>
     }
 
-    return returnValue.toString();
+<span class="fc" id="L159">    return returnValue.toString();</span>
   }
-<span class="nc" id="L149"></span>
-<span class="nc" id="L150">  @Override</span>
-<span class="nc" id="L151">  public CacheKey clone() throws CloneNotSupportedException {</span>
-    CacheKey clonedCacheKey = (CacheKey) super.clone();
-    clonedCacheKey.paramList = new ArrayList&lt;Object&gt;(paramList);
-    return clonedCacheKey;
+
+  @Override
+  public CacheKey clone() throws CloneNotSupportedException {
+<span class="nc" id="L164">    CacheKey clonedCacheKey = (CacheKey) super.clone();</span>
+<span class="nc" id="L165">    clonedCacheKey.paramList = new ArrayList&lt;Object&gt;(paramList);</span>
+<span class="nc" id="L166">    return clonedCacheKey;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

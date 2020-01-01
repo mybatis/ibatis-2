@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.jdbc</a> &gt; <span class="el_source">JdbcTransaction.java</span></div><h1>JdbcTransaction.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -25,72 +25,99 @@ import com.ibatis.sqlmap.engine.transaction.TransactionException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-<span class="fc" id="L28"></span>
+
+/**
+ * The Class JdbcTransaction.
+ */
 public class JdbcTransaction implements Transaction {
 
-  private static final Log connectionLog = LogFactory.getLog(Connection.class);
-<span class="fc" id="L32"></span>
-  private DataSource dataSource;
-<span class="fc" id="L34">  private Connection connection;</span>
-  private IsolationLevel isolationLevel = new IsolationLevel();
-<span class="fc" id="L36"></span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">  public JdbcTransaction(DataSource ds, int isolationLevel) throws TransactionException {</span>
-<span class="nc" id="L38">    // Check Parameters</span>
-    dataSource = ds;
-<span class="fc" id="L40">    if (dataSource == null) {</span>
-<span class="fc" id="L41">      throw new TransactionException(&quot;JdbcTransaction initialization failed.  DataSource was null.&quot;);</span>
-    }
-    this.isolationLevel.setIsolationLevel(isolationLevel);
-  }
-<span class="fc" id="L45"></span>
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">  private void init() throws SQLException, TransactionException {</span>
-<span class="nc" id="L47">    // Open JDBC Transaction</span>
-    connection = dataSource.getConnection();
-    if (connection == null) {
-      throw new TransactionException(
-<span class="fc" id="L51">          &quot;JdbcTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);</span>
-    }
-<span class="fc bfc" id="L53" title="All 2 branches covered.">    // Isolation Level</span>
-<span class="fc" id="L54">    isolationLevel.applyIsolationLevel(connection);</span>
-    // AutoCommit
-    if (connection.getAutoCommit()) {
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">      connection.setAutoCommit(false);</span>
-<span class="nc" id="L58">    }</span>
-    // Debug
-<span class="fc" id="L60">    if (connectionLog.isDebugEnabled()) {</span>
-      connection = ConnectionLogProxy.newInstance(connection);
-    }
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">  }</span>
-<span class="fc" id="L64"></span>
-  public void commit() throws SQLException, TransactionException {
-<span class="fc" id="L66">    if (connection != null) {</span>
-      connection.commit();
-    }
-<span class="fc bfc" id="L69" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L70"></span>
-  public void rollback() throws SQLException, TransactionException {
-<span class="fc" id="L72">    if (connection != null) {</span>
-      connection.rollback();
-    }
-<span class="fc bfc" id="L75" title="All 2 branches covered.">  }</span>
+  /** The Constant connectionLog. */
+<span class="fc" id="L35">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
 
-<span class="fc" id="L77">  public void close() throws SQLException, TransactionException {</span>
-    if (connection != null) {
-<span class="pc" id="L79">      try {</span>
-<span class="pc" id="L80">        isolationLevel.restoreIsolationLevel(connection);</span>
-<span class="fc" id="L81">      } finally {</span>
-        connection.close();
-<span class="fc" id="L83">        connection = null;</span>
+  /** The data source. */
+  private DataSource dataSource;
+
+  /** The connection. */
+  private Connection connection;
+
+  /** The isolation level. */
+<span class="fc" id="L44">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+
+  /**
+   * Instantiates a new jdbc transaction.
+   *
+   * @param ds
+   *          the ds
+   * @param isolationLevel
+   *          the isolation level
+   * @throws TransactionException
+   *           the transaction exception
+   */
+<span class="fc" id="L56">  public JdbcTransaction(DataSource ds, int isolationLevel) throws TransactionException {</span>
+    // Check Parameters
+<span class="fc" id="L58">    dataSource = ds;</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">    if (dataSource == null) {</span>
+<span class="nc" id="L60">      throw new TransactionException(&quot;JdbcTransaction initialization failed.  DataSource was null.&quot;);</span>
+    }
+<span class="fc" id="L62">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="fc" id="L63">  }</span>
+
+  /**
+   * Inits the.
+   *
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
+  private void init() throws SQLException, TransactionException {
+    // Open JDBC Transaction
+<span class="fc" id="L75">    connection = dataSource.getConnection();</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L77">      throw new TransactionException(</span>
+          &quot;JdbcTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
+    }
+    // Isolation Level
+<span class="fc" id="L81">    isolationLevel.applyIsolationLevel(connection);</span>
+    // AutoCommit
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (connection.getAutoCommit()) {</span>
+<span class="fc" id="L84">      connection.setAutoCommit(false);</span>
+    }
+    // Debug
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L88">      connection = ConnectionLogProxy.newInstance(connection);</span>
+    }
+<span class="fc" id="L90">  }</span>
+
+  public void commit() throws SQLException, TransactionException {
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">    if (connection != null) {</span>
+<span class="fc" id="L94">      connection.commit();</span>
+    }
+<span class="fc" id="L96">  }</span>
+
+  public void rollback() throws SQLException, TransactionException {
+<span class="fc bfc" id="L99" title="All 2 branches covered.">    if (connection != null) {</span>
+<span class="fc" id="L100">      connection.rollback();</span>
+    }
+<span class="fc" id="L102">  }</span>
+
+  public void close() throws SQLException, TransactionException {
+<span class="fc bfc" id="L105" title="All 2 branches covered.">    if (connection != null) {</span>
+      try {
+<span class="fc" id="L107">        isolationLevel.restoreIsolationLevel(connection);</span>
+      } finally {
+<span class="fc" id="L109">        connection.close();</span>
+<span class="fc" id="L110">        connection = null;</span>
       }
     }
-<span class="fc bfc" id="L86" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L87"></span>
+<span class="fc" id="L113">  }</span>
+
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="fc" id="L89">    if (connection == null) {</span>
-      init();
+<span class="fc bfc" id="L116" title="All 2 branches covered.">    if (connection == null) {</span>
+<span class="fc" id="L117">      init();</span>
     }
-    return connection;
+<span class="fc" id="L119">    return connection;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

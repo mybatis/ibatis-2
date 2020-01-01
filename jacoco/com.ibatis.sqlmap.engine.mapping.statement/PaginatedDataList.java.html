@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaginatedDataList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">PaginatedDataList.java</span></div><h1>PaginatedDataList.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -22,254 +22,314 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
+ * The Class PaginatedDataList.
+ *
  * @deprecated All paginated list features have been deprecated
  */
 public class PaginatedDataList implements PaginatedList {
 
+  /** The sql map executor. */
   private SqlMapExecutor sqlMapExecutor;
+
+  /** The statement name. */
   private String statementName;
+
+  /** The parameter object. */
   private Object parameterObject;
 
+  /** The page size. */
   private int pageSize;
+
+  /** The index. */
   private int index;
 
+  /** The prev page list. */
   private List prevPageList;
+
+  /** The current page list. */
   private List currentPageList;
-<span class="fc" id="L38">  private List nextPageList;</span>
-<span class="fc" id="L39"></span>
-<span class="fc" id="L40">  public PaginatedDataList(SqlMapExecutor sqlMapExecutor, String statementName, Object parameterObject, int pageSize)</span>
-<span class="fc" id="L41">      throws SQLException {</span>
-<span class="fc" id="L42">    this.sqlMapExecutor = sqlMapExecutor;</span>
-<span class="fc" id="L43">    this.statementName = statementName;</span>
-<span class="fc" id="L44">    this.parameterObject = parameterObject;</span>
-<span class="fc" id="L45">    this.pageSize = pageSize;</span>
-    this.index = 0;
-    pageTo(0);
-  }
-<span class="fc" id="L49"></span>
-<span class="fc" id="L50">  private void pageForward() {</span>
-<span class="fc" id="L51">    try {</span>
-<span class="nc" id="L52">      prevPageList = currentPageList;</span>
-<span class="nc" id="L53">      currentPageList = nextPageList;</span>
-<span class="fc" id="L54">      nextPageList = getList(index + 1, pageSize);</span>
-<span class="fc" id="L55">    } catch (SQLException e) {</span>
-      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);
-    }
-  }
-<span class="fc" id="L59"></span>
-<span class="fc" id="L60">  private void pageBack() {</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">    try {</span>
-<span class="fc" id="L62">      nextPageList = currentPageList;</span>
-      currentPageList = prevPageList;
-<span class="fc" id="L64">      if (index &gt; 0) {</span>
-        prevPageList = getList(index - 1, pageSize);
-<span class="nc" id="L66">      } else {</span>
-<span class="nc" id="L67">        prevPageList = new ArrayList();</span>
-<span class="fc" id="L68">      }</span>
-<span class="fc" id="L69">    } catch (SQLException e) {</span>
-      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);
-    }
-  }
-<span class="fc" id="L73"></span>
-<span class="nc" id="L74">  private void safePageTo(int idx) {</span>
-<span class="nc" id="L75">    try {</span>
-<span class="fc" id="L76">      pageTo(idx);</span>
-<span class="fc" id="L77">    } catch (SQLException e) {</span>
-      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);
-    }
-<span class="fc" id="L80">  }</span>
 
+  /** The next page list. */
+  private List nextPageList;
+
+  /**
+   * Instantiates a new paginated data list.
+   *
+   * @param sqlMapExecutor
+   *          the sql map executor
+   * @param statementName
+   *          the statement name
+   * @param parameterObject
+   *          the parameter object
+   * @param pageSize
+   *          the page size
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public PaginatedDataList(SqlMapExecutor sqlMapExecutor, String statementName, Object parameterObject, int pageSize)
+<span class="fc" id="L70">      throws SQLException {</span>
+<span class="fc" id="L71">    this.sqlMapExecutor = sqlMapExecutor;</span>
+<span class="fc" id="L72">    this.statementName = statementName;</span>
+<span class="fc" id="L73">    this.parameterObject = parameterObject;</span>
+<span class="fc" id="L74">    this.pageSize = pageSize;</span>
+<span class="fc" id="L75">    this.index = 0;</span>
+<span class="fc" id="L76">    pageTo(0);</span>
+<span class="fc" id="L77">  }</span>
+
+  /**
+   * Page forward.
+   */
+  private void pageForward() {
+    try {
+<span class="fc" id="L84">      prevPageList = currentPageList;</span>
+<span class="fc" id="L85">      currentPageList = nextPageList;</span>
+<span class="fc" id="L86">      nextPageList = getList(index + 1, pageSize);</span>
+<span class="nc" id="L87">    } catch (SQLException e) {</span>
+<span class="nc" id="L88">      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L89">    }</span>
+<span class="fc" id="L90">  }</span>
+
+  /**
+   * Page back.
+   */
+  private void pageBack() {
+    try {
+<span class="fc" id="L97">      nextPageList = currentPageList;</span>
+<span class="fc" id="L98">      currentPageList = prevPageList;</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">      if (index &gt; 0) {</span>
+<span class="fc" id="L100">        prevPageList = getList(index - 1, pageSize);</span>
+      } else {
+<span class="fc" id="L102">        prevPageList = new ArrayList();</span>
+      }
+<span class="nc" id="L104">    } catch (SQLException e) {</span>
+<span class="nc" id="L105">      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L106">    }</span>
+<span class="fc" id="L107">  }</span>
+
+  /**
+   * Safe page to.
+   *
+   * @param idx
+   *          the idx
+   */
+  private void safePageTo(int idx) {
+    try {
+<span class="fc" id="L117">      pageTo(idx);</span>
+<span class="nc" id="L118">    } catch (SQLException e) {</span>
+<span class="nc" id="L119">      throw new RuntimeException(&quot;Unexpected error while repaginating paged list.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L120">    }</span>
+<span class="fc" id="L121">  }</span>
+
+  /**
+   * Page to.
+   *
+   * @param idx
+   *          the idx
+   * @throws SQLException
+   *           the SQL exception
+   */
   public void pageTo(int idx) throws SQLException {
-    index = idx;
-<span class="fc bfc" id="L84" title="All 2 branches covered."></span>
-<span class="fc" id="L85">    List list;</span>
+<span class="fc" id="L132">    index = idx;</span>
 
-<span class="fc" id="L87">    if (idx &lt; 1) {</span>
-      list = getList(idx, pageSize * 2);
+    List list;
+
+<span class="fc bfc" id="L136" title="All 2 branches covered.">    if (idx &lt; 1) {</span>
+<span class="fc" id="L137">      list = getList(idx, pageSize * 2);</span>
     } else {
-<span class="fc bfc" id="L90" title="All 2 branches covered.">      list = getList(idx - 1, pageSize * 3);</span>
-<span class="fc" id="L91">    }</span>
-<span class="fc" id="L92"></span>
-<span class="fc" id="L93">    if (list.size() &lt; 1) {</span>
-      prevPageList = new ArrayList(0);
-<span class="fc bfc" id="L95" title="All 2 branches covered.">      currentPageList = new ArrayList(0);</span>
-<span class="fc" id="L96">      nextPageList = new ArrayList(0);</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">    } else {</span>
-<span class="fc" id="L98">      if (idx &lt; 1) {</span>
-<span class="fc" id="L99">        prevPageList = new ArrayList(0);</span>
-        if (list.size() &lt;= pageSize) {
-<span class="fc" id="L101">          currentPageList = list.subList(0, list.size());</span>
-<span class="fc" id="L102">          nextPageList = new ArrayList(0);</span>
+<span class="fc" id="L139">      list = getList(idx - 1, pageSize * 3);</span>
+    }
+
+<span class="fc bfc" id="L142" title="All 2 branches covered.">    if (list.size() &lt; 1) {</span>
+<span class="fc" id="L143">      prevPageList = new ArrayList(0);</span>
+<span class="fc" id="L144">      currentPageList = new ArrayList(0);</span>
+<span class="fc" id="L145">      nextPageList = new ArrayList(0);</span>
+    } else {
+<span class="fc bfc" id="L147" title="All 2 branches covered.">      if (idx &lt; 1) {</span>
+<span class="fc" id="L148">        prevPageList = new ArrayList(0);</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        if (list.size() &lt;= pageSize) {</span>
+<span class="fc" id="L150">          currentPageList = list.subList(0, list.size());</span>
+<span class="fc" id="L151">          nextPageList = new ArrayList(0);</span>
         } else {
-          currentPageList = list.subList(0, pageSize);
-<span class="fc bfc" id="L105" title="All 2 branches covered.">          nextPageList = list.subList(pageSize, list.size());</span>
-<span class="fc" id="L106">        }</span>
-<span class="fc" id="L107">      } else {</span>
-<span class="fc" id="L108">        if (list.size() &lt;= pageSize) {</span>
-<span class="fc bfc" id="L109" title="All 2 branches covered.">          prevPageList = list.subList(0, list.size());</span>
-<span class="fc" id="L110">          currentPageList = new ArrayList(0);</span>
-<span class="fc" id="L111">          nextPageList = new ArrayList(0);</span>
-<span class="fc" id="L112">        } else if (list.size() &lt;= pageSize * 2) {</span>
-          prevPageList = list.subList(0, pageSize);
-<span class="fc" id="L114">          currentPageList = list.subList(pageSize, list.size());</span>
-<span class="fc" id="L115">          nextPageList = new ArrayList(0);</span>
-<span class="fc" id="L116">        } else {</span>
-          prevPageList = list.subList(0, pageSize);
-          currentPageList = list.subList(pageSize, pageSize * 2);
-          nextPageList = list.subList(pageSize * 2, list.size());
+<span class="fc" id="L153">          currentPageList = list.subList(0, pageSize);</span>
+<span class="fc" id="L154">          nextPageList = list.subList(pageSize, list.size());</span>
         }
-<span class="fc" id="L121">      }</span>
+      } else {
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (list.size() &lt;= pageSize) {</span>
+<span class="fc" id="L158">          prevPageList = list.subList(0, list.size());</span>
+<span class="fc" id="L159">          currentPageList = new ArrayList(0);</span>
+<span class="fc" id="L160">          nextPageList = new ArrayList(0);</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        } else if (list.size() &lt;= pageSize * 2) {</span>
+<span class="fc" id="L162">          prevPageList = list.subList(0, pageSize);</span>
+<span class="fc" id="L163">          currentPageList = list.subList(pageSize, list.size());</span>
+<span class="fc" id="L164">          nextPageList = new ArrayList(0);</span>
+        } else {
+<span class="fc" id="L166">          prevPageList = list.subList(0, pageSize);</span>
+<span class="fc" id="L167">          currentPageList = list.subList(pageSize, pageSize * 2);</span>
+<span class="fc" id="L168">          nextPageList = list.subList(pageSize * 2, list.size());</span>
+        }
+      }
     }
 
-<span class="fc" id="L124">  }</span>
+<span class="fc" id="L173">  }</span>
 
+  /**
+   * Gets the list.
+   *
+   * @param idx
+   *          the idx
+   * @param localPageSize
+   *          the local page size
+   * @return the list
+   * @throws SQLException
+   *           the SQL exception
+   */
   private List getList(int idx, int localPageSize) throws SQLException {
-    return sqlMapExecutor.queryForList(statementName, parameterObject, (idx) * pageSize, localPageSize);
-<span class="fc bfc" id="L128" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L129"></span>
-<span class="fc" id="L130">  public boolean nextPage() {</span>
-<span class="fc" id="L131">    if (isNextPageAvailable()) {</span>
-      index++;
-<span class="fc" id="L133">      pageForward();</span>
-      return true;
+<span class="fc" id="L187">    return sqlMapExecutor.queryForList(statementName, parameterObject, (idx) * pageSize, localPageSize);</span>
+  }
+
+  public boolean nextPage() {
+<span class="fc bfc" id="L191" title="All 2 branches covered.">    if (isNextPageAvailable()) {</span>
+<span class="fc" id="L192">      index++;</span>
+<span class="fc" id="L193">      pageForward();</span>
+<span class="fc" id="L194">      return true;</span>
     } else {
-      return false;
+<span class="fc" id="L196">      return false;</span>
     }
-<span class="fc bfc" id="L138" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L139"></span>
-<span class="fc" id="L140">  public boolean previousPage() {</span>
-<span class="fc" id="L141">    if (isPreviousPageAvailable()) {</span>
-      index--;
-<span class="fc" id="L143">      pageBack();</span>
-      return true;
+  }
+
+  public boolean previousPage() {
+<span class="fc bfc" id="L201" title="All 2 branches covered.">    if (isPreviousPageAvailable()) {</span>
+<span class="fc" id="L202">      index--;</span>
+<span class="fc" id="L203">      pageBack();</span>
+<span class="fc" id="L204">      return true;</span>
     } else {
-      return false;
+<span class="fc" id="L206">      return false;</span>
     }
-<span class="fc" id="L148">  }</span>
-<span class="fc" id="L149"></span>
+  }
+
   public void gotoPage(int pageNumber) {
-    safePageTo(pageNumber);
-<span class="nc" id="L152">  }</span>
+<span class="fc" id="L211">    safePageTo(pageNumber);</span>
+<span class="fc" id="L212">  }</span>
 
   public int getPageSize() {
-    return pageSize;
-<span class="nc bnc" id="L156" title="All 2 branches missed.">  }</span>
+<span class="nc" id="L215">    return pageSize;</span>
+  }
 
   public boolean isFirstPage() {
-    return index == 0;
-<span class="nc bnc" id="L160" title="All 4 branches missed.">  }</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">    return index == 0;</span>
+  }
 
   public boolean isMiddlePage() {
-    return !(isFirstPage() || isLastPage());
-<span class="nc bnc" id="L164" title="All 2 branches missed.">  }</span>
+<span class="nc bnc" id="L223" title="All 4 branches missed.">    return !(isFirstPage() || isLastPage());</span>
+  }
 
   public boolean isLastPage() {
-    return nextPageList.size() &lt; 1;
-<span class="fc bfc" id="L168" title="All 2 branches covered.">  }</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">    return nextPageList.size() &lt; 1;</span>
+  }
 
   public boolean isNextPageAvailable() {
-    return nextPageList.size() &gt; 0;
-<span class="fc bfc" id="L172" title="All 2 branches covered.">  }</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">    return nextPageList.size() &gt; 0;</span>
+  }
 
   public boolean isPreviousPageAvailable() {
-    return prevPageList.size() &gt; 0;
-<span class="fc" id="L176">  }</span>
+<span class="fc bfc" id="L235" title="All 2 branches covered.">    return prevPageList.size() &gt; 0;</span>
+  }
 
   public int size() {
-    return currentPageList.size();
-<span class="nc" id="L180">  }</span>
+<span class="fc" id="L239">    return currentPageList.size();</span>
+  }
 
   public boolean isEmpty() {
-    return currentPageList.isEmpty();
-<span class="nc" id="L184">  }</span>
+<span class="nc" id="L243">    return currentPageList.isEmpty();</span>
+  }
 
   public boolean contains(Object o) {
-    return currentPageList.contains(o);
-<span class="nc" id="L188">  }</span>
+<span class="nc" id="L247">    return currentPageList.contains(o);</span>
+  }
 
   public Iterator iterator() {
-    return currentPageList.iterator();
-<span class="nc" id="L192">  }</span>
+<span class="nc" id="L251">    return currentPageList.iterator();</span>
+  }
 
   public Object[] toArray() {
-    return currentPageList.toArray();
-<span class="nc" id="L196">  }</span>
+<span class="nc" id="L255">    return currentPageList.toArray();</span>
+  }
 
   public Object[] toArray(Object a[]) {
-    return currentPageList.toArray(a);
-<span class="nc" id="L200">  }</span>
+<span class="nc" id="L259">    return currentPageList.toArray(a);</span>
+  }
 
   public boolean containsAll(Collection c) {
-    return currentPageList.containsAll(c);
-<span class="fc" id="L204">  }</span>
+<span class="nc" id="L263">    return currentPageList.containsAll(c);</span>
+  }
 
   public Object get(int index) {
-    return currentPageList.get(index);
-<span class="nc" id="L208">  }</span>
+<span class="fc" id="L267">    return currentPageList.get(index);</span>
+  }
 
   public int indexOf(Object o) {
-    return currentPageList.indexOf(o);
-<span class="nc" id="L212">  }</span>
+<span class="nc" id="L271">    return currentPageList.indexOf(o);</span>
+  }
 
   public int lastIndexOf(Object o) {
-    return currentPageList.lastIndexOf(o);
-<span class="nc" id="L216">  }</span>
+<span class="nc" id="L275">    return currentPageList.lastIndexOf(o);</span>
+  }
 
   public ListIterator listIterator() {
-    return currentPageList.listIterator();
-<span class="nc" id="L220">  }</span>
+<span class="nc" id="L279">    return currentPageList.listIterator();</span>
+  }
 
   public ListIterator listIterator(int index) {
-    return currentPageList.listIterator(index);
-<span class="nc" id="L224">  }</span>
+<span class="nc" id="L283">    return currentPageList.listIterator(index);</span>
+  }
 
   public List subList(int fromIndex, int toIndex) {
-    return currentPageList.subList(fromIndex, toIndex);
-<span class="nc" id="L228">  }</span>
+<span class="nc" id="L287">    return currentPageList.subList(fromIndex, toIndex);</span>
+  }
 
   public boolean add(Object o) {
-    return currentPageList.add(o);
-<span class="nc" id="L232">  }</span>
+<span class="nc" id="L291">    return currentPageList.add(o);</span>
+  }
 
   public boolean remove(Object o) {
-    return currentPageList.remove(o);
-<span class="nc" id="L236">  }</span>
+<span class="nc" id="L295">    return currentPageList.remove(o);</span>
+  }
 
   public boolean addAll(Collection c) {
-    return currentPageList.addAll(c);
-<span class="nc" id="L240">  }</span>
+<span class="nc" id="L299">    return currentPageList.addAll(c);</span>
+  }
 
   public boolean addAll(int index, Collection c) {
-    return currentPageList.addAll(index, c);
-<span class="nc" id="L244">  }</span>
+<span class="nc" id="L303">    return currentPageList.addAll(index, c);</span>
+  }
 
   public boolean removeAll(Collection c) {
-    return currentPageList.removeAll(c);
-<span class="nc" id="L248">  }</span>
+<span class="nc" id="L307">    return currentPageList.removeAll(c);</span>
+  }
 
   public boolean retainAll(Collection c) {
-    return currentPageList.retainAll(c);
-<span class="nc" id="L252">  }</span>
-<span class="nc" id="L253"></span>
+<span class="nc" id="L311">    return currentPageList.retainAll(c);</span>
+  }
+
   public void clear() {
-    currentPageList.clear();
-<span class="nc" id="L256">  }</span>
+<span class="nc" id="L315">    currentPageList.clear();</span>
+<span class="nc" id="L316">  }</span>
 
   public Object set(int index, Object element) {
-    return currentPageList.set(index, element);
-<span class="nc" id="L260">  }</span>
-<span class="nc" id="L261"></span>
+<span class="nc" id="L319">    return currentPageList.set(index, element);</span>
+  }
+
   public void add(int index, Object element) {
-    currentPageList.add(index, element);
-<span class="nc" id="L264">  }</span>
+<span class="nc" id="L323">    currentPageList.add(index, element);</span>
+<span class="nc" id="L324">  }</span>
 
   public Object remove(int index) {
-    return currentPageList.remove(index);
-<span class="nc" id="L268">  }</span>
+<span class="nc" id="L327">    return currentPageList.remove(index);</span>
+  }
 
   public int getPageIndex() {
-    return index;
+<span class="nc" id="L331">    return index;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

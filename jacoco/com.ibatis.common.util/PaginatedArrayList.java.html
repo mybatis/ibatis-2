@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaginatedArrayList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.util</a> &gt; <span class="el_source">PaginatedArrayList.java</span></div><h1>PaginatedArrayList.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,251 +18,265 @@ package com.ibatis.common.util;
 import java.util.*;
 
 /**
- * Implementation of PaginatedList backed by an ArrayList
- * 
+ * Implementation of PaginatedList backed by an ArrayList.
+ *
  * @deprecated All paginated list features have been deprecated
-<span class="fc" id="L24"> */</span>
+ */
 public class PaginatedArrayList implements PaginatedList {
 
-  private static final ArrayList EMPTY_LIST = new ArrayList(0);
+  /** The Constant EMPTY_LIST. */
+<span class="fc" id="L28">  private static final ArrayList EMPTY_LIST = new ArrayList(0);</span>
 
+  /** The list. */
   private List list;
+
+  /** The page. */
   private List page;
+
+  /** The page size. */
   private int pageSize;
+
+  /** The index. */
   private int index;
 
-<span class="fc" id="L34">  /**</span>
-<span class="fc" id="L35">   * @param pageSize</span>
-<span class="fc" id="L36">   */</span>
-<span class="fc" id="L37">  public PaginatedArrayList(int pageSize) {</span>
-<span class="fc" id="L38">    this.pageSize = pageSize;</span>
-<span class="fc" id="L39">    this.index = 0;</span>
-    this.list = new ArrayList();
-    repaginate();
-  }
+  /**
+   * Instantiates a new paginated array list.
+   *
+   * @param pageSize
+   *          the page size
+   */
+<span class="fc" id="L48">  public PaginatedArrayList(int pageSize) {</span>
+<span class="fc" id="L49">    this.pageSize = pageSize;</span>
+<span class="fc" id="L50">    this.index = 0;</span>
+<span class="fc" id="L51">    this.list = new ArrayList();</span>
+<span class="fc" id="L52">    repaginate();</span>
+<span class="fc" id="L53">  }</span>
 
   /**
-   * Constructor to set the initial size and the page size
-   * 
+   * Constructor to set the initial size and the page size.
+   *
    * @param initialCapacity
    *          - the initial size
-<span class="nc" id="L49">   * @param pageSize</span>
-<span class="nc" id="L50">   *          - the page size</span>
-<span class="nc" id="L51">   */</span>
-<span class="nc" id="L52">  public PaginatedArrayList(int initialCapacity, int pageSize) {</span>
-<span class="nc" id="L53">    this.pageSize = pageSize;</span>
-<span class="nc" id="L54">    this.index = 0;</span>
-    this.list = new ArrayList(initialCapacity);
-    repaginate();
-  }
+   * @param pageSize
+   *          - the page size
+   */
+<span class="nc" id="L63">  public PaginatedArrayList(int initialCapacity, int pageSize) {</span>
+<span class="nc" id="L64">    this.pageSize = pageSize;</span>
+<span class="nc" id="L65">    this.index = 0;</span>
+<span class="nc" id="L66">    this.list = new ArrayList(initialCapacity);</span>
+<span class="nc" id="L67">    repaginate();</span>
+<span class="nc" id="L68">  }</span>
 
   /**
-   * Constructor to create an instance using an existing collection
-   * 
+   * Constructor to create an instance using an existing collection.
+   *
    * @param c
    *          - the collection to build the instance with
-<span class="nc" id="L64">   * @param pageSize</span>
-<span class="nc" id="L65">   *          - the page size</span>
-<span class="nc" id="L66">   */</span>
-<span class="nc" id="L67">  public PaginatedArrayList(Collection c, int pageSize) {</span>
-<span class="nc" id="L68">    this.pageSize = pageSize;</span>
-<span class="nc" id="L69">    this.index = 0;</span>
-    this.list = new ArrayList(c);
-    repaginate();
-<span class="fc bfc" id="L72" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L73"></span>
+   * @param pageSize
+   *          - the page size
+   */
+<span class="nc" id="L78">  public PaginatedArrayList(Collection c, int pageSize) {</span>
+<span class="nc" id="L79">    this.pageSize = pageSize;</span>
+<span class="nc" id="L80">    this.index = 0;</span>
+<span class="nc" id="L81">    this.list = new ArrayList(c);</span>
+<span class="nc" id="L82">    repaginate();</span>
+<span class="nc" id="L83">  }</span>
+
+  /**
+   * Repaginate.
+   */
   private void repaginate() {
-<span class="fc" id="L75">    if (list.isEmpty()) {</span>
-<span class="fc" id="L76">      page = EMPTY_LIST;</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">    } else {</span>
-<span class="fc" id="L78">      int start = index * pageSize;</span>
-      int end = start + pageSize - 1;
-<span class="fc bfc" id="L80" title="All 2 branches covered.">      if (end &gt;= list.size()) {</span>
-<span class="fc" id="L81">        end = list.size() - 1;</span>
-<span class="fc" id="L82">      }</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (start &gt;= list.size()) {</span>
-<span class="fc" id="L84">        index = 0;</span>
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        repaginate();</span>
-<span class="fc" id="L86">      } else if (start &lt; 0) {</span>
-        index = list.size() / pageSize;
-<span class="fc" id="L88">        if (list.size() % pageSize == 0) {</span>
-          index--;
-<span class="fc" id="L90">        }</span>
-        repaginate();
+<span class="fc bfc" id="L89" title="All 2 branches covered.">    if (list.isEmpty()) {</span>
+<span class="fc" id="L90">      page = EMPTY_LIST;</span>
+    } else {
+<span class="fc" id="L92">      int start = index * pageSize;</span>
+<span class="fc" id="L93">      int end = start + pageSize - 1;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">      if (end &gt;= list.size()) {</span>
+<span class="fc" id="L95">        end = list.size() - 1;</span>
+      }
+<span class="fc bfc" id="L97" title="All 2 branches covered.">      if (start &gt;= list.size()) {</span>
+<span class="fc" id="L98">        index = 0;</span>
+<span class="fc" id="L99">        repaginate();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">      } else if (start &lt; 0) {</span>
+<span class="fc" id="L101">        index = list.size() / pageSize;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (list.size() % pageSize == 0) {</span>
+<span class="fc" id="L103">          index--;</span>
+        }
+<span class="fc" id="L105">        repaginate();</span>
       } else {
-<span class="fc" id="L93">        page = list.subList(start, end + 1);</span>
+<span class="fc" id="L107">        page = list.subList(start, end + 1);</span>
       }
     }
-  }
-
-<span class="nc" id="L98">  /* List accessors (uses page) */</span>
-
-  public int size() {
-    return page.size();
-<span class="nc" id="L102">  }</span>
-
-  public boolean isEmpty() {
-    return page.isEmpty();
-<span class="nc" id="L106">  }</span>
-
-  public boolean contains(Object o) {
-    return page.contains(o);
 <span class="fc" id="L110">  }</span>
 
+  /* List accessors (uses page) */
+
+  public int size() {
+<span class="nc" id="L115">    return page.size();</span>
+  }
+
+  public boolean isEmpty() {
+<span class="nc" id="L119">    return page.isEmpty();</span>
+  }
+
+  public boolean contains(Object o) {
+<span class="nc" id="L123">    return page.contains(o);</span>
+  }
+
   public Iterator iterator() {
-    return page.iterator();
-<span class="nc" id="L114">  }</span>
+<span class="fc" id="L127">    return page.iterator();</span>
+  }
 
   public Object[] toArray() {
-    return page.toArray();
-<span class="nc" id="L118">  }</span>
+<span class="nc" id="L131">    return page.toArray();</span>
+  }
 
   public Object[] toArray(Object a[]) {
-    return page.toArray(a);
-<span class="nc" id="L122">  }</span>
+<span class="nc" id="L135">    return page.toArray(a);</span>
+  }
 
   public boolean containsAll(Collection c) {
-    return page.containsAll(c);
-<span class="fc" id="L126">  }</span>
+<span class="nc" id="L139">    return page.containsAll(c);</span>
+  }
 
   public Object get(int index) {
-    return page.get(index);
-<span class="nc" id="L130">  }</span>
+<span class="fc" id="L143">    return page.get(index);</span>
+  }
 
   public int indexOf(Object o) {
-    return page.indexOf(o);
-<span class="nc" id="L134">  }</span>
+<span class="nc" id="L147">    return page.indexOf(o);</span>
+  }
 
   public int lastIndexOf(Object o) {
-    return page.lastIndexOf(o);
-<span class="nc" id="L138">  }</span>
+<span class="nc" id="L151">    return page.lastIndexOf(o);</span>
+  }
 
   public ListIterator listIterator() {
-    return page.listIterator();
-<span class="nc" id="L142">  }</span>
+<span class="nc" id="L155">    return page.listIterator();</span>
+  }
 
   public ListIterator listIterator(int index) {
-    return page.listIterator(index);
-<span class="nc" id="L146">  }</span>
+<span class="nc" id="L159">    return page.listIterator(index);</span>
+  }
 
   public List subList(int fromIndex, int toIndex) {
-    return page.subList(fromIndex, toIndex);
+<span class="nc" id="L163">    return page.subList(fromIndex, toIndex);</span>
   }
 
-<span class="fc" id="L152">  /* List mutators (uses master list) */</span>
-<span class="fc" id="L153"></span>
-<span class="fc" id="L154">  public boolean add(Object o) {</span>
-    boolean b = list.add(o);
-    repaginate();
-    return b;
-<span class="nc" id="L158">  }</span>
-<span class="nc" id="L159"></span>
-<span class="nc" id="L160">  public boolean remove(Object o) {</span>
-    boolean b = list.remove(o);
-    repaginate();
-    return b;
-<span class="nc" id="L164">  }</span>
-<span class="nc" id="L165"></span>
-<span class="nc" id="L166">  public boolean addAll(Collection c) {</span>
-    boolean b = list.addAll(c);
-    repaginate();
-    return b;
-<span class="nc" id="L170">  }</span>
-<span class="nc" id="L171"></span>
-<span class="nc" id="L172">  public boolean addAll(int index, Collection c) {</span>
-    boolean b = list.addAll(index, c);
-    repaginate();
-    return b;
-<span class="nc" id="L176">  }</span>
-<span class="nc" id="L177"></span>
-<span class="nc" id="L178">  public boolean removeAll(Collection c) {</span>
-    boolean b = list.removeAll(c);
-    repaginate();
-    return b;
-<span class="nc" id="L182">  }</span>
-<span class="nc" id="L183"></span>
-<span class="nc" id="L184">  public boolean retainAll(Collection c) {</span>
-    boolean b = list.retainAll(c);
-    repaginate();
-    return b;
-<span class="nc" id="L188">  }</span>
-<span class="nc" id="L189"></span>
-<span class="nc" id="L190">  public void clear() {</span>
-    list.clear();
-    repaginate();
-<span class="nc" id="L193">  }</span>
-<span class="nc" id="L194"></span>
-<span class="nc" id="L195">  public Object set(int index, Object element) {</span>
-    Object o = list.set(index, element);
-    repaginate();
-    return o;
-<span class="nc" id="L199">  }</span>
-<span class="nc" id="L200"></span>
-<span class="nc" id="L201">  public void add(int index, Object element) {</span>
-    list.add(index, element);
-    repaginate();
-<span class="nc" id="L204">  }</span>
-<span class="nc" id="L205"></span>
-<span class="nc" id="L206">  public Object remove(int index) {</span>
-    Object o = list.remove(index);
-    repaginate();
-    return o;
+  /* List mutators (uses master list) */
+
+  public boolean add(Object o) {
+<span class="fc" id="L169">    boolean b = list.add(o);</span>
+<span class="fc" id="L170">    repaginate();</span>
+<span class="fc" id="L171">    return b;</span>
   }
 
-<span class="nc" id="L212">  /* Paginated List methods */</span>
+  public boolean remove(Object o) {
+<span class="nc" id="L175">    boolean b = list.remove(o);</span>
+<span class="nc" id="L176">    repaginate();</span>
+<span class="nc" id="L177">    return b;</span>
+  }
+
+  public boolean addAll(Collection c) {
+<span class="nc" id="L181">    boolean b = list.addAll(c);</span>
+<span class="nc" id="L182">    repaginate();</span>
+<span class="nc" id="L183">    return b;</span>
+  }
+
+  public boolean addAll(int index, Collection c) {
+<span class="nc" id="L187">    boolean b = list.addAll(index, c);</span>
+<span class="nc" id="L188">    repaginate();</span>
+<span class="nc" id="L189">    return b;</span>
+  }
+
+  public boolean removeAll(Collection c) {
+<span class="nc" id="L193">    boolean b = list.removeAll(c);</span>
+<span class="nc" id="L194">    repaginate();</span>
+<span class="nc" id="L195">    return b;</span>
+  }
+
+  public boolean retainAll(Collection c) {
+<span class="nc" id="L199">    boolean b = list.retainAll(c);</span>
+<span class="nc" id="L200">    repaginate();</span>
+<span class="nc" id="L201">    return b;</span>
+  }
+
+  public void clear() {
+<span class="nc" id="L205">    list.clear();</span>
+<span class="nc" id="L206">    repaginate();</span>
+<span class="nc" id="L207">  }</span>
+
+  public Object set(int index, Object element) {
+<span class="nc" id="L210">    Object o = list.set(index, element);</span>
+<span class="nc" id="L211">    repaginate();</span>
+<span class="nc" id="L212">    return o;</span>
+  }
+
+  public void add(int index, Object element) {
+<span class="nc" id="L216">    list.add(index, element);</span>
+<span class="nc" id="L217">    repaginate();</span>
+<span class="nc" id="L218">  }</span>
+
+  public Object remove(int index) {
+<span class="nc" id="L221">    Object o = list.remove(index);</span>
+<span class="nc" id="L222">    repaginate();</span>
+<span class="nc" id="L223">    return o;</span>
+  }
+
+  /* Paginated List methods */
 
   public int getPageSize() {
-    return pageSize;
-<span class="fc bfc" id="L216" title="All 2 branches covered.">  }</span>
+<span class="nc" id="L229">    return pageSize;</span>
+  }
 
   public boolean isFirstPage() {
-    return index == 0;
-<span class="pc bpc" id="L220" title="1 of 4 branches missed.">  }</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">    return index == 0;</span>
+  }
 
   public boolean isMiddlePage() {
-    return !(isFirstPage() || isLastPage());
-<span class="fc bfc" id="L224" title="All 2 branches covered.">  }</span>
+<span class="pc bpc" id="L237" title="1 of 4 branches missed.">    return !(isFirstPage() || isLastPage());</span>
+  }
 
   public boolean isLastPage() {
-    return list.size() - ((index + 1) * pageSize) &lt; 1;
-<span class="fc bfc" id="L228" title="All 2 branches covered.">  }</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">    return list.size() - ((index + 1) * pageSize) &lt; 1;</span>
+  }
 
   public boolean isNextPageAvailable() {
-    return !isLastPage();
-<span class="fc bfc" id="L232" title="All 2 branches covered.">  }</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">    return !isLastPage();</span>
+  }
 
   public boolean isPreviousPageAvailable() {
-    return !isFirstPage();
-<span class="fc bfc" id="L236" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L237"></span>
-<span class="fc" id="L238">  public boolean nextPage() {</span>
-<span class="fc" id="L239">    if (isNextPageAvailable()) {</span>
-      index++;
-<span class="fc" id="L241">      repaginate();</span>
-      return true;
+<span class="fc bfc" id="L249" title="All 2 branches covered.">    return !isFirstPage();</span>
+  }
+
+  public boolean nextPage() {
+<span class="fc bfc" id="L253" title="All 2 branches covered.">    if (isNextPageAvailable()) {</span>
+<span class="fc" id="L254">      index++;</span>
+<span class="fc" id="L255">      repaginate();</span>
+<span class="fc" id="L256">      return true;</span>
     } else {
-      return false;
+<span class="fc" id="L258">      return false;</span>
     }
-<span class="fc bfc" id="L246" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L247"></span>
-<span class="fc" id="L248">  public boolean previousPage() {</span>
-<span class="fc" id="L249">    if (isPreviousPageAvailable()) {</span>
-      index--;
-<span class="fc" id="L251">      repaginate();</span>
-      return true;
+  }
+
+  public boolean previousPage() {
+<span class="fc bfc" id="L263" title="All 2 branches covered.">    if (isPreviousPageAvailable()) {</span>
+<span class="fc" id="L264">      index--;</span>
+<span class="fc" id="L265">      repaginate();</span>
+<span class="fc" id="L266">      return true;</span>
     } else {
-      return false;
+<span class="fc" id="L268">      return false;</span>
     }
-<span class="fc" id="L256">  }</span>
-<span class="fc" id="L257"></span>
-<span class="fc" id="L258">  public void gotoPage(int pageNumber) {</span>
-    index = pageNumber;
-    repaginate();
-<span class="nc" id="L261">  }</span>
+  }
+
+  public void gotoPage(int pageNumber) {
+<span class="fc" id="L273">    index = pageNumber;</span>
+<span class="fc" id="L274">    repaginate();</span>
+<span class="fc" id="L275">  }</span>
 
   public int getPageIndex() {
-    return index;
+<span class="nc" id="L278">    return index;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

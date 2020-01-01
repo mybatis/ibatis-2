@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result.loader</a> &gt; <span class="el_source">ResultLoader.java</span></div><h1>ResultLoader.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,18 @@ import java.util.*;
 import java.lang.reflect.Array;
 
 /**
- * Class to load results into objects
-<span class="nc" id="L27"> */</span>
-<span class="nc" id="L28">public class ResultLoader {</span>
+ * Class to load results into objects.
+ */
+public class ResultLoader {
 
+  /**
+   * Instantiates a new result loader.
+   */
   private ResultLoader() {
   }
 
   /**
-   * Loads a result lazily
+   * Loads a result lazily.
    *
    * @param client
    *          - the client creating the object
@@ -43,58 +46,84 @@ import java.lang.reflect.Array;
    *          - the target type of the result
    * @return the loaded result
    * @throws SQLException
-<span class="fc" id="L46">   */</span>
+   *           the SQL exception
+   */
   public static Object loadResult(SqlMapClientImpl client, String statementName, Object parameterObject,
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">      Class targetType) throws SQLException {</span>
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">    Object value = null;</span>
-<span class="nc" id="L50"></span>
-<span class="nc" id="L51">    if (client.isLazyLoadingEnabled()) {</span>
-<span class="nc" id="L52">      if (client.isEnhancementEnabled()) {</span>
-<span class="fc" id="L53">        EnhancedLazyResultLoader lazy = new EnhancedLazyResultLoader(client, statementName, parameterObject, targetType);</span>
-<span class="fc" id="L54">        value = lazy.loadResult();</span>
-<span class="fc" id="L55">      } else {</span>
-        LazyResultLoader lazy = new LazyResultLoader(client, statementName, parameterObject, targetType);
-<span class="nc" id="L57">        value = lazy.loadResult();</span>
-      }
+      Class targetType) throws SQLException {
+<span class="fc" id="L53">    Object value = null;</span>
+
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">    if (client.isLazyLoadingEnabled()) {</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">      if (client.isEnhancementEnabled()) {</span>
+<span class="nc" id="L57">        EnhancedLazyResultLoader lazy = new EnhancedLazyResultLoader(client, statementName, parameterObject,</span>
+            targetType);
+<span class="nc" id="L59">        value = lazy.loadResult();</span>
+<span class="nc" id="L60">      } else {</span>
+<span class="fc" id="L61">        LazyResultLoader lazy = new LazyResultLoader(client, statementName, parameterObject, targetType);</span>
+<span class="fc" id="L62">        value = lazy.loadResult();</span>
+<span class="fc" id="L63">      }</span>
     } else {
-<span class="fc" id="L60">      value = getResult(client, statementName, parameterObject, targetType);</span>
+<span class="nc" id="L65">      value = getResult(client, statementName, parameterObject, targetType);</span>
     }
 
-    return value;
+<span class="fc" id="L68">    return value;</span>
   }
-<span class="fc" id="L65"></span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">  protected static Object getResult(SqlMapClientImpl client, String statementName, Object parameterObject,</span>
-<span class="fc" id="L67">      Class targetType) throws SQLException {</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    Object value = null;</span>
-<span class="nc" id="L69">    if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">      value = client.queryForList(statementName, parameterObject);</span>
-<span class="fc" id="L71">    } else if (Set.class.isAssignableFrom(targetType)) {</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">      value = new HashSet(client.queryForList(statementName, parameterObject));</span>
-<span class="fc" id="L73">    } else if (Collection.class.isAssignableFrom(targetType)) {</span>
-<span class="fc" id="L74">      value = client.queryForList(statementName, parameterObject);</span>
-<span class="fc" id="L75">    } else if (targetType.isArray()) {</span>
-<span class="fc" id="L76">      List list = client.queryForList(statementName, parameterObject);</span>
-      value = listToArray(list, targetType.getComponentType());
-<span class="fc" id="L78">    } else {</span>
-      value = client.queryForObject(statementName, parameterObject);
+
+  /**
+   * Gets the result.
+   *
+   * @param client
+   *          the client
+   * @param statementName
+   *          the statement name
+   * @param parameterObject
+   *          the parameter object
+   * @param targetType
+   *          the target type
+   * @return the result
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected static Object getResult(SqlMapClientImpl client, String statementName, Object parameterObject,
+      Class targetType) throws SQLException {
+<span class="fc" id="L88">    Object value = null;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">    if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {</span>
+<span class="fc" id="L90">      value = client.queryForList(statementName, parameterObject);</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">    } else if (Set.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L92">      value = new HashSet(client.queryForList(statementName, parameterObject));</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">    } else if (Collection.class.isAssignableFrom(targetType)) {</span>
+<span class="fc" id="L94">      value = client.queryForList(statementName, parameterObject);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">    } else if (targetType.isArray()) {</span>
+<span class="fc" id="L96">      List list = client.queryForList(statementName, parameterObject);</span>
+<span class="fc" id="L97">      value = listToArray(list, targetType.getComponentType());</span>
+<span class="fc" id="L98">    } else {</span>
+<span class="fc" id="L99">      value = client.queryForObject(statementName, parameterObject);</span>
     }
-    return value;
-<span class="fc" id="L82">  }</span>
-<span class="pc bpc" id="L83" title="1 of 2 branches missed."></span>
-<span class="nc" id="L84">  private static Object listToArray(List list, Class type) {</span>
-<span class="nc" id="L85">    Object array = java.lang.reflect.Array.newInstance(type, list.size());</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">    if (type.isPrimitive()) {</span>
-<span class="nc" id="L87">      Iterator iter = list.iterator();</span>
-      int index = 0;
-<span class="nc" id="L89">      while (iter.hasNext()) {</span>
-<span class="fc" id="L90">        Array.set(array, index++, iter.next());</span>
+<span class="fc" id="L101">    return value;</span>
+  }
+
+  /**
+   * List to array.
+   *
+   * @param list
+   *          the list
+   * @param type
+   *          the type
+   * @return the object
+   */
+  private static Object listToArray(List list, Class type) {
+<span class="fc" id="L114">    Object array = java.lang.reflect.Array.newInstance(type, list.size());</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">    if (type.isPrimitive()) {</span>
+<span class="nc" id="L116">      Iterator iter = list.iterator();</span>
+<span class="nc" id="L117">      int index = 0;</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">      while (iter.hasNext()) {</span>
+<span class="nc" id="L119">        Array.set(array, index++, iter.next());</span>
       }
-<span class="fc" id="L92">    } else {</span>
-      array = list.toArray((Object[]) array);
+<span class="nc" id="L121">    } else {</span>
+<span class="fc" id="L122">      array = list.toArray((Object[]) array);</span>
     }
-    return array;
+<span class="fc" id="L124">    return array;</span>
 
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

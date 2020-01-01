@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlobTypeHandlerCallback.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">BlobTypeHandlerCallback.java</span></div><h1>BlobTypeHandlerCallback.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -21,35 +21,38 @@ import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
 
 import java.sql.Blob;
 import java.sql.SQLException;
-<span class="fc" id="L24">import java.sql.Types;</span>
+import java.sql.Types;
 import java.io.ByteArrayInputStream;
 
-<span class="nc" id="L27">public class BlobTypeHandlerCallback implements TypeHandlerCallback {</span>
+/**
+ * The Class BlobTypeHandlerCallback.
+ */
+<span class="fc" id="L30">public class BlobTypeHandlerCallback implements TypeHandlerCallback {</span>
 
-<span class="nc bnc" id="L29" title="All 2 branches missed.">  public Object getResult(ResultGetter getter) throws SQLException {</span>
-<span class="nc" id="L30">    Blob blob = getter.getBlob();</span>
+  public Object getResult(ResultGetter getter) throws SQLException {
+<span class="nc" id="L33">    Blob blob = getter.getBlob();</span>
     byte[] returnValue;
-<span class="nc" id="L32">    if (!getter.wasNull()) {</span>
-      returnValue = blob.getBytes(1, (int) blob.length());
-<span class="nc" id="L34">    } else {</span>
-      returnValue = null;
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    if (!getter.wasNull()) {</span>
+<span class="nc" id="L36">      returnValue = blob.getBytes(1, (int) blob.length());</span>
+    } else {
+<span class="nc" id="L38">      returnValue = null;</span>
     }
-    return returnValue;
-<span class="nc bnc" id="L38" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L39"></span>
-<span class="nc" id="L40">  public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {</span>
-<span class="nc" id="L41">    if (null != parameter) {</span>
-<span class="nc" id="L42">      byte[] bytes = (byte[]) parameter;</span>
-<span class="nc" id="L43">      ByteArrayInputStream bis = new ByteArrayInputStream(bytes);</span>
-      setter.setBinaryStream(bis, (int) (bytes.length));
-<span class="nc" id="L45">    } else {</span>
-      setter.setNull(Types.BLOB);
+<span class="nc" id="L40">    return returnValue;</span>
+  }
+
+  public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">    if (null != parameter) {</span>
+<span class="nc" id="L45">      byte[] bytes = (byte[]) parameter;</span>
+<span class="nc" id="L46">      ByteArrayInputStream bis = new ByteArrayInputStream(bytes);</span>
+<span class="nc" id="L47">      setter.setBinaryStream(bis, (int) (bytes.length));</span>
+<span class="nc" id="L48">    } else {</span>
+<span class="nc" id="L49">      setter.setNull(Types.BLOB);</span>
     }
-<span class="nc" id="L48">  }</span>
+<span class="nc" id="L51">  }</span>
 
   public Object valueOf(String s) {
-    return s;
+<span class="nc" id="L54">    return s;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

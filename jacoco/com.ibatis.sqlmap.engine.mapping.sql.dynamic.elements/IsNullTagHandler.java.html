@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IsNullTagHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IsNullTagHandler.java</span></div><h1>IsNullTagHandler.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,32 @@
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
-<span class="fc" id="L18">import com.ibatis.common.beans.Probe;</span>
+import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
-<span class="fc" id="L20"></span>
-public class IsNullTagHandler extends ConditionalTagHandler {
 
-  private static final Probe PROBE = ProbeFactory.getProbe();
-<span class="fc bfc" id="L24" title="All 2 branches covered."></span>
-<span class="fc" id="L25">  @Override</span>
+/**
+ * The Class IsNullTagHandler.
+ */
+<span class="fc" id="L24">public class IsNullTagHandler extends ConditionalTagHandler {</span>
+
+  /** The Constant PROBE. */
+<span class="fc" id="L27">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+
+  @Override
   public boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
-<span class="fc" id="L27">    if (parameterObject == null) {</span>
-      return true;
-<span class="fc bfc" id="L29" title="All 2 branches covered.">    } else {</span>
-<span class="fc" id="L30">      String prop = getResolvedProperty(ctx, tag);</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">    if (parameterObject == null) {</span>
+<span class="fc" id="L32">      return true;</span>
+    } else {
+<span class="fc" id="L34">      String prop = getResolvedProperty(ctx, tag);</span>
       Object value;
-<span class="fc" id="L32">      if (prop != null) {</span>
-        value = PROBE.getObject(parameterObject, prop);
-<span class="fc bfc" id="L34" title="All 2 branches covered.">      } else {</span>
-        value = parameterObject;
+<span class="fc bfc" id="L36" title="All 2 branches covered.">      if (prop != null) {</span>
+<span class="fc" id="L37">        value = PROBE.getObject(parameterObject, prop);</span>
+      } else {
+<span class="fc" id="L39">        value = parameterObject;</span>
       }
-      return value == null;
+<span class="fc bfc" id="L41" title="All 2 branches covered.">      return value == null;</span>
     }
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

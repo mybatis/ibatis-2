@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccessPlanFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">AccessPlanFactory.java</span></div><h1>AccessPlanFactory.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,83 +18,89 @@ package com.ibatis.sqlmap.engine.accessplan;
 import java.util.Map;
 
 /**
- * Factory to get an accesss plan appropriate for an object
-<span class="fc" id="L22"> */</span>
+ * Factory to get an accesss plan appropriate for an object.
+ */
 public class AccessPlanFactory {
-<span class="nc" id="L24"></span>
-<span class="nc" id="L25">  private static boolean bytecodeEnhancementEnabled = false;</span>
 
+  /** The bytecode enhancement enabled. */
+<span class="fc" id="L26">  private static boolean bytecodeEnhancementEnabled = false;</span>
+
+  /**
+   * Instantiates a new access plan factory.
+   */
   private AccessPlanFactory() {
   }
 
   /**
-   * Creates an access plan for working with a bean
+   * Creates an access plan for working with a bean.
    *
    * @param clazz
+   *          the clazz
    * @param propertyNames
+   *          the property names
    * @return An access plan
    */
-<span class="fc" id="L37">  public static AccessPlan getAccessPlan(Class clazz, String[] propertyNames) {</span>
+  public static AccessPlan getAccessPlan(Class clazz, String[] propertyNames) {
     AccessPlan plan;
-<span class="pc bpc" id="L39" title="2 of 4 branches missed."></span>
-<span class="nc" id="L40">    boolean complex = false;</span>
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (clazz == null || propertyNames == null) {</span>
-<span class="fc bfc" id="L43" title="All 4 branches covered.">      complex = true;</span>
-<span class="fc" id="L44">    } else {</span>
-<span class="fc" id="L45">      for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-        if (propertyNames[i].indexOf('[') &gt; -1 || propertyNames[i].indexOf('.') &gt; -1) {
-          complex = true;
-          break;
-        }
-<span class="fc bfc" id="L50" title="All 2 branches covered.">      }</span>
-<span class="fc" id="L51">    }</span>
-<span class="pc bpc" id="L52" title="1 of 2 branches missed."></span>
-<span class="nc" id="L53">    if (complex) {</span>
-      plan = new ComplexAccessPlan(clazz, propertyNames);
-    } else if (Map.class.isAssignableFrom(clazz)) {
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">      plan = new MapAccessPlan(clazz, propertyNames);</span>
+<span class="fc" id="L46">    boolean complex = false;</span>
+
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">    if (clazz == null || propertyNames == null) {</span>
+<span class="nc" id="L49">      complex = true;</span>
     } else {
-<span class="nc" id="L58">      // Possibly causes bug 945746 --but the bug is unconfirmed (can't be reproduced)</span>
-<span class="nc" id="L59">      if (bytecodeEnhancementEnabled) {</span>
-        try {
-<span class="nc" id="L61">          plan = new EnhancedPropertyAccessPlan(clazz, propertyNames);</span>
-<span class="nc" id="L62">        } catch (Throwable t) {</span>
-<span class="nc" id="L63">          try {</span>
-<span class="nc" id="L64">            plan = new PropertyAccessPlan(clazz, propertyNames);</span>
-<span class="nc" id="L65">          } catch (Throwable t2) {</span>
-            plan = new ComplexAccessPlan(clazz, propertyNames);
-          }
-<span class="fc" id="L68">        }</span>
-<span class="nc" id="L69">      } else {</span>
-<span class="nc" id="L70">        try {</span>
-<span class="fc" id="L71">          plan = new PropertyAccessPlan(clazz, propertyNames);</span>
-        } catch (Throwable t) {
-          plan = new ComplexAccessPlan(clazz, propertyNames);
-<span class="fc" id="L74">        }</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">      for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc bfc" id="L52" title="All 4 branches covered.">        if (propertyNames[i].indexOf('[') &gt; -1 || propertyNames[i].indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L53">          complex = true;</span>
+<span class="fc" id="L54">          break;</span>
+        }
       }
     }
-    return plan;
+
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    if (complex) {</span>
+<span class="fc" id="L60">      plan = new ComplexAccessPlan(clazz, propertyNames);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L62">      plan = new MapAccessPlan(clazz, propertyNames);</span>
+    } else {
+      // Possibly causes bug 945746 --but the bug is unconfirmed (can't be reproduced)
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">      if (bytecodeEnhancementEnabled) {</span>
+        try {
+<span class="nc" id="L67">          plan = new EnhancedPropertyAccessPlan(clazz, propertyNames);</span>
+<span class="nc" id="L68">        } catch (Throwable t) {</span>
+          try {
+<span class="nc" id="L70">            plan = new PropertyAccessPlan(clazz, propertyNames);</span>
+<span class="nc" id="L71">          } catch (Throwable t2) {</span>
+<span class="nc" id="L72">            plan = new ComplexAccessPlan(clazz, propertyNames);</span>
+<span class="nc" id="L73">          }</span>
+<span class="nc" id="L74">        }</span>
+      } else {
+        try {
+<span class="fc" id="L77">          plan = new PropertyAccessPlan(clazz, propertyNames);</span>
+<span class="nc" id="L78">        } catch (Throwable t) {</span>
+<span class="nc" id="L79">          plan = new ComplexAccessPlan(clazz, propertyNames);</span>
+<span class="fc" id="L80">        }</span>
+      }
+    }
+<span class="fc" id="L83">    return plan;</span>
   }
 
   /**
-   * Tells whether or not bytecode enhancement (CGLIB, etc) is enabled
+   * Tells whether or not bytecode enhancement (CGLIB, etc) is enabled.
    *
-<span class="nc" id="L83">   * @return true if bytecode enhancement is enabled</span>
+   * @return true if bytecode enhancement is enabled
    */
   public static boolean isBytecodeEnhancementEnabled() {
-    return bytecodeEnhancementEnabled;
+<span class="nc" id="L92">    return bytecodeEnhancementEnabled;</span>
   }
 
   /**
-   * Turns on or off bytecode enhancement (CGLIB, etc)
+   * Turns on or off bytecode enhancement (CGLIB, etc).
    *
    * @param bytecodeEnhancementEnabled
-<span class="fc" id="L93">   *          - the switch</span>
-<span class="fc" id="L94">   */</span>
+   *          - the switch
+   */
   public static void setBytecodeEnhancementEnabled(boolean bytecodeEnhancementEnabled) {
-    AccessPlanFactory.bytecodeEnhancementEnabled = bytecodeEnhancementEnabled;
-  }
+<span class="fc" id="L102">    AccessPlanFactory.bytecodeEnhancementEnabled = bytecodeEnhancementEnabled;</span>
+<span class="fc" id="L103">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

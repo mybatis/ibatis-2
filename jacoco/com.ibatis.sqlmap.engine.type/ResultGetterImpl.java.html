@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultGetterImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">ResultGetterImpl.java</span></div><h1>ResultGetterImpl.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -24,238 +24,243 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * A ResultGetter implementation
+ * A ResultGetter implementation.
  */
 public class ResultGetterImpl implements ResultGetter {
 
+  /** The rs. */
   private ResultSet rs;
+
+  /** The name. */
   private String name;
+
+  /** The index. */
   private int index;
 
   /**
-   * Creates an instance for a PreparedStatement and column index
-   * 
+   * Creates an instance for a PreparedStatement and column index.
+   *
    * @param resultSet
    *          - the result set
-<span class="nc" id="L40">   * @param columnIndex</span>
-<span class="nc" id="L41">   *          - the column index</span>
-<span class="nc" id="L42">   */</span>
-<span class="nc" id="L43">  public ResultGetterImpl(ResultSet resultSet, int columnIndex) {</span>
-    this.rs = resultSet;
-    this.index = columnIndex;
-  }
+   * @param columnIndex
+   *          - the column index
+   */
+<span class="nc" id="L48">  public ResultGetterImpl(ResultSet resultSet, int columnIndex) {</span>
+<span class="nc" id="L49">    this.rs = resultSet;</span>
+<span class="nc" id="L50">    this.index = columnIndex;</span>
+<span class="nc" id="L51">  }</span>
 
   /**
-   * Creates an instance for a PreparedStatement and column name
-   * 
+   * Creates an instance for a PreparedStatement and column name.
+   *
    * @param resultSet
    *          - the result set
-<span class="fc" id="L53">   * @param columnName</span>
-<span class="fc" id="L54">   *          - the column index</span>
-<span class="fc" id="L55">   */</span>
-<span class="fc" id="L56">  public ResultGetterImpl(ResultSet resultSet, String columnName) {</span>
-    this.rs = resultSet;
-    this.name = columnName;
-<span class="nc bnc" id="L59" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L60"></span>
+   * @param columnName
+   *          - the column index
+   */
+<span class="fc" id="L61">  public ResultGetterImpl(ResultSet resultSet, String columnName) {</span>
+<span class="fc" id="L62">    this.rs = resultSet;</span>
+<span class="fc" id="L63">    this.name = columnName;</span>
+<span class="fc" id="L64">  }</span>
+
   public Array getArray() throws SQLException {
-<span class="nc" id="L62">    if (name != null) {</span>
-      return rs.getArray(name);
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L68">      return rs.getArray(name);</span>
     } else {
-      return rs.getArray(index);
+<span class="nc" id="L70">      return rs.getArray(index);</span>
     }
-<span class="nc bnc" id="L67" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L68"></span>
+  }
+
   public BigDecimal getBigDecimal() throws SQLException {
-<span class="nc" id="L70">    if (name != null) {</span>
-      return rs.getBigDecimal(name);
+<span class="nc bnc" id="L75" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L76">      return rs.getBigDecimal(name);</span>
     } else {
-      return rs.getBigDecimal(index);
+<span class="nc" id="L78">      return rs.getBigDecimal(index);</span>
     }
-<span class="nc bnc" id="L75" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L76"></span>
+  }
+
   public Blob getBlob() throws SQLException {
-<span class="nc" id="L78">    if (name != null) {</span>
-      return rs.getBlob(name);
+<span class="nc bnc" id="L83" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L84">      return rs.getBlob(name);</span>
     } else {
-      return rs.getBlob(index);
+<span class="nc" id="L86">      return rs.getBlob(index);</span>
     }
-<span class="nc bnc" id="L83" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L84"></span>
+  }
+
   public boolean getBoolean() throws SQLException {
-<span class="nc" id="L86">    if (name != null) {</span>
-      return rs.getBoolean(name);
+<span class="nc bnc" id="L91" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L92">      return rs.getBoolean(name);</span>
     } else {
-      return rs.getBoolean(index);
+<span class="nc" id="L94">      return rs.getBoolean(index);</span>
     }
-<span class="nc bnc" id="L91" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L92"></span>
+  }
+
   public byte getByte() throws SQLException {
-<span class="nc" id="L94">    if (name != null) {</span>
-      return rs.getByte(name);
+<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L100">      return rs.getByte(name);</span>
     } else {
-      return rs.getByte(index);
+<span class="nc" id="L102">      return rs.getByte(index);</span>
     }
-<span class="nc bnc" id="L99" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L100"></span>
+  }
+
   public byte[] getBytes() throws SQLException {
-<span class="nc" id="L102">    if (name != null) {</span>
-      return rs.getBytes(name);
+<span class="nc bnc" id="L107" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L108">      return rs.getBytes(name);</span>
     } else {
-      return rs.getBytes(index);
+<span class="nc" id="L110">      return rs.getBytes(index);</span>
     }
-<span class="nc bnc" id="L107" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L108"></span>
+  }
+
   public Clob getClob() throws SQLException {
-<span class="nc" id="L110">    if (name != null) {</span>
-      return rs.getClob(name);
+<span class="nc bnc" id="L115" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L116">      return rs.getClob(name);</span>
     } else {
-      return rs.getClob(index);
+<span class="nc" id="L118">      return rs.getClob(index);</span>
     }
-<span class="nc bnc" id="L115" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L116"></span>
+  }
+
   public Date getDate() throws SQLException {
-<span class="nc" id="L118">    if (name != null) {</span>
-      return rs.getDate(name);
+<span class="nc bnc" id="L123" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L124">      return rs.getDate(name);</span>
     } else {
-      return rs.getDate(index);
+<span class="nc" id="L126">      return rs.getDate(index);</span>
     }
-<span class="nc bnc" id="L123" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L124"></span>
+  }
+
   public Date getDate(Calendar cal) throws SQLException {
-<span class="nc" id="L126">    if (name != null) {</span>
-      return rs.getDate(name, cal);
+<span class="nc bnc" id="L131" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L132">      return rs.getDate(name, cal);</span>
     } else {
-      return rs.getDate(index, cal);
+<span class="nc" id="L134">      return rs.getDate(index, cal);</span>
     }
-<span class="nc bnc" id="L131" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L132"></span>
+  }
+
   public double getDouble() throws SQLException {
-<span class="nc" id="L134">    if (name != null) {</span>
-      return rs.getDouble(name);
+<span class="nc bnc" id="L139" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L140">      return rs.getDouble(name);</span>
     } else {
-      return rs.getDouble(index);
+<span class="nc" id="L142">      return rs.getDouble(index);</span>
     }
-<span class="nc bnc" id="L139" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L140"></span>
+  }
+
   public float getFloat() throws SQLException {
-<span class="nc" id="L142">    if (name != null) {</span>
-      return rs.getFloat(name);
+<span class="nc bnc" id="L147" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L148">      return rs.getFloat(name);</span>
     } else {
-      return rs.getFloat(index);
+<span class="nc" id="L150">      return rs.getFloat(index);</span>
     }
-<span class="pc bpc" id="L147" title="1 of 2 branches missed.">  }</span>
-<span class="fc" id="L148"></span>
+  }
+
   public int getInt() throws SQLException {
-<span class="nc" id="L150">    if (name != null) {</span>
-      return rs.getInt(name);
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">    if (name != null) {</span>
+<span class="fc" id="L156">      return rs.getInt(name);</span>
     } else {
-      return rs.getInt(index);
+<span class="nc" id="L158">      return rs.getInt(index);</span>
     }
-<span class="nc bnc" id="L155" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L156"></span>
+  }
+
   public long getLong() throws SQLException {
-<span class="nc" id="L158">    if (name != null) {</span>
-      return rs.getLong(name);
+<span class="nc bnc" id="L163" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L164">      return rs.getLong(name);</span>
     } else {
-      return rs.getLong(index);
+<span class="nc" id="L166">      return rs.getLong(index);</span>
     }
-<span class="nc bnc" id="L163" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L164"></span>
+  }
+
   public Object getObject() throws SQLException {
-<span class="nc" id="L166">    if (name != null) {</span>
-      return rs.getObject(name);
+<span class="nc bnc" id="L171" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L172">      return rs.getObject(name);</span>
     } else {
-      return rs.getObject(index);
+<span class="nc" id="L174">      return rs.getObject(index);</span>
     }
-<span class="nc bnc" id="L171" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L172"></span>
+  }
+
   public Object getObject(Map map) throws SQLException {
-<span class="nc" id="L174">    if (name != null) {</span>
-      return rs.getObject(name, map);
+<span class="nc bnc" id="L179" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L180">      return rs.getObject(name, map);</span>
     } else {
-      return rs.getObject(index, map);
+<span class="nc" id="L182">      return rs.getObject(index, map);</span>
     }
-<span class="nc bnc" id="L179" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L180"></span>
+  }
+
   public Ref getRef() throws SQLException {
-<span class="nc" id="L182">    if (name != null) {</span>
-      return rs.getRef(name);
+<span class="nc bnc" id="L187" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L188">      return rs.getRef(name);</span>
     } else {
-      return rs.getRef(index);
+<span class="nc" id="L190">      return rs.getRef(index);</span>
     }
-<span class="nc bnc" id="L187" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L188"></span>
+  }
+
   public short getShort() throws SQLException {
-<span class="nc" id="L190">    if (name != null) {</span>
-      return rs.getShort(name);
+<span class="nc bnc" id="L195" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L196">      return rs.getShort(name);</span>
     } else {
-      return rs.getShort(index);
+<span class="nc" id="L198">      return rs.getShort(index);</span>
     }
-<span class="pc bpc" id="L195" title="1 of 2 branches missed.">  }</span>
-<span class="fc" id="L196"></span>
+  }
+
   public String getString() throws SQLException {
-<span class="nc" id="L198">    if (name != null) {</span>
-      return rs.getString(name);
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">    if (name != null) {</span>
+<span class="fc" id="L204">      return rs.getString(name);</span>
     } else {
-      return rs.getString(index);
+<span class="nc" id="L206">      return rs.getString(index);</span>
     }
-<span class="nc bnc" id="L203" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L204"></span>
+  }
+
   public Time getTime() throws SQLException {
-<span class="nc" id="L206">    if (name != null) {</span>
-      return rs.getTime(name);
+<span class="nc bnc" id="L211" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L212">      return rs.getTime(name);</span>
     } else {
-      return rs.getTime(index);
+<span class="nc" id="L214">      return rs.getTime(index);</span>
     }
-<span class="nc bnc" id="L211" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L212"></span>
+  }
+
   public Time getTime(Calendar cal) throws SQLException {
-<span class="nc" id="L214">    if (name != null) {</span>
-      return rs.getTime(name);
+<span class="nc bnc" id="L219" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L220">      return rs.getTime(name);</span>
     } else {
-      return rs.getTime(index);
+<span class="nc" id="L222">      return rs.getTime(index);</span>
     }
-<span class="nc bnc" id="L219" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L220"></span>
+  }
+
   public Timestamp getTimestamp() throws SQLException {
-<span class="nc" id="L222">    if (name != null) {</span>
-      return rs.getTimestamp(name);
+<span class="nc bnc" id="L227" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L228">      return rs.getTimestamp(name);</span>
     } else {
-      return rs.getTimestamp(index);
+<span class="nc" id="L230">      return rs.getTimestamp(index);</span>
     }
-<span class="nc bnc" id="L227" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L228"></span>
+  }
+
   public Timestamp getTimestamp(Calendar cal) throws SQLException {
-<span class="nc" id="L230">    if (name != null) {</span>
-      return rs.getTimestamp(name, cal);
+<span class="nc bnc" id="L235" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L236">      return rs.getTimestamp(name, cal);</span>
     } else {
-      return rs.getTimestamp(index, cal);
+<span class="nc" id="L238">      return rs.getTimestamp(index, cal);</span>
     }
-<span class="nc bnc" id="L235" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L236"></span>
+  }
+
   public URL getURL() throws SQLException {
-<span class="nc" id="L238">    if (name != null) {</span>
-      return rs.getURL(name);
+<span class="nc bnc" id="L243" title="All 2 branches missed.">    if (name != null) {</span>
+<span class="nc" id="L244">      return rs.getURL(name);</span>
     } else {
-      return rs.getURL(index);
+<span class="nc" id="L246">      return rs.getURL(index);</span>
     }
-<span class="nc" id="L243">  }</span>
+  }
 
   public boolean wasNull() throws SQLException {
-    return rs.wasNull();
-<span class="nc" id="L247">  }</span>
+<span class="nc" id="L251">    return rs.wasNull();</span>
+  }
 
   public ResultSet getResultSet() {
-    return rs;
-<span class="nc" id="L251">  }</span>
+<span class="nc" id="L255">    return rs;</span>
+  }
 
   public int getColumnIndex() {
-    return index;
-<span class="nc" id="L255">  }</span>
+<span class="nc" id="L259">    return index;</span>
+  }
 
   public String getColumnName() {
-    return name;
+<span class="nc" id="L263">    return name;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

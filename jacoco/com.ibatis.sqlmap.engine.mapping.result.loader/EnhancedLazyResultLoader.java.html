@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EnhancedLazyResultLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result.loader</a> &gt; <span class="el_source">EnhancedLazyResultLoader.java</span></div><h1>EnhancedLazyResultLoader.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -29,16 +29,21 @@ import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 
 /**
- * Class to lazily load results into objects (uses CGLib to improve performance)
-<span class="fc" id="L33"> */</span>
-<span class="fc" id="L34">public class EnhancedLazyResultLoader {</span>
+ * Class to lazily load results into objects (uses CGLib to improve performance).
+ */
+public class EnhancedLazyResultLoader {
 
-  private static final Class[] SET_INTERFACES = new Class[] { Set.class };
-  private static final Class[] LIST_INTERFACES = new Class[] { List.class };
+  /** The Constant SET_INTERFACES. */
+<span class="fc" id="L37">  private static final Class[] SET_INTERFACES = new Class[] { Set.class };</span>
+
+  /** The Constant LIST_INTERFACES. */
+<span class="fc" id="L40">  private static final Class[] LIST_INTERFACES = new Class[] { List.class };</span>
+
+  /** The loader. */
   private Object loader;
 
   /**
-   * Constructor for an enhanced lazy list loader
+   * Constructor for an enhanced lazy list loader.
    *
    * @param client
    *          - the client that is creating the lazy list
@@ -47,37 +52,49 @@ import com.ibatis.sqlmap.engine.type.DomTypeMarker;
    * @param parameterObject
    *          - the parameter object to be used to build the list
    * @param targetType
-<span class="fc" id="L50">   *          - the type we are putting data into</span>
-<span class="fc" id="L51">   */</span>
-<span class="fc" id="L52">  public EnhancedLazyResultLoader(SqlMapClientImpl client, String statementName, Object parameterObject,</span>
-      Class targetType) {
-    loader = new EnhancedLazyResultLoaderImpl(client, statementName, parameterObject, targetType);
+   *          - the type we are putting data into
+   */
+  public EnhancedLazyResultLoader(SqlMapClientImpl client, String statementName, Object parameterObject,
+<span class="fc" id="L58">      Class targetType) {</span>
+<span class="fc" id="L59">    loader = new EnhancedLazyResultLoaderImpl(client, statementName, parameterObject, targetType);</span>
+<span class="fc" id="L60">  }</span>
+
+  /**
+   * Loads the result.
+   *
+   * @return the results - a list or object
+   * @throws SQLException
+   *           if there is a problem
+   */
+  public Object loadResult() throws SQLException {
+<span class="fc" id="L70">    return ((EnhancedLazyResultLoaderImpl) loader).loadResult();</span>
   }
 
   /**
-   * Loads the result
-   *
-   * @return the results - a list or object
-   *
-   * @throws SQLException
-<span class="fc" id="L63">   *           if there is a problem</span>
+   * The Class EnhancedLazyResultLoaderImpl.
    */
-  public Object loadResult() throws SQLException {
-    return ((EnhancedLazyResultLoaderImpl) loader).loadResult();
-  }
-
   private static class EnhancedLazyResultLoaderImpl implements LazyLoader {
 
+    /** The client. */
     protected SqlMapClientImpl client;
+
+    /** The statement name. */
     protected String statementName;
+
+    /** The parameter object. */
     protected Object parameterObject;
+
+    /** The target type. */
     protected Class targetType;
 
+    /** The loaded. */
     protected boolean loaded;
+
+    /** The result object. */
     protected Object resultObject;
 
     /**
-     * Constructor for an enhanced lazy list loader implementation
+     * Constructor for an enhanced lazy list loader implementation.
      *
      * @param client
      *          - the client that is creating the lazy list
@@ -86,54 +103,53 @@ import com.ibatis.sqlmap.engine.type.DomTypeMarker;
      * @param parameterObject
      *          - the parameter object to be used to build the list
      * @param targetType
-<span class="fc" id="L89">     *          - the type we are putting data into</span>
-<span class="fc" id="L90">     */</span>
-<span class="fc" id="L91">    public EnhancedLazyResultLoaderImpl(SqlMapClientImpl client, String statementName, Object parameterObject,</span>
-<span class="fc" id="L92">        Class targetType) {</span>
-<span class="fc" id="L93">      this.client = client;</span>
-<span class="fc" id="L94">      this.statementName = statementName;</span>
-      this.parameterObject = parameterObject;
-      this.targetType = targetType;
-    }
+     *          - the type we are putting data into
+     */
+    public EnhancedLazyResultLoaderImpl(SqlMapClientImpl client, String statementName, Object parameterObject,
+<span class="fc" id="L109">        Class targetType) {</span>
+<span class="fc" id="L110">      this.client = client;</span>
+<span class="fc" id="L111">      this.statementName = statementName;</span>
+<span class="fc" id="L112">      this.parameterObject = parameterObject;</span>
+<span class="fc" id="L113">      this.targetType = targetType;</span>
+<span class="fc" id="L114">    }</span>
 
     /**
-     * Loads the result
+     * Loads the result.
      *
      * @return the results - a list or object
-     *
      * @throws SQLException
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">     *           if there is a problem</span>
-<span class="nc" id="L106">     */</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">    public Object loadResult() throws SQLException {</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">      if (DomTypeMarker.class.isAssignableFrom(targetType)) {</span>
-<span class="nc" id="L109">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
-      } else if (Collection.class.isAssignableFrom(targetType)) {
-<span class="nc" id="L111">        if (Set.class.isAssignableFrom(targetType)) {</span>
-          return Enhancer.create(Object.class, SET_INTERFACES, this);
-<span class="pc bpc" id="L113" title="2 of 4 branches missed.">        } else {</span>
-<span class="nc" id="L114">          return Enhancer.create(Object.class, LIST_INTERFACES, this);</span>
+     *           if there is a problem
+     */
+    public Object loadResult() throws SQLException {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">      if (DomTypeMarker.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L125">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">      } else if (Collection.class.isAssignableFrom(targetType)) {</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (Set.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L128">          return Enhancer.create(Object.class, SET_INTERFACES, this);</span>
+        } else {
+<span class="nc" id="L130">          return Enhancer.create(Object.class, LIST_INTERFACES, this);</span>
         }
-<span class="fc" id="L116">      } else if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {</span>
-        return ResultLoader.getResult(client, statementName, parameterObject, targetType);
+<span class="pc bpc" id="L132" title="2 of 4 branches missed.">      } else if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {</span>
+<span class="nc" id="L133">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
       } else {
-        return Enhancer.create(targetType, this);
+<span class="fc" id="L135">        return Enhancer.create(targetType, this);</span>
       }
     }
-<span class="fc" id="L122"></span>
-<span class="fc bfc" id="L123" title="All 2 branches covered.">    public Object loadObject() throws Exception {</span>
+
+    public Object loadObject() throws Exception {
       try {
-        Object result = ResultLoader.getResult(client, statementName, parameterObject, targetType);
-<span class="fc" id="L126">        if (result == null) {</span>
+<span class="fc" id="L141">        Object result = ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        if (result == null) {</span>
           // if no result is available return a proxy with a default object is returned
-<span class="fc" id="L128">          // because the loadObject() method must not return null</span>
-<span class="nc" id="L129">          result = Enhancer.create(targetType, NoOp.INSTANCE);</span>
-<span class="nc" id="L130">        }</span>
-        return result;
-      } catch (SQLException e) {
-        throw new RuntimeException(&quot;Error lazy loading result. Cause: &quot; + e, e);
+          // because the loadObject() method must not return null
+<span class="fc" id="L145">          result = Enhancer.create(targetType, NoOp.INSTANCE);</span>
+        }
+<span class="fc" id="L147">        return result;</span>
+<span class="nc" id="L148">      } catch (SQLException e) {</span>
+<span class="nc" id="L149">        throw new RuntimeException(&quot;Error lazy loading result. Cause: &quot; + e, e);</span>
       }
     }
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

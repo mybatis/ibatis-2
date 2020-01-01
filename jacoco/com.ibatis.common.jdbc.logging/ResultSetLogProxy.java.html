@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultSetLogProxy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">ResultSetLogProxy.java</span></div><h1>ResultSetLogProxy.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -25,76 +25,86 @@ import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 
 /**
- * ResultSet proxy to add logging
-<span class="nc" id="L29"> */</span>
+ * ResultSet proxy to add logging.
+ */
 public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler {
-<span class="nc" id="L31"></span>
-  private static final Log log = LogFactory.getLog(ResultSet.class);
 
-  boolean first = true;
-<span class="nc" id="L35">  private ResultSet rs;</span>
-<span class="nc" id="L36"></span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">  private ResultSetLogProxy(ResultSet rs) {</span>
-<span class="nc" id="L38">    super();</span>
-    this.rs = rs;
-<span class="nc" id="L40">    if (log.isDebugEnabled()) {</span>
-      log.debug(&quot;{rset-&quot; + id + &quot;} ResultSet&quot;);
+  /** The Constant log. */
+<span class="nc" id="L33">  private static final Log log = LogFactory.getLog(ResultSet.class);</span>
+
+  /** The first. */
+<span class="nc" id="L36">  boolean first = true;</span>
+
+  /** The rs. */
+  private ResultSet rs;
+
+  /**
+   * Instantiates a new result set log proxy.
+   *
+   * @param rs
+   *          the rs
+   */
+  private ResultSetLogProxy(ResultSet rs) {
+<span class="nc" id="L48">    super();</span>
+<span class="nc" id="L49">    this.rs = rs;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">    if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L51">      log.debug(&quot;{rset-&quot; + id + &quot;} ResultSet&quot;);</span>
     }
-  }
-<span class="nc" id="L44"></span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">  public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">    try {</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">      Object o = method.invoke(rs, params);</span>
-<span class="nc" id="L48">      if (GET_METHODS.contains(method.getName())) {</span>
-        if (params[0] instanceof String) {
-<span class="nc" id="L50">          if (rs.wasNull()) {</span>
-            setColumn(params[0], null);
+<span class="nc" id="L53">  }</span>
+
+  public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
+    try {
+<span class="nc" id="L57">      Object o = method.invoke(rs, params);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">      if (GET_METHODS.contains(method.getName())) {</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (params[0] instanceof String) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">          if (rs.wasNull()) {</span>
+<span class="nc" id="L61">            setColumn(params[0], null);</span>
           } else {
-<span class="nc bnc" id="L53" title="All 4 branches missed.">            setColumn(params[0], o);</span>
-<span class="nc" id="L54">          }</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        }</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">      } else if (&quot;next&quot;.equals(method.getName()) || &quot;close&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L57">        String s = getValueString();</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (!&quot;[]&quot;.equals(s)) {</span>
-<span class="nc" id="L59">          if (first) {</span>
-            first = false;
-            if (log.isDebugEnabled()) {
-<span class="nc bnc" id="L62" title="All 2 branches missed.">              log.debug(&quot;{rset-&quot; + id + &quot;} Header: &quot; + getColumnString());</span>
-<span class="nc" id="L63">            }</span>
+<span class="nc" id="L63">            setColumn(params[0], o);</span>
           }
-          if (log.isDebugEnabled()) {
-<span class="nc" id="L66">            log.debug(&quot;{rset-&quot; + id + &quot;} Result: &quot; + s);</span>
+        }
+<span class="nc bnc" id="L66" title="All 4 branches missed.">      } else if (&quot;next&quot;.equals(method.getName()) || &quot;close&quot;.equals(method.getName())) {</span>
+<span class="nc" id="L67">        String s = getValueString();</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (!&quot;[]&quot;.equals(s)) {</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">          if (first) {</span>
+<span class="nc" id="L70">            first = false;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L72">              log.debug(&quot;{rset-&quot; + id + &quot;} Header: &quot; + getColumnString());</span>
+            }
           }
-<span class="nc" id="L68">        }</span>
-<span class="nc" id="L69">        clearColumnInfo();</span>
-<span class="nc" id="L70">      }</span>
-      return o;
-    } catch (Throwable t) {
-      throw ClassInfo.unwrapThrowable(t);
+<span class="nc bnc" id="L75" title="All 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L76">            log.debug(&quot;{rset-&quot; + id + &quot;} Result: &quot; + s);</span>
+          }
+        }
+<span class="nc" id="L79">        clearColumnInfo();</span>
+      }
+<span class="nc" id="L81">      return o;</span>
+<span class="nc" id="L82">    } catch (Throwable t) {</span>
+<span class="nc" id="L83">      throw ClassInfo.unwrapThrowable(t);</span>
     }
   }
 
   /**
-   * Creates a logging version of a ResultSet
-   * 
+   * Creates a logging version of a ResultSet.
+   *
    * @param rs
    *          - the ResultSet to proxy
-<span class="nc" id="L82">   * @return - the ResultSet with logging</span>
-<span class="nc" id="L83">   */</span>
-<span class="nc" id="L84">  public static ResultSet newInstance(ResultSet rs) {</span>
-    InvocationHandler handler = new ResultSetLogProxy(rs);
-    ClassLoader cl = ResultSet.class.getClassLoader();
-    return (ResultSet) Proxy.newProxyInstance(cl, new Class[] { ResultSet.class }, handler);
+   * @return - the ResultSet with logging
+   */
+  public static ResultSet newInstance(ResultSet rs) {
+<span class="nc" id="L95">    InvocationHandler handler = new ResultSetLogProxy(rs);</span>
+<span class="nc" id="L96">    ClassLoader cl = ResultSet.class.getClassLoader();</span>
+<span class="nc" id="L97">    return (ResultSet) Proxy.newProxyInstance(cl, new Class[] { ResultSet.class }, handler);</span>
   }
 
   /**
-   * Get the wrapped result set
-   * 
-<span class="nc" id="L93">   * @return the resultSet</span>
+   * Get the wrapped result set.
+   *
+   * @return the resultSet
    */
   public ResultSet getRs() {
-    return rs;
+<span class="nc" id="L106">    return rs;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

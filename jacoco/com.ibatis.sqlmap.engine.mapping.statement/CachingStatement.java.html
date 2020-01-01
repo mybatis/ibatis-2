@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CachingStatement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">CachingStatement.java</span></div><h1>CachingStatement.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -27,149 +27,163 @@ import com.ibatis.sqlmap.engine.transaction.Transaction;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The Class CachingStatement.
+ */
 public class CachingStatement extends MappedStatement {
 
-<span class="fc" id="L32">  private MappedStatement statement;</span>
-<span class="fc" id="L33">  private CacheModel cacheModel;</span>
-<span class="fc" id="L34"></span>
-<span class="fc" id="L35">  public CachingStatement(MappedStatement statement, CacheModel cacheModel) {</span>
-    this.statement = statement;
-    this.cacheModel = cacheModel;
-  }
-<span class="fc" id="L39"></span>
+  /** The statement. */
+  private MappedStatement statement;
+
+  /** The cache model. */
+  private CacheModel cacheModel;
+
+  /**
+   * Instantiates a new caching statement.
+   *
+   * @param statement
+   *          the statement
+   * @param cacheModel
+   *          the cache model
+   */
+<span class="fc" id="L49">  public CachingStatement(MappedStatement statement, CacheModel cacheModel) {</span>
+<span class="fc" id="L50">    this.statement = statement;</span>
+<span class="fc" id="L51">    this.cacheModel = cacheModel;</span>
+<span class="fc" id="L52">  }</span>
+
   @Override
   public String getId() {
-    return statement.getId();
+<span class="fc" id="L56">    return statement.getId();</span>
   }
-<span class="nc" id="L44"></span>
+
   @Override
   public StatementType getStatementType() {
-    return statement.getStatementType();
+<span class="nc" id="L61">    return statement.getStatementType();</span>
   }
-<span class="nc" id="L49"></span>
+
   @Override
   public Integer getResultSetType() {
-    return statement.getResultSetType();
+<span class="nc" id="L66">    return statement.getResultSetType();</span>
   }
-<span class="nc" id="L54"></span>
+
   @Override
   public Integer getFetchSize() {
-    return statement.getFetchSize();
+<span class="nc" id="L71">    return statement.getFetchSize();</span>
   }
-<span class="nc" id="L59"></span>
+
   @Override
   public ParameterMap getParameterMap() {
-    return statement.getParameterMap();
+<span class="nc" id="L76">    return statement.getParameterMap();</span>
   }
-<span class="nc" id="L64"></span>
+
   @Override
   public ResultMap getResultMap() {
-    return statement.getResultMap();
+<span class="nc" id="L81">    return statement.getResultMap();</span>
   }
 
-<span class="nc" id="L70">  @Override</span>
-<span class="nc" id="L71">  public int executeUpdate(StatementScope statementScope, Transaction trans, Object parameterObject)</span>
+  @Override
+  public int executeUpdate(StatementScope statementScope, Transaction trans, Object parameterObject)
       throws SQLException {
-    int n = statement.executeUpdate(statementScope, trans, parameterObject);
-    return n;
+<span class="nc" id="L87">    int n = statement.executeUpdate(statementScope, trans, parameterObject);</span>
+<span class="nc" id="L88">    return n;</span>
   }
 
-<span class="fc" id="L77">  @Override</span>
-<span class="fc" id="L78">  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
-<span class="fc" id="L79">      Object resultObject) throws SQLException {</span>
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">    CacheKey cacheKey = getCacheKey(statementScope, parameterObject);</span>
-    cacheKey.update(&quot;executeQueryForObject&quot;);
-<span class="nc" id="L82">    Object object = cacheModel.getObject(cacheKey);</span>
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">    if (object == CacheModel.NULL_OBJECT) {</span>
-<span class="fc" id="L84">      // This was cached, but null</span>
-<span class="fc" id="L85">      object = null;</span>
-    } else if (object == null) {
-<span class="fc" id="L87">      object = statement.executeQueryForObject(statementScope, trans, parameterObject, resultObject);</span>
-      cacheModel.putObject(cacheKey, object);
+  @Override
+  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,
+      Object resultObject) throws SQLException {
+<span class="fc" id="L94">    CacheKey cacheKey = getCacheKey(statementScope, parameterObject);</span>
+<span class="fc" id="L95">    cacheKey.update(&quot;executeQueryForObject&quot;);</span>
+<span class="fc" id="L96">    Object object = cacheModel.getObject(cacheKey);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">    if (object == CacheModel.NULL_OBJECT) {</span>
+      // This was cached, but null
+<span class="nc" id="L99">      object = null;</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">    } else if (object == null) {</span>
+<span class="fc" id="L101">      object = statement.executeQueryForObject(statementScope, trans, parameterObject, resultObject);</span>
+<span class="fc" id="L102">      cacheModel.putObject(cacheKey, object);</span>
     }
-    return object;
+<span class="fc" id="L104">    return object;</span>
   }
 
-<span class="fc" id="L93">  @Override</span>
-<span class="fc" id="L94">  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
-<span class="fc" id="L95">      int skipResults, int maxResults) throws SQLException {</span>
-<span class="fc" id="L96">    CacheKey cacheKey = getCacheKey(statementScope, parameterObject);</span>
-<span class="fc" id="L97">    cacheKey.update(&quot;executeQueryForList&quot;);</span>
-    cacheKey.update(skipResults);
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">    cacheKey.update(maxResults);</span>
-    Object listAsObject = cacheModel.getObject(cacheKey);
-<span class="nc" id="L101">    List list;</span>
-<span class="fc bfc" id="L102" title="All 2 branches covered.">    if (listAsObject == CacheModel.NULL_OBJECT) {</span>
-<span class="fc" id="L103">      // The cached object was null</span>
-<span class="fc" id="L104">      list = null;</span>
-    } else if (listAsObject == null) {
-<span class="fc" id="L106">      list = statement.executeQueryForList(statementScope, trans, parameterObject, skipResults, maxResults);</span>
-      cacheModel.putObject(cacheKey, list);
-<span class="fc" id="L108">    } else {</span>
-      list = (List) listAsObject;
+  @Override
+  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,
+      int skipResults, int maxResults) throws SQLException {
+<span class="fc" id="L110">    CacheKey cacheKey = getCacheKey(statementScope, parameterObject);</span>
+<span class="fc" id="L111">    cacheKey.update(&quot;executeQueryForList&quot;);</span>
+<span class="fc" id="L112">    cacheKey.update(skipResults);</span>
+<span class="fc" id="L113">    cacheKey.update(maxResults);</span>
+<span class="fc" id="L114">    Object listAsObject = cacheModel.getObject(cacheKey);</span>
+    List list;
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">    if (listAsObject == CacheModel.NULL_OBJECT) {</span>
+      // The cached object was null
+<span class="nc" id="L118">      list = null;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">    } else if (listAsObject == null) {</span>
+<span class="fc" id="L120">      list = statement.executeQueryForList(statementScope, trans, parameterObject, skipResults, maxResults);</span>
+<span class="fc" id="L121">      cacheModel.putObject(cacheKey, list);</span>
+    } else {
+<span class="fc" id="L123">      list = (List) listAsObject;</span>
     }
-    return list;
+<span class="fc" id="L125">    return list;</span>
   }
 
-<span class="nc" id="L114">  @Override</span>
-<span class="nc" id="L115">  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
+  @Override
+  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,
       RowHandler rowHandler) throws SQLException {
-    statement.executeQueryWithRowHandler(statementScope, trans, parameterObject, rowHandler);
-  }
-<span class="fc" id="L119"></span>
-<span class="pc bpc" id="L120" title="1 of 4 branches missed.">  @Override</span>
-<span class="nc" id="L121">  public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {</span>
-    CacheKey key = statement.getCacheKey(statementScope, parameterObject);
-<span class="fc" id="L123">    if (!cacheModel.isReadOnly() &amp;&amp; !cacheModel.isSerialize()) {</span>
-      key.update(statementScope.getSession());
+<span class="nc" id="L131">    statement.executeQueryWithRowHandler(statementScope, trans, parameterObject, rowHandler);</span>
+<span class="nc" id="L132">  }</span>
+
+  @Override
+  public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
+<span class="fc" id="L136">    CacheKey key = statement.getCacheKey(statementScope, parameterObject);</span>
+<span class="pc bpc" id="L137" title="1 of 4 branches missed.">    if (!cacheModel.isReadOnly() &amp;&amp; !cacheModel.isSerialize()) {</span>
+<span class="nc" id="L138">      key.update(statementScope.getSession());</span>
     }
-    return key;
+<span class="fc" id="L140">    return key;</span>
   }
-<span class="fc" id="L128"></span>
-<span class="fc" id="L129">  @Override</span>
+
+  @Override
   public void setBaseCacheKey(int base) {
-    statement.setBaseCacheKey(base);
-  }
-<span class="nc" id="L133"></span>
-<span class="nc" id="L134">  @Override</span>
+<span class="fc" id="L145">    statement.setBaseCacheKey(base);</span>
+<span class="fc" id="L146">  }</span>
+
+  @Override
   public void addExecuteListener(ExecuteListener listener) {
-    statement.addExecuteListener(listener);
-  }
-<span class="nc" id="L138"></span>
-<span class="nc" id="L139">  @Override</span>
+<span class="nc" id="L150">    statement.addExecuteListener(listener);</span>
+<span class="nc" id="L151">  }</span>
+
+  @Override
   public void notifyListeners() {
-    statement.notifyListeners();
-  }
-<span class="fc" id="L143"></span>
-<span class="fc" id="L144">  @Override</span>
+<span class="nc" id="L155">    statement.notifyListeners();</span>
+<span class="nc" id="L156">  }</span>
+
+  @Override
   public void initRequest(StatementScope statementScope) {
-    statement.initRequest(statementScope);
-  }
-<span class="nc" id="L148"></span>
+<span class="fc" id="L160">    statement.initRequest(statementScope);</span>
+<span class="fc" id="L161">  }</span>
+
   @Override
   public Sql getSql() {
-    return statement.getSql();
+<span class="nc" id="L165">    return statement.getSql();</span>
   }
-<span class="nc" id="L153"></span>
+
   @Override
   public Class getParameterClass() {
-    return statement.getParameterClass();
+<span class="nc" id="L170">    return statement.getParameterClass();</span>
   }
-<span class="nc" id="L158"></span>
+
   @Override
   public Integer getTimeout() {
-    return statement.getTimeout();
+<span class="nc" id="L175">    return statement.getTimeout();</span>
   }
-<span class="nc" id="L163"></span>
+
   @Override
   public boolean hasMultipleResultMaps() {
-    return statement.hasMultipleResultMaps();
+<span class="nc" id="L180">    return statement.hasMultipleResultMaps();</span>
   }
-<span class="nc" id="L168"></span>
+
   @Override
   public ResultMap[] getAdditionalResultMaps() {
-    return statement.getAdditionalResultMaps();
+<span class="nc" id="L185">    return statement.getAdditionalResultMaps();</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

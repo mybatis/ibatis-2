@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExternalTransactionConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.external</a> &gt; <span class="el_source">ExternalTransactionConfig.java</span></div><h1>ExternalTransactionConfig.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -17,40 +17,68 @@ package com.ibatis.sqlmap.engine.transaction.external;
 
 import com.ibatis.sqlmap.engine.transaction.*;
 
-<span class="nc" id="L20">import java.sql.SQLException;</span>
+import java.sql.SQLException;
 import java.util.Properties;
-<span class="nc" id="L22"></span>
-<span class="nc" id="L23">public class ExternalTransactionConfig extends BaseTransactionConfig {</span>
 
-  private boolean defaultAutoCommit = false;
-<span class="nc" id="L26">  private boolean setAutoCommitAllowed = true;</span>
+/**
+ * The Class ExternalTransactionConfig.
+ */
+<span class="nc" id="L26">public class ExternalTransactionConfig extends BaseTransactionConfig {</span>
+
+  /** The default auto commit. */
+<span class="nc" id="L29">  private boolean defaultAutoCommit = false;</span>
+
+  /** The set auto commit allowed. */
+<span class="nc" id="L32">  private boolean setAutoCommitAllowed = true;</span>
 
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
-    return new ExternalTransaction(dataSource, defaultAutoCommit, setAutoCommitAllowed, transactionIsolation);
-<span class="nc" id="L30">  }</span>
-
-  public boolean isDefaultAutoCommit() {
-    return defaultAutoCommit;
-<span class="nc" id="L34">  }</span>
-<span class="nc" id="L35"></span>
-  public void setDefaultAutoCommit(boolean defaultAutoCommit) {
-    this.defaultAutoCommit = defaultAutoCommit;
-<span class="nc" id="L38">  }</span>
-
-  public boolean isSetAutoCommitAllowed() {
-    return setAutoCommitAllowed;
-<span class="nc" id="L42">  }</span>
-<span class="nc" id="L43"></span>
-  public void setSetAutoCommitAllowed(boolean setAutoCommitAllowed) {
-    this.setAutoCommitAllowed = setAutoCommitAllowed;
-<span class="nc" id="L46">  }</span>
-<span class="nc" id="L47"></span>
-<span class="nc" id="L48">  public void setProperties(Properties props) throws SQLException, TransactionException {</span>
-<span class="nc bnc" id="L49" title="All 4 branches missed.">    String dacProp = props.getProperty(&quot;DefaultAutoCommit&quot;);</span>
-<span class="nc" id="L50">    String sacaProp = props.getProperty(&quot;SetAutoCommitAllowed&quot;);</span>
-    defaultAutoCommit = &quot;true&quot;.equals(dacProp);
-    setAutoCommitAllowed = &quot;true&quot;.equals(sacaProp) || sacaProp == null;
+<span class="nc" id="L35">    return new ExternalTransaction(dataSource, defaultAutoCommit, setAutoCommitAllowed, transactionIsolation);</span>
   }
 
+  /**
+   * Checks if is default auto commit.
+   *
+   * @return true, if is default auto commit
+   */
+  public boolean isDefaultAutoCommit() {
+<span class="nc" id="L44">    return defaultAutoCommit;</span>
+  }
+
+  /**
+   * Sets the default auto commit.
+   *
+   * @param defaultAutoCommit
+   *          the new default auto commit
+   */
+  public void setDefaultAutoCommit(boolean defaultAutoCommit) {
+<span class="nc" id="L54">    this.defaultAutoCommit = defaultAutoCommit;</span>
+<span class="nc" id="L55">  }</span>
+
+  /**
+   * Checks if is sets the auto commit allowed.
+   *
+   * @return true, if is sets the auto commit allowed
+   */
+  public boolean isSetAutoCommitAllowed() {
+<span class="nc" id="L63">    return setAutoCommitAllowed;</span>
+  }
+
+  /**
+   * Sets the sets the auto commit allowed.
+   *
+   * @param setAutoCommitAllowed
+   *          the new sets the auto commit allowed
+   */
+  public void setSetAutoCommitAllowed(boolean setAutoCommitAllowed) {
+<span class="nc" id="L73">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
+<span class="nc" id="L74">  }</span>
+
+  public void setProperties(Properties props) throws SQLException, TransactionException {
+<span class="nc" id="L77">    String dacProp = props.getProperty(&quot;DefaultAutoCommit&quot;);</span>
+<span class="nc" id="L78">    String sacaProp = props.getProperty(&quot;SetAutoCommitAllowed&quot;);</span>
+<span class="nc" id="L79">    defaultAutoCommit = &quot;true&quot;.equals(dacProp);</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">    setAutoCommitAllowed = &quot;true&quot;.equals(sacaProp) || sacaProp == null;</span>
+<span class="nc" id="L81">  }</span>
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

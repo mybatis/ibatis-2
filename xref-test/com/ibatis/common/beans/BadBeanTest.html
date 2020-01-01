@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../../../testapidocs/com/ibatis/common/beans/BadBeanTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2017 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2019 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -28,17 +28,17 @@
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> junit.framework.TestCase;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> badbeans.*;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/ibatis/common/beans/BadBeanTest.html">BadBeanTest</a> <strong class="jxr_keyword">extends</strong> TestCase {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BadBeanTest" href="../../../../com/ibatis/common/beans/BadBeanTest.html#BadBeanTest">BadBeanTest</a> <strong class="jxr_keyword">extends</strong> TestCase {
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String PROPNAME = <span class="jxr_string">"value"</span>;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object STRING_VALUE = <span class="jxr_string">"1"</span>;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object INT_VALUE = <strong class="jxr_keyword">new</strong> Integer(1);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object INT_VALUE = Integer.valueOf(1);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object[] NO_VALUE = <strong class="jxr_keyword">new</strong> Object[] {};
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object[] STRING_PARAMS = <strong class="jxr_keyword">new</strong> Object[] { STRING_VALUE };
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Object[] INT_PARAMS = <strong class="jxr_keyword">new</strong> Object[] { INT_VALUE };
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testShouldSuccessfullyGetAndSetValueOnGoodBean() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <a href="../../../../badbeans/GoodBean.html">GoodBean</a> bean = <strong class="jxr_keyword">new</strong> <a href="../../../../badbeans/GoodBean.html">GoodBean</a>();
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <a name="GoodBean" href="../../../../badbeans/GoodBean.ht<a name="GoodBean" href="../../../../badbeans/GoodBean.html#GoodBean">GoodBean</a>ean">GoodBean</a> bean = <strong class="jxr_keyword">new</strong> <a name="GoodBean" href="../../../../badbeans/GoodBean.html#GoodBean">GoodBean</a>();
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      ClassInfo info = ClassInfo.getInstance(GoodBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>    }
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <a href="../../../../badbeans/BeanWithDifferentTypeGetterSetter.html">BeanWithDifferentTypeGetterSetter</a> bean = <strong class="jxr_keyword">new</strong> <a href="../../../../badbeans/BeanWithDifferentTypeGetterSetter.html">BeanWithDifferentTypeGetterSetter</a>();
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <a name="BeanWithDifferentTypeGetterSetter" href="../../../../badbeans/BeanWithDif<a name="BeanWithDifferentTypeGetterSetter" href="../../../../badbeans/BeanWithDifferentTypeGetterSetter.html#BeanWithDifferentTypeGetterSetter">BeanWithDifferentTypeGetterSetter</a>ithDifferentTypeGetterSetter">BeanWithDifferentTypeGetterSetter</a> bean = <strong class="jxr_keyword">new</strong> <a name="BeanWithDifferentTypeGetterSetter" href="../../../../badbeans/BeanWithDifferentTypeGetterSetter.html#BeanWithDifferentTypeGetterSetter">BeanWithDifferentTypeGetterSetter</a>();
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      info.getSetter(PROPNAME).invoke(bean, INT_PARAMS);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      assertEquals(INT_VALUE.toString(), info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>    }
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <a href="../../../../badbeans/BeanWithOverloadedSetter.html">BeanWithOverloadedSetter</a> bean = <strong class="jxr_keyword">new</strong> <a href="../../../../badbeans/BeanWithOverloadedSetter.html">BeanWithOverloadedSetter</a>();
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <a name="BeanWithOverloadedSetter" href="../../../../badbeans/BeanWithOve<a name="BeanWithOverloadedSetter" href="../../../../badbeans/BeanWithOverloadedSetter.html#BeanWithOverloadedSetter">BeanWithOverloadedSetter</a>ithOverloadedSetter">BeanWithOverloadedSetter</a> bean = <strong class="jxr_keyword">new</strong> <a name="BeanWithOverloadedSetter" href="../../../../badbeans/BeanWithOverloadedSetter.html#BeanWithOverloadedSetter">BeanWithOverloadedSetter</a>();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
@@ -101,6 +101,6 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2016 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

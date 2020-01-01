@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MapDataExchange.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">MapDataExchange.java</span></div><h1>MapDataExchange.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -25,69 +25,75 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DataExchange implementation for Map objects
+ * DataExchange implementation for Map objects.
  */
-<span class="nc" id="L30">public class MapDataExchange extends BaseDataExchange implements DataExchange {</span>
-<span class="nc" id="L31"></span>
+public class MapDataExchange extends BaseDataExchange implements DataExchange {
+
+  /**
+   * Instantiates a new map data exchange.
+   *
+   * @param dataExchangeFactory
+   *          the data exchange factory
+   */
   protected MapDataExchange(DataExchangeFactory dataExchangeFactory) {
-    super(dataExchangeFactory);
-<span class="nc" id="L34">  }</span>
+<span class="nc" id="L39">    super(dataExchangeFactory);</span>
+<span class="nc" id="L40">  }</span>
 
   public void initialize(Map properties) {
-<span class="nc bnc" id="L37" title="All 2 branches missed.">  }</span>
-<span class="nc" id="L38"></span>
+<span class="nc" id="L43">  }</span>
+
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
-    if (!(parameterObject instanceof Map)) {
-<span class="nc" id="L41">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
-<span class="nc" id="L42">    }</span>
-<span class="nc" id="L43"></span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">    Object[] data = new Object[parameterMap.getParameterMappings().length];</span>
-<span class="nc" id="L45">    Map map = (Map) parameterObject;</span>
-    ParameterMapping[] mappings = parameterMap.getParameterMappings();
-<span class="nc" id="L47">    for (int i = 0; i &lt; mappings.length; i++) {</span>
-      data[i] = map.get(mappings[i].getPropertyName());
-    }
-    return data;
-<span class="nc bnc" id="L51" title="All 4 branches missed.">  }</span>
-<span class="nc" id="L52"></span>
-  public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-    if (!(resultObject == null || resultObject instanceof Map)) {
-<span class="nc" id="L55">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">    }</span>
-<span class="nc" id="L57"></span>
-    Map map = (Map) resultObject;
-    if (map == null) {
-<span class="nc" id="L60">      map = new HashMap();</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">    }</span>
-<span class="nc" id="L62"></span>
-    ResultMapping[] mappings = resultMap.getResultMappings();
-    for (int i = 0; i &lt; mappings.length; i++) {
-<span class="nc" id="L65">      map.put(mappings[i].getPropertyName(), values[i]);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">    if (!(parameterObject instanceof Map)) {</span>
+<span class="nc" id="L47">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
     }
 
-    return map;
+<span class="nc" id="L50">    Object[] data = new Object[parameterMap.getParameterMappings().length];</span>
+<span class="nc" id="L51">    Map map = (Map) parameterObject;</span>
+<span class="nc" id="L52">    ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="nc" id="L54">      data[i] = map.get(mappings[i].getPropertyName());</span>
+    }
+<span class="nc" id="L56">    return data;</span>
   }
-<span class="nc bnc" id="L70" title="All 4 branches missed."></span>
-<span class="nc" id="L71">  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,</span>
-      Object[] values) {
-    if (!(parameterObject == null || parameterObject instanceof Map)) {
-<span class="nc" id="L74">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">    }</span>
-<span class="nc" id="L76"></span>
-    Map map = (Map) parameterObject;
-    if (map == null) {
-<span class="nc" id="L79">      map = new HashMap();</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">    }</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed."></span>
-<span class="nc" id="L82">    ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
-    for (int i = 0; i &lt; mappings.length; i++) {
-      if (mappings[i].isOutputAllowed()) {
-        map.put(mappings[i].getPropertyName(), values[i]);
-<span class="nc" id="L86">      }</span>
+
+  public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
+<span class="nc bnc" id="L60" title="All 4 branches missed.">    if (!(resultObject == null || resultObject instanceof Map)) {</span>
+<span class="nc" id="L61">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
     }
 
-    return map;
+<span class="nc" id="L64">    Map map = (Map) resultObject;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    if (map == null) {</span>
+<span class="nc" id="L66">      map = new HashMap();</span>
+    }
+
+<span class="nc" id="L69">    ResultMapping[] mappings = resultMap.getResultMappings();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="nc" id="L71">      map.put(mappings[i].getPropertyName(), values[i]);</span>
+    }
+
+<span class="nc" id="L74">    return map;</span>
+  }
+
+  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
+      Object[] values) {
+<span class="nc bnc" id="L79" title="All 4 branches missed.">    if (!(parameterObject == null || parameterObject instanceof Map)) {</span>
+<span class="nc" id="L80">      throw new RuntimeException(&quot;Error.  Object passed into MapDataExchange was not an instance of Map.&quot;);</span>
+    }
+
+<span class="nc" id="L83">    Map map = (Map) parameterObject;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">    if (map == null) {</span>
+<span class="nc" id="L85">      map = new HashMap();</span>
+    }
+
+<span class="nc" id="L88">    ParameterMapping[] mappings = parameterMap.getParameterMappings();</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">      if (mappings[i].isOutputAllowed()) {</span>
+<span class="nc" id="L91">        map.put(mappings[i].getPropertyName(), values[i]);</span>
+      }
+    }
+
+<span class="nc" id="L95">    return map;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

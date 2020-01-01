@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/com/ibatis/sqlmap/CacheStatementTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2017 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2019 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/ibatis/sqlmap/CacheStatementTest.html">CacheStatementTest</a> <strong class="jxr_keyword">extends</strong> <a href="../../../com/ibatis/sqlmap/BaseSqlMapTest.html">BaseSqlMapTest</a> {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="CacheStatementTest" href="../../../com/ibatis/sqlmap/CacheStatementTest.html#CacheStatementTest">CacheStatementTest</a> <strong class="jxr_keyword">extends</strong> <a name="BaseSqlMapTest" href="../../../com/ibatis/sqlmap/BaseSqlMapTest.html#BaseSqlMapTest">BaseSqlMapTest</a> {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>    <em class="jxr_comment">// SETUP &amp; TEARDOWN</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      assertEquals(firstId, secondId);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <a href="../../../testdomain/Account.html">Account</a> account = (Account) list.get(1);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <a name="Account" h<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>/../../testdomain/Account.html#Account">Account</a> account = (<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(1);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      account.setEmailAddress(<span class="jxr_string">"new.clinton@ibatis.com"</span>);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      sqlMap.update(<span class="jxr_string">"updateAccountViaInlineParameters"</span>, account);
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
@@ -82,7 +82,7 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      assertEquals(firstId, secondId);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <a href="../../../testdomain/Account.html">Account</a> account = (Account) list.get(1);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <a name="Account" h<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>/../../testdomain/Account.html#Account">Account</a> account = (<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(1);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      account.setEmailAddress(<span class="jxr_string">"new.clinton@ibatis.com"</span>);
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      sqlMap.update(<span class="jxr_string">"updateAccountViaInlineParameters"</span>, account);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  
@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> 
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>     List list = (List) results.get(<span class="jxr_string">"list"</span>);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>     <a href="../../../testdomain/Account.html">Account</a> account = (Account) list.get(1);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>     <a name="Account" h<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>/../../testdomain/Account.html#Account">Account</a> account = (<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(1);
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>     account.setEmailAddress(<span class="jxr_string">"new.clinton@ibatis.com"</span>);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>     sqlMap.update(<span class="jxr_string">"updateAccountViaInlineParameters"</span>, account);
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 
@@ -233,7 +233,7 @@
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>     List list = (List) results.get(<span class="jxr_string">"list"</span>);
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <a href="../../../testdomain/Account.html">Account</a> account = (Account) list.get(1);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <a name="Account" h<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>/../../testdomain/Account.html#Account">Account</a> account = (<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(1);
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>     account.setEmailAddress(<span class="jxr_string">"new.clinton@ibatis.com"</span>);
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>     sqlMap.update(<span class="jxr_string">"updateAccountViaInlineParameters"</span>, account);
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> 
@@ -270,12 +270,12 @@
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>     assertFalse(<span class="jxr_string">"Expect not equal"</span>, key1.equals(key2));
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>   }
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/ibatis/sqlmap/CacheStatementTest.html">TestCacheThread</a> <strong class="jxr_keyword">extends</strong> Thread {
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TestCacheThread <strong class="jxr_keyword">extends</strong> Thread {
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>     <strong class="jxr_keyword">private</strong> SqlMapClient sqlMap;
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">private</strong> Map results;
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">private</strong> String statementName;
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">public</strong> <a href="../../../com/ibatis/sqlmap/CacheStatementTest.html">TestCacheThread</a>(SqlMapClient sqlMap, Map results, String statementName) {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">public</strong> TestCacheThread(SqlMapClient sqlMap, Map results, String statementName) {
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>       <strong class="jxr_keyword">this</strong>.sqlMap = sqlMap;
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>       <strong class="jxr_keyword">this</strong>.results = results;
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>       <strong class="jxr_keyword">this</strong>.statementName = statementName;
@@ -290,7 +290,7 @@
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>         list = session.queryForList(statementName, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">int</strong> secondId = System.identityHashCode(list);
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>         <em class="jxr_comment">// assertEquals(firstId, secondId);</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>         results.put(<span class="jxr_string">"id"</span>, <strong class="jxr_keyword">new</strong> Integer(System.identityHashCode(list)));
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>         results.put(<span class="jxr_string">"id"</span>, Integer.valueOf(System.identityHashCode(list)));
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         results.put(<span class="jxr_string">"list"</span>, list);
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         session.close();
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>       } <strong class="jxr_keyword">catch</strong> (SQLException e) {
@@ -299,7 +299,7 @@
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>     }
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> 
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> startThread(SqlMapClient sqlMap, Map results, String statementName) {
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>       Thread t = <strong class="jxr_keyword">new</strong> <a href="../../../com/ibatis/sqlmap/CacheStatementTest.html">TestCacheThread</a>(sqlMap, results, statementName);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>       Thread t = <strong class="jxr_keyword">new</strong> TestCacheThread(sqlMap, results, statementName);
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>       t.start();
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>         t.join();
@@ -312,6 +312,6 @@
 <a class="jxr_linenumber" name="L304" href="#L304">304</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2016 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

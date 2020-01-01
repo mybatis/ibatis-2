@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMapConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">ParameterMapConfig.java</span></div><h1>ParameterMapConfig.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -23,67 +23,117 @@ import com.ibatis.sqlmap.engine.type.*;
 
 import java.util.*;
 
+/**
+ * The Class ParameterMapConfig.
+ */
 public class ParameterMapConfig {
+
+  /** The Constant MODE_IN. */
   public static final String MODE_IN = &quot;IN&quot;;
+
+  /** The Constant MODE_OUT. */
   public static final String MODE_OUT = &quot;OUT&quot;;
+
+  /** The Constant MODE_INOUT. */
   public static final String MODE_INOUT = &quot;INUOT&quot;;
 
+  /** The config. */
   private SqlMapConfiguration config;
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The client. */
   private SqlMapClientImpl client;
-<span class="fc" id="L34">  private ParameterMap parameterMap;</span>
-<span class="fc" id="L35">  private List parameterMappingList;</span>
-<span class="fc" id="L36"></span>
-<span class="fc" id="L37">  ParameterMapConfig(SqlMapConfiguration config, String id, Class parameterClass) {</span>
-<span class="fc" id="L38">    this.config = config;</span>
-<span class="fc" id="L39">    this.errorContext = config.getErrorContext();</span>
-<span class="fc" id="L40">    this.client = config.getClient();</span>
-<span class="fc" id="L41">    errorContext.setActivity(&quot;building a parameter map&quot;);</span>
-<span class="fc" id="L42">    parameterMap = new ParameterMap(client.getDelegate());</span>
-<span class="fc" id="L43">    parameterMap.setId(id);</span>
-<span class="fc" id="L44">    parameterMap.setResource(errorContext.getResource());</span>
-<span class="fc" id="L45">    errorContext.setObjectId(id + &quot; parameter map&quot;);</span>
-<span class="fc" id="L46">    parameterMap.setParameterClass(parameterClass);</span>
-<span class="fc" id="L47">    errorContext.setMoreInfo(&quot;Check the parameter mappings.&quot;);</span>
-    this.parameterMappingList = new ArrayList();
-    client.getDelegate().addParameterMap(parameterMap);
-  }
-<span class="fc" id="L51"></span>
+
+  /** The parameter map. */
+  private ParameterMap parameterMap;
+
+  /** The parameter mapping list. */
+  private List parameterMappingList;
+
+  /**
+   * Instantiates a new parameter map config.
+   *
+   * @param config
+   *          the config
+   * @param id
+   *          the id
+   * @param parameterClass
+   *          the parameter class
+   */
+<span class="fc" id="L65">  ParameterMapConfig(SqlMapConfiguration config, String id, Class parameterClass) {</span>
+<span class="fc" id="L66">    this.config = config;</span>
+<span class="fc" id="L67">    this.errorContext = config.getErrorContext();</span>
+<span class="fc" id="L68">    this.client = config.getClient();</span>
+<span class="fc" id="L69">    errorContext.setActivity(&quot;building a parameter map&quot;);</span>
+<span class="fc" id="L70">    parameterMap = new ParameterMap(client.getDelegate());</span>
+<span class="fc" id="L71">    parameterMap.setId(id);</span>
+<span class="fc" id="L72">    parameterMap.setResource(errorContext.getResource());</span>
+<span class="fc" id="L73">    errorContext.setObjectId(id + &quot; parameter map&quot;);</span>
+<span class="fc" id="L74">    parameterMap.setParameterClass(parameterClass);</span>
+<span class="fc" id="L75">    errorContext.setMoreInfo(&quot;Check the parameter mappings.&quot;);</span>
+<span class="fc" id="L76">    this.parameterMappingList = new ArrayList();</span>
+<span class="fc" id="L77">    client.getDelegate().addParameterMap(parameterMap);</span>
+<span class="fc" id="L78">  }</span>
+
+  /**
+   * Adds the parameter mapping.
+   *
+   * @param propertyName
+   *          the property name
+   * @param javaClass
+   *          the java class
+   * @param jdbcType
+   *          the jdbc type
+   * @param nullValue
+   *          the null value
+   * @param mode
+   *          the mode
+   * @param outParamType
+   *          the out param type
+   * @param numericScale
+   *          the numeric scale
+   * @param typeHandlerImpl
+   *          the type handler impl
+   * @param resultMap
+   *          the result map
+   */
   public void addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode,
-<span class="fc bfc" id="L53" title="All 2 branches covered.">      String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {</span>
-<span class="fc" id="L54">    errorContext.setObjectId(propertyName + &quot; mapping of the &quot; + parameterMap.getId() + &quot; parameter map&quot;);</span>
+      String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
+<span class="fc" id="L104">    errorContext.setObjectId(propertyName + &quot; mapping of the &quot; + parameterMap.getId() + &quot; parameter map&quot;);</span>
     TypeHandler handler;
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">    if (typeHandlerImpl != null) {</span>
-<span class="fc" id="L57">      errorContext.setMoreInfo(&quot;Check the parameter mapping typeHandler attribute '&quot; + typeHandlerImpl</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">          + &quot;' (must be a TypeHandler or TypeHandlerCallback implementation).&quot;);</span>
-<span class="nc" id="L59">      if (typeHandlerImpl instanceof TypeHandlerCallback) {</span>
-        handler = new CustomTypeHandler((TypeHandlerCallback) typeHandlerImpl);
-<span class="nc" id="L61">      } else if (typeHandlerImpl instanceof TypeHandler) {</span>
-        handler = (TypeHandler) typeHandlerImpl;
+<span class="fc bfc" id="L106" title="All 2 branches covered.">    if (typeHandlerImpl != null) {</span>
+<span class="fc" id="L107">      errorContext.setMoreInfo(&quot;Check the parameter mapping typeHandler attribute '&quot; + typeHandlerImpl</span>
+          + &quot;' (must be a TypeHandler or TypeHandlerCallback implementation).&quot;);
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">      if (typeHandlerImpl instanceof TypeHandlerCallback) {</span>
+<span class="fc" id="L110">        handler = new CustomTypeHandler((TypeHandlerCallback) typeHandlerImpl);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">      } else if (typeHandlerImpl instanceof TypeHandler) {</span>
+<span class="nc" id="L112">        handler = (TypeHandler) typeHandlerImpl;</span>
       } else {
-        throw new RuntimeException(&quot;The class '&quot; + typeHandlerImpl
-<span class="fc" id="L65">            + &quot;' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);</span>
-<span class="fc" id="L66">      }</span>
-<span class="fc" id="L67">    } else {</span>
-      errorContext.setMoreInfo(&quot;Check the parameter mapping property type or name.&quot;);
-<span class="fc" id="L69">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(),</span>
-<span class="fc" id="L70">          parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);</span>
-<span class="fc" id="L71">    }</span>
-<span class="fc" id="L72">    ParameterMapping mapping = new ParameterMapping();</span>
-<span class="fc" id="L73">    mapping.setPropertyName(propertyName);</span>
-<span class="fc" id="L74">    mapping.setJdbcTypeName(jdbcType);</span>
-<span class="pc bpc" id="L75" title="1 of 4 branches missed.">    mapping.setTypeName(outParamType);</span>
-<span class="fc" id="L76">    mapping.setResultMapName(resultMap);</span>
-    mapping.setNullValue(nullValue);
-<span class="fc" id="L78">    if (mode != null &amp;&amp; mode.length() &gt; 0) {</span>
-<span class="fc" id="L79">      mapping.setMode(mode);</span>
-<span class="fc" id="L80">    }</span>
-<span class="fc" id="L81">    mapping.setTypeHandler(handler);</span>
-<span class="fc" id="L82">    mapping.setJavaType(javaClass);</span>
-<span class="fc" id="L83">    mapping.setNumericScale(numericScale);</span>
-    parameterMappingList.add(mapping);
-    parameterMap.setParameterMappingList(parameterMappingList);
-  }
+<span class="nc" id="L114">        throw new RuntimeException(</span>
+            &quot;The class '&quot; + typeHandlerImpl + &quot;' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);
+      }
+    } else {
+<span class="fc" id="L118">      errorContext.setMoreInfo(&quot;Check the parameter mapping property type or name.&quot;);</span>
+<span class="fc" id="L119">      handler = config.resolveTypeHandler(client.getDelegate().getTypeHandlerFactory(),</span>
+<span class="fc" id="L120">          parameterMap.getParameterClass(), propertyName, javaClass, jdbcType);</span>
+    }
+<span class="fc" id="L122">    ParameterMapping mapping = new ParameterMapping();</span>
+<span class="fc" id="L123">    mapping.setPropertyName(propertyName);</span>
+<span class="fc" id="L124">    mapping.setJdbcTypeName(jdbcType);</span>
+<span class="fc" id="L125">    mapping.setTypeName(outParamType);</span>
+<span class="fc" id="L126">    mapping.setResultMapName(resultMap);</span>
+<span class="fc" id="L127">    mapping.setNullValue(nullValue);</span>
+<span class="pc bpc" id="L128" title="1 of 4 branches missed.">    if (mode != null &amp;&amp; mode.length() &gt; 0) {</span>
+<span class="fc" id="L129">      mapping.setMode(mode);</span>
+    }
+<span class="fc" id="L131">    mapping.setTypeHandler(handler);</span>
+<span class="fc" id="L132">    mapping.setJavaType(javaClass);</span>
+<span class="fc" id="L133">    mapping.setNumericScale(numericScale);</span>
+<span class="fc" id="L134">    parameterMappingList.add(mapping);</span>
+<span class="fc" id="L135">    parameterMap.setParameterMappingList(parameterMappingList);</span>
+<span class="fc" id="L136">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

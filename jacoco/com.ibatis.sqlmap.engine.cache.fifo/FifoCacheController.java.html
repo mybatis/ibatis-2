@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FifoCacheController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.fifo</a> &gt; <span class="el_source">FifoCacheController.java</span></div><h1>FifoCacheController.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -26,46 +26,62 @@ import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.CacheModel;
 
 /**
- * FIFO (first in, first out) cache controller implementation
+ * FIFO (first in, first out) cache controller implementation.
  */
 public class FifoCacheController implements CacheController {
 
+  /** The cache size. */
   private int cacheSize;
+
+  /** The cache. */
   private Map cache;
+
+  /** The key list. */
   private List keyList;
 
-<span class="fc" id="L37">  /**</span>
-<span class="fc" id="L38">   * Default constructor</span>
-<span class="fc" id="L39">   */</span>
-<span class="fc" id="L40">  public FifoCacheController() {</span>
-<span class="fc" id="L41">    this.cacheSize = 100;</span>
-    this.cache = Collections.synchronizedMap(new HashMap());
-    this.keyList = Collections.synchronizedList(new LinkedList());
-<span class="nc" id="L44">  }</span>
+  /**
+   * Default constructor.
+   */
+<span class="fc" id="L45">  public FifoCacheController() {</span>
+<span class="fc" id="L46">    this.cacheSize = 100;</span>
+<span class="fc" id="L47">    this.cache = Collections.synchronizedMap(new HashMap());</span>
+<span class="fc" id="L48">    this.keyList = Collections.synchronizedList(new LinkedList());</span>
+<span class="fc" id="L49">  }</span>
 
+  /**
+   * Gets the cache size.
+   *
+   * @return the cache size
+   */
   public int getCacheSize() {
-    return cacheSize;
-<span class="nc" id="L48">  }</span>
-<span class="nc" id="L49"></span>
-  public void setCacheSize(int cacheSize) {
-    this.cacheSize = cacheSize;
+<span class="nc" id="L57">    return cacheSize;</span>
   }
+
+  /**
+   * Sets the cache size.
+   *
+   * @param cacheSize
+   *          the new cache size
+   */
+  public void setCacheSize(int cacheSize) {
+<span class="nc" id="L67">    this.cacheSize = cacheSize;</span>
+<span class="nc" id="L68">  }</span>
 
   /**
    * Configures the cache
    *
    * @param props
-<span class="fc" id="L58">   *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">   */</span>
-<span class="fc" id="L60">  public void setProperties(Properties props) {</span>
-    String size = props.getProperty(&quot;cache-size&quot;);
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">    if (size == null) {</span>
-<span class="fc" id="L63">      size = props.getProperty(&quot;size&quot;);</span>
+   *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
+   */
+  public void setProperties(Properties props) {
+<span class="fc" id="L77">    String size = props.getProperty(&quot;cache-size&quot;);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">    if (size == null) {</span>
+<span class="fc" id="L79">      size = props.getProperty(&quot;size&quot;);</span>
     }
-<span class="fc" id="L65">    if (size != null) {</span>
-      cacheSize = Integer.parseInt(size);
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">    if (size != null) {</span>
+<span class="fc" id="L82">      cacheSize = Integer.parseInt(size);</span>
     }
-  }
+<span class="fc" id="L84">  }</span>
 
   /**
    * Add an object to the cache
@@ -75,20 +91,20 @@ public class FifoCacheController implements CacheController {
    * @param key
    *          The key of the object to be cached
    * @param value
-<span class="fc" id="L78">   *          The object to be cached</span>
-<span class="fc" id="L79">   */</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">  public void putObject(CacheModel cacheModel, Object key, Object value) {</span>
-    cache.put(key, value);
-<span class="fc" id="L82">    keyList.add(key);</span>
-<span class="fc" id="L83">    if (keyList.size() &gt; cacheSize) {</span>
-<span class="nc" id="L84">      try {</span>
-        Object oldestKey = keyList.remove(0);
-<span class="fc" id="L86">        cache.remove(oldestKey);</span>
-      } catch (IndexOutOfBoundsException e) {
-<span class="fc" id="L88">        // ignore</span>
-      }
+   *          The object to be cached
+   */
+  public void putObject(CacheModel cacheModel, Object key, Object value) {
+<span class="fc" id="L97">    cache.put(key, value);</span>
+<span class="fc" id="L98">    keyList.add(key);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">    if (keyList.size() &gt; cacheSize) {</span>
+      try {
+<span class="fc" id="L101">        Object oldestKey = keyList.remove(0);</span>
+<span class="fc" id="L102">        cache.remove(oldestKey);</span>
+<span class="nc" id="L103">      } catch (IndexOutOfBoundsException e) {</span>
+        // ignore
+<span class="fc" id="L105">      }</span>
     }
-  }
+<span class="fc" id="L107">  }</span>
 
   /**
    * Get an object out of the cache.
@@ -97,27 +113,27 @@ public class FifoCacheController implements CacheController {
    *          The cache model
    * @param key
    *          The key of the object to be returned
-<span class="fc" id="L100">   * @return The cached object (or null)</span>
+   * @return The cached object (or null)
    */
   public Object getObject(CacheModel cacheModel, Object key) {
-    return cache.get(key);
-<span class="fc" id="L104">  }</span>
-<span class="fc" id="L105"></span>
+<span class="fc" id="L119">    return cache.get(key);</span>
+  }
+
   public Object removeObject(CacheModel cacheModel, Object key) {
-    keyList.remove(key);
-    return cache.remove(key);
+<span class="fc" id="L123">    keyList.remove(key);</span>
+<span class="fc" id="L124">    return cache.remove(key);</span>
   }
 
   /**
    * Flushes the cache.
    *
    * @param cacheModel
-<span class="fc" id="L115">   *          The cache model</span>
-<span class="fc" id="L116">   */</span>
-<span class="fc" id="L117">  public void flush(CacheModel cacheModel) {</span>
-    cache.clear();
-    keyList.clear();
-  }
+   *          The cache model
+   */
+  public void flush(CacheModel cacheModel) {
+<span class="fc" id="L134">    cache.clear();</span>
+<span class="fc" id="L135">    keyList.clear();</span>
+<span class="fc" id="L136">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CallableStatementResultSet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">CallableStatementResultSet.java</span></div><h1>CallableStatementResultSet.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -24,837 +24,838 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * A way to make a CallableStatement look like a ResultSet
+ * A way to make a CallableStatement look like a ResultSet.
  */
 public class CallableStatementResultSet implements ResultSet {
 
+  /** The cs. */
   private CallableStatement cs;
 
   /**
-   * Constructor to stretch a ResultSet interface over a CallableStatement
-   * 
-<span class="nc" id="L36">   * @param cs</span>
-<span class="nc" id="L37">   *          - the CallableStatement</span>
-<span class="nc" id="L38">   */</span>
-  public CallableStatementResultSet(CallableStatement cs) {
-    this.cs = cs;
-<span class="nc" id="L41">  }</span>
+   * Constructor to stretch a ResultSet interface over a CallableStatement.
+   *
+   * @param cs
+   *          - the CallableStatement
+   */
+<span class="nc" id="L40">  public CallableStatementResultSet(CallableStatement cs) {</span>
+<span class="nc" id="L41">    this.cs = cs;</span>
+<span class="nc" id="L42">  }</span>
 
   public boolean absolute(int row) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L45">  }</span>
+<span class="nc" id="L45">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void afterLast() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L49">  }</span>
+<span class="nc" id="L49">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void beforeFirst() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L53">  }</span>
+<span class="nc" id="L53">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void cancelRowUpdates() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L57">  }</span>
+<span class="nc" id="L57">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void clearWarnings() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L61">  }</span>
+<span class="nc" id="L61">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void close() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L65">  }</span>
+<span class="nc" id="L65">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void deleteRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L69">  }</span>
+<span class="nc" id="L69">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public int findColumn(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L73">  }</span>
+<span class="nc" id="L73">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean first() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L77">  }</span>
+<span class="nc" id="L77">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Array getArray(String colName) throws SQLException {
-    return cs.getArray(colName);
-<span class="nc" id="L81">  }</span>
+<span class="nc" id="L81">    return cs.getArray(colName);</span>
+  }
 
   public Array getArray(int i) throws SQLException {
-    return cs.getArray(i);
-<span class="nc" id="L85">  }</span>
+<span class="nc" id="L85">    return cs.getArray(i);</span>
+  }
 
   public InputStream getAsciiStream(int columnIndex) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L89">  }</span>
+<span class="nc" id="L89">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public InputStream getAsciiStream(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L93">  }</span>
+<span class="nc" id="L93">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-    return cs.getBigDecimal(columnIndex);
-<span class="nc" id="L97">  }</span>
+<span class="nc" id="L97">    return cs.getBigDecimal(columnIndex);</span>
+  }
 
   public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L101">  }</span>
+<span class="nc" id="L101">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public BigDecimal getBigDecimal(String columnName) throws SQLException {
-    return cs.getBigDecimal(columnName);
-<span class="nc" id="L105">  }</span>
+<span class="nc" id="L105">    return cs.getBigDecimal(columnName);</span>
+  }
 
   public BigDecimal getBigDecimal(String columnName, int scale) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L109">  }</span>
+<span class="nc" id="L109">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public InputStream getBinaryStream(int columnIndex) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L113">  }</span>
+<span class="nc" id="L113">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public InputStream getBinaryStream(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L117">  }</span>
+<span class="nc" id="L117">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Blob getBlob(String colName) throws SQLException {
-    return cs.getBlob(colName);
-<span class="nc" id="L121">  }</span>
+<span class="nc" id="L121">    return cs.getBlob(colName);</span>
+  }
 
   public Blob getBlob(int i) throws SQLException {
-    return cs.getBlob(i);
-<span class="nc" id="L125">  }</span>
+<span class="nc" id="L125">    return cs.getBlob(i);</span>
+  }
 
   public boolean getBoolean(int columnIndex) throws SQLException {
-    return cs.getBoolean(columnIndex);
-<span class="nc" id="L129">  }</span>
+<span class="nc" id="L129">    return cs.getBoolean(columnIndex);</span>
+  }
 
   public boolean getBoolean(String columnName) throws SQLException {
-    return cs.getBoolean(columnName);
-<span class="nc" id="L133">  }</span>
+<span class="nc" id="L133">    return cs.getBoolean(columnName);</span>
+  }
 
   public byte getByte(int columnIndex) throws SQLException {
-    return cs.getByte(columnIndex);
-<span class="nc" id="L137">  }</span>
+<span class="nc" id="L137">    return cs.getByte(columnIndex);</span>
+  }
 
   public byte getByte(String columnName) throws SQLException {
-    return cs.getByte(columnName);
-<span class="nc" id="L141">  }</span>
+<span class="nc" id="L141">    return cs.getByte(columnName);</span>
+  }
 
   public byte[] getBytes(int columnIndex) throws SQLException {
-    return cs.getBytes(columnIndex);
-<span class="nc" id="L145">  }</span>
+<span class="nc" id="L145">    return cs.getBytes(columnIndex);</span>
+  }
 
   public byte[] getBytes(String columnName) throws SQLException {
-    return cs.getBytes(columnName);
-<span class="nc" id="L149">  }</span>
+<span class="nc" id="L149">    return cs.getBytes(columnName);</span>
+  }
 
   public Reader getCharacterStream(int columnIndex) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L153">  }</span>
+<span class="nc" id="L153">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Reader getCharacterStream(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L157">  }</span>
+<span class="nc" id="L157">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Clob getClob(String colName) throws SQLException {
-    return cs.getClob(colName);
-<span class="nc" id="L161">  }</span>
+<span class="nc" id="L161">    return cs.getClob(colName);</span>
+  }
 
   public Clob getClob(int i) throws SQLException {
-    return cs.getClob(i);
-<span class="nc" id="L165">  }</span>
+<span class="nc" id="L165">    return cs.getClob(i);</span>
+  }
 
   public int getConcurrency() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L169">  }</span>
+<span class="nc" id="L169">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public String getCursorName() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L173">  }</span>
+<span class="nc" id="L173">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Date getDate(int columnIndex) throws SQLException {
-    return cs.getDate(columnIndex);
-<span class="nc" id="L177">  }</span>
+<span class="nc" id="L177">    return cs.getDate(columnIndex);</span>
+  }
 
   public Date getDate(int columnIndex, Calendar cal) throws SQLException {
-    return cs.getDate(columnIndex, cal);
-<span class="nc" id="L181">  }</span>
+<span class="nc" id="L181">    return cs.getDate(columnIndex, cal);</span>
+  }
 
   public Date getDate(String columnName) throws SQLException {
-    return cs.getDate(columnName);
-<span class="nc" id="L185">  }</span>
+<span class="nc" id="L185">    return cs.getDate(columnName);</span>
+  }
 
   public Date getDate(String columnName, Calendar cal) throws SQLException {
-    return cs.getDate(columnName, cal);
-<span class="nc" id="L189">  }</span>
+<span class="nc" id="L189">    return cs.getDate(columnName, cal);</span>
+  }
 
   public double getDouble(int columnIndex) throws SQLException {
-    return cs.getDouble(columnIndex);
-<span class="nc" id="L193">  }</span>
+<span class="nc" id="L193">    return cs.getDouble(columnIndex);</span>
+  }
 
   public double getDouble(String columnName) throws SQLException {
-    return cs.getDouble(columnName);
-<span class="nc" id="L197">  }</span>
+<span class="nc" id="L197">    return cs.getDouble(columnName);</span>
+  }
 
   public int getFetchDirection() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L201">  }</span>
+<span class="nc" id="L201">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public int getFetchSize() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L205">  }</span>
+<span class="nc" id="L205">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public float getFloat(int columnIndex) throws SQLException {
-    return cs.getFloat(columnIndex);
-<span class="nc" id="L209">  }</span>
+<span class="nc" id="L209">    return cs.getFloat(columnIndex);</span>
+  }
 
   public float getFloat(String columnName) throws SQLException {
-    return cs.getFloat(columnName);
-<span class="nc" id="L213">  }</span>
+<span class="nc" id="L213">    return cs.getFloat(columnName);</span>
+  }
 
   public int getInt(int columnIndex) throws SQLException {
-    return cs.getInt(columnIndex);
-<span class="nc" id="L217">  }</span>
+<span class="nc" id="L217">    return cs.getInt(columnIndex);</span>
+  }
 
   public int getInt(String columnName) throws SQLException {
-    return cs.getInt(columnName);
-<span class="nc" id="L221">  }</span>
+<span class="nc" id="L221">    return cs.getInt(columnName);</span>
+  }
 
   public long getLong(int columnIndex) throws SQLException {
-    return cs.getLong(columnIndex);
-<span class="nc" id="L225">  }</span>
+<span class="nc" id="L225">    return cs.getLong(columnIndex);</span>
+  }
 
   public long getLong(String columnName) throws SQLException {
-    return cs.getLong(columnName);
-<span class="nc" id="L229">  }</span>
+<span class="nc" id="L229">    return cs.getLong(columnName);</span>
+  }
 
   public ResultSetMetaData getMetaData() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L233">  }</span>
+<span class="nc" id="L233">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public Object getObject(String colName, Map map) throws SQLException {
-    return cs.getObject(colName, map);
-<span class="nc" id="L237">  }</span>
+<span class="nc" id="L237">    return cs.getObject(colName, map);</span>
+  }
 
   public Object getObject(int columnIndex) throws SQLException {
-    return cs.getObject(columnIndex);
-<span class="nc" id="L241">  }</span>
+<span class="nc" id="L241">    return cs.getObject(columnIndex);</span>
+  }
 
   public Object getObject(String columnName) throws SQLException {
-    return cs.getObject(columnName);
-<span class="nc" id="L245">  }</span>
+<span class="nc" id="L245">    return cs.getObject(columnName);</span>
+  }
 
   public Object getObject(int i, Map map) throws SQLException {
-    return cs.getObject(i, map);
-<span class="nc" id="L249">  }</span>
+<span class="nc" id="L249">    return cs.getObject(i, map);</span>
+  }
 
   public Ref getRef(String colName) throws SQLException {
-    return cs.getRef(colName);
-<span class="nc" id="L253">  }</span>
+<span class="nc" id="L253">    return cs.getRef(colName);</span>
+  }
 
   public Ref getRef(int i) throws SQLException {
-    return cs.getRef(i);
-<span class="nc" id="L257">  }</span>
+<span class="nc" id="L257">    return cs.getRef(i);</span>
+  }
 
   public int getRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L261">  }</span>
+<span class="nc" id="L261">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public short getShort(int columnIndex) throws SQLException {
-    return cs.getShort(columnIndex);
-<span class="nc" id="L265">  }</span>
+<span class="nc" id="L265">    return cs.getShort(columnIndex);</span>
+  }
 
   public short getShort(String columnName) throws SQLException {
-    return cs.getShort(columnName);
-<span class="nc" id="L269">  }</span>
+<span class="nc" id="L269">    return cs.getShort(columnName);</span>
+  }
 
   public Statement getStatement() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L273">  }</span>
+<span class="nc" id="L273">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public String getString(int columnIndex) throws SQLException {
-    return cs.getString(columnIndex);
-<span class="nc" id="L277">  }</span>
+<span class="nc" id="L277">    return cs.getString(columnIndex);</span>
+  }
 
   public String getString(String columnName) throws SQLException {
-    return cs.getString(columnName);
-<span class="nc" id="L281">  }</span>
+<span class="nc" id="L281">    return cs.getString(columnName);</span>
+  }
 
   public Time getTime(int columnIndex) throws SQLException {
-    return cs.getTime(columnIndex);
-<span class="nc" id="L285">  }</span>
+<span class="nc" id="L285">    return cs.getTime(columnIndex);</span>
+  }
 
   public Time getTime(int columnIndex, Calendar cal) throws SQLException {
-    return cs.getTime(columnIndex, cal);
-<span class="nc" id="L289">  }</span>
+<span class="nc" id="L289">    return cs.getTime(columnIndex, cal);</span>
+  }
 
   public Time getTime(String columnName) throws SQLException {
-    return cs.getTime(columnName);
-<span class="nc" id="L293">  }</span>
+<span class="nc" id="L293">    return cs.getTime(columnName);</span>
+  }
 
   public Time getTime(String columnName, Calendar cal) throws SQLException {
-    return cs.getTime(columnName, cal);
-<span class="nc" id="L297">  }</span>
+<span class="nc" id="L297">    return cs.getTime(columnName, cal);</span>
+  }
 
   public Timestamp getTimestamp(int columnIndex) throws SQLException {
-    return cs.getTimestamp(columnIndex);
-<span class="nc" id="L301">  }</span>
+<span class="nc" id="L301">    return cs.getTimestamp(columnIndex);</span>
+  }
 
   public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
-    return cs.getTimestamp(columnIndex, cal);
-<span class="nc" id="L305">  }</span>
+<span class="nc" id="L305">    return cs.getTimestamp(columnIndex, cal);</span>
+  }
 
   public Timestamp getTimestamp(String columnName) throws SQLException {
-    return cs.getTimestamp(columnName);
-<span class="nc" id="L309">  }</span>
+<span class="nc" id="L309">    return cs.getTimestamp(columnName);</span>
+  }
 
   public Timestamp getTimestamp(String columnName, Calendar cal) throws SQLException {
-    return cs.getTimestamp(columnName, cal);
-<span class="nc" id="L313">  }</span>
+<span class="nc" id="L313">    return cs.getTimestamp(columnName, cal);</span>
+  }
 
   public int getType() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L317">  }</span>
+<span class="nc" id="L317">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L321">  }</span>
+<span class="nc" id="L321">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public InputStream getUnicodeStream(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L325">  }</span>
+<span class="nc" id="L325">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public URL getURL(int columnIndex) throws SQLException {
-    return cs.getURL(columnIndex);
-<span class="nc" id="L329">  }</span>
+<span class="nc" id="L329">    return cs.getURL(columnIndex);</span>
+  }
 
   public URL getURL(String columnName) throws SQLException {
-    return cs.getURL(columnName);
-<span class="nc" id="L333">  }</span>
+<span class="nc" id="L333">    return cs.getURL(columnName);</span>
+  }
 
   public SQLWarning getWarnings() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L337">  }</span>
+<span class="nc" id="L337">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void insertRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L341">  }</span>
+<span class="nc" id="L341">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean isAfterLast() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L345">  }</span>
+<span class="nc" id="L345">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean isBeforeFirst() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L349">  }</span>
+<span class="nc" id="L349">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean isFirst() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L353">  }</span>
+<span class="nc" id="L353">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean isLast() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L357">  }</span>
+<span class="nc" id="L357">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean last() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L361">  }</span>
+<span class="nc" id="L361">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void moveToCurrentRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L365">  }</span>
+<span class="nc" id="L365">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void moveToInsertRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L369">  }</span>
+<span class="nc" id="L369">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean next() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L373">  }</span>
+<span class="nc" id="L373">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean previous() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L377">  }</span>
+<span class="nc" id="L377">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void refreshRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L381">  }</span>
+<span class="nc" id="L381">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean relative(int rows) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L385">  }</span>
+<span class="nc" id="L385">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean rowDeleted() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L389">  }</span>
+<span class="nc" id="L389">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean rowInserted() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L393">  }</span>
+<span class="nc" id="L393">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean rowUpdated() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L397">  }</span>
+<span class="nc" id="L397">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void setFetchDirection(int direction) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L401">  }</span>
+<span class="nc" id="L401">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void setFetchSize(int rows) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L405">  }</span>
+<span class="nc" id="L405">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateArray(int columnIndex, Array x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L409">  }</span>
+<span class="nc" id="L409">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateArray(String columnName, Array x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L413">  }</span>
+<span class="nc" id="L413">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateAsciiStream(int columnIndex, InputStream x, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L417">  }</span>
+<span class="nc" id="L417">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateAsciiStream(String columnName, InputStream x, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L421">  }</span>
+<span class="nc" id="L421">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBigDecimal(int columnIndex, BigDecimal x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L425">  }</span>
+<span class="nc" id="L425">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBigDecimal(String columnName, BigDecimal x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L429">  }</span>
+<span class="nc" id="L429">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBinaryStream(int columnIndex, InputStream x, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L433">  }</span>
+<span class="nc" id="L433">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBinaryStream(String columnName, InputStream x, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L437">  }</span>
+<span class="nc" id="L437">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBlob(int columnIndex, Blob x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L441">  }</span>
+<span class="nc" id="L441">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBlob(String columnName, Blob x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L445">  }</span>
+<span class="nc" id="L445">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBoolean(int columnIndex, boolean x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L449">  }</span>
+<span class="nc" id="L449">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBoolean(String columnName, boolean x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L453">  }</span>
+<span class="nc" id="L453">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateByte(int columnIndex, byte x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L457">  }</span>
+<span class="nc" id="L457">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateByte(String columnName, byte x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L461">  }</span>
+<span class="nc" id="L461">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBytes(int columnIndex, byte x[]) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L465">  }</span>
+<span class="nc" id="L465">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateBytes(String columnName, byte x[]) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L469">  }</span>
+<span class="nc" id="L469">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateCharacterStream(int columnIndex, Reader x, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L473">  }</span>
+<span class="nc" id="L473">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateCharacterStream(String columnName, Reader reader, int length) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L477">  }</span>
+<span class="nc" id="L477">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateClob(int columnIndex, Clob x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L481">  }</span>
+<span class="nc" id="L481">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateClob(String columnName, Clob x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L485">  }</span>
+<span class="nc" id="L485">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateDate(int columnIndex, Date x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L489">  }</span>
+<span class="nc" id="L489">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateDate(String columnName, Date x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L493">  }</span>
+<span class="nc" id="L493">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateDouble(int columnIndex, double x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L497">  }</span>
+<span class="nc" id="L497">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateDouble(String columnName, double x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L501">  }</span>
+<span class="nc" id="L501">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateFloat(int columnIndex, float x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L505">  }</span>
+<span class="nc" id="L505">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateFloat(String columnName, float x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L509">  }</span>
+<span class="nc" id="L509">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateInt(int columnIndex, int x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L513">  }</span>
+<span class="nc" id="L513">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateInt(String columnName, int x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L517">  }</span>
+<span class="nc" id="L517">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateLong(int columnIndex, long x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L521">  }</span>
+<span class="nc" id="L521">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateLong(String columnName, long x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L525">  }</span>
+<span class="nc" id="L525">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateNull(int columnIndex) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L529">  }</span>
+<span class="nc" id="L529">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateNull(String columnName) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L533">  }</span>
+<span class="nc" id="L533">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateObject(int columnIndex, Object x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L537">  }</span>
+<span class="nc" id="L537">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateObject(int columnIndex, Object x, int scale) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L541">  }</span>
+<span class="nc" id="L541">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateObject(String columnName, Object x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L545">  }</span>
+<span class="nc" id="L545">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateObject(String columnName, Object x, int scale) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L549">  }</span>
+<span class="nc" id="L549">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateRef(int columnIndex, Ref x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L553">  }</span>
+<span class="nc" id="L553">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateRef(String columnName, Ref x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L557">  }</span>
+<span class="nc" id="L557">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateRow() throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L561">  }</span>
+<span class="nc" id="L561">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateShort(int columnIndex, short x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L565">  }</span>
+<span class="nc" id="L565">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateShort(String columnName, short x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L569">  }</span>
+<span class="nc" id="L569">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateString(int columnIndex, String x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L573">  }</span>
+<span class="nc" id="L573">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateString(String columnName, String x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L577">  }</span>
+<span class="nc" id="L577">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateTime(int columnIndex, Time x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L581">  }</span>
+<span class="nc" id="L581">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateTime(String columnName, Time x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L585">  }</span>
+<span class="nc" id="L585">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateTimestamp(int columnIndex, Timestamp x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L589">  }</span>
+<span class="nc" id="L589">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public void updateTimestamp(String columnName, Timestamp x) throws SQLException {
-    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);
-<span class="nc" id="L593">  }</span>
+<span class="nc" id="L593">    throw new UnsupportedOperationException(&quot;CallableStatement does not support this method.&quot;);</span>
+  }
 
   public boolean wasNull() throws SQLException {
-    return cs.wasNull();
+<span class="nc" id="L597">    return cs.wasNull();</span>
   }
-<span class="nc" id="L598"></span>
+
   public &lt;T&gt; T unwrap(Class&lt;T&gt; iface) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L602">    return null;</span>
   }
-<span class="nc" id="L603"></span>
+
   public boolean isWrapperFor(Class&lt;?&gt; iface) throws SQLException {
     // TODO Auto-generated method stub
-    return false;
+<span class="nc" id="L607">    return false;</span>
   }
-<span class="nc" id="L608"></span>
+
   public RowId getRowId(int columnIndex) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L612">    return null;</span>
   }
-<span class="nc" id="L613"></span>
+
   public RowId getRowId(String columnLabel) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L617">    return null;</span>
   }
 
-<span class="nc" id="L619">  public void updateRowId(int columnIndex, RowId x) throws SQLException {</span>
+  public void updateRowId(int columnIndex, RowId x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L623">  }</span>
 
-<span class="nc" id="L624">  public void updateRowId(String columnLabel, RowId x) throws SQLException {</span>
+  public void updateRowId(String columnLabel, RowId x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
-<span class="nc" id="L628"></span>
+<span class="nc" id="L628">  }</span>
+
   public int getHoldability() throws SQLException {
     // TODO Auto-generated method stub
-    return 0;
+<span class="nc" id="L632">    return 0;</span>
   }
-<span class="nc" id="L633"></span>
+
   public boolean isClosed() throws SQLException {
     // TODO Auto-generated method stub
-    return false;
+<span class="nc" id="L637">    return false;</span>
   }
 
-<span class="nc" id="L639">  public void updateNString(int columnIndex, String nString) throws SQLException {</span>
+  public void updateNString(int columnIndex, String nString) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L643">  }</span>
 
-<span class="nc" id="L644">  public void updateNString(String columnLabel, String nString) throws SQLException {</span>
+  public void updateNString(String columnLabel, String nString) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L648">  }</span>
 
-<span class="nc" id="L649">  public void updateNClob(int columnIndex, NClob nClob) throws SQLException {</span>
+  public void updateNClob(int columnIndex, NClob nClob) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L653">  }</span>
 
-<span class="nc" id="L654">  public void updateNClob(String columnLabel, NClob nClob) throws SQLException {</span>
+  public void updateNClob(String columnLabel, NClob nClob) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
-<span class="nc" id="L658"></span>
+<span class="nc" id="L658">  }</span>
+
   public NClob getNClob(int columnIndex) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L662">    return null;</span>
   }
-<span class="nc" id="L663"></span>
+
   public NClob getNClob(String columnLabel) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L667">    return null;</span>
   }
-<span class="nc" id="L668"></span>
+
   public SQLXML getSQLXML(int columnIndex) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L672">    return null;</span>
   }
-<span class="nc" id="L673"></span>
+
   public SQLXML getSQLXML(String columnLabel) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L677">    return null;</span>
   }
 
-<span class="nc" id="L679">  public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {</span>
+  public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L683">  }</span>
 
-<span class="nc" id="L684">  public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {</span>
+  public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
-<span class="nc" id="L688"></span>
+<span class="nc" id="L688">  }</span>
+
   public String getNString(int columnIndex) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L692">    return null;</span>
   }
-<span class="nc" id="L693"></span>
+
   public String getNString(String columnLabel) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L697">    return null;</span>
   }
-<span class="nc" id="L698"></span>
+
   public Reader getNCharacterStream(int columnIndex) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L702">    return null;</span>
   }
-<span class="nc" id="L703"></span>
+
   public Reader getNCharacterStream(String columnLabel) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L707">    return null;</span>
   }
 
-<span class="nc" id="L709">  public void updateNCharacterStream(int columnIndex, Reader x, long length) throws SQLException {</span>
+  public void updateNCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L713">  }</span>
 
-<span class="nc" id="L714">  public void updateNCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {</span>
+  public void updateNCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L718">  }</span>
 
-<span class="nc" id="L719">  public void updateAsciiStream(int columnIndex, InputStream x, long length) throws SQLException {</span>
+  public void updateAsciiStream(int columnIndex, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L723">  }</span>
 
-<span class="nc" id="L724">  public void updateBinaryStream(int columnIndex, InputStream x, long length) throws SQLException {</span>
+  public void updateBinaryStream(int columnIndex, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L728">  }</span>
 
-<span class="nc" id="L729">  public void updateCharacterStream(int columnIndex, Reader x, long length) throws SQLException {</span>
+  public void updateCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L733">  }</span>
 
-<span class="nc" id="L734">  public void updateAsciiStream(String columnLabel, InputStream x, long length) throws SQLException {</span>
+  public void updateAsciiStream(String columnLabel, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L738">  }</span>
 
-<span class="nc" id="L739">  public void updateBinaryStream(String columnLabel, InputStream x, long length) throws SQLException {</span>
+  public void updateBinaryStream(String columnLabel, InputStream x, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L743">  }</span>
 
-<span class="nc" id="L744">  public void updateCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {</span>
+  public void updateCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L748">  }</span>
 
-<span class="nc" id="L749">  public void updateBlob(int columnIndex, InputStream inputStream, long length) throws SQLException {</span>
+  public void updateBlob(int columnIndex, InputStream inputStream, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L753">  }</span>
 
-<span class="nc" id="L754">  public void updateBlob(String columnLabel, InputStream inputStream, long length) throws SQLException {</span>
+  public void updateBlob(String columnLabel, InputStream inputStream, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L758">  }</span>
 
-<span class="nc" id="L759">  public void updateClob(int columnIndex, Reader reader, long length) throws SQLException {</span>
+  public void updateClob(int columnIndex, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L763">  }</span>
 
-<span class="nc" id="L764">  public void updateClob(String columnLabel, Reader reader, long length) throws SQLException {</span>
+  public void updateClob(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L768">  }</span>
 
-<span class="nc" id="L769">  public void updateNClob(int columnIndex, Reader reader, long length) throws SQLException {</span>
+  public void updateNClob(int columnIndex, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L773">  }</span>
 
-<span class="nc" id="L774">  public void updateNClob(String columnLabel, Reader reader, long length) throws SQLException {</span>
+  public void updateNClob(String columnLabel, Reader reader, long length) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L778">  }</span>
 
-<span class="nc" id="L779">  public void updateNCharacterStream(int columnIndex, Reader x) throws SQLException {</span>
+  public void updateNCharacterStream(int columnIndex, Reader x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L783">  }</span>
 
-<span class="nc" id="L784">  public void updateNCharacterStream(String columnLabel, Reader reader) throws SQLException {</span>
+  public void updateNCharacterStream(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L788">  }</span>
 
-<span class="nc" id="L789">  public void updateAsciiStream(int columnIndex, InputStream x) throws SQLException {</span>
+  public void updateAsciiStream(int columnIndex, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L793">  }</span>
 
-<span class="nc" id="L794">  public void updateBinaryStream(int columnIndex, InputStream x) throws SQLException {</span>
+  public void updateBinaryStream(int columnIndex, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L798">  }</span>
 
-<span class="nc" id="L799">  public void updateCharacterStream(int columnIndex, Reader x) throws SQLException {</span>
+  public void updateCharacterStream(int columnIndex, Reader x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L803">  }</span>
 
-<span class="nc" id="L804">  public void updateAsciiStream(String columnLabel, InputStream x) throws SQLException {</span>
+  public void updateAsciiStream(String columnLabel, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L808">  }</span>
 
-<span class="nc" id="L809">  public void updateBinaryStream(String columnLabel, InputStream x) throws SQLException {</span>
+  public void updateBinaryStream(String columnLabel, InputStream x) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L813">  }</span>
 
-<span class="nc" id="L814">  public void updateCharacterStream(String columnLabel, Reader reader) throws SQLException {</span>
+  public void updateCharacterStream(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L818">  }</span>
 
-<span class="nc" id="L819">  public void updateBlob(int columnIndex, InputStream inputStream) throws SQLException {</span>
+  public void updateBlob(int columnIndex, InputStream inputStream) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L823">  }</span>
 
-<span class="nc" id="L824">  public void updateBlob(String columnLabel, InputStream inputStream) throws SQLException {</span>
+  public void updateBlob(String columnLabel, InputStream inputStream) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L828">  }</span>
 
-<span class="nc" id="L829">  public void updateClob(int columnIndex, Reader reader) throws SQLException {</span>
+  public void updateClob(int columnIndex, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L833">  }</span>
 
-<span class="nc" id="L834">  public void updateClob(String columnLabel, Reader reader) throws SQLException {</span>
+  public void updateClob(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L838">  }</span>
 
-<span class="nc" id="L839">  public void updateNClob(int columnIndex, Reader reader) throws SQLException {</span>
+  public void updateNClob(int columnIndex, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
+<span class="nc" id="L843">  }</span>
 
-<span class="nc" id="L844">  public void updateNClob(String columnLabel, Reader reader) throws SQLException {</span>
+  public void updateNClob(String columnLabel, Reader reader) throws SQLException {
     // TODO Auto-generated method stub
 
-  }
-<span class="nc" id="L848"></span>
+<span class="nc" id="L848">  }</span>
+
   public &lt;T&gt; T getObject(int columnIndex, Class&lt;T&gt; type) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L852">    return null;</span>
   }
-<span class="nc" id="L853"></span>
+
   public &lt;T&gt; T getObject(String columnLabel, Class&lt;T&gt; type) throws SQLException {
     // TODO Auto-generated method stub
-    return null;
+<span class="nc" id="L857">    return null;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

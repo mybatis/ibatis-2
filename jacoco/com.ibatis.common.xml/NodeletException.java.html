@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NodeletException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.xml</a> &gt; <span class="el_source">NodeletException.java</span></div><h1>NodeletException.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,49 @@
  */
 package com.ibatis.common.xml;
 
-<span class="nc" id="L18">public class NodeletException extends Exception {</span>
-<span class="nc" id="L19"></span>
+/**
+ * The Class NodeletException.
+ */
+public class NodeletException extends Exception {
+
+  /**
+   * Instantiates a new nodelet exception.
+   */
   public NodeletException() {
-    super();
-<span class="nc" id="L22">  }</span>
-<span class="nc" id="L23"></span>
+<span class="nc" id="L27">    super();</span>
+<span class="nc" id="L28">  }</span>
+
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param msg
+   *          the msg
+   */
   public NodeletException(String msg) {
-    super(msg);
-<span class="nc" id="L26">  }</span>
-<span class="nc" id="L27"></span>
+<span class="nc" id="L37">    super(msg);</span>
+<span class="nc" id="L38">  }</span>
+
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param cause
+   *          the cause
+   */
   public NodeletException(Throwable cause) {
-    super(cause);
-<span class="nc" id="L30">  }</span>
-<span class="nc" id="L31"></span>
+<span class="nc" id="L47">    super(cause);</span>
+<span class="nc" id="L48">  }</span>
+
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param msg
+   *          the msg
+   * @param cause
+   *          the cause
+   */
   public NodeletException(String msg, Throwable cause) {
-    super(msg, cause);
-  }
+<span class="nc" id="L59">    super(msg, cause);</span>
+<span class="nc" id="L60">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

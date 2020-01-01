@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EnumTypeHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">EnumTypeHandler.java</span></div><h1>EnumTypeHandler.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -21,50 +21,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * String implementation of TypeHandler
+ * String implementation of TypeHandler.
  */
 public class EnumTypeHandler extends BaseTypeHandler implements TypeHandler {
-<span class="fc" id="L27"></span>
-<span class="fc" id="L28">  private Class type;</span>
-<span class="fc" id="L29"></span>
-  public EnumTypeHandler(Class type) {
-    this.type = type;
-<span class="nc" id="L32">  }</span>
-<span class="nc" id="L33"></span>
+
+  /** The type. */
+  private Class type;
+
+  /**
+   * Instantiates a new enum type handler.
+   *
+   * @param type
+   *          the type
+   */
+<span class="fc" id="L37">  public EnumTypeHandler(Class type) {</span>
+<span class="fc" id="L38">    this.type = type;</span>
+<span class="fc" id="L39">  }</span>
+
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
-    ps.setString(i, parameter.toString());
-<span class="fc" id="L36">  }</span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed."></span>
-<span class="nc" id="L38">  public Object getResult(ResultSet rs, String columnName) throws SQLException {</span>
-    Object s = rs.getString(columnName);
-<span class="fc" id="L40">    if (rs.wasNull()) {</span>
-      return null;
+<span class="nc" id="L42">    ps.setString(i, parameter.toString());</span>
+<span class="nc" id="L43">  }</span>
+
+  public Object getResult(ResultSet rs, String columnName) throws SQLException {
+<span class="fc" id="L46">    Object s = rs.getString(columnName);</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">    if (rs.wasNull()) {</span>
+<span class="nc" id="L48">      return null;</span>
     } else {
-      return Enum.valueOf(type, (String) s);
+<span class="fc" id="L50">      return Enum.valueOf(type, (String) s);</span>
     }
-<span class="nc" id="L45">  }</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed."></span>
-<span class="nc" id="L47">  public Object getResult(ResultSet rs, int columnIndex) throws SQLException {</span>
-    Object s = rs.getString(columnIndex);
-<span class="nc" id="L49">    if (rs.wasNull()) {</span>
-      return null;
+  }
+
+  public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
+<span class="nc" id="L55">    Object s = rs.getString(columnIndex);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (rs.wasNull()) {</span>
+<span class="nc" id="L57">      return null;</span>
     } else {
-      return Enum.valueOf(type, (String) s);
+<span class="nc" id="L59">      return Enum.valueOf(type, (String) s);</span>
     }
-<span class="nc" id="L54">  }</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed."></span>
-<span class="nc" id="L56">  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {</span>
-    Object s = cs.getString(columnIndex);
-<span class="nc" id="L58">    if (cs.wasNull()) {</span>
-      return null;
+  }
+
+  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
+<span class="nc" id="L64">    Object s = cs.getString(columnIndex);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    if (cs.wasNull()) {</span>
+<span class="nc" id="L66">      return null;</span>
     } else {
-      return Enum.valueOf(type, (String) s);
+<span class="nc" id="L68">      return Enum.valueOf(type, (String) s);</span>
     }
-<span class="nc" id="L63">  }</span>
+  }
 
   public Object valueOf(String s) {
-    return Enum.valueOf(type, (String) s);
+<span class="nc" id="L73">    return Enum.valueOf(type, (String) s);</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

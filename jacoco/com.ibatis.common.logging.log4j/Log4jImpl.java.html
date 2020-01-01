@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Log4jImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.logging.log4j</a> &gt; <span class="el_source">Log4jImpl.java</span></div><h1>Log4jImpl.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -17,33 +17,43 @@ package com.ibatis.common.logging.log4j;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class Log4jImpl.
+ */
 public class Log4jImpl implements com.ibatis.common.logging.Log {
-<span class="nc" id="L21"></span>
-<span class="nc" id="L22">  private Logger log;</span>
-<span class="nc" id="L23"></span>
-  public Log4jImpl(Class clazz) {
-    log = Logger.getLogger(clazz);
-<span class="nc" id="L26">  }</span>
+
+  /** The log. */
+  private Logger log;
+
+  /**
+   * Instantiates a new log 4 j impl.
+   *
+   * @param clazz
+   *          the clazz
+   */
+<span class="nc" id="L34">  public Log4jImpl(Class clazz) {</span>
+<span class="nc" id="L35">    log = Logger.getLogger(clazz);</span>
+<span class="nc" id="L36">  }</span>
 
   public boolean isDebugEnabled() {
-    return log.isDebugEnabled();
-<span class="nc" id="L30">  }</span>
-<span class="nc" id="L31"></span>
-  public void error(String s, Throwable e) {
-    log.error(s, e);
-<span class="nc" id="L34">  }</span>
-<span class="nc" id="L35"></span>
-  public void error(String s) {
-    log.error(s);
-<span class="nc" id="L38">  }</span>
-<span class="nc" id="L39"></span>
-  public void debug(String s) {
-    log.debug(s);
-<span class="nc" id="L42">  }</span>
-<span class="nc" id="L43"></span>
-  public void warn(String s) {
-    log.warn(s);
+<span class="nc" id="L39">    return log.isDebugEnabled();</span>
   }
 
+  public void error(String s, Throwable e) {
+<span class="nc" id="L43">    log.error(s, e);</span>
+<span class="nc" id="L44">  }</span>
+
+  public void error(String s) {
+<span class="nc" id="L47">    log.error(s);</span>
+<span class="nc" id="L48">  }</span>
+
+  public void debug(String s) {
+<span class="nc" id="L51">    log.debug(s);</span>
+<span class="nc" id="L52">  }</span>
+
+  public void warn(String s) {
+<span class="nc" id="L55">    log.warn(s);</span>
+<span class="nc" id="L56">  }</span>
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

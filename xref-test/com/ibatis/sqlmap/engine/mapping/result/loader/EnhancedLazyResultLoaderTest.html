@@ -13,7 +13,7 @@
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> junit.framework.TestCase;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/EnhancedLazyResultLoaderTest.html">EnhancedLazyResultLoaderTest</a> <strong class="jxr_keyword">extends</strong> TestCase {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="EnhancedLazyResultLoaderTest" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/EnhancedLazyResultLoaderTest.html#EnhancedLazyResultLoaderTest">EnhancedLazyResultLoaderTest</a> <strong class="jxr_keyword">extends</strong> TestCase {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">   * Test if a method in a proxied object can access a default method of another class in the same package with default</em>
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      SqlMapClientImpl client = setupMockSqlMapClientImpl();
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      EnhancedLazyResultLoader loader = <strong class="jxr_keyword">new</strong> EnhancedLazyResultLoader(client, <span class="jxr_string">"bean2"</span>, <strong class="jxr_keyword">null</strong>, Bean2.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html">Bean2</a> bean2 = (Bean2) loader.loadResult();
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <a name="Bean2"<a name="Bean2" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a>="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a> bean2 = (<a name="Bean2" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a>) loader.loadResult();
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_comment">// cglib might throw an IllegalAccessException</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      bean2.testDefaultAccess();
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      SqlMapClientImpl client = setupMockSqlMapClientImpl();
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      EnhancedLazyResultLoader loader = <strong class="jxr_keyword">new</strong> EnhancedLazyResultLoader(client, <span class="jxr_string">"bean3"</span>, <strong class="jxr_keyword">null</strong>, TestBean3.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/EnhancedLazyResultLoaderTest.html">TestBean3</a> bean = (TestBean3) loader.loadResult();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      TestBean3 bean = (TestBean3) loader.loadResult();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      assertEquals(<span class="jxr_string">"foobar"</span>, bean.getText());
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    }
@@ -72,11 +72,11 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        @Override
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>        <strong class="jxr_keyword">public</strong> Object queryForObject(String id, Object paramObject) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"bean1"</span>.equals(id)) {
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>            <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean1.html">Bean1</a>();
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>            <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="Bean1" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean1.html#Bean1">Bean1</a>();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"bean2"</span>.equals(id)) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>            <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html">Bean2</a> bean = <strong class="jxr_keyword">new</strong> <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html">Bean2</a>();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>            <a name="Bean2" href="../../../../../../../com/ibatis/<a name="Bean2" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a>p/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a> bean = <strong class="jxr_keyword">new</strong> <a name="Bean2" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean2.html#Bean2">Bean2</a>();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>            EnhancedLazyResultLoader loader = <strong class="jxr_keyword">new</strong> EnhancedLazyResultLoader(<strong class="jxr_keyword">this</strong>, <span class="jxr_string">"bean1"</span>, <strong class="jxr_keyword">null</strong>, Bean1.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>            bean.setBean1((Bean1) loader.loadResult());
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>            bean.setBean1((<a name="Bean1" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/test/Bean1.html#Bean1">Bean1</a>) loader.loadResult());
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>            <strong class="jxr_keyword">return</strong> bean;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"bean3"</span>.equals(id)) {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>            <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">return</strong> client;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>    }
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../../com/ibatis/sqlmap/engine/mapping/result/loader/EnhancedLazyResultLoaderTest.html">TestBean3</a> {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TestBean3 {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">public</strong> String getText() {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>        <strong class="jxr_keyword">return</strong> <span class="jxr_string">"foobar"</span>;
@@ -98,6 +98,6 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2016 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

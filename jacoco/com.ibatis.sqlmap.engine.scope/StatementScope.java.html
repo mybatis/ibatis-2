@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatementScope.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.scope</a> &gt; <span class="el_source">StatementScope.java</span></div><h1>StatementScope.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -25,207 +25,278 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Request based implementation of Scope interface
+ * Request based implementation of Scope interface.
  */
 public class StatementScope {
+
+  /** The session scope. */
   // Used by Any
   private SessionScope sessionScope;
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The statement. */
   private MappedStatement statement;
+
+  /** The parameter map. */
   private ParameterMap parameterMap;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The sql. */
   private Sql sql;
+
+  /** The dynamic parameter map. */
   // Used by DynamicSql
   private ParameterMap dynamicParameterMap;
+
+  /** The dynamic sql. */
   private String dynamicSql;
+
+  /** The result set. */
   // Used by N+1 Select solution
   private ResultSet resultSet;
+
+  /** The unique keys. */
   private Map uniqueKeys;
-<span class="fc" id="L44">  private boolean rowDataFound;</span>
-<span class="fc" id="L45">  private String currentNestedKey;</span>
-<span class="fc" id="L46"></span>
-<span class="fc" id="L47">  public StatementScope(SessionScope sessionScope) {</span>
-<span class="fc" id="L48">    this.errorContext = new ErrorContext();</span>
-    this.rowDataFound = true;
-    this.sessionScope = sessionScope;
-  }
+
+  /** The row data found. */
+  private boolean rowDataFound;
+
+  /** The current nested key. */
+  private String currentNestedKey;
 
   /**
-<span class="fc" id="L54">   * @return Returns the currentNestedKey.</span>
+   * Instantiates a new statement scope.
+   *
+   * @param sessionScope
+   *          the session scope
+   */
+<span class="fc" id="L77">  public StatementScope(SessionScope sessionScope) {</span>
+<span class="fc" id="L78">    this.errorContext = new ErrorContext();</span>
+<span class="fc" id="L79">    this.rowDataFound = true;</span>
+<span class="fc" id="L80">    this.sessionScope = sessionScope;</span>
+<span class="fc" id="L81">  }</span>
+
+  /**
+   * Gets the current nested key.
+   *
+   * @return Returns the currentNestedKey.
    */
   public String getCurrentNestedKey() {
-    return currentNestedKey;
+<span class="fc" id="L89">    return currentNestedKey;</span>
   }
 
   /**
-   * @param currentNestedKey
-<span class="fc" id="L62">   *          The currentNestedKey to set.</span>
-<span class="fc" id="L63">   */</span>
-  public void setCurrentNestedKey(String currentNestedKey) {
-    this.currentNestedKey = currentNestedKey;
-  }
-
-  /**
-   * Get the request's error context
+   * Sets the current nested key.
    *
-<span class="fc" id="L71">   * @return - the request's error context</span>
+   * @param currentNestedKey
+   *          The currentNestedKey to set.
+   */
+  public void setCurrentNestedKey(String currentNestedKey) {
+<span class="fc" id="L99">    this.currentNestedKey = currentNestedKey;</span>
+<span class="fc" id="L100">  }</span>
+
+  /**
+   * Get the request's error context.
+   *
+   * @return - the request's error context
    */
   public ErrorContext getErrorContext() {
-    return errorContext;
+<span class="fc" id="L108">    return errorContext;</span>
   }
 
   /**
-   * Get the session of the request
+   * Get the session of the request.
    *
-<span class="fc" id="L80">   * @return - the session</span>
+   * @return - the session
    */
   public SessionScope getSession() {
-    return sessionScope;
+<span class="fc" id="L117">    return sessionScope;</span>
   }
 
   /**
-   * Get the statement for the request
+   * Get the statement for the request.
    *
-<span class="fc" id="L89">   * @return - the statement</span>
+   * @return - the statement
    */
   public MappedStatement getStatement() {
-    return statement;
+<span class="fc" id="L126">    return statement;</span>
   }
 
   /**
-   * Set the statement for the request
+   * Set the statement for the request.
    *
    * @param statement
-<span class="fc" id="L99">   *          - the statement</span>
-<span class="fc" id="L100">   */</span>
+   *          - the statement
+   */
   public void setStatement(MappedStatement statement) {
-    this.statement = statement;
-  }
+<span class="fc" id="L136">    this.statement = statement;</span>
+<span class="fc" id="L137">  }</span>
 
   /**
-   * Get the parameter map for the request
+   * Get the parameter map for the request.
    *
-<span class="fc" id="L108">   * @return - the parameter map</span>
+   * @return - the parameter map
    */
   public ParameterMap getParameterMap() {
-    return parameterMap;
+<span class="fc" id="L145">    return parameterMap;</span>
   }
 
   /**
-   * Set the parameter map for the request
+   * Set the parameter map for the request.
    *
    * @param parameterMap
-<span class="fc" id="L118">   *          - the new parameter map</span>
-<span class="fc" id="L119">   */</span>
+   *          - the new parameter map
+   */
   public void setParameterMap(ParameterMap parameterMap) {
-    this.parameterMap = parameterMap;
-  }
+<span class="fc" id="L155">    this.parameterMap = parameterMap;</span>
+<span class="fc" id="L156">  }</span>
 
   /**
-   * Get the result map for the request
+   * Get the result map for the request.
    *
-<span class="fc" id="L127">   * @return - the result map</span>
+   * @return - the result map
    */
   public ResultMap getResultMap() {
-    return resultMap;
+<span class="fc" id="L164">    return resultMap;</span>
   }
 
   /**
-   * Set the result map for the request
+   * Set the result map for the request.
    *
    * @param resultMap
-<span class="fc" id="L137">   *          - the result map</span>
-<span class="fc" id="L138">   */</span>
+   *          - the result map
+   */
   public void setResultMap(ResultMap resultMap) {
-    this.resultMap = resultMap;
-  }
+<span class="fc" id="L174">    this.resultMap = resultMap;</span>
+<span class="fc" id="L175">  }</span>
 
   /**
-   * Get the SQL for the request
+   * Get the SQL for the request.
    *
-<span class="fc" id="L146">   * @return - the sql</span>
+   * @return - the sql
    */
   public Sql getSql() {
-    return sql;
+<span class="fc" id="L183">    return sql;</span>
   }
 
   /**
-   * Set the SQL for the request
+   * Set the SQL for the request.
    *
    * @param sql
-<span class="fc" id="L156">   *          - the sql</span>
-<span class="fc" id="L157">   */</span>
+   *          - the sql
+   */
   public void setSql(Sql sql) {
-    this.sql = sql;
-  }
+<span class="fc" id="L193">    this.sql = sql;</span>
+<span class="fc" id="L194">  }</span>
 
   /**
-   * Get the dynamic parameter for the request
+   * Get the dynamic parameter for the request.
    *
-<span class="fc" id="L165">   * @return - the dynamic parameter</span>
+   * @return - the dynamic parameter
    */
   public ParameterMap getDynamicParameterMap() {
-    return dynamicParameterMap;
+<span class="fc" id="L202">    return dynamicParameterMap;</span>
   }
 
   /**
-   * Set the dynamic parameter for the request
+   * Set the dynamic parameter for the request.
    *
    * @param dynamicParameterMap
-<span class="fc" id="L175">   *          - the dynamic parameter</span>
-<span class="fc" id="L176">   */</span>
+   *          - the dynamic parameter
+   */
   public void setDynamicParameterMap(ParameterMap dynamicParameterMap) {
-    this.dynamicParameterMap = dynamicParameterMap;
-  }
+<span class="fc" id="L212">    this.dynamicParameterMap = dynamicParameterMap;</span>
+<span class="fc" id="L213">  }</span>
 
   /**
-   * Get the dynamic SQL for the request
+   * Get the dynamic SQL for the request.
    *
-<span class="fc" id="L184">   * @return - the dynamic SQL</span>
+   * @return - the dynamic SQL
    */
   public String getDynamicSql() {
-    return dynamicSql;
+<span class="fc" id="L221">    return dynamicSql;</span>
   }
 
   /**
-   * Set the dynamic SQL for the request
+   * Set the dynamic SQL for the request.
    *
    * @param dynamicSql
-<span class="fc" id="L194">   *          - the dynamic SQL</span>
-<span class="fc" id="L195">   */</span>
+   *          - the dynamic SQL
+   */
   public void setDynamicSql(String dynamicSql) {
-    this.dynamicSql = dynamicSql;
-<span class="fc" id="L198">  }</span>
+<span class="fc" id="L231">    this.dynamicSql = dynamicSql;</span>
+<span class="fc" id="L232">  }</span>
 
+  /**
+   * Gets the result set.
+   *
+   * @return the result set
+   */
   public ResultSet getResultSet() {
-    return resultSet;
-<span class="fc" id="L202">  }</span>
-<span class="fc" id="L203"></span>
-  public void setResultSet(ResultSet resultSet) {
-    this.resultSet = resultSet;
-<span class="fc bfc" id="L206" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L207"></span>
-  public Map getUniqueKeys(ResultMap map) {
-<span class="fc" id="L209">    if (uniqueKeys == null) {</span>
-      return null;
-    }
-    return (Map) uniqueKeys.get(map);
-<span class="fc bfc" id="L213" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L214"></span>
-  public void setUniqueKeys(ResultMap map, Map keys) {
-<span class="fc" id="L216">    if (uniqueKeys == null) {</span>
-<span class="fc" id="L217">      uniqueKeys = new HashMap();</span>
-    }
-    this.uniqueKeys.put(map, keys);
-<span class="fc" id="L220">  }</span>
-
-  public boolean isRowDataFound() {
-    return rowDataFound;
-<span class="fc" id="L224">  }</span>
-<span class="fc" id="L225"></span>
-  public void setRowDataFound(boolean rowDataFound) {
-    this.rowDataFound = rowDataFound;
+<span class="fc" id="L240">    return resultSet;</span>
   }
 
+  /**
+   * Sets the result set.
+   *
+   * @param resultSet
+   *          the new result set
+   */
+  public void setResultSet(ResultSet resultSet) {
+<span class="fc" id="L250">    this.resultSet = resultSet;</span>
+<span class="fc" id="L251">  }</span>
+
+  /**
+   * Gets the unique keys.
+   *
+   * @param map
+   *          the map
+   * @return the unique keys
+   */
+  public Map getUniqueKeys(ResultMap map) {
+<span class="fc bfc" id="L261" title="All 2 branches covered.">    if (uniqueKeys == null) {</span>
+<span class="fc" id="L262">      return null;</span>
+    }
+<span class="fc" id="L264">    return (Map) uniqueKeys.get(map);</span>
+  }
+
+  /**
+   * Sets the unique keys.
+   *
+   * @param map
+   *          the map
+   * @param keys
+   *          the keys
+   */
+  public void setUniqueKeys(ResultMap map, Map keys) {
+<span class="fc bfc" id="L276" title="All 2 branches covered.">    if (uniqueKeys == null) {</span>
+<span class="fc" id="L277">      uniqueKeys = new HashMap();</span>
+    }
+<span class="fc" id="L279">    this.uniqueKeys.put(map, keys);</span>
+<span class="fc" id="L280">  }</span>
+
+  /**
+   * Checks if is row data found.
+   *
+   * @return true, if is row data found
+   */
+  public boolean isRowDataFound() {
+<span class="fc" id="L288">    return rowDataFound;</span>
+  }
+
+  /**
+   * Sets the row data found.
+   *
+   * @param rowDataFound
+   *          the new row data found
+   */
+  public void setRowDataFound(boolean rowDataFound) {
+<span class="fc" id="L298">    this.rowDataFound = rowDataFound;</span>
+<span class="fc" id="L299">  }</span>
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

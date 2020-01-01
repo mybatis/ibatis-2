@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../testapidocs/xmltester/MiniParser.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2017 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2019 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -36,12 +36,12 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.io.StringReader;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../xmltester/MiniParser.html">MiniParser</a> <strong class="jxr_keyword">extends</strong> DefaultHandler {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MiniParser" href="../xmltester/MiniParser.html#MiniParser">MiniParser</a> <strong class="jxr_keyword">extends</strong> DefaultHandler {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> <a href="../xmltester/MiniDom.html">MiniDom</a> dom;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> <a href="../xmltester/MiniElement.html">MiniElement</a> currentElement;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> <a name="MiniDom" href="../xmltester/MiniDom.html#MiniDom">MiniDom</a> dom;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> <a name="MiniElement" href="../xmltester/MiniElement.html#MiniElement">MiniElement</a> currentElement;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">public</strong> <a href="../xmltester/MiniParser.html">MiniParser</a>(String string) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">public</strong> <a name="MiniParser" href="../xmltester/MiniParser.html#MiniParser">MiniParser</a>(String string) {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>        StringReader reader = <strong class="jxr_keyword">new</strong> StringReader(string);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>        parse(reader);
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      }
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>    }
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">public</strong> <a href="../xmltester/MiniParser.html">MiniParser</a>(Reader reader) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">public</strong> <a name="MiniParser" href="../xmltester/MiniParser.html#MiniParser">MiniParser</a>(Reader reader) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>        parse(reader);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      } <strong class="jxr_keyword">catch</strong> (Exception e) {
@@ -58,13 +58,13 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>    }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <strong class="jxr_keyword">public</strong> <a href="../xmltester/MiniDom.html">MiniDom</a> getDom() {
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <strong class="jxr_keyword">public</strong> <a name="MiniDom" href="../xmltester/MiniDom.html#MiniDom">MiniDom</a> getDom() {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">return</strong> dom;
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    }
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>    @Override
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startDocument() {
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      dom = <strong class="jxr_keyword">new</strong> <a href="../xmltester/MiniDom.html">MiniDom</a>();
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      dom = <strong class="jxr_keyword">new</strong> <a name="MiniDom" href="../xmltester/MiniDom.html#MiniDom">MiniDom</a>();
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>    }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    @Override
@@ -73,10 +73,10 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>    @Override
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startElement(String uri, String localName, String qName, Attributes attributes) <strong class="jxr_keyword">throws</strong> SAXException {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <a href="../xmltester/MiniElement.html">MiniElement</a> element = <strong class="jxr_keyword">new</strong> <a href="../xmltester/MiniElement.html">MiniElement</a>(qName);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <a name="MiniElement" href="../xmltester/MiniElement.html#MiniE<a name="MiniElement" href="../xmltester/MiniElement.html#MiniElement">MiniElement</a>iElement</a> element = <strong class="jxr_keyword">new</strong> <a name="MiniElement" href="../xmltester/MiniElement.html#MiniElement">MiniElement</a>(qName);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">if</strong> (attributes != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>        <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = attributes.getLength(); i &lt; n; i++) {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          element.addAttribute(<strong class="jxr_keyword">new</strong> <a href="../xmltester/MiniAttribute.html">MiniAttribute</a>(attributes.getQName(i), attributes.getValue(i)));
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          element.addAttribute(<strong class="jxr_keyword">new</strong> <a name="MiniAttribute" href="../xmltester/MiniAttribute.html#MiniAttribute">MiniAttribute</a>(attributes.getQName(i), attributes.getValue(i)));
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>        }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">if</strong> (currentElement == <strong class="jxr_keyword">null</strong> &amp;&amp; dom.getRootElement() == <strong class="jxr_keyword">null</strong>) {
@@ -97,15 +97,15 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>    @Override
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> characters(<strong class="jxr_keyword">char</strong> ch[], <strong class="jxr_keyword">int</strong> start, <strong class="jxr_keyword">int</strong> length) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      <strong class="jxr_keyword">if</strong> (currentElement != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>        StringBuffer buffer;
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>        StringBuilder builder;
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>        String current = currentElement.getBodyContent();
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>        <strong class="jxr_keyword">if</strong> (current == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>          buffer = <strong class="jxr_keyword">new</strong> StringBuffer();
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          builder = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>        } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          buffer = <strong class="jxr_keyword">new</strong> StringBuffer(current);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          builder = <strong class="jxr_keyword">new</strong> StringBuilder(current);
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>        }
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>        buffer.append(ch, start, length);
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>       currentElement.setBodyContent(buffer.toString());
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>        builder.append(ch, start, length);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>       currentElement.setBodyContent(builder.toString());
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     }
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>   }
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
@@ -125,6 +125,6 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2016 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

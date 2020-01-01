@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">XmlList.java</span></div><h1>XmlList.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -25,119 +25,120 @@ import java.util.ListIterator;
  */
 public class XmlList implements List {
 
+  /** The list. */
   private List list;
 
   /**
-   * Build a list from another list
-   * 
-<span class="nc" id="L33">   * @param list</span>
-<span class="nc" id="L34">   *          - a base list</span>
-<span class="nc" id="L35">   */</span>
-  public XmlList(List list) {
-    this.list = list;
-<span class="nc" id="L38">  }</span>
+   * Build a list from another list.
+   *
+   * @param list
+   *          - a base list
+   */
+<span class="nc" id="L37">  public XmlList(List list) {</span>
+<span class="nc" id="L38">    this.list = list;</span>
+<span class="nc" id="L39">  }</span>
 
   public int size() {
-    return list.size();
-<span class="nc" id="L42">  }</span>
+<span class="nc" id="L42">    return list.size();</span>
+  }
 
   public boolean isEmpty() {
-    return list.isEmpty();
-<span class="nc" id="L46">  }</span>
+<span class="nc" id="L46">    return list.isEmpty();</span>
+  }
 
   public boolean contains(Object o) {
-    return list.contains(o);
-<span class="nc" id="L50">  }</span>
+<span class="nc" id="L50">    return list.contains(o);</span>
+  }
 
   public Iterator iterator() {
-    return list.iterator();
-<span class="nc" id="L54">  }</span>
+<span class="nc" id="L54">    return list.iterator();</span>
+  }
 
   public Object[] toArray() {
-    return list.toArray();
-<span class="nc" id="L58">  }</span>
+<span class="nc" id="L58">    return list.toArray();</span>
+  }
 
   public Object[] toArray(Object a[]) {
-    return list.toArray(a);
-<span class="nc" id="L62">  }</span>
+<span class="nc" id="L62">    return list.toArray(a);</span>
+  }
 
   public boolean add(Object o) {
-    return list.add(o);
-<span class="nc" id="L66">  }</span>
+<span class="nc" id="L66">    return list.add(o);</span>
+  }
 
   public boolean remove(Object o) {
-    return list.remove(o);
-<span class="nc" id="L70">  }</span>
+<span class="nc" id="L70">    return list.remove(o);</span>
+  }
 
   public boolean containsAll(Collection c) {
-    return list.containsAll(c);
-<span class="nc" id="L74">  }</span>
+<span class="nc" id="L74">    return list.containsAll(c);</span>
+  }
 
   public boolean addAll(Collection c) {
-    return list.addAll(c);
-<span class="nc" id="L78">  }</span>
+<span class="nc" id="L78">    return list.addAll(c);</span>
+  }
 
   public boolean addAll(int index, Collection c) {
-    return list.addAll(index, c);
-<span class="nc" id="L82">  }</span>
+<span class="nc" id="L82">    return list.addAll(index, c);</span>
+  }
 
   public boolean removeAll(Collection c) {
-    return list.removeAll(c);
-<span class="nc" id="L86">  }</span>
+<span class="nc" id="L86">    return list.removeAll(c);</span>
+  }
 
   public boolean retainAll(Collection c) {
-    return list.retainAll(c);
-<span class="nc" id="L90">  }</span>
-<span class="nc" id="L91"></span>
+<span class="nc" id="L90">    return list.retainAll(c);</span>
+  }
+
   public void clear() {
-    list.clear();
-<span class="nc" id="L94">  }</span>
+<span class="nc" id="L94">    list.clear();</span>
+<span class="nc" id="L95">  }</span>
 
   public Object get(int index) {
-    return list.get(index);
-<span class="nc" id="L98">  }</span>
+<span class="nc" id="L98">    return list.get(index);</span>
+  }
 
   public Object set(int index, Object element) {
-    return list.set(index, element);
-<span class="nc" id="L102">  }</span>
-<span class="nc" id="L103"></span>
+<span class="nc" id="L102">    return list.set(index, element);</span>
+  }
+
   public void add(int index, Object element) {
-    list.add(index, element);
-<span class="nc" id="L106">  }</span>
+<span class="nc" id="L106">    list.add(index, element);</span>
+<span class="nc" id="L107">  }</span>
 
   public Object remove(int index) {
-    return list.remove(index);
-<span class="nc" id="L110">  }</span>
+<span class="nc" id="L110">    return list.remove(index);</span>
+  }
 
   public int indexOf(Object o) {
-    return list.indexOf(o);
-<span class="nc" id="L114">  }</span>
+<span class="nc" id="L114">    return list.indexOf(o);</span>
+  }
 
   public int lastIndexOf(Object o) {
-    return list.lastIndexOf(o);
-<span class="nc" id="L118">  }</span>
+<span class="nc" id="L118">    return list.lastIndexOf(o);</span>
+  }
 
   public ListIterator listIterator() {
-    return list.listIterator();
-<span class="nc" id="L122">  }</span>
+<span class="nc" id="L122">    return list.listIterator();</span>
+  }
 
   public ListIterator listIterator(int index) {
-    return list.listIterator(index);
-<span class="nc" id="L126">  }</span>
+<span class="nc" id="L126">    return list.listIterator(index);</span>
+  }
 
   public List subList(int fromIndex, int toIndex) {
-    return list.subList(fromIndex, toIndex);
+<span class="nc" id="L130">    return list.subList(fromIndex, toIndex);</span>
   }
-<span class="nc" id="L131"></span>
-<span class="nc bnc" id="L132" title="All 2 branches missed.">  @Override</span>
-<span class="nc" id="L133">  public String toString() {</span>
-<span class="nc" id="L134">    StringBuffer buffer = new StringBuffer();</span>
-    for (int i = 0, n = list.size(); i &lt; n; i++) {
-<span class="nc" id="L136">      buffer.append(list.get(i));</span>
-      buffer.append(&quot;\r\n&quot;);
+
+  @Override
+  public String toString() {
+<span class="nc" id="L135">    StringBuilder builder = new StringBuilder();</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">    for (int i = 0, n = list.size(); i &lt; n; i++) {</span>
+<span class="nc" id="L137">      builder.append(list.get(i));</span>
+<span class="nc" id="L138">      builder.append(&quot;\r\n&quot;);</span>
     }
-    return buffer.toString();
+<span class="nc" id="L140">    return builder.toString();</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

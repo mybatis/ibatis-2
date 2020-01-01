@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LazyResultLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result.loader</a> &gt; <span class="el_source">LazyResultLoader.java</span></div><h1>LazyResultLoader.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -27,23 +27,36 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Class to lazily load results into objects
-<span class="fc" id="L31"> */</span>
-<span class="fc" id="L32">public class LazyResultLoader implements InvocationHandler {</span>
+ * Class to lazily load results into objects.
+ */
+public class LazyResultLoader implements InvocationHandler {
 
-  private static final Class[] SET_INTERFACES = new Class[] { Set.class };
-  private static final Class[] LIST_INTERFACES = new Class[] { List.class };
+  /** The Constant SET_INTERFACES. */
+<span class="fc" id="L35">  private static final Class[] SET_INTERFACES = new Class[] { Set.class };</span>
 
+  /** The Constant LIST_INTERFACES. */
+<span class="fc" id="L38">  private static final Class[] LIST_INTERFACES = new Class[] { List.class };</span>
+
+  /** The client. */
   protected SqlMapClientImpl client;
+
+  /** The statement name. */
   protected String statementName;
+
+  /** The parameter object. */
   protected Object parameterObject;
+
+  /** The target type. */
   protected Class targetType;
 
+  /** The loaded. */
   protected boolean loaded;
+
+  /** The result object. */
   protected Object resultObject;
 
   /**
-   * Constructor for a lazy list loader
+   * Constructor for a lazy list loader.
    *
    * @param client
    *          - the client that is creating the lazy list
@@ -51,65 +64,67 @@ import java.util.Set;
    *          - the statement to be used to build the list
    * @param parameterObject
    *          - the parameter object to be used to build the list
-<span class="fc" id="L54">   * @param targetType</span>
-<span class="fc" id="L55">   *          - the type we are putting data into</span>
-<span class="fc" id="L56">   */</span>
-<span class="fc" id="L57">  public LazyResultLoader(SqlMapClientImpl client, String statementName, Object parameterObject, Class targetType) {</span>
-<span class="fc" id="L58">    this.client = client;</span>
-<span class="fc" id="L59">    this.statementName = statementName;</span>
-    this.parameterObject = parameterObject;
-    this.targetType = targetType;
+   * @param targetType
+   *          - the type we are putting data into
+   */
+<span class="fc" id="L70">  public LazyResultLoader(SqlMapClientImpl client, String statementName, Object parameterObject, Class targetType) {</span>
+<span class="fc" id="L71">    this.client = client;</span>
+<span class="fc" id="L72">    this.statementName = statementName;</span>
+<span class="fc" id="L73">    this.parameterObject = parameterObject;</span>
+<span class="fc" id="L74">    this.targetType = targetType;</span>
+<span class="fc" id="L75">  }</span>
+
+  /**
+   * Loads the result.
+   *
+   * @return the results - a list or object
+   * @throws SQLException
+   *           if there is a problem
+   */
+  public Object loadResult() throws SQLException {
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    if (Collection.class.isAssignableFrom(targetType)) {</span>
+<span class="fc" id="L86">      InvocationHandler handler = new LazyResultLoader(client, statementName, parameterObject, targetType);</span>
+<span class="fc" id="L87">      ClassLoader cl = targetType.getClassLoader();</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">      if (Set.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L89">        return Proxy.newProxyInstance(cl, SET_INTERFACES, handler);</span>
+      } else {
+<span class="fc" id="L91">        return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);</span>
+      }
+    } else {
+<span class="fc" id="L94">      return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
+    }
+  }
+
+  public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+<span class="pc bpc" id="L99" title="3 of 4 branches missed.">    if (&quot;finalize&quot;.hashCode() == method.getName().hashCode() &amp;&amp; &quot;finalize&quot;.equals(method.getName())) {</span>
+<span class="nc" id="L100">      return null;</span>
+    } else {
+<span class="fc" id="L102">      loadObject();</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">      if (resultObject != null) {</span>
+        try {
+<span class="fc" id="L105">          return method.invoke(resultObject, objects);</span>
+<span class="nc" id="L106">        } catch (Throwable t) {</span>
+<span class="nc" id="L107">          throw ClassInfo.unwrapThrowable(t);</span>
+        }
+      } else {
+<span class="nc" id="L110">        return null;</span>
+      }
+    }
   }
 
   /**
-   * Loads the result
-   *
-   * @return the results - a list or object
-   * 
-   * @throws SQLException
-<span class="fc bfc" id="L70" title="All 2 branches covered.">   *           if there is a problem</span>
-<span class="fc" id="L71">   */</span>
-<span class="fc" id="L72">  public Object loadResult() throws SQLException {</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    if (Collection.class.isAssignableFrom(targetType)) {</span>
-<span class="nc" id="L74">      InvocationHandler handler = new LazyResultLoader(client, statementName, parameterObject, targetType);</span>
-      ClassLoader cl = targetType.getClassLoader();
-<span class="fc" id="L76">      if (Set.class.isAssignableFrom(targetType)) {</span>
-        return Proxy.newProxyInstance(cl, SET_INTERFACES, handler);
-      } else {
-<span class="fc" id="L79">        return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);</span>
-      }
-    } else {
-      return ResultLoader.getResult(client, statementName, parameterObject, targetType);
+   * Load object.
+   */
+  private synchronized void loadObject() {
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">    if (!loaded) {</span>
+      try {
+<span class="fc" id="L121">        loaded = true;</span>
+<span class="fc" id="L122">        resultObject = ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
+<span class="nc" id="L123">      } catch (SQLException e) {</span>
+<span class="nc" id="L124">        throw new RuntimeException(&quot;Error lazy loading result. Cause: &quot; + e, e);</span>
+<span class="fc" id="L125">      }</span>
     }
-<span class="pc bpc" id="L84" title="3 of 4 branches missed.">  }</span>
-<span class="nc" id="L85"></span>
-  public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-<span class="fc" id="L87">    if (&quot;finalize&quot;.hashCode() == method.getName().hashCode() &amp;&amp; &quot;finalize&quot;.equals(method.getName())) {</span>
-<span class="pc bpc" id="L88" title="1 of 2 branches missed.">      return null;</span>
-    } else {
-<span class="fc" id="L90">      loadObject();</span>
-<span class="nc" id="L91">      if (resultObject != null) {</span>
-<span class="nc" id="L92">        try {</span>
-          return method.invoke(resultObject, objects);
-        } catch (Throwable t) {
-<span class="nc" id="L95">          throw ClassInfo.unwrapThrowable(t);</span>
-        }
-      } else {
-        return null;
-      }
-    }
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">  }</span>
-
-<span class="fc" id="L103">  private synchronized void loadObject() {</span>
-<span class="fc" id="L104">    if (!loaded) {</span>
-<span class="nc" id="L105">      try {</span>
-<span class="nc" id="L106">        loaded = true;</span>
-<span class="fc" id="L107">        resultObject = ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
-      } catch (SQLException e) {
-<span class="fc" id="L109">        throw new RuntimeException(&quot;Error lazy loading result. Cause: &quot; + e, e);</span>
-      }
-    }
-  }
+<span class="fc" id="L127">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

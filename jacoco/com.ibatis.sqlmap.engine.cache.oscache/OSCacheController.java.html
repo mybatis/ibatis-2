@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OSCacheController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.oscache</a> &gt; <span class="el_source">OSCacheController.java</span></div><h1>OSCacheController.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -22,56 +22,57 @@ import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 
 import java.util.Properties;
 
-<span class="nc" id="L25">/**</span>
- * Cache implementation for using OSCache with iBATIS
-<span class="nc" id="L27"> */</span>
-public class OSCacheController implements CacheController {
+/**
+ * Cache implementation for using OSCache with iBATIS.
+ */
+<span class="nc" id="L28">public class OSCacheController implements CacheController {</span>
 
-<span class="nc" id="L30">  private static final GeneralCacheAdministrator CACHE = new GeneralCacheAdministrator();</span>
-<span class="nc" id="L31"></span>
+  /** The Constant CACHE. */
+<span class="nc" id="L31">  private static final GeneralCacheAdministrator CACHE = new GeneralCacheAdministrator();</span>
+
   public void flush(CacheModel cacheModel) {
-    CACHE.flushGroup(cacheModel.getId());
-<span class="nc" id="L34">  }</span>
+<span class="nc" id="L34">    CACHE.flushGroup(cacheModel.getId());</span>
+<span class="nc" id="L35">  }</span>
 
-<span class="nc" id="L36">  public Object getObject(CacheModel cacheModel, Object key) {</span>
-<span class="nc" id="L37">    String keyString = key.toString();</span>
-<span class="nc" id="L38">    try {</span>
-<span class="nc" id="L39">      int refreshPeriod = (int) (cacheModel.getFlushIntervalSeconds());</span>
-<span class="nc" id="L40">      return CACHE.getFromCache(keyString, refreshPeriod);</span>
-    } catch (NeedsRefreshException e) {
-      CACHE.cancelUpdate(keyString);
-      return null;
+  public Object getObject(CacheModel cacheModel, Object key) {
+<span class="nc" id="L38">    String keyString = key.toString();</span>
+    try {
+<span class="nc" id="L40">      int refreshPeriod = (int) (cacheModel.getFlushIntervalSeconds());</span>
+<span class="nc" id="L41">      return CACHE.getFromCache(keyString, refreshPeriod);</span>
+<span class="nc" id="L42">    } catch (NeedsRefreshException e) {</span>
+<span class="nc" id="L43">      CACHE.cancelUpdate(keyString);</span>
+<span class="nc" id="L44">      return null;</span>
     }
   }
-<span class="nc" id="L46"></span>
+
   public Object removeObject(CacheModel cacheModel, Object key) {
-<span class="nc" id="L48">    Object result;</span>
-<span class="nc" id="L49">    String keyString = key.toString();</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">    try {</span>
-<span class="nc" id="L51">      int refreshPeriod = (int) (cacheModel.getFlushIntervalSeconds());</span>
-      Object value = CACHE.getFromCache(keyString, refreshPeriod);
-<span class="nc" id="L53">      if (value != null) {</span>
-<span class="nc" id="L54">        CACHE.flushEntry(keyString);</span>
+    Object result;
+<span class="nc" id="L50">    String keyString = key.toString();</span>
+    try {
+<span class="nc" id="L52">      int refreshPeriod = (int) (cacheModel.getFlushIntervalSeconds());</span>
+<span class="nc" id="L53">      Object value = CACHE.getFromCache(keyString, refreshPeriod);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">      if (value != null) {</span>
+<span class="nc" id="L55">        CACHE.flushEntry(keyString);</span>
       }
-<span class="nc" id="L56">      result = value;</span>
-    } catch (NeedsRefreshException e) {
-<span class="nc" id="L58">      try {</span>
-<span class="nc" id="L59">        CACHE.flushEntry(keyString);</span>
-<span class="nc" id="L60">      } finally {</span>
-<span class="nc" id="L61">        CACHE.cancelUpdate(keyString);</span>
-<span class="nc" id="L62">        result = null;</span>
+<span class="nc" id="L57">      result = value;</span>
+<span class="nc" id="L58">    } catch (NeedsRefreshException e) {</span>
+      try {
+<span class="nc" id="L60">        CACHE.flushEntry(keyString);</span>
+      } finally {
+<span class="nc" id="L62">        CACHE.cancelUpdate(keyString);</span>
+<span class="nc" id="L63">        result = null;</span>
       }
-    }
-    return result;
-<span class="nc" id="L66">  }</span>
-<span class="nc" id="L67"></span>
-<span class="nc" id="L68">  public void putObject(CacheModel cacheModel, Object key, Object object) {</span>
-    String keyString = key.toString();
-    CACHE.putInCache(keyString, object, new String[] { cacheModel.getId() });
-<span class="nc" id="L71">  }</span>
+<span class="nc" id="L65">    }</span>
+<span class="nc" id="L66">    return result;</span>
+  }
+
+  public void putObject(CacheModel cacheModel, Object key, Object object) {
+<span class="nc" id="L70">    String keyString = key.toString();</span>
+<span class="nc" id="L71">    CACHE.putInCache(keyString, object, new String[] { cacheModel.getId() });</span>
+<span class="nc" id="L72">  }</span>
 
   public void setProperties(Properties props) {
-  }
+<span class="nc" id="L75">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

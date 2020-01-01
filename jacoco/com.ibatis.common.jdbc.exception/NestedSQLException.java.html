@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NestedSQLException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.exception</a> &gt; <span class="el_source">NestedSQLException.java</span></div><h1>NestedSQLException.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,48 +18,48 @@ package com.ibatis.common.jdbc.exception;
 import java.sql.SQLException;
 
 /**
- * Class to allow passing an Exception with the original SQLException
+ * Class to allow passing an Exception with the original SQLException.
  */
 public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param msg
-<span class="nc" id="L30">   *          - the message for the exception</span>
-<span class="nc" id="L31">   */</span>
+   *          - the message for the exception
+   * @see java.sql.SQLException
+   */
   public NestedSQLException(String msg) {
-    super(msg);
-  }
+<span class="nc" id="L33">    super(msg);</span>
+<span class="nc" id="L34">  }</span>
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
-<span class="nc" id="L43">   *          - the SQLState</span>
-<span class="nc" id="L44">   */</span>
+   *          - the SQLState
+   * @see java.sql.SQLException
+   */
   public NestedSQLException(String reason, String SQLState) {
-    super(reason, SQLState);
-  }
+<span class="nc" id="L46">    super(reason, SQLState);</span>
+<span class="nc" id="L47">  }</span>
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
    * @param vendorCode
-<span class="nc" id="L58">   *          - a vendor supplied code to go w/ the message</span>
-<span class="nc" id="L59">   */</span>
+   *          - a vendor supplied code to go w/ the message
+   * @see java.sql.SQLException
+   */
   public NestedSQLException(String reason, String SQLState, int vendorCode) {
-    super(reason, SQLState, vendorCode);
-  }
+<span class="nc" id="L61">    super(reason, SQLState, vendorCode);</span>
+<span class="nc" id="L62">  }</span>
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
@@ -67,28 +67,28 @@ public class NestedSQLException extends SQLException {
    * @param msg
    *          - the message for the exception
    * @param cause
-<span class="fc" id="L70">   *          - the cause of the exception</span>
-<span class="fc" id="L71">   */</span>
-<span class="fc" id="L72">  public NestedSQLException(String msg, Throwable cause) {</span>
-    super(msg);
-    initCause(cause);
-  }
+   *          - the cause of the exception
+   */
+  public NestedSQLException(String msg, Throwable cause) {
+<span class="fc" id="L73">    super(msg);</span>
+<span class="fc" id="L74">    initCause(cause);</span>
+<span class="fc" id="L75">  }</span>
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
    * @param cause
-<span class="nc" id="L86">   *          - the cause of the exception</span>
-<span class="nc" id="L87">   */</span>
-<span class="nc" id="L88">  public NestedSQLException(String reason, String SQLState, Throwable cause) {</span>
-    super(reason, SQLState);
-    initCause(cause);
-  }
+   *          - the cause of the exception
+   * @see java.sql.SQLException
+   */
+  public NestedSQLException(String reason, String SQLState, Throwable cause) {
+<span class="nc" id="L89">    super(reason, SQLState);</span>
+<span class="nc" id="L90">    initCause(cause);</span>
+<span class="nc" id="L91">  }</span>
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
@@ -100,22 +100,22 @@ public class NestedSQLException extends SQLException {
    * @param vendorCode
    *          - a vendor supplied code to go w/ the message
    * @param cause
-<span class="fc" id="L103">   *          - the cause of the exception</span>
-<span class="fc" id="L104">   */</span>
-<span class="fc" id="L105">  public NestedSQLException(String reason, String SQLState, int vendorCode, Throwable cause) {</span>
-    super(reason, SQLState, vendorCode);
-    initCause(cause);
-  }
+   *          - the cause of the exception
+   */
+  public NestedSQLException(String reason, String SQLState, int vendorCode, Throwable cause) {
+<span class="fc" id="L106">    super(reason, SQLState, vendorCode);</span>
+<span class="fc" id="L107">    initCause(cause);</span>
+<span class="fc" id="L108">  }</span>
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
    * 
    * @param cause
-<span class="nc" id="L114">   *          - the cause of the exception</span>
-<span class="nc" id="L115">   */</span>
-<span class="nc" id="L116">  public NestedSQLException(Throwable cause) {</span>
-    super();
-    initCause(cause);
-  }
+   *          - the cause of the exception
+   */
+  public NestedSQLException(Throwable cause) {
+<span class="nc" id="L117">    super();</span>
+<span class="nc" id="L118">    initCause(cause);</span>
+<span class="nc" id="L119">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

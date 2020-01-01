@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../testapidocs/xmltester/MiniCodec.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2017 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2020 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -23,7 +23,7 @@
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> xmltester;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../xmltester/MiniCodec.html">MiniCodec</a> {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MiniCodec" href="../xmltester/MiniCodec.html#MiniCodec">MiniCodec</a> {
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String encodeReservedXMLChars(String s) {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      String s2 = s;
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">   * This nasty method uses exception handling for flow control to reduce the number of conditional checks. Nasty</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">   * performance enhancement (hopefully).</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">   * &lt;p/&gt;</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">   * For all of it's nastiness, this method replaces all occurrences of a pattern with a new pattern, and quite quickly.</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">   * @param pattern</em>
@@ -69,13 +69,13 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String replaceAll(String pattern, String newPattern, String string) {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>        StringBuffer stringBuffer = <strong class="jxr_keyword">new</strong> StringBuffer(string);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>        StringBuilder stringBuilder = <strong class="jxr_keyword">new</strong> StringBuilder(string);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>        <strong class="jxr_keyword">int</strong> index = string.length();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>        <strong class="jxr_keyword">int</strong> offset = pattern.length();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>        <strong class="jxr_keyword">while</strong> ((index = string.lastIndexOf(pattern, index - 1)) &gt; -1) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          stringBuffer.replace(index, index + offset, newPattern);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          stringBuilder.replace(index, index + offset, newPattern);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>        }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>        <strong class="jxr_keyword">return</strong> stringBuffer.toString();
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>        <strong class="jxr_keyword">return</strong> stringBuilder.toString();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      } <strong class="jxr_keyword">catch</strong> (StringIndexOutOfBoundsException e) {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>        <strong class="jxr_keyword">return</strong> string;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
@@ -84,6 +84,6 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2016 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

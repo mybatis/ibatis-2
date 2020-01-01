@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MappedStatement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">MappedStatement.java</span></div><h1>MappedStatement.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -36,304 +36,576 @@ import org.w3c.dom.Document;
 import javax.xml.parsers.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-<span class="fc" id="L39">import java.util.*;</span>
+import java.util.*;
 import java.io.*;
 
-public class MappedStatement {
+/**
+ * The Class MappedStatement.
+ */
+<span class="fc" id="L45">public class MappedStatement {</span>
+
+  /** The id. */
   private String id;
+
+  /** The result set type. */
   private Integer resultSetType;
+
+  /** The fetch size. */
   private Integer fetchSize;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The parameter map. */
   private ParameterMap parameterMap;
+
+  /** The parameter class. */
   private Class parameterClass;
+
+  /** The sql. */
   private Sql sql;
-<span class="fc" id="L50">  private int baseCacheKey;</span>
-<span class="fc" id="L51">  private SqlMapClientImpl sqlMapClient;</span>
+
+  /** The base cache key. */
+  private int baseCacheKey;
+
+  /** The sql map client. */
+  private SqlMapClientImpl sqlMapClient;
+
+  /** The timeout. */
   private Integer timeout;
-  private ResultMap[] additionalResultMaps = new ResultMap[0];
-  private List executeListeners = new ArrayList();
-<span class="nc" id="L55">  private String resource;</span>
 
+  /** The additional result maps. */
+<span class="fc" id="L78">  private ResultMap[] additionalResultMaps = new ResultMap[0];</span>
+
+  /** The execute listeners. */
+<span class="fc" id="L81">  private List executeListeners = new ArrayList();</span>
+
+  /** The resource. */
+  private String resource;
+
+  /**
+   * Gets the statement type.
+   *
+   * @return the statement type
+   */
   public StatementType getStatementType() {
-    return StatementType.UNKNOWN;
-  }
-<span class="fc" id="L60"></span>
-<span class="fc" id="L61">  public int executeUpdate(StatementScope statementScope, Transaction trans, Object parameterObject)</span>
-<span class="fc" id="L62">      throws SQLException {</span>
-<span class="fc" id="L63">    ErrorContext errorContext = statementScope.getErrorContext();</span>
-    errorContext.setActivity(&quot;preparing the mapped statement for execution&quot;);
-<span class="fc" id="L65">    errorContext.setObjectId(this.getId());</span>
-    errorContext.setResource(this.getResource());
-
-<span class="fc" id="L68">    statementScope.getSession().setCommitRequired(true);</span>
-
-<span class="fc" id="L70">    try {</span>
-      parameterObject = validateParameter(parameterObject);
-<span class="fc" id="L72"></span>
-<span class="fc" id="L73">      Sql sql = getSql();</span>
-
-<span class="fc" id="L75">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
-<span class="fc" id="L76">      ParameterMap parameterMap = sql.getParameterMap(statementScope, parameterObject);</span>
-
-<span class="fc" id="L78">      errorContext.setMoreInfo(&quot;Check the result map.&quot;);</span>
-<span class="fc" id="L79">      ResultMap resultMap = sql.getResultMap(statementScope, parameterObject);</span>
-
-<span class="fc" id="L81">      statementScope.setResultMap(resultMap);</span>
-      statementScope.setParameterMap(parameterMap);
-<span class="fc" id="L83"></span>
-<span class="fc" id="L84">      int rows = 0;</span>
-
-<span class="fc" id="L86">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
-<span class="fc" id="L87">      Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);</span>
-
-<span class="fc" id="L89">      errorContext.setMoreInfo(&quot;Check the SQL statement.&quot;);</span>
-<span class="fc" id="L90">      String sqlString = sql.getSql(statementScope, parameterObject);</span>
-<span class="fc" id="L91"></span>
-      errorContext.setActivity(&quot;executing mapped statement&quot;);
-<span class="fc" id="L93">      errorContext.setMoreInfo(&quot;Check the statement or the result map.&quot;);</span>
-<span class="fc bfc" id="L94" title="All 2 branches covered.">      rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);</span>
-<span class="fc" id="L95"></span>
-      errorContext.setMoreInfo(&quot;Check the output parameters.&quot;);
-      if (parameterObject != null) {
-<span class="fc" id="L98">        postProcessParameterObject(statementScope, parameterObject, parameters);</span>
-<span class="fc" id="L99">      }</span>
-<span class="fc" id="L100"></span>
-<span class="fc" id="L101">      errorContext.reset();</span>
-<span class="fc" id="L102">      sql.cleanup(statementScope);</span>
-<span class="fc" id="L103">      notifyListeners();</span>
-<span class="fc" id="L104">      return rows;</span>
-<span class="fc" id="L105">    } catch (SQLException e) {</span>
-<span class="fc" id="L106">      errorContext.setCause(e);</span>
-<span class="fc" id="L107">      throw new NestedSQLException(errorContext.toString(), e.getSQLState(), e.getErrorCode(), e);</span>
-    } catch (Exception e) {
-      errorContext.setCause(e);
-      throw new NestedSQLException(errorContext.toString(), e);
-    }
+<span class="nc" id="L92">    return StatementType.UNKNOWN;</span>
   }
 
-<span class="fc" id="L114">  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
-      Object resultObject) throws SQLException {
-<span class="fc" id="L116">    try {</span>
-<span class="fc" id="L117">      Object object = null;</span>
+  /**
+   * Execute update.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @return the int
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public int executeUpdate(StatementScope statementScope, Transaction trans, Object parameterObject)
+      throws SQLException {
+<span class="fc" id="L110">    ErrorContext errorContext = statementScope.getErrorContext();</span>
+<span class="fc" id="L111">    errorContext.setActivity(&quot;preparing the mapped statement for execution&quot;);</span>
+<span class="fc" id="L112">    errorContext.setObjectId(this.getId());</span>
+<span class="fc" id="L113">    errorContext.setResource(this.getResource());</span>
 
-<span class="fc" id="L119">      DefaultRowHandler rowHandler = new DefaultRowHandler();</span>
-      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, resultObject, rowHandler,
-<span class="pc bpc" id="L121" title="1 of 2 branches missed.">          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);</span>
-<span class="nc" id="L122">      List list = rowHandler.getList();</span>
-<span class="fc bfc" id="L123" title="All 2 branches covered."></span>
-<span class="fc" id="L124">      if (list.size() &gt; 1) {</span>
-        throw new SQLException(&quot;Error: executeQueryForObject returned too many results.&quot;);
-      } else if (list.size() &gt; 0) {
-<span class="fc" id="L127">        object = list.get(0);</span>
-<span class="nc" id="L128">      }</span>
-<span class="nc" id="L129"></span>
-      return object;
-    } catch (TransactionException e) {
-      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);
-    }
-  }
+<span class="fc" id="L115">    statementScope.getSession().setCommitRequired(true);</span>
 
-<span class="fc" id="L136">  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
-<span class="fc" id="L137">      int skipResults, int maxResults) throws SQLException {</span>
     try {
-<span class="fc" id="L139">      DefaultRowHandler rowHandler = new DefaultRowHandler();</span>
-<span class="nc" id="L140">      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler, skipResults,</span>
-<span class="nc" id="L141">          maxResults);</span>
-      return rowHandler.getList();
-    } catch (TransactionException e) {
-      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);
+<span class="fc" id="L118">      parameterObject = validateParameter(parameterObject);</span>
+
+<span class="fc" id="L120">      Sql sql = getSql();</span>
+
+<span class="fc" id="L122">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
+<span class="fc" id="L123">      ParameterMap parameterMap = sql.getParameterMap(statementScope, parameterObject);</span>
+
+<span class="fc" id="L125">      errorContext.setMoreInfo(&quot;Check the result map.&quot;);</span>
+<span class="fc" id="L126">      ResultMap resultMap = sql.getResultMap(statementScope, parameterObject);</span>
+
+<span class="fc" id="L128">      statementScope.setResultMap(resultMap);</span>
+<span class="fc" id="L129">      statementScope.setParameterMap(parameterMap);</span>
+
+<span class="fc" id="L131">      int rows = 0;</span>
+
+<span class="fc" id="L133">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
+<span class="fc" id="L134">      Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);</span>
+
+<span class="fc" id="L136">      errorContext.setMoreInfo(&quot;Check the SQL statement.&quot;);</span>
+<span class="fc" id="L137">      String sqlString = sql.getSql(statementScope, parameterObject);</span>
+
+<span class="fc" id="L139">      errorContext.setActivity(&quot;executing mapped statement&quot;);</span>
+<span class="fc" id="L140">      errorContext.setMoreInfo(&quot;Check the statement or the result map.&quot;);</span>
+<span class="fc" id="L141">      rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);</span>
+
+<span class="fc" id="L143">      errorContext.setMoreInfo(&quot;Check the output parameters.&quot;);</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">      if (parameterObject != null) {</span>
+<span class="fc" id="L145">        postProcessParameterObject(statementScope, parameterObject, parameters);</span>
+      }
+
+<span class="fc" id="L148">      errorContext.reset();</span>
+<span class="fc" id="L149">      sql.cleanup(statementScope);</span>
+<span class="fc" id="L150">      notifyListeners();</span>
+<span class="fc" id="L151">      return rows;</span>
+<span class="fc" id="L152">    } catch (SQLException e) {</span>
+<span class="fc" id="L153">      errorContext.setCause(e);</span>
+<span class="fc" id="L154">      throw new NestedSQLException(errorContext.toString(), e.getSQLState(), e.getErrorCode(), e);</span>
+<span class="fc" id="L155">    } catch (Exception e) {</span>
+<span class="fc" id="L156">      errorContext.setCause(e);</span>
+<span class="fc" id="L157">      throw new NestedSQLException(errorContext.toString(), e);</span>
     }
   }
 
-<span class="fc" id="L148">  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,</span>
-      RowHandler rowHandler) throws SQLException {
-<span class="nc" id="L150">    try {</span>
-<span class="nc" id="L151">      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler,</span>
-<span class="fc" id="L152">          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);</span>
-<span class="fc" id="L153">    } catch (TransactionException e) {</span>
-      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);
+  /**
+   * Execute query for object.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param resultObject
+   *          the result object
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,
+      Object resultObject) throws SQLException {
+    try {
+<span class="fc" id="L179">      Object object = null;</span>
+
+<span class="fc" id="L181">      DefaultRowHandler rowHandler = new DefaultRowHandler();</span>
+<span class="fc" id="L182">      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, resultObject, rowHandler,</span>
+          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
+<span class="fc" id="L184">      List list = rowHandler.getList();</span>
+
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">      if (list.size() &gt; 1) {</span>
+<span class="nc" id="L187">        throw new SQLException(&quot;Error: executeQueryForObject returned too many results.&quot;);</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">      } else if (list.size() &gt; 0) {</span>
+<span class="fc" id="L189">        object = list.get(0);</span>
+      }
+
+<span class="fc" id="L192">      return object;</span>
+<span class="nc" id="L193">    } catch (TransactionException e) {</span>
+<span class="nc" id="L194">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
     }
   }
+
+  /**
+   * Execute query for list.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @return the list
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,
+      int skipResults, int maxResults) throws SQLException {
+    try {
+<span class="fc" id="L218">      DefaultRowHandler rowHandler = new DefaultRowHandler();</span>
+<span class="fc" id="L219">      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler, skipResults,</span>
+          maxResults);
+<span class="fc" id="L221">      return rowHandler.getList();</span>
+<span class="nc" id="L222">    } catch (TransactionException e) {</span>
+<span class="nc" id="L223">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
+    }
+  }
+
+  /**
+   * Execute query with row handler.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param rowHandler
+   *          the row handler
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,
+      RowHandler rowHandler) throws SQLException {
+    try {
+<span class="fc" id="L244">      executeQueryWithCallback(statementScope, trans.getConnection(), parameterObject, null, rowHandler,</span>
+          SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);
+<span class="nc" id="L246">    } catch (TransactionException e) {</span>
+<span class="nc" id="L247">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L248">    }</span>
+<span class="fc" id="L249">  }</span>
 
   //
   // PROTECTED METHODS
   //
-<span class="fc" id="L161"></span>
-<span class="fc" id="L162">  protected void executeQueryWithCallback(StatementScope statementScope, Connection conn, Object parameterObject,</span>
-<span class="fc" id="L163">      Object resultObject, RowHandler rowHandler, int skipResults, int maxResults) throws SQLException {</span>
-<span class="fc" id="L164">    ErrorContext errorContext = statementScope.getErrorContext();</span>
-    errorContext.setActivity(&quot;preparing the mapped statement for execution&quot;);
-    errorContext.setObjectId(this.getId());
-<span class="fc" id="L167">    errorContext.setResource(this.getResource());</span>
 
-<span class="fc" id="L169">    try {</span>
-      parameterObject = validateParameter(parameterObject);
-<span class="fc" id="L171"></span>
-<span class="fc" id="L172">      Sql sql = getSql();</span>
+  /**
+   * Execute query with callback.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param parameterObject
+   *          the parameter object
+   * @param resultObject
+   *          the result object
+   * @param rowHandler
+   *          the row handler
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected void executeQueryWithCallback(StatementScope statementScope, Connection conn, Object parameterObject,
+      Object resultObject, RowHandler rowHandler, int skipResults, int maxResults) throws SQLException {
+<span class="fc" id="L277">    ErrorContext errorContext = statementScope.getErrorContext();</span>
+<span class="fc" id="L278">    errorContext.setActivity(&quot;preparing the mapped statement for execution&quot;);</span>
+<span class="fc" id="L279">    errorContext.setObjectId(this.getId());</span>
+<span class="fc" id="L280">    errorContext.setResource(this.getResource());</span>
 
-<span class="fc" id="L174">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
-<span class="fc" id="L175">      ParameterMap parameterMap = sql.getParameterMap(statementScope, parameterObject);</span>
+    try {
+<span class="fc" id="L283">      parameterObject = validateParameter(parameterObject);</span>
 
-<span class="fc" id="L177">      errorContext.setMoreInfo(&quot;Check the result map.&quot;);</span>
-<span class="fc" id="L178">      ResultMap resultMap = sql.getResultMap(statementScope, parameterObject);</span>
+<span class="fc" id="L285">      Sql sql = getSql();</span>
 
-<span class="fc" id="L180">      statementScope.setResultMap(resultMap);</span>
-<span class="fc" id="L181">      statementScope.setParameterMap(parameterMap);</span>
+<span class="fc" id="L287">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
+<span class="fc" id="L288">      ParameterMap parameterMap = sql.getParameterMap(statementScope, parameterObject);</span>
 
-<span class="fc" id="L183">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
-<span class="fc" id="L184">      Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);</span>
+<span class="fc" id="L290">      errorContext.setMoreInfo(&quot;Check the result map.&quot;);</span>
+<span class="fc" id="L291">      ResultMap resultMap = sql.getResultMap(statementScope, parameterObject);</span>
 
-<span class="fc" id="L186">      errorContext.setMoreInfo(&quot;Check the SQL statement.&quot;);</span>
-<span class="fc" id="L187">      String sqlString = sql.getSql(statementScope, parameterObject);</span>
-<span class="fc" id="L188"></span>
-<span class="fc" id="L189">      errorContext.setActivity(&quot;executing mapped statement&quot;);</span>
-      errorContext.setMoreInfo(&quot;Check the SQL statement or the result map.&quot;);
-<span class="fc" id="L191">      RowHandlerCallback callback = new RowHandlerCallback(resultMap, resultObject, rowHandler);</span>
-<span class="fc bfc" id="L192" title="All 2 branches covered.">      sqlExecuteQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);</span>
-<span class="fc" id="L193"></span>
-      errorContext.setMoreInfo(&quot;Check the output parameters.&quot;);
-      if (parameterObject != null) {
-<span class="fc" id="L196">        postProcessParameterObject(statementScope, parameterObject, parameters);</span>
-<span class="fc" id="L197">      }</span>
-<span class="fc" id="L198"></span>
-<span class="fc" id="L199">      errorContext.reset();</span>
-<span class="fc" id="L200">      sql.cleanup(statementScope);</span>
-<span class="fc" id="L201">      notifyListeners();</span>
-<span class="nc" id="L202">    } catch (SQLException e) {</span>
-<span class="nc" id="L203">      errorContext.setCause(e);</span>
-<span class="nc" id="L204">      throw new NestedSQLException(errorContext.toString(), e.getSQLState(), e.getErrorCode(), e);</span>
-<span class="fc" id="L205">    } catch (Exception e) {</span>
-<span class="fc" id="L206">      errorContext.setCause(e);</span>
-      throw new NestedSQLException(errorContext.toString(), e);
-    }
-<span class="fc" id="L209">  }</span>
+<span class="fc" id="L293">      statementScope.setResultMap(resultMap);</span>
+<span class="fc" id="L294">      statementScope.setParameterMap(parameterMap);</span>
 
-  protected void postProcessParameterObject(StatementScope statementScope, Object parameterObject, Object[] parameters) {
-  }
-<span class="fc bfc" id="L213" title="All 2 branches covered."></span>
-<span class="fc" id="L214">  protected int sqlExecuteUpdate(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters)</span>
-<span class="fc" id="L215">      throws SQLException {</span>
-    if (statementScope.getSession().isInBatch()) {
-<span class="fc" id="L217">      getSqlExecutor().addBatch(statementScope, conn, sqlString, parameters);</span>
-      return 0;
-    } else {
-      return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);
-    }
-  }
-<span class="fc" id="L223"></span>
-<span class="fc" id="L224">  protected void sqlExecuteQuery(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters,</span>
-      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
-    getSqlExecutor().executeQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);
-<span class="fc" id="L227">  }</span>
-<span class="fc" id="L228"></span>
-<span class="fc bfc" id="L229" title="All 4 branches covered.">  protected Object validateParameter(Object param) throws SQLException {</span>
-<span class="fc bfc" id="L230" title="All 2 branches covered.">    Object newParam = param;</span>
-<span class="fc bfc" id="L231" title="All 2 branches covered.">    Class parameterClass = getParameterClass();</span>
-<span class="pc bpc" id="L232" title="1 of 4 branches missed.">    if (newParam != null &amp;&amp; parameterClass != null) {</span>
-<span class="nc" id="L233">      if (DomTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
-<span class="nc" id="L234">        if (XmlTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
-          if (!(newParam instanceof String) &amp;&amp; !(newParam instanceof Document)) {
-<span class="fc bfc" id="L236" title="All 2 branches covered.">            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + String.class.getName() + &quot;' or '&quot;</span>
-<span class="fc" id="L237">                + Document.class.getName() + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
-          }
-          if (!(newParam instanceof Document)) {
-<span class="pc bpc" id="L240" title="1 of 2 branches missed.">            newParam = stringToDocument((String) newParam);</span>
-<span class="nc" id="L241">          }</span>
-<span class="nc" id="L242">        } else {</span>
-          if (!Document.class.isAssignableFrom(newParam.getClass())) {
-            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + Document.class.getName()
-                + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);
-<span class="fc bfc" id="L246" title="All 2 branches covered.">          }</span>
-<span class="fc" id="L247">        }</span>
-<span class="fc" id="L248">      } else {</span>
-        if (!parameterClass.isAssignableFrom(newParam.getClass())) {
-          throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + parameterClass.getName()
-              + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);
-<span class="fc" id="L252">        }</span>
+<span class="fc" id="L296">      errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
+<span class="fc" id="L297">      Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);</span>
+
+<span class="fc" id="L299">      errorContext.setMoreInfo(&quot;Check the SQL statement.&quot;);</span>
+<span class="fc" id="L300">      String sqlString = sql.getSql(statementScope, parameterObject);</span>
+
+<span class="fc" id="L302">      errorContext.setActivity(&quot;executing mapped statement&quot;);</span>
+<span class="fc" id="L303">      errorContext.setMoreInfo(&quot;Check the SQL statement or the result map.&quot;);</span>
+<span class="fc" id="L304">      RowHandlerCallback callback = new RowHandlerCallback(resultMap, resultObject, rowHandler);</span>
+<span class="fc" id="L305">      sqlExecuteQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);</span>
+
+<span class="fc" id="L307">      errorContext.setMoreInfo(&quot;Check the output parameters.&quot;);</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">      if (parameterObject != null) {</span>
+<span class="fc" id="L309">        postProcessParameterObject(statementScope, parameterObject, parameters);</span>
       }
-    }
-    return newParam;
-  }
-<span class="fc" id="L257"></span>
-<span class="fc" id="L258">  private Document stringToDocument(String s) {</span>
-<span class="fc" id="L259">    try {</span>
-<span class="nc" id="L260">      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L261">      DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();</span>
-      return documentBuilder.parse(new ReaderInputStream(new StringReader(s)));
-    } catch (Exception e) {
-      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);
-    }
-<span class="fc" id="L266">  }</span>
 
-  public String getId() {
-    return id;
-<span class="fc" id="L270">  }</span>
-
-  public Integer getResultSetType() {
-    return resultSetType;
-<span class="nc" id="L274">  }</span>
-<span class="nc" id="L275"></span>
-  public void setResultSetType(Integer resultSetType) {
-    this.resultSetType = resultSetType;
-<span class="fc" id="L278">  }</span>
-
-  public Integer getFetchSize() {
-    return fetchSize;
-<span class="nc" id="L282">  }</span>
-<span class="nc" id="L283"></span>
-  public void setFetchSize(Integer fetchSize) {
-    this.fetchSize = fetchSize;
-<span class="fc" id="L286">  }</span>
-<span class="fc" id="L287"></span>
-  public void setId(String id) {
-    this.id = id;
-<span class="fc" id="L290">  }</span>
-
-  public Sql getSql() {
-    return sql;
-<span class="fc" id="L294">  }</span>
-<span class="fc" id="L295"></span>
-  public void setSql(Sql sql) {
-    this.sql = sql;
-<span class="fc" id="L298">  }</span>
-
-  public ResultMap getResultMap() {
-    return resultMap;
-<span class="fc" id="L302">  }</span>
-<span class="fc" id="L303"></span>
-  public void setResultMap(ResultMap resultMap) {
-    this.resultMap = resultMap;
-<span class="fc" id="L306">  }</span>
-
-  public ParameterMap getParameterMap() {
-    return parameterMap;
-<span class="fc" id="L310">  }</span>
-<span class="fc" id="L311"></span>
-  public void setParameterMap(ParameterMap parameterMap) {
-    this.parameterMap = parameterMap;
-<span class="fc" id="L314">  }</span>
-
-  public Class getParameterClass() {
-    return parameterClass;
-<span class="fc" id="L318">  }</span>
-<span class="fc" id="L319"></span>
-  public void setParameterClass(Class parameterClass) {
-    this.parameterClass = parameterClass;
+<span class="fc" id="L312">      errorContext.reset();</span>
+<span class="fc" id="L313">      sql.cleanup(statementScope);</span>
+<span class="fc" id="L314">      notifyListeners();</span>
+<span class="fc" id="L315">    } catch (SQLException e) {</span>
+<span class="fc" id="L316">      errorContext.setCause(e);</span>
+<span class="fc" id="L317">      throw new NestedSQLException(errorContext.toString(), e.getSQLState(), e.getErrorCode(), e);</span>
+<span class="nc" id="L318">    } catch (Exception e) {</span>
+<span class="nc" id="L319">      errorContext.setCause(e);</span>
+<span class="nc" id="L320">      throw new NestedSQLException(errorContext.toString(), e);</span>
+<span class="fc" id="L321">    }</span>
 <span class="fc" id="L322">  }</span>
 
+  /**
+   * Post process parameter object.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @param parameters
+   *          the parameters
+   */
+  protected void postProcessParameterObject(StatementScope statementScope, Object parameterObject,
+      Object[] parameters) {
+<span class="fc" id="L336">  }</span>
+
+  /**
+   * Sql execute update.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param sqlString
+   *          the sql string
+   * @param parameters
+   *          the parameters
+   * @return the int
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected int sqlExecuteUpdate(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters)
+      throws SQLException {
+<span class="fc bfc" id="L355" title="All 2 branches covered.">    if (statementScope.getSession().isInBatch()) {</span>
+<span class="fc" id="L356">      getSqlExecutor().addBatch(statementScope, conn, sqlString, parameters);</span>
+<span class="fc" id="L357">      return 0;</span>
+    } else {
+<span class="fc" id="L359">      return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);</span>
+    }
+  }
+
+  /**
+   * Sql execute query.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param sqlString
+   *          the sql string
+   * @param parameters
+   *          the parameters
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @param callback
+   *          the callback
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected void sqlExecuteQuery(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters,
+      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
+<span class="fc" id="L385">    getSqlExecutor().executeQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);</span>
+<span class="fc" id="L386">  }</span>
+
+  /**
+   * Validate parameter.
+   *
+   * @param param
+   *          the param
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected Object validateParameter(Object param) throws SQLException {
+<span class="fc" id="L398">    Object newParam = param;</span>
+<span class="fc" id="L399">    Class parameterClass = getParameterClass();</span>
+<span class="fc bfc" id="L400" title="All 4 branches covered.">    if (newParam != null &amp;&amp; parameterClass != null) {</span>
+<span class="fc bfc" id="L401" title="All 2 branches covered.">      if (DomTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
+<span class="fc bfc" id="L402" title="All 2 branches covered.">        if (XmlTypeMarker.class.isAssignableFrom(parameterClass)) {</span>
+<span class="pc bpc" id="L403" title="1 of 4 branches missed.">          if (!(newParam instanceof String) &amp;&amp; !(newParam instanceof Document)) {</span>
+<span class="nc" id="L404">            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + String.class.getName() + &quot;' or '&quot;</span>
+<span class="nc" id="L405">                + Document.class.getName() + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
+          }
+<span class="fc bfc" id="L407" title="All 2 branches covered.">          if (!(newParam instanceof Document)) {</span>
+<span class="fc" id="L408">            newParam = stringToDocument((String) newParam);</span>
+          }
+        } else {
+<span class="pc bpc" id="L411" title="1 of 2 branches missed.">          if (!Document.class.isAssignableFrom(newParam.getClass())) {</span>
+<span class="nc" id="L412">            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + Document.class.getName()</span>
+<span class="nc" id="L413">                + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
+          }
+        }
+      } else {
+<span class="fc bfc" id="L417" title="All 2 branches covered.">        if (!parameterClass.isAssignableFrom(newParam.getClass())) {</span>
+<span class="fc" id="L418">          throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + parameterClass.getName()</span>
+<span class="fc" id="L419">              + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
+        }
+      }
+    }
+<span class="fc" id="L423">    return newParam;</span>
+  }
+
+  /**
+   * String to document.
+   *
+   * @param s
+   *          the s
+   * @return the document
+   */
+  private Document stringToDocument(String s) {
+    try {
+<span class="fc" id="L435">      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L436">      DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();</span>
+<span class="fc" id="L437">      return documentBuilder.parse(new ReaderInputStream(new StringReader(s)));</span>
+<span class="nc" id="L438">    } catch (Exception e) {</span>
+<span class="nc" id="L439">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
+    }
+  }
+
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
+  public String getId() {
+<span class="fc" id="L449">    return id;</span>
+  }
+
+  /**
+   * Gets the result set type.
+   *
+   * @return the result set type
+   */
+  public Integer getResultSetType() {
+<span class="fc" id="L458">    return resultSetType;</span>
+  }
+
+  /**
+   * Sets the result set type.
+   *
+   * @param resultSetType
+   *          the new result set type
+   */
+  public void setResultSetType(Integer resultSetType) {
+<span class="nc" id="L468">    this.resultSetType = resultSetType;</span>
+<span class="nc" id="L469">  }</span>
+
+  /**
+   * Gets the fetch size.
+   *
+   * @return the fetch size
+   */
+  public Integer getFetchSize() {
+<span class="fc" id="L477">    return fetchSize;</span>
+  }
+
+  /**
+   * Sets the fetch size.
+   *
+   * @param fetchSize
+   *          the new fetch size
+   */
+  public void setFetchSize(Integer fetchSize) {
+<span class="nc" id="L487">    this.fetchSize = fetchSize;</span>
+<span class="nc" id="L488">  }</span>
+
+  /**
+   * Sets the id.
+   *
+   * @param id
+   *          the new id
+   */
+  public void setId(String id) {
+<span class="fc" id="L497">    this.id = id;</span>
+<span class="fc" id="L498">  }</span>
+
+  /**
+   * Gets the sql.
+   *
+   * @return the sql
+   */
+  public Sql getSql() {
+<span class="fc" id="L506">    return sql;</span>
+  }
+
+  /**
+   * Sets the sql.
+   *
+   * @param sql
+   *          the new sql
+   */
+  public void setSql(Sql sql) {
+<span class="fc" id="L516">    this.sql = sql;</span>
+<span class="fc" id="L517">  }</span>
+
+  /**
+   * Gets the result map.
+   *
+   * @return the result map
+   */
+  public ResultMap getResultMap() {
+<span class="fc" id="L525">    return resultMap;</span>
+  }
+
+  /**
+   * Sets the result map.
+   *
+   * @param resultMap
+   *          the new result map
+   */
+  public void setResultMap(ResultMap resultMap) {
+<span class="fc" id="L535">    this.resultMap = resultMap;</span>
+<span class="fc" id="L536">  }</span>
+
+  /**
+   * Gets the parameter map.
+   *
+   * @return the parameter map
+   */
+  public ParameterMap getParameterMap() {
+<span class="fc" id="L544">    return parameterMap;</span>
+  }
+
+  /**
+   * Sets the parameter map.
+   *
+   * @param parameterMap
+   *          the new parameter map
+   */
+  public void setParameterMap(ParameterMap parameterMap) {
+<span class="fc" id="L554">    this.parameterMap = parameterMap;</span>
+<span class="fc" id="L555">  }</span>
+
+  /**
+   * Gets the parameter class.
+   *
+   * @return the parameter class
+   */
+  public Class getParameterClass() {
+<span class="fc" id="L563">    return parameterClass;</span>
+  }
+
+  /**
+   * Sets the parameter class.
+   *
+   * @param parameterClass
+   *          the new parameter class
+   */
+  public void setParameterClass(Class parameterClass) {
+<span class="fc" id="L573">    this.parameterClass = parameterClass;</span>
+<span class="fc" id="L574">  }</span>
+
+  /**
+   * Gets the resource.
+   *
+   * @return the resource
+   */
   public String getResource() {
-    return resource;
-<span class="fc" id="L326">  }</span>
-<span class="fc" id="L327"></span>
+<span class="fc" id="L582">    return resource;</span>
+  }
+
+  /**
+   * Sets the resource.
+   *
+   * @param resource
+   *          the new resource
+   */
   public void setResource(String resource) {
-    this.resource = resource;
-<span class="fc" id="L330">  }</span>
-<span class="fc" id="L331"></span>
-<span class="fc" id="L332">  public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {</span>
-<span class="fc" id="L333">    Sql sql = statementScope.getSql();</span>
-    ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);
-    CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);
-    cacheKey.update(id);
+<span class="fc" id="L592">    this.resource = resource;</span>
+<span class="fc" id="L593">  }</span>
+
+  /**
+   * Gets the cache key.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the cache key
+   */
+  public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
+<span class="fc" id="L605">    Sql sql = statementScope.getSql();</span>
+<span class="fc" id="L606">    ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);</span>
+<span class="fc" id="L607">    CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);</span>
+<span class="fc" id="L608">    cacheKey.update(id);</span>
 
     // I am not sure how any clustered cache solution would ever have had any cache hits against
     // replicated objects. I could not make it happen
@@ -352,67 +624,131 @@ public class MappedStatement {
     // cache hits when I force failover in my cluster
 
     // I wish I could make a unit test for this, but I can't do it as the old implementaion
-<span class="fc" id="L355">    // works on 1 machine, but fails across machines.</span>
-<span class="fc" id="L356">    // cacheKey.update(baseCacheKey);</span>
+    // works on 1 machine, but fails across machines.
+    // cacheKey.update(baseCacheKey);
 
-    cacheKey.update(sql.getSql(statementScope, parameterObject)); // Fixes bug 953001
-    return cacheKey;
-<span class="fc" id="L360">  }</span>
-<span class="fc" id="L361"></span>
+<span class="fc" id="L630">    cacheKey.update(sql.getSql(statementScope, parameterObject)); // Fixes bug 953001</span>
+<span class="fc" id="L631">    return cacheKey;</span>
+  }
+
+  /**
+   * Sets the base cache key.
+   *
+   * @param base
+   *          the new base cache key
+   */
   public void setBaseCacheKey(int base) {
-    this.baseCacheKey = base;
-<span class="fc" id="L364">  }</span>
-<span class="fc" id="L365"></span>
+<span class="fc" id="L641">    this.baseCacheKey = base;</span>
+<span class="fc" id="L642">  }</span>
+
+  /**
+   * Adds the execute listener.
+   *
+   * @param listener
+   *          the listener
+   */
   public void addExecuteListener(ExecuteListener listener) {
-    executeListeners.add(listener);
-<span class="fc bfc" id="L368" title="All 2 branches covered.">  }</span>
-<span class="fc" id="L369"></span>
+<span class="fc" id="L651">    executeListeners.add(listener);</span>
+<span class="fc" id="L652">  }</span>
+
+  /**
+   * Notify listeners.
+   */
   public void notifyListeners() {
-<span class="fc" id="L371">    for (int i = 0, n = executeListeners.size(); i &lt; n; i++) {</span>
-      ((ExecuteListener) executeListeners.get(i)).onExecuteStatement(this);
+<span class="fc bfc" id="L658" title="All 2 branches covered.">    for (int i = 0, n = executeListeners.size(); i &lt; n; i++) {</span>
+<span class="fc" id="L659">      ((ExecuteListener) executeListeners.get(i)).onExecuteStatement(this);</span>
     }
-<span class="fc" id="L374">  }</span>
+<span class="fc" id="L661">  }</span>
 
+  /**
+   * Gets the sql executor.
+   *
+   * @return the sql executor
+   */
   public SqlExecutor getSqlExecutor() {
-    return sqlMapClient.getSqlExecutor();
-<span class="nc" id="L378">  }</span>
+<span class="fc" id="L669">    return sqlMapClient.getSqlExecutor();</span>
+  }
 
+  /**
+   * Gets the sql map client.
+   *
+   * @return the sql map client
+   */
   public SqlMapClient getSqlMapClient() {
-    return sqlMapClient;
-<span class="fc" id="L382">  }</span>
-<span class="fc" id="L383"></span>
+<span class="nc" id="L678">    return sqlMapClient;</span>
+  }
+
+  /**
+   * Sets the sql map client.
+   *
+   * @param sqlMapClient
+   *          the new sql map client
+   */
   public void setSqlMapClient(SqlMapClient sqlMapClient) {
-    this.sqlMapClient = (SqlMapClientImpl) sqlMapClient;
-<span class="fc" id="L386">  }</span>
-<span class="fc" id="L387"></span>
-<span class="fc" id="L388">  public void initRequest(StatementScope statementScope) {</span>
-<span class="fc" id="L389">    statementScope.setStatement(this);</span>
-<span class="fc" id="L390">    statementScope.setParameterMap(parameterMap);</span>
-    statementScope.setResultMap(resultMap);
-    statementScope.setSql(sql);
-<span class="fc" id="L393">  }</span>
+<span class="fc" id="L688">    this.sqlMapClient = (SqlMapClientImpl) sqlMapClient;</span>
+<span class="fc" id="L689">  }</span>
 
+  /**
+   * Inits the request.
+   *
+   * @param statementScope
+   *          the statement scope
+   */
+  public void initRequest(StatementScope statementScope) {
+<span class="fc" id="L698">    statementScope.setStatement(this);</span>
+<span class="fc" id="L699">    statementScope.setParameterMap(parameterMap);</span>
+<span class="fc" id="L700">    statementScope.setResultMap(resultMap);</span>
+<span class="fc" id="L701">    statementScope.setSql(sql);</span>
+<span class="fc" id="L702">  }</span>
+
+  /**
+   * Gets the timeout.
+   *
+   * @return the timeout
+   */
   public Integer getTimeout() {
-    return timeout;
-<span class="fc" id="L397">  }</span>
-<span class="fc" id="L398"></span>
+<span class="fc" id="L710">    return timeout;</span>
+  }
+
+  /**
+   * Sets the timeout.
+   *
+   * @param timeout
+   *          the new timeout
+   */
   public void setTimeout(Integer timeout) {
-    this.timeout = timeout;
-<span class="fc" id="L401">  }</span>
-<span class="fc" id="L402"></span>
-<span class="fc" id="L403">  public void addResultMap(ResultMap resultMap) {</span>
-<span class="fc" id="L404">    List resultMapList = Arrays.asList(additionalResultMaps);</span>
-<span class="fc" id="L405">    resultMapList = new ArrayList(resultMapList);</span>
-    resultMapList.add(resultMap);
-    additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);
-<span class="fc bfc" id="L408" title="All 2 branches covered.">  }</span>
+<span class="fc" id="L720">    this.timeout = timeout;</span>
+<span class="fc" id="L721">  }</span>
 
+  /**
+   * Adds the result map.
+   *
+   * @param resultMap
+   *          the result map
+   */
+  public void addResultMap(ResultMap resultMap) {
+<span class="fc" id="L730">    List resultMapList = Arrays.asList(additionalResultMaps);</span>
+<span class="fc" id="L731">    resultMapList = new ArrayList(resultMapList);</span>
+<span class="fc" id="L732">    resultMapList.add(resultMap);</span>
+<span class="fc" id="L733">    additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);</span>
+<span class="fc" id="L734">  }</span>
+
+  /**
+   * Checks for multiple result maps.
+   *
+   * @return true, if successful
+   */
   public boolean hasMultipleResultMaps() {
-    return additionalResultMaps.length &gt; 0;
-<span class="fc" id="L412">  }</span>
+<span class="fc bfc" id="L742" title="All 2 branches covered.">    return additionalResultMaps.length &gt; 0;</span>
+  }
 
+  /**
+   * Gets the additional result maps.
+   *
+   * @return the additional result maps
+   */
   public ResultMap[] getAdditionalResultMaps() {
-    return additionalResultMaps;
+<span class="fc" id="L751">    return additionalResultMaps;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
