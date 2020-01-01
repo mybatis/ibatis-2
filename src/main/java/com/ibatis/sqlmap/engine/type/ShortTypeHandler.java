@@ -34,7 +34,7 @@ public class ShortTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Short(s);
+      return Short.valueOf(s);
     }
   }
 
@@ -43,7 +43,7 @@ public class ShortTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Short(s);
+      return Short.valueOf(s);
     }
   }
 
@@ -52,7 +52,7 @@ public class ShortTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Short(s);
+      return Short.valueOf(s);
     }
   }
 

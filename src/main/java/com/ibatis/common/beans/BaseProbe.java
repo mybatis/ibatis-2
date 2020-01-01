@@ -77,7 +77,7 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof long[]) {
         value = new Long(((long[]) list)[i]);
       } else if (list instanceof short[]) {
-        value = new Short(((short[]) list)[i]);
+        value = Short.valueOf(((short[]) list)[i]);
       } else {
         throw new ProbeException(
             "The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");
