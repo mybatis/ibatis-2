@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,12 +131,12 @@ public class XmlList implements List {
 
   @Override
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder builder = new StringBuilder();
     for (int i = 0, n = list.size(); i < n; i++) {
-      buffer.append(list.get(i));
-      buffer.append("\r\n");
+      builder.append(list.get(i));
+      builder.append("\r\n");
     }
-    return buffer.toString();
+    return builder.toString();
   }
 
 }

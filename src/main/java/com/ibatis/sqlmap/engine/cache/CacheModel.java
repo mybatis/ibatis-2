@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class CacheModel implements ExecuteListener {
   /**
    * This is used to represent null objects that are returned from the cache so that they can be cached, too.
    */
-  public static final Object NULL_OBJECT = new String("SERIALIZABLE_NULL_OBJECT");
+  public static final Object NULL_OBJECT = "SERIALIZABLE_NULL_OBJECT";
   private int requests = 0;
   private int hits = 0;
 
@@ -345,7 +345,7 @@ public class CacheModel implements ExecuteListener {
    *          The value being logged
    */
   protected void log(String action, boolean addValue, Object cacheValue) {
-    StringBuffer output = new StringBuffer("Cache '");
+    StringBuilder output = new StringBuilder("Cache '");
     output.append(getId());
     output.append("': ");
     output.append(action);
@@ -353,7 +353,7 @@ public class CacheModel implements ExecuteListener {
       String cacheObjectStr = (cacheValue == null ? "null" : cacheValue.toString());
       output.append(" '");
       if (cacheObjectStr.length() < getMaxObjectLogSize()) {
-        output.append(cacheObjectStr.toString());
+        output.append(cacheObjectStr);
       } else {
         output.append(cacheObjectStr.substring(1, getMaxObjectLogSize()));
         output.append("...");

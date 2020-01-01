@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,7 +132,7 @@ public class DynamicSql implements Sql, DynamicParent {
           }
 
           if (itCtx != null) {
-            StringBuffer sqlStatementBuffer = new StringBuffer(sqlStatement);
+            StringBuilder sqlStatementBuffer = new StringBuilder(sqlStatement);
             iteratePropertyReplace(sqlStatementBuffer, itCtx);
             sqlStatement = sqlStatementBuffer.toString();
           }
@@ -161,7 +161,7 @@ public class DynamicSql implements Sql, DynamicParent {
             processBodyChildren(statementScope, ctx, parameterObject, tag.getChildren(), pw);
             pw.flush();
             pw.close();
-            StringBuffer body = sw.getBuffer();
+            StringBuilder body = new StringBuilder(sw.getBuffer());
             response = handler.doEndFragment(ctx, tag, parameterObject, body);
             handler.doPrepend(ctx, tag, parameterObject, body);
 
@@ -190,7 +190,7 @@ public class DynamicSql implements Sql, DynamicParent {
    * @param bodyContent
    * @param iterate
    */
-  protected void iteratePropertyReplace(StringBuffer bodyContent, IterateContext iterate) {
+  protected void iteratePropertyReplace(StringBuilder bodyContent, IterateContext iterate) {
     if (iterate != null) {
       String[] mappings = new String[] { "#", "$" };
       for (int i = 0; i < mappings.length; i++) {
@@ -208,12 +208,12 @@ public class DynamicSql implements Sql, DynamicParent {
     }
   }
 
-  protected static void replace(StringBuffer buffer, String find, String replace) {
-    int pos = buffer.toString().indexOf(find);
+  protected static void replace(StringBuilder builder, String find, String replace) {
+    int pos = builder.toString().indexOf(find);
     int len = find.length();
     while (pos > -1) {
-      buffer.replace(pos, pos + len, replace);
-      pos = buffer.toString().indexOf(find);
+      builder.replace(pos, pos + len, replace);
+      pos = builder.toString().indexOf(find);
     }
   }
 

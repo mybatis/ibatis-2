@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class XMLSqlSource implements SqlSource {
     state.getConfig().getErrorContext().setActivity("processing an SQL statement");
 
     boolean isDynamic = false;
-    StringBuffer sqlBuffer = new StringBuffer();
+    StringBuilder sqlBuffer = new StringBuilder();
     DynamicSql dynamic = new DynamicSql(state.getConfig().getClient().getDelegate());
     isDynamic = parseDynamicTags(parentNode, dynamic, sqlBuffer, isDynamic, false);
     String sqlStatement = sqlBuffer.toString();
@@ -54,7 +54,7 @@ public class XMLSqlSource implements SqlSource {
     }
   }
 
-  private boolean parseDynamicTags(Node node, DynamicParent dynamic, StringBuffer sqlBuffer, boolean isDynamic,
+  private boolean parseDynamicTags(Node node, DynamicParent dynamic, StringBuilder sqlBuffer, boolean isDynamic,
       boolean postParseRequired) {
     state.getConfig().getErrorContext().setActivity("parsing dynamic SQL tags");
 

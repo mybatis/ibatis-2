@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,11 +119,11 @@ public class ResultMap {
 
   public Object getUniqueKey(String keyPrefix, Object[] values) {
     if (groupByProps != null) {
-      StringBuffer keyBuffer;
+      StringBuilder keyBuffer;
       if (keyPrefix != null)
-        keyBuffer = new StringBuffer(keyPrefix);
+        keyBuffer = new StringBuilder(keyPrefix);
       else
-        keyBuffer = new StringBuffer();
+        keyBuffer = new StringBuilder();
       for (int i = 0; i < getResultMappings().length; i++) {
         String propertyName = getResultMappings()[i].getPropertyName();
         if (groupByProps.contains(propertyName)) {

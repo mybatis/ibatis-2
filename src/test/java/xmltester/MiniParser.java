@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,15 +89,15 @@ public class MiniParser extends DefaultHandler {
   @Override
   public void characters(char ch[], int start, int length) {
     if (currentElement != null) {
-      StringBuffer buffer;
+      StringBuilder builder;
       String current = currentElement.getBodyContent();
       if (current == null) {
-        buffer = new StringBuffer();
+        builder = new StringBuilder();
       } else {
-        buffer = new StringBuffer(current);
+        builder = new StringBuilder(current);
       }
-      buffer.append(ch, start, length);
-      currentElement.setBodyContent(buffer.toString());
+      builder.append(ch, start, length);
+      currentElement.setBodyContent(builder.toString());
     }
   }
 

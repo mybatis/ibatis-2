@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ public class NodeletParser {
       String elementName = node.getNodeName();
       path.add(elementName);
       processNodelet(node, path.toString());
-      processNodelet(node, new StringBuffer("//").append(elementName).toString());
+      processNodelet(node, new StringBuilder("//").append(elementName).toString());
 
       // Attribute
       NamedNodeMap attributes = node.getAttributes();
@@ -101,7 +101,7 @@ public class NodeletParser {
         String attrName = att.getNodeName();
         path.add("@" + attrName);
         processNodelet(att, path.toString());
-        processNodelet(node, new StringBuffer("//@").append(attrName).toString());
+        processNodelet(node, new StringBuilder("//@").append(attrName).toString());
         path.remove();
       }
 
@@ -235,14 +235,14 @@ public class NodeletParser {
 
     @Override
     public String toString() {
-      StringBuffer buffer = new StringBuffer("/");
+      StringBuilder builder = new StringBuilder("/");
       for (int i = 0; i < nodeList.size(); i++) {
-        buffer.append(nodeList.get(i));
+        builder.append(nodeList.get(i));
         if (i < nodeList.size() - 1) {
-          buffer.append("/");
+          builder.append("/");
         }
       }
-      return buffer.toString();
+      return builder.toString();
     }
   }
 
