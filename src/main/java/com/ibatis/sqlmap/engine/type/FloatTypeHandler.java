@@ -34,7 +34,7 @@ public class FloatTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Float(f);
+      return Float.valueOf(f);
     }
   }
 
@@ -43,7 +43,7 @@ public class FloatTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Float(f);
+      return Float.valueOf(f);
     }
   }
 
@@ -52,7 +52,7 @@ public class FloatTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Float(f);
+      return Float.valueOf(f);
     }
   }
 
