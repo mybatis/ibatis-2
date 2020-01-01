@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,38 +42,38 @@ public class ResultMapTest extends BaseSqlMapTest {
   // RESULT MAP FEATURE TESTS
 
   public void testColumnsByName() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   public void testExtendedResultMap() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   public void testColumnsByIndex() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnIndex", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnIndex", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   public void testNullValueReplacement() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", new Integer(5));
+    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(5));
     assertEquals("no_email@provided.com", account.getEmailAddress());
   }
 
   public void testTypeSpecified() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithTypes", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderWithTypes", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   public void testComplexObjectMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithAccount", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderWithAccount", Integer.valueOf(1));
     assertOrder1(order);
     assertAccount1(order.getAccount());
   }
 
   public void testCollectionMappingAndExtends() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemsCollection", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemsCollection", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItems());
@@ -81,7 +81,7 @@ public class ResultMapTest extends BaseSqlMapTest {
   }
 
   public void testListMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItems", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItems", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItemsList());
@@ -89,7 +89,7 @@ public class ResultMapTest extends BaseSqlMapTest {
   }
 
   public void testGetAllLineItemProps() throws SQLException {
-    List list = sqlMap.queryForList("getAllLineItemProps", new Integer(1));
+    List list = sqlMap.queryForList("getAllLineItemProps", Integer.valueOf(1));
 
     assertNotNull(list);
     assertEquals(2, list.size());
@@ -97,7 +97,7 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   public void testGetSomeLineItemProps() throws SQLException {
     try {
-      List list = sqlMap.queryForList("getSomeLineItemProps", new Integer(1));
+      List list = sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
 
       fail("Expected exception because column was missing.");
     } catch (NestedSQLException e) {
@@ -106,7 +106,7 @@ public class ResultMapTest extends BaseSqlMapTest {
   }
 
   public void testArrayMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemArray", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemArray", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItemArray());
@@ -114,12 +114,12 @@ public class ResultMapTest extends BaseSqlMapTest {
   }
 
   public void testHashMapMapping() throws SQLException {
-    Map order = (Map) sqlMap.queryForObject("getOrderAsMap", new Integer(1));
+    Map order = (Map) sqlMap.queryForObject("getOrderAsMap", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   public void testNestedObjects() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderJoinedFavourite", new Integer(1));
+    Order order = (Order) sqlMap.queryForObject("getOrderJoinedFavourite", Integer.valueOf(1));
     assertOrder1(order);
   }
 
@@ -132,8 +132,8 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   public void testCompositeKeyMapping() throws SQLException {
 
-    Order order1 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", new Integer(1));
-    Order order2 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", new Integer(2));
+    Order order1 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(1));
+    Order order2 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(2));
 
     assertNotNull(order1);
     assertNotNull(order1.getFavouriteLineItem());
@@ -149,7 +149,7 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   public void testDynCompositeKeyMapping() throws SQLException {
 
-    Order order1 = (Order) sqlMap.queryForObject("getOrderWithDynFavouriteLineItem", new Integer(1));
+    Order order1 = (Order) sqlMap.queryForObject("getOrderWithDynFavouriteLineItem", Integer.valueOf(1));
 
     assertNotNull(order1);
     assertNotNull(order1.getFavouriteLineItem());
@@ -159,7 +159,7 @@ public class ResultMapTest extends BaseSqlMapTest {
   }
 
   public void testGetDoubleNestedResult() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getNestedAccountViaColumnName", new Integer(1));
+    Account account = (Account) sqlMap.queryForObject("getNestedAccountViaColumnName", Integer.valueOf(1));
     assertAccount1(account);
   }
 

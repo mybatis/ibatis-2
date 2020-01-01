@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,21 +63,21 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof Object[]) {
         value = ((Object[]) list)[i];
       } else if (list instanceof char[]) {
-        value = new Character(((char[]) list)[i]);
+        value = Character.valueOf(((char[]) list)[i]);
       } else if (list instanceof boolean[]) {
         value = new Boolean(((boolean[]) list)[i]);
       } else if (list instanceof byte[]) {
-        value = new Byte(((byte[]) list)[i]);
+        value = Byte.valueOf(((byte[]) list)[i]);
       } else if (list instanceof double[]) {
-        value = new Double(((double[]) list)[i]);
+        value = Double.valueOf(((double[]) list)[i]);
       } else if (list instanceof float[]) {
-        value = new Float(((float[]) list)[i]);
+        value = Float.valueOf(((float[]) list)[i]);
       } else if (list instanceof int[]) {
-        value = new Integer(((int[]) list)[i]);
+        value = Integer.valueOf(((int[]) list)[i]);
       } else if (list instanceof long[]) {
-        value = new Long(((long[]) list)[i]);
+        value = Long.valueOf(((long[]) list)[i]);
       } else if (list instanceof short[]) {
-        value = new Short(((short[]) list)[i]);
+        value = Short.valueOf(((short[]) list)[i]);
       } else {
         throw new ProbeException(
             "The '" + name + "' property of the " + object.getClass().getName() + " class is not a List or Array.");

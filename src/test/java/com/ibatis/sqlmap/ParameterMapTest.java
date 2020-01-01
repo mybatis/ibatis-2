@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
 
     sqlMap.update("insertAccountViaParameterMap", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
     assertAccount6(account);
   }
@@ -50,7 +50,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
 
     sqlMap.update("insertAccountViaInlineParameters", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
     assertAccount6(account);
   }
@@ -67,7 +67,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
       expected = e;
     }
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(0));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(0));
 
     assertNotNull(expected);
     assertMessageIsNullValueNotAllowed(expected.getMessage());
@@ -85,7 +85,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
 
     sqlMap.update("insertAccountNullableEmail", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
     assertAccount6(account);
   }
@@ -96,7 +96,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
 
     sqlMap.update("insertAccountUknownParameterClass", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", new Integer(6));
+    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
     assertAccount6(account);
   }

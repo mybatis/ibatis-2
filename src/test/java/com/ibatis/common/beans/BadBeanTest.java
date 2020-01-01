@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ public class BadBeanTest extends TestCase {
 
   private static final String PROPNAME = "value";
   private static final Object STRING_VALUE = "1";
-  private static final Object INT_VALUE = new Integer(1);
+  private static final Object INT_VALUE = Integer.valueOf(1);
   private static final Object[] NO_VALUE = new Object[] {};
   private static final Object[] STRING_PARAMS = new Object[] { STRING_VALUE };
   private static final Object[] INT_PARAMS = new Object[] { INT_VALUE };

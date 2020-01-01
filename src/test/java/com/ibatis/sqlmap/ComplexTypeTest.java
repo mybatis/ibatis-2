@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class ComplexTypeTest extends BaseSqlMapTest {
     Map map = new HashMap();
     ComplexBean bean = new ComplexBean();
     bean.setMap(new HashMap());
-    bean.getMap().put("id", new Integer(1));
+    bean.getMap().put("id", Integer.valueOf(1));
     map.put("bean", bean);
 
     Integer id = (Integer) sqlMap.queryForObject("mapBeanMap", map);

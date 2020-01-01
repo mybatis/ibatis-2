@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -218,7 +218,7 @@ public class SqlMapParser {
 
         Integer numericScale = null;
         if (numericScaleProp != null) {
-          numericScale = new Integer(numericScaleProp);
+          numericScale = Integer.valueOf(numericScaleProp);
         }
 
         state.getParamConfig().addParameterMapping(propertyName, javaClass, jdbcType, nullValue, mode, type,
@@ -295,7 +295,7 @@ public class SqlMapParser {
         Integer columnIndex = null;
         if (columnIndexProp != null) {
           try {
-            columnIndex = new Integer(columnIndexProp);
+            columnIndex = Integer.valueOf(columnIndexProp);
           } catch (Exception e) {
             throw new RuntimeException("Error parsing column index.  Cause: " + e, e);
           }
@@ -352,7 +352,7 @@ public class SqlMapParser {
         Integer columnIndex = null;
         if (columnIndexProp != null) {
           try {
-            columnIndex = new Integer(columnIndexProp);
+            columnIndex = Integer.valueOf(columnIndexProp);
           } catch (Exception e) {
             throw new RuntimeException("Error parsing column index.  Cause: " + e, e);
           }

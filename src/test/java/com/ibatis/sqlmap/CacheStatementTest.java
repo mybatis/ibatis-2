@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -282,7 +282,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
         list = session.queryForList(statementName, null);
         int secondId = System.identityHashCode(list);
         // assertEquals(firstId, secondId);
-        results.put("id", new Integer(System.identityHashCode(list)));
+        results.put("id", Integer.valueOf(System.identityHashCode(list)));
         results.put("list", list);
         session.close();
       } catch (SQLException e) {

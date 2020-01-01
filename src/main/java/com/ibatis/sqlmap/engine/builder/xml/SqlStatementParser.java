@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,8 +81,8 @@ public class SqlStatementParser {
     state.getConfig().getErrorContext().setMoreInfo("Check the result class.");
     Class resultClass = resolveClass(resultClassName);
 
-    Integer timeoutInt = timeout == null ? null : new Integer(timeout);
-    Integer fetchSizeInt = fetchSize == null ? null : new Integer(fetchSize);
+    Integer timeoutInt = timeout == null ? null : Integer.valueOf(timeout);
+    Integer fetchSizeInt = fetchSize == null ? null : Integer.valueOf(fetchSize);
     boolean allowRemappingBool = "true".equals(allowRemapping);
 
     MappedStatementConfig statementConf = state.getConfig().newMappedStatementConfig(id, statement,

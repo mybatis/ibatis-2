@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,7 +123,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     } else if (type == Short.class || type == short.class) {
       return Short.valueOf(value);
     } else if (type == Character.class || type == char.class) {
-      return new Character(value.charAt(0));
+      return Character.valueOf(value.charAt(0));
     } else if (type == Integer.class || type == int.class) {
       return Integer.valueOf(value);
     } else if (type == Long.class || type == long.class) {

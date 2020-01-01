@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,10 +39,10 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
     Map persons = new HashMap();
-    persons.put("1", new Integer(1));
-    persons.put("2", new Integer(2));
-    persons.put("3", new Integer(3));
-    persons.put("4", new Integer(4));
+    persons.put("1", Integer.valueOf(1));
+    persons.put("2", Integer.valueOf(2));
+    persons.put("3", Integer.valueOf(3));
+    persons.put("4", Integer.valueOf(4));
     List results = sqlMap.queryForList("getMultiListsRm", persons);
     assertEquals(2, results.size());
     assertEquals(2, ((List) results.get(0)).size());
@@ -51,10 +51,10 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
     Map persons = new HashMap();
-    persons.put("1", new Integer(1));
-    persons.put("2", new Integer(2));
-    persons.put("3", new Integer(3));
-    persons.put("4", new Integer(4));
+    persons.put("1", Integer.valueOf(1));
+    persons.put("2", Integer.valueOf(2));
+    persons.put("3", Integer.valueOf(3));
+    persons.put("4", Integer.valueOf(4));
     List results = sqlMap.queryForList("getMultiListsRc", persons);
     assertEquals(2, results.size());
     assertEquals(2, ((List) results.get(0)).size());

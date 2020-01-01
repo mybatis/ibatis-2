@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 
@@ -43,7 +43,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 
@@ -52,7 +52,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 

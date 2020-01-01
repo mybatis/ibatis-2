@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,15 +39,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void testShouldReturn9Rows() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest1", po);
       assertEquals(9, results.size());
@@ -70,15 +70,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test02() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest2", po);
       assertEquals(1, results.size());
@@ -93,15 +93,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test03() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(4)); // put first to make the test fail
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(4)); // put first to make the test fail
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest3", po);
       assertEquals(8, results.size());
@@ -123,15 +123,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test04() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest4", po);
       assertEquals(5, results.size());
@@ -150,15 +150,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test05() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest5", po);
       assertEquals(6, results.size());
@@ -179,15 +179,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test06() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
-    po.addId(new Integer(9));
-    po.addId(new Integer(8));
-    po.addId(new Integer(7));
-    po.addId(new Integer(6));
-    po.addId(new Integer(5));
-    po.addId(new Integer(4));
-    po.addId(new Integer(3));
-    po.addId(new Integer(2));
-    po.addId(new Integer(1));
+    po.addId(Integer.valueOf(9));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(1));
     try {
       List results = sqlMap.queryForList("NestedIterateTest6", po);
       assertEquals(3, results.size());
@@ -205,15 +205,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test07() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
-    po.addId(new Integer(9));
-    po.addId(new Integer(8));
-    po.addId(new Integer(7));
-    po.addId(new Integer(6));
-    po.addId(new Integer(5));
-    po.addId(new Integer(4));
-    po.addId(new Integer(3));
-    po.addId(new Integer(2));
-    po.addId(new Integer(1));
+    po.addId(Integer.valueOf(9));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(1));
     try {
       List results = sqlMap.queryForList("NestedIterateTest7", po);
       assertEquals(4, results.size());
@@ -304,15 +304,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test10() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest10", po);
       assertEquals(1, results.size());
@@ -327,15 +327,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test11() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(4)); // put first to make the test fail
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(4)); // put first to make the test fail
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest11", po);
       assertEquals(8, results.size());
@@ -357,15 +357,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test12() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest12", po);
       assertEquals(5, results.size());
@@ -384,15 +384,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test13() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest13", po);
       assertEquals(6, results.size());
@@ -413,15 +413,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test14() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
-    po.addId(new Integer(9));
-    po.addId(new Integer(8));
-    po.addId(new Integer(7));
-    po.addId(new Integer(6));
-    po.addId(new Integer(5));
-    po.addId(new Integer(4));
-    po.addId(new Integer(3));
-    po.addId(new Integer(2));
-    po.addId(new Integer(1));
+    po.addId(Integer.valueOf(9));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(1));
     try {
       List results = sqlMap.queryForList("NestedIterateTest14", po);
       assertEquals(3, results.size());
@@ -439,15 +439,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test15() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
-    po.addId(new Integer(9));
-    po.addId(new Integer(8));
-    po.addId(new Integer(7));
-    po.addId(new Integer(6));
-    po.addId(new Integer(5));
-    po.addId(new Integer(4));
-    po.addId(new Integer(3));
-    po.addId(new Integer(2));
-    po.addId(new Integer(1));
+    po.addId(Integer.valueOf(9));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(1));
     try {
       List results = sqlMap.queryForList("NestedIterateTest15", po);
       assertEquals(4, results.size());
@@ -617,15 +617,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test21() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest21", po);
       assertEquals(9, results.size());
@@ -651,15 +651,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test22() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest22", po);
       assertEquals(1, results.size());
@@ -675,15 +675,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test23() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest23", po);
       assertEquals(1, results.size());
@@ -699,15 +699,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test24() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest24", po);
       assertEquals(1, results.size());
@@ -723,15 +723,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
    */
   public void test25() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
     try {
       List results = sqlMap.queryForList("NestedIterateTest25", po);
       assertEquals(3, results.size());
@@ -749,15 +749,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test26() {
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
 
     Map params = new HashMap();
     params.put("po", po);
@@ -786,15 +786,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
     Map params = new HashMap();
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
 
     params.put("po", po);
 
@@ -820,15 +820,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
   public void test28() {
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
 
     SimpleNestedParameterObject simpleNestedParameterObject = new SimpleNestedParameterObject();
 
@@ -858,15 +858,15 @@ public class NestedIterateTest extends BaseSqlMapTest {
     List parameterObjectList = new ArrayList();
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
-    po.addId(new Integer(1));
-    po.addId(new Integer(2));
-    po.addId(new Integer(3));
-    po.addId(new Integer(4));
-    po.addId(new Integer(5));
-    po.addId(new Integer(6));
-    po.addId(new Integer(7));
-    po.addId(new Integer(8));
-    po.addId(new Integer(9));
+    po.addId(Integer.valueOf(1));
+    po.addId(Integer.valueOf(2));
+    po.addId(Integer.valueOf(3));
+    po.addId(Integer.valueOf(4));
+    po.addId(Integer.valueOf(5));
+    po.addId(Integer.valueOf(6));
+    po.addId(Integer.valueOf(7));
+    po.addId(Integer.valueOf(8));
+    po.addId(Integer.valueOf(9));
 
     secondParameterObject.setNestedIterateParameterObject(po);
 

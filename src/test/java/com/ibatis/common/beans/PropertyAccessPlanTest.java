@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ public class PropertyAccessPlanTest extends TestCase {
       "account.emailAddress", "cardType", "cardNumber", "cardExpiry", "favouriteLineItem.itemCode",
       "favouriteLineItem.quantity", "favouriteLineItem.price" };
 
-  private static final Object[] values = { new Integer(100), new Integer(100), "Clinton", "Begin", "clinton@ibatis.com",
-      "VISA", "1234567890", "05/06", "M100", new Integer(3), new BigDecimal(150) };
+  private static final Object[] values = { Integer.valueOf(100), Integer.valueOf(100), "Clinton", "Begin",
+      "clinton@ibatis.com", "VISA", "1234567890", "05/06", "M100", Integer.valueOf(3), new BigDecimal(150) };
 
   public void testSetAndGetProperties() {
 
@@ -50,8 +50,8 @@ public class PropertyAccessPlanTest extends TestCase {
   }
 
   private void assertOrder(Order order) {
-    assertEquals(values[0], new Integer(order.getId()));
-    assertEquals(values[1], new Integer(order.getId()));
+    assertEquals(values[0], Integer.valueOf(order.getId()));
+    assertEquals(values[1], Integer.valueOf(order.getId()));
     assertEquals(values[2], order.getAccount().getFirstName());
     assertEquals(values[3], order.getAccount().getLastName());
     assertEquals(values[4], order.getAccount().getEmailAddress());
@@ -59,7 +59,7 @@ public class PropertyAccessPlanTest extends TestCase {
     assertEquals(values[6], order.getCardNumber());
     assertEquals(values[7], order.getCardExpiry());
     assertEquals(values[8], order.getFavouriteLineItem().getItemCode());
-    assertEquals(values[9], new Integer(order.getFavouriteLineItem().getQuantity()));
+    assertEquals(values[9], Integer.valueOf(order.getFavouriteLineItem().getQuantity()));
     assertEquals(values[10], order.getFavouriteLineItem().getPrice());
   }
 
