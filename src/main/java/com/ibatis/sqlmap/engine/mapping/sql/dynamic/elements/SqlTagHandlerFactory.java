@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,12 @@ package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A factory for creating SqlTagHandler objects.
+ */
 public class SqlTagHandlerFactory {
 
+  /** The Constant HANDLER_MAP. */
   private static final Map HANDLER_MAP = new HashMap();
 
   static {
@@ -41,9 +45,19 @@ public class SqlTagHandlerFactory {
     HANDLER_MAP.put("dynamic", new DynamicTagHandler());
   }
 
+  /**
+   * Instantiates a new sql tag handler factory.
+   */
   private SqlTagHandlerFactory() {
   }
 
+  /**
+   * Gets the sql tag handler.
+   *
+   * @param name
+   *          the name
+   * @return the sql tag handler
+   */
   public static SqlTagHandler getSqlTagHandler(String name) {
     return (SqlTagHandler) HANDLER_MAP.get(name);
   }

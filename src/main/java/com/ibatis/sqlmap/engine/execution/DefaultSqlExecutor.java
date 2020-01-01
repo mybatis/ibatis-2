@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import com.ibatis.sqlmap.engine.scope.SessionScope;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 /**
- * Class responsible for executing the SQL
+ * Class responsible for executing the SQL.
  */
 public class DefaultSqlExecutor implements SqlExecutor {
 
@@ -337,6 +337,23 @@ public class DefaultSqlExecutor implements SqlExecutor {
     // No implementation is required in DefaultSqlExecutor.
   }
 
+  /**
+   * Handle multiple results.
+   *
+   * @param ps
+   *          the ps
+   * @param statementScope
+   *          the statement scope
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @param callback
+   *          the callback
+   * @return the result set
+   * @throws SQLException
+   *           the SQL exception
+   */
   private ResultSet handleMultipleResults(PreparedStatement ps, StatementScope statementScope, int skipResults,
       int maxResults, RowHandlerCallback callback) throws SQLException {
     ResultSet rs;
@@ -376,6 +393,17 @@ public class DefaultSqlExecutor implements SqlExecutor {
     return rs;
   }
 
+  /**
+   * Gets the first result set.
+   *
+   * @param scope
+   *          the scope
+   * @param stmt
+   *          the stmt
+   * @return the first result set
+   * @throws SQLException
+   *           the SQL exception
+   */
   private ResultSet getFirstResultSet(StatementScope scope, Statement stmt) throws SQLException {
     ResultSet rs = null;
     boolean hasMoreResults = true;
@@ -389,6 +417,17 @@ public class DefaultSqlExecutor implements SqlExecutor {
     return rs;
   }
 
+  /**
+   * Move to next results if present.
+   *
+   * @param scope
+   *          the scope
+   * @param stmt
+   *          the stmt
+   * @return true, if successful
+   * @throws SQLException
+   *           the SQL exception
+   */
   private boolean moveToNextResultsIfPresent(StatementScope scope, Statement stmt) throws SQLException {
     boolean moreResults;
     // This is the messed up JDBC approach for determining if there are more results
@@ -405,6 +444,17 @@ public class DefaultSqlExecutor implements SqlExecutor {
     return moreResults;
   }
 
+  /**
+   * Move to next results safely.
+   *
+   * @param scope
+   *          the scope
+   * @param stmt
+   *          the stmt
+   * @return true, if successful
+   * @throws SQLException
+   *           the SQL exception
+   */
   private boolean moveToNextResultsSafely(StatementScope scope, Statement stmt) throws SQLException {
     if (isMultipleResultSetSupportPresent(scope, stmt)) {
       return stmt.getMoreResults();
@@ -414,16 +464,47 @@ public class DefaultSqlExecutor implements SqlExecutor {
 
   /**
    * checks whether multiple result set support is present - either by direct support of the database driver or by
-   * forcing it
+   * forcing it.
+   *
+   * @param scope
+   *          the scope
+   * @param stmt
+   *          the stmt
+   * @return true, if is multiple result set support present
+   * @throws SQLException
+   *           the SQL exception
    */
   private boolean isMultipleResultSetSupportPresent(StatementScope scope, Statement stmt) throws SQLException {
     return forceMultipleResultSetSupport(scope) || stmt.getConnection().getMetaData().supportsMultipleResultSets();
   }
 
+  /**
+   * Force multiple result set support.
+   *
+   * @param scope
+   *          the scope
+   * @return true, if successful
+   */
   private boolean forceMultipleResultSetSupport(StatementScope scope) {
     return ((SqlMapClientImpl) scope.getSession().getSqlMapClient()).getDelegate().isForceMultipleResultSetSupport();
   }
 
+  /**
+   * Handle results.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param rs
+   *          the rs
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @param callback
+   *          the callback
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void handleResults(StatementScope statementScope, ResultSet rs, int skipResults, int maxResults,
       RowHandlerCallback callback) throws SQLException {
     try {
@@ -456,6 +537,22 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Retrieve output parameters.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param cs
+   *          the cs
+   * @param mappings
+   *          the mappings
+   * @param parameters
+   *          the parameters
+   * @param callback
+   *          the callback
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void retrieveOutputParameters(StatementScope statementScope, CallableStatement cs,
       ParameterMapping[] mappings, Object[] parameters, RowHandlerCallback callback) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
@@ -483,6 +580,16 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Register output parameters.
+   *
+   * @param cs
+   *          the cs
+   * @param mappings
+   *          the mappings
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void registerOutputParameters(CallableStatement cs, ParameterMapping[] mappings) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
       ParameterMapping mapping = ((ParameterMapping) mappings[i]);
@@ -501,6 +608,20 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Handle output parameter results.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param resultMap
+   *          the result map
+   * @param rs
+   *          the rs
+   * @param callback
+   *          the callback
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void handleOutputParameterResults(StatementScope statementScope, ResultMap resultMap, ResultSet rs,
       RowHandlerCallback callback) throws SQLException {
     ResultMap orig = statementScope.getResultMap();
@@ -535,6 +656,21 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Prepare statement.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param conn
+   *          the conn
+   * @param sql
+   *          the sql
+   * @param rsType
+   *          the rs type
+   * @return the prepared statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   private PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
@@ -547,6 +683,21 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Prepare call.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param conn
+   *          the conn
+   * @param sql
+   *          the sql
+   * @param rsType
+   *          the rs type
+   * @return the callable statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
@@ -559,6 +710,19 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Prepare statement.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param conn
+   *          the conn
+   * @param sql
+   *          the sql
+   * @return the prepared statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   private static PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql)
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
@@ -571,6 +735,19 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Prepare call.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param conn
+   *          the conn
+   * @param sql
+   *          the sql
+   * @return the callable statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql) throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
@@ -582,6 +759,14 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Close statement.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param ps
+   *          the ps
+   */
   private static void closeStatement(SessionScope sessionScope, PreparedStatement ps) {
     if (ps != null) {
       if (!sessionScope.hasPreparedStatement(ps)) {
@@ -595,7 +780,10 @@ public class DefaultSqlExecutor implements SqlExecutor {
   }
 
   /**
+   * Close result set.
+   *
    * @param rs
+   *          the rs
    */
   private static void closeResultSet(ResultSet rs) {
     if (rs != null) {
@@ -607,6 +795,16 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Sets the statement timeout.
+   *
+   * @param mappedStatement
+   *          the mapped statement
+   * @param statement
+   *          the statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   private static void setStatementTimeout(MappedStatement mappedStatement, Statement statement) throws SQLException {
     if (mappedStatement.getTimeout() != null) {
       statement.setQueryTimeout(mappedStatement.getTimeout().intValue());
@@ -617,21 +815,32 @@ public class DefaultSqlExecutor implements SqlExecutor {
   // Inner Classes
   //
 
+  /**
+   * The Class Batch.
+   */
   private static class Batch {
+
+    /** The current sql. */
     private String currentSql;
+
+    /** The statement list. */
     private List statementList = new ArrayList();
+
+    /** The batch result list. */
     private List batchResultList = new ArrayList();
+
+    /** The size. */
     private int size;
 
     /**
-     * Create a new batch
+     * Create a new batch.
      */
     public Batch() {
       this.size = 0;
     }
 
     /**
-     * Getter for the batch size
+     * Getter for the batch size.
      *
      * @return - the batch size
      */
@@ -640,7 +849,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
 
     /**
-     * Add a prepared statement to the batch
+     * Add a prepared statement to the batch.
      *
      * @param statementScope
      *          - the request scope
@@ -703,8 +912,6 @@ public class DefaultSqlExecutor implements SqlExecutor {
      * Batch execution method that returns all the information the driver has to offer.
      *
      * @return a List of BatchResult objects
-     * @throws BatchException
-     *           (an SQLException sub class) if any nested batch fails
      * @throws SQLException
      *           if a database access error occurs, or the drive does not support batch statements
      * @throws BatchException
@@ -735,9 +942,10 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
 
     /**
-     * Close all the statements in the batch and clear all the statements
+     * Close all the statements in the batch and clear all the statements.
      *
      * @param sessionScope
+     *          the session scope
      */
     public void cleanupBatch(SessionScope sessionScope) {
       for (int i = 0, n = statementList.size(); i < n; i++) {
@@ -751,12 +959,21 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  /**
+   * Sets the up result object factory.
+   *
+   * @param statementScope
+   *          the new up result object factory
+   */
   private void setupResultObjectFactory(StatementScope statementScope) {
     SqlMapClientImpl client = (SqlMapClientImpl) statementScope.getSession().getSqlMapClient();
     ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(),
         statementScope.getStatement().getId());
   }
 
+  /**
+   * Cleanup result object factory.
+   */
   private void cleanupResultObjectFactory() {
     ResultObjectFactoryUtil.cleanupResultObjectFactory();
   }

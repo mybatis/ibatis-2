@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,17 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Offline entity resolver for the iBATIS DTDs
+ * Offline entity resolver for the iBATIS DTDs.
  */
 public class SqlMapClasspathEntityResolver implements EntityResolver {
 
+  /** The Constant SQL_MAP_CONFIG_DTD. */
   private static final String SQL_MAP_CONFIG_DTD = "com/ibatis/sqlmap/engine/builder/xml/sql-map-config-2.dtd";
+
+  /** The Constant SQL_MAP_DTD. */
   private static final String SQL_MAP_DTD = "com/ibatis/sqlmap/engine/builder/xml/sql-map-2.dtd";
 
+  /** The Constant doctypeMap. */
   private static final Map doctypeMap = new HashMap();
 
   static {
@@ -75,6 +79,15 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
     return source;
   }
 
+  /**
+   * Gets the input source.
+   *
+   * @param path
+   *          the path
+   * @param source
+   *          the source
+   * @return the input source
+   */
   private InputSource getInputSource(String path, InputSource source) {
     if (path != null) {
       InputStream in = null;

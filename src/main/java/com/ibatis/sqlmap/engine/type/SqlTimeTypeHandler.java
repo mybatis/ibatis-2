@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * SQL time implementation of TypeHandler
+ * SQL time implementation of TypeHandler.
  */
 public class SqlTimeTypeHandler extends BaseTypeHandler implements TypeHandler {
 
+  /** The Constant DATE_FORMAT. */
   private static final String DATE_FORMAT = "hh:mm:ss";
 
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {

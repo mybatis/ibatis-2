@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.ibatis.sqlmap.engine.cache;
 import java.util.Properties;
 
 /**
- * Cache controller (implementation) interface
+ * Cache controller (implementation) interface.
  */
 public interface CacheController {
 
   /**
-   * Flush a cache model
+   * Flush a cache model.
    *
    * @param cacheModel
    *          - the model to flush
@@ -31,7 +31,7 @@ public interface CacheController {
   public void flush(CacheModel cacheModel);
 
   /**
-   * Get an object from a cache model
+   * Get an object from a cache model.
    *
    * @param cacheModel
    *          - the model
@@ -42,7 +42,7 @@ public interface CacheController {
   public Object getObject(CacheModel cacheModel, Object key);
 
   /**
-   * Remove an object from a cache model
+   * Remove an object from a cache model.
    *
    * @param cacheModel
    *          - the model to remove the object from
@@ -53,7 +53,7 @@ public interface CacheController {
   public Object removeObject(CacheModel cacheModel, Object key);
 
   /**
-   * Put an object into a cache model
+   * Put an object into a cache model.
    *
    * @param cacheModel
    *          - the model to add the object to
@@ -65,7 +65,7 @@ public interface CacheController {
   public void putObject(CacheModel cacheModel, Object key, Object object);
 
   /**
-   * Configure a cache controller
+   * Configure a cache controller.
    *
    * @param props
    *          - the properties object continaing configuration information

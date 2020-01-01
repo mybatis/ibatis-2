@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,21 @@ import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 
 /**
- * Access plan for working with beans
+ * Access plan for working with beans.
  */
 public class ComplexAccessPlan extends BaseAccessPlan {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
 
+  /**
+   * Instantiates a new complex access plan.
+   *
+   * @param clazz
+   *          the clazz
+   * @param propertyNames
+   *          the property names
+   */
   ComplexAccessPlan(Class clazz, String[] propertyNames) {
     super(clazz, propertyNames);
   }

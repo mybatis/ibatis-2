@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,22 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * A ResultGetter implementation
+ * A ResultGetter implementation.
  */
 public class ResultGetterImpl implements ResultGetter {
 
+  /** The rs. */
   private ResultSet rs;
+
+  /** The name. */
   private String name;
+
+  /** The index. */
   private int index;
 
   /**
-   * Creates an instance for a PreparedStatement and column index
-   * 
+   * Creates an instance for a PreparedStatement and column index.
+   *
    * @param resultSet
    *          - the result set
    * @param columnIndex
@@ -46,8 +51,8 @@ public class ResultGetterImpl implements ResultGetter {
   }
 
   /**
-   * Creates an instance for a PreparedStatement and column name
-   * 
+   * Creates an instance for a PreparedStatement and column name.
+   *
    * @param resultSet
    *          - the result set
    * @param columnName

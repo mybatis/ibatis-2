@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,30 +30,56 @@ import java.util.Map;
 import java.util.Iterator;
 
 /**
- * A Session based implementation of the Scope interface
+ * A Session based implementation of the Scope interface.
  */
 public class SessionScope {
+
+  /** The next id. */
   private static long nextId;
+
+  /** The id. */
   private long id;
+
+  /** The sql map client. */
   // Used by Any
   private SqlMapClient sqlMapClient;
+
+  /** The sql map executor. */
   private SqlMapExecutor sqlMapExecutor;
+
+  /** The sql map tx mgr. */
   private SqlMapTransactionManager sqlMapTxMgr;
+
+  /** The request stack depth. */
   private int requestStackDepth;
+
+  /** The transaction. */
   // Used by TransactionManager
   private Transaction transaction;
+
+  /** The transaction state. */
   private TransactionState transactionState;
+
+  /** The saved transaction state. */
   // Used by SqlMapExecutorDelegate.setUserProvidedTransaction()
   private TransactionState savedTransactionState;
+
+  /** The in batch. */
   // Used by StandardSqlMapClient and GeneralStatement
   private boolean inBatch;
+
+  /** The batch. */
   // Used by SqlExecutor
   private Object batch;
+
+  /** The commit required. */
   private boolean commitRequired;
+
+  /** The prepared statements. */
   private Map preparedStatements;
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public SessionScope() {
     this.preparedStatements = new HashMap();
@@ -63,7 +89,7 @@ public class SessionScope {
   }
 
   /**
-   * Get the SqlMapClient for the session
+   * Get the SqlMapClient for the session.
    *
    * @return - the SqlMapClient
    */
@@ -72,7 +98,7 @@ public class SessionScope {
   }
 
   /**
-   * Set the SqlMapClient for the session
+   * Set the SqlMapClient for the session.
    *
    * @param sqlMapClient
    *          - the SqlMapClient
@@ -82,7 +108,7 @@ public class SessionScope {
   }
 
   /**
-   * Get the SQL executor for the session
+   * Get the SQL executor for the session.
    *
    * @return - the SQL executor
    */
@@ -91,7 +117,7 @@ public class SessionScope {
   }
 
   /**
-   * Get the SQL executor for the session
+   * Get the SQL executor for the session.
    *
    * @param sqlMapExecutor
    *          - the SQL executor
@@ -101,7 +127,7 @@ public class SessionScope {
   }
 
   /**
-   * Get the transaction manager
+   * Get the transaction manager.
    *
    * @return - the transaction manager
    */
@@ -110,7 +136,7 @@ public class SessionScope {
   }
 
   /**
-   * Set the transaction manager
+   * Set the transaction manager.
    *
    * @param sqlMapTxMgr
    *          - the transaction manager
@@ -120,7 +146,7 @@ public class SessionScope {
   }
 
   /**
-   * Tells us if we are in batch mode or not
+   * Tells us if we are in batch mode or not.
    *
    * @return - true if we are working with a batch
    */
@@ -129,7 +155,7 @@ public class SessionScope {
   }
 
   /**
-   * Turn batch mode on or off
+   * Turn batch mode on or off.
    *
    * @param inBatch
    *          - the switch
@@ -139,7 +165,7 @@ public class SessionScope {
   }
 
   /**
-   * Getter for the session transaction
+   * Getter for the session transaction.
    *
    * @return - the transaction
    */
@@ -148,7 +174,7 @@ public class SessionScope {
   }
 
   /**
-   * Setter for the session transaction
+   * Setter for the session transaction.
    *
    * @param transaction
    *          - the transaction
@@ -158,7 +184,7 @@ public class SessionScope {
   }
 
   /**
-   * Getter for the transaction state of the session
+   * Getter for the transaction state of the session.
    *
    * @return - the state
    */
@@ -167,7 +193,7 @@ public class SessionScope {
   }
 
   /**
-   * Setter for the transaction state of the session
+   * Setter for the transaction state of the session.
    *
    * @param transactionState
    *          - the new transaction state
@@ -177,7 +203,7 @@ public class SessionScope {
   }
 
   /**
-   * Getter for the batch of the session
+   * Getter for the batch of the session.
    *
    * @return - the batch
    */
@@ -186,7 +212,7 @@ public class SessionScope {
   }
 
   /**
-   * Stter for the batch of the session
+   * Stter for the batch of the session.
    *
    * @param batch
    *          the new batch
@@ -196,7 +222,7 @@ public class SessionScope {
   }
 
   /**
-   * Get the request stack depth
+   * Get the request stack depth.
    *
    * @return - the stack depth
    */
@@ -219,7 +245,7 @@ public class SessionScope {
   }
 
   /**
-   * Getter to tell if a commit is required for the session
+   * Getter to tell if a commit is required for the session.
    *
    * @return - true if a commit is required
    */
@@ -228,7 +254,7 @@ public class SessionScope {
   }
 
   /**
-   * Setter to tell the session that a commit is required for the session
+   * Setter to tell the session that a commit is required for the session.
    *
    * @param commitRequired
    *          - the flag
@@ -237,14 +263,37 @@ public class SessionScope {
     this.commitRequired = commitRequired;
   }
 
+  /**
+   * Checks for prepared statement for.
+   *
+   * @param sql
+   *          the sql
+   * @return true, if successful
+   */
   public boolean hasPreparedStatementFor(String sql) {
     return preparedStatements.containsKey(sql);
   }
 
+  /**
+   * Checks for prepared statement.
+   *
+   * @param ps
+   *          the ps
+   * @return true, if successful
+   */
   public boolean hasPreparedStatement(PreparedStatement ps) {
     return preparedStatements.containsValue(ps);
   }
 
+  /**
+   * Gets the prepared statement.
+   *
+   * @param sql
+   *          the sql
+   * @return the prepared statement
+   * @throws SQLException
+   *           the SQL exception
+   */
   public PreparedStatement getPreparedStatement(String sql) throws SQLException {
     if (!hasPreparedStatementFor(sql))
       throw new SqlMapException("Could not get prepared statement.  This is likely a bug.");
@@ -252,6 +301,16 @@ public class SessionScope {
     return ps;
   }
 
+  /**
+   * Put prepared statement.
+   *
+   * @param delegate
+   *          the delegate
+   * @param sql
+   *          the sql
+   * @param ps
+   *          the ps
+   */
   public void putPreparedStatement(SqlMapExecutorDelegate delegate, String sql, PreparedStatement ps) {
     if (delegate.isStatementCacheEnabled()) {
       if (!isInBatch()) {
@@ -262,6 +321,9 @@ public class SessionScope {
     }
   }
 
+  /**
+   * Close prepared statements.
+   */
   public void closePreparedStatements() {
     Iterator keys = preparedStatements.keySet().iterator();
     while (keys.hasNext()) {
@@ -275,6 +337,9 @@ public class SessionScope {
     preparedStatements.clear();
   }
 
+  /**
+   * Cleanup.
+   */
   public void cleanup() {
     closePreparedStatements();
     preparedStatements.clear();
@@ -298,7 +363,7 @@ public class SessionScope {
   }
 
   /**
-   * Method to get a unique ID
+   * Method to get a unique ID.
    *
    * @return - the new ID
    */
@@ -307,14 +372,14 @@ public class SessionScope {
   }
 
   /**
-   * Saves the current transaction state
+   * Saves the current transaction state.
    */
   public void saveTransactionState() {
     savedTransactionState = transactionState;
   }
 
   /**
-   * Restores the previously saved transaction state
+   * Restores the previously saved transaction state.
    */
   public void recallTransactionState() {
     transactionState = savedTransactionState;

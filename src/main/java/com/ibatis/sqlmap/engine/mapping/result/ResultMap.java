@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,39 +49,58 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
- * Basic implementation of ResultMap interface
+ * Basic implementation of ResultMap interface.
  */
 public class ResultMap {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
+
+  /** The Constant KEY_SEPARATOR. */
   private static final String KEY_SEPARATOR = "\002";
 
+  /** The id. */
   private String id;
+
+  /** The result class. */
   private Class resultClass;
 
+  /** The result mappings. */
   // DO NOT ACCESS EITHER OF THESE OUTSIDE OF THEIR BEAN GETTER/SETTER
   private ResultMapping[] resultMappings;
+
+  /** The remappable result mappings. */
   private ThreadLocal remappableResultMappings = new ThreadLocal();
 
+  /** The data exchange. */
   private DataExchange dataExchange;
 
+  /** The nested result mappings. */
   private List nestedResultMappings;
 
+  /** The discriminator. */
   private Discriminator discriminator;
 
+  /** The group by props. */
   private Set groupByProps;
 
+  /** The xml name. */
   private String xmlName;
 
+  /** The resource. */
   private String resource;
 
+  /** The delegate. */
   protected SqlMapExecutorDelegate delegate;
 
+  /** The allow remapping. */
   protected boolean allowRemapping = false;
+
+  /** The Constant NO_VALUE. */
   public static final Object NO_VALUE = new Object();
 
   /**
-   * Constructor to pass a SqlMapExecutorDelegate in
+   * Constructor to pass a SqlMapExecutorDelegate in.
    *
    * @param delegate
    *          - the SqlMapExecutorDelegate
@@ -91,7 +110,7 @@ public class ResultMap {
   }
 
   /**
-   * Getter for the SqlMapExecutorDelegate
+   * Getter for the SqlMapExecutorDelegate.
    *
    * @return - the delegate
    */
@@ -99,12 +118,17 @@ public class ResultMap {
     return delegate;
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   public String getId() {
     return id;
   }
 
   /**
-   * Setter for the ID
+   * Setter for the ID.
    *
    * @param id
    *          - the new ID
@@ -113,10 +137,24 @@ public class ResultMap {
     this.id = id;
   }
 
+  /**
+   * Gets the result class.
+   *
+   * @return the result class
+   */
   public Class getResultClass() {
     return resultClass;
   }
 
+  /**
+   * Gets the unique key.
+   *
+   * @param keyPrefix
+   *          the key prefix
+   * @param values
+   *          the values
+   * @return the unique key
+   */
   public Object getUniqueKey(String keyPrefix, Object[] values) {
     if (groupByProps != null) {
       StringBuilder keyBuffer;
@@ -143,12 +181,19 @@ public class ResultMap {
     }
   }
 
+  /**
+   * Gets the unique key.
+   *
+   * @param values
+   *          the values
+   * @return the unique key
+   */
   public Object getUniqueKey(Object[] values) {
     return getUniqueKey(null, values);
   }
 
   /**
-   * Setter for the result class (what the results will be mapped into)
+   * Setter for the result class (what the results will be mapped into).
    *
    * @param resultClass
    *          - the result class
@@ -158,7 +203,7 @@ public class ResultMap {
   }
 
   /**
-   * Getter for the DataExchange object to be used
+   * Getter for the DataExchange object to be used.
    *
    * @return - the DataExchange object
    */
@@ -167,7 +212,7 @@ public class ResultMap {
   }
 
   /**
-   * Setter for the DataExchange object to be used
+   * Setter for the DataExchange object to be used.
    *
    * @param dataExchange
    *          - the new DataExchange object
@@ -177,7 +222,7 @@ public class ResultMap {
   }
 
   /**
-   * Getter (used by DomDataExchange) for the xml name of the results
+   * Getter (used by DomDataExchange) for the xml name of the results.
    *
    * @return - the name
    */
@@ -186,7 +231,7 @@ public class ResultMap {
   }
 
   /**
-   * Setter (used by the SqlMapBuilder) for the xml name of the results
+   * Setter (used by the SqlMapBuilder) for the xml name of the results.
    *
    * @param xmlName
    *          - the name
@@ -196,7 +241,7 @@ public class ResultMap {
   }
 
   /**
-   * Getter for the resource (used to report errors)
+   * Getter for the resource (used to report errors).
    *
    * @return - the resource
    */
@@ -205,7 +250,7 @@ public class ResultMap {
   }
 
   /**
-   * Setter for the resource (used by the SqlMapBuilder)
+   * Setter for the resource (used by the SqlMapBuilder).
    *
    * @param resource
    *          - the resource name
@@ -214,6 +259,12 @@ public class ResultMap {
     this.resource = resource;
   }
 
+  /**
+   * Adds the group by property.
+   *
+   * @param name
+   *          the name
+   */
   public void addGroupByProperty(String name) {
     if (groupByProps == null) {
       groupByProps = new HashSet();
@@ -221,14 +272,30 @@ public class ResultMap {
     groupByProps.add(name);
   }
 
+  /**
+   * Checks for group by.
+   *
+   * @return true, if successful
+   */
   public boolean hasGroupBy() {
     return groupByProps != null && groupByProps.size() > 0;
   }
 
+  /**
+   * Group by props.
+   *
+   * @return the iterator
+   */
   public Iterator groupByProps() {
     return groupByProps.iterator();
   }
 
+  /**
+   * Adds the nested result mappings.
+   *
+   * @param mapping
+   *          the mapping
+   */
   public void addNestedResultMappings(ResultMapping mapping) {
     if (nestedResultMappings == null) {
       nestedResultMappings = new ArrayList();
@@ -236,10 +303,20 @@ public class ResultMap {
     nestedResultMappings.add(mapping);
   }
 
+  /**
+   * Gets the nested result mappings.
+   *
+   * @return the nested result mappings
+   */
   public List getNestedResultMappings() {
     return nestedResultMappings;
   }
 
+  /**
+   * Gets the result mappings.
+   *
+   * @return the result mappings
+   */
   public ResultMapping[] getResultMappings() {
     if (allowRemapping) {
       return (ResultMapping[]) remappableResultMappings.get();
@@ -248,6 +325,12 @@ public class ResultMap {
     }
   }
 
+  /**
+   * Sets the discriminator.
+   *
+   * @param discriminator
+   *          the new discriminator
+   */
   public void setDiscriminator(Discriminator discriminator) {
     if (this.discriminator != null) {
       throw new SqlMapException("A discriminator may only be set once per result map.");
@@ -255,10 +338,26 @@ public class ResultMap {
     this.discriminator = discriminator;
   }
 
+  /**
+   * Gets the discriminator.
+   *
+   * @return the discriminator
+   */
   public Discriminator getDiscriminator() {
     return discriminator;
   }
 
+  /**
+   * Resolve sub map.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param rs
+   *          the rs
+   * @return the result map
+   * @throws SQLException
+   *           the SQL exception
+   */
   public ResultMap resolveSubMap(StatementScope statementScope, ResultSet rs) throws SQLException {
     ResultMap subMap = this;
     if (discriminator != null) {
@@ -278,7 +377,7 @@ public class ResultMap {
   }
 
   /**
-   * Setter for a list of the individual ResultMapping objects
+   * Setter for a list of the individual ResultMapping objects.
    *
    * @param resultMappingList
    *          - the list
@@ -298,7 +397,7 @@ public class ResultMap {
   }
 
   /**
-   * Getter for the number of ResultMapping objects
+   * Getter for the number of ResultMapping objects.
    *
    * @return - the count
    */
@@ -313,10 +412,9 @@ public class ResultMap {
    *          scope of the request
    * @param rs
    *          ResultSet to read from
-   *
    * @return row read as an array of column values.
-   *
-   * @throws java.sql.SQLException
+   * @throws SQLException
+   *           the SQL exception
    */
   public Object[] getResults(StatementScope statementScope, ResultSet rs) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -367,6 +465,17 @@ public class ResultMap {
     return columnValues;
   }
 
+  /**
+   * Sets the result object values.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param resultObject
+   *          the result object
+   * @param values
+   *          the values
+   * @return the object
+   */
   public Object setResultObjectValues(StatementScope statementScope, Object resultObject, Object[] values) {
     final String previousNestedKey = statementScope.getCurrentNestedKey();
     String ukey = (String) getUniqueKey(statementScope.getCurrentNestedKey(), values);
@@ -400,6 +509,16 @@ public class ResultMap {
     return resultObject;
   }
 
+  /**
+   * Apply nested result map.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param resultObject
+   *          the result object
+   * @param values
+   *          the values
+   */
   private void applyNestedResultMap(StatementScope statementScope, Object resultObject, Object[] values) {
     if (resultObject != null && resultObject != NO_VALUE) {
       if (nestedResultMappings != null) {
@@ -419,11 +538,15 @@ public class ResultMap {
    * <li>If the nested property is not a collection, then it will be created/replaced by the values generated from the
    * current row.</li>
    * </ul>
-   * 
+   *
    * @param mapping
+   *          the mapping
    * @param statementScope
+   *          the statement scope
    * @param resultObject
+   *          the result object
    * @param values
+   *          the values
    */
   protected void setNestedResultMappingValue(ResultMapping mapping, StatementScope statementScope, Object resultObject,
       Object[] values) {
@@ -486,6 +609,21 @@ public class ResultMap {
     }
   }
 
+  /**
+   * Gets the nested select mapping value.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param rs
+   *          the rs
+   * @param mapping
+   *          the mapping
+   * @param targetType
+   *          the target type
+   * @return the nested select mapping value
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected Object getNestedSelectMappingValue(StatementScope statementScope, ResultSet rs, ResultMapping mapping,
       Class targetType) throws SQLException {
     try {
@@ -544,6 +682,19 @@ public class ResultMap {
 
   }
 
+  /**
+   * Prepare primitive parameter object.
+   *
+   * @param rs
+   *          the rs
+   * @param mapping
+   *          the mapping
+   * @param parameterType
+   *          the parameter type
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
   private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType)
       throws SQLException {
     Object parameterObject;
@@ -553,6 +704,13 @@ public class ResultMap {
     return parameterObject;
   }
 
+  /**
+   * New document.
+   *
+   * @param root
+   *          the root
+   * @return the document
+   */
   private Document newDocument(String root) {
     try {
       Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -563,6 +721,17 @@ public class ResultMap {
     }
   }
 
+  /**
+   * Prepare dom parameter object.
+   *
+   * @param rs
+   *          the rs
+   * @param mapping
+   *          the mapping
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
   private Object prepareDomParameterObject(ResultSet rs, ResultMapping mapping) throws SQLException {
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
 
@@ -590,6 +759,25 @@ public class ResultMap {
     return doc;
   }
 
+  /**
+   * Prepare bean parameter object.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param rs
+   *          the rs
+   * @param mapping
+   *          the mapping
+   * @param parameterType
+   *          the parameter type
+   * @return the object
+   * @throws InstantiationException
+   *           the instantiation exception
+   * @throws IllegalAccessException
+   *           the illegal access exception
+   * @throws SQLException
+   *           the SQL exception
+   */
   private Object prepareBeanParameterObject(StatementScope statementScope, ResultSet rs, ResultMapping mapping,
       Class parameterType) throws InstantiationException, IllegalAccessException, SQLException {
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
@@ -624,6 +812,17 @@ public class ResultMap {
     return parameterObject;
   }
 
+  /**
+   * Gets the primitive result mapping value.
+   *
+   * @param rs
+   *          the rs
+   * @param mapping
+   *          the mapping
+   * @return the primitive result mapping value
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected Object getPrimitiveResultMappingValue(ResultSet rs, ResultMapping mapping) throws SQLException {
     Object value = null;
     TypeHandler typeHandler = mapping.getTypeHandler();
@@ -643,6 +842,17 @@ public class ResultMap {
     return value;
   }
 
+  /**
+   * Do null mapping.
+   *
+   * @param value
+   *          the value
+   * @param mapping
+   *          the mapping
+   * @return the object
+   * @throws SqlMapException
+   *           the sql map exception
+   */
   protected Object doNullMapping(Object value, ResultMapping mapping) throws SqlMapException {
     if (value == null) {
       TypeHandler typeHandler = mapping.getTypeHandler();

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Byte implementation of TypeHandler
+ * Byte implementation of TypeHandler.
  */
 public class ByteTypeHandler extends BaseTypeHandler implements TypeHandler {
 

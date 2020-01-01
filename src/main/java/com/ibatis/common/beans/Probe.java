@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ package com.ibatis.common.beans;
 public interface Probe {
 
   /**
-   * Gets an Object property from another object
+   * Gets an Object property from another object.
    *
    * @param object
    *          - the object
@@ -32,7 +32,7 @@ public interface Probe {
   public Object getObject(Object object, String name);
 
   /**
-   * Sets the value of a property on an object
+   * Sets the value of a property on an object.
    *
    * @param object
    *          - the object to change
@@ -44,7 +44,7 @@ public interface Probe {
   public void setObject(Object object, String name, Object value);
 
   /**
-   * Returns the class that the setter expects when setting a property
+   * Returns the class that the setter expects when setting a property.
    *
    * @param object
    *          - the object to check
@@ -55,7 +55,7 @@ public interface Probe {
   public Class getPropertyTypeForSetter(Object object, String name);
 
   /**
-   * Returns the class that the getter will return when reading a property
+   * Returns the class that the getter will return when reading a property.
    *
    * @param object
    *          - the object to check
@@ -66,7 +66,7 @@ public interface Probe {
   public Class getPropertyTypeForGetter(Object object, String name);
 
   /**
-   * Checks to see if an object has a writable property by a given name
+   * Checks to see if an object has a writable property by a given name.
    *
    * @param object
    *          - the object to check
@@ -77,7 +77,7 @@ public interface Probe {
   public boolean hasWritableProperty(Object object, String propertyName);
 
   /**
-   * Checks to see if an object has a readable property by a given name
+   * Checks to see if an object has a readable property by a given name.
    *
    * @param object
    *          - the object to check

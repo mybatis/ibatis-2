@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,23 +27,55 @@ import java.util.Iterator;
  */
 public class Discriminator {
 
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
+
+  /** The result mapping. */
   private ResultMapping resultMapping;
+
+  /** The sub maps. */
   private Map subMaps;
 
+  /**
+   * Instantiates a new discriminator.
+   *
+   * @param delegate
+   *          the delegate
+   * @param resultMapping
+   *          the result mapping
+   */
   public Discriminator(SqlMapExecutorDelegate delegate, ResultMapping resultMapping) {
     this.delegate = delegate;
     this.resultMapping = resultMapping;
   }
 
+  /**
+   * Sets the result mapping.
+   *
+   * @param resultMapping
+   *          the new result mapping
+   */
   public void setResultMapping(ResultMapping resultMapping) {
     this.resultMapping = resultMapping;
   }
 
+  /**
+   * Gets the result mapping.
+   *
+   * @return the result mapping
+   */
   public ResultMapping getResultMapping() {
     return resultMapping;
   }
 
+  /**
+   * Adds the sub map.
+   *
+   * @param discriminatorValue
+   *          the discriminator value
+   * @param resultMapName
+   *          the result map name
+   */
   public void addSubMap(String discriminatorValue, String resultMapName) {
     if (subMaps == null) {
       subMaps = new HashMap();
@@ -51,10 +83,20 @@ public class Discriminator {
     subMaps.put(discriminatorValue, resultMapName);
   }
 
+  /**
+   * Gets the sub map.
+   *
+   * @param s
+   *          the s
+   * @return the sub map
+   */
   public ResultMap getSubMap(String s) {
     return (ResultMap) subMaps.get(s);
   }
 
+  /**
+   * Bind sub maps.
+   */
   public void bindSubMaps() {
     if (subMaps != null) {
       Iterator keys = subMaps.keySet().iterator();

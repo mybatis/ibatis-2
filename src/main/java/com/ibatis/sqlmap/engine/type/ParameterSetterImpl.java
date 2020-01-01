@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,19 @@ import java.sql.*;
 import java.util.Calendar;
 
 /**
- * A ParameterSetter implementation
+ * A ParameterSetter implementation.
  */
 public class ParameterSetterImpl implements ParameterSetter {
 
+  /** The ps. */
   private PreparedStatement ps;
+
+  /** The index. */
   private int index;
 
   /**
-   * Creates an instance for a PreparedStatement and column index
-   * 
+   * Creates an instance for a PreparedStatement and column index.
+   *
    * @param statement
    *          - the PreparedStatement
    * @param columnIndex

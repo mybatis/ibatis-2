@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,15 +25,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Custom type handler for adding a TypeHandlerCallback
+ * Custom type handler for adding a TypeHandlerCallback.
  */
 public class CustomTypeHandler extends BaseTypeHandler implements TypeHandler {
 
+  /** The callback. */
   private TypeHandlerCallback callback;
 
   /**
-   * Constructor to provide a TypeHandlerCallback instance
-   * 
+   * Constructor to provide a TypeHandlerCallback instance.
+   *
    * @param callback
    *          - the TypeHandlerCallback instance
    */

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ import java.util.Calendar;
 public interface ParameterSetter {
 
   /**
-   * Set an array on the underlying prepared statement
-   * 
+   * Set an array on the underlying prepared statement.
+   *
    * @param x
    *          - the array to set
    * @throws SQLException
@@ -44,8 +44,8 @@ public interface ParameterSetter {
   public void setArray(Array x) throws SQLException;
 
   /**
-   * Set an InputStream on the underlying prepared statement
-   * 
+   * Set an InputStream on the underlying prepared statement.
+   *
    * @param x
    *          - the InputStream
    * @param length
@@ -56,17 +56,18 @@ public interface ParameterSetter {
   public void setAsciiStream(InputStream x, int length) throws SQLException;
 
   /**
-   * Set an on the underlying prepared statement
-   * 
+   * Set an on the underlying prepared statement.
+   *
    * @param x
+   *          the new big decimal
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
   public void setBigDecimal(BigDecimal x) throws SQLException;
 
   /**
-   * Set an InputStream on the underlying prepared statement
-   * 
+   * Set an InputStream on the underlying prepared statement.
+   *
    * @param x
    *          - the InputStream
    * @param length
@@ -77,8 +78,8 @@ public interface ParameterSetter {
   public void setBinaryStream(InputStream x, int length) throws SQLException;
 
   /**
-   * Set a blob on the underlying prepared statement
-   * 
+   * Set a blob on the underlying prepared statement.
+   *
    * @param x
    *          - the blob
    * @throws SQLException
@@ -87,8 +88,8 @@ public interface ParameterSetter {
   public void setBlob(Blob x) throws SQLException;
 
   /**
-   * Set a boolean on the underlying prepared statement
-   * 
+   * Set a boolean on the underlying prepared statement.
+   *
    * @param x
    *          - the boolean
    * @throws SQLException
@@ -97,8 +98,8 @@ public interface ParameterSetter {
   public void setBoolean(boolean x) throws SQLException;
 
   /**
-   * Set a byte on the underlying prepared statement
-   * 
+   * Set a byte on the underlying prepared statement.
+   *
    * @param x
    *          - the byte
    * @throws SQLException
@@ -107,8 +108,8 @@ public interface ParameterSetter {
   public void setByte(byte x) throws SQLException;
 
   /**
-   * Set a byte array on the underlying prepared statement
-   * 
+   * Set a byte array on the underlying prepared statement.
+   *
    * @param x
    *          - the byte[]
    * @throws SQLException
@@ -117,8 +118,8 @@ public interface ParameterSetter {
   public void setBytes(byte x[]) throws SQLException;
 
   /**
-   * Set a character stream on the underlying prepared statement
-   * 
+   * Set a character stream on the underlying prepared statement.
+   *
    * @param reader
    *          - the reader
    * @param length
@@ -129,8 +130,8 @@ public interface ParameterSetter {
   public void setCharacterStream(Reader reader, int length) throws SQLException;
 
   /**
-   * Set a clob on the underlying prepared statement
-   * 
+   * Set a clob on the underlying prepared statement.
+   *
    * @param x
    *          - the clob
    * @throws SQLException
@@ -139,8 +140,8 @@ public interface ParameterSetter {
   public void setClob(Clob x) throws SQLException;
 
   /**
-   * Set a date on the underlying prepared statement
-   * 
+   * Set a date on the underlying prepared statement.
+   *
    * @param x
    *          - the date
    * @throws SQLException
@@ -149,8 +150,8 @@ public interface ParameterSetter {
   public void setDate(Date x) throws SQLException;
 
   /**
-   * Set a date with a calendar on the underlying prepared statement
-   * 
+   * Set a date with a calendar on the underlying prepared statement.
+   *
    * @param x
    *          - the date
    * @param cal
@@ -161,8 +162,8 @@ public interface ParameterSetter {
   public void setDate(Date x, Calendar cal) throws SQLException;
 
   /**
-   * Set a double on the underlying prepared statement
-   * 
+   * Set a double on the underlying prepared statement.
+   *
    * @param x
    *          - the double
    * @throws SQLException
@@ -171,8 +172,8 @@ public interface ParameterSetter {
   public void setDouble(double x) throws SQLException;
 
   /**
-   * Set a float on the underlying prepared statement
-   * 
+   * Set a float on the underlying prepared statement.
+   *
    * @param x
    *          the float
    * @throws SQLException
@@ -181,8 +182,8 @@ public interface ParameterSetter {
   public void setFloat(float x) throws SQLException;
 
   /**
-   * Set an integer on the underlying prepared statement
-   * 
+   * Set an integer on the underlying prepared statement.
+   *
    * @param x
    *          - the int
    * @throws SQLException
@@ -191,8 +192,8 @@ public interface ParameterSetter {
   public void setInt(int x) throws SQLException;
 
   /**
-   * Set a long on the underlying prepared statement
-   * 
+   * Set a long on the underlying prepared statement.
+   *
    * @param x
    *          - the long
    * @throws SQLException
@@ -201,8 +202,8 @@ public interface ParameterSetter {
   public void setLong(long x) throws SQLException;
 
   /**
-   * Set a null on the underlying prepared statement
-   * 
+   * Set a null on the underlying prepared statement.
+   *
    * @param sqlType
    *          - the type for the null value
    * @throws SQLException
@@ -211,8 +212,8 @@ public interface ParameterSetter {
   public void setNull(int sqlType) throws SQLException;
 
   /**
-   * Set a null on the underlying prepared statement
-   * 
+   * Set a null on the underlying prepared statement.
+   *
    * @param sqlType
    *          - the type for the null value
    * @param typeName
@@ -223,8 +224,8 @@ public interface ParameterSetter {
   public void setNull(int sqlType, String typeName) throws SQLException;
 
   /**
-   * Set an object on the underlying prepared statement
-   * 
+   * Set an object on the underlying prepared statement.
+   *
    * @param x
    *          - the object to set
    * @throws SQLException
@@ -233,8 +234,8 @@ public interface ParameterSetter {
   public void setObject(Object x) throws SQLException;
 
   /**
-   * Set an object on the underlying prepared statement
-   * 
+   * Set an object on the underlying prepared statement.
+   *
    * @param x
    *          - the object to set
    * @param targetSqlType
@@ -245,8 +246,8 @@ public interface ParameterSetter {
   public void setObject(Object x, int targetSqlType) throws SQLException;
 
   /**
-   * Set an object on the underlying prepared statement
-   * 
+   * Set an object on the underlying prepared statement.
+   *
    * @param x
    *          - the object to set
    * @param targetSqlType
@@ -259,8 +260,8 @@ public interface ParameterSetter {
   public void setObject(Object x, int targetSqlType, int scale) throws SQLException;
 
   /**
-   * Set a reference on the underlying prepared statement
-   * 
+   * Set a reference on the underlying prepared statement.
+   *
    * @param x
    *          - the reference to set
    * @throws SQLException
@@ -269,8 +270,8 @@ public interface ParameterSetter {
   public void setRef(Ref x) throws SQLException;
 
   /**
-   * Set a short on the underlying prepared statement
-   * 
+   * Set a short on the underlying prepared statement.
+   *
    * @param x
    *          - the short to set
    * @throws SQLException
@@ -279,8 +280,8 @@ public interface ParameterSetter {
   public void setShort(short x) throws SQLException;
 
   /**
-   * Set a string on the underlying prepared statement
-   * 
+   * Set a string on the underlying prepared statement.
+   *
    * @param x
    *          - the string to set
    * @throws SQLException
@@ -289,8 +290,8 @@ public interface ParameterSetter {
   public void setString(String x) throws SQLException;
 
   /**
-   * Set a time on the underlying prepared statement
-   * 
+   * Set a time on the underlying prepared statement.
+   *
    * @param x
    *          - the time to set
    * @throws SQLException
@@ -299,8 +300,8 @@ public interface ParameterSetter {
   public void setTime(Time x) throws SQLException;
 
   /**
-   * Set a time with a calendar on the underlying prepared statement
-   * 
+   * Set a time with a calendar on the underlying prepared statement.
+   *
    * @param x
    *          - the time to set
    * @param cal
@@ -311,8 +312,8 @@ public interface ParameterSetter {
   public void setTime(Time x, Calendar cal) throws SQLException;
 
   /**
-   * Set a timestamp on the underlying prepared statement
-   * 
+   * Set a timestamp on the underlying prepared statement.
+   *
    * @param x
    *          - the timestamp to set
    * @throws SQLException
@@ -321,8 +322,8 @@ public interface ParameterSetter {
   public void setTimestamp(Timestamp x) throws SQLException;
 
   /**
-   * Set a timestamp on the underlying prepared statement
-   * 
+   * Set a timestamp on the underlying prepared statement.
+   *
    * @param x
    *          - the timestamp to set
    * @param cal
@@ -333,8 +334,8 @@ public interface ParameterSetter {
   public void setTimestamp(Timestamp x, Calendar cal) throws SQLException;
 
   /**
-   * Set a URL on the underlying prepared statement
-   * 
+   * Set a URL on the underlying prepared statement.
+   *
    * @param x
    *          - the url to set
    * @throws SQLException
@@ -344,6 +345,8 @@ public interface ParameterSetter {
 
   /**
    * Returns the underlying prepared statement...be careful!
+   *
+   * @return the prepared statement
    */
   public PreparedStatement getPreparedStatement();
 

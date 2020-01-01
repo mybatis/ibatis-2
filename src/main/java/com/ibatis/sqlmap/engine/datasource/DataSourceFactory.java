@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 /**
- * Interface to provide a way to create and configure a DataSource for iBATIS
+ * Interface to provide a way to create and configure a DataSource for iBATIS.
  */
 public interface DataSourceFactory {
 
   /**
-   * Simple method to initialize/configure a datasource
+   * Simple method to initialize/configure a datasource.
    *
    * @param map
    *          - the configuration information
@@ -32,7 +32,7 @@ public interface DataSourceFactory {
   public void initialize(Map map);
 
   /**
-   * Returns a datasource
+   * Returns a datasource.
    *
    * @return an implementation of DataSource
    */

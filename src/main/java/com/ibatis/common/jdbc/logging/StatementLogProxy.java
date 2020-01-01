@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,22 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * Statement proxy to add logging
+ * Statement proxy to add logging.
  */
 public class StatementLogProxy extends BaseLogProxy implements InvocationHandler {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(Statement.class);
 
+  /** The statement. */
   private Statement statement;
 
+  /**
+   * Instantiates a new statement log proxy.
+   *
+   * @param stmt
+   *          the stmt
+   */
   private StatementLogProxy(Statement stmt) {
     super();
     this.statement = stmt;
@@ -79,8 +87,8 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
   }
 
   /**
-   * Creates a logging version of a Statement
-   * 
+   * Creates a logging version of a Statement.
+   *
    * @param stmt
    *          - the statement
    * @return - the proxy
@@ -92,8 +100,8 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
   }
 
   /**
-   * return the wrapped statement
-   * 
+   * return the wrapped statement.
+   *
    * @return the statement
    */
   public Statement getStatement() {

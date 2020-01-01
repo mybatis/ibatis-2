@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Singleton
+ * Singleton.
  */
 public class JdbcTypeRegistry {
 
-  /**
-   * Value for the unknown type
-   */
+  /** Value for the unknown type. */
   public static final int UNKNOWN_TYPE = -99999999;
 
+  /** The Constant TYPE_MAP. */
   private static final Map TYPE_MAP = new HashMap();
 
   /**
@@ -45,9 +44,20 @@ public class JdbcTypeRegistry {
     initializeTypes();
   }
 
+  /**
+   * Instantiates a new jdbc type registry.
+   */
   private JdbcTypeRegistry() {
   }
 
+  /**
+   * Sets the type.
+   *
+   * @param name
+   *          the name
+   * @param value
+   *          the value
+   */
   public static void setType(String name, int value) {
     TYPE_MAP.put(name, Integer.valueOf(value));
   }
@@ -71,6 +81,9 @@ public class JdbcTypeRegistry {
     }
   }
 
+  /**
+   * Initialize types.
+   */
   private static void initializeTypes() {
     setType("ARRAY", Types.ARRAY);
     setType("BIGINT", Types.BIGINT);

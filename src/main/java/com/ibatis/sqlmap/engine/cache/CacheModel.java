@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,38 +28,55 @@ import java.util.*;
  */
 public class CacheModel implements ExecuteListener {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(CacheModel.class);
 
+  /** The Constant MAX_OBJECT_LOG_SIZE. */
   private static final int MAX_OBJECT_LOG_SIZE = 200;
 
   /**
    * This is used to represent null objects that are returned from the cache so that they can be cached, too.
    */
   public static final Object NULL_OBJECT = "SERIALIZABLE_NULL_OBJECT";
+
+  /** The requests. */
   private int requests = 0;
+
+  /** The hits. */
   private int hits = 0;
 
-  /**
-   * Constant to turn off periodic cache flushes
-   */
+  /** Constant to turn off periodic cache flushes. */
   private static final long NO_FLUSH_INTERVAL = -99999;
 
+  /** The id. */
   private String id;
 
+  /** The read only. */
   private boolean readOnly;
+
+  /** The serialize. */
   private boolean serialize;
 
+  /** The last flush. */
   private long lastFlush;
+
+  /** The flush interval. */
   private long flushInterval;
+
+  /** The flush interval seconds. */
   private long flushIntervalSeconds;
+
+  /** The flush trigger statements. */
   private Set flushTriggerStatements;
 
+  /** The controller. */
   private CacheController controller;
 
+  /** The resource. */
   private String resource;
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public CacheModel() {
     this.flushInterval = NO_FLUSH_INTERVAL;
@@ -69,7 +86,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter for the cache model's id
+   * Getter for the cache model's id.
    *
    * @return the id
    */
@@ -78,7 +95,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Setter for the cache model's id
+   * Setter for the cache model's id.
    *
    * @param id
    *          - the new id
@@ -88,7 +105,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter for read-only property
+   * Getter for read-only property.
    *
    * @return true if a read-only model
    */
@@ -97,7 +114,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Setter for read-only property
+   * Setter for read-only property.
    *
    * @param readOnly
    *          - the new setting
@@ -107,7 +124,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter to tell if the cache serializes
+   * Getter to tell if the cache serializes.
    *
    * @return true if the cache model serializes objects
    */
@@ -116,7 +133,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Setter to tell the cache to serialize objects
+   * Setter to tell the cache to serialize objects.
    *
    * @param serialize
    *          - if the cache model is to serialize objects
@@ -126,7 +143,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter for resource property
+   * Getter for resource property.
    *
    * @return the value of the resource property
    */
@@ -135,7 +152,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Setter for resource property
+   * Setter for resource property.
    *
    * @param resource
    *          - the new value
@@ -145,8 +162,10 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Sets up the controller for the cache model
+   * Sets up the controller for the cache model.
    *
+   * @param controller
+   *          the new cache controller
    * @throws ClassNotFoundException
    *           - if the class cannot be found
    * @throws InstantiationException
@@ -160,7 +179,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter for flushInterval property
+   * Getter for flushInterval property.
    *
    * @return The flushInterval (in milliseconds)
    */
@@ -169,7 +188,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Getter for flushInterval property
+   * Getter for flushInterval property.
    *
    * @return The flushInterval (in milliseconds)
    */
@@ -178,7 +197,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Setter for flushInterval property
+   * Setter for flushInterval property.
    *
    * @param flushInterval
    *          The new flushInterval (in milliseconds)
@@ -230,16 +249,17 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Configures the cache
+   * Configures the cache.
    *
    * @param props
+   *          the props
    */
   public void configure(Properties props) {
     controller.setProperties(props);
   }
 
   /**
-   * Clears the cache
+   * Clears the cache.
    */
   public void flush() {
     synchronized (this) {
@@ -294,7 +314,7 @@ public class CacheModel implements ExecuteListener {
   }
 
   /**
-   * Add an object to the cache
+   * Add an object to the cache.
    *
    * @param key
    *          The key of the object to be cached
@@ -363,6 +383,12 @@ public class CacheModel implements ExecuteListener {
     log.debug(output.toString());
   }
 
+  /**
+   * Sets the controller properties.
+   *
+   * @param cacheProps
+   *          the new controller properties
+   */
   public void setControllerProperties(Properties cacheProps) {
     controller.setProperties(cacheProps);
   }

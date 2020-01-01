@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,29 +30,55 @@ import java.sql.Statement;
 import com.ibatis.common.resources.Resources;
 
 /**
- * Tool to run database scripts
+ * Tool to run database scripts.
  */
 public class ScriptRunner {
 
+  /** The Constant DEFAULT_DELIMITER. */
   private static final String DEFAULT_DELIMITER = ";";
 
+  /** The connection. */
   private Connection connection;
+
+  /** The driver. */
   private String driver;
+
+  /** The url. */
   private String url;
+
+  /** The username. */
   private String username;
+
+  /** The password. */
   private String password;
 
+  /** The stop on error. */
   private boolean stopOnError;
+
+  /** The auto commit. */
   private boolean autoCommit;
 
+  /** The log writer. */
   private PrintWriter logWriter = new PrintWriter(System.out);
+
+  /** The error log writer. */
   private PrintWriter errorLogWriter = new PrintWriter(System.err);
 
+  /** The delimiter. */
   private String delimiter = DEFAULT_DELIMITER;
+
+  /** The full line delimiter. */
   private boolean fullLineDelimiter = false;
 
   /**
-   * Default constructor
+   * Default constructor.
+   *
+   * @param connection
+   *          the connection
+   * @param autoCommit
+   *          the auto commit
+   * @param stopOnError
+   *          the stop on error
    */
   public ScriptRunner(Connection connection, boolean autoCommit, boolean stopOnError) {
     this.connection = connection;
@@ -60,11 +86,35 @@ public class ScriptRunner {
     this.stopOnError = stopOnError;
   }
 
+  /**
+   * Sets the delimiter.
+   *
+   * @param delimiter
+   *          the delimiter
+   * @param fullLineDelimiter
+   *          the full line delimiter
+   */
   public void setDelimiter(String delimiter, boolean fullLineDelimiter) {
     this.delimiter = delimiter;
     this.fullLineDelimiter = fullLineDelimiter;
   }
 
+  /**
+   * Instantiates a new script runner.
+   *
+   * @param driver
+   *          the driver
+   * @param url
+   *          the url
+   * @param username
+   *          the username
+   * @param password
+   *          the password
+   * @param autoCommit
+   *          the auto commit
+   * @param stopOnError
+   *          the stop on error
+   */
   public ScriptRunner(String driver, String url, String username, String password, boolean autoCommit,
       boolean stopOnError) {
     this.driver = driver;
@@ -76,7 +126,7 @@ public class ScriptRunner {
   }
 
   /**
-   * Setter for logWriter property
+   * Setter for logWriter property.
    *
    * @param logWriter
    *          - the new value of the logWriter property
@@ -86,7 +136,7 @@ public class ScriptRunner {
   }
 
   /**
-   * Setter for errorLogWriter property
+   * Setter for errorLogWriter property.
    *
    * @param errorLogWriter
    *          - the new value of the errorLogWriter property
@@ -96,10 +146,14 @@ public class ScriptRunner {
   }
 
   /**
-   * Runs an SQL script (read in using the Reader parameter)
+   * Runs an SQL script (read in using the Reader parameter).
    *
    * @param reader
    *          - the source of the script
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   * @throws SQLException
+   *           the SQL exception
    */
   public void runScript(Reader reader) throws IOException, SQLException {
     try {
@@ -135,16 +189,16 @@ public class ScriptRunner {
   }
 
   /**
-   * Runs an SQL script (read in using the Reader parameter) using the connection passed in
+   * Runs an SQL script (read in using the Reader parameter) using the connection passed in.
    *
    * @param conn
    *          - the connection to use for the script
    * @param reader
    *          - the source of the script
-   * @throws SQLException
-   *           if any SQL errors occur
    * @throws IOException
    *           if there is an error reading from the Reader
+   * @throws SQLException
+   *           if any SQL errors occur
    */
   private void runScript(Connection conn, Reader reader) throws IOException, SQLException {
     StringBuilder command = null;
@@ -236,28 +290,54 @@ public class ScriptRunner {
     }
   }
 
+  /**
+   * Gets the delimiter.
+   *
+   * @return the delimiter
+   */
   private String getDelimiter() {
     return delimiter;
   }
 
+  /**
+   * Prints the.
+   *
+   * @param o
+   *          the o
+   */
   private void print(Object o) {
     if (logWriter != null) {
       System.out.print(o);
     }
   }
 
+  /**
+   * Println.
+   *
+   * @param o
+   *          the o
+   */
   private void println(Object o) {
     if (logWriter != null) {
       logWriter.println(o);
     }
   }
 
+  /**
+   * Println error.
+   *
+   * @param o
+   *          the o
+   */
   private void printlnError(Object o) {
     if (errorLogWriter != null) {
       errorLogWriter.println(o);
     }
   }
 
+  /**
+   * Flush.
+   */
   private void flush() {
     if (logWriter != null) {
       logWriter.flush();

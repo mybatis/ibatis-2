@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +24,16 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * A way to make a CallableStatement look like a ResultSet
+ * A way to make a CallableStatement look like a ResultSet.
  */
 public class CallableStatementResultSet implements ResultSet {
 
+  /** The cs. */
   private CallableStatement cs;
 
   /**
-   * Constructor to stretch a ResultSet interface over a CallableStatement
-   * 
+   * Constructor to stretch a ResultSet interface over a CallableStatement.
+   *
    * @param cs
    *          - the CallableStatement
    */

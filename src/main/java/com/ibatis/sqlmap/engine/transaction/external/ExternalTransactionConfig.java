@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,55 @@ import com.ibatis.sqlmap.engine.transaction.*;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * The Class ExternalTransactionConfig.
+ */
 public class ExternalTransactionConfig extends BaseTransactionConfig {
 
+  /** The default auto commit. */
   private boolean defaultAutoCommit = false;
+
+  /** The set auto commit allowed. */
   private boolean setAutoCommitAllowed = true;
 
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
     return new ExternalTransaction(dataSource, defaultAutoCommit, setAutoCommitAllowed, transactionIsolation);
   }
 
+  /**
+   * Checks if is default auto commit.
+   *
+   * @return true, if is default auto commit
+   */
   public boolean isDefaultAutoCommit() {
     return defaultAutoCommit;
   }
 
+  /**
+   * Sets the default auto commit.
+   *
+   * @param defaultAutoCommit
+   *          the new default auto commit
+   */
   public void setDefaultAutoCommit(boolean defaultAutoCommit) {
     this.defaultAutoCommit = defaultAutoCommit;
   }
 
+  /**
+   * Checks if is sets the auto commit allowed.
+   *
+   * @return true, if is sets the auto commit allowed
+   */
   public boolean isSetAutoCommitAllowed() {
     return setAutoCommitAllowed;
   }
 
+  /**
+   * Sets the sets the auto commit allowed.
+   *
+   * @param setAutoCommitAllowed
+   *          the new sets the auto commit allowed
+   */
   public void setSetAutoCommitAllowed(boolean setAutoCommitAllowed) {
     this.setAutoCommitAllowed = setAutoCommitAllowed;
   }

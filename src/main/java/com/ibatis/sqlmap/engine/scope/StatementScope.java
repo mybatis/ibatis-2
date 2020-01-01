@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,25 +25,55 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Request based implementation of Scope interface
+ * Request based implementation of Scope interface.
  */
 public class StatementScope {
+
+  /** The session scope. */
   // Used by Any
   private SessionScope sessionScope;
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The statement. */
   private MappedStatement statement;
+
+  /** The parameter map. */
   private ParameterMap parameterMap;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The sql. */
   private Sql sql;
+
+  /** The dynamic parameter map. */
   // Used by DynamicSql
   private ParameterMap dynamicParameterMap;
+
+  /** The dynamic sql. */
   private String dynamicSql;
+
+  /** The result set. */
   // Used by N+1 Select solution
   private ResultSet resultSet;
+
+  /** The unique keys. */
   private Map uniqueKeys;
+
+  /** The row data found. */
   private boolean rowDataFound;
+
+  /** The current nested key. */
   private String currentNestedKey;
 
+  /**
+   * Instantiates a new statement scope.
+   *
+   * @param sessionScope
+   *          the session scope
+   */
   public StatementScope(SessionScope sessionScope) {
     this.errorContext = new ErrorContext();
     this.rowDataFound = true;
@@ -51,6 +81,8 @@ public class StatementScope {
   }
 
   /**
+   * Gets the current nested key.
+   *
    * @return Returns the currentNestedKey.
    */
   public String getCurrentNestedKey() {
@@ -58,6 +90,8 @@ public class StatementScope {
   }
 
   /**
+   * Sets the current nested key.
+   *
    * @param currentNestedKey
    *          The currentNestedKey to set.
    */
@@ -66,7 +100,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the request's error context
+   * Get the request's error context.
    *
    * @return - the request's error context
    */
@@ -75,7 +109,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the session of the request
+   * Get the session of the request.
    *
    * @return - the session
    */
@@ -84,7 +118,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the statement for the request
+   * Get the statement for the request.
    *
    * @return - the statement
    */
@@ -93,7 +127,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the statement for the request
+   * Set the statement for the request.
    *
    * @param statement
    *          - the statement
@@ -103,7 +137,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the parameter map for the request
+   * Get the parameter map for the request.
    *
    * @return - the parameter map
    */
@@ -112,7 +146,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the parameter map for the request
+   * Set the parameter map for the request.
    *
    * @param parameterMap
    *          - the new parameter map
@@ -122,7 +156,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the result map for the request
+   * Get the result map for the request.
    *
    * @return - the result map
    */
@@ -131,7 +165,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the result map for the request
+   * Set the result map for the request.
    *
    * @param resultMap
    *          - the result map
@@ -141,7 +175,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the SQL for the request
+   * Get the SQL for the request.
    *
    * @return - the sql
    */
@@ -150,7 +184,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the SQL for the request
+   * Set the SQL for the request.
    *
    * @param sql
    *          - the sql
@@ -160,7 +194,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the dynamic parameter for the request
+   * Get the dynamic parameter for the request.
    *
    * @return - the dynamic parameter
    */
@@ -169,7 +203,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the dynamic parameter for the request
+   * Set the dynamic parameter for the request.
    *
    * @param dynamicParameterMap
    *          - the dynamic parameter
@@ -179,7 +213,7 @@ public class StatementScope {
   }
 
   /**
-   * Get the dynamic SQL for the request
+   * Get the dynamic SQL for the request.
    *
    * @return - the dynamic SQL
    */
@@ -188,7 +222,7 @@ public class StatementScope {
   }
 
   /**
-   * Set the dynamic SQL for the request
+   * Set the dynamic SQL for the request.
    *
    * @param dynamicSql
    *          - the dynamic SQL
@@ -197,14 +231,32 @@ public class StatementScope {
     this.dynamicSql = dynamicSql;
   }
 
+  /**
+   * Gets the result set.
+   *
+   * @return the result set
+   */
   public ResultSet getResultSet() {
     return resultSet;
   }
 
+  /**
+   * Sets the result set.
+   *
+   * @param resultSet
+   *          the new result set
+   */
   public void setResultSet(ResultSet resultSet) {
     this.resultSet = resultSet;
   }
 
+  /**
+   * Gets the unique keys.
+   *
+   * @param map
+   *          the map
+   * @return the unique keys
+   */
   public Map getUniqueKeys(ResultMap map) {
     if (uniqueKeys == null) {
       return null;
@@ -212,6 +264,14 @@ public class StatementScope {
     return (Map) uniqueKeys.get(map);
   }
 
+  /**
+   * Sets the unique keys.
+   *
+   * @param map
+   *          the map
+   * @param keys
+   *          the keys
+   */
   public void setUniqueKeys(ResultMap map, Map keys) {
     if (uniqueKeys == null) {
       uniqueKeys = new HashMap();
@@ -219,10 +279,21 @@ public class StatementScope {
     this.uniqueKeys.put(map, keys);
   }
 
+  /**
+   * Checks if is row data found.
+   *
+   * @return true, if is row data found
+   */
   public boolean isRowDataFound() {
     return rowDataFound;
   }
 
+  /**
+   * Sets the row data found.
+   *
+   * @param rowDataFound
+   *          the new row data found
+   */
   public void setRowDataFound(boolean rowDataFound) {
     this.rowDataFound = rowDataFound;
   }

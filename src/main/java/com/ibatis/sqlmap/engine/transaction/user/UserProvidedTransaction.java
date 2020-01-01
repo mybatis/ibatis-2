@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,23 @@ import com.ibatis.sqlmap.engine.transaction.TransactionException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class UserProvidedTransaction.
+ */
 public class UserProvidedTransaction implements Transaction {
 
+  /** The Constant connectionLog. */
   private static final Log connectionLog = LogFactory.getLog(Connection.class);
 
+  /** The connection. */
   private Connection connection;
 
+  /**
+   * Instantiates a new user provided transaction.
+   *
+   * @param connection
+   *          the connection
+   */
   public UserProvidedTransaction(Connection connection) {
     if (connectionLog.isDebugEnabled()) {
       this.connection = ConnectionLogProxy.newInstance(connection);

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,16 +26,31 @@ import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 import java.util.StringTokenizer;
 
+/**
+ * The Class SimpleDynamicSql.
+ */
 public class SimpleDynamicSql implements Sql {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
 
+  /** The Constant ELEMENT_TOKEN. */
   private static final String ELEMENT_TOKEN = "$";
 
+  /** The sql statement. */
   private String sqlStatement;
 
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
 
+  /**
+   * Instantiates a new simple dynamic sql.
+   *
+   * @param delegate
+   *          the delegate
+   * @param sqlStatement
+   *          the sql statement
+   */
   public SimpleDynamicSql(SqlMapExecutorDelegate delegate, String sqlStatement) {
     this.delegate = delegate;
     this.sqlStatement = sqlStatement;
@@ -56,10 +71,26 @@ public class SimpleDynamicSql implements Sql {
   public void cleanup(StatementScope statementScope) {
   }
 
+  /**
+   * Checks if is simple dynamic sql.
+   *
+   * @param sql
+   *          the sql
+   * @return true, if is simple dynamic sql
+   */
   public static boolean isSimpleDynamicSql(String sql) {
     return sql != null && sql.indexOf(ELEMENT_TOKEN) > -1;
   }
 
+  /**
+   * Process dynamic elements.
+   *
+   * @param sql
+   *          the sql
+   * @param parameterObject
+   *          the parameter object
+   * @return the string
+   */
   private String processDynamicElements(String sql, Object parameterObject) {
     StringTokenizer parser = new StringTokenizer(sql, ELEMENT_TOKEN, true);
     StringBuilder newSql = new StringBuilder();

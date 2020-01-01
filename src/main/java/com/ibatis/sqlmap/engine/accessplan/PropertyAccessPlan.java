@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,27 @@ import com.ibatis.common.beans.ClassInfo;
 import com.ibatis.common.beans.Invoker;
 
 /**
- * Property access plan (for working with beans)
+ * Property access plan (for working with beans).
  */
 public class PropertyAccessPlan extends BaseAccessPlan {
 
+  /** The Constant NO_ARGUMENTS. */
   protected static final Object[] NO_ARGUMENTS = new Object[0];
 
+  /** The setters. */
   protected Invoker[] setters;
+
+  /** The getters. */
   protected Invoker[] getters;
 
+  /**
+   * Instantiates a new property access plan.
+   *
+   * @param clazz
+   *          the clazz
+   * @param propertyNames
+   *          the property names
+   */
   PropertyAccessPlan(Class clazz, String[] propertyNames) {
     super(clazz, propertyNames);
     setters = getSetters(propertyNames);

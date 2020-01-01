@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,32 +19,58 @@ import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
 import com.ibatis.sqlmap.engine.type.TypeHandler;
 
 /**
- * Basic implementation of ResultMapping
+ * Basic implementation of ResultMapping.
  */
 public class ResultMapping {
 
+  /** The property name. */
   private String propertyName;
+
+  /** The column name. */
   private String columnName;
+
+  /** The column index. */
   private int columnIndex;
+
+  /** The type handler. */
   private TypeHandler typeHandler;
+
+  /** The jdbc type. */
   private int jdbcType;
+
+  /** The jdbc type name. */
   private String jdbcTypeName;
+
+  /** The null value. */
   private String nullValue;
+
+  /** The not null column. */
   private String notNullColumn;
+
+  /** The statement name. */
   private String statementName;
+
+  /** The java type. */
   private Class javaType;
 
+  /** The nested result map name. */
   private String nestedResultMapName;
 
+  /** The error string. */
   private String errorString;
 
+  /**
+   * Gets the property name.
+   *
+   * @return the property name
+   */
   public String getPropertyName() {
     return propertyName;
   }
 
   /**
-   * Setter for the object property name (used by the automap, and the builder)
-   * 
+   * Setter for the object property name (used by the automap, and the builder).
+   *
    * @param propertyName
    *          - the property name
    */
@@ -54,8 +80,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the error message when something goes wrong mapping this property
-   * 
+   * Getter for the error message when something goes wrong mapping this property.
+   *
    * @return - the error message
    */
   public String getErrorString() {
@@ -63,8 +89,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the column name that we are mapping
-   * 
+   * Getter for the column name that we are mapping.
+   *
    * @return - the column name
    */
   public String getColumnName() {
@@ -72,8 +98,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the column name we are mapping (used by the automap or builder)
-   * 
+   * Setter for the column name we are mapping (used by the automap or builder).
+   *
    * @param columnName
    *          - the column name
    */
@@ -82,8 +108,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the column index that we are mapping
-   * 
+   * Getter for the column index that we are mapping.
+   *
    * @return - the column index
    */
   public int getColumnIndex() {
@@ -91,8 +117,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the column index we are mapping (used by the automap or builder)
-   * 
+   * Setter for the column index we are mapping (used by the automap or builder).
+   *
    * @param columnIndex
    *          - the column index
    */
@@ -101,8 +127,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the type handler for the column
-   * 
+   * Getter for the type handler for the column.
+   *
    * @return - the type handler
    */
   public TypeHandler getTypeHandler() {
@@ -110,8 +136,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the type handler for the column
-   * 
+   * Setter for the type handler for the column.
+   *
    * @param typeHandler
    *          - the type handler
    */
@@ -120,8 +146,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the Java type of the column
-   * 
+   * Setter for the Java type of the column.
+   *
    * @return - the Java type
    */
   public Class getJavaType() {
@@ -129,8 +155,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the Java type of the column
-   * 
+   * Setter for the Java type of the column.
+   *
    * @param javaType
    *          - the Java type
    */
@@ -139,8 +165,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the JDBC type of the column
-   * 
+   * Getter for the JDBC type of the column.
+   *
    * @return - the JDBC type
    */
   public int getJdbcType() {
@@ -148,8 +174,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the JDBC type name of the column
-   * 
+   * Getter for the JDBC type name of the column.
+   *
    * @return - the JDBC type name
    */
   public String getJdbcTypeName() {
@@ -157,8 +183,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the JDBC type name of the column
-   * 
+   * Setter for the JDBC type name of the column.
+   *
    * @param jdbcTypeName
    *          - the JDBC type name
    */
@@ -168,8 +194,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for what to return if the column is null
-   * 
+   * Getter for what to return if the column is null.
+   *
    * @return - the null substitution
    */
   public String getNullValue() {
@@ -177,8 +203,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for what to return if the column is null
-   * 
+   * Setter for what to return if the column is null.
+   *
    * @param nullValue
    *          - the null substitution
    */
@@ -187,7 +213,7 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the name of the column to check for null before instantiating a nested resultMapping value
+   * Getter for the name of the column to check for null before instantiating a nested resultMapping value.
    *
    * @return - the null substitution
    */
@@ -196,7 +222,7 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the name of the column to check for null before instantiating a nested resultMapping value
+   * Setter for the name of the column to check for null before instantiating a nested resultMapping value.
    *
    * @param notNullColumn
    *          - the column name
@@ -206,8 +232,8 @@ public class ResultMapping {
   }
 
   /**
-   * Getter for the name of the statement
-   * 
+   * Getter for the name of the statement.
+   *
    * @return - the name
    */
   public String getStatementName() {
@@ -215,8 +241,8 @@ public class ResultMapping {
   }
 
   /**
-   * Setter for the name of the statement
-   * 
+   * Setter for the name of the statement.
+   *
    * @param statementName
    *          - the name
    */
@@ -224,10 +250,21 @@ public class ResultMapping {
     this.statementName = statementName;
   }
 
+  /**
+   * Gets the nested result map name.
+   *
+   * @return the nested result map name
+   */
   public String getNestedResultMapName() {
     return nestedResultMapName;
   }
 
+  /**
+   * Sets the nested result map name.
+   *
+   * @param nestedResultMapName
+   *          the new nested result map name
+   */
   public void setNestedResultMapName(String nestedResultMapName) {
     this.nestedResultMapName = nestedResultMapName;
   }

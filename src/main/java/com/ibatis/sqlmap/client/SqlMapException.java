@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ package com.ibatis.sqlmap.client;
 public class SqlMapException extends RuntimeException {
 
   /**
-   * Simple constructor
+   * Simple constructor.
    */
   public SqlMapException() {
   }
 
   /**
-   * Constructor to create exception with a message
+   * Constructor to create exception with a message.
    *
    * @param msg
    *          A message to associate with the exception
@@ -42,7 +42,7 @@ public class SqlMapException extends RuntimeException {
   }
 
   /**
-   * Constructor to create exception to wrap another exception
+   * Constructor to create exception to wrap another exception.
    *
    * @param cause
    *          The real cause of the exception
@@ -52,7 +52,7 @@ public class SqlMapException extends RuntimeException {
   }
 
   /**
-   * Constructor to create exception to wrap another exception and pass a message
+   * Constructor to create exception to wrap another exception and pass a message.
    *
    * @param msg
    *          The message

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,17 +32,14 @@ public interface SqlExecutor {
   //
   // Constants
   //
-  /**
-   * Constant to let us know not to skip anything
-   */
+  /** Constant to let us know not to skip anything. */
   int NO_SKIPPED_RESULTS = 0;
-  /**
-   * Constant to let us know to include all records
-   */
+
+  /** Constant to let us know to include all records. */
   int NO_MAXIMUM_RESULTS = -999999;
 
   /**
-   * Execute an update
+   * Execute an update.
    *
    * @param statementScope
    *          - the request scope
@@ -60,7 +57,7 @@ public interface SqlExecutor {
       throws SQLException;
 
   /**
-   * Adds a statement to a batch
+   * Adds a statement to a batch.
    *
    * @param statementScope
    *          - the request scope
@@ -77,7 +74,7 @@ public interface SqlExecutor {
       throws SQLException;
 
   /**
-   * Execute a batch of statements
+   * Execute a batch of statements.
    *
    * @param sessionScope
    *          - the session scope
@@ -88,7 +85,7 @@ public interface SqlExecutor {
   public int executeBatch(SessionScope sessionScope) throws SQLException;
 
   /**
-   * Execute a batch of statements
+   * Execute a batch of statements.
    *
    * @param sessionScope
    *          - the session scope
@@ -102,7 +99,7 @@ public interface SqlExecutor {
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException;
 
   /**
-   * Long form of the method to execute a query
+   * Long form of the method to execute a query.
    *
    * @param statementScope
    *          - the request scope
@@ -125,7 +122,7 @@ public interface SqlExecutor {
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException;
 
   /**
-   * Execute a stored procedure that updates data
+   * Execute a stored procedure that updates data.
    *
    * @param statementScope
    *          - the request scope
@@ -143,7 +140,7 @@ public interface SqlExecutor {
       throws SQLException;
 
   /**
-   * Execute a stored procedure
+   * Execute a stored procedure.
    *
    * @param statementScope
    *          - the request scope
@@ -166,7 +163,7 @@ public interface SqlExecutor {
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException;
 
   /**
-   * Clean up any batches on the session
+   * Clean up any batches on the session.
    *
    * @param sessionScope
    *          - the session to clean up
@@ -175,10 +172,11 @@ public interface SqlExecutor {
 
   /**
    * Initializing SQL Executor by passing configuration and global properties.
-   * 
+   *
    * @param config
    *          - the configuration class, which contains complete configuration info
    * @param globalProps
+   *          the global props
    */
   public void init(SqlMapConfiguration config, Properties globalProps);
 }

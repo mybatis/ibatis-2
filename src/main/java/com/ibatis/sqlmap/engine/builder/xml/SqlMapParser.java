@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,26 @@ import org.w3c.dom.Node;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * The Class SqlMapParser.
+ */
 public class SqlMapParser {
 
+  /** The parser. */
   private final NodeletParser parser;
+
+  /** The state. */
   private XmlParserState state;
+
+  /** The statement parser. */
   private SqlStatementParser statementParser;
 
+  /**
+   * Instantiates a new sql map parser.
+   *
+   * @param state
+   *          the state
+   */
   public SqlMapParser(XmlParserState state) {
     this.parser = new NodeletParser();
     this.state = state;
@@ -51,14 +65,33 @@ public class SqlMapParser {
 
   }
 
+  /**
+   * Parses the.
+   *
+   * @param reader
+   *          the reader
+   * @throws NodeletException
+   *           the nodelet exception
+   */
   public void parse(Reader reader) throws NodeletException {
     parser.parse(reader);
   }
 
+  /**
+   * Parses the.
+   *
+   * @param inputStream
+   *          the input stream
+   * @throws NodeletException
+   *           the nodelet exception
+   */
   public void parse(InputStream inputStream) throws NodeletException {
     parser.parse(inputStream);
   }
 
+  /**
+   * Adds the sql map nodelets.
+   */
   private void addSqlMapNodelets() {
     parser.addNodelet("/sqlMap", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -68,6 +101,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the sql nodelets.
+   */
   private void addSqlNodelets() {
     parser.addNodelet("/sqlMap/sql", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -85,6 +121,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the type alias nodelets.
+   */
   private void addTypeAliasNodelets() {
     parser.addNodelet("/sqlMap/typeAlias", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -96,6 +135,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the cache model nodelets.
+   */
   private void addCacheModelNodelets() {
     parser.addNodelet("/sqlMap/cacheModel", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -163,6 +205,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the parameter map nodelets.
+   */
   private void addParameterMapNodelets() {
     parser.addNodelet("/sqlMap/parameterMap/end()", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -227,6 +272,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the result map nodelets.
+   */
   private void addResultMapNodelets() {
     parser.addNodelet("/sqlMap/resultMap/end()", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -364,6 +412,9 @@ public class SqlMapParser {
     });
   }
 
+  /**
+   * Adds the statement nodelets.
+   */
   protected void addStatementNodelets() {
     parser.addNodelet("/sqlMap/statement", new Nodelet() {
       public void process(Node node) throws Exception {

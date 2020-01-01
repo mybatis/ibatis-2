@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,8 @@ public interface SqlMapTransactionManager {
    * <p/>
    * Always call endTransaction() once startTransaction() has been called.
    *
-   * @throws java.sql.SQLException
-   *           If an error occurs while starting the transaction, or the transaction could not be started.
+   * @throws SQLException
+   *           the SQL exception
    */
   public void startTransaction() throws SQLException;
 
@@ -64,8 +64,10 @@ public interface SqlMapTransactionManager {
    * <p/>
    * Always call endTransaction() once startTransaction() has been called.
    *
-   * @throws java.sql.SQLException
-   *           If an error occurs while starting the transaction, or the transaction could not be started.
+   * @param transactionIsolation
+   *          the transaction isolation
+   * @throws SQLException
+   *           the SQL exception
    */
   public void startTransaction(int transactionIsolation) throws SQLException;
 
@@ -117,7 +119,9 @@ public interface SqlMapTransactionManager {
    * </pre>
    *
    * @param connnection
+   *          the new user connection
    * @throws SQLException
+   *           the SQL exception
    */
   public void setUserConnection(Connection connnection) throws SQLException;
 
@@ -128,6 +132,7 @@ public interface SqlMapTransactionManager {
    *
    * @return The current user supplied connection.
    * @throws SQLException
+   *           the SQL exception
    * @deprecated Use getCurrentConnection() instead.
    */
   public Connection getUserConnection() throws SQLException;
@@ -138,6 +143,7 @@ public interface SqlMapTransactionManager {
    *
    * @return The current connection or null.
    * @throws SQLException
+   *           the SQL exception
    */
   public Connection getCurrentConnection() throws SQLException;
 

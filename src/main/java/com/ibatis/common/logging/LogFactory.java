@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,12 @@ import java.lang.reflect.Constructor;
 
 import com.ibatis.common.resources.Resources;
 
+/**
+ * A factory for creating Log objects.
+ */
 public class LogFactory {
 
+  /** The log constructor. */
   private static Constructor logConstructor;
 
   static {
@@ -31,6 +35,14 @@ public class LogFactory {
     tryImplementation("java.lang.Object", "com.ibatis.common.logging.nologging.NoLoggingImpl");
   }
 
+  /**
+   * Try implementation.
+   *
+   * @param testClassName
+   *          the test class name
+   * @param implClassName
+   *          the impl class name
+   */
   private static void tryImplementation(String testClassName, String implClassName) {
     if (logConstructor == null) {
       try {
@@ -42,6 +54,13 @@ public class LogFactory {
     }
   }
 
+  /**
+   * Gets the log.
+   *
+   * @param aClass
+   *          the a class
+   * @return the log
+   */
   public static Log getLog(Class aClass) {
     try {
       return (Log) logConstructor.newInstance(new Object[] { aClass });

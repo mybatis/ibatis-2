@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,18 +47,40 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ClassInfo {
 
+  /** The cache enabled. */
   private static boolean cacheEnabled = true;
+
+  /** The Constant EMPTY_STRING_ARRAY. */
   private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
+  /** The Constant SIMPLE_TYPE_SET. */
   private static final Set SIMPLE_TYPE_SET = new HashSet();
+
+  /** The Constant CLASS_INFO_MAP. */
   private static final Map<Class, ClassInfo> CLASS_INFO_MAP = new ConcurrentHashMap<Class, ClassInfo>();
 
+  /** The class name. */
   private String className;
+
+  /** The readable property names. */
   private String[] readablePropertyNames = EMPTY_STRING_ARRAY;
+
+  /** The writeable property names. */
   private String[] writeablePropertyNames = EMPTY_STRING_ARRAY;
+
+  /** The set methods. */
   private HashMap setMethods = new HashMap();
+
+  /** The get methods. */
   private HashMap getMethods = new HashMap();
+
+  /** The set types. */
   private HashMap setTypes = new HashMap();
+
+  /** The get types. */
   private HashMap getTypes = new HashMap();
+
+  /** The default constructor. */
   private Constructor defaultConstructor;
 
   static {
@@ -91,6 +113,12 @@ public class ClassInfo {
     SIMPLE_TYPE_SET.add(Enumeration.class);
   }
 
+  /**
+   * Instantiates a new class info.
+   *
+   * @param clazz
+   *          the clazz
+   */
   private ClassInfo(Class clazz) {
     className = clazz.getName();
     addDefaultConstructor(clazz);
@@ -101,6 +129,12 @@ public class ClassInfo {
     writeablePropertyNames = (String[]) setMethods.keySet().toArray(new String[setMethods.keySet().size()]);
   }
 
+  /**
+   * Adds the default constructor.
+   *
+   * @param clazz
+   *          the clazz
+   */
   private void addDefaultConstructor(Class clazz) {
     Constructor[] consts = clazz.getDeclaredConstructors();
     for (int i = 0; i < consts.length; i++) {
@@ -120,6 +154,12 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Adds the get methods.
+   *
+   * @param cls
+   *          the cls
+   */
   private void addGetMethods(Class cls) {
     Method[] methods = getClassMethods(cls);
     for (int i = 0; i < methods.length; i++) {
@@ -139,11 +179,25 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Adds the get method.
+   *
+   * @param name
+   *          the name
+   * @param method
+   *          the method
+   */
   private void addGetMethod(String name, Method method) {
     getMethods.put(name, new MethodInvoker(method));
     getTypes.put(name, method.getReturnType());
   }
 
+  /**
+   * Adds the set methods.
+   *
+   * @param cls
+   *          the cls
+   */
   private void addSetMethods(Class cls) {
     Map conflictingSetters = new HashMap();
     Method[] methods = getClassMethods(cls);
@@ -163,6 +217,16 @@ public class ClassInfo {
     resolveSetterConflicts(conflictingSetters);
   }
 
+  /**
+   * Adds the setter conflict.
+   *
+   * @param conflictingSetters
+   *          the conflicting setters
+   * @param name
+   *          the name
+   * @param method
+   *          the method
+   */
   private void addSetterConflict(Map conflictingSetters, String name, Method method) {
     List list = (List) conflictingSetters.get(name);
     if (list == null) {
@@ -172,6 +236,12 @@ public class ClassInfo {
     list.add(method);
   }
 
+  /**
+   * Resolve setter conflicts.
+   *
+   * @param conflictingSetters
+   *          the conflicting setters
+   */
   private void resolveSetterConflicts(Map conflictingSetters) {
     for (Iterator propNames = conflictingSetters.keySet().iterator(); propNames.hasNext();) {
       String propName = (String) propNames.next();
@@ -206,11 +276,25 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Adds the set method.
+   *
+   * @param name
+   *          the name
+   * @param method
+   *          the method
+   */
   private void addSetMethod(String name, Method method) {
     setMethods.put(name, new MethodInvoker(method));
     setTypes.put(name, method.getParameterTypes()[0]);
   }
 
+  /**
+   * Adds the fields.
+   *
+   * @param clazz
+   *          the clazz
+   */
   private void addFields(Class clazz) {
     Field[] fields = clazz.getDeclaredFields();
     for (int i = 0; i < fields.length; i++) {
@@ -236,11 +320,23 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Adds the set field.
+   *
+   * @param field
+   *          the field
+   */
   private void addSetField(Field field) {
     setMethods.put(field.getName(), new SetFieldInvoker(field));
     setTypes.put(field.getName(), field.getType());
   }
 
+  /**
+   * Adds the get field.
+   *
+   * @param field
+   *          the field
+   */
   private void addGetField(Field field) {
     getMethods.put(field.getName(), new GetFieldInvoker(field));
     getTypes.put(field.getName(), field.getType());
@@ -275,6 +371,14 @@ public class ClassInfo {
     return (Method[]) methods.toArray(new Method[methods.size()]);
   }
 
+  /**
+   * Adds the unique methods.
+   *
+   * @param uniqueMethods
+   *          the unique methods
+   * @param methods
+   *          the methods
+   */
   private void addUniqueMethods(HashMap uniqueMethods, Method[] methods) {
     for (Method currentMethod : methods) {
       if (!currentMethod.isBridge()) {
@@ -297,6 +401,13 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Gets the signature.
+   *
+   * @param method
+   *          the method
+   * @return the signature
+   */
   private String getSignature(Method method) {
     StringBuilder sb = new StringBuilder();
     sb.append(method.getName());
@@ -314,6 +425,13 @@ public class ClassInfo {
     return sb.toString();
   }
 
+  /**
+   * Drop case.
+   *
+   * @param name
+   *          the name
+   * @return the string
+   */
   private static String dropCase(String name) {
     if (name.startsWith("is")) {
       name = name.substring(2);
@@ -330,6 +448,11 @@ public class ClassInfo {
     return name;
   }
 
+  /**
+   * Can access private methods.
+   *
+   * @return true, if successful
+   */
   private static boolean canAccessPrivateMethods() {
     try {
       SecurityManager securityManager = System.getSecurityManager();
@@ -343,7 +466,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets the name of the class the instance provides information for
+   * Gets the name of the class the instance provides information for.
    *
    * @return The class name
    */
@@ -351,6 +474,11 @@ public class ClassInfo {
     return className;
   }
 
+  /**
+   * Instantiate class.
+   *
+   * @return the object
+   */
   public Object instantiateClass() {
     if (defaultConstructor != null) {
       try {
@@ -364,7 +492,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets the setter for a property as a Method object
+   * Gets the setter for a property as a Method object.
    *
    * @param propertyName
    *          - the property
@@ -384,7 +512,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets the getter for a property as a Method object
+   * Gets the getter for a property as a Method object.
    *
    * @param propertyName
    *          - the property
@@ -403,6 +531,13 @@ public class ClassInfo {
     return ((MethodInvoker) method).getMethod();
   }
 
+  /**
+   * Gets the sets the invoker.
+   *
+   * @param propertyName
+   *          the property name
+   * @return the sets the invoker
+   */
   public Invoker getSetInvoker(String propertyName) {
     Invoker method = (Invoker) setMethods.get(propertyName);
     if (method == null) {
@@ -412,6 +547,13 @@ public class ClassInfo {
     return method;
   }
 
+  /**
+   * Gets the gets the invoker.
+   *
+   * @param propertyName
+   *          the property name
+   * @return the gets the invoker
+   */
   public Invoker getGetInvoker(String propertyName) {
     Invoker method = (Invoker) getMethods.get(propertyName);
     if (method == null) {
@@ -422,7 +564,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets the type for a property setter
+   * Gets the type for a property setter.
    *
    * @param propertyName
    *          - the name of the property
@@ -438,7 +580,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets the type for a property getter
+   * Gets the type for a property getter.
    *
    * @param propertyName
    *          - the name of the property
@@ -454,7 +596,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets an array of the readable properties for an object
+   * Gets an array of the readable properties for an object.
    *
    * @return The array
    */
@@ -463,7 +605,7 @@ public class ClassInfo {
   }
 
   /**
-   * Gets an array of the writeable properties for an object
+   * Gets an array of the writeable properties for an object.
    *
    * @return The array
    */
@@ -472,7 +614,7 @@ public class ClassInfo {
   }
 
   /**
-   * Check to see if a class has a writeable property by name
+   * Check to see if a class has a writeable property by name.
    *
    * @param propertyName
    *          - the name of the property to check
@@ -483,7 +625,7 @@ public class ClassInfo {
   }
 
   /**
-   * Check to see if a class has a readable property by name
+   * Check to see if a class has a readable property by name.
    *
    * @param propertyName
    *          - the name of the property to check
@@ -494,7 +636,7 @@ public class ClassInfo {
   }
 
   /**
-   * Tells us if the class passed in is a knwon common type
+   * Tells us if the class passed in is a knwon common type.
    *
    * @param clazz
    *          The class to check
@@ -538,12 +680,18 @@ public class ClassInfo {
     }
   }
 
+  /**
+   * Sets the cache enabled.
+   *
+   * @param cacheEnabled
+   *          the new cache enabled
+   */
   public static void setCacheEnabled(boolean cacheEnabled) {
     ClassInfo.cacheEnabled = cacheEnabled;
   }
 
   /**
-   * Examines a Throwable object and gets it's root cause
+   * Examines a Throwable object and gets it's root cause.
    *
    * @param t
    *          - the exception to examine

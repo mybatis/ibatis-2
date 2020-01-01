@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,33 @@ import javax.transaction.UserTransaction;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * The Class JtaTransactionConfig.
+ */
 public class JtaTransactionConfig extends BaseTransactionConfig {
 
+  /** The user transaction. */
   private UserTransaction userTransaction;
 
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
     return new JtaTransaction(userTransaction, dataSource, transactionIsolation);
   }
 
+  /**
+   * Gets the user transaction.
+   *
+   * @return the user transaction
+   */
   public UserTransaction getUserTransaction() {
     return userTransaction;
   }
 
+  /**
+   * Sets the user transaction.
+   *
+   * @param userTransaction
+   *          the new user transaction
+   */
   public void setUserTransaction(UserTransaction userTransaction) {
     this.userTransaction = userTransaction;
   }

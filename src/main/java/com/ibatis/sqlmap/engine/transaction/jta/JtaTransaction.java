@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,18 +28,44 @@ import javax.transaction.UserTransaction;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class JtaTransaction.
+ */
 public class JtaTransaction implements Transaction {
 
+  /** The Constant connectionLog. */
   private static final Log connectionLog = LogFactory.getLog(Connection.class);
 
+  /** The user transaction. */
   private UserTransaction userTransaction;
+
+  /** The data source. */
   private DataSource dataSource;
+
+  /** The connection. */
   private Connection connection;
+
+  /** The isolation level. */
   private IsolationLevel isolationLevel = new IsolationLevel();
 
+  /** The commmitted. */
   private boolean commmitted = false;
+
+  /** The new transaction. */
   private boolean newTransaction = false;
 
+  /**
+   * Instantiates a new jta transaction.
+   *
+   * @param utx
+   *          the utx
+   * @param ds
+   *          the ds
+   * @param isolationLevel
+   *          the isolation level
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public JtaTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {
     // Check parameters
     userTransaction = utx;
@@ -53,6 +79,14 @@ public class JtaTransaction implements Transaction {
     this.isolationLevel.setIsolationLevel(isolationLevel);
   }
 
+  /**
+   * Inits the.
+   *
+   * @throws TransactionException
+   *           the transaction exception
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void init() throws TransactionException, SQLException {
     // Start JTA Transaction
     try {

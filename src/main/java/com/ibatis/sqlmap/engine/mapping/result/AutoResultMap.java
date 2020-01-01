@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,15 +25,17 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * An automatic result map for simple stuff
+ * An automatic result map for simple stuff.
  */
 public class AutoResultMap extends ResultMap {
 
   /**
-   * Constructor to pass in the SqlMapExecutorDelegate
+   * Constructor to pass in the SqlMapExecutorDelegate.
    *
    * @param delegate
    *          - the delegate
+   * @param allowRemapping
+   *          the allow remapping
    */
   public AutoResultMap(SqlMapExecutorDelegate delegate, boolean allowRemapping) {
     super(delegate);
@@ -59,6 +61,12 @@ public class AutoResultMap extends ResultMap {
     return super.setResultObjectValues(statementScope, resultObject, values);
   }
 
+  /**
+   * Initialize.
+   *
+   * @param rs
+   *          the rs
+   */
   private void initialize(ResultSet rs) {
     if (getResultClass() == null) {
       throw new SqlMapException(
@@ -74,6 +82,12 @@ public class AutoResultMap extends ResultMap {
     }
   }
 
+  /**
+   * Initialize bean results.
+   *
+   * @param rs
+   *          the rs
+   */
   private void initializeBeanResults(ResultSet rs) {
     try {
       ClassInfo classInfo = ClassInfo.getInstance(getResultClass());
@@ -122,6 +136,12 @@ public class AutoResultMap extends ResultMap {
 
   }
 
+  /**
+   * Initialize xml results.
+   *
+   * @param rs
+   *          the rs
+   */
   private void initializeXmlResults(ResultSet rs) {
     try {
       List resultMappingList = new ArrayList();
@@ -141,6 +161,12 @@ public class AutoResultMap extends ResultMap {
     }
   }
 
+  /**
+   * Initialize map results.
+   *
+   * @param rs
+   *          the rs
+   */
   private void initializeMapResults(ResultSet rs) {
     try {
       List resultMappingList = new ArrayList();
@@ -162,6 +188,12 @@ public class AutoResultMap extends ResultMap {
     }
   }
 
+  /**
+   * Initialize primitive results.
+   *
+   * @param rs
+   *          the rs
+   */
   private void initializePrimitiveResults(ResultSet rs) {
     try {
       ResultSetMetaData rsmd = rs.getMetaData();
@@ -182,6 +214,17 @@ public class AutoResultMap extends ResultMap {
     }
   }
 
+  /**
+   * Gets the column identifier.
+   *
+   * @param rsmd
+   *          the rsmd
+   * @param i
+   *          the i
+   * @return the column identifier
+   * @throws SQLException
+   *           the SQL exception
+   */
   private String getColumnIdentifier(ResultSetMetaData rsmd, int i) throws SQLException {
     if (delegate.isUseColumnLabel()) {
       return rsmd.getColumnLabel(i);

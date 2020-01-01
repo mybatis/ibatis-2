@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,30 @@ package com.ibatis.common.beans;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * The Interface Invoker.
+ */
 public interface Invoker {
+
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
   String getName();
 
+  /**
+   * Invoke.
+   *
+   * @param target
+   *          the target
+   * @param args
+   *          the args
+   * @return the object
+   * @throws IllegalAccessException
+   *           the illegal access exception
+   * @throws InvocationTargetException
+   *           the invocation target exception
+   */
   Object invoke(Object target, Object[] args) throws IllegalAccessException, InvocationTargetException;
 }

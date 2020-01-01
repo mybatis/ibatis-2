@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,33 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Hash value generator for cache keys
+ * Hash value generator for cache keys.
  */
 public class CacheKey implements Cloneable, Serializable {
 
+  /** The Constant DEFAULT_MULTIPLYER. */
   private static final int DEFAULT_MULTIPLYER = 37;
+
+  /** The Constant DEFAULT_HASHCODE. */
   private static final int DEFAULT_HASHCODE = 17;
 
+  /** The multiplier. */
   private int multiplier;
+
+  /** The hashcode. */
   private int hashcode;
+
+  /** The checksum. */
   private long checksum;
+
+  /** The count. */
   private int count;
+
+  /** The param list. */
   private List paramList = new ArrayList();
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public CacheKey() {
     hashcode = DEFAULT_HASHCODE;
@@ -43,7 +55,7 @@ public class CacheKey implements Cloneable, Serializable {
   }
 
   /**
-   * Constructor that supplies an initial hashcode
+   * Constructor that supplies an initial hashcode.
    *
    * @param initialNonZeroOddNumber
    *          - the hashcode to use
@@ -55,7 +67,7 @@ public class CacheKey implements Cloneable, Serializable {
   }
 
   /**
-   * Costructor that supplies an initial hashcode and multiplier
+   * Costructor that supplies an initial hashcode and multiplier.
    *
    * @param initialNonZeroOddNumber
    *          - the hashcode to use
@@ -69,7 +81,7 @@ public class CacheKey implements Cloneable, Serializable {
   }
 
   /**
-   * Updates this object with new information based on an int value
+   * Updates this object with new information based on an int value.
    *
    * @param x
    *          - the int value
@@ -81,7 +93,7 @@ public class CacheKey implements Cloneable, Serializable {
   }
 
   /**
-   * Updates this object with new information based on an object
+   * Updates this object with new information based on an object.
    *
    * @param object
    *          - the object

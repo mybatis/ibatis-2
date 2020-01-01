@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,14 +27,22 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 /**
- * Connection proxy to add logging
+ * Connection proxy to add logging.
  */
 public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandler {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(Connection.class);
 
+  /** The connection. */
   private Connection connection;
 
+  /**
+   * Instantiates a new connection log proxy.
+   *
+   * @param conn
+   *          the conn
+   */
   private ConnectionLogProxy(Connection conn) {
     super();
     this.connection = conn;
@@ -75,8 +83,8 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
   }
 
   /**
-   * Creates a logging version of a connection
-   * 
+   * Creates a logging version of a connection.
+   *
    * @param conn
    *          - the original connection
    * @return - the connection with logging
@@ -88,8 +96,8 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
   }
 
   /**
-   * return the wrapped connection
-   * 
+   * return the wrapped connection.
+   *
    * @return the connection
    */
   public Connection getConnection() {

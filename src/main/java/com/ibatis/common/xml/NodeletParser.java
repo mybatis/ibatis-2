@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,13 @@ import java.util.*;
  */
 public class NodeletParser {
 
+  /** The let map. */
   private Map letMap = new HashMap();
 
+  /** The validation. */
   private boolean validation;
+
+  /** The entity resolver. */
   private EntityResolver entityResolver;
 
   /**
@@ -47,6 +51,11 @@ public class NodeletParser {
    * <li>Element Path - /rootElement/childElement/theElement
    * <li>All Elements Named - //theElement
    * </ul>
+   *
+   * @param xpath
+   *          the xpath
+   * @param nodelet
+   *          the nodelet
    */
   public void addNodelet(String xpath, Nodelet nodelet) {
     letMap.put(xpath, nodelet);
@@ -54,6 +63,11 @@ public class NodeletParser {
 
   /**
    * Begins parsing from the provided Reader.
+   *
+   * @param reader
+   *          the reader
+   * @throws NodeletException
+   *           the nodelet exception
    */
   public void parse(Reader reader) throws NodeletException {
     try {
@@ -64,6 +78,14 @@ public class NodeletParser {
     }
   }
 
+  /**
+   * Parses the.
+   *
+   * @param inputStream
+   *          the input stream
+   * @throws NodeletException
+   *           the nodelet exception
+   */
   public void parse(InputStream inputStream) throws NodeletException {
     try {
       Document doc = createDocument(inputStream);
@@ -75,6 +97,9 @@ public class NodeletParser {
 
   /**
    * Begins parsing from the provided Node.
+   *
+   * @param node
+   *          the node
    */
   public void parse(Node node) {
     Path path = new Path();
@@ -84,6 +109,11 @@ public class NodeletParser {
 
   /**
    * A recursive method that walkes the DOM tree, registers XPaths and calls Nodelets registered under those XPaths.
+   *
+   * @param node
+   *          the node
+   * @param path
+   *          the path
    */
   private void process(Node node, Path path) {
     if (node instanceof Element) {
@@ -123,6 +153,14 @@ public class NodeletParser {
     }
   }
 
+  /**
+   * Process nodelet.
+   *
+   * @param node
+   *          the node
+   * @param pathString
+   *          the path string
+   */
   private void processNodelet(Node node, String pathString) {
     Nodelet nodelet = (Nodelet) letMap.get(pathString);
     if (nodelet != null) {
@@ -136,6 +174,18 @@ public class NodeletParser {
 
   /**
    * Creates a JAXP Document from a reader.
+   *
+   * @param reader
+   *          the reader
+   * @return the document
+   * @throws ParserConfigurationException
+   *           the parser configuration exception
+   * @throws FactoryConfigurationError
+   *           the factory configuration error
+   * @throws SAXException
+   *           the SAX exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
    */
   private Document createDocument(Reader reader)
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
@@ -168,6 +218,18 @@ public class NodeletParser {
 
   /**
    * Creates a JAXP Document from an InoutStream.
+   *
+   * @param inputStream
+   *          the input stream
+   * @return the document
+   * @throws ParserConfigurationException
+   *           the parser configuration exception
+   * @throws FactoryConfigurationError
+   *           the factory configuration error
+   * @throws SAXException
+   *           the SAX exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
    */
   private Document createDocument(InputStream inputStream)
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
@@ -198,10 +260,22 @@ public class NodeletParser {
     return builder.parse(new InputSource(inputStream));
   }
 
+  /**
+   * Sets the validation.
+   *
+   * @param validation
+   *          the new validation
+   */
   public void setValidation(boolean validation) {
     this.validation = validation;
   }
 
+  /**
+   * Sets the entity resolver.
+   *
+   * @param resolver
+   *          the new entity resolver
+   */
   public void setEntityResolver(EntityResolver resolver) {
     this.entityResolver = resolver;
   }
@@ -213,11 +287,21 @@ public class NodeletParser {
    */
   private static class Path {
 
+    /** The node list. */
     private List nodeList = new ArrayList();
 
+    /**
+     * Instantiates a new path.
+     */
     public Path() {
     }
 
+    /**
+     * Instantiates a new path.
+     *
+     * @param path
+     *          the path
+     */
     public Path(String path) {
       StringTokenizer parser = new StringTokenizer(path, "/", false);
       while (parser.hasMoreTokens()) {
@@ -225,10 +309,19 @@ public class NodeletParser {
       }
     }
 
+    /**
+     * Adds the.
+     *
+     * @param node
+     *          the node
+     */
     public void add(String node) {
       nodeList.add(node);
     }
 
+    /**
+     * Removes the.
+     */
     public void remove() {
       nodeList.remove(nodeList.size() - 1);
     }

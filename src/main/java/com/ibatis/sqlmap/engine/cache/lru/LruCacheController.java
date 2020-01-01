@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,16 +26,21 @@ import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.CacheModel;
 
 /**
- * LRU (least recently used) cache controller implementation
+ * LRU (least recently used) cache controller implementation.
  */
 public class LruCacheController implements CacheController {
 
+  /** The cache size. */
   private int cacheSize;
+
+  /** The cache. */
   private Map cache;
+
+  /** The key list. */
   private List keyList;
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public LruCacheController() {
     this.cacheSize = 100;
@@ -43,10 +48,21 @@ public class LruCacheController implements CacheController {
     this.keyList = Collections.synchronizedList(new LinkedList());
   }
 
+  /**
+   * Gets the cache size.
+   *
+   * @return the cache size
+   */
   public int getCacheSize() {
     return cacheSize;
   }
 
+  /**
+   * Sets the cache size.
+   *
+   * @param cacheSize
+   *          the new cache size
+   */
   public void setCacheSize(int cacheSize) {
     this.cacheSize = cacheSize;
   }

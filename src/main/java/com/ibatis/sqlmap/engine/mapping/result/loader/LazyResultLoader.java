@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,23 +27,36 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Class to lazily load results into objects
+ * Class to lazily load results into objects.
  */
 public class LazyResultLoader implements InvocationHandler {
 
+  /** The Constant SET_INTERFACES. */
   private static final Class[] SET_INTERFACES = new Class[] { Set.class };
+
+  /** The Constant LIST_INTERFACES. */
   private static final Class[] LIST_INTERFACES = new Class[] { List.class };
 
+  /** The client. */
   protected SqlMapClientImpl client;
+
+  /** The statement name. */
   protected String statementName;
+
+  /** The parameter object. */
   protected Object parameterObject;
+
+  /** The target type. */
   protected Class targetType;
 
+  /** The loaded. */
   protected boolean loaded;
+
+  /** The result object. */
   protected Object resultObject;
 
   /**
-   * Constructor for a lazy list loader
+   * Constructor for a lazy list loader.
    *
    * @param client
    *          - the client that is creating the lazy list
@@ -62,10 +75,9 @@ public class LazyResultLoader implements InvocationHandler {
   }
 
   /**
-   * Loads the result
+   * Loads the result.
    *
    * @return the results - a list or object
-   * 
    * @throws SQLException
    *           if there is a problem
    */
@@ -100,6 +112,9 @@ public class LazyResultLoader implements InvocationHandler {
     }
   }
 
+  /**
+   * Load object.
+   */
   private synchronized void loadObject() {
     if (!loaded) {
       try {

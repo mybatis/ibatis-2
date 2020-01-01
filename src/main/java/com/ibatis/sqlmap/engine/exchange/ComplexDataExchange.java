@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,16 @@ import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 import java.util.Map;
 
 /**
- * A DataExchange implemtation for working with beans
+ * A DataExchange implemtation for working with beans.
  */
 public class ComplexDataExchange extends BaseDataExchange implements DataExchange {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
 
   /**
-   * Constructor for the factory
-   * 
+   * Constructor for the factory.
+   *
    * @param dataExchangeFactory
    *          - the factory
    */

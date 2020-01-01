@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * DataExchange implementation for List objects
+ * DataExchange implementation for List objects.
  */
 public class ListDataExchange extends BaseDataExchange implements DataExchange {
 
+  /**
+   * Instantiates a new list data exchange.
+   *
+   * @param dataExchangeFactory
+   *          the data exchange factory
+   */
   protected ListDataExchange(DataExchangeFactory dataExchangeFactory) {
     super(dataExchangeFactory);
   }

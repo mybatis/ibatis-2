@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,20 @@ package com.ibatis.common.logging.jakarta;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
+/**
+ * The Class JakartaCommonsLoggingImpl.
+ */
 public class JakartaCommonsLoggingImpl implements com.ibatis.common.logging.Log {
 
+  /** The log. */
   private Log log;
 
+  /**
+   * Instantiates a new jakarta commons logging impl.
+   *
+   * @param clazz
+   *          the clazz
+   */
   public JakartaCommonsLoggingImpl(Class clazz) {
     log = LogFactory.getLog(clazz);
   }

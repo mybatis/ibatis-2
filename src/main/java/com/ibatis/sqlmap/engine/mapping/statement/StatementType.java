@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,32 @@
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
+/**
+ * The Class StatementType.
+ */
 public final class StatementType {
 
+  /** The Constant UNKNOWN. */
   public static final StatementType UNKNOWN = new StatementType();
+
+  /** The Constant INSERT. */
   public static final StatementType INSERT = new StatementType();
+
+  /** The Constant UPDATE. */
   public static final StatementType UPDATE = new StatementType();
+
+  /** The Constant DELETE. */
   public static final StatementType DELETE = new StatementType();
+
+  /** The Constant SELECT. */
   public static final StatementType SELECT = new StatementType();
+
+  /** The Constant PROCEDURE. */
   public static final StatementType PROCEDURE = new StatementType();
 
+  /**
+   * Instantiates a new statement type.
+   */
   private StatementType() {
   }
 

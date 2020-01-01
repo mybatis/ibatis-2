@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,22 @@
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
+/**
+ * The listener interface for receiving execute events. The class that is interested in processing a execute event
+ * implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addExecuteListener<code> method. When the execute event occurs, that object's appropriate method is
+ * invoked.
+ *
+ * @see ExecuteEvent
+ */
 public interface ExecuteListener {
 
+  /**
+   * On execute statement.
+   *
+   * @param statement
+   *          the statement
+   */
   public void onExecuteStatement(MappedStatement statement);
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,28 @@ import org.w3c.dom.*;
 
 import java.util.Properties;
 
+/**
+ * The Class XMLSqlSource.
+ */
 public class XMLSqlSource implements SqlSource {
 
+  /** The Constant PARAM_PARSER. */
   private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();
 
+  /** The state. */
   private XmlParserState state;
+
+  /** The parent node. */
   private Node parentNode;
 
+  /**
+   * Instantiates a new XML sql source.
+   *
+   * @param config
+   *          the config
+   * @param parentNode
+   *          the parent node
+   */
   public XMLSqlSource(XmlParserState config, Node parentNode) {
     this.state = config;
     this.parentNode = parentNode;
@@ -54,6 +69,21 @@ public class XMLSqlSource implements SqlSource {
     }
   }
 
+  /**
+   * Parses the dynamic tags.
+   *
+   * @param node
+   *          the node
+   * @param dynamic
+   *          the dynamic
+   * @param sqlBuffer
+   *          the sql buffer
+   * @param isDynamic
+   *          the is dynamic
+   * @param postParseRequired
+   *          the post parse required
+   * @return true, if successful
+   */
   private boolean parseDynamicTags(Node node, DynamicParent dynamic, StringBuilder sqlBuffer, boolean isDynamic,
       boolean postParseRequired) {
     state.getConfig().getErrorContext().setActivity("parsing dynamic SQL tags");

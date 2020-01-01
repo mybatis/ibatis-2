@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,17 +25,24 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Wrapper class to simplify use of DBCP
+ * Wrapper class to simplify use of DBCP.
  */
 public class DbcpConfiguration {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
+
+  /** The Constant ADD_DRIVER_PROPS_PREFIX. */
   private static final String ADD_DRIVER_PROPS_PREFIX = "Driver.";
+
+  /** The Constant ADD_DRIVER_PROPS_PREFIX_LENGTH. */
   private static final int ADD_DRIVER_PROPS_PREFIX_LENGTH = ADD_DRIVER_PROPS_PREFIX.length();
+
+  /** The data source. */
   private DataSource dataSource;
 
   /**
-   * Constructor to supply a map of properties
+   * Constructor to supply a map of properties.
    *
    * @param properties
    *          - the map of configuration properties
@@ -54,7 +61,7 @@ public class DbcpConfiguration {
   }
 
   /**
-   * Getter for DataSource
+   * Getter for DataSource.
    *
    * @return The DataSource
    */
@@ -62,6 +69,13 @@ public class DbcpConfiguration {
     return dataSource;
   }
 
+  /**
+   * New dbcp configuration.
+   *
+   * @param map
+   *          the map
+   * @return the basic data source
+   */
   private BasicDataSource newDbcpConfiguration(Map map) {
     BasicDataSource basicDataSource = new BasicDataSource();
     Iterator props = map.keySet().iterator();
@@ -79,6 +93,17 @@ public class DbcpConfiguration {
     return basicDataSource;
   }
 
+  /**
+   * Convert value.
+   *
+   * @param object
+   *          the object
+   * @param propertyName
+   *          the property name
+   * @param value
+   *          the value
+   * @return the object
+   */
   private Object convertValue(Object object, String propertyName, String value) {
     Object convertedValue = value;
     Class targetType = PROBE.getPropertyTypeForSetter(object, propertyName);
@@ -92,6 +117,13 @@ public class DbcpConfiguration {
     return convertedValue;
   }
 
+  /**
+   * Legacy dbcp configuration.
+   *
+   * @param map
+   *          the map
+   * @return the basic data source
+   */
   private BasicDataSource legacyDbcpConfiguration(Map map) {
     BasicDataSource basicDataSource = null;
     if (map.containsKey("JDBC.Driver")) {
@@ -138,6 +170,13 @@ public class DbcpConfiguration {
     return basicDataSource;
   }
 
+  /**
+   * Not empty.
+   *
+   * @param s
+   *          the s
+   * @return true, if successful
+   */
   private boolean notEmpty(String s) {
     return s != null && s.length() > 0;
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import com.ibatis.sqlmap.engine.scope.StatementScope;
 import java.util.Map;
 
 /**
- * Interface for exchanging data between a parameter map/result map and the related objects
+ * Interface for exchanging data between a parameter map/result map and the related objects.
  */
 public interface DataExchange {
 
@@ -31,6 +31,7 @@ public interface DataExchange {
    * Initializes the data exchange instance.
    *
    * @param properties
+   *          the properties
    */
   public void initialize(Map properties);
 
@@ -65,8 +66,8 @@ public interface DataExchange {
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values);
 
   /**
-   * Sets values from a data array into a parameter object
-   * 
+   * Sets values from a data array into a parameter object.
+   *
    * @param statementScope
    *          - the request scope
    * @param parameterMap
@@ -75,7 +76,6 @@ public interface DataExchange {
    *          - the parameter object
    * @param values
    *          - the values to set
-   * 
    * @return parameterObject
    */
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,

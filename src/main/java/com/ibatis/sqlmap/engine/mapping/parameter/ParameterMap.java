@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,60 +34,132 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Class ParameterMap.
+ */
 public class ParameterMap {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(ParameterMap.class);
 
+  /** The id. */
   private String id;
+
+  /** The parameter class. */
   private Class parameterClass;
 
+  /** The parameter mappings. */
   private ParameterMapping[] parameterMappings;
+
+  /** The use set object for null value. */
   private Boolean useSetObjectForNullValue;
+
+  /** The sql type to use for null value. */
   private int sqlTypeToUseForNullValue;
+
+  /** The data exchange. */
   private DataExchange dataExchange;
 
+  /** The resource. */
   private String resource;
 
+  /** The parameter mapping index. */
   private Map parameterMappingIndex = new HashMap();
 
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
 
+  /**
+   * Instantiates a new parameter map.
+   *
+   * @param delegate
+   *          the delegate
+   */
   public ParameterMap(SqlMapExecutorDelegate delegate) {
     this.delegate = delegate;
   }
 
+  /**
+   * Gets the delegate.
+   *
+   * @return the delegate
+   */
   public SqlMapExecutorDelegate getDelegate() {
     return delegate;
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Sets the id.
+   *
+   * @param id
+   *          the new id
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * Gets the parameter class.
+   *
+   * @return the parameter class
+   */
   public Class getParameterClass() {
     return parameterClass;
   }
 
+  /**
+   * Sets the parameter class.
+   *
+   * @param parameterClass
+   *          the new parameter class
+   */
   public void setParameterClass(Class parameterClass) {
     this.parameterClass = parameterClass;
   }
 
+  /**
+   * Gets the data exchange.
+   *
+   * @return the data exchange
+   */
   public DataExchange getDataExchange() {
     return dataExchange;
   }
 
+  /**
+   * Sets the data exchange.
+   *
+   * @param dataExchange
+   *          the new data exchange
+   */
   public void setDataExchange(DataExchange dataExchange) {
     this.dataExchange = dataExchange;
   }
 
+  /**
+   * Gets the parameter mappings.
+   *
+   * @return the parameter mappings
+   */
   public ParameterMapping[] getParameterMappings() {
     return parameterMappings;
   }
 
+  /**
+   * Sets the parameter mapping list.
+   *
+   * @param parameterMappingList
+   *          the new parameter mapping list
+   */
   public void setParameterMappingList(List parameterMappingList) {
     this.parameterMappings = (ParameterMapping[]) parameterMappingList
         .toArray(new ParameterMapping[parameterMappingList.size()]);
@@ -102,20 +174,39 @@ public class ParameterMap {
     dataExchange.initialize(props);
   }
 
+  /**
+   * Gets the parameter index.
+   *
+   * @param propertyName
+   *          the property name
+   * @return the parameter index
+   */
   public int getParameterIndex(String propertyName) {
     Integer idx = null;
     idx = (Integer) parameterMappingIndex.get(propertyName);
     return idx == null ? -1 : idx.intValue();
   }
 
+  /**
+   * Gets the parameter count.
+   *
+   * @return the parameter count
+   */
   public int getParameterCount() {
     return this.parameterMappings.length;
   }
 
   /**
+   * Sets the parameters.
+   *
+   * @param statementScope
+   *          the statement scope
    * @param ps
+   *          the ps
    * @param parameters
-   * @throws java.sql.SQLException
+   *          the parameters
+   * @throws SQLException
+   *           the SQL exception
    */
   public void setParameters(StatementScope statementScope, PreparedStatement ps, Object[] parameters)
       throws SQLException {
@@ -137,26 +228,79 @@ public class ParameterMap {
     }
   }
 
+  /**
+   * Gets the parameter object values.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the parameter object values
+   */
   public Object[] getParameterObjectValues(StatementScope statementScope, Object parameterObject) {
     return dataExchange.getData(statementScope, this, parameterObject);
   }
 
+  /**
+   * Gets the cache key.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the cache key
+   */
   public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
     return dataExchange.getCacheKey(statementScope, this, parameterObject);
   }
 
+  /**
+   * Refresh parameter object values.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @param values
+   *          the values
+   */
   public void refreshParameterObjectValues(StatementScope statementScope, Object parameterObject, Object[] values) {
     dataExchange.setData(statementScope, this, parameterObject, values);
   }
 
+  /**
+   * Gets the resource.
+   *
+   * @return the resource
+   */
   public String getResource() {
     return resource;
   }
 
+  /**
+   * Sets the resource.
+   *
+   * @param resource
+   *          the new resource
+   */
   public void setResource(String resource) {
     this.resource = resource;
   }
 
+  /**
+   * Sets the parameter.
+   *
+   * @param ps
+   *          the ps
+   * @param mapping
+   *          the mapping
+   * @param parameters
+   *          the parameters
+   * @param i
+   *          the i
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected void setParameter(PreparedStatement ps, ParameterMapping mapping, Object[] parameters, int i)
       throws SQLException {
     Object value = parameters[i];

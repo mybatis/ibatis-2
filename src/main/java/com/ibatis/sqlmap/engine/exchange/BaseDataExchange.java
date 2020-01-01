@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,19 @@ import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 /**
- * Base implementation for the DataExchange interface
+ * Base implementation for the DataExchange interface.
  */
 public abstract class BaseDataExchange implements DataExchange {
 
+  /** The data exchange factory. */
   private DataExchangeFactory dataExchangeFactory;
 
+  /**
+   * Instantiates a new base data exchange.
+   *
+   * @param dataExchangeFactory
+   *          the data exchange factory
+   */
   protected BaseDataExchange(DataExchangeFactory dataExchangeFactory) {
     this.dataExchangeFactory = dataExchangeFactory;
   }
@@ -42,8 +49,8 @@ public abstract class BaseDataExchange implements DataExchange {
   }
 
   /**
-   * Getter for the factory that created this object
-   * 
+   * Getter for the factory that created this object.
+   *
    * @return - the factory
    */
   public DataExchangeFactory getDataExchangeFactory() {

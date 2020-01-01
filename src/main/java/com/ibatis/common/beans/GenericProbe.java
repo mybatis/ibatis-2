@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,15 @@ import java.util.StringTokenizer;
  */
 public class GenericProbe extends BaseProbe {
 
+  /** The Constant BEAN_PROBE. */
   private static final BaseProbe BEAN_PROBE = new ComplexBeanProbe();
+
+  /** The Constant DOM_PROBE. */
   private static final BaseProbe DOM_PROBE = new DomProbe();
 
+  /**
+   * Instantiates a new generic probe.
+   */
   protected GenericProbe() {
   }
 
@@ -225,6 +231,15 @@ public class GenericProbe extends BaseProbe {
     }
   }
 
+  /**
+   * Gets the class property type for getter.
+   *
+   * @param type
+   *          the type
+   * @param name
+   *          the name
+   * @return the class property type for getter
+   */
   private Class getClassPropertyTypeForGetter(Class type, String name) {
 
     if (name.indexOf('.') > -1) {

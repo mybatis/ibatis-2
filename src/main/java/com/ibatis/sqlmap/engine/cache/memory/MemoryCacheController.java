@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,14 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Memory-based implementation of CacheController
+ * Memory-based implementation of CacheController.
  */
 public class MemoryCacheController implements CacheController {
 
+  /** The reference type. */
   private MemoryCacheLevel referenceType = MemoryCacheLevel.WEAK;
+
+  /** The cache. */
   private Map cache = Collections.synchronizedMap(new HashMap());
 
   /**
@@ -49,10 +52,21 @@ public class MemoryCacheController implements CacheController {
     }
   }
 
+  /**
+   * Gets the reference type.
+   *
+   * @return the reference type
+   */
   public MemoryCacheLevel getReferenceType() {
     return referenceType;
   }
 
+  /**
+   * Sets the reference type.
+   *
+   * @param referenceType
+   *          the new reference type
+   */
   public void setReferenceType(MemoryCacheLevel referenceType) {
     this.referenceType = referenceType;
   }
@@ -132,11 +146,13 @@ public class MemoryCacheController implements CacheController {
    * Class to implement a strong (permanent) reference.
    */
   private static class StrongReference {
+
+    /** The object. */
     private Object object;
 
     /**
-     * StrongReference constructor for an object
-     * 
+     * StrongReference constructor for an object.
+     *
      * @param object
      *          - the Object to store
      */
@@ -145,8 +161,8 @@ public class MemoryCacheController implements CacheController {
     }
 
     /**
-     * Getter to get the object stored in the StrongReference
-     * 
+     * Getter to get the object stored in the StrongReference.
+     *
      * @return - the stored Object
      */
     public Object get() {

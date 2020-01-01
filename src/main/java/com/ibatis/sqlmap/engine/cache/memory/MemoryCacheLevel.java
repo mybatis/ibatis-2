@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An enumeration for the values for the memory cache levels
+ * An enumeration for the values for the memory cache levels.
  */
 public final class MemoryCacheLevel {
 
+  /** The cache level map. */
   private static Map cacheLevelMap = new HashMap();
 
   /**
@@ -55,6 +56,7 @@ public final class MemoryCacheLevel {
    */
   public final static MemoryCacheLevel STRONG;
 
+  /** The reference type. */
   private String referenceType;
 
   static {
@@ -68,14 +70,17 @@ public final class MemoryCacheLevel {
   }
 
   /**
-   * Creates a new instance of CacheLevel
+   * Creates a new instance of CacheLevel.
+   *
+   * @param type
+   *          the type
    */
   private MemoryCacheLevel(String type) {
     this.referenceType = type;
   }
 
   /**
-   * Getter for the reference type
+   * Getter for the reference type.
    *
    * @return the type of reference type used
    */
@@ -84,7 +89,7 @@ public final class MemoryCacheLevel {
   }
 
   /**
-   * Gets a MemoryCacheLevel by name
+   * Gets a MemoryCacheLevel by name.
    *
    * @param refType
    *          the name of the reference type

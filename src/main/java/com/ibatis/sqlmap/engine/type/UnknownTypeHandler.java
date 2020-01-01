@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,14 @@ import java.sql.SQLException;
 import java.lang.NoSuchMethodException;
 
 /**
- * Implementation of TypeHandler for dealing with unknown types
+ * Implementation of TypeHandler for dealing with unknown types.
  */
 public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
 
+  /** The factory. */
   private TypeHandlerFactory factory;
 
+  /** The using java pre 5. */
   static private boolean usingJavaPre5 = false;
 
   static {
@@ -43,8 +45,8 @@ public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
   };
 
   /**
-   * Constructor to create via a factory
-   * 
+   * Constructor to create via a factory.
+   *
    * @param factory
    *          - the factory to associate this with
    */

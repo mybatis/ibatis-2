@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ package com.ibatis.common.beans;
 public class ProbeException extends RuntimeException {
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public ProbeException() {
   }
 
   /**
-   * Constructor to set the message for the exception
+   * Constructor to set the message for the exception.
    *
    * @param msg
    *          - the message for the exception
@@ -37,7 +37,7 @@ public class ProbeException extends RuntimeException {
   }
 
   /**
-   * Constructor to create a nested exception
+   * Constructor to create a nested exception.
    *
    * @param cause
    *          - the reason the exception is being thrown
@@ -47,7 +47,7 @@ public class ProbeException extends RuntimeException {
   }
 
   /**
-   * Constructor to create a nested exception with a message
+   * Constructor to create a nested exception with a message.
    *
    * @param msg
    *          - the message for the exception

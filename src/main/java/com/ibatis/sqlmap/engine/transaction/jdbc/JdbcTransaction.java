@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,33 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class JdbcTransaction.
+ */
 public class JdbcTransaction implements Transaction {
 
+  /** The Constant connectionLog. */
   private static final Log connectionLog = LogFactory.getLog(Connection.class);
 
+  /** The data source. */
   private DataSource dataSource;
+
+  /** The connection. */
   private Connection connection;
+
+  /** The isolation level. */
   private IsolationLevel isolationLevel = new IsolationLevel();
 
+  /**
+   * Instantiates a new jdbc transaction.
+   *
+   * @param ds
+   *          the ds
+   * @param isolationLevel
+   *          the isolation level
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public JdbcTransaction(DataSource ds, int isolationLevel) throws TransactionException {
     // Check Parameters
     dataSource = ds;
@@ -43,6 +62,14 @@ public class JdbcTransaction implements Transaction {
     this.isolationLevel.setIsolationLevel(isolationLevel);
   }
 
+  /**
+   * Inits the.
+   *
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   private void init() throws SQLException, TransactionException {
     // Open JDBC Transaction
     connection = dataSource.getConnection();

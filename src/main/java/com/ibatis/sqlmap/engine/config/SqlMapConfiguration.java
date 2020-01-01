@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,14 +37,32 @@ import com.ibatis.sqlmap.engine.type.*;
 
 import java.util.*;
 
+/**
+ * The Class SqlMapConfiguration.
+ */
 public class SqlMapConfiguration {
+
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
+
+  /** The type handler factory. */
   private TypeHandlerFactory typeHandlerFactory;
+
+  /** The client. */
   private SqlMapClientImpl client;
+
+  /** The default statement timeout. */
   private Integer defaultStatementTimeout;
 
+  /**
+   * Instantiates a new sql map configuration.
+   */
   public SqlMapConfiguration() {
     errorContext = new ErrorContext();
     delegate = new SqlMapExecutorDelegate();
@@ -53,42 +71,92 @@ public class SqlMapConfiguration {
     registerDefaultTypeAliases();
   }
 
+  /**
+   * Gets the type handler factory.
+   *
+   * @return the type handler factory
+   */
   public TypeHandlerFactory getTypeHandlerFactory() {
     return typeHandlerFactory;
   }
 
+  /**
+   * Gets the error context.
+   *
+   * @return the error context
+   */
   public ErrorContext getErrorContext() {
     return errorContext;
   }
 
+  /**
+   * Gets the client.
+   *
+   * @return the client
+   */
   public SqlMapClientImpl getClient() {
     return client;
   }
 
+  /**
+   * Gets the delegate.
+   *
+   * @return the delegate
+   */
   public SqlMapExecutorDelegate getDelegate() {
     return delegate;
   }
 
+  /**
+   * Sets the class info cache enabled.
+   *
+   * @param classInfoCacheEnabled
+   *          the new class info cache enabled
+   */
   public void setClassInfoCacheEnabled(boolean classInfoCacheEnabled) {
     errorContext.setActivity("setting class info cache enabled/disabled");
     ClassInfo.setCacheEnabled(classInfoCacheEnabled);
   }
 
+  /**
+   * Sets the lazy loading enabled.
+   *
+   * @param lazyLoadingEnabled
+   *          the new lazy loading enabled
+   */
   public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
     errorContext.setActivity("setting lazy loading enabled/disabled");
     client.getDelegate().setLazyLoadingEnabled(lazyLoadingEnabled);
   }
 
+  /**
+   * Sets the statement caching enabled.
+   *
+   * @param statementCachingEnabled
+   *          the new statement caching enabled
+   */
   public void setStatementCachingEnabled(boolean statementCachingEnabled) {
     errorContext.setActivity("setting statement caching enabled/disabled");
     client.getDelegate().setStatementCacheEnabled(statementCachingEnabled);
   }
 
+  /**
+   * Sets the cache models enabled.
+   *
+   * @param cacheModelsEnabled
+   *          the new cache models enabled
+   */
   public void setCacheModelsEnabled(boolean cacheModelsEnabled) {
     errorContext.setActivity("setting cache models enabled/disabled");
     client.getDelegate().setCacheModelsEnabled(cacheModelsEnabled);
   }
 
+  /**
+   * Sets the enhancement enabled.
+   *
+   * @param enhancementEnabled
+   *          the new enhancement enabled
+   */
   public void setEnhancementEnabled(boolean enhancementEnabled) {
     errorContext.setActivity("setting enhancement enabled/disabled");
     try {
@@ -100,14 +168,32 @@ public class SqlMapConfiguration {
     AccessPlanFactory.setBytecodeEnhancementEnabled(enhancementEnabled);
   }
 
+  /**
+   * Sets the use column label.
+   *
+   * @param useColumnLabel
+   *          the new use column label
+   */
   public void setUseColumnLabel(boolean useColumnLabel) {
     client.getDelegate().setUseColumnLabel(useColumnLabel);
   }
 
+  /**
+   * Sets the force multiple result set support.
+   *
+   * @param forceMultipleResultSetSupport
+   *          the new force multiple result set support
+   */
   public void setForceMultipleResultSetSupport(boolean forceMultipleResultSetSupport) {
     client.getDelegate().setForceMultipleResultSetSupport(forceMultipleResultSetSupport);
   }
 
+  /**
+   * Sets the default statement timeout.
+   *
+   * @param defaultTimeout
+   *          the new default statement timeout
+   */
   public void setDefaultStatementTimeout(Integer defaultTimeout) {
     errorContext.setActivity("setting default timeout");
     if (defaultTimeout != null) {
@@ -119,14 +205,36 @@ public class SqlMapConfiguration {
     }
   }
 
+  /**
+   * Sets the transaction manager.
+   *
+   * @param txManager
+   *          the new transaction manager
+   */
   public void setTransactionManager(TransactionManager txManager) {
     delegate.setTxManager(txManager);
   }
 
+  /**
+   * Sets the result object factory.
+   *
+   * @param rof
+   *          the new result object factory
+   */
   public void setResultObjectFactory(ResultObjectFactory rof) {
     delegate.setResultObjectFactory(rof);
   }
 
+  /**
+   * New type handler.
+   *
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @param callback
+   *          the callback
+   */
   public void newTypeHandler(Class javaType, String jdbcType, Object callback) {
     try {
       errorContext.setActivity("building a building custom type handler");
@@ -154,20 +262,92 @@ public class SqlMapConfiguration {
     errorContext.setObjectId(null);
   }
 
+  /**
+   * New cache model config.
+   *
+   * @param id
+   *          the id
+   * @param controller
+   *          the controller
+   * @param readOnly
+   *          the read only
+   * @param serialize
+   *          the serialize
+   * @return the cache model config
+   */
   public CacheModelConfig newCacheModelConfig(String id, CacheController controller, boolean readOnly,
       boolean serialize) {
     return new CacheModelConfig(this, id, controller, readOnly, serialize);
   }
 
+  /**
+   * New parameter map config.
+   *
+   * @param id
+   *          the id
+   * @param parameterClass
+   *          the parameter class
+   * @return the parameter map config
+   */
   public ParameterMapConfig newParameterMapConfig(String id, Class parameterClass) {
     return new ParameterMapConfig(this, id, parameterClass);
   }
 
+  /**
+   * New result map config.
+   *
+   * @param id
+   *          the id
+   * @param resultClass
+   *          the result class
+   * @param groupBy
+   *          the group by
+   * @param extended
+   *          the extended
+   * @param xmlName
+   *          the xml name
+   * @return the result map config
+   */
   public ResultMapConfig newResultMapConfig(String id, Class resultClass, String groupBy, String extended,
       String xmlName) {
     return new ResultMapConfig(this, id, resultClass, groupBy, extended, xmlName);
   }
 
+  /**
+   * New mapped statement config.
+   *
+   * @param id
+   *          the id
+   * @param statement
+   *          the statement
+   * @param processor
+   *          the processor
+   * @param parameterMapName
+   *          the parameter map name
+   * @param parameterClass
+   *          the parameter class
+   * @param resultMapName
+   *          the result map name
+   * @param additionalResultMapNames
+   *          the additional result map names
+   * @param resultClass
+   *          the result class
+   * @param additionalResultClasses
+   *          the additional result classes
+   * @param resultSetType
+   *          the result set type
+   * @param fetchSize
+   *          the fetch size
+   * @param allowRemapping
+   *          the allow remapping
+   * @param timeout
+   *          the timeout
+   * @param cacheModelName
+   *          the cache model name
+   * @param xmlResultName
+   *          the xml result name
+   * @return the mapped statement config
+   */
   public MappedStatementConfig newMappedStatementConfig(String id, MappedStatement statement, SqlSource processor,
       String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
       Class resultClass, Class[] additionalResultClasses, String resultSetType, Integer fetchSize,
@@ -177,16 +357,51 @@ public class SqlMapConfiguration {
         allowRemapping, timeout, defaultStatementTimeout, xmlResultName);
   }
 
+  /**
+   * Finalize sql map config.
+   */
   public void finalizeSqlMapConfig() {
     wireUpCacheModels();
     bindResultMapDiscriminators();
   }
 
+  /**
+   * Resolve type handler.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param clazz
+   *          the clazz
+   * @param propertyName
+   *          the property name
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @return the type handler
+   */
   TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
       Class javaType, String jdbcType) {
     return resolveTypeHandler(typeHandlerFactory, clazz, propertyName, javaType, jdbcType, false);
   }
 
+  /**
+   * Resolve type handler.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param clazz
+   *          the clazz
+   * @param propertyName
+   *          the property name
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @param useSetterToResolve
+   *          the use setter to resolve
+   * @return the type handler
+   */
   TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
       Class javaType, String jdbcType, boolean useSetterToResolve) {
     TypeHandler handler;
@@ -225,6 +440,9 @@ public class SqlMapConfiguration {
     return handler;
   }
 
+  /**
+   * Register default type aliases.
+   */
   private void registerDefaultTypeAliases() {
     // TRANSACTION ALIASES
     typeHandlerFactory.putTypeAlias("JDBC", JdbcTransactionConfig.class.getName());
@@ -250,6 +468,9 @@ public class SqlMapConfiguration {
     typeHandlerFactory.putTypeAlias("xmlCollection", XmlCollectionTypeMarker.class.getName());
   }
 
+  /**
+   * Wire up cache models.
+   */
   private void wireUpCacheModels() {
     // Wire Up Cache Models
     Iterator cacheNames = client.getDelegate().getCacheModelNames();
@@ -270,6 +491,9 @@ public class SqlMapConfiguration {
     }
   }
 
+  /**
+   * Bind result map discriminators.
+   */
   private void bindResultMapDiscriminators() {
     // Bind discriminators
     Iterator names = delegate.getResultMapNames();

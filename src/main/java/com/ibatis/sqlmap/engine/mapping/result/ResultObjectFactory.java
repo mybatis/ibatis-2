@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,9 +67,11 @@ public interface ResultObjectFactory {
   /**
    * Called for each property configured in the SqlMapCong file. All the properties will be set before any call is made
    * to createInstance
-   * 
+   *
    * @param name
+   *          the name
    * @param value
+   *          the value
    */
   void setProperty(String name, String value);
 }

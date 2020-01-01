@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,46 @@
  */
 package com.ibatis.common.xml;
 
+/**
+ * The Class NodeletException.
+ */
 public class NodeletException extends Exception {
 
+  /**
+   * Instantiates a new nodelet exception.
+   */
   public NodeletException() {
     super();
   }
 
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param msg
+   *          the msg
+   */
   public NodeletException(String msg) {
     super(msg);
   }
 
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param cause
+   *          the cause
+   */
   public NodeletException(Throwable cause) {
     super(cause);
   }
 
+  /**
+   * Instantiates a new nodelet exception.
+   *
+   * @param msg
+   *          the msg
+   * @param cause
+   *          the cause
+   */
   public NodeletException(String msg, Throwable cause) {
     super(msg, cause);
   }

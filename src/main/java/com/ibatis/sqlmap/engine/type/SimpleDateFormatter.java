@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The Class SimpleDateFormatter.
+ */
 public class SimpleDateFormatter {
+
+  /**
+   * Format.
+   *
+   * @param format
+   *          the format
+   * @param datetime
+   *          the datetime
+   * @return the date
+   */
   public static Date format(String format, String datetime) {
     try {
       return new SimpleDateFormat(format).parse(datetime);

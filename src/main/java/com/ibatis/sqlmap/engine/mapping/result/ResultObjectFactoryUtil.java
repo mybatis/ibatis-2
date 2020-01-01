@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class ResultObjectFactoryUtil {
   private static ThreadLocal factorySettings = new ThreadLocal();
 
   /**
-   * Utility class - no instances
+   * Utility class - no instances.
    */
   private ResultObjectFactoryUtil() {
     super();
@@ -58,11 +58,7 @@ public class ResultObjectFactoryUtil {
    * 
    * This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
    * configured.
-   * 
-   * @param factory
-   *          the factory to use. May be null!
-   * @param statementId
-   *          the ID of the statement that generated the call to this method
+   *
    * @param clazz
    *          the type of object to create
    * @return a new instance of the specified class. The instance must be castable to the specified class.
@@ -94,11 +90,14 @@ public class ResultObjectFactoryUtil {
    * This method creates object using iBATIS' normal mechanism. We translate List and Collection to ArrayList, and Set
    * to HashSet because these interfaces may be requested in nested resultMaps and we want to supply default
    * implementations.
-   * 
+   *
    * @param clazz
-   * @return
+   *          the clazz
+   * @return the object
    * @throws InstantiationException
+   *           the instantiation exception
    * @throws IllegalAccessException
+   *           the illegal access exception
    */
   private static Object createObjectInternally(Class clazz) throws InstantiationException, IllegalAccessException {
     Class classToCreate;
@@ -118,9 +117,11 @@ public class ResultObjectFactoryUtil {
    * This method pushes a new result object factory configuration onto the stack. We use a stack because the method can
    * be called in a "nested" fashion if there are sub-selects. Calls to this method should be equally balanced with
    * calls to cleanupResultObjectFactory().
-   * 
+   *
    * @param resultObjectFactory
+   *          the result object factory
    * @param statementId
+   *          the statement id
    */
   public static void setupResultObjectFactory(ResultObjectFactory resultObjectFactory, String statementId) {
     Stack<FactorySettings> fss = (Stack<FactorySettings>) factorySettings.get();
@@ -150,6 +151,11 @@ public class ResultObjectFactoryUtil {
     }
   }
 
+  /**
+   * Gets the current factory settings.
+   *
+   * @return the current factory settings
+   */
   private static FactorySettings getCurrentFactorySettings() {
     Stack<FactorySettings> fss = (Stack<FactorySettings>) factorySettings.get();
     FactorySettings fs;
@@ -163,22 +169,51 @@ public class ResultObjectFactoryUtil {
     return fs;
   }
 
+  /**
+   * The Class FactorySettings.
+   */
   private static class FactorySettings {
+
+    /** The result object factory. */
     private ResultObjectFactory resultObjectFactory;
+
+    /** The statement id. */
     private String statementId;
 
+    /**
+     * Gets the result object factory.
+     *
+     * @return the result object factory
+     */
     public ResultObjectFactory getResultObjectFactory() {
       return resultObjectFactory;
     }
 
+    /**
+     * Sets the result object factory.
+     *
+     * @param resultObjectFactory
+     *          the new result object factory
+     */
     public void setResultObjectFactory(ResultObjectFactory resultObjectFactory) {
       this.resultObjectFactory = resultObjectFactory;
     }
 
+    /**
+     * Gets the statement id.
+     *
+     * @return the statement id
+     */
     public String getStatementId() {
       return statementId;
     }
 
+    /**
+     * Sets the statement id.
+     *
+     * @param statementId
+     *          the new statement id
+     */
     public void setStatementId(String statementId) {
       this.statementId = statementId;
     }

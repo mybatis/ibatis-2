@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,16 +33,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Implementation of SqlMapSession
+ * Implementation of SqlMapSession.
  */
 public class SqlMapSessionImpl implements SqlMapSession {
 
+  /** The delegate. */
   protected SqlMapExecutorDelegate delegate;
+
+  /** The session scope. */
   protected SessionScope sessionScope;
+
+  /** The closed. */
   protected boolean closed;
 
   /**
-   * Constructor
+   * Constructor.
    *
    * @param client
    *          - the client that will use the session
@@ -57,14 +62,14 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Start the session
+   * Start the session.
    */
   public void open() {
     sessionScope.setSqlMapTxMgr(this);
   }
 
   /**
-   * Getter to tell if the session is still open
+   * Getter to tell if the session is still open.
    *
    * @return - the status of the session
    */
@@ -226,7 +231,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Gets a mapped statement by ID
+   * Gets a mapped statement by ID.
    *
    * @param id
    *          - the ID
@@ -237,7 +242,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Get the status of lazy loading
+   * Get the status of lazy loading.
    *
    * @return - the status
    */
@@ -246,7 +251,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Get the status of CGLib enhancements
+   * Get the status of CGLib enhancements.
    *
    * @return - the status
    */
@@ -255,7 +260,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Get the SQL executor
+   * Get the SQL executor.
    *
    * @return - the executor
    */
@@ -264,7 +269,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * Get the delegate
+   * Get the delegate.
    *
    * @return - the delegate
    */

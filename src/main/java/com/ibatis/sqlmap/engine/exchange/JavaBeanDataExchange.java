@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * DataExchange implementation for beans
+ * DataExchange implementation for beans.
  */
 public class JavaBeanDataExchange extends BaseDataExchange implements DataExchange {
 
+  /** The Constant NO_DATA. */
   private static final Object[] NO_DATA = new Object[0];
 
+  /** The result plan. */
   private AccessPlan resultPlan;
+
+  /** The parameter plan. */
   private AccessPlan parameterPlan;
+
+  /** The out param plan. */
   private AccessPlan outParamPlan;
 
+  /**
+   * Instantiates a new java bean data exchange.
+   *
+   * @param dataExchangeFactory
+   *          the data exchange factory
+   */
   protected JavaBeanDataExchange(DataExchangeFactory dataExchangeFactory) {
     super(dataExchangeFactory);
   }
@@ -135,6 +147,15 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
     }
   }
 
+  /**
+   * Gets the output param values.
+   *
+   * @param mappings
+   *          the mappings
+   * @param values
+   *          the values
+   * @return the output param values
+   */
   private Object[] getOutputParamValues(ParameterMapping[] mappings, Object[] values) {
     List outParamValues = new ArrayList();
     for (int i = 0; i < mappings.length; i++) {

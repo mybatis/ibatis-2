@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,22 @@ import org.w3c.dom.Node;
 
 import java.util.Properties;
 
+/**
+ * The Class NodeletUtils.
+ */
 public class NodeletUtils {
 
+  /**
+   * Gets the boolean attribute.
+   *
+   * @param attribs
+   *          the attribs
+   * @param name
+   *          the name
+   * @param def
+   *          the def
+   * @return the boolean attribute
+   */
   public static boolean getBooleanAttribute(Properties attribs, String name, boolean def) {
     String value = attribs.getProperty(name);
     if (value == null) {
@@ -31,6 +45,17 @@ public class NodeletUtils {
     }
   }
 
+  /**
+   * Gets the int attribute.
+   *
+   * @param attribs
+   *          the attribs
+   * @param name
+   *          the name
+   * @param def
+   *          the def
+   * @return the int attribute
+   */
   public static int getIntAttribute(Properties attribs, String name, int def) {
     String value = attribs.getProperty(name);
     if (value == null) {
@@ -40,10 +65,26 @@ public class NodeletUtils {
     }
   }
 
+  /**
+   * Parses the attributes.
+   *
+   * @param n
+   *          the n
+   * @return the properties
+   */
   public static Properties parseAttributes(Node n) {
     return parseAttributes(n, null);
   }
 
+  /**
+   * Parses the attributes.
+   *
+   * @param n
+   *          the n
+   * @param variables
+   *          the variables
+   * @return the properties
+   */
   public static Properties parseAttributes(Node n, Properties variables) {
     Properties attributes = new Properties();
     NamedNodeMap attributeNodes = n.getAttributes();
@@ -55,6 +96,15 @@ public class NodeletUtils {
     return attributes;
   }
 
+  /**
+   * Parses the property tokens.
+   *
+   * @param string
+   *          the string
+   * @param variables
+   *          the variables
+   * @return the string
+   */
   public static String parsePropertyTokens(String string, Properties variables) {
     final String OPEN = "${";
     final String CLOSE = "}";

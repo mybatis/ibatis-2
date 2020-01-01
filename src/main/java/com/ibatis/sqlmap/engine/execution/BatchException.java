@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,31 @@ import java.util.List;
  */
 public class BatchException extends Exception {
 
+  /** The successful batch results. */
   private List successfulBatchResults;
+
+  /** The batch update exception. */
   private BatchUpdateException batchUpdateException;
+
+  /** The failing sql statement. */
   private String failingSqlStatement;
+
+  /** The failing statement id. */
   private String failingStatementId;
 
   /**
-   * 
+   * Instantiates a new batch exception.
+   *
+   * @param message
+   *          the message
+   * @param cause
+   *          the cause
+   * @param successfulBatchResults
+   *          the successful batch results
+   * @param failingStatementId
+   *          the failing statement id
+   * @param failingSqlStatement
+   *          the failing sql statement
    */
   public BatchException(String message, BatchUpdateException cause, List successfulBatchResults,
       String failingStatementId, String failingSqlStatement) {
@@ -67,8 +85,8 @@ public class BatchException extends Exception {
   }
 
   /**
-   * Returns the SQL statement that caused the failure (not the parameters)
-   * 
+   * Returns the SQL statement that caused the failure (not the parameters).
+   *
    * @return the failing SQL string
    */
   public String getFailingSqlStatement() {
@@ -76,8 +94,8 @@ public class BatchException extends Exception {
   }
 
   /**
-   * Returns the statement id of the statement that caused the failure
-   * 
+   * Returns the statement id of the statement that caused the failure.
+   *
    * @return the statement id
    */
   public String getFailingStatementId() {

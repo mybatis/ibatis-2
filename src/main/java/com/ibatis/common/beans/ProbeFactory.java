@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,17 @@ package com.ibatis.common.beans;
  */
 public class ProbeFactory {
 
+  /** The Constant DOM. */
   private static final Probe DOM = new DomProbe();
+
+  /** The Constant BEAN. */
   private static final Probe BEAN = new ComplexBeanProbe();
+
+  /** The Constant GENERIC. */
   private static final Probe GENERIC = new GenericProbe();
 
   /**
-   * Factory method for getting a Probe object
+   * Factory method for getting a Probe object.
    *
    * @return An implementation of the Probe interface
    */

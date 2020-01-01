@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import org.w3c.dom.Text;
 import com.ibatis.common.resources.Resources;
 
 /**
- * A Probe implementation for working with DOM objects
+ * A Probe implementation for working with DOM objects.
  */
 public class DomProbe extends BaseProbe {
 
@@ -122,6 +122,13 @@ public class DomProbe extends BaseProbe {
     return value;
   }
 
+  /**
+   * Resolve element.
+   *
+   * @param object
+   *          the object
+   * @return the element
+   */
   private Element resolveElement(Object object) {
     Element element = null;
     if (object instanceof Document) {
@@ -134,6 +141,14 @@ public class DomProbe extends BaseProbe {
     return element;
   }
 
+  /**
+   * Sets the element value.
+   *
+   * @param element
+   *          the element
+   * @param value
+   *          the value
+   */
   private void setElementValue(Element element, Object value) {
     CharacterData data = null;
 
@@ -197,6 +212,13 @@ public class DomProbe extends BaseProbe {
 
   }
 
+  /**
+   * Gets the element value.
+   *
+   * @param element
+   *          the element
+   * @return the element value
+   */
   private Object getElementValue(Element element) {
     StringBuilder value = null;
 
@@ -226,6 +248,17 @@ public class DomProbe extends BaseProbe {
     }
   }
 
+  /**
+   * Find nested node by name.
+   *
+   * @param element
+   *          the element
+   * @param name
+   *          the name
+   * @param create
+   *          the create
+   * @return the element
+   */
   private Element findNestedNodeByName(Element element, String name, boolean create) {
     Element child = element;
 
@@ -247,6 +280,19 @@ public class DomProbe extends BaseProbe {
     return child;
   }
 
+  /**
+   * Find node by name.
+   *
+   * @param element
+   *          the element
+   * @param name
+   *          the name
+   * @param index
+   *          the index
+   * @param create
+   *          the create
+   * @return the element
+   */
   private Element findNodeByName(Element element, String name, int index, boolean create) {
     Element prop = null;
 
@@ -266,8 +312,8 @@ public class DomProbe extends BaseProbe {
   }
 
   /**
-   * Converts a DOM node to a complete xml string
-   * 
+   * Converts a DOM node to a complete xml string.
+   *
    * @param node
    *          - the node to process
    * @param indent

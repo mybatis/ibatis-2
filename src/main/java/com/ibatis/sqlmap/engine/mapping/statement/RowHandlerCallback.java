@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Class to manager row handler access
+ * Class to manager row handler access.
  */
 public class RowHandlerCallback {
 
+  /** The row handler. */
   private RowHandler rowHandler;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The result object. */
   private Object resultObject;
 
   /**
-   * Constructor
+   * Constructor.
    *
    * @param resultMap
    *          - the result map
@@ -55,12 +60,16 @@ public class RowHandlerCallback {
   }
 
   /**
-   * Prepares the row object, and passes it to the row handler
+   * Prepares the row object, and passes it to the row handler.
    *
    * @param statementScope
    *          - the request scope
    * @param results
    *          - the result data
+   * @param rs
+   *          the rs
+   * @throws SQLException
+   *           the SQL exception
    */
   public void handleResultObject(StatementScope statementScope, Object[] results, ResultSet rs) throws SQLException {
     Object object;
@@ -82,6 +91,13 @@ public class RowHandlerCallback {
     }
   }
 
+  /**
+   * Document to string.
+   *
+   * @param document
+   *          the document
+   * @return the string
+   */
   private String documentToString(Document document) {
     String s = null;
 
@@ -102,6 +118,11 @@ public class RowHandlerCallback {
     return s;
   }
 
+  /**
+   * Gets the row handler.
+   *
+   * @return the row handler
+   */
   public RowHandler getRowHandler() {
     return rowHandler;
   }

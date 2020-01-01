@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +20,33 @@ import com.ibatis.sqlmap.client.event.RowHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class DefaultRowHandler.
+ */
 public class DefaultRowHandler implements RowHandler {
 
+  /** The list. */
   private List list = new ArrayList();
 
   public void handleRow(Object valueObject) {
     list.add(valueObject);
   }
 
+  /**
+   * Gets the list.
+   *
+   * @return the list
+   */
   public List getList() {
     return list;
   }
 
+  /**
+   * Sets the list.
+   *
+   * @param list
+   *          the new list
+   */
   public void setList(List list) {
     this.list = list;
   }

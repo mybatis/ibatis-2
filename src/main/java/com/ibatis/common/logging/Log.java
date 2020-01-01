@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,50 @@
  */
 package com.ibatis.common.logging;
 
+/**
+ * The Interface Log.
+ */
 public interface Log {
 
+  /**
+   * Checks if is debug enabled.
+   *
+   * @return true, if is debug enabled
+   */
   boolean isDebugEnabled();
 
+  /**
+   * Error.
+   *
+   * @param s
+   *          the s
+   * @param e
+   *          the e
+   */
   void error(String s, Throwable e);
 
+  /**
+   * Error.
+   *
+   * @param s
+   *          the s
+   */
   void error(String s);
 
+  /**
+   * Debug.
+   *
+   * @param s
+   *          the s
+   */
   public void debug(String s);
 
+  /**
+   * Warn.
+   *
+   * @param s
+   *          the s
+   */
   public void warn(String s);
 
 }

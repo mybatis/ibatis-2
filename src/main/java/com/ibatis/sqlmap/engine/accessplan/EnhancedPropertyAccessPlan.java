@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,21 @@ package com.ibatis.sqlmap.engine.accessplan;
 import net.sf.cglib.beans.BulkBean;
 
 /**
- * Enhanced PropertyAccessPlan (for working with beans using CG Lib)
+ * Enhanced PropertyAccessPlan (for working with beans using CG Lib).
  */
 public class EnhancedPropertyAccessPlan extends BaseAccessPlan {
 
+  /** The bulk bean. */
   private BulkBean bulkBean;
 
+  /**
+   * Instantiates a new enhanced property access plan.
+   *
+   * @param clazz
+   *          the clazz
+   * @param propertyNames
+   *          the property names
+   */
   EnhancedPropertyAccessPlan(Class clazz, String[] propertyNames) {
     super(clazz, propertyNames);
     bulkBean = BulkBean.create(clazz, getGetterNames(propertyNames), getSetterNames(propertyNames),

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,16 +26,43 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The Class ExternalTransaction.
+ */
 public class ExternalTransaction implements Transaction {
 
+  /** The Constant connectionLog. */
   private static final Log connectionLog = LogFactory.getLog(Connection.class);
 
+  /** The data source. */
   private DataSource dataSource;
+
+  /** The default auto commit. */
   private boolean defaultAutoCommit;
+
+  /** The set auto commit allowed. */
   private boolean setAutoCommitAllowed;
+
+  /** The connection. */
   private Connection connection;
+
+  /** The isolation level. */
   private IsolationLevel isolationLevel = new IsolationLevel();
 
+  /**
+   * Instantiates a new external transaction.
+   *
+   * @param ds
+   *          the ds
+   * @param defaultAutoCommit
+   *          the default auto commit
+   * @param setAutoCommitAllowed
+   *          the set auto commit allowed
+   * @param isolationLevel
+   *          the isolation level
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public ExternalTransaction(DataSource ds, boolean defaultAutoCommit, boolean setAutoCommitAllowed, int isolationLevel)
       throws TransactionException {
     // Check Parameters
@@ -49,6 +76,14 @@ public class ExternalTransaction implements Transaction {
     this.isolationLevel.setIsolationLevel(isolationLevel);
   }
 
+  /**
+   * Inits the.
+   *
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   private void init() throws SQLException, TransactionException {
     // Open JDBC Transaction
     connection = dataSource.getConnection();

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,21 +32,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Implementation of ExtendedSqlMapClient
+ * Implementation of ExtendedSqlMapClient.
  */
 public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(SqlMapClientImpl.class);
 
-  /**
-   * Delegate for SQL execution
-   */
+  /** Delegate for SQL execution. */
   public SqlMapExecutorDelegate delegate;
 
+  /** The local sql map session. */
   protected ThreadLocal<SqlMapSessionImpl> localSqlMapSession = new ThreadLocal<SqlMapSessionImpl>();
 
   /**
-   * Constructor to supply a delegate
+   * Constructor to supply a delegate.
    *
    * @param delegate
    *          - the delegate
@@ -255,6 +255,11 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
     delegate.flushDataCache(cacheId);
   }
 
+  /**
+   * Gets the local sql map session.
+   *
+   * @return the local sql map session
+   */
   protected SqlMapSessionImpl getLocalSqlMapSession() {
     SqlMapSessionImpl sqlMapSession = localSqlMapSession.get();
     if (sqlMapSession == null || sqlMapSession.isClosed()) {

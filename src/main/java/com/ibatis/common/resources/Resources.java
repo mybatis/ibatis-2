@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import java.util.Properties;
  */
 public class Resources extends Object {
 
+  /** The default class loader. */
   private static ClassLoader defaultClassLoader;
 
   /**
@@ -35,6 +36,9 @@ public class Resources extends Object {
    */
   private static Charset charset;
 
+  /**
+   * Instantiates a new resources.
+   */
   private Resources() {
   }
 
@@ -48,7 +52,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Sets the default classloader
+   * Sets the default classloader.
    *
    * @param defaultClassLoader
    *          - the new default ClassLoader
@@ -58,7 +62,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns the URL of the resource on the classpath
+   * Returns the URL of the resource on the classpath.
    *
    * @param resource
    *          The resource to find
@@ -71,7 +75,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns the URL of the resource on the classpath
+   * Returns the URL of the resource on the classpath.
    *
    * @param loader
    *          The classloader used to load the resource
@@ -93,7 +97,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Stream object
+   * Returns a resource on the classpath as a Stream object.
    *
    * @param resource
    *          The resource to find
@@ -106,7 +110,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Stream object
+   * Returns a resource on the classpath as a Stream object.
    *
    * @param loader
    *          The classloader used to load the resource
@@ -128,7 +132,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Properties object
+   * Returns a resource on the classpath as a Properties object.
    *
    * @param resource
    *          The resource to find
@@ -147,7 +151,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Properties object
+   * Returns a resource on the classpath as a Properties object.
    *
    * @param loader
    *          The classloader used to load the resource
@@ -168,7 +172,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Reader object
+   * Returns a resource on the classpath as a Reader object.
    *
    * @param resource
    *          The resource to find
@@ -188,7 +192,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a Reader object
+   * Returns a resource on the classpath as a Reader object.
    *
    * @param loader
    *          The classloader used to load the resource
@@ -210,7 +214,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a File object
+   * Returns a resource on the classpath as a File object.
    *
    * @param resource
    *          The resource to find
@@ -223,7 +227,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Returns a resource on the classpath as a File object
+   * Returns a resource on the classpath as a File object.
    *
    * @param loader
    *          - the classloader used to load the resource
@@ -238,7 +242,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Gets a URL as an input stream
+   * Gets a URL as an input stream.
    *
    * @param urlString
    *          - the URL to get
@@ -253,7 +257,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Gets a URL as a Reader
+   * Gets a URL as a Reader.
    *
    * @param urlString
    *          - the URL to get
@@ -266,7 +270,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Gets a URL as a Properties object
+   * Gets a URL as a Properties object.
    *
    * @param urlString
    *          - the URL to get
@@ -285,7 +289,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Loads a class
+   * Loads a class.
    *
    * @param className
    *          - the class to load
@@ -307,7 +311,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Creates an instance of a class
+   * Creates an instance of a class.
    *
    * @param className
    *          - the class to create
@@ -325,7 +329,7 @@ public class Resources extends Object {
   }
 
   /**
-   * Creates an instance of a class
+   * Creates an instance of a class.
    *
    * @param clazz
    *          - the class to create
@@ -347,6 +351,11 @@ public class Resources extends Object {
     }
   }
 
+  /**
+   * Gets the class loader.
+   *
+   * @return the class loader
+   */
   private static ClassLoader getClassLoader() {
     if (defaultClassLoader != null) {
       return defaultClassLoader;
@@ -355,6 +364,11 @@ public class Resources extends Object {
     }
   }
 
+  /**
+   * Gets the charset.
+   *
+   * @return the charset
+   */
   public static Charset getCharset() {
     return charset;
   }
@@ -362,8 +376,9 @@ public class Resources extends Object {
   /**
    * Use this method to set the Charset to be used when calling the getResourceAsReader methods. This will allow iBATIS
    * to function properly when the system default encoding doesn't deal well with unicode (IBATIS-340, IBATIS-349)
-   * 
+   *
    * @param charset
+   *          the new charset
    */
   public static void setCharset(Charset charset) {
     Resources.charset = charset;

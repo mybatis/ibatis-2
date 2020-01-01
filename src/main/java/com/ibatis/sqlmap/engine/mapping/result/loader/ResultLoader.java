@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,18 @@ import java.util.*;
 import java.lang.reflect.Array;
 
 /**
- * Class to load results into objects
+ * Class to load results into objects.
  */
 public class ResultLoader {
 
+  /**
+   * Instantiates a new result loader.
+   */
   private ResultLoader() {
   }
 
   /**
-   * Loads a result lazily
+   * Loads a result lazily.
    *
    * @param client
    *          - the client creating the object
@@ -43,6 +46,7 @@ public class ResultLoader {
    *          - the target type of the result
    * @return the loaded result
    * @throws SQLException
+   *           the SQL exception
    */
   public static Object loadResult(SqlMapClientImpl client, String statementName, Object parameterObject,
       Class targetType) throws SQLException {
@@ -64,6 +68,21 @@ public class ResultLoader {
     return value;
   }
 
+  /**
+   * Gets the result.
+   *
+   * @param client
+   *          the client
+   * @param statementName
+   *          the statement name
+   * @param parameterObject
+   *          the parameter object
+   * @param targetType
+   *          the target type
+   * @return the result
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected static Object getResult(SqlMapClientImpl client, String statementName, Object parameterObject,
       Class targetType) throws SQLException {
     Object value = null;
@@ -82,6 +101,15 @@ public class ResultLoader {
     return value;
   }
 
+  /**
+   * List to array.
+   *
+   * @param list
+   *          the list
+   * @param type
+   *          the type
+   * @return the object
+   */
   private static Object listToArray(List list, Class type) {
     Object array = java.lang.reflect.Array.newInstance(type, list.size());
     if (type.isPrimitive()) {

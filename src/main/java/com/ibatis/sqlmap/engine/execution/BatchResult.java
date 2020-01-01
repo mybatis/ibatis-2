@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,28 @@ package com.ibatis.sqlmap.engine.execution;
 import java.io.Serializable;
 
 /**
- * This class holds the statement and row information for every successful batch executed by iBATIS
- * 
- * @author Jeff Butler
+ * This class holds the statement and row information for every successful batch executed by iBATIS.
  *
+ * @author Jeff Butler
  */
 public class BatchResult implements Serializable {
+
+  /** The sql. */
   private String sql;
+
+  /** The statement id. */
   private String statementId;
+
+  /** The update counts. */
   private int[] updateCounts;
 
   /**
-   * 
+   * Instantiates a new batch result.
+   *
+   * @param statementId
+   *          the statement id
+   * @param sql
+   *          the sql
    */
   public BatchResult(String statementId, String sql) {
     super();
@@ -37,18 +47,39 @@ public class BatchResult implements Serializable {
     this.sql = sql;
   }
 
+  /**
+   * Gets the sql.
+   *
+   * @return the sql
+   */
   public String getSql() {
     return sql;
   }
 
+  /**
+   * Gets the update counts.
+   *
+   * @return the update counts
+   */
   public int[] getUpdateCounts() {
     return updateCounts;
   }
 
+  /**
+   * Sets the update counts.
+   *
+   * @param updateCounts
+   *          the new update counts
+   */
   public void setUpdateCounts(int[] updateCounts) {
     this.updateCounts = updateCounts;
   }
 
+  /**
+   * Gets the statement id.
+   *
+   * @return the statement id
+   */
   public String getStatementId() {
     return statementId;
   }

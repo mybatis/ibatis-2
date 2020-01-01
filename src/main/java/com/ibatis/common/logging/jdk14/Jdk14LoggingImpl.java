@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,20 @@ package com.ibatis.common.logging.jdk14;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+/**
+ * The Class Jdk14LoggingImpl.
+ */
 public class Jdk14LoggingImpl implements com.ibatis.common.logging.Log {
 
+  /** The log. */
   private Logger log;
 
+  /**
+   * Instantiates a new jdk 14 logging impl.
+   *
+   * @param clazz
+   *          the clazz
+   */
   public Jdk14LoggingImpl(Class clazz) {
     log = Logger.getLogger(clazz.getName());
   }

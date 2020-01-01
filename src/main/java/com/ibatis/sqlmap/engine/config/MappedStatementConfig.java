@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,15 +33,70 @@ import com.ibatis.sqlmap.engine.type.*;
 import java.sql.ResultSet;
 import java.util.*;
 
+/**
+ * The Class MappedStatementConfig.
+ */
 public class MappedStatementConfig {
+
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
+
+  /** The Constant PARAM_PARSER. */
   private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The client. */
   private SqlMapClientImpl client;
+
+  /** The type handler factory. */
   private TypeHandlerFactory typeHandlerFactory;
+
+  /** The mapped statement. */
   private MappedStatement mappedStatement;
+
+  /** The root statement. */
   private MappedStatement rootStatement;
 
+  /**
+   * Instantiates a new mapped statement config.
+   *
+   * @param config
+   *          the config
+   * @param id
+   *          the id
+   * @param statement
+   *          the statement
+   * @param processor
+   *          the processor
+   * @param parameterMapName
+   *          the parameter map name
+   * @param parameterClass
+   *          the parameter class
+   * @param resultMapName
+   *          the result map name
+   * @param additionalResultMapNames
+   *          the additional result map names
+   * @param resultClass
+   *          the result class
+   * @param additionalResultClasses
+   *          the additional result classes
+   * @param cacheModelName
+   *          the cache model name
+   * @param resultSetType
+   *          the result set type
+   * @param fetchSize
+   *          the fetch size
+   * @param allowRemapping
+   *          the allow remapping
+   * @param timeout
+   *          the timeout
+   * @param defaultStatementTimeout
+   *          the default statement timeout
+   * @param xmlResultName
+   *          the xml result name
+   */
   MappedStatementConfig(SqlMapConfiguration config, String id, MappedStatement statement, SqlSource processor,
       String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
       Class resultClass, Class[] additionalResultClasses, String cacheModelName, String resultSetType,
@@ -131,6 +186,20 @@ public class MappedStatementConfig {
     delegate.addMappedStatement(mappedStatement);
   }
 
+  /**
+   * Sets the select key statement.
+   *
+   * @param processor
+   *          the processor
+   * @param resultClassName
+   *          the result class name
+   * @param keyPropName
+   *          the key prop name
+   * @param runAfterSQL
+   *          the run after SQL
+   * @param type
+   *          the type
+   */
   public void setSelectKeyStatement(SqlSource processor, String resultClassName, String keyPropName,
       boolean runAfterSQL, String type) {
     if (rootStatement instanceof InsertStatement) {
@@ -185,6 +254,14 @@ public class MappedStatementConfig {
     }
   }
 
+  /**
+   * Sets the sql for statement.
+   *
+   * @param statement
+   *          the statement
+   * @param sql
+   *          the sql
+   */
   private void setSqlForStatement(MappedStatement statement, Sql sql) {
     if (sql instanceof DynamicSql) {
       statement.setSql(sql);
@@ -193,6 +270,14 @@ public class MappedStatementConfig {
     }
   }
 
+  /**
+   * Apply inline parameter map.
+   *
+   * @param statement
+   *          the statement
+   * @param sqlStatement
+   *          the sql statement
+   */
   private void applyInlineParameterMap(MappedStatement statement, String sqlStatement) {
     String newSql = sqlStatement;
     errorContext.setActivity("building an inline parameter map");
@@ -221,6 +306,19 @@ public class MappedStatementConfig {
 
   }
 
+  /**
+   * Builds the auto result map.
+   *
+   * @param allowRemapping
+   *          the allow remapping
+   * @param statement
+   *          the statement
+   * @param firstResultClass
+   *          the first result class
+   * @param xmlResultName
+   *          the xml result name
+   * @return the result map
+   */
   private ResultMap buildAutoResultMap(boolean allowRemapping, MappedStatement statement, Class firstResultClass,
       String xmlResultName) {
     ResultMap resultMap;
@@ -232,6 +330,11 @@ public class MappedStatementConfig {
     return resultMap;
   }
 
+  /**
+   * Gets the mapped statement.
+   *
+   * @return the mapped statement
+   */
   public MappedStatement getMappedStatement() {
     return mappedStatement;
   }

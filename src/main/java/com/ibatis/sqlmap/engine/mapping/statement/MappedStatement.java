@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,25 +39,72 @@ import java.sql.SQLException;
 import java.util.*;
 import java.io.*;
 
+/**
+ * The Class MappedStatement.
+ */
 public class MappedStatement {
+
+  /** The id. */
   private String id;
+
+  /** The result set type. */
   private Integer resultSetType;
+
+  /** The fetch size. */
   private Integer fetchSize;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The parameter map. */
   private ParameterMap parameterMap;
+
+  /** The parameter class. */
   private Class parameterClass;
+
+  /** The sql. */
   private Sql sql;
+
+  /** The base cache key. */
   private int baseCacheKey;
+
+  /** The sql map client. */
   private SqlMapClientImpl sqlMapClient;
+
+  /** The timeout. */
   private Integer timeout;
+
+  /** The additional result maps. */
   private ResultMap[] additionalResultMaps = new ResultMap[0];
+
+  /** The execute listeners. */
   private List executeListeners = new ArrayList();
+
+  /** The resource. */
   private String resource;
 
+  /**
+   * Gets the statement type.
+   *
+   * @return the statement type
+   */
   public StatementType getStatementType() {
     return StatementType.UNKNOWN;
   }
 
+  /**
+   * Execute update.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @return the int
+   * @throws SQLException
+   *           the SQL exception
+   */
   public int executeUpdate(StatementScope statementScope, Transaction trans, Object parameterObject)
       throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -111,6 +158,21 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Execute query for object.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param resultObject
+   *          the result object
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
   public Object executeQueryForObject(StatementScope statementScope, Transaction trans, Object parameterObject,
       Object resultObject) throws SQLException {
     try {
@@ -133,6 +195,23 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Execute query for list.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @return the list
+   * @throws SQLException
+   *           the SQL exception
+   */
   public List executeQueryForList(StatementScope statementScope, Transaction trans, Object parameterObject,
       int skipResults, int maxResults) throws SQLException {
     try {
@@ -145,6 +224,20 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Execute query with row handler.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param trans
+   *          the trans
+   * @param parameterObject
+   *          the parameter object
+   * @param rowHandler
+   *          the row handler
+   * @throws SQLException
+   *           the SQL exception
+   */
   public void executeQueryWithRowHandler(StatementScope statementScope, Transaction trans, Object parameterObject,
       RowHandler rowHandler) throws SQLException {
     try {
@@ -159,6 +252,26 @@ public class MappedStatement {
   // PROTECTED METHODS
   //
 
+  /**
+   * Execute query with callback.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param parameterObject
+   *          the parameter object
+   * @param resultObject
+   *          the result object
+   * @param rowHandler
+   *          the row handler
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected void executeQueryWithCallback(StatementScope statementScope, Connection conn, Object parameterObject,
       Object resultObject, RowHandler rowHandler, int skipResults, int maxResults) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -208,10 +321,35 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Post process parameter object.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @param parameters
+   *          the parameters
+   */
   protected void postProcessParameterObject(StatementScope statementScope, Object parameterObject,
       Object[] parameters) {
   }
 
+  /**
+   * Sql execute update.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param sqlString
+   *          the sql string
+   * @param parameters
+   *          the parameters
+   * @return the int
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected int sqlExecuteUpdate(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters)
       throws SQLException {
     if (statementScope.getSession().isInBatch()) {
@@ -222,11 +360,40 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Sql execute query.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param conn
+   *          the conn
+   * @param sqlString
+   *          the sql string
+   * @param parameters
+   *          the parameters
+   * @param skipResults
+   *          the skip results
+   * @param maxResults
+   *          the max results
+   * @param callback
+   *          the callback
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected void sqlExecuteQuery(StatementScope statementScope, Connection conn, String sqlString, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     getSqlExecutor().executeQuery(statementScope, conn, sqlString, parameters, skipResults, maxResults, callback);
   }
 
+  /**
+   * Validate parameter.
+   *
+   * @param param
+   *          the param
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected Object validateParameter(Object param) throws SQLException {
     Object newParam = param;
     Class parameterClass = getParameterClass();
@@ -256,6 +423,13 @@ public class MappedStatement {
     return newParam;
   }
 
+  /**
+   * String to document.
+   *
+   * @param s
+   *          the s
+   * @return the document
+   */
   private Document stringToDocument(String s) {
     try {
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -266,70 +440,167 @@ public class MappedStatement {
     }
   }
 
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Gets the result set type.
+   *
+   * @return the result set type
+   */
   public Integer getResultSetType() {
     return resultSetType;
   }
 
+  /**
+   * Sets the result set type.
+   *
+   * @param resultSetType
+   *          the new result set type
+   */
   public void setResultSetType(Integer resultSetType) {
     this.resultSetType = resultSetType;
   }
 
+  /**
+   * Gets the fetch size.
+   *
+   * @return the fetch size
+   */
   public Integer getFetchSize() {
     return fetchSize;
   }
 
+  /**
+   * Sets the fetch size.
+   *
+   * @param fetchSize
+   *          the new fetch size
+   */
   public void setFetchSize(Integer fetchSize) {
     this.fetchSize = fetchSize;
   }
 
+  /**
+   * Sets the id.
+   *
+   * @param id
+   *          the new id
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * Gets the sql.
+   *
+   * @return the sql
+   */
   public Sql getSql() {
     return sql;
   }
 
+  /**
+   * Sets the sql.
+   *
+   * @param sql
+   *          the new sql
+   */
   public void setSql(Sql sql) {
     this.sql = sql;
   }
 
+  /**
+   * Gets the result map.
+   *
+   * @return the result map
+   */
   public ResultMap getResultMap() {
     return resultMap;
   }
 
+  /**
+   * Sets the result map.
+   *
+   * @param resultMap
+   *          the new result map
+   */
   public void setResultMap(ResultMap resultMap) {
     this.resultMap = resultMap;
   }
 
+  /**
+   * Gets the parameter map.
+   *
+   * @return the parameter map
+   */
   public ParameterMap getParameterMap() {
     return parameterMap;
   }
 
+  /**
+   * Sets the parameter map.
+   *
+   * @param parameterMap
+   *          the new parameter map
+   */
   public void setParameterMap(ParameterMap parameterMap) {
     this.parameterMap = parameterMap;
   }
 
+  /**
+   * Gets the parameter class.
+   *
+   * @return the parameter class
+   */
   public Class getParameterClass() {
     return parameterClass;
   }
 
+  /**
+   * Sets the parameter class.
+   *
+   * @param parameterClass
+   *          the new parameter class
+   */
   public void setParameterClass(Class parameterClass) {
     this.parameterClass = parameterClass;
   }
 
+  /**
+   * Gets the resource.
+   *
+   * @return the resource
+   */
   public String getResource() {
     return resource;
   }
 
+  /**
+   * Sets the resource.
+   *
+   * @param resource
+   *          the new resource
+   */
   public void setResource(String resource) {
     this.resource = resource;
   }
 
+  /**
+   * Gets the cache key.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the cache key
+   */
   public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
     Sql sql = statementScope.getSql();
     ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);
@@ -360,32 +631,69 @@ public class MappedStatement {
     return cacheKey;
   }
 
+  /**
+   * Sets the base cache key.
+   *
+   * @param base
+   *          the new base cache key
+   */
   public void setBaseCacheKey(int base) {
     this.baseCacheKey = base;
   }
 
+  /**
+   * Adds the execute listener.
+   *
+   * @param listener
+   *          the listener
+   */
   public void addExecuteListener(ExecuteListener listener) {
     executeListeners.add(listener);
   }
 
+  /**
+   * Notify listeners.
+   */
   public void notifyListeners() {
     for (int i = 0, n = executeListeners.size(); i < n; i++) {
       ((ExecuteListener) executeListeners.get(i)).onExecuteStatement(this);
     }
   }
 
+  /**
+   * Gets the sql executor.
+   *
+   * @return the sql executor
+   */
   public SqlExecutor getSqlExecutor() {
     return sqlMapClient.getSqlExecutor();
   }
 
+  /**
+   * Gets the sql map client.
+   *
+   * @return the sql map client
+   */
   public SqlMapClient getSqlMapClient() {
     return sqlMapClient;
   }
 
+  /**
+   * Sets the sql map client.
+   *
+   * @param sqlMapClient
+   *          the new sql map client
+   */
   public void setSqlMapClient(SqlMapClient sqlMapClient) {
     this.sqlMapClient = (SqlMapClientImpl) sqlMapClient;
   }
 
+  /**
+   * Inits the request.
+   *
+   * @param statementScope
+   *          the statement scope
+   */
   public void initRequest(StatementScope statementScope) {
     statementScope.setStatement(this);
     statementScope.setParameterMap(parameterMap);
@@ -393,14 +701,31 @@ public class MappedStatement {
     statementScope.setSql(sql);
   }
 
+  /**
+   * Gets the timeout.
+   *
+   * @return the timeout
+   */
   public Integer getTimeout() {
     return timeout;
   }
 
+  /**
+   * Sets the timeout.
+   *
+   * @param timeout
+   *          the new timeout
+   */
   public void setTimeout(Integer timeout) {
     this.timeout = timeout;
   }
 
+  /**
+   * Adds the result map.
+   *
+   * @param resultMap
+   *          the result map
+   */
   public void addResultMap(ResultMap resultMap) {
     List resultMapList = Arrays.asList(additionalResultMaps);
     resultMapList = new ArrayList(resultMapList);
@@ -408,10 +733,20 @@ public class MappedStatement {
     additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);
   }
 
+  /**
+   * Checks for multiple result maps.
+   *
+   * @return true, if successful
+   */
   public boolean hasMultipleResultMaps() {
     return additionalResultMaps.length > 0;
   }
 
+  /**
+   * Gets the additional result maps.
+   *
+   * @return the additional result maps
+   */
   public ResultMap[] getAdditionalResultMaps() {
     return additionalResultMaps;
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,50 @@ import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
+/**
+ * The Interface Sql.
+ */
 public interface Sql {
 
+  /**
+   * Gets the sql.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the sql
+   */
   public String getSql(StatementScope statementScope, Object parameterObject);
 
+  /**
+   * Gets the parameter map.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the parameter map
+   */
   public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject);
 
+  /**
+   * Gets the result map.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @return the result map
+   */
   public ResultMap getResultMap(StatementScope statementScope, Object parameterObject);
 
+  /**
+   * Cleanup.
+   *
+   * @param statementScope
+   *          the statement scope
+   */
   public void cleanup(StatementScope statementScope);
 
 }

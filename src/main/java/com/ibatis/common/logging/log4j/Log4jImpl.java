@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,20 @@ package com.ibatis.common.logging.log4j;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class Log4jImpl.
+ */
 public class Log4jImpl implements com.ibatis.common.logging.Log {
 
+  /** The log. */
   private Logger log;
 
+  /**
+   * Instantiates a new log 4 j impl.
+   *
+   * @param clazz
+   *          the clazz
+   */
   public Log4jImpl(Class clazz) {
     log = Logger.getLogger(clazz);
   }

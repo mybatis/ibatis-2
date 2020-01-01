@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ public interface Nodelet {
 
   /**
    * For a registered XPath, the NodeletParser will call the Nodelet's process method for processing.
-   * 
+   *
    * @param node
    *          The node represents any XML node that can be registered under an XPath supported by the NodeletParser.
    *          Possible nodes are:
@@ -36,7 +36,8 @@ public interface Nodelet {
    *          child nodes if neccessary. This is useful where a single XPath registration cannot describe the complex
    *          structure for a given XML stanza.
    *          </ul>
-   *
+   * @throws Exception
+   *           the exception
    */
   void process(Node node) throws Exception;
 

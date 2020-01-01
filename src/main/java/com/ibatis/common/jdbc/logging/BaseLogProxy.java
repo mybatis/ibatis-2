@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,24 +18,36 @@ package com.ibatis.common.jdbc.logging;
 import java.util.*;
 
 /**
- * Base class for proxies to do logging
+ * Base class for proxies to do logging.
  */
 public class BaseLogProxy {
 
+  /** The next id. */
   private static int nextId = 100000;
+
+  /** The Constant SET_METHODS. */
   protected static final Set SET_METHODS = new HashSet();
+
+  /** The Constant GET_METHODS. */
   protected static final Set GET_METHODS = new HashSet();
+
+  /** The Constant EXECUTE_METHODS. */
   protected static final Set EXECUTE_METHODS = new HashSet();
 
+  /** The column map. */
   private Map columnMap = new HashMap();
 
+  /** The column names. */
   private List columnNames = new ArrayList();
+
+  /** The column values. */
   private List columnValues = new ArrayList();
 
+  /** The id. */
   protected int id;
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public BaseLogProxy() {
     id = getNextId();
@@ -92,20 +104,45 @@ public class BaseLogProxy {
 
   }
 
+  /**
+   * Sets the column.
+   *
+   * @param key
+   *          the key
+   * @param value
+   *          the value
+   */
   protected void setColumn(Object key, Object value) {
     columnMap.put(key, value);
     columnNames.add(key);
     columnValues.add(value);
   }
 
+  /**
+   * Gets the column.
+   *
+   * @param key
+   *          the key
+   * @return the column
+   */
   protected Object getColumn(Object key) {
     return columnMap.get(key);
   }
 
+  /**
+   * Gets the value string.
+   *
+   * @return the value string
+   */
   protected String getValueString() {
     return columnValues.toString();
   }
 
+  /**
+   * Gets the type string.
+   *
+   * @return the type string
+   */
   protected String getTypeString() {
     List typeList = new ArrayList(columnValues.size());
     for (int i = 0; i < columnValues.size(); i++) {
@@ -119,20 +156,40 @@ public class BaseLogProxy {
     return typeList.toString();
   }
 
+  /**
+   * Gets the column string.
+   *
+   * @return the column string
+   */
   protected String getColumnString() {
     return columnNames.toString();
   }
 
+  /**
+   * Clear column info.
+   */
   protected void clearColumnInfo() {
     columnMap.clear();
     columnNames.clear();
     columnValues.clear();
   }
 
+  /**
+   * Removes the breaking whitespace.
+   *
+   * @param original
+   *          the original
+   * @return the string
+   */
   protected String removeBreakingWhitespace(String original) {
     return original.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ');
   }
 
+  /**
+   * Gets the next id.
+   *
+   * @return the next id
+   */
   protected synchronized static int getNextId() {
     return nextId++;
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +27,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * PreparedStatement proxy to add logging
+ * PreparedStatement proxy to add logging.
  */
 public class PreparedStatementLogProxy extends BaseLogProxy implements InvocationHandler {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(PreparedStatement.class);
 
+  /** The statement. */
   private PreparedStatement statement;
+
+  /** The sql. */
   private String sql;
 
+  /**
+   * Instantiates a new prepared statement log proxy.
+   *
+   * @param stmt
+   *          the stmt
+   * @param sql
+   *          the sql
+   */
   private PreparedStatementLogProxy(PreparedStatement stmt, String sql) {
     this.statement = stmt;
     this.sql = sql;
@@ -91,8 +103,8 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
   }
 
   /**
-   * Creates a logging version of a PreparedStatement
-   * 
+   * Creates a logging version of a PreparedStatement.
+   *
    * @param stmt
    *          - the statement
    * @param sql
@@ -107,8 +119,8 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
   }
 
   /**
-   * Return the wrapped prepared statement
-   * 
+   * Return the wrapped prepared statement.
+   *
    * @return the PreparedStatement
    */
   public PreparedStatement getPreparedStatement() {

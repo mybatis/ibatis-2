@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ import javax.xml.parsers.*;
 import java.util.Map;
 
 /**
- * A DataExchange implemtation for working with DOM objects
+ * A DataExchange implemtation for working with DOM objects.
  */
 public class DomDataExchange extends BaseDataExchange implements DataExchange {
 
   /**
-   * Constructor for the factory
-   * 
+   * Constructor for the factory.
+   *
    * @param dataExchangeFactory
    *          - the factory
    */

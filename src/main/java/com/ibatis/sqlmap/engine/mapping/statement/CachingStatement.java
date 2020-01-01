@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,25 @@ import com.ibatis.sqlmap.engine.transaction.Transaction;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The Class CachingStatement.
+ */
 public class CachingStatement extends MappedStatement {
 
+  /** The statement. */
   private MappedStatement statement;
+
+  /** The cache model. */
   private CacheModel cacheModel;
 
+  /**
+   * Instantiates a new caching statement.
+   *
+   * @param statement
+   *          the statement
+   * @param cacheModel
+   *          the cache model
+   */
   public CachingStatement(MappedStatement statement, CacheModel cacheModel) {
     this.statement = statement;
     this.cacheModel = cacheModel;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Factory for DataExchange objects
+ * Factory for DataExchange objects.
  */
 public class DataExchangeFactory {
 
+  /** The dom data exchange. */
   private final DataExchange domDataExchange;
+
+  /** The list data exchange. */
   private final DataExchange listDataExchange;
+
+  /** The map data exchange. */
   private final DataExchange mapDataExchange;
+
+  /** The primitive data exchange. */
   private final DataExchange primitiveDataExchange;
+
+  /** The complex data exchange. */
   private final DataExchange complexDataExchange;
 
+  /** The type handler factory. */
   private TypeHandlerFactory typeHandlerFactory;
 
   /**
-   * Constructor for the factory
-   * 
+   * Constructor for the factory.
+   *
    * @param typeHandlerFactory
    *          - a type handler factory for the factory
    */
@@ -50,8 +60,8 @@ public class DataExchangeFactory {
   }
 
   /**
-   * Getter for the type handler factory
-   * 
+   * Getter for the type handler factory.
+   *
    * @return - the type handler factory
    */
   public TypeHandlerFactory getTypeHandlerFactory() {
@@ -59,8 +69,8 @@ public class DataExchangeFactory {
   }
 
   /**
-   * Get a DataExchange object for the passed in Class
-   * 
+   * Get a DataExchange object for the passed in Class.
+   *
    * @param clazz
    *          - the class to get a DataExchange object for
    * @return - the DataExchange object

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,44 @@ import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 import com.ibatis.sqlmap.engine.type.TypeHandler;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
+/**
+ * The Class InlineParameterMapParser.
+ */
 public class InlineParameterMapParser {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
+
+  /** The Constant PARAMETER_TOKEN. */
   private static final String PARAMETER_TOKEN = "#";
+
+  /** The Constant PARAM_DELIM. */
   private static final String PARAM_DELIM = ":";
 
+  /**
+   * Parses the inline parameter map.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param sqlStatement
+   *          the sql statement
+   * @return the sql text
+   */
   public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement) {
     return parseInlineParameterMap(typeHandlerFactory, sqlStatement, null);
   }
 
+  /**
+   * Parses the inline parameter map.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param sqlStatement
+   *          the sql statement
+   * @param parameterClass
+   *          the parameter class
+   * @return the sql text
+   */
   public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement,
       Class parameterClass) {
 
@@ -97,6 +125,17 @@ public class InlineParameterMapParser {
     return sqlText;
   }
 
+  /**
+   * New parse mapping.
+   *
+   * @param token
+   *          the token
+   * @param parameterClass
+   *          the parameter class
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @return the parameter mapping
+   */
   private ParameterMapping newParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
     ParameterMapping mapping = new ParameterMapping();
 
@@ -166,6 +205,17 @@ public class InlineParameterMapParser {
     return mapping;
   }
 
+  /**
+   * Old parse mapping.
+   *
+   * @param token
+   *          the token
+   * @param parameterClass
+   *          the parameter class
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @return the parameter mapping
+   */
   private ParameterMapping oldParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
     ParameterMapping mapping = new ParameterMapping();
     if (token.indexOf(PARAM_DELIM) > -1) {
@@ -221,6 +271,21 @@ public class InlineParameterMapParser {
     }
   }
 
+  /**
+   * Resolve type handler.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param clazz
+   *          the clazz
+   * @param propertyName
+   *          the property name
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @return the type handler
+   */
   private TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
       String javaType, String jdbcType) {
     TypeHandler handler = null;

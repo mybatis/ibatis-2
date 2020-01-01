@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,15 +25,25 @@ import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 
 /**
- * ResultSet proxy to add logging
+ * ResultSet proxy to add logging.
  */
 public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(ResultSet.class);
 
+  /** The first. */
   boolean first = true;
+
+  /** The rs. */
   private ResultSet rs;
 
+  /**
+   * Instantiates a new result set log proxy.
+   *
+   * @param rs
+   *          the rs
+   */
   private ResultSetLogProxy(ResultSet rs) {
     super();
     this.rs = rs;
@@ -75,8 +85,8 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
   }
 
   /**
-   * Creates a logging version of a ResultSet
-   * 
+   * Creates a logging version of a ResultSet.
+   *
    * @param rs
    *          - the ResultSet to proxy
    * @return - the ResultSet with logging
@@ -88,8 +98,8 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
   }
 
   /**
-   * Get the wrapped result set
-   * 
+   * Get the wrapped result set.
+   *
    * @return the resultSet
    */
   public ResultSet getRs() {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,65 +40,145 @@ import java.util.logging.Logger;
  */
 public class SimpleDataSource implements DataSource {
 
+  /** The Constant log. */
   private static final Log log = LogFactory.getLog(SimpleDataSource.class);
 
+  /** The Constant PROP_JDBC_DRIVER. */
   // Required Properties
   private static final String PROP_JDBC_DRIVER = "JDBC.Driver";
+
+  /** The Constant PROP_JDBC_URL. */
   private static final String PROP_JDBC_URL = "JDBC.ConnectionURL";
+
+  /** The Constant PROP_JDBC_USERNAME. */
   private static final String PROP_JDBC_USERNAME = "JDBC.Username";
+
+  /** The Constant PROP_JDBC_PASSWORD. */
   private static final String PROP_JDBC_PASSWORD = "JDBC.Password";
+
+  /** The Constant PROP_JDBC_DEFAULT_AUTOCOMMIT. */
   private static final String PROP_JDBC_DEFAULT_AUTOCOMMIT = "JDBC.DefaultAutoCommit";
 
+  /** The Constant PROP_POOL_MAX_ACTIVE_CONN. */
   // Optional Properties
   private static final String PROP_POOL_MAX_ACTIVE_CONN = "Pool.MaximumActiveConnections";
+
+  /** The Constant PROP_POOL_MAX_IDLE_CONN. */
   private static final String PROP_POOL_MAX_IDLE_CONN = "Pool.MaximumIdleConnections";
+
+  /** The Constant PROP_POOL_MAX_CHECKOUT_TIME. */
   private static final String PROP_POOL_MAX_CHECKOUT_TIME = "Pool.MaximumCheckoutTime";
+
+  /** The Constant PROP_POOL_TIME_TO_WAIT. */
   private static final String PROP_POOL_TIME_TO_WAIT = "Pool.TimeToWait";
+
+  /** The Constant PROP_POOL_PING_QUERY. */
   private static final String PROP_POOL_PING_QUERY = "Pool.PingQuery";
+
+  /** The Constant PROP_POOL_PING_CONN_OLDER_THAN. */
   private static final String PROP_POOL_PING_CONN_OLDER_THAN = "Pool.PingConnectionsOlderThan";
+
+  /** The Constant PROP_POOL_PING_ENABLED. */
   private static final String PROP_POOL_PING_ENABLED = "Pool.PingEnabled";
+
+  /** The Constant PROP_POOL_PING_CONN_NOT_USED_FOR. */
   private static final String PROP_POOL_PING_CONN_NOT_USED_FOR = "Pool.PingConnectionsNotUsedFor";
+
+  /** The expected connection type code. */
   private int expectedConnectionTypeCode;
+
+  /** The Constant ADD_DRIVER_PROPS_PREFIX. */
   // Additional Driver Properties prefix
   private static final String ADD_DRIVER_PROPS_PREFIX = "Driver.";
+
+  /** The Constant ADD_DRIVER_PROPS_PREFIX_LENGTH. */
   private static final int ADD_DRIVER_PROPS_PREFIX_LENGTH = ADD_DRIVER_PROPS_PREFIX.length();
 
+  /** The pool lock. */
   // ----- BEGIN: FIELDS LOCKED BY POOL_LOCK -----
   private final Object POOL_LOCK = new Object();
+
+  /** The idle connections. */
   private List idleConnections = new ArrayList();
+
+  /** The active connections. */
   private List activeConnections = new ArrayList();
+
+  /** The request count. */
   private long requestCount = 0;
+
+  /** The accumulated request time. */
   private long accumulatedRequestTime = 0;
+
+  /** The accumulated checkout time. */
   private long accumulatedCheckoutTime = 0;
+
+  /** The claimed overdue connection count. */
   private long claimedOverdueConnectionCount = 0;
+
+  /** The accumulated checkout time of overdue connections. */
   private long accumulatedCheckoutTimeOfOverdueConnections = 0;
+
+  /** The accumulated wait time. */
   private long accumulatedWaitTime = 0;
+
+  /** The had to wait count. */
   private long hadToWaitCount = 0;
+
+  /** The bad connection count. */
   private long badConnectionCount = 0;
   // ----- END: FIELDS LOCKED BY POOL_LOCK -----
 
+  /** The jdbc driver. */
   // ----- BEGIN: PROPERTY FIELDS FOR CONFIGURATION -----
   private String jdbcDriver;
+
+  /** The jdbc url. */
   private String jdbcUrl;
+
+  /** The jdbc username. */
   private String jdbcUsername;
+
+  /** The jdbc password. */
   private String jdbcPassword;
+
+  /** The jdbc default auto commit. */
   private boolean jdbcDefaultAutoCommit;
+
+  /** The driver props. */
   private Properties driverProps;
+
+  /** The use driver props. */
   private boolean useDriverProps;
 
+  /** The pool maximum active connections. */
   private int poolMaximumActiveConnections;
+
+  /** The pool maximum idle connections. */
   private int poolMaximumIdleConnections;
+
+  /** The pool maximum checkout time. */
   private int poolMaximumCheckoutTime;
+
+  /** The pool time to wait. */
   private int poolTimeToWait;
+
+  /** The pool ping query. */
   private String poolPingQuery;
+
+  /** The pool ping enabled. */
   private boolean poolPingEnabled;
+
+  /** The pool ping connections older than. */
   private int poolPingConnectionsOlderThan;
+
+  /** The pool ping connections not used for. */
   private int poolPingConnectionsNotUsedFor;
 
   // ----- END: PROPERTY FIELDS FOR CONFIGURATION -----
 
   /**
-   * Constructor to allow passing in a map of properties for configuration
+   * Constructor to allow passing in a map of properties for configuration.
    *
    * @param props
    *          - the configuration parameters
@@ -107,6 +187,12 @@ public class SimpleDataSource implements DataSource {
     initialize(props);
   }
 
+  /**
+   * Initialize.
+   *
+   * @param props
+   *          the props
+   */
   private void initialize(Map props) {
     try {
       String prop_pool_ping_query = null;
@@ -189,6 +275,17 @@ public class SimpleDataSource implements DataSource {
     }
   }
 
+  /**
+   * Assemble connection type code.
+   *
+   * @param url
+   *          the url
+   * @param username
+   *          the username
+   * @param password
+   *          the password
+   * @return the int
+   */
   private int assembleConnectionTypeCode(String url, String username, String password) {
     return ("" + url + username + password).hashCode();
   }
@@ -246,8 +343,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the name of the JDBC driver class used
-   * 
+   * Getter for the name of the JDBC driver class used.
+   *
    * @return The name of the class
    */
   public String getJdbcDriver() {
@@ -255,8 +352,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter of the JDBC URL used
-   * 
+   * Getter of the JDBC URL used.
+   *
    * @return The JDBC URL
    */
   public String getJdbcUrl() {
@@ -264,8 +361,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the JDBC user name used
-   * 
+   * Getter for the JDBC user name used.
+   *
    * @return The user name
    */
   public String getJdbcUsername() {
@@ -273,8 +370,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the JDBC password used
-   * 
+   * Getter for the JDBC password used.
+   *
    * @return The password
    */
   public String getJdbcPassword() {
@@ -282,8 +379,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the maximum number of active connections
-   * 
+   * Getter for the maximum number of active connections.
+   *
    * @return The maximum number of active connections
    */
   public int getPoolMaximumActiveConnections() {
@@ -291,8 +388,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the maximum number of idle connections
-   * 
+   * Getter for the maximum number of idle connections.
+   *
    * @return The maximum number of idle connections
    */
   public int getPoolMaximumIdleConnections() {
@@ -309,8 +406,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the time to wait before retrying to get a connection
-   * 
+   * Getter for the time to wait before retrying to get a connection.
+   *
    * @return The time to wait
    */
   public int getPoolTimeToWait() {
@@ -318,8 +415,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the query to be used to check a connection
-   * 
+   * Getter for the query to be used to check a connection.
+   *
    * @return The query
    */
   public String getPoolPingQuery() {
@@ -327,8 +424,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter to tell if we should use the ping query
-   * 
+   * Getter to tell if we should use the ping query.
+   *
    * @return True if we need to check a connection before using it
    */
   public boolean isPoolPingEnabled() {
@@ -336,21 +433,26 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the age of connections that should be pinged before using
-   * 
+   * Getter for the age of connections that should be pinged before using.
+   *
    * @return The age
    */
   public int getPoolPingConnectionsOlderThan() {
     return poolPingConnectionsOlderThan;
   }
 
+  /**
+   * Gets the expected connection type code.
+   *
+   * @return the expected connection type code
+   */
   private int getExpectedConnectionTypeCode() {
     return expectedConnectionTypeCode;
   }
 
   /**
-   * Getter for the number of connection requests made
-   * 
+   * Getter for the number of connection requests made.
+   *
    * @return The number of connection requests made
    */
   public long getRequestCount() {
@@ -360,8 +462,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the average time required to get a connection to the database
-   * 
+   * Getter for the average time required to get a connection to the database.
+   *
    * @return The average time
    */
   public long getAverageRequestTime() {
@@ -371,8 +473,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the average time spent waiting for connections that were in use
-   * 
+   * Getter for the average time spent waiting for connections that were in use.
+   *
    * @return The average time
    */
   public long getAverageWaitTime() {
@@ -382,8 +484,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the number of requests that had to wait for connections that were in use
-   * 
+   * Getter for the number of requests that had to wait for connections that were in use.
+   *
    * @return The number of requests that had to wait
    */
   public long getHadToWaitCount() {
@@ -393,8 +495,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the number of invalid connections that were found in the pool
-   * 
+   * Getter for the number of invalid connections that were found in the pool.
+   *
    * @return The number of invalid connections
    */
   public long getBadConnectionCount() {
@@ -404,8 +506,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the number of connections that were claimed before they were returned
-   * 
+   * Getter for the number of connections that were claimed before they were returned.
+   *
    * @return The number of connections
    */
   public long getClaimedOverdueConnectionCount() {
@@ -415,8 +517,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the average age of overdue connections
-   * 
+   * Getter for the average age of overdue connections.
+   *
    * @return The average age
    */
   public long getAverageOverdueCheckoutTime() {
@@ -427,8 +529,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Getter for the average age of a connection checkout
-   * 
+   * Getter for the average age of a connection checkout.
+   *
    * @return The average age
    */
   public long getAverageCheckoutTime() {
@@ -438,8 +540,8 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Returns the status of the connection pool
-   * 
+   * Returns the status of the connection pool.
+   *
    * @return The status
    */
   public String getStatus() {
@@ -474,7 +576,7 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Closes all of the connections in the pool
+   * Closes all of the connections in the pool.
    */
   public void forceCloseAll() {
     synchronized (POOL_LOCK) {
@@ -512,6 +614,14 @@ public class SimpleDataSource implements DataSource {
     }
   }
 
+  /**
+   * Push connection.
+   *
+   * @param conn
+   *          the conn
+   * @throws SQLException
+   *           the SQL exception
+   */
   private void pushConnection(SimplePooledConnection conn) throws SQLException {
 
     synchronized (POOL_LOCK) {
@@ -553,6 +663,17 @@ public class SimpleDataSource implements DataSource {
     }
   }
 
+  /**
+   * Pop connection.
+   *
+   * @param username
+   *          the username
+   * @param password
+   *          the password
+   * @return the simple pooled connection
+   * @throws SQLException
+   *           the SQL exception
+   */
   private SimplePooledConnection popConnection(String username, String password) throws SQLException {
     boolean countedWait = false;
     SimplePooledConnection conn = null;
@@ -663,7 +784,7 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Method to check to see if a connection is still usable
+   * Method to check to see if a connection is still usable.
    *
    * @param conn
    *          - the connection to check
@@ -722,7 +843,7 @@ public class SimpleDataSource implements DataSource {
   }
 
   /**
-   * Unwraps a pooled connection to get to the 'real' connection
+   * Unwraps a pooled connection to get to the 'real' connection.
    *
    * @param conn
    *          - the pooled connection to unwrap
@@ -742,25 +863,45 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * --------------------------------------------------------------------------------------- SimplePooledConnection
-   * ---------------------------------------------------------------------------------------
+   * ---------------------------------------------------------------------------------------.
    */
   public static class SimplePooledConnection implements InvocationHandler {
 
+    /** The Constant CLOSE. */
     private static final String CLOSE = "close";
+
+    /** The Constant IFACES. */
     private static final Class[] IFACES = new Class[] { Connection.class };
 
+    /** The hash code. */
     private int hashCode = 0;
+
+    /** The data source. */
     private SimpleDataSource dataSource;
+
+    /** The real connection. */
     private Connection realConnection;
+
+    /** The proxy connection. */
     private Connection proxyConnection;
+
+    /** The checkout timestamp. */
     private long checkoutTimestamp;
+
+    /** The created timestamp. */
     private long createdTimestamp;
+
+    /** The last used timestamp. */
     private long lastUsedTimestamp;
+
+    /** The connection type code. */
     private int connectionTypeCode;
+
+    /** The valid. */
     private boolean valid;
 
     /**
-     * Constructor for SimplePooledConnection that uses the Connection and SimpleDataSource passed in
+     * Constructor for SimplePooledConnection that uses the Connection and SimpleDataSource passed in.
      *
      * @param connection
      *          - the connection that is to be presented as a pooled connection
@@ -779,14 +920,14 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Invalidates the connection
+     * Invalidates the connection.
      */
     public void invalidate() {
       valid = false;
     }
 
     /**
-     * Method to see if the connection is usable
+     * Method to see if the connection is usable.
      *
      * @return True if the connection is usable
      */
@@ -795,8 +936,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the *real* connection that this wraps
-     * 
+     * Getter for the *real* connection that this wraps.
+     *
      * @return The connection
      */
     public Connection getRealConnection() {
@@ -804,8 +945,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the proxy for the connection
-     * 
+     * Getter for the proxy for the connection.
+     *
      * @return The proxy
      */
     public Connection getProxyConnection() {
@@ -813,7 +954,7 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Gets the hashcode of the real connection (or 0 if it is null)
+     * Gets the hashcode of the real connection (or 0 if it is null).
      *
      * @return The hashcode of the real connection (or 0 if it is null)
      */
@@ -826,8 +967,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the connection type (based on url + user + password)
-     * 
+     * Getter for the connection type (based on url + user + password).
+     *
      * @return The connection type
      */
     public int getConnectionTypeCode() {
@@ -835,8 +976,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Setter for the connection type
-     * 
+     * Setter for the connection type.
+     *
      * @param connectionTypeCode
      *          - the connection type
      */
@@ -845,8 +986,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the time that the connection was created
-     * 
+     * Getter for the time that the connection was created.
+     *
      * @return The creation timestamp
      */
     public long getCreatedTimestamp() {
@@ -854,8 +995,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Setter for the time that the connection was created
-     * 
+     * Setter for the time that the connection was created.
+     *
      * @param createdTimestamp
      *          - the timestamp
      */
@@ -864,8 +1005,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the time that the connection was last used
-     * 
+     * Getter for the time that the connection was last used.
+     *
      * @return - the timestamp
      */
     public long getLastUsedTimestamp() {
@@ -873,8 +1014,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Setter for the time that the connection was last used
-     * 
+     * Setter for the time that the connection was last used.
+     *
      * @param lastUsedTimestamp
      *          - the timestamp
      */
@@ -883,8 +1024,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the time since this connection was last used
-     * 
+     * Getter for the time since this connection was last used.
+     *
      * @return - the time since the last use
      */
     public long getTimeElapsedSinceLastUse() {
@@ -892,8 +1033,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the age of the connection
-     * 
+     * Getter for the age of the connection.
+     *
      * @return the age
      */
     public long getAge() {
@@ -901,8 +1042,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the timestamp that this connection was checked out
-     * 
+     * Getter for the timestamp that this connection was checked out.
+     *
      * @return the timestamp
      */
     public long getCheckoutTimestamp() {
@@ -910,8 +1051,8 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Setter for the timestamp that this connection was checked out
-     * 
+     * Setter for the timestamp that this connection was checked out.
+     *
      * @param timestamp
      *          the timestamp
      */
@@ -920,14 +1061,19 @@ public class SimpleDataSource implements DataSource {
     }
 
     /**
-     * Getter for the time that this connection has been checked out
-     * 
+     * Getter for the time that this connection has been checked out.
+     *
      * @return the time
      */
     public long getCheckoutTime() {
       return System.currentTimeMillis() - checkoutTimestamp;
     }
 
+    /**
+     * Gets the valid connection.
+     *
+     * @return the valid connection
+     */
     private Connection getValidConnection() {
       if (!valid) {
         throw new RuntimeException("Error accessing SimplePooledConnection. Connection is invalid.");
@@ -985,99 +1131,290 @@ public class SimpleDataSource implements DataSource {
       }
     }
 
+    /**
+     * Creates the statement.
+     *
+     * @return the statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Statement createStatement() throws SQLException {
       return getValidConnection().createStatement();
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql) throws SQLException {
       return getValidConnection().prepareStatement(sql);
     }
 
+    /**
+     * Prepare call.
+     *
+     * @param sql
+     *          the sql
+     * @return the callable statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public CallableStatement prepareCall(String sql) throws SQLException {
       return getValidConnection().prepareCall(sql);
     }
 
+    /**
+     * Native SQL.
+     *
+     * @param sql
+     *          the sql
+     * @return the string
+     * @throws SQLException
+     *           the SQL exception
+     */
     public String nativeSQL(String sql) throws SQLException {
       return getValidConnection().nativeSQL(sql);
     }
 
+    /**
+     * Sets the auto commit.
+     *
+     * @param autoCommit
+     *          the new auto commit
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setAutoCommit(boolean autoCommit) throws SQLException {
       getValidConnection().setAutoCommit(autoCommit);
     }
 
+    /**
+     * Gets the auto commit.
+     *
+     * @return the auto commit
+     * @throws SQLException
+     *           the SQL exception
+     */
     public boolean getAutoCommit() throws SQLException {
       return getValidConnection().getAutoCommit();
     }
 
+    /**
+     * Commit.
+     *
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void commit() throws SQLException {
       getValidConnection().commit();
     }
 
+    /**
+     * Rollback.
+     *
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void rollback() throws SQLException {
       getValidConnection().rollback();
     }
 
+    /**
+     * Close.
+     *
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void close() throws SQLException {
       dataSource.pushConnection(this);
     }
 
+    /**
+     * Checks if is closed.
+     *
+     * @return true, if is closed
+     * @throws SQLException
+     *           the SQL exception
+     */
     public boolean isClosed() throws SQLException {
       return getValidConnection().isClosed();
     }
 
+    /**
+     * Gets the meta data.
+     *
+     * @return the meta data
+     * @throws SQLException
+     *           the SQL exception
+     */
     public DatabaseMetaData getMetaData() throws SQLException {
       return getValidConnection().getMetaData();
     }
 
+    /**
+     * Sets the read only.
+     *
+     * @param readOnly
+     *          the new read only
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setReadOnly(boolean readOnly) throws SQLException {
       getValidConnection().setReadOnly(readOnly);
     }
 
+    /**
+     * Checks if is read only.
+     *
+     * @return true, if is read only
+     * @throws SQLException
+     *           the SQL exception
+     */
     public boolean isReadOnly() throws SQLException {
       return getValidConnection().isReadOnly();
     }
 
+    /**
+     * Sets the catalog.
+     *
+     * @param catalog
+     *          the new catalog
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setCatalog(String catalog) throws SQLException {
       getValidConnection().setCatalog(catalog);
     }
 
+    /**
+     * Gets the catalog.
+     *
+     * @return the catalog
+     * @throws SQLException
+     *           the SQL exception
+     */
     public String getCatalog() throws SQLException {
       return getValidConnection().getCatalog();
     }
 
+    /**
+     * Sets the transaction isolation.
+     *
+     * @param level
+     *          the new transaction isolation
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setTransactionIsolation(int level) throws SQLException {
       getValidConnection().setTransactionIsolation(level);
     }
 
+    /**
+     * Gets the transaction isolation.
+     *
+     * @return the transaction isolation
+     * @throws SQLException
+     *           the SQL exception
+     */
     public int getTransactionIsolation() throws SQLException {
       return getValidConnection().getTransactionIsolation();
     }
 
+    /**
+     * Gets the warnings.
+     *
+     * @return the warnings
+     * @throws SQLException
+     *           the SQL exception
+     */
     public SQLWarning getWarnings() throws SQLException {
       return getValidConnection().getWarnings();
     }
 
+    /**
+     * Clear warnings.
+     *
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void clearWarnings() throws SQLException {
       getValidConnection().clearWarnings();
     }
 
+    /**
+     * Creates the statement.
+     *
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @return the statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
       return getValidConnection().createStatement(resultSetType, resultSetConcurrency);
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
         throws SQLException {
       return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency);
     }
 
+    /**
+     * Prepare call.
+     *
+     * @param sql
+     *          the sql
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @return the callable statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
       return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency);
     }
 
+    /**
+     * Gets the type map.
+     *
+     * @return the type map
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Map getTypeMap() throws SQLException {
       return getValidConnection().getTypeMap();
     }
 
+    /**
+     * Sets the type map.
+     *
+     * @param map
+     *          the new type map
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setTypeMap(Map map) throws SQLException {
       getValidConnection().setTypeMap(map);
     }
@@ -1086,53 +1423,176 @@ public class SimpleDataSource implements DataSource {
     // JDK 1.4 JDBC 3.0 Methods below
     // **********************************
 
+    /**
+     * Sets the holdability.
+     *
+     * @param holdability
+     *          the new holdability
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void setHoldability(int holdability) throws SQLException {
       getValidConnection().setHoldability(holdability);
     }
 
+    /**
+     * Gets the holdability.
+     *
+     * @return the holdability
+     * @throws SQLException
+     *           the SQL exception
+     */
     public int getHoldability() throws SQLException {
       return getValidConnection().getHoldability();
     }
 
+    /**
+     * Sets the savepoint.
+     *
+     * @return the savepoint
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Savepoint setSavepoint() throws SQLException {
       return getValidConnection().setSavepoint();
     }
 
+    /**
+     * Sets the savepoint.
+     *
+     * @param name
+     *          the name
+     * @return the savepoint
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Savepoint setSavepoint(String name) throws SQLException {
       return getValidConnection().setSavepoint(name);
     }
 
+    /**
+     * Rollback.
+     *
+     * @param savepoint
+     *          the savepoint
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void rollback(Savepoint savepoint) throws SQLException {
       getValidConnection().rollback(savepoint);
     }
 
+    /**
+     * Release savepoint.
+     *
+     * @param savepoint
+     *          the savepoint
+     * @throws SQLException
+     *           the SQL exception
+     */
     public void releaseSavepoint(Savepoint savepoint) throws SQLException {
       getValidConnection().releaseSavepoint(savepoint);
     }
 
+    /**
+     * Creates the statement.
+     *
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @param resultSetHoldability
+     *          the result set holdability
+     * @return the statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability)
         throws SQLException {
       return getValidConnection().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @param resultSetHoldability
+     *          the result set holdability
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency,
         int resultSetHoldability) throws SQLException {
       return getValidConnection().prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
+    /**
+     * Prepare call.
+     *
+     * @param sql
+     *          the sql
+     * @param resultSetType
+     *          the result set type
+     * @param resultSetConcurrency
+     *          the result set concurrency
+     * @param resultSetHoldability
+     *          the result set holdability
+     * @return the callable statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency,
         int resultSetHoldability) throws SQLException {
       return getValidConnection().prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @param autoGeneratedKeys
+     *          the auto generated keys
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
       return getValidConnection().prepareStatement(sql, autoGeneratedKeys);
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @param columnIndexes
+     *          the column indexes
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql, int columnIndexes[]) throws SQLException {
       return getValidConnection().prepareStatement(sql, columnIndexes);
     }
 
+    /**
+     * Prepare statement.
+     *
+     * @param sql
+     *          the sql
+     * @param columnNames
+     *          the column names
+     * @return the prepared statement
+     * @throws SQLException
+     *           the SQL exception
+     */
     public PreparedStatement prepareStatement(String sql, String columnNames[]) throws SQLException {
       return getValidConnection().prepareStatement(sql, columnNames);
     }

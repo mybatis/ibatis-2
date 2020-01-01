@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,22 +30,37 @@ import java.util.Map;
 import com.ibatis.sqlmap.client.SqlMapException;
 
 /**
+ * The Class IterateContext.
+ *
  * @author Brandon Goodin
  */
 public class IterateContext implements Iterator {
 
+  /** The Constant PROCESS_INDEX. */
   private static final String PROCESS_INDEX = "ProcessIndex";
+
+  /** The Constant PROCESS_STRING. */
   private static final String PROCESS_STRING = "ProcessString";
 
+  /** The iterator. */
   private Iterator iterator;
+
+  /** The index. */
   private int index = -1;
 
+  /** The property. */
   private String property;
+
+  /** The allow next. */
   private boolean allowNext = true;
 
+  /** The is final. */
   private boolean isFinal = false;
+
+  /** The tag. */
   private SqlTag tag;
 
+  /** The parent. */
   private IterateContext parent;
 
   /**
@@ -64,6 +79,16 @@ public class IterateContext implements Iterator {
    */
   private boolean isPrependEnabled;
 
+  /**
+   * Instantiates a new iterate context.
+   *
+   * @param collection
+   *          the collection
+   * @param tag
+   *          the tag
+   * @param parent
+   *          the parent
+   */
   public IterateContext(Object collection, SqlTag tag, IterateContext parent) {
     this.parent = parent;
     this.tag = tag;
@@ -92,13 +117,19 @@ public class IterateContext implements Iterator {
     iterator.remove();
   }
 
+  /**
+   * Gets the index.
+   *
+   * @return the index
+   */
   public int getIndex() {
     return index;
   }
 
   /**
-   * 
-   * @return
+   * Checks if is first.
+   *
+   * @return true, if is first
    * @deprecated This method should not be used to decide whether or not to add prepend and open text to the generated
    *             statement. Rather, use the methods isPrependEnabled() and someSubElementsHaveContent().
    */
@@ -106,10 +137,22 @@ public class IterateContext implements Iterator {
     return index == 0;
   }
 
+  /**
+   * Checks if is last.
+   *
+   * @return true, if is last
+   */
   public boolean isLast() {
     return iterator != null && !iterator.hasNext();
   }
 
+  /**
+   * Array to list.
+   *
+   * @param array
+   *          the array
+   * @return the list
+   */
   private List arrayToList(Object array) {
     List list = null;
     if (array instanceof Object[]) {
@@ -124,6 +167,8 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Gets the property.
+   *
    * @return Returns the property.
    */
   public String getProperty() {
@@ -143,6 +188,8 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Checks if is allow next.
+   *
    * @return Returns the allowNext.
    */
   public boolean isAllowNext() {
@@ -150,6 +197,8 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Sets the allow next.
+   *
    * @param performIterate
    *          The allowNext to set.
    */
@@ -158,6 +207,8 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Gets the tag.
+   *
    * @return Returns the tag.
    */
   public SqlTag getTag() {
@@ -165,6 +216,8 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Sets the tag.
+   *
    * @param tag
    *          The tag to set.
    */
@@ -173,8 +226,9 @@ public class IterateContext implements Iterator {
   }
 
   /**
+   * Checks if is final.
    *
-   * @return
+   * @return true, if is final
    */
   public boolean isFinal() {
     return isFinal;
@@ -186,6 +240,7 @@ public class IterateContext implements Iterator {
    * it's final iterate.
    *
    * @param aFinal
+   *          the new final
    */
   public void setFinal(boolean aFinal) {
     isFinal = aFinal;
@@ -272,26 +327,59 @@ public class IterateContext implements Iterator {
     return ret;
   }
 
+  /**
+   * Gets the parent.
+   *
+   * @return the parent
+   */
   public IterateContext getParent() {
     return parent;
   }
 
+  /**
+   * Sets the parent.
+   *
+   * @param parent
+   *          the new parent
+   */
   public void setParent(IterateContext parent) {
     this.parent = parent;
   }
 
+  /**
+   * Some sub elements have content.
+   *
+   * @return true, if successful
+   */
   public boolean someSubElementsHaveContent() {
     return someSubElementsHaveContent;
   }
 
+  /**
+   * Sets the some sub elements have content.
+   *
+   * @param someSubElementsHaveContent
+   *          the new some sub elements have content
+   */
   public void setSomeSubElementsHaveContent(boolean someSubElementsHaveContent) {
     this.someSubElementsHaveContent = someSubElementsHaveContent;
   }
 
+  /**
+   * Checks if is prepend enabled.
+   *
+   * @return true, if is prepend enabled
+   */
   public boolean isPrependEnabled() {
     return isPrependEnabled;
   }
 
+  /**
+   * Sets the prepend enabled.
+   *
+   * @param isPrependEnabled
+   *          the new prepend enabled
+   */
   public void setPrependEnabled(boolean isPrependEnabled) {
     this.isPrependEnabled = isPrependEnabled;
   }

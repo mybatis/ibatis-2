@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,26 @@ package com.ibatis.sqlmap.engine.accessplan;
 import java.util.Map;
 
 /**
- * Factory to get an accesss plan appropriate for an object
+ * Factory to get an accesss plan appropriate for an object.
  */
 public class AccessPlanFactory {
 
+  /** The bytecode enhancement enabled. */
   private static boolean bytecodeEnhancementEnabled = false;
 
+  /**
+   * Instantiates a new access plan factory.
+   */
   private AccessPlanFactory() {
   }
 
   /**
-   * Creates an access plan for working with a bean
+   * Creates an access plan for working with a bean.
    *
    * @param clazz
+   *          the clazz
    * @param propertyNames
+   *          the property names
    * @return An access plan
    */
   public static AccessPlan getAccessPlan(Class clazz, String[] propertyNames) {
@@ -78,7 +84,7 @@ public class AccessPlanFactory {
   }
 
   /**
-   * Tells whether or not bytecode enhancement (CGLIB, etc) is enabled
+   * Tells whether or not bytecode enhancement (CGLIB, etc) is enabled.
    *
    * @return true if bytecode enhancement is enabled
    */
@@ -87,7 +93,7 @@ public class AccessPlanFactory {
   }
 
   /**
-   * Turns on or off bytecode enhancement (CGLIB, etc)
+   * Turns on or off bytecode enhancement (CGLIB, etc).
    *
    * @param bytecodeEnhancementEnabled
    *          - the switch

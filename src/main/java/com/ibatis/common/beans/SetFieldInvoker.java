@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,23 @@ package com.ibatis.common.beans;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 
+/**
+ * The Class SetFieldInvoker.
+ */
 public class SetFieldInvoker implements Invoker {
+
+  /** The field. */
   private Field field;
+
+  /** The name. */
   private String name;
 
+  /**
+   * Instantiates a new sets the field invoker.
+   *
+   * @param field
+   *          the field
+   */
   public SetFieldInvoker(Field field) {
     this.field = field;
     this.name = "(" + field.getName() + ")";

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,45 @@
  */
 package com.ibatis.sqlmap.engine.transaction;
 
+/**
+ * The Class TransactionException.
+ */
 public class TransactionException extends Exception {
 
+  /**
+   * Instantiates a new transaction exception.
+   */
   public TransactionException() {
   }
 
+  /**
+   * Instantiates a new transaction exception.
+   *
+   * @param msg
+   *          the msg
+   */
   public TransactionException(String msg) {
     super(msg);
   }
 
+  /**
+   * Instantiates a new transaction exception.
+   *
+   * @param cause
+   *          the cause
+   */
   public TransactionException(Throwable cause) {
     super(cause);
   }
 
+  /**
+   * Instantiates a new transaction exception.
+   *
+   * @param msg
+   *          the msg
+   * @param cause
+   *          the cause
+   */
   public TransactionException(String msg, Throwable cause) {
     super(msg, cause);
   }

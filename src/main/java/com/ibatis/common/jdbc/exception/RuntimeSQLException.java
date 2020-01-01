@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,19 @@ package com.ibatis.common.jdbc.exception;
 import java.sql.SQLException;
 
 /**
- * Unchecked exception to allow passing an Exception with the original SQLException
+ * Unchecked exception to allow passing an Exception with the original SQLException.
  */
 public class RuntimeSQLException extends RuntimeException {
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public RuntimeSQLException() {
   }
 
   /**
-   * Constructor to pass along a message
-   * 
+   * Constructor to pass along a message.
+   *
    * @param msg
    *          - the message
    */
@@ -39,8 +39,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Constructor to pass along another exception
-   * 
+   * Constructor to pass along another exception.
+   *
    * @param sqlException
    *          - the exception
    */
@@ -49,8 +49,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Constructor to pass along a message and an exception
-   * 
+   * Constructor to pass along a message and an exception.
+   *
    * @param msg
    *          - the message
    * @param sqlException
@@ -61,8 +61,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Getter for the SQL State
-   * 
+   * Getter for the SQL State.
+   *
    * @return - the state
    */
   public String getSQLState() {
@@ -76,8 +76,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Getter for the error code
-   * 
+   * Getter for the error code.
+   *
    * @return - the error code
    */
   public int getErrorCode() {
@@ -90,8 +90,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Get the next exception in the chain
-   * 
+   * Get the next exception in the chain.
+   *
    * @return - the next exception
    */
   public SQLException getNextException() {
@@ -104,8 +104,8 @@ public class RuntimeSQLException extends RuntimeException {
   }
 
   /**
-   * Set the next exception in the chain
-   * 
+   * Set the next exception in the chain.
+   *
    * @param ex
    *          - the next exception
    */

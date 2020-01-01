@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,11 @@ import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 import java.util.Properties;
 
 /**
- * Cache implementation for using OSCache with iBATIS
+ * Cache implementation for using OSCache with iBATIS.
  */
 public class OSCacheController implements CacheController {
 
+  /** The Constant CACHE. */
   private static final GeneralCacheAdministrator CACHE = new GeneralCacheAdministrator();
 
   public void flush(CacheModel cacheModel) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,16 @@ import java.util.*;
  */
 public class TypeHandlerFactory {
 
+  /** The type handler map. */
   private final Map typeHandlerMap = new HashMap();
+
+  /** The unknown type handler. */
   private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);
+
+  /** The type aliases. */
   private final HashMap typeAliases = new HashMap();
 
+  /** The Constant reversePrimitiveMap. */
   private static final Map reversePrimitiveMap = new HashMap() {
     {
       put(Byte.class, byte.class);
@@ -44,7 +50,7 @@ public class TypeHandlerFactory {
   /* Constructor */
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public TypeHandlerFactory() {
     TypeHandler handler;
@@ -123,11 +129,10 @@ public class TypeHandlerFactory {
   /* Public Methods */
 
   /**
-   * Get a TypeHandler for a class
-   * 
+   * Get a TypeHandler for a class.
+   *
    * @param type
    *          - the class you want a TypeHandler for
-   * 
    * @return - the handler
    */
   public TypeHandler getTypeHandler(Class type) {
@@ -135,13 +140,12 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Get a TypeHandler for a class and a JDBC type
-   * 
+   * Get a TypeHandler for a class and a JDBC type.
+   *
    * @param type
    *          - the class
    * @param jdbcType
    *          - the jdbc type
-   * 
    * @return - the handler
    */
   public TypeHandler getTypeHandler(Class type, String jdbcType) {
@@ -160,8 +164,8 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * When in doubt, get the "unknown" type handler
-   * 
+   * When in doubt, get the "unknown" type handler.
+   *
    * @return - if I told you, it would not be unknown, would it?
    */
   public TypeHandler getUnkownTypeHandler() {
@@ -169,11 +173,10 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Tells you if a particular class has a TypeHandler
-   * 
+   * Tells you if a particular class has a TypeHandler.
+   *
    * @param type
    *          - the class
-   * 
    * @return - true if there is a TypeHandler
    */
   public boolean hasTypeHandler(Class type) {
@@ -181,8 +184,8 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Register (add) a type handler for a class
-   * 
+   * Register (add) a type handler for a class.
+   *
    * @param type
    *          - the class
    * @param handler
@@ -193,8 +196,8 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Register (add) a type handler for a class and JDBC type
-   * 
+   * Register (add) a type handler for a class and JDBC type.
+   *
    * @param type
    *          - the class
    * @param jdbcType
@@ -216,11 +219,10 @@ public class TypeHandlerFactory {
   }
 
   /**
-   * Lookup an aliased class and return it's REAL name
-   * 
+   * Lookup an aliased class and return it's REAL name.
+   *
    * @param string
    *          - the alias
-   * 
    * @return - the REAL name
    */
   public String resolveAlias(String string) {

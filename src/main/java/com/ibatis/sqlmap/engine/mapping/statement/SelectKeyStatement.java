@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,23 +22,51 @@ import com.ibatis.sqlmap.engine.transaction.Transaction;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The Class SelectKeyStatement.
+ */
 public class SelectKeyStatement extends SelectStatement {
 
+  /** The key property. */
   private String keyProperty;
+
+  /** The run after SQL. */
   private boolean runAfterSQL;
 
+  /**
+   * Gets the key property.
+   *
+   * @return the key property
+   */
   public String getKeyProperty() {
     return keyProperty;
   }
 
+  /**
+   * Sets the key property.
+   *
+   * @param keyProperty
+   *          the new key property
+   */
   public void setKeyProperty(String keyProperty) {
     this.keyProperty = keyProperty;
   }
 
+  /**
+   * Checks if is run after SQL.
+   *
+   * @return true, if is run after SQL
+   */
   public boolean isRunAfterSQL() {
     return runAfterSQL;
   }
 
+  /**
+   * Sets the run after SQL.
+   *
+   * @param runAfterSQL
+   *          the new run after SQL
+   */
   public void setRunAfterSQL(boolean runAfterSQL) {
     this.runAfterSQL = runAfterSQL;
   }

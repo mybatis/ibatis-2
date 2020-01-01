@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,50 @@ import com.ibatis.sqlmap.engine.scope.SessionScope;
 
 import java.sql.SQLException;
 
+/**
+ * The Class TransactionManager.
+ */
 public class TransactionManager {
 
+  /** The config. */
   private TransactionConfig config;
 
+  /**
+   * Instantiates a new transaction manager.
+   *
+   * @param transactionConfig
+   *          the transaction config
+   */
   public TransactionManager(TransactionConfig transactionConfig) {
     this.config = transactionConfig;
   }
 
+  /**
+   * Begin.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public void begin(SessionScope sessionScope) throws SQLException, TransactionException {
     begin(sessionScope, IsolationLevel.UNSET_ISOLATION_LEVEL);
   }
 
+  /**
+   * Begin.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param transactionIsolation
+   *          the transaction isolation
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public void begin(SessionScope sessionScope, int transactionIsolation) throws SQLException, TransactionException {
     Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
@@ -50,6 +82,16 @@ public class TransactionManager {
     sessionScope.setTransactionState(TransactionState.STATE_STARTED);
   }
 
+  /**
+   * Commit.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public void commit(SessionScope sessionScope) throws SQLException, TransactionException {
     Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
@@ -68,6 +110,16 @@ public class TransactionManager {
     sessionScope.setTransactionState(TransactionState.STATE_COMMITTED);
   }
 
+  /**
+   * End.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   public void end(SessionScope sessionScope) throws SQLException, TransactionException {
     Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
@@ -99,6 +151,11 @@ public class TransactionManager {
     }
   }
 
+  /**
+   * Gets the config.
+   *
+   * @return the config
+   */
   public TransactionConfig getConfig() {
     return config;
   }

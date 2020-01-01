@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,34 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+/**
+ * The Class ConditionalTagHandler.
+ */
 public abstract class ConditionalTagHandler extends BaseTagHandler {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
 
+  /** The Constant NOT_COMPARABLE. */
   public static final long NOT_COMPARABLE = Long.MIN_VALUE;
+
+  /** The Constant DATE_MASK. */
   private static final String DATE_MASK = "yyyy/MM/dd hh:mm:ss";
 
+  /** The Constant START_INDEX. */
   private static final String START_INDEX = "[";
 
+  /**
+   * Checks if is condition.
+   *
+   * @param ctx
+   *          the ctx
+   * @param tag
+   *          the tag
+   * @param parameterObject
+   *          the parameter object
+   * @return true, if is condition
+   */
   public abstract boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject);
 
   @Override
@@ -64,6 +83,17 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
   }
 
+  /**
+   * Compare.
+   *
+   * @param ctx
+   *          the ctx
+   * @param tag
+   *          the tag
+   * @param parameterObject
+   *          the parameter object
+   * @return the long
+   */
   protected long compare(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     String comparePropertyName = tag.getComparePropertyAttr();
     String compareValue = tag.getCompareValueAttr();
@@ -93,6 +123,17 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     }
   }
 
+  /**
+   * Compare values.
+   *
+   * @param type
+   *          the type
+   * @param value1
+   *          the value 1
+   * @param value2
+   *          the value 2
+   * @return the long
+   */
   protected long compareValues(Class type, Object value1, Object value2) {
     long result = NOT_COMPARABLE;
 
@@ -115,6 +156,15 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     return result;
   }
 
+  /**
+   * Convert value.
+   *
+   * @param type
+   *          the type
+   * @param value
+   *          the value
+   * @return the object
+   */
   protected Object convertValue(Class type, String value) {
     if (type == String.class) {
       return value;
@@ -147,10 +197,13 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
   }
 
   /**
-   * This method will add the proper index values to an indexed property string if we are inside an iterate tag
-   * 
+   * This method will add the proper index values to an indexed property string if we are inside an iterate tag.
+   *
    * @param ctx
+   *          the ctx
    * @param tag
+   *          the tag
+   * @return the resolved property
    */
   protected String getResolvedProperty(SqlTagContext ctx, SqlTag tag) {
     String prop = tag.getPropertyAttr();

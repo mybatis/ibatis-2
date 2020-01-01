@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,43 +19,94 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * The Interface TransactionConfig.
+ */
 public interface TransactionConfig {
 
+  /**
+   * New transaction.
+   *
+   * @param transactionIsolation
+   *          the transaction isolation
+   * @return the transaction
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException;
 
+  /**
+   * Gets the data source.
+   *
+   * @return the data source
+   */
   DataSource getDataSource();
 
+  /**
+   * Sets the data source.
+   *
+   * @param ds
+   *          the new data source
+   */
   void setDataSource(DataSource ds);
 
   /**
-   * This should not be used and is here purely to avoid spring integration from breaking
-   * 
-   * @deprecated
+   * This should not be used and is here purely to avoid spring integration from breaking.
+   *
    * @return -1
+   * @deprecated
    */
   int getMaximumConcurrentTransactions();
 
   /**
    * This should not be used. It does nothing and is here purely to prevent Spring integration from breaking
-   * 
-   * @deprecated
+   *
    * @param maximumConcurrentTransactions
+   *          the new maximum concurrent transactions
+   * @deprecated
    */
   void setMaximumConcurrentTransactions(int maximumConcurrentTransactions);
 
+  /**
+   * Checks if is force commit.
+   *
+   * @return true, if is force commit
+   */
   boolean isForceCommit();
 
+  /**
+   * Sets the force commit.
+   *
+   * @param forceCommit
+   *          the new force commit
+   */
   void setForceCommit(boolean forceCommit);
 
   /**
    * This method should call setProperties. It is here simply to ease transition
    *
-   * @deprecated
    * @param props
    *          - Properties
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   * @deprecated
    */
   void initialize(Properties props) throws SQLException, TransactionException;
 
+  /**
+   * Sets the properties.
+   *
+   * @param props
+   *          the new properties
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
   void setProperties(Properties props) throws SQLException, TransactionException;
 
 }

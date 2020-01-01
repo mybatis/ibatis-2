@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,13 +34,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The Class DynamicSql.
+ */
 public class DynamicSql implements Sql, DynamicParent {
 
+  /** The Constant PARAM_PARSER. */
   private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();
 
+  /** The children. */
   private List children = new ArrayList();
+
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
 
+  /**
+   * Instantiates a new dynamic sql.
+   *
+   * @param delegate
+   *          the delegate
+   */
   public DynamicSql(SqlMapExecutorDelegate delegate) {
     this.delegate = delegate;
   }
@@ -72,6 +85,14 @@ public class DynamicSql implements Sql, DynamicParent {
     statementScope.setDynamicParameterMap(null);
   }
 
+  /**
+   * Process.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   */
   private void process(StatementScope statementScope, Object parameterObject) {
     SqlTagContext ctx = new SqlTagContext();
     List localChildren = children;
@@ -93,12 +114,38 @@ public class DynamicSql implements Sql, DynamicParent {
     statementScope.setDynamicParameterMap(map);
   }
 
+  /**
+   * Process body children.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param ctx
+   *          the ctx
+   * @param parameterObject
+   *          the parameter object
+   * @param localChildren
+   *          the local children
+   */
   private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,
       Iterator localChildren) {
     PrintWriter out = ctx.getWriter();
     processBodyChildren(statementScope, ctx, parameterObject, localChildren, out);
   }
 
+  /**
+   * Process body children.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param ctx
+   *          the ctx
+   * @param parameterObject
+   *          the parameter object
+   * @param localChildren
+   *          the local children
+   * @param out
+   *          the out
+   */
   private void processBodyChildren(StatementScope statementScope, SqlTagContext ctx, Object parameterObject,
       Iterator localChildren, PrintWriter out) {
     while (localChildren.hasNext()) {
@@ -186,9 +233,12 @@ public class DynamicSql implements Sql, DynamicParent {
   }
 
   /**
-   * 
+   * Iterate property replace.
+   *
    * @param bodyContent
+   *          the body content
    * @param iterate
+   *          the iterate
    */
   protected void iteratePropertyReplace(StringBuilder bodyContent, IterateContext iterate) {
     if (iterate != null) {
@@ -208,6 +258,16 @@ public class DynamicSql implements Sql, DynamicParent {
     }
   }
 
+  /**
+   * Replace.
+   *
+   * @param builder
+   *          the builder
+   * @param find
+   *          the find
+   * @param replace
+   *          the replace
+   */
   protected static void replace(StringBuilder builder, String find, String replace) {
     int pos = builder.toString().indexOf(find);
     int len = find.length();

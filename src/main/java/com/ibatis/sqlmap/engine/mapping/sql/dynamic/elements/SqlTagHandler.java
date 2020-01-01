@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,61 @@
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
+/**
+ * The Interface SqlTagHandler.
+ */
 public interface SqlTagHandler {
 
+  /** The Constant SKIP_BODY. */
   // BODY TAG
   public static final int SKIP_BODY = 0;
+
+  /** The Constant INCLUDE_BODY. */
   public static final int INCLUDE_BODY = 1;
+
+  /** The Constant REPEAT_BODY. */
   public static final int REPEAT_BODY = 2;
 
+  /**
+   * Do start fragment.
+   *
+   * @param ctx
+   *          the ctx
+   * @param tag
+   *          the tag
+   * @param parameterObject
+   *          the parameter object
+   * @return the int
+   */
   public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject);
 
+  /**
+   * Do end fragment.
+   *
+   * @param ctx
+   *          the ctx
+   * @param tag
+   *          the tag
+   * @param parameterObject
+   *          the parameter object
+   * @param bodyContent
+   *          the body content
+   * @return the int
+   */
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
 
+  /**
+   * Do prepend.
+   *
+   * @param ctx
+   *          the ctx
+   * @param tag
+   *          the tag
+   * @param parameterObject
+   *          the parameter object
+   * @param bodyContent
+   *          the body content
+   */
   public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
 
 }

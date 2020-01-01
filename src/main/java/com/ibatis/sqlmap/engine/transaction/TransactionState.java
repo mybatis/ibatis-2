@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,26 @@
  */
 package com.ibatis.sqlmap.engine.transaction;
 
+/**
+ * The Class TransactionState.
+ */
 public class TransactionState {
 
+  /** The Constant STATE_STARTED. */
   public static final TransactionState STATE_STARTED = new TransactionState();
+
+  /** The Constant STATE_COMMITTED. */
   public static final TransactionState STATE_COMMITTED = new TransactionState();
+
+  /** The Constant STATE_ENDED. */
   public static final TransactionState STATE_ENDED = new TransactionState();
+
+  /** The Constant STATE_USER_PROVIDED. */
   public static final TransactionState STATE_USER_PROVIDED = new TransactionState();
 
+  /**
+   * Instantiates a new transaction state.
+   */
   private TransactionState() {
   }
 

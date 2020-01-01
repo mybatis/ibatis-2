@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,45 @@ import com.ibatis.sqlmap.engine.type.*;
 
 import java.util.*;
 
+/**
+ * The Class ParameterMapConfig.
+ */
 public class ParameterMapConfig {
+
+  /** The Constant MODE_IN. */
   public static final String MODE_IN = "IN";
+
+  /** The Constant MODE_OUT. */
   public static final String MODE_OUT = "OUT";
+
+  /** The Constant MODE_INOUT. */
   public static final String MODE_INOUT = "INUOT";
 
+  /** The config. */
   private SqlMapConfiguration config;
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The client. */
   private SqlMapClientImpl client;
+
+  /** The parameter map. */
   private ParameterMap parameterMap;
+
+  /** The parameter mapping list. */
   private List parameterMappingList;
 
+  /**
+   * Instantiates a new parameter map config.
+   *
+   * @param config
+   *          the config
+   * @param id
+   *          the id
+   * @param parameterClass
+   *          the parameter class
+   */
   ParameterMapConfig(SqlMapConfiguration config, String id, Class parameterClass) {
     this.config = config;
     this.errorContext = config.getErrorContext();
@@ -49,6 +77,28 @@ public class ParameterMapConfig {
     client.getDelegate().addParameterMap(parameterMap);
   }
 
+  /**
+   * Adds the parameter mapping.
+   *
+   * @param propertyName
+   *          the property name
+   * @param javaClass
+   *          the java class
+   * @param jdbcType
+   *          the jdbc type
+   * @param nullValue
+   *          the null value
+   * @param mode
+   *          the mode
+   * @param outParamType
+   *          the out param type
+   * @param numericScale
+   *          the numeric scale
+   * @param typeHandlerImpl
+   *          the type handler impl
+   * @param resultMap
+   *          the result map
+   */
   public void addParameterMapping(String propertyName, Class javaClass, String jdbcType, String nullValue, String mode,
       String outParamType, Integer numericScale, Object typeHandlerImpl, String resultMap) {
     errorContext.setObjectId(propertyName + " mapping of the " + parameterMap.getId() + " parameter map");

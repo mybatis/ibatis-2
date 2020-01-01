@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,16 @@ package com.ibatis.common.jdbc.exception;
 import java.sql.SQLException;
 
 /**
- * Class to allow passing an Exception with the original SQLException
+ * Class to allow passing an Exception with the original SQLException.
  */
 public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param msg
    *          - the message for the exception
+   * @see java.sql.SQLException
    */
   public NestedSQLException(String msg) {
     super(msg);
@@ -35,12 +35,12 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
+   * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState) {
     super(reason, SQLState);
@@ -48,14 +48,14 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
    * @param vendorCode
    *          - a vendor supplied code to go w/ the message
+   * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState, int vendorCode) {
     super(reason, SQLState, vendorCode);
@@ -76,14 +76,14 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
-   * 
-   * @see java.sql.SQLException
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
    * @param cause
    *          - the cause of the exception
+   * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState, Throwable cause) {
     super(reason, SQLState);

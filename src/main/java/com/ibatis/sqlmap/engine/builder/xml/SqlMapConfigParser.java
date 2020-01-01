@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,23 @@ import org.w3c.dom.Node;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * The Class SqlMapConfigParser.
+ */
 public class SqlMapConfigParser {
 
+  /** The parser. */
   protected final NodeletParser parser = new NodeletParser();
+
+  /** The state. */
   private XmlParserState state = new XmlParserState();
 
+  /** The using streams. */
   private boolean usingStreams = false;
 
+  /**
+   * Instantiates a new sql map config parser.
+   */
   public SqlMapConfigParser() {
     parser.setValidation(true);
     parser.setEntityResolver(new SqlMapClasspathEntityResolver());
@@ -49,12 +59,28 @@ public class SqlMapConfigParser {
 
   }
 
+  /**
+   * Parses the.
+   *
+   * @param reader
+   *          the reader
+   * @param props
+   *          the props
+   * @return the sql map client
+   */
   public SqlMapClient parse(Reader reader, Properties props) {
     if (props != null)
       state.setGlobalProps(props);
     return parse(reader);
   }
 
+  /**
+   * Parses the.
+   *
+   * @param reader
+   *          the reader
+   * @return the sql map client
+   */
   public SqlMapClient parse(Reader reader) {
     try {
       usingStreams = false;
@@ -66,12 +92,28 @@ public class SqlMapConfigParser {
     }
   }
 
+  /**
+   * Parses the.
+   *
+   * @param inputStream
+   *          the input stream
+   * @param props
+   *          the props
+   * @return the sql map client
+   */
   public SqlMapClient parse(InputStream inputStream, Properties props) {
     if (props != null)
       state.setGlobalProps(props);
     return parse(inputStream);
   }
 
+  /**
+   * Parses the.
+   *
+   * @param inputStream
+   *          the input stream
+   * @return the sql map client
+   */
   public SqlMapClient parse(InputStream inputStream) {
     try {
       usingStreams = true;
@@ -83,6 +125,9 @@ public class SqlMapConfigParser {
     }
   }
 
+  /**
+   * Adds the sql map config nodelets.
+   */
   private void addSqlMapConfigNodelets() {
     parser.addNodelet("/sqlMapConfig/end()", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -91,6 +136,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the global prop nodelets.
+   */
   private void addGlobalPropNodelets() {
     parser.addNodelet("/sqlMapConfig/properties", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -102,6 +150,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the settings nodelets.
+   */
   private void addSettingsNodelets() {
     parser.addNodelet("/sqlMapConfig/settings", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -148,6 +199,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the type alias nodelets.
+   */
   private void addTypeAliasNodelets() {
     parser.addNodelet("/sqlMapConfig/typeAlias", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -159,6 +213,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the type handler nodelets.
+   */
   private void addTypeHandlerNodelets() {
     parser.addNodelet("/sqlMapConfig/typeHandler", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -175,6 +232,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the transaction manager nodelets.
+   */
   private void addTransactionManagerNodelets() {
     parser.addNodelet("/sqlMapConfig/transactionManager/property", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -251,6 +311,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the sql map nodelets.
+   */
   protected void addSqlMapNodelets() {
     parser.addNodelet("/sqlMapConfig/sqlMap", new Nodelet() {
       public void process(Node node) throws Exception {
@@ -292,6 +355,9 @@ public class SqlMapConfigParser {
     });
   }
 
+  /**
+   * Adds the result object factory nodelets.
+   */
   private void addResultObjectFactoryNodelets() {
     parser.addNodelet("/sqlMapConfig/resultObjectFactory", new Nodelet() {
       public void process(Node node) throws Exception {

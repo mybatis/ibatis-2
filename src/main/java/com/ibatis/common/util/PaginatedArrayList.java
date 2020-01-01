@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,32 @@ package com.ibatis.common.util;
 import java.util.*;
 
 /**
- * Implementation of PaginatedList backed by an ArrayList
- * 
+ * Implementation of PaginatedList backed by an ArrayList.
+ *
  * @deprecated All paginated list features have been deprecated
  */
 public class PaginatedArrayList implements PaginatedList {
 
+  /** The Constant EMPTY_LIST. */
   private static final ArrayList EMPTY_LIST = new ArrayList(0);
 
+  /** The list. */
   private List list;
+
+  /** The page. */
   private List page;
+
+  /** The page size. */
   private int pageSize;
+
+  /** The index. */
   private int index;
 
   /**
+   * Instantiates a new paginated array list.
+   *
    * @param pageSize
+   *          the page size
    */
   public PaginatedArrayList(int pageSize) {
     this.pageSize = pageSize;
@@ -42,8 +53,8 @@ public class PaginatedArrayList implements PaginatedList {
   }
 
   /**
-   * Constructor to set the initial size and the page size
-   * 
+   * Constructor to set the initial size and the page size.
+   *
    * @param initialCapacity
    *          - the initial size
    * @param pageSize
@@ -57,8 +68,8 @@ public class PaginatedArrayList implements PaginatedList {
   }
 
   /**
-   * Constructor to create an instance using an existing collection
-   * 
+   * Constructor to create an instance using an existing collection.
+   *
    * @param c
    *          - the collection to build the instance with
    * @param pageSize
@@ -71,6 +82,9 @@ public class PaginatedArrayList implements PaginatedList {
     repaginate();
   }
 
+  /**
+   * Repaginate.
+   */
   private void repaginate() {
     if (list.isEmpty()) {
       page = EMPTY_LIST;

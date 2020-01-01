@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,34 +53,60 @@ import com.ibatis.sqlmap.engine.transaction.user.UserProvidedTransaction;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
 /**
- * The workhorse that really runs the SQL
+ * The workhorse that really runs the SQL.
  */
 public class SqlMapExecutorDelegate {
 
+  /** The Constant PROBE. */
   private static final Probe PROBE = ProbeFactory.getProbe();
 
+  /** The lazy loading enabled. */
   private boolean lazyLoadingEnabled = true;
+
+  /** The cache models enabled. */
   private boolean cacheModelsEnabled = true;
+
+  /** The enhancement enabled. */
   private boolean enhancementEnabled = false;
+
+  /** The use column label. */
   private boolean useColumnLabel = true;
+
+  /** The force multiple result set support. */
   private boolean forceMultipleResultSetSupport;
 
+  /** The tx manager. */
   private TransactionManager txManager;
 
+  /** The mapped statements. */
   private HashMap mappedStatements;
+
+  /** The cache models. */
   private HashMap cacheModels;
+
+  /** The result maps. */
   private HashMap resultMaps;
+
+  /** The parameter maps. */
   private HashMap parameterMaps;
 
+  /** The sql executor. */
   protected SqlExecutor sqlExecutor;
+
+  /** The type handler factory. */
   private TypeHandlerFactory typeHandlerFactory;
+
+  /** The data exchange factory. */
   private DataExchangeFactory dataExchangeFactory;
 
+  /** The result object factory. */
   private ResultObjectFactory resultObjectFactory;
+
+  /** The statement cache enabled. */
   private boolean statementCacheEnabled = true;
 
   /**
-   * Default constructor
+   * Default constructor.
    */
   public SqlMapExecutorDelegate() {
     mappedStatements = new HashMap();
@@ -93,6 +119,12 @@ public class SqlMapExecutorDelegate {
     dataExchangeFactory = new DataExchangeFactory(typeHandlerFactory);
   }
 
+  /**
+   * Sets the custom executor.
+   *
+   * @param sqlExecutorClass
+   *          the new custom executor
+   */
   public void setCustomExecutor(String sqlExecutorClass) {
     try {
       Class factoryClass = Class.forName(sqlExecutorClass);
@@ -106,7 +138,8 @@ public class SqlMapExecutorDelegate {
 
   /**
    * DO NOT DEPEND ON THIS. Here to avoid breaking spring integration.
-   * 
+   *
+   * @return the max transactions
    * @deprecated
    */
   public int getMaxTransactions() {
@@ -114,7 +147,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the DataExchangeFactory
+   * Getter for the DataExchangeFactory.
    *
    * @return - the DataExchangeFactory
    */
@@ -123,7 +156,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the TypeHandlerFactory
+   * Getter for the TypeHandlerFactory.
    *
    * @return - the TypeHandlerFactory
    */
@@ -132,7 +165,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the status of lazy loading
+   * Getter for the status of lazy loading.
    *
    * @return - the status
    */
@@ -141,7 +174,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Turn on or off lazy loading
+   * Turn on or off lazy loading.
    *
    * @param lazyLoadingEnabled
    *          - the new state of caching
@@ -151,7 +184,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the status of caching
+   * Getter for the status of caching.
    *
    * @return - the status
    */
@@ -160,7 +193,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Turn on or off caching
+   * Turn on or off caching.
    *
    * @param cacheModelsEnabled
    *          - the new state of caching
@@ -170,7 +203,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the status of CGLib enhancements
+   * Getter for the status of CGLib enhancements.
    *
    * @return - the status
    */
@@ -179,7 +212,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Turn on or off CGLib enhancements
+   * Turn on or off CGLib enhancements.
    *
    * @param enhancementEnabled
    *          - the new state
@@ -188,16 +221,27 @@ public class SqlMapExecutorDelegate {
     this.enhancementEnabled = enhancementEnabled;
   }
 
+  /**
+   * Checks if is use column label.
+   *
+   * @return true, if is use column label
+   */
   public boolean isUseColumnLabel() {
     return useColumnLabel;
   }
 
+  /**
+   * Sets the use column label.
+   *
+   * @param useColumnLabel
+   *          the new use column label
+   */
   public void setUseColumnLabel(boolean useColumnLabel) {
     this.useColumnLabel = useColumnLabel;
   }
 
   /**
-   * Getter for the transaction manager
+   * Getter for the transaction manager.
    *
    * @return - the transaction manager
    */
@@ -206,7 +250,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Setter for the transaction manager
+   * Setter for the transaction manager.
    *
    * @param txManager
    *          - the transaction manager
@@ -216,7 +260,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Add a mapped statement
+   * Add a mapped statement.
    *
    * @param ms
    *          - the mapped statement to add
@@ -230,7 +274,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get an iterator of the mapped statements
+   * Get an iterator of the mapped statements.
    *
    * @return - the iterator
    */
@@ -239,7 +283,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a mappedstatement by its ID
+   * Get a mappedstatement by its ID.
    *
    * @param id
    *          - the statement ID
@@ -254,7 +298,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Add a cache model
+   * Add a cache model.
    *
    * @param model
    *          - the model to add
@@ -264,7 +308,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get an iterator of the cache models
+   * Get an iterator of the cache models.
    *
    * @return - the cache models
    */
@@ -273,7 +317,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a cache model by ID
+   * Get a cache model by ID.
    *
    * @param id
    *          - the ID
@@ -288,7 +332,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Add a result map
+   * Add a result map.
    *
    * @param map
    *          - the result map to add
@@ -298,7 +342,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get an iterator of the result maps
+   * Get an iterator of the result maps.
    *
    * @return - the result maps
    */
@@ -307,7 +351,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a result map by ID
+   * Get a result map by ID.
    *
    * @param id
    *          - the ID
@@ -322,7 +366,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Add a parameter map
+   * Add a parameter map.
    *
    * @param map
    *          - the map to add
@@ -332,7 +376,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get an iterator of all of the parameter maps
+   * Get an iterator of all of the parameter maps.
    *
    * @return - the parameter maps
    */
@@ -341,7 +385,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a parameter map by ID
+   * Get a parameter map by ID.
    *
    * @param id
    *          - the ID
@@ -356,7 +400,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Flush all of the data caches
+   * Flush all of the data caches.
    */
   public void flushDataCache() {
     Iterator models = cacheModels.values().iterator();
@@ -366,7 +410,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Flush a single cache by ID
+   * Flush a single cache by ID.
    *
    * @param id
    *          - the ID
@@ -380,7 +424,7 @@ public class SqlMapExecutorDelegate {
 
   // -- Basic Methods
   /**
-   * Call an insert statement by ID
+   * Call an insert statement by ID.
    *
    * @param sessionScope
    *          - the session
@@ -447,6 +491,21 @@ public class SqlMapExecutorDelegate {
     return generatedKey;
   }
 
+  /**
+   * Execute select key.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param trans
+   *          the trans
+   * @param ms
+   *          the ms
+   * @param param
+   *          the param
+   * @return the object
+   * @throws SQLException
+   *           the SQL exception
+   */
   private Object executeSelectKey(SessionScope sessionScope, Transaction trans, MappedStatement ms, Object param)
       throws SQLException {
     Object generatedKey = null;
@@ -469,7 +528,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute an update statement
+   * Execute an update statement.
    *
    * @param sessionScope
    *          - the session scope
@@ -507,7 +566,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a delete statement
+   * Execute a delete statement.
    *
    * @param sessionScope
    *          - the session scope
@@ -524,7 +583,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a select for a single object
+   * Execute a select for a single object.
    *
    * @param sessionScope
    *          - the session scope
@@ -541,7 +600,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a select for a single object
+   * Execute a select for a single object.
    *
    * @param sessionScope
    *          - the session scope
@@ -582,7 +641,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a query for a list
+   * Execute a query for a list.
    *
    * @param sessionScope
    *          - the session scope
@@ -599,7 +658,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a query for a list
+   * Execute a query for a list.
    *
    * @param sessionScope
    *          - the session scope
@@ -680,7 +739,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a query and return a paginated list
+   * Execute a query and return a paginated list.
    *
    * @param sessionScope
    *          - the session scope
@@ -759,7 +818,7 @@ public class SqlMapExecutorDelegate {
 
   // -- Transaction Control Methods
   /**
-   * Start a transaction on the session
+   * Start a transaction on the session.
    *
    * @param sessionScope
    *          - the session
@@ -779,6 +838,8 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   * @param transactionIsolation
+   *          the transaction isolation
    * @throws SQLException
    *           - if the transaction could not be started
    */
@@ -791,7 +852,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Commit the transaction on a session
+   * Commit the transaction on a session.
    *
    * @param sessionScope
    *          - the session
@@ -812,7 +873,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * End the transaction on a session
+   * End the transaction on a session.
    *
    * @param sessionScope
    *          - the session
@@ -832,7 +893,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Start a batch for a session
+   * Start a batch for a session.
    *
    * @param sessionScope
    *          - the session
@@ -842,7 +903,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a batch for a session
+   * Execute a batch for a session.
    *
    * @param sessionScope
    *          - the session
@@ -856,7 +917,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Execute a batch for a session
+   * Execute a batch for a session.
    *
    * @param sessionScope
    *          - the session
@@ -873,7 +934,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Use a user-provided transaction for a session
+   * Use a user-provided transaction for a session.
    *
    * @param sessionScope
    *          - the session scope
@@ -897,7 +958,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get the DataSource for the session
+   * Get the DataSource for the session.
    *
    * @return - the DataSource
    */
@@ -910,7 +971,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Getter for the SqlExecutor
+   * Getter for the SqlExecutor.
    *
    * @return the SqlExecutor
    */
@@ -919,7 +980,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a transaction for the session
+   * Get a transaction for the session.
    *
    * @param sessionScope
    *          - the session
@@ -931,18 +992,51 @@ public class SqlMapExecutorDelegate {
 
   // -- Protected Methods
 
+  /**
+   * Auto end transaction.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param autoStart
+   *          the auto start
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected void autoEndTransaction(SessionScope sessionScope, boolean autoStart) throws SQLException {
     if (autoStart) {
       sessionScope.getSqlMapTxMgr().endTransaction();
     }
   }
 
+  /**
+   * Auto commit transaction.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param autoStart
+   *          the auto start
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected void autoCommitTransaction(SessionScope sessionScope, boolean autoStart) throws SQLException {
     if (autoStart) {
       sessionScope.getSqlMapTxMgr().commitTransaction();
     }
   }
 
+  /**
+   * Auto start transaction.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param autoStart
+   *          the auto start
+   * @param trans
+   *          the trans
+   * @return the transaction
+   * @throws SQLException
+   *           the SQL exception
+   */
   protected Transaction autoStartTransaction(SessionScope sessionScope, boolean autoStart, Transaction trans)
       throws SQLException {
     Transaction transaction = trans;
@@ -971,6 +1065,15 @@ public class SqlMapExecutorDelegate {
     return key.hashCode();
   }
 
+  /**
+   * Begin statement scope.
+   *
+   * @param sessionScope
+   *          the session scope
+   * @param mappedStatement
+   *          the mapped statement
+   * @return the statement scope
+   */
   protected StatementScope beginStatementScope(SessionScope sessionScope, MappedStatement mappedStatement) {
     StatementScope statementScope = new StatementScope(sessionScope);
     sessionScope.incrementRequestStackDepth();
@@ -978,38 +1081,88 @@ public class SqlMapExecutorDelegate {
     return statementScope;
   }
 
+  /**
+   * End statement scope.
+   *
+   * @param statementScope
+   *          the statement scope
+   */
   protected void endStatementScope(StatementScope statementScope) {
     statementScope.getSession().decrementRequestStackDepth();
   }
 
+  /**
+   * Begin session scope.
+   *
+   * @return the session scope
+   */
   protected SessionScope beginSessionScope() {
     return new SessionScope();
   }
 
+  /**
+   * End session scope.
+   *
+   * @param sessionScope
+   *          the session scope
+   */
   protected void endSessionScope(SessionScope sessionScope) {
     sessionScope.cleanup();
   }
 
+  /**
+   * Gets the result object factory.
+   *
+   * @return the result object factory
+   */
   public ResultObjectFactory getResultObjectFactory() {
     return resultObjectFactory;
   }
 
+  /**
+   * Sets the result object factory.
+   *
+   * @param resultObjectFactory
+   *          the new result object factory
+   */
   public void setResultObjectFactory(ResultObjectFactory resultObjectFactory) {
     this.resultObjectFactory = resultObjectFactory;
   }
 
+  /**
+   * Checks if is statement cache enabled.
+   *
+   * @return true, if is statement cache enabled
+   */
   public boolean isStatementCacheEnabled() {
     return statementCacheEnabled;
   }
 
+  /**
+   * Sets the statement cache enabled.
+   *
+   * @param statementCacheEnabled
+   *          the new statement cache enabled
+   */
   public void setStatementCacheEnabled(boolean statementCacheEnabled) {
     this.statementCacheEnabled = statementCacheEnabled;
   }
 
+  /**
+   * Checks if is force multiple result set support.
+   *
+   * @return true, if is force multiple result set support
+   */
   public boolean isForceMultipleResultSetSupport() {
     return forceMultipleResultSetSupport;
   }
 
+  /**
+   * Sets the force multiple result set support.
+   *
+   * @param forceMultipleResultSetSupport
+   *          the new force multiple result set support
+   */
   public void setForceMultipleResultSetSupport(boolean forceMultipleResultSetSupport) {
     this.forceMultipleResultSetSupport = forceMultipleResultSetSupport;
   }

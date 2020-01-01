@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,28 @@
 package com.ibatis.sqlmap.engine.scope;
 
 /**
- * An error context to help us create meaningful error messages
+ * An error context to help us create meaningful error messages.
  */
 public class ErrorContext {
 
+  /** The resource. */
   private String resource;
+
+  /** The activity. */
   private String activity;
+
+  /** The object id. */
   private String objectId;
+
+  /** The more info. */
   private String moreInfo;
+
+  /** The cause. */
   private Throwable cause;
 
   /**
-   * Getter for the resource causing the problem
-   * 
+   * Getter for the resource causing the problem.
+   *
    * @return - the resource
    */
   public String getResource() {
@@ -36,8 +45,8 @@ public class ErrorContext {
   }
 
   /**
-   * Setter for the resource causing the problem
-   * 
+   * Setter for the resource causing the problem.
+   *
    * @param resource
    *          - the resource
    */
@@ -46,8 +55,8 @@ public class ErrorContext {
   }
 
   /**
-   * Getter for the activity that was happening when the error happened
-   * 
+   * Getter for the activity that was happening when the error happened.
+   *
    * @return - the activity
    */
   public String getActivity() {
@@ -55,8 +64,8 @@ public class ErrorContext {
   }
 
   /**
-   * Getter for the activity that was happening when the error happened
-   * 
+   * Getter for the activity that was happening when the error happened.
+   *
    * @param activity
    *          - the activity
    */
@@ -65,8 +74,8 @@ public class ErrorContext {
   }
 
   /**
-   * Getter for the object ID where the problem happened
-   * 
+   * Getter for the object ID where the problem happened.
+   *
    * @return - the object id
    */
   public String getObjectId() {
@@ -74,8 +83,8 @@ public class ErrorContext {
   }
 
   /**
-   * Setter for the object ID where the problem happened
-   * 
+   * Setter for the object ID where the problem happened.
+   *
    * @param objectId
    *          - the object id
    */
@@ -84,8 +93,8 @@ public class ErrorContext {
   }
 
   /**
-   * Getter for more information about the error
-   * 
+   * Getter for more information about the error.
+   *
    * @return - more information
    */
   public String getMoreInfo() {
@@ -93,8 +102,8 @@ public class ErrorContext {
   }
 
   /**
-   * Setter for more information about the error
-   * 
+   * Setter for more information about the error.
+   *
    * @param moreInfo
    *          - more information
    */
@@ -103,8 +112,8 @@ public class ErrorContext {
   }
 
   /**
-   * Getter for the cause of the error
-   * 
+   * Getter for the cause of the error.
+   *
    * @return - the cause
    */
   public Throwable getCause() {
@@ -112,8 +121,8 @@ public class ErrorContext {
   }
 
   /**
-   * Setter for the cause of the error
-   * 
+   * Setter for the cause of the error.
+   *
    * @param cause
    *          - the cause
    */
@@ -162,7 +171,7 @@ public class ErrorContext {
   }
 
   /**
-   * Clear the error context
+   * Clear the error context.
    */
   public void reset() {
     resource = null;

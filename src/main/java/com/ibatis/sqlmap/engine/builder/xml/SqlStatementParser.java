@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,14 +25,32 @@ import org.w3c.dom.*;
 
 import java.util.Properties;
 
+/**
+ * The Class SqlStatementParser.
+ */
 public class SqlStatementParser {
 
+  /** The state. */
   private XmlParserState state;
 
+  /**
+   * Instantiates a new sql statement parser.
+   *
+   * @param config
+   *          the config
+   */
   public SqlStatementParser(XmlParserState config) {
     this.state = config;
   }
 
+  /**
+   * Parses the general statement.
+   *
+   * @param node
+   *          the node
+   * @param statement
+   *          the statement
+   */
   public void parseGeneralStatement(Node node, MappedStatement statement) {
 
     // get attributes
@@ -93,6 +111,13 @@ public class SqlStatementParser {
     findAndParseSelectKey(node, statementConf);
   }
 
+  /**
+   * Resolve class.
+   *
+   * @param resultClassName
+   *          the result class name
+   * @return the class
+   */
   private Class resolveClass(String resultClassName) {
     try {
       if (resultClassName != null) {
@@ -105,6 +130,14 @@ public class SqlStatementParser {
     }
   }
 
+  /**
+   * Find and parse select key.
+   *
+   * @param node
+   *          the node
+   * @param config
+   *          the config
+   */
   private void findAndParseSelectKey(Node node, MappedStatementConfig config) {
     state.getConfig().getErrorContext().setActivity("parsing select key tags");
     boolean foundSQLFirst = false;

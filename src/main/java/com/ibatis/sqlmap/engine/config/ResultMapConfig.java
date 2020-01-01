@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,54 @@ import com.ibatis.sqlmap.engine.type.*;
 
 import java.util.*;
 
+/**
+ * The Class ResultMapConfig.
+ */
 public class ResultMapConfig {
+
+  /** The config. */
   private SqlMapConfiguration config;
+
+  /** The error context. */
   private ErrorContext errorContext;
+
+  /** The client. */
   private SqlMapClientImpl client;
+
+  /** The delegate. */
   private SqlMapExecutorDelegate delegate;
+
+  /** The type handler factory. */
   private TypeHandlerFactory typeHandlerFactory;
+
+  /** The result map. */
   private ResultMap resultMap;
+
+  /** The result mapping list. */
   private List resultMappingList;
+
+  /** The result mapping index. */
   private int resultMappingIndex;
+
+  /** The discriminator. */
   private Discriminator discriminator;
 
+  /**
+   * Instantiates a new result map config.
+   *
+   * @param config
+   *          the config
+   * @param id
+   *          the id
+   * @param resultClass
+   *          the result class
+   * @param groupBy
+   *          the group by
+   * @param extendsResultMap
+   *          the extends result map
+   * @param xmlName
+   *          the xml name
+   */
   ResultMapConfig(SqlMapConfiguration config, String id, Class resultClass, String groupBy, String extendsResultMap,
       String xmlName) {
     this.config = config;
@@ -84,6 +121,22 @@ public class ResultMapConfig {
     client.getDelegate().addResultMap(resultMap);
   }
 
+  /**
+   * Sets the discriminator.
+   *
+   * @param columnName
+   *          the column name
+   * @param columnIndex
+   *          the column index
+   * @param javaClass
+   *          the java class
+   * @param jdbcType
+   *          the jdbc type
+   * @param nullValue
+   *          the null value
+   * @param typeHandlerImpl
+   *          the type handler impl
+   */
   public void setDiscriminator(String columnName, Integer columnIndex, Class javaClass, String jdbcType,
       String nullValue, Object typeHandlerImpl) {
     TypeHandler handler;
@@ -112,6 +165,14 @@ public class ResultMapConfig {
     resultMap.setDiscriminator(discriminator);
   }
 
+  /**
+   * Adds the discriminator sub map.
+   *
+   * @param value
+   *          the value
+   * @param resultMap
+   *          the result map
+   */
   public void addDiscriminatorSubMap(Object value, String resultMap) {
     if (discriminator == null) {
       throw new RuntimeException("The discriminator is null, but somehow a subMap was reached.  This is a bug.");
@@ -119,6 +180,30 @@ public class ResultMapConfig {
     discriminator.addSubMap(value.toString(), resultMap);
   }
 
+  /**
+   * Adds the result mapping.
+   *
+   * @param propertyName
+   *          the property name
+   * @param columnName
+   *          the column name
+   * @param columnIndex
+   *          the column index
+   * @param javaClass
+   *          the java class
+   * @param jdbcType
+   *          the jdbc type
+   * @param nullValue
+   *          the null value
+   * @param notNullColumn
+   *          the not null column
+   * @param statementName
+   *          the statement name
+   * @param resultMapName
+   *          the result map name
+   * @param impl
+   *          the impl
+   */
   public void addResultMapping(String propertyName, String columnName, Integer columnIndex, Class javaClass,
       String jdbcType, String nullValue, String notNullColumn, String statementName, String resultMapName,
       Object impl) {

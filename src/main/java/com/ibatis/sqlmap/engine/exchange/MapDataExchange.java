@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DataExchange implementation for Map objects
+ * DataExchange implementation for Map objects.
  */
 public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
+  /**
+   * Instantiates a new map data exchange.
+   *
+   * @param dataExchangeFactory
+   *          the data exchange factory
+   */
   protected MapDataExchange(DataExchangeFactory dataExchangeFactory) {
     super(dataExchangeFactory);
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,18 @@ package com.ibatis.sqlmap.engine.accessplan;
 import java.util.Map;
 
 /**
- * Access plan for working with Maps
+ * Access plan for working with Maps.
  */
 public class MapAccessPlan extends BaseAccessPlan {
 
+  /**
+   * Instantiates a new map access plan.
+   *
+   * @param clazz
+   *          the clazz
+   * @param propertyNames
+   *          the property names
+   */
   MapAccessPlan(Class clazz, String[] propertyNames) {
     super(clazz, propertyNames);
   }
