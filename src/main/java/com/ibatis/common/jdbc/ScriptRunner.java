@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -147,13 +147,13 @@ public class ScriptRunner {
    *           if there is an error reading from the Reader
    */
   private void runScript(Connection conn, Reader reader) throws IOException, SQLException {
-    StringBuffer command = null;
+    StringBuilder command = null;
     try {
       LineNumberReader lineReader = new LineNumberReader(reader);
       String line = null;
       while ((line = lineReader.readLine()) != null) {
         if (command == null) {
-          command = new StringBuffer();
+          command = new StringBuilder();
         }
         String trimmedLine = line.trim();
         if (trimmedLine.startsWith("--")) {

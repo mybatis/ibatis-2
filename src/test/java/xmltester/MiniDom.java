@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,66 +126,66 @@ public class MiniDom {
 
   @Override
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
-    printElement(buffer, rootElement, 0, true);
-    return buffer.toString();
+    StringBuilder builder = new StringBuilder();
+    printElement(builder, rootElement, 0, true);
+    return builder.toString();
   }
 
-  private void printElement(StringBuffer buffer, MiniElement element, int tabLevel, boolean isRoot) {
+  private void printElement(StringBuilder builder, MiniElement element, int tabLevel, boolean isRoot) {
     if (!isRoot || (isRoot && !ignoreRoot)) {
-      printTabs(buffer, tabLevel);
-      printElementOpen(buffer, element);
+      printTabs(builder, tabLevel);
+      printElementOpen(builder, element);
     }
-    printElementBody(buffer, element);
+    printElementBody(builder, element);
     boolean hasElements = false;
     for (int i = 0, n = element.getElementCount(); i < n; i++) {
       hasElements = true;
-      buffer.append("\r\n");
-      printElement(buffer, element.getElement(i), tabLevel + 1, false);
+      builder.append("\r\n");
+      printElement(builder, element.getElement(i), tabLevel + 1, false);
     }
     if (hasElements) {
-      buffer.append("\r\n");
-      printTabs(buffer, tabLevel);
+      builder.append("\r\n");
+      printTabs(builder, tabLevel);
     }
     if (!isRoot || (isRoot && !ignoreRoot)) {
-      printElementClose(buffer, element);
+      printElementClose(builder, element);
     }
   }
 
-  private void printTabs(StringBuffer buffer, int tabLevel) {
+  private void printTabs(StringBuilder builder, int tabLevel) {
     for (int i = 0; i < tabLevel; i++) {
-      buffer.append(TAB);
+      builder.append(TAB);
     }
   }
 
-  private void printElementOpen(StringBuffer buffer, MiniElement element) {
-    buffer.append("<");
-    buffer.append(element.getName());
+  private void printElementOpen(StringBuilder builder, MiniElement element) {
+    builder.append("<");
+    builder.append(element.getName());
     for (int i = 0, n = element.getAttributeCount(); i < n; i++) {
-      buffer.append(" ");
-      printAttribute(buffer, element.getAttribute(i));
+      builder.append(" ");
+      printAttribute(builder, element.getAttribute(i));
     }
-    buffer.append(">");
+    builder.append(">");
   }
 
-  private void printElementBody(StringBuffer buffer, MiniElement element) {
+  private void printElementBody(StringBuilder builder, MiniElement element) {
     String bodyContent = element.getBodyContent();
     if (bodyContent != null) {
-      buffer.append(bodyContent);
+      builder.append(bodyContent);
     }
   }
 
-  private void printElementClose(StringBuffer buffer, MiniElement element) {
-    buffer.append("</");
-    buffer.append(element.getName());
-    buffer.append(">");
+  private void printElementClose(StringBuilder builder, MiniElement element) {
+    builder.append("</");
+    builder.append(element.getName());
+    builder.append(">");
   }
 
-  private void printAttribute(StringBuffer buffer, MiniAttribute attribute) {
-    buffer.append(attribute.getName());
-    buffer.append("=\"");
-    buffer.append(attribute.getValue());
-    buffer.append("\"");
+  private void printAttribute(StringBuilder builder, MiniAttribute attribute) {
+    builder.append(attribute.getName());
+    builder.append("=\"");
+    builder.append(attribute.getValue());
+    builder.append("\"");
   }
 
 }

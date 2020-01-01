@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ public abstract class BaseTagHandler implements SqlTagHandler {
     return SqlTagHandler.INCLUDE_BODY;
   }
 
-  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
+  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
     if (tag.isCloseAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {
       if (bodyContent.toString().trim().length() > 0) {
         bodyContent.append(tag.getCloseAttr());
@@ -31,7 +31,7 @@ public abstract class BaseTagHandler implements SqlTagHandler {
     return SqlTagHandler.INCLUDE_BODY;
   }
 
-  public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
+  public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
 
     if (tag.isOpenAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {
       if (bodyContent.toString().trim().length() > 0) {

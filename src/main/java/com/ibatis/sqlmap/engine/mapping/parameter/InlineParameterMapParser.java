@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class InlineParameterMapParser {
     List mappingList = new ArrayList();
 
     StringTokenizer parser = new StringTokenizer(sqlStatement, PARAMETER_TOKEN, true);
-    StringBuffer newSqlBuffer = new StringBuffer();
+    StringBuilder newSqlBuffer = new StringBuilder();
 
     String token = null;
     String lastToken = null;

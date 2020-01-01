@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -198,7 +198,7 @@ public class DomProbe extends BaseProbe {
   }
 
   private Object getElementValue(Element element) {
-    StringBuffer value = null;
+    StringBuilder value = null;
 
     Element prop = element;
 
@@ -206,7 +206,7 @@ public class DomProbe extends BaseProbe {
       // Find text child elements
       NodeList texts = prop.getChildNodes();
       if (texts.getLength() > 0) {
-        value = new StringBuffer();
+        value = new StringBuilder();
         for (int i = 0; i < texts.getLength(); i++) {
           Node text = texts.item(i);
           if (text instanceof CharacterData) {
@@ -222,7 +222,7 @@ public class DomProbe extends BaseProbe {
     if (value == null) {
       return null;
     } else {
-      return String.valueOf(value);
+      return value.toString();
     }
   }
 

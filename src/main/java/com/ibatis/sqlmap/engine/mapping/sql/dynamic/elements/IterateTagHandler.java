@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,7 @@ public class IterateTagHandler extends BaseTagHandler {
   }
 
   @Override
-  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
+  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
     IterateContext iterate = (IterateContext) ctx.getAttribute(tag);
 
     if (iterate.hasNext() || iterate.isFinal()) {
@@ -117,7 +117,7 @@ public class IterateTagHandler extends BaseTagHandler {
   }
 
   @Override
-  public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuffer bodyContent) {
+  public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
     IterateContext iterate = (IterateContext) ctx.getAttribute(tag);
     if (iterate.isPrependEnabled()) {
       super.doPrepend(ctx, tag, parameterObject, bodyContent);
