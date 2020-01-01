@@ -34,7 +34,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 
@@ -43,7 +43,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 
@@ -52,7 +52,7 @@ public class DoubleTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Double(d);
+      return Double.valueOf(d);
     }
   }
 
