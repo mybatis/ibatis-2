@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,18 +43,30 @@ package com.ibatis.common.io;
 import java.io.*;
 
 /**
- * An InputStream backed by a Reader
+ * An InputStream backed by a Reader.
  */
 public class ReaderInputStream extends InputStream {
+
+  /** The reader. */
   protected Reader reader;
+
+  /** The byte array out. */
   protected ByteArrayOutputStream byteArrayOut;
+
+  /** The writer. */
   protected Writer writer;
+
+  /** The chars. */
   protected char[] chars;
+
+  /** The buffer. */
   protected byte[] buffer;
+
+  /** The length. */
   protected int index, length;
 
   /**
-   * Constructor to supply a Reader
+   * Constructor to supply a Reader.
    *
    * @param reader
    *          - the Reader used by the InputStream
@@ -67,7 +79,7 @@ public class ReaderInputStream extends InputStream {
   }
 
   /**
-   * Constructor to supply a Reader and an encoding
+   * Constructor to supply a Reader and an encoding.
    *
    * @param reader
    *          - the Reader used by the InputStream
@@ -95,6 +107,12 @@ public class ReaderInputStream extends InputStream {
     return 0xff & buffer[index++];
   }
 
+  /**
+   * Fill buffer.
+   *
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
   protected void fillBuffer() throws IOException {
     if (length < 0)
       return;

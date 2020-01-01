@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,17 +37,17 @@ import java.sql.Connection;
  * <b>The following example will demonstrate the use of SqlMapClient.</b>
  * 
  * <pre>
- * <i><font color="green">
+ * <i style="color:green">
  * //
  * // autocommit simple query --these are just examples...not patterns
  * //
- * </font></i>
+ * </i>
  * Employee emp = (Employee) <b>sqlMap.queryForObject("getEmployee", Integer.valueOf(1))</b>;
- * <i><font color="green">
+ * <i style="color:green">
  * //
  * // transaction --these are just examples...not patterns
  * //
- * </font></i>
+ * </i>
  * try {
  *   <b>sqlMap.startTransaction()</b>
  *   Employee emp2 = new Employee();
@@ -59,11 +59,12 @@ import java.sql.Connection;
  * } finally {
  *   <b>sqlMap.endTransaction()</b>;
  * }
- * <i><font color="green">
+ * <i style="color:green">
  * //
  * // session --these are just examples...not patterns
  * //
- * </font></i>
+ * </i>
+ * <code>
  * try {
  *   <b>SqlMapSession session = sqlMap.openSession()</b>
  *   <b>session.startTransaction()</b>
@@ -83,16 +84,18 @@ import java.sql.Connection;
  *   // ugly nested finally block above would not be there.  Realize that sessions
  *   // MUST be closed if explicitly opened (via openSession()).
  * }
- * <i><font color="green">
+ * </code>
+ * <i style="color:green">
  * //
  * // batch --these are just examples...not patterns
  * //
- * </font></i>
+ * </i>
+ * <code>
  * try {
  *   <b>sqlMap.startTransaction()</b>
  *   List list = (Employee) <b>sqlMap.queryForList("getFiredEmployees", null)</b>;
  *   <b>sqlMap.startBatch ()</b>;
- *   for (int i=0, n=list.size(); i < n; i++) {
+ *   for (int i=0, n=list.size(); i &lt; n; i++) {
  *     <b>sqlMap.delete ("deleteEmployee", list.get(i))</b>;
  *   }
  *   <b>sqlMap.executeBatch()</b>;
@@ -100,6 +103,7 @@ import java.sql.Connection;
  * } finally {
  *   <b>sqlMap.endTransaction()</b>;
  * }
+ * </code>
  * </pre>
  *
  * @see SqlMapClientBuilder

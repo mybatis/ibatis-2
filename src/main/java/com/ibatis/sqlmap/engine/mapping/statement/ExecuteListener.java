@@ -18,10 +18,8 @@ package com.ibatis.sqlmap.engine.mapping.statement;
 /**
  * The listener interface for receiving execute events. The class that is interested in processing a execute event
  * implements this interface, and the object created with that class is registered with a component using the
- * component's <code>addExecuteListener<code> method. When the execute event occurs, that object's appropriate method is
- * invoked.
- *
- * @see ExecuteEvent
+ * component's <code>addExecuteListener</code> method. When the execute event occurs, that object's appropriate method
+ * is invoked.
  */
 public interface ExecuteListener {
 

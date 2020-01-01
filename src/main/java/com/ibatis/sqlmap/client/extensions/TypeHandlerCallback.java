@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,44 +29,43 @@ import java.sql.SQLException;
  * <b>EXAMPLE</b>
  * <p>
  * Here's a simple example of a boolean handler that uses "Yes" and "No".
- * </p>
  * 
  * <pre>
  * public class YesNoBoolTypeHandlerCallback implements TypeHandlerCallback {
- * <p>
+ *
  *   private static final String YES = "Yes";
  *   private static final String NO = "No";
- * <p>
+ *
  *   public Object getResult(ResultGetter getter) throws SQLException {
  *     String s = getter.getString();
  *     if (YES.equalsIgnoreCase(s)) {
- *       return new Boolean (true);
+ *       return new Boolean(true);
  *     } else if (NO.equalsIgnoreCase(s)) {
- *       return new Boolean (false);
+ *       return new Boolean(false);
  *     } else {
- *       throw new SQLException ("Unexpected value " + s + " found where "+YES+" or "+NO+" was expected.");
+ *       throw new SQLException("Unexpected value " + s + " found where " + YES + " or " + NO + " was expected.");
  *     }
  *   }
- * <p>
+ *
  *   public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
- *     boolean b = ((Boolean)parameter).booleanValue();
+ *     boolean b = ((Boolean) parameter).booleanValue();
  *     if (b) {
  *       setter.setString(YES);
  *     } else {
  *       setter.setString(NO);
  *     }
  *   }
- * <p>
+ *
  *   public Object valueOf(String s) {
  *     if (YES.equalsIgnoreCase(s)) {
- *       return new Boolean (true);
+ *       return new Boolean(true);
  *     } else if (NO.equalsIgnoreCase(s)) {
- *       return new Boolean (false);
+ *       return new Boolean(false);
  *     } else {
- *       throw new SQLException ("Unexpected value " + s + " found where "+YES+" or "+NO+" was expected.");
+ *       throw new SQLException("Unexpected value " + s + " found where " + YES + " or " + NO + " was expected.");
  *     }
  *   }
- * <p>
+ *
  * }
  * </pre>
  */

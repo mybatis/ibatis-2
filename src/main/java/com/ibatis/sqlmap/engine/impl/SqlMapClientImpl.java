@@ -181,10 +181,11 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
   }
 
   /**
-   * TODO Deprecated
+   * TODO Deprecated.
    *
    * @return Current connection
    * @throws SQLException
+   *           the SQL exception
    * @deprecated
    */
   public Connection getUserConnection() throws SQLException {

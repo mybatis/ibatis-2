@@ -60,6 +60,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
    * Initializes the data exchange instance.
    *
    * @param properties
+   *          the properties
    */
   public void initialize(Map properties) {
     Object map = properties.get("map");
