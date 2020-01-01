@@ -48,7 +48,7 @@ public class MiniCodec {
   /**
    * This nasty method uses exception handling for flow control to reduce the number of conditional checks. Nasty
    * performance enhancement (hopefully).
-   * <p/>
+   * <p>
    * For all of it's nastiness, this method replaces all occurrences of a pattern with a new pattern, and quite quickly.
    *
    * @param pattern

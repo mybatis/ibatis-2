@@ -282,7 +282,7 @@ public class NodeletParser {
 
   /**
    * Inner helper class that assists with building XPath paths.
-   * <p/>
+   * <p>
    * Note: Currently this is a bit slow and could be optimized.
    */
   private static class Path {

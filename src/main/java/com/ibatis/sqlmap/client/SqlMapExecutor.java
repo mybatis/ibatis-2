@@ -35,7 +35,7 @@ public interface SqlMapExecutor {
    * Executes a mapped SQL INSERT statement. Insert is a bit different from other update methods, as it provides
    * facilities for returning the primary key of the newly inserted row (rather than the effected rows). This
    * functionality is of course optional.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the INSERT values.
    *
    * @param id
@@ -53,7 +53,7 @@ public interface SqlMapExecutor {
    * Executes a mapped SQL INSERT statement. Insert is a bit different from other update methods, as it provides
    * facilities for returning the primary key of the newly inserted row (rather than the effected rows). This
    * functionality is of course optional.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -68,7 +68,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL UPDATE statement. Update can also be used for any other update statement type, such as
    * inserts and deletes. Update returns the number of rows effected.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the UPDATE values as well as the WHERE clause
    * parameter(s).
    *
@@ -85,7 +85,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL UPDATE statement. Update can also be used for any other update statement type, such as
    * inserts and deletes. Update returns the number of rows effected.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -98,7 +98,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL DELETE statement. Delete returns the number of rows effected.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the DELETE
    * statement.
    *
@@ -114,7 +114,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL DELETE statement. Delete returns the number of rows effected.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -127,7 +127,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a single object instance.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -143,7 +143,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a single object instance.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -156,7 +156,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate the supplied result object.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -175,7 +175,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -191,7 +191,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -205,7 +205,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects within a certain
    * range.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -226,7 +226,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects within a certain
    * range.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -244,10 +244,10 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns a number of result objects that will be handled one at a time
    * by a RowHandler.
-   * <p/>
+   * <p>
    * This is generally a good approach to take when dealing with large sets of records (i.e. hundreds, thousands...)
    * that need to be processed without eating up all of the system resources.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -265,10 +265,10 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns a number of result objects that will be handled one at a time
    * by a RowHandler.
-   * <p/>
+   * <p>
    * This is generally a good approach to take when dealing with large sets of records (i.e. hundreds, thousands...)
    * that need to be processed without eating up all of the system resources.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -282,7 +282,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects a page at a time.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -301,7 +301,7 @@ public interface SqlMapExecutor {
 
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects a page at a time.
-   * <p/>
+   * <p>
    * This overload assumes no parameter is needed.
    *
    * @param id
@@ -318,7 +318,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects that will be keyed
    * into a Map.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *
@@ -337,7 +337,7 @@ public interface SqlMapExecutor {
   /**
    * Executes a mapped SQL SELECT statement that returns data to populate a number of result objects from which one
    * property will be keyed into a Map.
-   * <p/>
+   * <p>
    * The parameter object is generally used to supply the input data for the WHERE clause parameter(s) of the SELECT
    * statement.
    *

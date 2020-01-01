@@ -40,7 +40,7 @@ public interface SqlMapTransactionManager {
    *   sqlMap.endTransaction();
    * }
    * </pre>
-   * <p/>
+   * <p>
    * Always call endTransaction() once startTransaction() has been called.
    *
    * @throws SQLException
@@ -61,7 +61,7 @@ public interface SqlMapTransactionManager {
    *   sqlMap.endTransaction();
    * }
    * </pre>
-   * <p/>
+   * <p>
    * Always call endTransaction() once startTransaction() has been called.
    *
    * @param transactionIsolation
@@ -90,7 +90,7 @@ public interface SqlMapTransactionManager {
 
   /**
    * Allows the developer to easily use an externally supplied connection when executing statements.
-   * <p/>
+   * <p>
    * <b>Important:</b> Using a user supplied connection basically sidesteps the transaction manager, so you are
    * responsible for appropriately. Here's a (very) simple example (throws SQLException):
    * 
@@ -127,7 +127,7 @@ public interface SqlMapTransactionManager {
 
   /**
    * Returns the current user supplied connection as set by setUserConnection().
-   * <p/>
+   * <p>
    * TODO : DEPRECATED
    *
    * @return The current user supplied connection.

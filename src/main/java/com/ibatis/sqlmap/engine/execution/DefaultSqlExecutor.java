@@ -883,7 +883,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     /**
      * TODO (Jeff Butler) - maybe this method should be deprecated in some release, and then removed in some even later
      * release. executeBatchDetailed gives much more complete information.
-     * <p/>
+     * <p>
      * Execute the current session's batch
      *
      * @return - the number of rows updated

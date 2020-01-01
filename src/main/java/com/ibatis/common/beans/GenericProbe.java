@@ -22,9 +22,9 @@ import java.util.StringTokenizer;
 /**
  * StaticBeanProbe provides methods that allow simple, reflective access to JavaBeans style properties. Methods are
  * provided for all simple types as well as object types.
- * <p/>
+ * <p>
  * Examples:
- * <p/>
+ * <p>
  * StaticBeanProbe.setObject(object, propertyName, value);
  * <P>
  * Object value = StaticBeanProbe.getObject(object, propertyName);

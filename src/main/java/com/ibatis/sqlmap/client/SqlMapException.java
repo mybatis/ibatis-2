@@ -19,7 +19,7 @@ package com.ibatis.sqlmap.client;
  * Thrown to indicate a problem with SQL Map configuration or state. Generally if an SqlMapException is thrown,
  * something is critically wronge and cannot be corrected until a change to the configuration or the environment is
  * made.
- * <p/>
+ * <p>
  * Note: Generally this wouldn't be used to indicate that an SQL execution error occurred (that's what SQLException is
  * for).
  */

@@ -20,20 +20,20 @@ import java.sql.Connection;
 /**
  * A thread safe client for working with your SQL Maps (Start Here). This interface inherits transaction control and
  * execution methods from the SqlMapTransactionManager and SqlMapExecutor interfaces.
- * <p/>
+ * <p>
  * The SqlMapClient is the central class for working with SQL Maps. This class will allow you to run mapped statements
  * (select, insert, update, delete etc.), and also demarcate transactions and work with batches. Once you have an
  * SqlMapClient instance, everything you need to work with SQL Maps is easily available.
- * <p/>
+ * <p>
  * The SqlMapClient can either be worked with directly as a multi-threaded client (internal session management), or you
  * can get a single threaded session and work with that. There may be a slight performance increase if you explicitly
  * get a session (using the openSession() method), as it saves the SqlMapClient from having to manage threads contexts.
  * But for most cases it won't make much of a difference, so choose whichever paradigm suits your needs or preferences.
- * <p/>
+ * <p>
  * An SqlMapClient instance can be safely made <i>static</i> or applied as a <i>Singleton</i>. Generally it's a good
  * idea to make a simple configuration class that will configure the instance (using SqlMapClientBuilder) and provide
  * access to it.
- * <p/>
+ * <p>
  * <b>The following example will demonstrate the use of SqlMapClient.</b>
  * 
  * <pre>
@@ -113,7 +113,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * itself is a thread safe SqlMapSession implementation, so you can also just work directly with it. If you do get a
    * session explicitly using this method <b>be sure to close it!</b> You can close a session using the
    * sqlMapSession.close() method.
-   * <p/>
+   * <p>
    *
    * @return An SqlMapSession instance.
    */
@@ -124,11 +124,11 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * itself is a thread safe SqlMapSession implementation, so you can also just work directly with it. If you do get a
    * session explicitly using this method <b>be sure to close it!</b> You can close a session using the
    * SqlMapSession.close() method.
-   * <p/>
+   * <p>
    * This particular implementation takes a user provided connection as a parameter. This connection will be used for
    * executing statements, and therefore overrides any configured datasources. Using this approach allows the developer
    * to easily use an externally supplied connection for executing statements.
-   * <p/>
+   * <p>
    * <b>Important:</b> Using a user supplied connection basically sidesteps the datasource so you are responsible for
    * appropriately handling your connection lifecycle (i.e. closing). Here's a (very) simple example (throws
    * SQLException):

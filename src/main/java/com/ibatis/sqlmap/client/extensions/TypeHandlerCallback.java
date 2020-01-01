@@ -19,13 +19,13 @@ import java.sql.SQLException;
 
 /**
  * A simple interface for implementing custom type handlers.
- * <p/>
+ * <p>
  * Using this interface, you can implement a type handler that will perform customized processing before parameters are
  * set on a PreparedStatement and after values are retrieved from a ResultSet. Using a custom type handler you can
  * extend the framework to handle types that are not supported, or handle supported types in a different way. For
  * example, you might use a custom type handler to implement proprietary BLOB support (e.g. Oracle), or you might use it
  * to handle booleans using "Y" and "N" instead of the more typical 0/1.
- * <p/>
+ * <p>
  * <b>EXAMPLE</b>
  * <p>
  * Here's a simple example of a boolean handler that uses "Yes" and "No".
@@ -33,10 +33,10 @@ import java.sql.SQLException;
  * 
  * <pre>
  * public class YesNoBoolTypeHandlerCallback implements TypeHandlerCallback {
- * <p/>
+ * <p>
  *   private static final String YES = "Yes";
  *   private static final String NO = "No";
- * <p/>
+ * <p>
  *   public Object getResult(ResultGetter getter) throws SQLException {
  *     String s = getter.getString();
  *     if (YES.equalsIgnoreCase(s)) {
@@ -47,7 +47,7 @@ import java.sql.SQLException;
  *       throw new SQLException ("Unexpected value " + s + " found where "+YES+" or "+NO+" was expected.");
  *     }
  *   }
- * <p/>
+ * <p>
  *   public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
  *     boolean b = ((Boolean)parameter).booleanValue();
  *     if (b) {
@@ -56,7 +56,7 @@ import java.sql.SQLException;
  *       setter.setString(NO);
  *     }
  *   }
- * <p/>
+ * <p>
  *   public Object valueOf(String s) {
  *     if (YES.equalsIgnoreCase(s)) {
  *       return new Boolean (true);
@@ -66,7 +66,7 @@ import java.sql.SQLException;
  *       throw new SQLException ("Unexpected value " + s + " found where "+YES+" or "+NO+" was expected.");
  *     }
  *   }
- * <p/>
+ * <p>
  * }
  * </pre>
  */

@@ -32,9 +32,9 @@ import java.util.logging.Logger;
 
 /**
  * This is a simple, synchronous, thread-safe database connection pool.
- * <p/>
+ * <p>
  * REQUIRED PROPERTIES ------------------- JDBC.Driver JDBC.ConnectionURL JDBC.Username JDBC.Password
- * <p/>
+ * <p>
  * Pool.MaximumActiveConnections Pool.MaximumIdleConnections Pool.MaximumCheckoutTime Pool.TimeToWait Pool.PingQuery
  * Pool.PingEnabled Pool.PingConnectionsOlderThan Pool.PingConnectionsNotUsedFor Pool.QuietMode
  */
