@@ -34,7 +34,7 @@ public class LongTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Long(l);
+      return Long.valueOf(l);
     }
   }
 
@@ -43,7 +43,7 @@ public class LongTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (rs.wasNull()) {
       return null;
     } else {
-      return new Long(l);
+      return Long.valueOf(l);
     }
   }
 
@@ -52,7 +52,7 @@ public class LongTypeHandler extends BaseTypeHandler implements TypeHandler {
     if (cs.wasNull()) {
       return null;
     } else {
-      return new Long(l);
+      return Long.valueOf(l);
     }
   }
 
