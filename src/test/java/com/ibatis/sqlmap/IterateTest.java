@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +104,7 @@ public class IterateTest extends BaseSqlMapTest {
   // LIST IN MAP
 
   public void testListInMap() throws SQLException {
-    List paramList = new Vector();
+    List paramList = new ArrayList();
     paramList.add(Integer.valueOf(1));
     paramList.add(Integer.valueOf(2));
     paramList.add(Integer.valueOf(3));
@@ -118,7 +118,7 @@ public class IterateTest extends BaseSqlMapTest {
   }
 
   public void testListDirect() throws SQLException {
-    List paramList = new Vector();
+    List paramList = new ArrayList();
     paramList.add(Integer.valueOf(1));
     paramList.add(Integer.valueOf(2));
     paramList.add(Integer.valueOf(3));
