@@ -69,6 +69,9 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <module.name>org.mybatis.mybatis2</module.name>
+    <osgi.export>org.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
+    <osgi.import>*;resolution:=optional</osgi.import>
+    <osgi.dynamicImport>*</osgi.dynamicImport>
     <signature.artifact>java17</signature.artifact>
     <signature.version>1.0</signature.version>
 
