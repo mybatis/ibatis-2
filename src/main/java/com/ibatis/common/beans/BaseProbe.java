@@ -63,7 +63,7 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof Object[]) {
         value = ((Object[]) list)[i];
       } else if (list instanceof char[]) {
-        value = new Character(((char[]) list)[i]);
+        value = Character.valueOf(((char[]) list)[i]);
       } else if (list instanceof boolean[]) {
         value = new Boolean(((boolean[]) list)[i]);
       } else if (list instanceof byte[]) {
