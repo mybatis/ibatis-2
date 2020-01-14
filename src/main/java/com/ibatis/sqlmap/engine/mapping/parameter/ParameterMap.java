@@ -333,7 +333,7 @@ public class ParameterMap {
             DatabaseMetaData dbmd = ps.getConnection().getMetaData();
             String databaseProductName = dbmd.getDatabaseProductName();
             String jdbcDriverName = dbmd.getDriverName();
-            if (databaseProductName.startsWith("Informix") || jdbcDriverName.startsWith("Microsoft SQL Server")) {
+            if (databaseProductName.startsWith("Informix") || databaseProductName.startsWith("Microsoft SQL Server")) {
               useSetObjectForNullValue = Boolean.TRUE;
             } else if (databaseProductName.startsWith("DB2") || jdbcDriverName.startsWith("jConnect")
                 || jdbcDriverName.startsWith("SQLServer") || jdbcDriverName.startsWith("Apache Derby Embedded")) {
