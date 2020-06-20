@@ -41,6 +41,8 @@
 package com.ibatis.common.io;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * An InputStream backed by a Reader.
@@ -91,7 +93,7 @@ public class ReaderInputStream extends InputStream {
   public ReaderInputStream(Reader reader, String encoding) throws UnsupportedEncodingException {
     this.reader = reader;
     byteArrayOut = new ByteArrayOutputStream();
-    writer = new OutputStreamWriter(byteArrayOut, encoding);
+    writer = new OutputStreamWriter(byteArrayOut, Charset.forName(encoding));
     chars = new char[1024];
   }
 
