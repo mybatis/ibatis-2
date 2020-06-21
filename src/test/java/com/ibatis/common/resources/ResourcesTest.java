@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,13 @@
  */
 package com.ibatis.common.resources;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,33 +33,16 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * To change the template for this generated type comment go to Window - Preferences - Java - Code Generation - Code and
  * Comments
  */
-public class ResourcesTest extends TestCase {
+public class ResourcesTest {
   private boolean isUsingPrivateClassloader = false;
 
-  public static void main(String[] args) {
-    junit.textui.TestRunner.run(ResourcesTest.class);
-  }
-
-  /*
-   * @see TestCase#setUp()
-   */
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-  }
-
-  /*
-   * @see TestCase#tearDown()
-   */
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
-
+  @Test
   public void testSetDefaultClassLoader() {
     ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
     ClassLoader tmp = Resources.getDefaultClassLoader();
@@ -66,6 +55,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for URL getResourceURL(String)
    */
+  @Test
   public void testGetResourceURLString() {
     String resourceName;
     URL url;
@@ -94,6 +84,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for URL getResourceURL(ClassLoader, String)
    */
+  @Test
   public void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
@@ -130,6 +121,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for InputStream getResourceAsStream(String)
    */
+  @Test
   public void testGetResourceAsStreamString() {
     InputStream inputStream;
     String resourceName;
@@ -157,6 +149,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for InputStream getResourceAsStream(ClassLoader, String)
    */
+  @Test
   public void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
@@ -192,6 +185,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for Properties getResourceAsProperties(String)
    */
+  @Test
   public void testGetResourceAsPropertiesString() {
     String resourceName;
     String testProp = "name";
@@ -225,6 +219,7 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for Properties getResourceAsProperties(ClassLoader, String)
    */
+  @Test
   public void testGetResourceAsPropertiesClassLoaderString() {
     String resourceName;
     String testProp = "name";
@@ -265,48 +260,58 @@ public class ResourcesTest extends TestCase {
   /*
    * Class to test for Reader getResourceAsReader(String)
    */
+  @Test
   public void testGetResourceAsReaderString() {
   }
 
   /*
    * Class to test for Reader getResourceAsReader(ClassLoader, String)
    */
+  @Test
   public void testGetResourceAsReaderClassLoaderString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(String)
    */
+  @Test
   public void testGetResourceAsFileString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(ClassLoader, String)
    */
+  @Test
   public void testGetResourceAsFileClassLoaderString() {
   }
 
+  @Test
   public void testGetUrlAsStream() {
   }
 
+  @Test
   public void testGetUrlAsReader() {
   }
 
+  @Test
   public void testGetUrlAsProperties() {
   }
 
+  @Test
   public void testClassForName() {
   }
 
   /*
    * Class to test for Object instantiate(String)
    */
+  @Test
   public void testInstantiateString() {
   }
 
   /*
    * Class to test for Object instantiate(Class)
    */
+  @Test
   public void testInstantiateClass() {
   }
 

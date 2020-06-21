@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,30 +15,35 @@
  */
 package com.ibatis.sqlmap.builder.xml;
 
-import junit.framework.TestCase;
 import com.ibatis.sqlmap.engine.builder.xml.SqlMapClasspathEntityResolver;
+
+import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class SqlMapClasspathEntityResolverTest extends TestCase {
+public class SqlMapClasspathEntityResolverTest {
 
   // ibatis.com
 
+  @Test
   public void testComConfigSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
+  @Test
   public void testComConfigPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
+  @Test
   public void testComMapSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
+  @Test
   public void testComMapPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
@@ -46,26 +51,31 @@ public class SqlMapClasspathEntityResolverTest extends TestCase {
 
   // ibatis.apache.org
 
+  @Test
   public void testOrgConfigSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
+  @Test
   public void testOrgConfigPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
+  @Test
   public void testOrgMapSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
+  @Test
   public void testOrgMapPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
+  @Test
   public void testOddCase() {
     String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);

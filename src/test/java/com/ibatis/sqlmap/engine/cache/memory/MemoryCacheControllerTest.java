@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,9 @@ package com.ibatis.sqlmap.engine.cache.memory;
 import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.lru.LruCacheControllerTest;
 
-public class MemoryCacheControllerTest extends LruCacheControllerTest {
+import org.junit.jupiter.api.Test;
 
-  public static void main(String[] args) {
-    junit.textui.TestRunner.run(MemoryCacheControllerTest.class);
-  }
+public class MemoryCacheControllerTest extends LruCacheControllerTest {
 
   @Override
   protected CacheController getController() {
@@ -30,6 +28,7 @@ public class MemoryCacheControllerTest extends LruCacheControllerTest {
   }
 
   @Override
+  @Test
   public void testSizeOne() {
     // This is not relevant for this model
   }

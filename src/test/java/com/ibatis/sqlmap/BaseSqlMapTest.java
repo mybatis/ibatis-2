@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,27 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import junit.framework.TestCase;
 import testdomain.Account;
 import testdomain.Order;
 import testdomain.PrivateAccount;
 import testdomain.FieldAccount;
 
 import javax.sql.DataSource;
+
+import org.junit.jupiter.api.Test;
+
 import java.io.Reader;
 import java.sql.Connection;
 import java.util.*;
 
-public class BaseSqlMapTest extends TestCase {
+public class BaseSqlMapTest {
 
   protected static SqlMapClient sqlMap;
 
@@ -163,6 +168,7 @@ public class BaseSqlMapTest extends TestCase {
     assertEquals("C4B 4F4", order.get("postalCode"));
   }
 
+  @Test
   public void testDummy() {
     // just to avoid warnings when running all tests.
   }

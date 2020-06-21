@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,9 @@ package com.ibatis.sqlmap.jira;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import testdomain.ArticleIndex;
 import testdomain.ArticleIndexDenorm;
@@ -44,8 +47,8 @@ import com.ibatis.sqlmap.BaseSqlMapTest;
  */
 public class JiraIbatis260 extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @BeforeEach
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jira.sql");
   }
@@ -59,6 +62,7 @@ public class JiraIbatis260 extends BaseSqlMapTest {
    * @throws Exception
    *           none should be thrown (if the regression test succeeds)
    */
+  @Test
   public void testIbatis260Error1() throws Exception {
     List groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
 

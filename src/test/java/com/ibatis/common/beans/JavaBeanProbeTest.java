@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
  */
 package com.ibatis.common.beans;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class JavaBeanProbeTest extends TestCase {
+import org.junit.jupiter.api.Test;
 
-  public static void main(String[] args) {
-    junit.textui.TestRunner.run(JavaBeanProbeTest.class);
-  }
+public class JavaBeanProbeTest {
 
+  @Test
   public void testGetPropertyTypeForSetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
@@ -30,6 +31,7 @@ public class JavaBeanProbeTest extends TestCase {
     assertTrue(p.getPropertyTypeForSetter(b, "testBean.testBean").equals(TestBean.class));
   }
 
+  @Test
   public void testGetPropertyTypeForGetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
@@ -37,6 +39,7 @@ public class JavaBeanProbeTest extends TestCase {
     assertTrue(p.getPropertyTypeForGetter(b, "testBean.testBean").equals(TestBean.class));
   }
 
+  @Test
   public void testHasWritableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
@@ -44,6 +47,7 @@ public class JavaBeanProbeTest extends TestCase {
     assertTrue(p.hasWritableProperty(b, "testBean.testBean"));
   }
 
+  @Test
   public void testHasReadableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
@@ -51,6 +55,7 @@ public class JavaBeanProbeTest extends TestCase {
     assertTrue(p.hasReadableProperty(b, "testBean.testBean"));
   }
 
+  @Test
   public void testSetAndGetObject() {
     TestBean b = getBean();
     Probe p = getProbe(b);

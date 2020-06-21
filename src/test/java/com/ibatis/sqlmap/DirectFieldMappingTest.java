@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,18 @@ import testdomain.PrivateAccount;
 
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class DirectFieldMappingTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @BeforeEach
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
+  @Test
   public void testInsertAndSelectDirectToFields() throws SQLException {
     FieldAccount account = newFieldAccount6();
 
@@ -39,6 +43,7 @@ public class DirectFieldMappingTest extends BaseSqlMapTest {
     assertFieldAccount6(account.account());
   }
 
+  @Test
   public void testGetAccountWithPrivateConstructor() throws SQLException {
     FieldAccount account = newFieldAccount6();
 

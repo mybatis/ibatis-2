@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,18 @@
  */
 package com.ibatis.common.beans;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.SQLException;
-import junit.framework.TestCase;
+
+import org.junit.jupiter.api.Test;
+
 import badbeans.*;
 
-public class BadBeanTest extends TestCase {
+public class BadBeanTest {
 
   private static final String PROPNAME = "value";
   private static final Object STRING_VALUE = "1";
@@ -29,6 +35,7 @@ public class BadBeanTest extends TestCase {
   private static final Object[] STRING_PARAMS = new Object[] { STRING_VALUE };
   private static final Object[] INT_PARAMS = new Object[] { INT_VALUE };
 
+  @Test
   public void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
     GoodBean bean = new GoodBean();
     ClassInfo info = ClassInfo.getInstance(GoodBean.class);
@@ -38,6 +45,7 @@ public class BadBeanTest extends TestCase {
     assertEquals(String.class, info.getGetterType(PROPNAME));
   }
 
+  @Test
   public void testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
     BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
@@ -47,6 +55,7 @@ public class BadBeanTest extends TestCase {
     assertEquals(String.class, info.getGetterType(PROPNAME));
   }
 
+  @Test
   public void testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
     BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
@@ -56,6 +65,7 @@ public class BadBeanTest extends TestCase {
     assertEquals(String.class, info.getGetterType(PROPNAME));
   }
 
+  @Test
   public void testShouldFailInitializingClassInfoForBeanWithNoGetterOverloadedSetter() {
     try {
       try {
@@ -70,6 +80,7 @@ public class BadBeanTest extends TestCase {
     }
   }
 
+  @Test
   public void testShouldFailInitializingClassInfoForBeanWithDifferentTypeOverloadedSetter() {
     try {
       try {
@@ -84,6 +95,7 @@ public class BadBeanTest extends TestCase {
     }
   }
 
+  @Test
   public void testUnwrapThrowable() {
     SQLException cause = new SQLException("test");
     UndeclaredThrowableException e = new UndeclaredThrowableException(cause);

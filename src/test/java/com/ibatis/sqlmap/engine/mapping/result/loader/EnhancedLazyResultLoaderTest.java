@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,19 @@
  */
 package com.ibatis.sqlmap.engine.mapping.result.loader;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.SQLException;
+
+import org.junit.jupiter.api.Test;
 
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean1;
 import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean2;
 
-import junit.framework.TestCase;
-
-public class EnhancedLazyResultLoaderTest extends TestCase {
+public class EnhancedLazyResultLoaderTest {
 
   /**
    * Test if a method in a proxied object can access a default method of another class in the same package with default
@@ -32,6 +35,7 @@ public class EnhancedLazyResultLoaderTest extends TestCase {
    * <p>
    * Depending of the implementation of the Cglib-proxy the access will throw an IllegalAccessException.
    */
+  @Test
   public void testProxyMethodAccess() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
@@ -45,6 +49,7 @@ public class EnhancedLazyResultLoaderTest extends TestCase {
   /**
    * Test if a proxy for a null nevertheless dispatch to a default object.
    */
+  @Test
   public void testNullProxy() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 

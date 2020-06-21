@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,26 @@
  */
 package threads;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.*;
-import junit.framework.TestCase;
 
 import java.io.*;
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
+
 import java.sql.SQLException;
 
-public class RemapResultsThreadTest extends TestCase {
+public class RemapResultsThreadTest {
 
+  @Test
   public void testWithRemap() throws Exception {
     runTest("WithRemap");
   }
 
+  @Test
   public void testWithoutRemap() throws Exception {
     runTest("WithoutRemap");
   }

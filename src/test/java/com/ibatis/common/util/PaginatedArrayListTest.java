@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,21 @@
  */
 package com.ibatis.common.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 
-public class PaginatedArrayListTest extends TestCase {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class PaginatedArrayListTest {
 
   private PaginatedArrayList smallPageList;
   private PaginatedArrayList oddPageList;
   private PaginatedArrayList evenPageList;
 
-  @Override
-  protected void setUp() throws Exception {
+  @BeforeEach
+  public void setUp() {
     smallPageList = new PaginatedArrayList(5);
     smallPageList.add(Integer.valueOf(0));
     smallPageList.add(Integer.valueOf(1));
@@ -71,6 +74,7 @@ public class PaginatedArrayListTest extends TestCase {
 
   }
 
+  @Test
   public void testOddPaginatedIterator() {
 
     assertEquals(true, oddPageList.isFirstPage());
@@ -140,6 +144,7 @@ public class PaginatedArrayListTest extends TestCase {
     assertEquals(Integer.valueOf(17), oddPageList.get(2));
   }
 
+  @Test
   public void testEvenPaginatedIterator() {
 
     assertEquals(true, evenPageList.isFirstPage());
@@ -199,6 +204,7 @@ public class PaginatedArrayListTest extends TestCase {
     assertEquals(Integer.valueOf(14), evenPageList.get(4));
   }
 
+  @Test
   public void testSmallPaginatedIterator() {
 
     assertEquals(true, smallPageList.isFirstPage());
