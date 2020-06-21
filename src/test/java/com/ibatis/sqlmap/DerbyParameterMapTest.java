@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+
 /**
  * TestCase for validating PreparedStatement.setNull calls for Derby. See IBATIS-536 for more information.
  */
@@ -22,8 +26,8 @@ public class DerbyParameterMapTest extends ParameterMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }

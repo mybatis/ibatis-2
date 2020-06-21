@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,38 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import testdomain.*;
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class RepeatingGroupMappingTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");
     initScript("scripts/jpetstore-hsqldb-dataload.sql");
   }
 
+  @Test
   public void testGroupBy() throws Exception {
     List list = sqlMap.queryForList("getAllCategories", null);
     assertEquals(5, list.size());
   }
 
+  @Test
   public void testGroupByExtended() throws Exception {
     List list = sqlMap.queryForList("getAllCategoriesExtended", null);
     assertEquals(5, list.size());
   }
 
+  @Test
   public void testNestedProperties() throws Exception {
     List list = sqlMap.queryForList("getFish", null);
     assertEquals(1, list.size());
@@ -67,6 +76,7 @@ public class RepeatingGroupMappingTest extends BaseSqlMapTest {
    * @throws Exception
    *           none should be thrown.
    */
+  @Test
   public void testGroupByJIRA250() throws Exception {
     List list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
     Category cat = (Category) list.get(0);

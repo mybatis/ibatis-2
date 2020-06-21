@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import testdomain.Book;
 import testdomain.Document;
 import testdomain.Magazine;
@@ -22,14 +25,18 @@ import testdomain.PersonDocument;
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class DiscriminatorTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/docs-init.sql");
   }
 
+  @Test
   public void testDiscriminator() throws Exception {
 
     List list = sqlMap.queryForList("getDocuments", null);
@@ -55,6 +62,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
     assertEquals("Paris", ((Magazine) list.get(3)).getCity());
   }
 
+  @Test
   public void testDiscriminatorInNestedResultMap() throws Exception {
     List list = sqlMap.queryForList("getPersonDocuments");
     assertEquals(3, list.size());
@@ -65,6 +73,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testDiscriminatorWithNestedResultMap() throws Exception {
     List list = sqlMap.queryForList("getDocumentsWithAttributes");
     assertEquals(6, list.size());

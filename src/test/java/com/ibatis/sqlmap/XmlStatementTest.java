@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,30 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import xmltester.*;
 import xmltester.MiniParser;
 
 import java.sql.SQLException;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class XmlStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
     initScript("scripts/order-init.sql");
     initScript("scripts/line_item-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
+  @Test
   public void testExecuteQueryForXml() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>1</id></parameter>");
     assertNotNull(account);
@@ -46,6 +49,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
     assertEquals("clinton.begin@ibatis.com", dom.getValue("EMAILADDRESS"));
   }
 
+  @Test
   public void testExecuteQueryForXmlExternalMaps() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXmlExternalMaps", "<parameter><id>1</id></parameter>");
     assertNotNull(account);
@@ -60,6 +64,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
     assertEquals("clinton.begin@ibatis.com", dom.getValue("account.EMAILADDRESS"));
   }
 
+  @Test
   public void testExecuteQueryForOrderXml() throws SQLException {
     String order = (String) sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
     assertNotNull(order);
@@ -68,6 +73,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
     assertEquals("2", dom.getValue("lineItems.lineItem.ID"));
   }
 
+  @Test
   public void testExecuteQueryForXmlSpecialChars() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>5</id></parameter>");
     assertNotNull(account);

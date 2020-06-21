@@ -15,25 +15,27 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+
 import testdomain.Account;
 
 import java.sql.SQLException;
 import java.util.*;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class IterateTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
   // Iterate
 
+  @Test
   public void testIterate() throws SQLException {
     List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterate", params);
@@ -43,6 +45,7 @@ public class IterateTest extends BaseSqlMapTest {
 
   // Iterate
 
+  @Test
   public void testIterateInConditional() throws SQLException {
     List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterateInConditional", params);
@@ -52,6 +55,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, ((Account) list.get(1)).getId());
   }
 
+  @Test
   public void testIterateLiteral() throws SQLException {
     List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("dynamicIterateLiteral", params);
@@ -59,6 +63,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testMultiIterate() throws SQLException {
     List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("multiDynamicIterate", params);
@@ -66,6 +71,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testMultiIterateLiteral() throws SQLException {
     List params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List list = sqlMap.queryForList("multiDynamicIterateLiteral", params);
@@ -75,6 +81,7 @@ public class IterateTest extends BaseSqlMapTest {
 
   // ARRAY
 
+  @Test
   public void testArrayPropertyIterate() throws SQLException {
     Account account = new Account();
     account.setIds(new int[] { 1, 2, 3 });
@@ -83,6 +90,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testArrayPropertyIterate2() throws SQLException {
     Account account = new Account();
     account.setAge(4);
@@ -92,6 +100,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testArrayPropertyIterate2Literal() throws SQLException {
     Account account = new Account();
     account.setAge(4);
@@ -103,6 +112,7 @@ public class IterateTest extends BaseSqlMapTest {
 
   // LIST IN MAP
 
+  @Test
   public void testListInMap() throws SQLException {
     List paramList = new ArrayList();
     paramList.add(Integer.valueOf(1));
@@ -117,6 +127,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testListDirect() throws SQLException {
     List paramList = new ArrayList();
     paramList.add(Integer.valueOf(1));
@@ -128,6 +139,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testIterateNestedListProperty() throws SQLException {
     Account account = new Account();
     account.setAccountList(new ArrayList());
@@ -140,6 +152,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testIterateNestedListPropertyB() throws SQLException {
     Account account = new Account();
     account.setId(99);
@@ -153,6 +166,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void testIterateNestedMapListProperty() throws SQLException {
     Map account = new HashMap();
     List accountList = new ArrayList();
@@ -166,6 +180,7 @@ public class IterateTest extends BaseSqlMapTest {
     assertEquals(3, list.size());
   }
 
+  @Test
   public void xtestArrayPropertyIterate2() throws SQLException {
     Account account = new Account();
     account.setIds(new int[] { 1, 2, 3 });

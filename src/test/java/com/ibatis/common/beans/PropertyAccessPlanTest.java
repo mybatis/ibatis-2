@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,17 @@
  */
 package com.ibatis.common.beans;
 
+import static org.junit.Assert.assertEquals;
+
 import com.ibatis.sqlmap.engine.accessplan.AccessPlan;
 import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
-import junit.framework.TestCase;
 import testdomain.Order;
 
 import java.math.BigDecimal;
 
-public class PropertyAccessPlanTest extends TestCase {
+import org.junit.Test;
+
+public class PropertyAccessPlanTest {
 
   private static final String[] properties = { "id", "id", "account.firstName", "account.lastName",
       "account.emailAddress", "cardType", "cardNumber", "cardExpiry", "favouriteLineItem.itemCode",
@@ -31,6 +34,7 @@ public class PropertyAccessPlanTest extends TestCase {
   private static final Object[] values = { Integer.valueOf(100), Integer.valueOf(100), "Clinton", "Begin",
       "clinton@ibatis.com", "VISA", "1234567890", "05/06", "M100", Integer.valueOf(3), new BigDecimal(150) };
 
+  @Test
   public void testSetAndGetProperties() {
 
     AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);

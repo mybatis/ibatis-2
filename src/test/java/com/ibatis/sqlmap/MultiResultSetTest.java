@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,18 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.ibatis.common.resources.Resources;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -28,8 +35,8 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
         Resources.getResourceAsProperties("com/ibatis/sqlmap/maps/DerbySqlMapConfig.properties"));
     initScript("scripts/account-init.sql");
@@ -37,6 +44,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
     Map persons = new HashMap();
     persons.put("1", Integer.valueOf(1));
@@ -49,6 +57,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
     assertEquals(2, ((List) results.get(1)).size());
   }
 
+  @Test
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
     Map persons = new HashMap();
     persons.put("1", Integer.valueOf(1));
@@ -61,6 +70,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
     assertEquals(2, ((List) results.get(1)).size());
   }
 
+  @Test
   public void testCallableStatementShouldReturnTwoResultSets() throws Exception {
     sqlMap.startTransaction();
     Connection conn = sqlMap.getCurrentConnection();

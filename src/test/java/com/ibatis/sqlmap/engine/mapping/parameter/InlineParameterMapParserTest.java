@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2018 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,17 @@
  */
 package com.ibatis.sqlmap.engine.mapping.parameter;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.ibatis.sqlmap.engine.mapping.sql.SqlText;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
-public class InlineParameterMapParserTest extends TestCase {
+import org.junit.Test;
 
+public class InlineParameterMapParserTest {
+
+  @Test
   public void testParseInlineParameterMapTypeHandlerFactoryString() {
     InlineParameterMapParser parser = new InlineParameterMapParser();
     SqlText parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),

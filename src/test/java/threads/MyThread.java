@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,9 @@ package threads;
 import java.sql.SQLException;
 import java.util.List;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import threads.Foo;
 
 class MyThread extends Thread {
 
@@ -39,7 +38,7 @@ class MyThread extends Thread {
     while (true) {
       try {
         List<Foo> list = sqlMap.queryForList("selectFoo" + remap, null);
-        TestCase.assertEquals(300, list.size());
+        Assert.assertEquals(300, list.size());
         check(list);
       } catch (SQLException e) {
         throw new RuntimeException(e);
@@ -50,7 +49,7 @@ class MyThread extends Thread {
   private static void check(List<Foo> list) {
     for (Foo foo : list) {
       if (foo == null) {
-        TestCase.fail("list contained a null element");
+        Assert.fail("list contained a null element");
       }
     }
   }

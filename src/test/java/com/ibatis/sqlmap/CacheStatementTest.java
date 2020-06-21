@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapSession;
 import com.ibatis.sqlmap.engine.cache.CacheKey;
@@ -25,20 +29,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class CacheStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
+  @Test
   public void testMappedStatementQueryWithCache() throws SQLException {
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
@@ -62,6 +66,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testMappedStatementQueryWithCache2() throws SQLException {
     // tests the new methods that don't require a parameter object
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap");
@@ -86,6 +91,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testFlushDataCache() throws SQLException {
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     int firstId = System.identityHashCode(list);
@@ -98,6 +104,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCache2() throws SQLException {
     // tests the new methods that don't require a parameter object
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap");
@@ -111,6 +118,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCacheOnExecute() throws SQLException {
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     int firstId = System.identityHashCode(list);
@@ -123,6 +131,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCacheOnExecute2() throws SQLException {
     // tests the new methods that don't require a parameter object
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap");
@@ -136,6 +145,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCacheOnExecuteInBatch() throws SQLException {
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     int firstId = System.identityHashCode(list);
@@ -150,6 +160,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCacheOnExecuteInBatch2() throws SQLException {
     // tests the new methods that don't require a parameter object
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap");
@@ -165,6 +176,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testFlushDataCacheOnExecuteInBatchWithTx() throws SQLException {
     List list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     int firstId = System.identityHashCode(list);
@@ -185,6 +197,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertTrue(firstId != thirdId);
   }
 
+  @Test
   public void testMappedStatementQueryWithThreadedCache() throws SQLException {
 
     Map results = new HashMap();
@@ -211,6 +224,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testMappedStatementQueryWithThreadedReadWriteCache() throws SQLException {
 
     Map results = new HashMap();
@@ -237,6 +251,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
 
   }
 
+  @Test
   public void testCacheKeyWithSameHashcode() {
     CacheKey key1 = new CacheKey();
     CacheKey key2 = new CacheKey();
@@ -248,6 +263,7 @@ public class CacheStatementTest extends BaseSqlMapTest {
     assertFalse("Expect not equal", key1.equals(key2));
   }
 
+  @Test
   public void testCacheKeyWithTwoParamsSameHashcode() {
     CacheKey key1 = new CacheKey();
     CacheKey key2 = new CacheKey();

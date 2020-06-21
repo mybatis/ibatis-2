@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,14 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,18 +33,15 @@ public class DomStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
     initScript("scripts/order-init.sql");
     initScript("scripts/line_item-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
+  @Test
   public void testExecuteQueryForDom() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("1"));
     assertNotNull(account);
@@ -51,6 +54,7 @@ public class DomStatementTest extends BaseSqlMapTest {
     assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "EMAILADDRESS"));
   }
 
+  @Test
   public void testExecuteQueryForDomSpecialChars() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("5"));
     assertNotNull(account);
@@ -61,6 +65,7 @@ public class DomStatementTest extends BaseSqlMapTest {
     assertEquals("&manda", dom.getObject(account, "FIRSTNAME"));
   }
 
+  @Test
   public void testExecuteQueryForDomExternalMaps() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDomExternalMaps", newParameter("1"));
     assertNotNull(account);
@@ -77,6 +82,7 @@ public class DomStatementTest extends BaseSqlMapTest {
     assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "account.EMAILADDRESS"));
   }
 
+  @Test
   public void testExecuteQueryForOrderDom() throws SQLException {
 
     Document order = (Document) sqlMap.queryForObject("getOrderDom", newParameter("1"));

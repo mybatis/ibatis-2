@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,27 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import testdomain.Account;
 
 import java.sql.SQLException;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class TransactionTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
   // TRANSACTION TESTS
 
+  @Test
   public void testStartCommitTransaction() throws SQLException {
     Account account = newAccount6();
 
@@ -50,6 +53,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testTransactionAlreadyStarted() throws SQLException {
     Account account = newAccount6();
     boolean exceptionThrownAsExpected = false;
@@ -75,6 +79,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertTrue(exceptionThrownAsExpected);
   }
 
+  @Test
   public void testNoTransactionStarted() throws SQLException {
     Account account = newAccount6();
 
@@ -93,6 +98,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testTransactionFailed() throws SQLException {
     Account account = newAccount6();
 
@@ -111,6 +117,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testTransactionFailed2() throws SQLException {
     // testes method that does not require a parameter object
     Account account = newAccount6();
@@ -130,6 +137,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testStartRollbackTransaction() throws SQLException {
     Account account = newAccount6();
 
@@ -148,6 +156,7 @@ public class TransactionTest extends BaseSqlMapTest {
 
   // AUTOCOMMIT TESTS
 
+  @Test
   public void testAutoCommitUpdate() throws SQLException {
     Account account = newAccount6();
     sqlMap.update("insertAccountViaParameterMap", account);
@@ -155,6 +164,7 @@ public class TransactionTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testAutoCommitQuery() throws SQLException {
     Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
     assertAccount1(account);

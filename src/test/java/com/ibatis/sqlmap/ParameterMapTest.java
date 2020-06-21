@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,30 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import testdomain.Account;
 
 import java.sql.SQLException;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class ParameterMapTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-  }
-
   // PARAMETER MAP FEATURE TESTS
 
+  @Test
   public void testNullValueReplacementMap() throws SQLException {
     Account account = newAccount6();
 
@@ -45,6 +49,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testNullValueReplacementInline() throws SQLException {
     Account account = newAccount6();
 
@@ -55,6 +60,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testNullValueReplacementInlineWithDynamic() throws SQLException {
     Account account = newAccount6();
 
@@ -79,6 +85,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
         .indexOf("Attempt to insert null into a non-nullable column: column: ACC_ID table: ACCOUNT in statement") > -1);
   }
 
+  @Test
   public void testSpecifiedType() throws SQLException {
     Account account = newAccount6();
     account.setEmailAddress(null);
@@ -90,6 +97,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testUnknownParameterClass() throws SQLException {
     Account account = newAccount6();
     account.setEmailAddress(null);
@@ -101,6 +109,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
     assertAccount6(account);
   }
 
+  @Test
   public void testNullParameter() throws SQLException {
 
     Account account = (Account) sqlMap.queryForObject("getAccountNullParameter", null);
@@ -108,6 +117,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
     assertNull(account);
   }
 
+  @Test
   public void testNullParameter2() throws SQLException {
 
     Account account = (Account) sqlMap.queryForObject("getAccountNullParameter");

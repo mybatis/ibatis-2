@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,19 @@
  */
 package com.ibatis.sqlmap;
 
+import static org.junit.Assert.assertEquals;
+
 import testdomain.IItem;
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class ResultObjectFactoryTest extends BaseSqlMapTest {
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig_rof.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");
     initScript("scripts/jpetstore-hsqldb-dataload.sql");
@@ -32,6 +37,7 @@ public class ResultObjectFactoryTest extends BaseSqlMapTest {
    * This tests that the result object factory is working - everything in the sql map is declared as an interface.
    *
    */
+  @Test
   public void testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
     List results = sqlMap.queryForList("getAllItemsROF");
     assertEquals(28, results.size());

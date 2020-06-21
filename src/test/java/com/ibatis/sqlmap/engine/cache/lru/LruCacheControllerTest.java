@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2017 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,22 @@
  */
 package com.ibatis.sqlmap.engine.cache.lru;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import com.ibatis.sqlmap.engine.cache.CacheController;
-import junit.framework.TestCase;
 
 import java.util.Properties;
 
-public class LruCacheControllerTest extends TestCase {
+import org.junit.Test;
 
-  public static void main(String[] args) {
-    junit.textui.TestRunner.run(LruCacheControllerTest.class);
-  }
+public class LruCacheControllerTest {
 
   protected CacheController getController() {
     return new LruCacheController();
   }
 
+  @Test
   public void testSizeOne() {
     CacheController cc = getController();
     String testKey = "testKey";
@@ -47,6 +48,7 @@ public class LruCacheControllerTest extends TestCase {
 
   }
 
+  @Test
   public void testGetAndPutObject() {
     CacheController cc = getController();
     String testKey = "testKey";
@@ -62,6 +64,7 @@ public class LruCacheControllerTest extends TestCase {
 
   }
 
+  @Test
   public void testRemoveObject() {
     CacheController cc = getController();
     String testKey = "testKey";
@@ -76,6 +79,7 @@ public class LruCacheControllerTest extends TestCase {
     assertEquals(cc.getObject(null, testKey), null);
   }
 
+  @Test
   public void testFlush() {
     CacheController cc = getController();
     String testKey = "testKey";
