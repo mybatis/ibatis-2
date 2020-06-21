@@ -18,7 +18,7 @@ package threads;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -38,7 +38,7 @@ class MyThread extends Thread {
     while (true) {
       try {
         List<Foo> list = sqlMap.queryForList("selectFoo" + remap, null);
-        Assert.assertEquals(300, list.size());
+        Assertions.assertEquals(300, list.size());
         check(list);
       } catch (SQLException e) {
         throw new RuntimeException(e);
@@ -49,7 +49,7 @@ class MyThread extends Thread {
   private static void check(List<Foo> list) {
     for (Foo foo : list) {
       if (foo == null) {
-        Assert.fail("list contained a null element");
+        Assertions.fail("list contained a null element");
       }
     }
   }

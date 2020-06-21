@@ -15,14 +15,14 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +33,7 @@ public class DomStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");

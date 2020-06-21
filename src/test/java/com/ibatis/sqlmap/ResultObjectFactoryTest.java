@@ -15,18 +15,18 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import testdomain.IItem;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ResultObjectFactoryTest extends BaseSqlMapTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig_rof.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");

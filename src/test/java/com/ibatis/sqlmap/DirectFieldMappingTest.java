@@ -20,12 +20,12 @@ import testdomain.PrivateAccount;
 
 import java.sql.SQLException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DirectFieldMappingTest extends BaseSqlMapTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");

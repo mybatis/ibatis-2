@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import testdomain.ArticleIndex;
 import testdomain.ArticleIndexDenorm;
@@ -47,7 +47,7 @@ import com.ibatis.sqlmap.BaseSqlMapTest;
  */
 public class JiraIbatis260 extends BaseSqlMapTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jira.sql");

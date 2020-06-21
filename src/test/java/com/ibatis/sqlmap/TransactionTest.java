@@ -15,19 +15,19 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import testdomain.Account;
 
 import java.sql.SQLException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TransactionTest extends BaseSqlMapTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");

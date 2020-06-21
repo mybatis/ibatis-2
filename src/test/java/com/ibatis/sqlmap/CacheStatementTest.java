@@ -15,9 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapSession;
@@ -29,14 +29,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CacheStatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
@@ -259,8 +259,8 @@ public class CacheStatementTest extends BaseSqlMapTest {
     key1.update("HS1CS001");
     key2.update("HS1D4001");
 
-    assertEquals("Expect same hashcode.", key1.hashCode(), key2.hashCode());
-    assertFalse("Expect not equal", key1.equals(key2));
+    assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
+    assertFalse(key1.equals(key2), "Expect not equal");
   }
 
   @Test
@@ -274,8 +274,8 @@ public class CacheStatementTest extends BaseSqlMapTest {
     key2.update("HS1D4001");
     key2.update("HS1CS001");
 
-    assertEquals("Expect same hashcode.", key1.hashCode(), key2.hashCode());
-    assertFalse("Expect not equal", key1.equals(key2));
+    assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
+    assertFalse(key1.equals(key2), "Expect not equal");
   }
 
   private static class TestCacheThread extends Thread {

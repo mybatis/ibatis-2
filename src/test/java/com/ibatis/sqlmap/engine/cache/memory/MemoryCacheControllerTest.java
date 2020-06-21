@@ -18,7 +18,7 @@ package com.ibatis.sqlmap.engine.cache.memory;
 import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.lru.LruCacheControllerTest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MemoryCacheControllerTest extends LruCacheControllerTest {
 

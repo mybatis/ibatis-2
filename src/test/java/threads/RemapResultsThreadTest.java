@@ -15,7 +15,7 @@
  */
 package threads;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.*;
@@ -23,7 +23,7 @@ import com.ibatis.sqlmap.client.*;
 import java.io.*;
 import java.util.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 

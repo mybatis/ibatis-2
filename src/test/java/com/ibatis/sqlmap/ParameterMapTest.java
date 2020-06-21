@@ -15,22 +15,22 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import testdomain.Account;
 
 import java.sql.SQLException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ParameterMapTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
@@ -81,8 +81,10 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   protected void assertMessageIsNullValueNotAllowed(String message) {
-    assertTrue("Invalid exception message", message
-        .indexOf("Attempt to insert null into a non-nullable column: column: ACC_ID table: ACCOUNT in statement") > -1);
+    assertTrue(
+        message.indexOf(
+            "Attempt to insert null into a non-nullable column: column: ACC_ID table: ACCOUNT in statement") > -1,
+        "Invalid exception message");
   }
 
   @Test

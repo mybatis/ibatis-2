@@ -15,8 +15,8 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.ibatis.common.resources.Resources;
 
@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;
@@ -35,7 +35,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
         Resources.getResourceAsProperties("com/ibatis/sqlmap/maps/DerbySqlMapConfig.properties"));
@@ -89,7 +89,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
     }
     rs.close();
     cs.close();
-    assertEquals("Didn't find second result set.", 2, found);
+    assertEquals(2, found, "Didn't find second result set.");
   }
 
 }

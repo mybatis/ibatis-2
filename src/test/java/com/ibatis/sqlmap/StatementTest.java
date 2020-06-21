@@ -15,12 +15,12 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ibatis.common.util.PaginatedList;
 import com.ibatis.sqlmap.client.SqlMapSession;
@@ -33,8 +33,8 @@ import testdomain.SuperAccount;
 
 import javax.sql.DataSource;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -48,7 +48,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   // SETUP & TEARDOWN
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
@@ -102,21 +102,21 @@ public class StatementTest extends BaseSqlMapTest {
     } catch (Exception e) {
       expected = e;
     }
-    assertNotNull("Expected exception from startTransaction() was not detected.", expected);
+    assertNotNull(expected, "Expected exception from startTransaction() was not detected.");
     expected = null;
     try {
       session.commitTransaction();
     } catch (Exception e) {
       expected = e;
     }
-    assertNotNull("Expected exception from commitTransaction() was not detected.", expected);
+    assertNotNull(expected, "Expected exception from commitTransaction() was not detected.");
     expected = null;
     try {
       session.endTransaction();
     } catch (Exception e) {
       expected = e;
     }
-    assertNotNull("Expected exception from endTransaction() was not detected.", expected);
+    assertNotNull(expected, "Expected exception from endTransaction() was not detected.");
     expected = null;
 
     Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
@@ -788,7 +788,7 @@ public class StatementTest extends BaseSqlMapTest {
 
     Object key = sqlMap.insert("insertLineItemNoKey", item);
 
-    assertNull(null, key);
+    assertNull(key);
     assertEquals(100, item.getId());
 
     Map param = new HashMap();

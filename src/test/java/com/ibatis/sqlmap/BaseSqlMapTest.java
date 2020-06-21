@@ -15,8 +15,8 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.ibatis.common.resources.Resources;
@@ -29,7 +29,7 @@ import testdomain.FieldAccount;
 
 import javax.sql.DataSource;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.Reader;
 import java.sql.Connection;

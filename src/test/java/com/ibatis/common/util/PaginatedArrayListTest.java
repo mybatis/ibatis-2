@@ -15,12 +15,12 @@
  */
 package com.ibatis.common.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class PaginatedArrayListTest {
 
@@ -28,7 +28,7 @@ public class PaginatedArrayListTest {
   private PaginatedArrayList oddPageList;
   private PaginatedArrayList evenPageList;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     smallPageList = new PaginatedArrayList(5);
     smallPageList.add(Integer.valueOf(0));

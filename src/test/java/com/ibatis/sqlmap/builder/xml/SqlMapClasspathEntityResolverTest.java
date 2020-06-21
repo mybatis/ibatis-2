@@ -17,7 +17,7 @@ package com.ibatis.sqlmap.builder.xml;
 
 import com.ibatis.sqlmap.engine.builder.xml.SqlMapClasspathEntityResolver;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

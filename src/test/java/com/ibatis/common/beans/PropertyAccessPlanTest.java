@@ -15,7 +15,7 @@
  */
 package com.ibatis.common.beans;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.ibatis.sqlmap.engine.accessplan.AccessPlan;
 import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
@@ -23,7 +23,7 @@ import testdomain.Order;
 
 import java.math.BigDecimal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PropertyAccessPlanTest {
 

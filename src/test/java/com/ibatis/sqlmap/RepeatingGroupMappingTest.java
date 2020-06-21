@@ -15,19 +15,19 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import testdomain.*;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RepeatingGroupMappingTest extends BaseSqlMapTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");
@@ -54,7 +54,7 @@ public class RepeatingGroupMappingTest extends BaseSqlMapTest {
     Category cat = (Category) list.get(0);
     assertEquals("FISH", cat.getCategoryId());
     assertEquals("Fish", cat.getName());
-    assertNotNull("Expected product list.", cat.getProductList());
+    assertNotNull(cat.getProductList(), "Expected product list.");
     assertEquals(4, cat.getProductList().size());
 
     Product product = (Product) cat.getProductList().get(0);
