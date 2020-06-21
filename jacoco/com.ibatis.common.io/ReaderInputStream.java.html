@@ -41,6 +41,8 @@
 package com.ibatis.common.io;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * An InputStream backed by a Reader.
@@ -71,12 +73,12 @@ public class ReaderInputStream extends InputStream {
    * @param reader
    *          - the Reader used by the InputStream
    */
-<span class="fc" id="L74">  public ReaderInputStream(Reader reader) {</span>
-<span class="fc" id="L75">    this.reader = reader;</span>
-<span class="fc" id="L76">    byteArrayOut = new ByteArrayOutputStream();</span>
-<span class="fc" id="L77">    writer = new OutputStreamWriter(byteArrayOut);</span>
-<span class="fc" id="L78">    chars = new char[1024];</span>
-<span class="fc" id="L79">  }</span>
+<span class="fc" id="L76">  public ReaderInputStream(Reader reader) {</span>
+<span class="fc" id="L77">    this.reader = reader;</span>
+<span class="fc" id="L78">    byteArrayOut = new ByteArrayOutputStream();</span>
+<span class="fc" id="L79">    writer = new OutputStreamWriter(byteArrayOut);</span>
+<span class="fc" id="L80">    chars = new char[1024];</span>
+<span class="fc" id="L81">  }</span>
 
   /**
    * Constructor to supply a Reader and an encoding.
@@ -88,23 +90,23 @@ public class ReaderInputStream extends InputStream {
    * @throws UnsupportedEncodingException
    *           if the encoding is not supported
    */
-<span class="nc" id="L91">  public ReaderInputStream(Reader reader, String encoding) throws UnsupportedEncodingException {</span>
-<span class="nc" id="L92">    this.reader = reader;</span>
-<span class="nc" id="L93">    byteArrayOut = new ByteArrayOutputStream();</span>
-<span class="nc" id="L94">    writer = new OutputStreamWriter(byteArrayOut, encoding);</span>
-<span class="nc" id="L95">    chars = new char[1024];</span>
-<span class="nc" id="L96">  }</span>
+<span class="nc" id="L93">  public ReaderInputStream(Reader reader, String encoding) throws UnsupportedEncodingException {</span>
+<span class="nc" id="L94">    this.reader = reader;</span>
+<span class="nc" id="L95">    byteArrayOut = new ByteArrayOutputStream();</span>
+<span class="nc" id="L96">    writer = new OutputStreamWriter(byteArrayOut, Charset.forName(encoding));</span>
+<span class="nc" id="L97">    chars = new char[1024];</span>
+<span class="nc" id="L98">  }</span>
 
   /**
    * @see java.io.InputStream#read()
    */
   @Override
   public int read() throws IOException {
-<span class="fc bfc" id="L103" title="All 2 branches covered.">    if (index &gt;= length)</span>
-<span class="fc" id="L104">      fillBuffer();</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    if (index &gt;= length)</span>
-<span class="nc" id="L106">      return -1;</span>
-<span class="fc" id="L107">    return 0xff &amp; buffer[index++];</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">    if (index &gt;= length)</span>
+<span class="fc" id="L106">      fillBuffer();</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">    if (index &gt;= length)</span>
+<span class="nc" id="L108">      return -1;</span>
+<span class="fc" id="L109">    return 0xff &amp; buffer[index++];</span>
   }
 
   /**
@@ -114,34 +116,34 @@ public class ReaderInputStream extends InputStream {
    *           Signals that an I/O exception has occurred.
    */
   protected void fillBuffer() throws IOException {
-<span class="pc bpc" id="L117" title="1 of 2 branches missed.">    if (length &lt; 0)</span>
-<span class="nc" id="L118">      return;</span>
-<span class="fc" id="L119">    int numChars = reader.read(chars);</span>
-<span class="fc bfc" id="L120" title="All 2 branches covered.">    if (numChars &lt; 0) {</span>
-<span class="fc" id="L121">      length = -1;</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">    if (length &lt; 0)</span>
+<span class="nc" id="L120">      return;</span>
+<span class="fc" id="L121">    int numChars = reader.read(chars);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    if (numChars &lt; 0) {</span>
+<span class="fc" id="L123">      length = -1;</span>
     } else {
-<span class="fc" id="L123">      byteArrayOut.reset();</span>
-<span class="fc" id="L124">      writer.write(chars, 0, numChars);</span>
-<span class="fc" id="L125">      writer.flush();</span>
-<span class="fc" id="L126">      buffer = byteArrayOut.toByteArray();</span>
-<span class="fc" id="L127">      length = buffer.length;</span>
-<span class="fc" id="L128">      index = 0;</span>
+<span class="fc" id="L125">      byteArrayOut.reset();</span>
+<span class="fc" id="L126">      writer.write(chars, 0, numChars);</span>
+<span class="fc" id="L127">      writer.flush();</span>
+<span class="fc" id="L128">      buffer = byteArrayOut.toByteArray();</span>
+<span class="fc" id="L129">      length = buffer.length;</span>
+<span class="fc" id="L130">      index = 0;</span>
     }
-<span class="fc" id="L130">  }</span>
+<span class="fc" id="L132">  }</span>
 
   /**
    * @see java.io.InputStream#read(byte[], int, int)
    */
   @Override
   public int read(byte[] data, int off, int len) throws IOException {
-<span class="fc bfc" id="L137" title="All 2 branches covered.">    if (index &gt;= length)</span>
-<span class="fc" id="L138">      fillBuffer();</span>
 <span class="fc bfc" id="L139" title="All 2 branches covered.">    if (index &gt;= length)</span>
-<span class="fc" id="L140">      return -1;</span>
-<span class="fc" id="L141">    int amount = Math.min(len, length - index);</span>
-<span class="fc" id="L142">    System.arraycopy(buffer, index, data, off, amount);</span>
-<span class="fc" id="L143">    index += amount;</span>
-<span class="fc" id="L144">    return amount;</span>
+<span class="fc" id="L140">      fillBuffer();</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">    if (index &gt;= length)</span>
+<span class="fc" id="L142">      return -1;</span>
+<span class="fc" id="L143">    int amount = Math.min(len, length - index);</span>
+<span class="fc" id="L144">    System.arraycopy(buffer, index, data, off, amount);</span>
+<span class="fc" id="L145">    index += amount;</span>
+<span class="fc" id="L146">    return amount;</span>
   }
 
   /**
@@ -149,7 +151,7 @@ public class ReaderInputStream extends InputStream {
    */
   @Override
   public int available() throws IOException {
-<span class="nc bnc" id="L152" title="All 6 branches missed.">    return (index &lt; length) ? length - index : ((length &gt;= 0) &amp;&amp; reader.ready()) ? 1 : 0;</span>
+<span class="nc bnc" id="L154" title="All 6 branches missed.">    return (index &lt; length) ? length - index : ((length &gt;= 0) &amp;&amp; reader.ready()) ? 1 : 0;</span>
   }
 
   /**
@@ -157,7 +159,7 @@ public class ReaderInputStream extends InputStream {
    */
   @Override
   public void close() throws IOException {
-<span class="fc" id="L160">    reader.close();</span>
-<span class="fc" id="L161">  }</span>
+<span class="fc" id="L162">    reader.close();</span>
+<span class="fc" id="L163">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

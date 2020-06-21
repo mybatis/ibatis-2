@@ -333,7 +333,7 @@ public class ParameterMap {
 <span class="fc" id="L333">            DatabaseMetaData dbmd = ps.getConnection().getMetaData();</span>
 <span class="fc" id="L334">            String databaseProductName = dbmd.getDatabaseProductName();</span>
 <span class="fc" id="L335">            String jdbcDriverName = dbmd.getDriverName();</span>
-<span class="pc bpc" id="L336" title="2 of 4 branches missed.">            if (databaseProductName.startsWith(&quot;Informix&quot;) || jdbcDriverName.startsWith(&quot;Microsoft SQL Server&quot;)) {</span>
+<span class="pc bpc" id="L336" title="2 of 4 branches missed.">            if (databaseProductName.startsWith(&quot;Informix&quot;) || databaseProductName.startsWith(&quot;Microsoft SQL Server&quot;)) {</span>
 <span class="nc" id="L337">              useSetObjectForNullValue = Boolean.TRUE;</span>
 <span class="pc bpc" id="L338" title="2 of 4 branches missed.">            } else if (databaseProductName.startsWith(&quot;DB2&quot;) || jdbcDriverName.startsWith(&quot;jConnect&quot;)</span>
 <span class="pc bpc" id="L339" title="1 of 4 branches missed.">                || jdbcDriverName.startsWith(&quot;SQLServer&quot;) || jdbcDriverName.startsWith(&quot;Apache Derby Embedded&quot;)) {</span>
