@@ -6,3 +6,5 @@
 .mvn/wrapper/maven-wrapper.jar
 pom.xml.releaseBackup
 release.properties
+ibderby/
+derby.log
