@@ -15,9 +15,10 @@
  */
 package com.ibatis.sqlmap.client;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 /**
  * This interface declares methods for demarcating SQL Map transactions.
@@ -30,7 +31,7 @@ public interface SqlMapTransactionManager {
   /**
    * Demarcates the beginning of a transaction scope. Transactions must be properly committed or rolled back to be
    * effective. Use the following pattern when working with transactions:
-   * 
+   *
    * <pre>
    * try {
    *   sqlMap.startTransaction();
@@ -51,7 +52,7 @@ public interface SqlMapTransactionManager {
   /**
    * Demarcates the beginning of a transaction scope using the specified transaction isolation. Transactions must be
    * properly committed or rolled back to be effective. Use the following pattern when working with transactions:
-   * 
+   *
    * <pre>
    * try {
    *   sqlMap.startTransaction(Connection.TRANSACTION_REPEATABLE_READ);
@@ -93,7 +94,7 @@ public interface SqlMapTransactionManager {
    * <p>
    * <b>Important:</b> Using a user supplied connection basically sidesteps the transaction manager, so you are
    * responsible for appropriately. Here's a (very) simple example (throws SQLException):
-   * 
+   *
    * <pre>
    * try {
    *   Connection connection = dataSource.getConnection();

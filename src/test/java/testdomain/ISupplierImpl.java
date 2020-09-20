@@ -17,7 +17,7 @@ package testdomain;
 
 /**
  * Used in testing the ResultObjectFactory
- * 
+ *
  * @author Jeff Butler
  *
  */
@@ -32,7 +32,7 @@ public class ISupplierImpl extends ISupplierKeyImpl implements ISupplier {
   private String phone;
 
   /**
-   * 
+   *
    */
   public ISupplierImpl() {
     super();

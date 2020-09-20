@@ -18,14 +18,14 @@ package com.ibatis.sqlmap.engine.mapping.result.loader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.sql.SQLException;
-
-import org.junit.jupiter.api.Test;
-
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean1;
 import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean2;
+
+import java.sql.SQLException;
+
+import org.junit.jupiter.api.Test;
 
 public class EnhancedLazyResultLoaderTest {
 

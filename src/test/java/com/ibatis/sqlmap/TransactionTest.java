@@ -18,12 +18,12 @@ package com.ibatis.sqlmap;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import testdomain.Account;
-
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
 
 public class TransactionTest extends BaseSqlMapTest {
 

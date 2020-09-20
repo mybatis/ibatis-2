@@ -15,15 +15,15 @@
  */
 package com.ibatis.sqlmap.engine.execution;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Properties;
-
 import com.ibatis.sqlmap.engine.config.SqlMapConfiguration;
 import com.ibatis.sqlmap.engine.mapping.statement.RowHandlerCallback;
 import com.ibatis.sqlmap.engine.scope.SessionScope;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Classes responsible for executing the SQL implement this interface Support for custom SQL Executors.

@@ -16,8 +16,8 @@
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic;
 
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
-import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.parameter.InlineParameterMapParser;
+import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMapping;
 import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
 import com.ibatis.sqlmap.engine.mapping.sql.Sql;

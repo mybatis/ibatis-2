@@ -18,13 +18,13 @@ package com.ibatis.sqlmap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import xmltester.*;
-import xmltester.MiniParser;
-
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import xmltester.*;
+import xmltester.MiniParser;
 
 public class XmlStatementTest extends BaseSqlMapTest {
 

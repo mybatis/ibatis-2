@@ -15,8 +15,9 @@
  */
 package com.ibatis.sqlmap.engine.datasource;
 
-import javax.sql.DataSource;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * Interface to provide a way to create and configure a DataSource for iBATIS.

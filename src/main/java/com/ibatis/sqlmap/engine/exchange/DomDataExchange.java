@@ -20,10 +20,12 @@ import com.ibatis.sqlmap.client.*;
 import com.ibatis.sqlmap.engine.mapping.parameter.*;
 import com.ibatis.sqlmap.engine.mapping.result.*;
 import com.ibatis.sqlmap.engine.scope.*;
-import org.w3c.dom.Document;
+
+import java.util.Map;
 
 import javax.xml.parsers.*;
-import java.util.Map;
+
+import org.w3c.dom.Document;
 
 /**
  * A DataExchange implemtation for working with DOM objects.

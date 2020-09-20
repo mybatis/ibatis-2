@@ -15,8 +15,8 @@
  */
 package com.ibatis.common.logging.jakarta;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The Class JakartaCommonsLoggingImpl.

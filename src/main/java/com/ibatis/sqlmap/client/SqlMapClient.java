@@ -35,7 +35,7 @@ import java.sql.Connection;
  * access to it.
  * <p>
  * <b>The following example will demonstrate the use of SqlMapClient.</b>
- * 
+ *
  * <pre>
  * <i style="color:green">
  * //
@@ -136,7 +136,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * <b>Important:</b> Using a user supplied connection basically sidesteps the datasource so you are responsible for
    * appropriately handling your connection lifecycle (i.e. closing). Here's a (very) simple example (throws
    * SQLException):
-   * 
+   *
    * <pre>
    * try {
    *   Connection connection = dataSource.getConnection();
@@ -160,7 +160,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    *   }
    * }
    * </pre>
-   * 
+   *
    * @param conn
    *          - the connection to use for the session
    *

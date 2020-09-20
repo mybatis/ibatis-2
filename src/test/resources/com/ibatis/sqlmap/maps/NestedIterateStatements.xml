@@ -440,7 +440,7 @@
     </iterate>
     order by id
   </select>
-    
+
   <select id="NestedIterateTest30" parameterClass="testdomain.Category" resultClass="testdomain.Product">
     SELECT * FROM product WHERE productId=
     <iterate property="parentCategory.productList">

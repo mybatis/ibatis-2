@@ -16,8 +16,8 @@
     limitations under the License.
 
 -->
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap>
@@ -93,7 +93,7 @@
     <result column="LIN_QUANTITY" property="quantity"/>
     <result column="LIN_PRICE" property="price"/>
   </resultMap>
-  
+
   <resultMap id="orderResultWithNestedMaps" class="order"
     extends="lite-order-result-by-name" groupBy="id">
     <result property="account" resultMap="Account.account-result" />
@@ -262,7 +262,7 @@
     select distinct ORD_CARD_NUMBER from ORDERS
     order by ORD_CARD_NUMBER
   </select>
-  
+
   <select id="getAllOrdersWithNestedResultMaps" resultMap="orderResultWithNestedMaps">
     select o.*, a.*, l.*
     from Orders o join Account a on o.ord_acc_id = a.acc_id

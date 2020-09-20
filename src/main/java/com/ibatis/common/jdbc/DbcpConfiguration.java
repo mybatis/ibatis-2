@@ -18,11 +18,12 @@ package com.ibatis.common.jdbc;
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 
-import org.apache.commons.dbcp.BasicDataSource;
-
-import javax.sql.DataSource;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  * Wrapper class to simplify use of DBCP.

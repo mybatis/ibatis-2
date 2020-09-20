@@ -18,15 +18,15 @@ package com.ibatis.sqlmap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import testdomain.Book;
-import testdomain.Document;
-import testdomain.Magazine;
-import testdomain.PersonDocument;
-
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Book;
+import testdomain.Document;
+import testdomain.Magazine;
+import testdomain.PersonDocument;
 
 public class DiscriminatorTest extends BaseSqlMapTest {
 

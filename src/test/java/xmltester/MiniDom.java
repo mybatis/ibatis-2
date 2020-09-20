@@ -15,8 +15,6 @@
  */
 package xmltester;
 
-import xmltester.MiniAttribute;
-
 import java.util.StringTokenizer;
 
 public class MiniDom {

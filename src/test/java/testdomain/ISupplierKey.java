@@ -17,7 +17,7 @@ package testdomain;
 
 /**
  * Used in testing the ResultObjectFactory
- * 
+ *
  * @author Jeff Butler
  *
  */

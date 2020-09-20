@@ -16,8 +16,8 @@
     limitations under the License.
 
 -->
-<!DOCTYPE sqlMapConfig      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
@@ -37,7 +37,7 @@
     statementCachingEnabled="false"
     useStatementNamespaces="false"
     />
-    
+
   <typeAlias alias="order" type="testdomain.Order"/>
   <typeAlias alias="OuiNonBool" type="com.ibatis.sqlmap.extensions.PirateTypeHandlerCallback"/>
 

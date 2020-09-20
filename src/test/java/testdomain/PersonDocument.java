@@ -26,7 +26,7 @@ public class PersonDocument {
   private Document favoriteDocument;
 
   /**
-   * 
+   *
    */
   public PersonDocument() {
     super();

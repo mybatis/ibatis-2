@@ -15,9 +15,9 @@
  */
 package com.ibatis.sqlmap.engine.mapping.sql.raw;
 
-import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
+import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 /**

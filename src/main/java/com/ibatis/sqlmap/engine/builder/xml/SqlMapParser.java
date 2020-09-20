@@ -15,16 +15,17 @@
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
-import com.ibatis.common.xml.*;
 import com.ibatis.common.resources.*;
+import com.ibatis.common.xml.*;
 import com.ibatis.sqlmap.client.*;
+import com.ibatis.sqlmap.engine.cache.*;
 import com.ibatis.sqlmap.engine.config.*;
 import com.ibatis.sqlmap.engine.mapping.statement.*;
-import com.ibatis.sqlmap.engine.cache.*;
-import org.w3c.dom.Node;
 
 import java.io.*;
 import java.util.Properties;
+
+import org.w3c.dom.Node;
 
 /**
  * The Class SqlMapParser.

@@ -63,7 +63,7 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
-   * 
+   *
    * @param msg
    *          - the message for the exception
    * @param cause
@@ -92,7 +92,7 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
-   * 
+   *
    * @param reason
    *          - the reason for the exception
    * @param SQLState
@@ -109,7 +109,7 @@ public class NestedSQLException extends SQLException {
 
   /**
    * Constructor from java.sql.SQLException with added nested exception
-   * 
+   *
    * @param cause
    *          - the cause of the exception
    */

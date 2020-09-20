@@ -17,8 +17,9 @@ package com.ibatis.sqlmap.engine.datasource;
 
 import com.ibatis.common.jdbc.DbcpConfiguration;
 
-import javax.sql.DataSource;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * DataSourceFactory implementation for DBCP.

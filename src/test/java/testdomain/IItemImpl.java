@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 /**
  * Used in testing the ResultObjectFactory
- * 
+ *
  * @author Jeff Butler
  *
  */
@@ -37,7 +37,7 @@ public class IItemImpl implements IItem {
   private ISupplier supplier;
 
   /**
-   * 
+   *
    */
   public IItemImpl() {
     super();

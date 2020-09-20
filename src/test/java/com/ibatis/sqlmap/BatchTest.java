@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ibatis.sqlmap.engine.execution.BatchException;
 import com.ibatis.sqlmap.engine.execution.BatchResult;
-import testdomain.Account;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;
@@ -29,6 +28,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
 
 /**
  * @author Jeff Butler

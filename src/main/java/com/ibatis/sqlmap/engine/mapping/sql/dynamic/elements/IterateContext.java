@@ -18,6 +18,8 @@
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
+import com.ibatis.sqlmap.client.SqlMapException;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,8 +28,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.ibatis.sqlmap.client.SqlMapException;
 
 /**
  * The Class IterateContext.
@@ -66,7 +66,7 @@ public class IterateContext implements Iterator {
   /**
    * This variable is true if some of the sub elements have actually produced content. This is used to test whether to
    * add the open and conjunction text to the generated statement.
-   * 
+   *
    * This variable is used to replace the deprecated and dangerous isFirst method.
    */
   private boolean someSubElementsHaveContent;
@@ -74,7 +74,7 @@ public class IterateContext implements Iterator {
   /**
    * This variable is set by the doEndFragment method in IterateTagHandler to specify that the first content producing
    * sub element has happened. The doPrepend method will test the value to know whether or not to process the prepend.
-   * 
+   *
    * This variable is used to replace the deprecated and dangerous isFirst method.
    */
   private boolean isPrependEnabled;
@@ -248,7 +248,7 @@ public class IterateContext implements Iterator {
 
   /**
    * Returns the last property of any bean specified in this IterateContext.
-   * 
+   *
    * @return The last property of any bean specified in this IterateContext.
    */
   public String getEndProperty() {
@@ -269,7 +269,7 @@ public class IterateContext implements Iterator {
 
   /**
    * Replaces value of a tag property to match it's value with current iteration and all other iterations.
-   * 
+   *
    * @param tagProperty
    *          the property of a TagHandler.
    * @return A Map containing the modified tag property in PROCESS_STRING key and the index where the modification
@@ -287,7 +287,7 @@ public class IterateContext implements Iterator {
 
   /**
    * Replaces value of a tag property to match it's value with current iteration and all other iterations.
-   * 
+   *
    * @param tagProperty
    *          the property of a TagHandler.
    * @return The tag property with all "[]" replaced with the correct iteration value.
@@ -299,7 +299,7 @@ public class IterateContext implements Iterator {
 
   /**
    * Adds index value to the first found property matching this Iteration starting at index startIndex.
-   * 
+   *
    * @param input
    *          The input String.
    * @param startIndex

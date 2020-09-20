@@ -15,13 +15,13 @@
  */
 package com.ibatis.sqlmap;
 
-import testdomain.FieldAccount;
-import testdomain.PrivateAccount;
-
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.FieldAccount;
+import testdomain.PrivateAccount;
 
 public class DirectFieldMappingTest extends BaseSqlMapTest {
 

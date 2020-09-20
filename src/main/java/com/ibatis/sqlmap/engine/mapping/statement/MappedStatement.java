@@ -15,12 +15,13 @@
  */
 package com.ibatis.sqlmap.engine.mapping.statement;
 
-import com.ibatis.common.jdbc.exception.NestedSQLException;
 import com.ibatis.common.io.ReaderInputStream;
-
-import com.ibatis.sqlmap.client.event.RowHandler;
+import com.ibatis.common.jdbc.exception.NestedSQLException;
 import com.ibatis.sqlmap.client.*;
+import com.ibatis.sqlmap.client.event.RowHandler;
+import com.ibatis.sqlmap.engine.cache.*;
 import com.ibatis.sqlmap.engine.execution.SqlExecutor;
+import com.ibatis.sqlmap.engine.impl.*;
 import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
 import com.ibatis.sqlmap.engine.mapping.sql.Sql;
@@ -29,15 +30,15 @@ import com.ibatis.sqlmap.engine.scope.StatementScope;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 import com.ibatis.sqlmap.engine.type.*;
-import com.ibatis.sqlmap.engine.cache.*;
-import com.ibatis.sqlmap.engine.impl.*;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.*;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
-import java.io.*;
+
+import javax.xml.parsers.*;
+
+import org.w3c.dom.Document;
 
 /**
  * The Class MappedStatement.

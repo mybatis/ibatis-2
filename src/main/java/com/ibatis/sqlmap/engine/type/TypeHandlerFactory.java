@@ -242,7 +242,7 @@ public class TypeHandlerFactory {
   /**
    * Adds a type alias that is case insensitive. All of the following String, string, StRiNg will equate to the same
    * alias.
-   * 
+   *
    * @param alias
    *          - the alias
    * @param value

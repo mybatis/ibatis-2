@@ -15,10 +15,10 @@
  */
 package com.ibatis.common.beans;
 
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
+
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
 
 /**
  * StaticBeanProbe provides methods that allow simple, reflective access to JavaBeans style properties. Methods are

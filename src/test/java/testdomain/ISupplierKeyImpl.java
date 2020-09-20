@@ -17,7 +17,7 @@ package testdomain;
 
 /**
  * Used in testing the ResultObjectFactory
- * 
+ *
  * @author Jeff Butler
  *
  */
@@ -26,7 +26,7 @@ public class ISupplierKeyImpl implements ISupplierKey {
   private Integer supplierId;
 
   /**
-   * 
+   *
    */
   public ISupplierKeyImpl() {
     super();

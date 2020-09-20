@@ -16,8 +16,8 @@
     limitations under the License.
 
 -->
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap>
@@ -108,7 +108,7 @@
       and i.itemid = v.itemid
       and c.catid = 'FISH'
   </select>
-  
+
   <select id="getAllProductCategoriesJIRA250" resultMap="categoryResultJIRA250" >
     select
        c.catid, c.name as catname, c.descn as catdescn,
@@ -116,5 +116,5 @@
        null as proddescn
     from category c
   </select>
-  
+
 </sqlMap>

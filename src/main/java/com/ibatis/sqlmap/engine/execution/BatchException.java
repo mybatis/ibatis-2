@@ -23,7 +23,7 @@ import java.util.List;
  * batch. The exception contains the java.sql.BatchUpdateException that is the root cause, as well as the results from
  * any prior nested batch that executed successfully. This exception is only thrown from the executeBatchDetailed
  * method.
- * 
+ *
  * @author Jeff Butler
  *
  */
@@ -67,7 +67,7 @@ public class BatchException extends Exception {
   /**
    * Returns the BatchUpdateException that caused the nested batch to fail. That exception contains an array of row
    * counts that can be used to determine exactly which statemtn of the batch caused the failure (or failures).
-   * 
+   *
    * @return the root BatchUpdateException
    */
   public BatchUpdateException getBatchUpdateException() {
@@ -77,7 +77,7 @@ public class BatchException extends Exception {
   /**
    * Returns a list of BatchResult objects. There will be one entry in the list for each successful sub-batch executed
    * before the failing batch.
-   * 
+   *
    * @return the previously successful batch results (may be an empty list if no batch has executed successfully)
    */
   public List getSuccessfulBatchResults() {

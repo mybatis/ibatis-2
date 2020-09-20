@@ -26,15 +26,6 @@ import com.ibatis.common.util.PaginatedList;
 import com.ibatis.sqlmap.client.SqlMapSession;
 import com.ibatis.sqlmap.client.event.RowHandler;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
-import testdomain.Account;
-import testdomain.LineItem;
-import testdomain.Order;
-import testdomain.SuperAccount;
-
-import javax.sql.DataSource;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -43,6 +34,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
+import testdomain.LineItem;
+import testdomain.Order;
+import testdomain.SuperAccount;
 
 public class StatementTest extends BaseSqlMapTest {
 

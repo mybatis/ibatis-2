@@ -20,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ibatis.common.jdbc.exception.NestedSQLException;
-import testdomain.Account;
-import testdomain.Order;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -29,6 +27,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
+import testdomain.Order;
 
 public class ResultMapTest extends BaseSqlMapTest {
 

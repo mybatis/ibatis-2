@@ -26,24 +26,24 @@
       remapResults="true">
     select * from foo
   </statement>
-  
-  
+
+
   <statement id="selectFooWithoutRemap"
       resultClass="threads.Foo"
       remapResults="false">
     select * from foo
   </statement>
- 
+
  <statement id="create">
  drop table foo if exists;
- 
+
  create table foo (
     column1 varchar(50),
     column2 varchar(50),
     column3 varchar(50)
     );
 
-	
+
 	insert into foo values ('a', 'a', 'a');
 	insert into foo values ('b', 'b', 'b');
 	insert into foo values ('c', 'c', 'c');
@@ -346,5 +346,5 @@
 	insert into foo values ('c', 'c', 'c');
 
  </statement>
-  
+
 </sqlMap>

@@ -16,8 +16,8 @@
     limitations under the License.
 
 -->
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="Documents">
@@ -50,7 +50,7 @@
       <subMap value="NEWSPAPER" resultMap="newsWithAttributes"/>
     </discriminator>
   </resultMap>
-  
+
   <resultMap id="book" class="testdomain.Book" extends="document">
     <result property="pages" column="DOCUMENT_PAGENUMBER"/>
   </resultMap>
@@ -58,7 +58,7 @@
   <resultMap id="news" class="testdomain.Magazine" extends="document">
     <result property="city" column="DOCUMENT_CITY"/>
   </resultMap>
-  
+
   <resultMap id="bookWithAttributes" class="testdomain.Book" extends="documentWithAttributes">
     <result property="pages" column="DOCUMENT_PAGENUMBER"/>
   </resultMap>
@@ -66,18 +66,18 @@
   <resultMap id="newsWithAttributes" class="testdomain.Magazine" extends="documentWithAttributes">
     <result property="city" column="DOCUMENT_CITY"/>
   </resultMap>
-  
+
   <resultMap id="documentAttributes" class="java.lang.String">
     <result property="value" column="attribute" />
   </resultMap>
-  
+
   <select id="getDocumentsWithAttributes" resultMap="documentWithAttributes">
     select a.*, b.attribute
     from Documents a left join Document_Attributes b
       on a.document_id = b.document_id
     order by a.document_id
   </select>
-  
+
   <select id="getPersonDocuments" resultMap="personDocument" >
     select a.person_id, a.person_name, b.document_id,
       b.document_title, b.document_type, b.document_city,

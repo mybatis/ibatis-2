@@ -15,16 +15,16 @@
  */
 package com.ibatis.sqlmap;
 
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
+
 import testdomain.IItem;
 import testdomain.IItemImpl;
 import testdomain.ISupplier;
 import testdomain.ISupplierImpl;
 import testdomain.ISupplierKey;
 import testdomain.ISupplierKeyImpl;
-
-import com.ibatis.common.logging.Log;
-import com.ibatis.common.logging.LogFactory;
-import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
 
 /**
  * @author Jeff Butler
@@ -33,7 +33,7 @@ import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
 public class ResultObjectFactoryImpl implements ResultObjectFactory {
 
   /**
-   * 
+   *
    */
   public ResultObjectFactoryImpl() {
     super();

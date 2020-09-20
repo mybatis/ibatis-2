@@ -44,12 +44,12 @@
     <result column="zip" property="zip" />
     <result column="phone" property="phone" />
   </resultMap>
-  
+
   <select id="getAllItemsROF" resultMap="itemResultROF">
     select *
     from item
   </select>
-  
+
   <select id="getSupplierByIdROF" resultMap="supplierResultROF" parameterClass="testdomain.ISupplierKey">
     select *
     from supplier

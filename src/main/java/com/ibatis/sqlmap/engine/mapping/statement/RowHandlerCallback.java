@@ -20,14 +20,15 @@ import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 import com.ibatis.sqlmap.engine.type.XmlTypeMarker;
 
-import org.w3c.dom.Document;
+import java.io.StringWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.StringWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import org.w3c.dom.Document;
 
 /**
  * Class to manager row handler access.

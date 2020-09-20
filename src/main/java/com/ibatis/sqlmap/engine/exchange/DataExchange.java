@@ -37,21 +37,21 @@ public interface DataExchange {
 
   /**
    * Gets a data array from a parameter object.
-   * 
+   *
    * @param statementScope
    *          - the scope of the request
    * @param parameterMap
    *          - the parameter map
    * @param parameterObject
    *          - the parameter object
-   * 
+   *
    * @return - the objects
    */
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);
 
   /**
    * Sets values from a data array into a result object.
-   * 
+   *
    * @param statementScope
    *          - the request scope
    * @param resultMap
@@ -60,7 +60,7 @@ public interface DataExchange {
    *          - the result object
    * @param values
    *          - the values to be mapped
-   * 
+   *
    * @return the resultObject
    */
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values);
@@ -83,14 +83,14 @@ public interface DataExchange {
 
   /**
    * Returns an object capable of being a unique cache key for a parameter object.
-   * 
+   *
    * @param statementScope
    *          - the request scope
    * @param parameterMap
    *          - the parameter map
    * @param parameterObject
    *          - the parameter object
-   * 
+   *
    * @return - a cache key
    */
   public CacheKey getCacheKey(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);

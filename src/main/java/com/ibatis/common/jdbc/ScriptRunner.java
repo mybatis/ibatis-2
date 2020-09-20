@@ -15,6 +15,8 @@
  */
 package com.ibatis.common.jdbc;
 
+import com.ibatis.common.resources.Resources;
+
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
@@ -26,8 +28,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.ibatis.common.resources.Resources;
 
 /**
  * Tool to run database scripts.

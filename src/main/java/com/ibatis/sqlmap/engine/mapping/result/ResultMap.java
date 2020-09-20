@@ -18,7 +18,6 @@ package com.ibatis.sqlmap.engine.mapping.result;
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 import com.ibatis.common.jdbc.exception.NestedSQLException;
-
 import com.ibatis.sqlmap.client.SqlMapException;
 import com.ibatis.sqlmap.engine.exchange.DataExchange;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
@@ -32,10 +31,7 @@ import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
 import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 import com.ibatis.sqlmap.engine.type.TypeHandler;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +43,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
 
 /**
  * Basic implementation of ResultMap interface.

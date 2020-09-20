@@ -21,11 +21,10 @@ import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.*;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 import org.junit.jupiter.api.Test;
-
-import java.sql.SQLException;
 
 public class RemapResultsThreadTest {
 

@@ -26,11 +26,12 @@ import com.ibatis.sqlmap.engine.scope.SessionScope;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * Implementation of SqlMapSession.

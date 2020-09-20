@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 /**
  * Used in testing the ResultObjectFactory
- * 
+ *
  * @author Jeff Butler
  *
  */
