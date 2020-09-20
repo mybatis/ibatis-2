@@ -15,15 +15,6 @@
  */
 package com.ibatis.sqlmap.engine.impl;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 import com.ibatis.common.jdbc.exception.NestedSQLException;
@@ -51,6 +42,15 @@ import com.ibatis.sqlmap.engine.transaction.TransactionManager;
 import com.ibatis.sqlmap.engine.transaction.TransactionState;
 import com.ibatis.sqlmap.engine.transaction.user.UserProvidedTransaction;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * The workhorse that really runs the SQL.

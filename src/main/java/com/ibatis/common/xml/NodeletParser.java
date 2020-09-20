@@ -15,17 +15,18 @@
  */
 package com.ibatis.common.xml;
 
-import org.w3c.dom.*;
-import org.xml.sax.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.util.*;
+
+import org.w3c.dom.*;
+import org.xml.sax.*;
 
 /**
  * The NodeletParser is a callback based parser similar to SAX. The big difference is that rather than having a single

@@ -15,8 +15,8 @@
  */
 package com.ibatis.common.beans;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * The Class MethodInvoker.

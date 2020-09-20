@@ -15,6 +15,8 @@
  */
 package com.ibatis.sqlmap.jira;
 
+import com.ibatis.sqlmap.BaseSqlMapTest;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,8 +28,6 @@ import testdomain.ArticleIndex;
 import testdomain.ArticleIndexDenorm;
 import testdomain.Topic;
 import testdomain.TopicDescription;
-
-import com.ibatis.sqlmap.BaseSqlMapTest;
 
 /**
  * Regression test for JIRA IBATIS-260: "Hash conflict with groupBy resultMaps".
@@ -41,9 +41,9 @@ import com.ibatis.sqlmap.BaseSqlMapTest;
  * the objects can be properly assigned.
  * <p>
  * Broken in v2.1.7, v2.1.6, and earlier. Fixed in versions > 2.1.7
- * 
+ *
  * @author Sven Boden
- * 
+ *
  */
 public class JiraIbatis260 extends BaseSqlMapTest {
 
@@ -58,7 +58,7 @@ public class JiraIbatis260 extends BaseSqlMapTest {
    * same data but once via groupBy and once via a flat structure. Then we put the grouped result in a hashMap and we
    * delete all entries from the flat result from that hashMap. If we don't find a key in the hashMap there's a problem,
    * if at the end the hashMap is not empty there's also a problem.
-   * 
+   *
    * @throws Exception
    *           none should be thrown (if the regression test succeeds)
    */

@@ -17,13 +17,13 @@ package com.ibatis.sqlmap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import testdomain.ComplexBean;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.ComplexBean;
 
 public class ComplexTypeTest extends BaseSqlMapTest {
 

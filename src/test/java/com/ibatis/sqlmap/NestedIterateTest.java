@@ -18,15 +18,15 @@ package com.ibatis.sqlmap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import testdomain.*;
-
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.*;
 
 public class NestedIterateTest extends BaseSqlMapTest {
 
@@ -40,7 +40,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This test should return 9 rows: ids 1-9
-   * 
+   *
    * This method works as expected
    */
   @Test
@@ -264,7 +264,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return two rows: ids 1, 2
-   * 
+   *
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -484,7 +484,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return six rows: ids 1-6
-   * 
+   *
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -517,7 +517,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return six rows: ids 1-6
-   * 
+   *
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -550,7 +550,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return two rows: ids 1, 2
-   * 
+   *
    * This method tests <isNotPropertyAvailable> inside in <iterate>
    */
   @Test
@@ -579,7 +579,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return two rows: ids 1, 2
-   * 
+   *
    * This method tests <isNotNull> inside an <iterate>
    */
   @Test
@@ -608,7 +608,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return two rows: ids 1, 2
-   * 
+   *
    * This method tests <isNotEmpty> inside an <iterate>
    */
   @Test
@@ -637,7 +637,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return nine rows: ids 1-9
-   * 
+   *
    * This method tests the open, close, and prepend attributes when no sub elements satisfy - so no where clause should
    * be generated
    *
@@ -673,7 +673,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return one rows: id 4
-   * 
+   *
    * This method tests the open, close, and prepend attributes when the first element doesn't satisfy
    *
    */
@@ -700,7 +700,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return one rows: id 1
-   * 
+   *
    */
   @Test
   public void test23() {
@@ -725,7 +725,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return one rows: id 9
-   * 
+   *
    */
   @Test
   public void test24() {
@@ -750,7 +750,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
 
   /**
    * This method should return three rows: id 1-3
-   * 
+   *
    */
   @Test
   public void test25() {

@@ -15,12 +15,12 @@
  */
 package com.ibatis.sqlmap.engine.type;
 
+import java.lang.NoSuchMethodException;
 import java.lang.reflect.Method;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.lang.NoSuchMethodException;
 
 /**
  * Implementation of TypeHandler for dealing with unknown types.
@@ -115,7 +115,7 @@ public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
   /**
    * Get the base class of classParam, for top level classes this returns null. For enums, inner and anonymous classes
    * it returns the enclosing class. The intent is to use this for enum support in Java 5+.
-   * 
+   *
    * @param classParam
    *          class to get enclosing class of
    * @return Enclosing class

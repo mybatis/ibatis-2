@@ -19,9 +19,9 @@ package com.ibatis.sqlmap.engine.mapping.result;
  * iBATIS uses an implementation of this interface to create result objects after the execution of a statement. To use,
  * specify your implementation class as the type for the "resultObjectFactory" element in the SqlMapConfig. Any
  * implementation of this interface must have a public no argument constructor.
- * 
+ *
  * Note that iBATIS makes use of this interface through the ResultObjectFactoryUtil class.
- * 
+ *
  * @author Jeff Butler
  *
  */
@@ -29,7 +29,7 @@ public interface ResultObjectFactory {
 
   /**
    * Returns a new instance of the requested class. iBATIS will call this method in these circumstances:
-   * 
+   *
    * <ul>
    * <li>When processing a result set - to create new instances of result objects</li>
    * <li>When processing the output parameters of a stored procedure - to create instances of OUTPUT parameters</li>
@@ -48,7 +48,7 @@ public interface ResultObjectFactory {
    * implementations. If the requested class is List or Collection iBATIS will create an ArrayList. If the requested
    * class is Set then iBATIS will create a HashSet. But these rules only apply if you choose not to create the object.
    * So you can use this factory to supply custom implementations of those interfaces if you so desire.
-   * 
+   *
    * @param statementId
    *          the ID of the statement that generated the call to this method
    * @param clazz

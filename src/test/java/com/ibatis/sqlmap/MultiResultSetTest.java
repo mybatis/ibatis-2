@@ -20,16 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.ibatis.common.resources.Resources;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Connection;
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
 
 public class MultiResultSetTest extends BaseSqlMapTest {
 

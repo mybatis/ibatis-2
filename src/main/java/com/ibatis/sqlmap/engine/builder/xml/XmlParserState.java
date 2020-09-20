@@ -18,8 +18,9 @@ package com.ibatis.sqlmap.engine.builder.xml;
 import com.ibatis.common.resources.*;
 import com.ibatis.sqlmap.engine.config.*;
 
-import javax.sql.DataSource;
 import java.util.*;
+
+import javax.sql.DataSource;
 
 /**
  * The Class XmlParserState.

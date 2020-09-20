@@ -22,9 +22,10 @@ import com.ibatis.sqlmap.engine.transaction.IsolationLevel;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 /**
  * The Class ExternalTransaction.

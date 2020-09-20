@@ -17,9 +17,9 @@ package com.ibatis.sqlmap.engine.mapping.result;
 
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA. User: cbegin Date: May 13, 2005 Time: 11:11:05 PM To change this template use File |

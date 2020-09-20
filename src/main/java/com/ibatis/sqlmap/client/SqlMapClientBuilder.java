@@ -28,7 +28,7 @@ import java.util.Properties;
  * instance. Its current implementation works with XML configuration files (e.g. sql-map-config.xml).
  * <p>
  * Example:
- * 
+ *
  * <pre>
  * Reader reader = Resources.getResourceAsReader(&quot;properties/sql-map-config.xml&quot;);
  * SqlMapClient client = SqlMapClientBuilder.buildSqlMapClient(reader);

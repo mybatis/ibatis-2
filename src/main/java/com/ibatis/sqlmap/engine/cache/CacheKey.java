@@ -16,8 +16,8 @@
 package com.ibatis.sqlmap.engine.cache;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hash value generator for cache keys.

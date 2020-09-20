@@ -22,10 +22,11 @@ import com.ibatis.sqlmap.engine.mapping.sql.*;
 import com.ibatis.sqlmap.engine.mapping.sql.dynamic.*;
 import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.*;
 import com.ibatis.sqlmap.engine.mapping.sql.raw.*;
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.*;
 
 import java.util.Properties;
+
+import org.w3c.dom.*;
+import org.w3c.dom.CharacterData;
 
 /**
  * The Class XMLSqlSource.

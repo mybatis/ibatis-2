@@ -19,10 +19,10 @@ import com.ibatis.sqlmap.client.extensions.ParameterSetter;
 import com.ibatis.sqlmap.client.extensions.ResultGetter;
 import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.io.ByteArrayInputStream;
 
 /**
  * The Class BlobTypeHandlerCallback.

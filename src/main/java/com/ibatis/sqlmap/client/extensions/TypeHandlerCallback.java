@@ -29,7 +29,7 @@ import java.sql.SQLException;
  * <b>EXAMPLE</b>
  * <p>
  * Here's a simple example of a boolean handler that uses "Yes" and "No".
- * 
+ *
  * <pre>
  * public class YesNoBoolTypeHandlerCallback implements TypeHandlerCallback {
  *

@@ -17,15 +17,15 @@ package com.ibatis.sqlmap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import testdomain.Account;
-
 import java.sql.SQLException;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
 
 public class DynamicTest extends BaseSqlMapTest {
 

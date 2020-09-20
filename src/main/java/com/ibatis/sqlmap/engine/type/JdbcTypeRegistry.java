@@ -64,10 +64,10 @@ public class JdbcTypeRegistry {
 
   /**
    * Looks up a type by name, and returns it's int value (from java.sql.Types)
-   * 
+   *
    * @param name
    *          - the type name
-   * 
+   *
    * @return - the int value (from java.sql.Types)
    */
   public static int getType(String name) {

@@ -18,10 +18,11 @@ package com.ibatis.sqlmap.engine.transaction.jta;
 import com.ibatis.sqlmap.client.*;
 import com.ibatis.sqlmap.engine.transaction.*;
 
-import javax.naming.*;
-import javax.transaction.UserTransaction;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import javax.naming.*;
+import javax.transaction.UserTransaction;
 
 /**
  * The Class JtaTransactionConfig.

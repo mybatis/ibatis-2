@@ -15,12 +15,12 @@
  */
 package threads;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
 
 class MyThread extends Thread {
 

@@ -15,14 +15,14 @@
  */
 package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 
+import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMapping;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMapping;
 
 /**
  * The Class SqlTagContext.
@@ -245,10 +245,10 @@ public class SqlTagContext {
 }
 
 /**
- * 
+ *
  * This inner class i used strictly to house whether the removeFirstPrepend has been used in a particular nested
  * situation.
- * 
+ *
  * @author Brandon Goodin
  */
 class RemoveFirstPrependMarker {
@@ -257,7 +257,7 @@ class RemoveFirstPrependMarker {
   private SqlTag tag;
 
   /**
-   * 
+   *
    */
   public RemoveFirstPrependMarker(SqlTag tag, boolean removeFirstPrepend) {
     this.removeFirstPrepend = removeFirstPrepend;

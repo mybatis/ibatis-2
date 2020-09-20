@@ -16,10 +16,11 @@
 package com.ibatis.sqlmap.engine.builder.xml;
 
 import com.ibatis.common.resources.*;
-import org.xml.sax.*;
 
 import java.io.*;
 import java.util.*;
+
+import org.xml.sax.*;
 
 /**
  * Offline entity resolver for the iBATIS DTDs.

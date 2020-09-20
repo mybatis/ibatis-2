@@ -15,9 +15,9 @@
  */
 package com.ibatis.common.logging;
 
-import java.lang.reflect.Constructor;
-
 import com.ibatis.common.resources.Resources;
+
+import java.lang.reflect.Constructor;
 
 /**
  * A factory for creating Log objects.

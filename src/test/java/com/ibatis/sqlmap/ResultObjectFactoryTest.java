@@ -17,12 +17,12 @@ package com.ibatis.sqlmap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import testdomain.IItem;
-
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.IItem;
 
 public class ResultObjectFactoryTest extends BaseSqlMapTest {
 

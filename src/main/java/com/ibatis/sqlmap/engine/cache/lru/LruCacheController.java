@@ -15,15 +15,15 @@
  */
 package com.ibatis.sqlmap.engine.cache.lru;
 
+import com.ibatis.sqlmap.engine.cache.CacheController;
+import com.ibatis.sqlmap.engine.cache.CacheModel;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import com.ibatis.sqlmap.engine.cache.CacheController;
-import com.ibatis.sqlmap.engine.cache.CacheModel;
 
 /**
  * LRU (least recently used) cache controller implementation.

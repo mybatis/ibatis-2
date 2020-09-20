@@ -19,15 +19,15 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapException;
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 import com.ibatis.sqlmap.client.SqlMapTransactionManager;
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionState;
-import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A Session based implementation of the Scope interface.

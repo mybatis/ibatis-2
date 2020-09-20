@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2019 the original author or authors.
+ * Copyright 2004-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,19 @@
 package xmltester;
 
 import com.ibatis.common.io.ReaderInputStream;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class MiniParser extends DefaultHandler {
 

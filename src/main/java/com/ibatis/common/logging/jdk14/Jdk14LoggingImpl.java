@@ -15,8 +15,8 @@
  */
 package com.ibatis.common.logging.jdk14;
 
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Class Jdk14LoggingImpl.

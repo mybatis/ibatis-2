@@ -15,6 +15,8 @@
  */
 package com.ibatis.common.beans;
 
+import com.ibatis.common.resources.Resources;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -30,8 +32,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-
-import com.ibatis.common.resources.Resources;
 
 /**
  * A Probe implementation for working with DOM objects.

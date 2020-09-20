@@ -17,7 +17,6 @@ package com.ibatis.sqlmap.engine.exchange;
 
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
-
 import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMapping;
 import com.ibatis.sqlmap.engine.mapping.result.ResultMap;

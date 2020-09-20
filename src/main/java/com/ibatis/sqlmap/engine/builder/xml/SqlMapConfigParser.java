@@ -19,13 +19,14 @@ import com.ibatis.common.resources.*;
 import com.ibatis.common.xml.*;
 import com.ibatis.sqlmap.client.*;
 import com.ibatis.sqlmap.engine.config.*;
-import com.ibatis.sqlmap.engine.transaction.*;
 import com.ibatis.sqlmap.engine.datasource.*;
 import com.ibatis.sqlmap.engine.mapping.result.*;
-import org.w3c.dom.Node;
+import com.ibatis.sqlmap.engine.transaction.*;
 
 import java.io.*;
 import java.util.Properties;
+
+import org.w3c.dom.Node;
 
 /**
  * The Class SqlMapConfigParser.

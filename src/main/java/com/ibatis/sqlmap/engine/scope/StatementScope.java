@@ -21,8 +21,8 @@ import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 
 import java.sql.ResultSet;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Request based implementation of Scope interface.

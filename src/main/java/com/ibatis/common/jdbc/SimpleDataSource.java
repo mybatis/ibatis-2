@@ -16,11 +16,9 @@
 package com.ibatis.common.jdbc;
 
 import com.ibatis.common.beans.ClassInfo;
-import com.ibatis.common.resources.Resources;
-import com.ibatis.common.logging.LogFactory;
 import com.ibatis.common.logging.Log;
-
-import javax.sql.DataSource;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.common.resources.Resources;
 
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
@@ -29,6 +27,8 @@ import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
+
+import javax.sql.DataSource;
 
 /**
  * This is a simple, synchronous, thread-safe database connection pool.
@@ -398,7 +398,7 @@ public class SimpleDataSource implements DataSource {
 
   /**
    * Getter for the maximum time a connection can be used before it *may* be given away again.
-   * 
+   *
    * @return The maximum time
    */
   public int getPoolMaximumCheckoutTime() {

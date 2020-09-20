@@ -22,18 +22,19 @@ import com.ibatis.common.jdbc.ScriptRunner;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import testdomain.Account;
-import testdomain.Order;
-import testdomain.PrivateAccount;
-import testdomain.FieldAccount;
+
+import java.io.Reader;
+import java.sql.Connection;
+import java.util.*;
 
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.Reader;
-import java.sql.Connection;
-import java.util.*;
+import testdomain.Account;
+import testdomain.FieldAccount;
+import testdomain.Order;
+import testdomain.PrivateAccount;
 
 public class BaseSqlMapTest {
 

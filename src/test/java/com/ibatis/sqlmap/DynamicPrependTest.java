@@ -18,15 +18,15 @@ package com.ibatis.sqlmap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import testdomain.Account;
-import testdomain.MyBean;
-
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import testdomain.Account;
+import testdomain.MyBean;
 
 public class DynamicPrependTest extends BaseSqlMapTest {
 

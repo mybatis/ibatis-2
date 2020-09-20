@@ -19,11 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.ibatis.sqlmap.engine.accessplan.AccessPlan;
 import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
-import testdomain.Order;
 
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
+
+import testdomain.Order;
 
 public class PropertyAccessPlanTest {
 

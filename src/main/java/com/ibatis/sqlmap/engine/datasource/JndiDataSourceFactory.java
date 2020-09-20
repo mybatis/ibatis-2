@@ -17,14 +17,15 @@ package com.ibatis.sqlmap.engine.datasource;
 
 import com.ibatis.sqlmap.client.SqlMapException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 /**
  * DataSourceFactory implementation for JNDI.

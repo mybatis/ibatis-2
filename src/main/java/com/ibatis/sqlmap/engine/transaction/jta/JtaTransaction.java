@@ -22,11 +22,12 @@ import com.ibatis.sqlmap.engine.transaction.IsolationLevel;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 import javax.transaction.Status;
 import javax.transaction.UserTransaction;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * The Class JtaTransaction.

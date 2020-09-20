@@ -22,13 +22,13 @@ import java.util.*;
 /**
  * This class is used to create instances of result objects. It will use the configured ResultObjectFactory if there is
  * one, otherwise it will use iBATIS' normal methods.
- * 
+ *
  * Note that this class is somewhat tightly coupled with SqlExecuter - SqlExecute must call the setStatementId() and
  * setResultObjectFactory() methods before executing a statement. This is a result of using a ThreadLocal to hold the
  * current configuration for the statement under execution. Using a ThreadLocal is a solution for IBATIS-366. Without a
  * ThreadLocal, the current factory and statement id would have to be added to many method signatures - often in
  * inappropriate places.
- * 
+ *
  * @author Jeff Butler
  */
 public class ResultObjectFactoryUtil {
@@ -49,13 +49,13 @@ public class ResultObjectFactoryUtil {
 
   /**
    * Algorithm:
-   * 
+   *
    * <ul>
    * <li>If factory is null, then create object internally()</li>
    * <li>Otherwise try to create object through factory</li>
    * <li>If null returned from factory, then create object internally</li>
    * </ul>
-   * 
+   *
    * This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
    * configured.
    *

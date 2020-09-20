@@ -15,16 +15,17 @@
  */
 package com.ibatis.sqlmap.engine.impl;
 
+import com.ibatis.common.util.PaginatedList;
 import com.ibatis.sqlmap.client.*;
 import com.ibatis.sqlmap.client.event.RowHandler;
 import com.ibatis.sqlmap.engine.execution.*;
-import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
-import com.ibatis.common.util.PaginatedList;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
+
+import javax.sql.DataSource;
 
 /**
  * The Interface ExtendedSqlMapClient.

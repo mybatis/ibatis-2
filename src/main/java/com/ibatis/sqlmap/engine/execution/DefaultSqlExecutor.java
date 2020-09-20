@@ -15,18 +15,6 @@
  */
 package com.ibatis.sqlmap.engine.execution;
 
-import java.sql.BatchUpdateException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import com.ibatis.sqlmap.engine.config.SqlMapConfiguration;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
@@ -40,6 +28,18 @@ import com.ibatis.sqlmap.engine.mapping.statement.RowHandlerCallback;
 import com.ibatis.sqlmap.engine.scope.ErrorContext;
 import com.ibatis.sqlmap.engine.scope.SessionScope;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
+
+import java.sql.BatchUpdateException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Class responsible for executing the SQL.

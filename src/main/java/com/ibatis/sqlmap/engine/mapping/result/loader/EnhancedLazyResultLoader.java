@@ -15,6 +15,10 @@
  */
 package com.ibatis.sqlmap.engine.mapping.result.loader;
 
+import com.ibatis.common.beans.ClassInfo;
+import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+import com.ibatis.sqlmap.engine.type.DomTypeMarker;
+
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -23,10 +27,6 @@ import java.util.Set;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.LazyLoader;
 import net.sf.cglib.proxy.NoOp;
-
-import com.ibatis.common.beans.ClassInfo;
-import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
-import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 
 /**
  * Class to lazily load results into objects (uses CGLib to improve performance).

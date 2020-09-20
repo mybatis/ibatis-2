@@ -18,9 +18,9 @@ package com.ibatis.sqlmap.engine.mapping.result.loader;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
 
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.*;
-import java.lang.reflect.Array;
 
 /**
  * Class to load results into objects.

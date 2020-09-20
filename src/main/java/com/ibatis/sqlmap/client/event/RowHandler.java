@@ -23,7 +23,7 @@ package com.ibatis.sqlmap.client.event;
  * load into memory.
  * <p>
  * Example:
- * 
+ *
  * <pre>
  * sqlMap.queryWithRowHandler ("findAllEmployees", null, new MyRowHandler()));
  * </pre>
