@@ -1,8 +1,0 @@
-language: java
-
-jdk:
-  - openjdk8
-
-after_success:
-  - chmod -R 777 ./travis/after_success.sh
-  - ./travis/after_success.sh
