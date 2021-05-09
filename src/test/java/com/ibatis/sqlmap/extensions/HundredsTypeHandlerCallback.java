@@ -24,6 +24,7 @@ import java.sql.SQLException;
 
 public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
 
+  @Override
   public Object getResult(ResultGetter getter) throws SQLException {
     int i = getter.getInt();
     if (i == 100) {
@@ -35,6 +36,7 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
     }
   }
 
+  @Override
   public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
     boolean b = ((Boolean) parameter).booleanValue();
     if (b) {
@@ -44,6 +46,7 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
     }
   }
 
+  @Override
   public Object valueOf(String s) {
     if ("100".equalsIgnoreCase(s)) {
       return new Boolean(true);

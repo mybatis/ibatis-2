@@ -876,7 +876,7 @@ public class StatementTest extends BaseSqlMapTest {
   public void testQueryDynamicSqlElement() throws SQLException {
     List<?> list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_ID");
 
-    assertEquals("clinton.begin@ibatis.com", (String) list.get(0));
+    assertEquals("clinton.begin@ibatis.com", list.get(0));
 
     list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_FIRST_NAME");
 
@@ -891,6 +891,7 @@ public class StatementTest extends BaseSqlMapTest {
 
     private List<Object> list = new ArrayList<Object>();
 
+    @Override
     public void handleRow(Object object) {
       index++;
       assertEquals(index, ((Account) object).getId());

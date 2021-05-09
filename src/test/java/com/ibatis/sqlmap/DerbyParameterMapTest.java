@@ -26,6 +26,7 @@ public class DerbyParameterMapTest extends ParameterMapTest {
 
   // SETUP & TEARDOWN
 
+  @Override
   @BeforeEach
   public void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);

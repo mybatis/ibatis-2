@@ -68,15 +68,15 @@ public class MiniElement {
   }
 
   public MiniAttribute getAttribute(int i) {
-    return (MiniAttribute) attributeList.get(i);
+    return attributeList.get(i);
   }
 
   public MiniAttribute getAttribute(String name) {
-    return (MiniAttribute) attributeMap.get(name);
+    return attributeMap.get(name);
   }
 
   public MiniAttribute removeAttribute(int i) {
-    return (MiniAttribute) attributeList.remove(i);
+    return attributeList.remove(i);
   }
 
   public int getAttributeCount() {
@@ -90,15 +90,15 @@ public class MiniElement {
   }
 
   public MiniElement getElement(int i) {
-    return (MiniElement) elementList.get(i);
+    return elementList.get(i);
   }
 
   public MiniElement getElement(String name) {
-    return (MiniElement) elementMap.get(name);
+    return elementMap.get(name);
   }
 
   public MiniElement removeElement(int i) {
-    return (MiniElement) elementList.remove(i);
+    return elementList.remove(i);
   }
 
   public int getElementCount() {
