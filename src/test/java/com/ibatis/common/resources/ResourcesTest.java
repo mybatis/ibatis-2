@@ -43,7 +43,7 @@ class ResourcesTest {
   private boolean isUsingPrivateClassloader = false;
 
   @Test
-  void  testSetDefaultClassLoader() {
+  void testSetDefaultClassLoader() {
     ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
     ClassLoader tmp = Resources.getDefaultClassLoader();
     Resources.setDefaultClassLoader(classLoader);
@@ -56,7 +56,7 @@ class ResourcesTest {
    * Class to test for URL getResourceURL(String)
    */
   @Test
-  void  testGetResourceURLString() {
+  void testGetResourceURLString() {
     String resourceName;
     URL url;
 
@@ -85,7 +85,7 @@ class ResourcesTest {
    * Class to test for URL getResourceURL(ClassLoader, String)
    */
   @Test
-  void  testGetResourceURLClassLoaderString() {
+  void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
     ClassLoader classLoader;
@@ -122,7 +122,7 @@ class ResourcesTest {
    * Class to test for InputStream getResourceAsStream(String)
    */
   @Test
-  void  testGetResourceAsStreamString() {
+  void testGetResourceAsStreamString() {
     InputStream inputStream;
     String resourceName;
 
@@ -150,7 +150,7 @@ class ResourcesTest {
    * Class to test for InputStream getResourceAsStream(ClassLoader, String)
    */
   @Test
-  void  testGetResourceAsStreamClassLoaderString() {
+  void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
     ClassLoader classLoader;
@@ -186,7 +186,7 @@ class ResourcesTest {
    * Class to test for Properties getResourceAsProperties(String)
    */
   @Test
-  void  testGetResourceAsPropertiesString() {
+  void testGetResourceAsPropertiesString() {
     String resourceName;
     String testProp = "name";
     String testPropValue = "value";
@@ -220,7 +220,7 @@ class ResourcesTest {
    * Class to test for Properties getResourceAsProperties(ClassLoader, String)
    */
   @Test
-  void  testGetResourceAsPropertiesClassLoaderString() {
+  void testGetResourceAsPropertiesClassLoaderString() {
     String resourceName;
     String testProp = "name";
     String testPropValue = "value";
@@ -261,58 +261,58 @@ class ResourcesTest {
    * Class to test for Reader getResourceAsReader(String)
    */
   @Test
-  void  testGetResourceAsReaderString() {
+  void testGetResourceAsReaderString() {
   }
 
   /*
    * Class to test for Reader getResourceAsReader(ClassLoader, String)
    */
   @Test
-  void  testGetResourceAsReaderClassLoaderString() {
+  void testGetResourceAsReaderClassLoaderString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(String)
    */
   @Test
-  void  testGetResourceAsFileString() {
+  void testGetResourceAsFileString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(ClassLoader, String)
    */
   @Test
-  void  testGetResourceAsFileClassLoaderString() {
+  void testGetResourceAsFileClassLoaderString() {
   }
 
   @Test
-  void  testGetUrlAsStream() {
+  void testGetUrlAsStream() {
   }
 
   @Test
-  void  testGetUrlAsReader() {
+  void testGetUrlAsReader() {
   }
 
   @Test
-  void  testGetUrlAsProperties() {
+  void testGetUrlAsProperties() {
   }
 
   @Test
-  void  testClassForName() {
+  void testClassForName() {
   }
 
   /*
    * Class to test for Object instantiate(String)
    */
   @Test
-  void  testInstantiateString() {
+  void testInstantiateString() {
   }
 
   /*
    * Class to test for Object instantiate(Class)
    */
   @Test
-  void  testInstantiateClass() {
+  void testInstantiateClass() {
   }
 
   /*

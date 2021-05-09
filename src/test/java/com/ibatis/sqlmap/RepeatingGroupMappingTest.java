@@ -28,26 +28,26 @@ import testdomain.*;
 class RepeatingGroupMappingTest extends BaseSqlMapTest {
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");
     initScript("scripts/jpetstore-hsqldb-dataload.sql");
   }
 
   @Test
-  void  testGroupBy() throws Exception {
+  void testGroupBy() throws Exception {
     List<?> list = sqlMap.queryForList("getAllCategories", null);
     assertEquals(5, list.size());
   }
 
   @Test
-  void  testGroupByExtended() throws Exception {
+  void testGroupByExtended() throws Exception {
     List<?> list = sqlMap.queryForList("getAllCategoriesExtended", null);
     assertEquals(5, list.size());
   }
 
   @Test
-  void  testNestedProperties() throws Exception {
+  void testNestedProperties() throws Exception {
     List<?> list = sqlMap.queryForList("getFish", null);
     assertEquals(1, list.size());
 
@@ -77,7 +77,7 @@ class RepeatingGroupMappingTest extends BaseSqlMapTest {
    *           none should be thrown.
    */
   @Test
-  void  testGroupByJIRA250() throws Exception {
+  void testGroupByJIRA250() throws Exception {
     List<?> list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
     Category cat = (Category) list.get(0);
     assertEquals(0, cat.getProductList().size());

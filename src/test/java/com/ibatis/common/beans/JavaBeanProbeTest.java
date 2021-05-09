@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 class JavaBeanProbeTest {
 
   @Test
-  void  testGetPropertyTypeForSetterObjectString() {
+  void testGetPropertyTypeForSetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForSetter(b, "testBean").equals(TestBean.class));
@@ -32,7 +32,7 @@ class JavaBeanProbeTest {
   }
 
   @Test
-  void  testGetPropertyTypeForGetterObjectString() {
+  void testGetPropertyTypeForGetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForGetter(b, "testBean").equals(TestBean.class));
@@ -40,7 +40,7 @@ class JavaBeanProbeTest {
   }
 
   @Test
-  void  testHasWritableProperty() {
+  void testHasWritableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.hasWritableProperty(b, "testBean"));
@@ -48,7 +48,7 @@ class JavaBeanProbeTest {
   }
 
   @Test
-  void  testHasReadableProperty() {
+  void testHasReadableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.hasReadableProperty(b, "testBean"));
@@ -56,7 +56,7 @@ class JavaBeanProbeTest {
   }
 
   @Test
-  void  testSetAndGetObject() {
+  void testSetAndGetObject() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     float f[] = new float[3];

@@ -38,13 +38,13 @@ import testdomain.Account;
 class BatchTest extends BaseSqlMapTest {
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
   @Test
-  void  testExecutebatchDetailed() {
+  void testExecutebatchDetailed() {
     List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);
@@ -161,7 +161,7 @@ class BatchTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecutebatchDetailedWithError() {
+  void testExecutebatchDetailedWithError() {
     List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);
@@ -297,7 +297,7 @@ class BatchTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecutebatch() {
+  void testExecutebatch() {
     List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);

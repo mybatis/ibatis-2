@@ -29,7 +29,7 @@ class MemoryCacheControllerTest extends LruCacheControllerTest {
 
   @Override
   @Test
-  void  testSizeOne() {
+  public void testSizeOne() {
     // This is not relevant for this model
   }
 }

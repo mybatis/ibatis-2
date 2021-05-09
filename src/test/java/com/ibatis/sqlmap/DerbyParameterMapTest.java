@@ -28,7 +28,7 @@ class DerbyParameterMapTest extends ParameterMapTest {
 
   @Override
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }

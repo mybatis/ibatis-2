@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 class ComplexBeanProbeTest {
 
   @Test
-  void  testSetObject() {
+  void testSetObject() {
     SimpleClass mySimpleClass = new SimpleClass();
     Probe probe = ProbeFactory.getProbe(mySimpleClass);
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(1));

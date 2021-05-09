@@ -26,25 +26,25 @@ class SqlMapClasspathEntityResolverTest {
   // ibatis.com
 
   @Test
-  void  testComConfigSystemId() {
+  void testComConfigSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  void  testComConfigPublicId() {
+  void testComConfigPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  void  testComMapSystemId() {
+  void testComMapSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  void  testComMapPublicId() {
+  void testComMapPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
@@ -52,31 +52,31 @@ class SqlMapClasspathEntityResolverTest {
   // ibatis.apache.org
 
   @Test
-  void  testOrgConfigSystemId() {
+  void testOrgConfigSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  void  testOrgConfigPublicId() {
+  void testOrgConfigPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  void  testOrgMapSystemId() {
+  void testOrgMapSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  void  testOrgMapPublicId() {
+  void testOrgMapPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  void  testOddCase() {
+  void testOddCase() {
     String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }

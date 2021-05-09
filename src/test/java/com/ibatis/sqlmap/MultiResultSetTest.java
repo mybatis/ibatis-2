@@ -35,7 +35,7 @@ class MultiResultSetTest extends BaseSqlMapTest {
   // SETUP & TEARDOWN
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
         Resources.getResourceAsProperties("com/ibatis/sqlmap/maps/DerbySqlMapConfig.properties"));
     initScript("scripts/account-init.sql");
@@ -44,7 +44,7 @@ class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
+  void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
     Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
@@ -57,7 +57,7 @@ class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
+  void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
     Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
@@ -70,7 +70,7 @@ class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testCallableStatementShouldReturnTwoResultSets() throws Exception {
+  void testCallableStatementShouldReturnTwoResultSets() throws Exception {
     sqlMap.startTransaction();
     Connection conn = sqlMap.getCurrentConnection();
     CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");

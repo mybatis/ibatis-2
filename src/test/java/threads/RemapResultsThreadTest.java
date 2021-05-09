@@ -29,12 +29,12 @@ import org.junit.jupiter.api.Test;
 class RemapResultsThreadTest {
 
   @Test
-  void  testWithRemap() throws Exception {
+  void testWithRemap() throws Exception {
     runTest("WithRemap");
   }
 
   @Test
-  void  testWithoutRemap() throws Exception {
+  void testWithoutRemap() throws Exception {
     runTest("WithoutRemap");
   }
 

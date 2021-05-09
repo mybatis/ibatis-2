@@ -30,7 +30,7 @@ class ComplexTypeTest extends BaseSqlMapTest {
   // SETUP & TEARDOWN
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
     initScript("scripts/order-init.sql");
@@ -38,7 +38,7 @@ class ComplexTypeTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testMapBeanMap() throws Exception {
+  void testMapBeanMap() throws Exception {
     Map<String, ComplexBean> map = new HashMap<>();
     ComplexBean bean = new ComplexBean();
     bean.setMap(new HashMap<String, Integer>());

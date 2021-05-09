@@ -36,7 +36,7 @@ class PropertyAccessPlanTest {
       "clinton@ibatis.com", "VISA", "1234567890", "05/06", "M100", Integer.valueOf(3), new BigDecimal(150) };
 
   @Test
-  void  testSetAndGetProperties() {
+  void testSetAndGetProperties() {
 
     AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);
 

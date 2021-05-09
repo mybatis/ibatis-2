@@ -24,14 +24,14 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
-class LruCacheControllerTest {
+public class LruCacheControllerTest {
 
   protected CacheController getController() {
     return new LruCacheController();
   }
 
   @Test
-  void  testSizeOne() {
+  public void testSizeOne() {
     CacheController cc = getController();
     String testKey = "testKey";
     String testVal = "testVal";
@@ -49,7 +49,7 @@ class LruCacheControllerTest {
   }
 
   @Test
-  void  testGetAndPutObject() {
+  public void testGetAndPutObject() {
     CacheController cc = getController();
     String testKey = "testKey";
     String testVal = "testVal";
@@ -65,7 +65,7 @@ class LruCacheControllerTest {
   }
 
   @Test
-  void  testRemoveObject() {
+  public void testRemoveObject() {
     CacheController cc = getController();
     String testKey = "testKey";
     String testVal = "testVal";
@@ -80,7 +80,7 @@ class LruCacheControllerTest {
   }
 
   @Test
-  void  testFlush() {
+  public void testFlush() {
     CacheController cc = getController();
     String testKey = "testKey";
     String testVal = "testVal";

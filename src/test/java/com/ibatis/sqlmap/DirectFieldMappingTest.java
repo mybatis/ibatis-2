@@ -26,13 +26,13 @@ import testdomain.PrivateAccount;
 class DirectFieldMappingTest extends BaseSqlMapTest {
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
   @Test
-  void  testInsertAndSelectDirectToFields() throws SQLException {
+  void testInsertAndSelectDirectToFields() throws SQLException {
     FieldAccount account = newFieldAccount6();
 
     sqlMap.insert("insertAccountFromFields", account);
@@ -44,7 +44,7 @@ class DirectFieldMappingTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testGetAccountWithPrivateConstructor() throws SQLException {
+  void testGetAccountWithPrivateConstructor() throws SQLException {
     FieldAccount account = newFieldAccount6();
 
     sqlMap.insert("insertAccountFromFields", account);

@@ -36,7 +36,7 @@ class EnhancedLazyResultLoaderTest {
    * Depending of the implementation of the Cglib-proxy the access will throw an IllegalAccessException.
    */
   @Test
-  void  testProxyMethodAccess() throws SQLException {
+  void testProxyMethodAccess() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
     EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean2", null, Bean2.class);
@@ -50,7 +50,7 @@ class EnhancedLazyResultLoaderTest {
    * Test if a proxy for a null nevertheless dispatch to a default object.
    */
   @Test
-  void  testNullProxy() throws SQLException {
+  void testNullProxy() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
     EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean3", null, TestBean3.class);

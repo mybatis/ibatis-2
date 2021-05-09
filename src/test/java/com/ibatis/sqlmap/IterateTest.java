@@ -28,7 +28,7 @@ import testdomain.Account;
 class IterateTest extends BaseSqlMapTest {
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
@@ -36,7 +36,7 @@ class IterateTest extends BaseSqlMapTest {
   // Iterate
 
   @Test
-  void  testIterate() throws SQLException {
+  void testIterate() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterate", params);
     assertAccount1((Account) list.get(0));
@@ -46,7 +46,7 @@ class IterateTest extends BaseSqlMapTest {
   // Iterate
 
   @Test
-  void  testIterateInConditional() throws SQLException {
+  void testIterateInConditional() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterateInConditional", params);
     assertEquals(2, list.size());
@@ -56,7 +56,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testIterateLiteral() throws SQLException {
+  void testIterateLiteral() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterateLiteral", params);
     assertAccount1((Account) list.get(0));
@@ -64,7 +64,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testMultiIterate() throws SQLException {
+  void testMultiIterate() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("multiDynamicIterate", params);
     assertAccount1((Account) list.get(0));
@@ -72,7 +72,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testMultiIterateLiteral() throws SQLException {
+  void testMultiIterateLiteral() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("multiDynamicIterateLiteral", params);
     assertAccount1((Account) list.get(0));
@@ -82,7 +82,7 @@ class IterateTest extends BaseSqlMapTest {
   // ARRAY
 
   @Test
-  void  testArrayPropertyIterate() throws SQLException {
+  void testArrayPropertyIterate() throws SQLException {
     Account account = new Account();
     account.setIds(new int[] { 1, 2, 3 });
     List<?> list = sqlMap.queryForList("dynamicQueryByExample", account);
@@ -91,7 +91,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testArrayPropertyIterate2() throws SQLException {
+  void testArrayPropertyIterate2() throws SQLException {
     Account account = new Account();
     account.setAge(4);
     account.setIds(new int[] { 1, 2, 3 });
@@ -101,7 +101,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testArrayPropertyIterate2Literal() throws SQLException {
+  void testArrayPropertyIterate2Literal() throws SQLException {
     Account account = new Account();
     account.setAge(4);
     account.setIds(new int[] { 1, 2, 3 });
@@ -113,7 +113,7 @@ class IterateTest extends BaseSqlMapTest {
   // LIST IN MAP
 
   @Test
-  void  testListInMap() throws SQLException {
+  void testListInMap() throws SQLException {
     List<Integer> paramList = new ArrayList<Integer>();
     paramList.add(Integer.valueOf(1));
     paramList.add(Integer.valueOf(2));
@@ -128,7 +128,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testListDirect() throws SQLException {
+  void testListDirect() throws SQLException {
     List<Integer> paramList = new ArrayList<Integer>();
     paramList.add(Integer.valueOf(1));
     paramList.add(Integer.valueOf(2));
@@ -140,7 +140,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testIterateNestedListProperty() throws SQLException {
+  void testIterateNestedListProperty() throws SQLException {
     Account account = new Account();
     account.setAccountList(new ArrayList<Account>());
     account.getAccountList().add(new Account(1));
@@ -153,7 +153,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testIterateNestedListPropertyB() throws SQLException {
+  void testIterateNestedListPropertyB() throws SQLException {
     Account account = new Account();
     account.setId(99);
     account.setAccountList(new ArrayList<Account>());
@@ -167,7 +167,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testIterateNestedMapListProperty() throws SQLException {
+  void testIterateNestedMapListProperty() throws SQLException {
     Map<String, List<Account>> account = new HashMap<String, List<Account>>();
     List<Account> accountList = new ArrayList<Account>();
     account.put("accountList", accountList);
@@ -181,7 +181,7 @@ class IterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  xtestArrayPropertyIterate2() throws SQLException {
+  void xtestArrayPropertyIterate2() throws SQLException {
     Account account = new Account();
     account.setIds(new int[] { 1, 2, 3 });
     List<?> list = sqlMap.queryForList("dynamicQueryByExample2", account);

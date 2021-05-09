@@ -35,7 +35,7 @@ class DomStatementTest extends BaseSqlMapTest {
   // SETUP & TEARDOWN
 
   @BeforeEach
-  void  setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
     initScript("scripts/order-init.sql");
@@ -43,7 +43,7 @@ class DomStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecuteQueryForDom() throws SQLException {
+  void testExecuteQueryForDom() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("1"));
     assertNotNull(account);
 
@@ -56,7 +56,7 @@ class DomStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecuteQueryForDomSpecialChars() throws SQLException {
+  void testExecuteQueryForDomSpecialChars() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("5"));
     assertNotNull(account);
 
@@ -67,7 +67,7 @@ class DomStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecuteQueryForDomExternalMaps() throws SQLException {
+  void testExecuteQueryForDomExternalMaps() throws SQLException {
     Document account = (Document) sqlMap.queryForObject("getAccountDomExternalMaps", newParameter("1"));
     assertNotNull(account);
 
@@ -84,7 +84,7 @@ class DomStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  void  testExecuteQueryForOrderDom() throws SQLException {
+  void testExecuteQueryForOrderDom() throws SQLException {
 
     Document order = (Document) sqlMap.queryForObject("getOrderDom", newParameter("1"));
     assertNotNull(order);

@@ -29,7 +29,7 @@ class PaginatedArrayListTest {
   private PaginatedArrayList evenPageList;
 
   @BeforeEach
-  void  setUp() {
+  void setUp() {
     smallPageList = new PaginatedArrayList(5);
     smallPageList.add(Integer.valueOf(0));
     smallPageList.add(Integer.valueOf(1));
@@ -75,7 +75,7 @@ class PaginatedArrayListTest {
   }
 
   @Test
-  void  testOddPaginatedIterator() {
+  void testOddPaginatedIterator() {
 
     assertEquals(true, oddPageList.isFirstPage());
     assertEquals(false, oddPageList.isPreviousPageAvailable());
@@ -145,7 +145,7 @@ class PaginatedArrayListTest {
   }
 
   @Test
-  void  testEvenPaginatedIterator() {
+  void testEvenPaginatedIterator() {
 
     assertEquals(true, evenPageList.isFirstPage());
     assertEquals(false, evenPageList.isPreviousPageAvailable());
@@ -205,7 +205,7 @@ class PaginatedArrayListTest {
   }
 
   @Test
-  void  testSmallPaginatedIterator() {
+  void testSmallPaginatedIterator() {
 
     assertEquals(true, smallPageList.isFirstPage());
     assertEquals(true, smallPageList.isLastPage());

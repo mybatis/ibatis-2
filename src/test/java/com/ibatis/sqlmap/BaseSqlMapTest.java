@@ -36,7 +36,7 @@ import testdomain.FieldAccount;
 import testdomain.Order;
 import testdomain.PrivateAccount;
 
-class BaseSqlMapTest {
+public class BaseSqlMapTest {
 
   protected static SqlMapClient sqlMap;
 
@@ -170,7 +170,7 @@ class BaseSqlMapTest {
   }
 
   @Test
-  void  testDummy() {
+  void testDummy() {
     // just to avoid warnings when running all tests.
   }
 

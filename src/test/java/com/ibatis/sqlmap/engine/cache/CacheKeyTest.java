@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 class CacheKeyTest {
 
   @Test
-  void  testUpdate() {
+  void testUpdate() {
     CacheKey key3 = new CacheKey();
 
     CacheKey key4 = new CacheKey();

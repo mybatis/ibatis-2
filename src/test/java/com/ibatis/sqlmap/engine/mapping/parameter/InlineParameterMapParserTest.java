@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 class InlineParameterMapParserTest {
 
   @Test
-  void  testParseInlineParameterMapTypeHandlerFactoryString() {
+  void testParseInlineParameterMapTypeHandlerFactoryString() {
     InlineParameterMapParser parser = new InlineParameterMapParser();
     SqlText parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (1)");

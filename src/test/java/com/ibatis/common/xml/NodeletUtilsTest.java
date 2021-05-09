@@ -28,7 +28,7 @@ class NodeletUtilsTest {
    * Test for getting of a boolean argument.
    */
   @Test
-  void  testGetBooleanAttribute() {
+  void testGetBooleanAttribute() {
 
     Properties props = new Properties();
     props.setProperty("boolean1", "true");
@@ -49,7 +49,7 @@ class NodeletUtilsTest {
    * Test for getting of a integer argument.
    */
   @Test
-  void  testGetIntAttribute() {
+  void testGetIntAttribute() {
 
     Properties props = new Properties();
     props.setProperty("int1", "0");
@@ -79,7 +79,7 @@ class NodeletUtilsTest {
    * Test for getting of a boolean argument.
    */
   @Test
-  void  testParsePropertyTokens() {
+  void testParsePropertyTokens() {
 
     Properties props = new Properties();
     props.setProperty("key1", "0");

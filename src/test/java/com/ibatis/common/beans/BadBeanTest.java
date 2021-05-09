@@ -36,7 +36,7 @@ class BadBeanTest {
   private static final Object[] INT_PARAMS = new Object[] { INT_VALUE };
 
   @Test
-  void  testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
+  void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
     GoodBean bean = new GoodBean();
     ClassInfo info = ClassInfo.getInstance(GoodBean.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
@@ -46,7 +46,7 @@ class BadBeanTest {
   }
 
   @Test
-  void  testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
+  void testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
     BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
     info.getSetter(PROPNAME).invoke(bean, INT_PARAMS);
@@ -56,7 +56,7 @@ class BadBeanTest {
   }
 
   @Test
-  void  testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
+  void testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
     BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
@@ -66,7 +66,7 @@ class BadBeanTest {
   }
 
   @Test
-  void  testShouldFailInitializingClassInfoForBeanWithNoGetterOverloadedSetter() {
+  void testShouldFailInitializingClassInfoForBeanWithNoGetterOverloadedSetter() {
     try {
       try {
         ClassInfo.getInstance(BeanWithNoGetterOverloadedSetters.class);
@@ -81,7 +81,7 @@ class BadBeanTest {
   }
 
   @Test
-  void  testShouldFailInitializingClassInfoForBeanWithDifferentTypeOverloadedSetter() {
+  void testShouldFailInitializingClassInfoForBeanWithDifferentTypeOverloadedSetter() {
     try {
       try {
         ClassInfo.getInstance(BeanWithDifferentTypeOverloadedSetter.class);
@@ -96,7 +96,7 @@ class BadBeanTest {
   }
 
   @Test
-  void  testUnwrapThrowable() {
+  void testUnwrapThrowable() {
     SQLException cause = new SQLException("test");
     UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
     assertEquals(cause, ClassInfo.unwrapThrowable(e));
