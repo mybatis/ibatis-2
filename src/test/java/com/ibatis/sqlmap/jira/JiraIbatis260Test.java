@@ -48,7 +48,7 @@ import testdomain.TopicDescription;
 class JiraIbatis260Test extends BaseSqlMap {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/jira.sql");
   }
