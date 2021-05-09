@@ -29,14 +29,12 @@ import java.util.*;
 
 import javax.sql.DataSource;
 
-import org.junit.jupiter.api.Test;
-
 import testdomain.Account;
 import testdomain.FieldAccount;
 import testdomain.Order;
 import testdomain.PrivateAccount;
 
-public class BaseSqlMapTest {
+public class BaseSqlMap {
 
   protected static SqlMapClient sqlMap;
 
@@ -167,11 +165,6 @@ public class BaseSqlMapTest {
     assertEquals("Victoria", order.get("city"));
     assertEquals("BC", order.get("province"));
     assertEquals("C4B 4F4", order.get("postalCode"));
-  }
-
-  @Test
-  void testDummy() {
-    // just to avoid warnings when running all tests.
   }
 
 }

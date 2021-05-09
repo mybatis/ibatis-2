@@ -28,7 +28,7 @@ import testdomain.Document;
 import testdomain.Magazine;
 import testdomain.PersonDocument;
 
-class DiscriminatorTest extends BaseSqlMapTest {
+class DiscriminatorTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

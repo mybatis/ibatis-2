@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
-class DomStatementTest extends BaseSqlMapTest {
+class DomStatementTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

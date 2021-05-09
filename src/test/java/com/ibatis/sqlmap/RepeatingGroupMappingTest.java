@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.*;
 
-class RepeatingGroupMappingTest extends BaseSqlMapTest {
+class RepeatingGroupMappingTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

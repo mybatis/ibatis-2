@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import testdomain.Account;
 import testdomain.Order;
 
-class ResultMapTest extends BaseSqlMapTest {
+class ResultMapTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

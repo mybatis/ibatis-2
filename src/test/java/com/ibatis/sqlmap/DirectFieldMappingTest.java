@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import testdomain.FieldAccount;
 import testdomain.PrivateAccount;
 
-class DirectFieldMappingTest extends BaseSqlMapTest {
+class DirectFieldMappingTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

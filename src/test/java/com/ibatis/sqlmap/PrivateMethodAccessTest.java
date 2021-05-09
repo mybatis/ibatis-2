@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PrivateMethodAccessTest extends BaseSqlMapTest {
+class PrivateMethodAccessTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

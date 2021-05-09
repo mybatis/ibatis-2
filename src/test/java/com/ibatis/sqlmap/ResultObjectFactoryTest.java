@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.IItem;
 
-class ResultObjectFactoryTest extends BaseSqlMapTest {
+class ResultObjectFactoryTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

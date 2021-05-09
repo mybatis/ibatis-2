@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-class DynamicTest extends BaseSqlMapTest {
+class DynamicTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

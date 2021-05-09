@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.ComplexBean;
 
-class ComplexTypeTest extends BaseSqlMapTest {
+class ComplexTypeTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

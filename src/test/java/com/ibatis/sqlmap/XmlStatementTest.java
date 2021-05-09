@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import xmltester.*;
 import xmltester.MiniParser;
 
-class XmlStatementTest extends BaseSqlMapTest {
+class XmlStatementTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

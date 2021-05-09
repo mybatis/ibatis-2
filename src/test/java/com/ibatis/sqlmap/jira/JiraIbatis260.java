@@ -15,7 +15,7 @@
  */
 package com.ibatis.sqlmap.jira;
 
-import com.ibatis.sqlmap.BaseSqlMapTest;
+import com.ibatis.sqlmap.BaseSqlMap;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +45,7 @@ import testdomain.TopicDescription;
  * @author Sven Boden
  *
  */
-public class JiraIbatis260 extends BaseSqlMapTest {
+public class JiraIbatis260 extends BaseSqlMap {
 
   @BeforeEach
   public void setUp() throws Exception {

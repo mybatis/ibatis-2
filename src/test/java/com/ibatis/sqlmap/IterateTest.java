@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-class IterateTest extends BaseSqlMapTest {
+class IterateTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

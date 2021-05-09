@@ -35,7 +35,7 @@ import testdomain.Account;
  * @author Jeff Butler
  *
  */
-class BatchTest extends BaseSqlMapTest {
+class BatchTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

@@ -45,7 +45,7 @@ import testdomain.LineItem;
 import testdomain.Order;
 import testdomain.SuperAccount;
 
-class StatementTest extends BaseSqlMapTest {
+class StatementTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

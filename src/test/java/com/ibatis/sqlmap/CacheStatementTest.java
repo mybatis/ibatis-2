@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-class CacheStatementTest extends BaseSqlMapTest {
+class CacheStatementTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

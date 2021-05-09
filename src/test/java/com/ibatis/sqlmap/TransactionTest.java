@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-class TransactionTest extends BaseSqlMapTest {
+class TransactionTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {

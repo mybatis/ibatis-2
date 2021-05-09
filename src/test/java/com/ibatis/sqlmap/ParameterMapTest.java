@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-class ParameterMapTest extends BaseSqlMapTest {
+class ParameterMapTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 

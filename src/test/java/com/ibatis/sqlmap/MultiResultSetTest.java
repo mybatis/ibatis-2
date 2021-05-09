@@ -30,7 +30,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MultiResultSetTest extends BaseSqlMapTest {
+class MultiResultSetTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 
