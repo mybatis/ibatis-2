@@ -45,7 +45,7 @@ import testdomain.TopicDescription;
  * @author Sven Boden
  *
  */
-public class JiraIbatis260Test extends BaseSqlMap {
+class JiraIbatis260Test extends BaseSqlMap {
 
   @BeforeEach
   public void setUp() throws Exception {
@@ -63,7 +63,7 @@ public class JiraIbatis260Test extends BaseSqlMap {
    *           none should be thrown (if the regression test succeeds)
    */
   @Test
-  public void testIbatis260Error1() throws Exception {
+  void testIbatis260Error1() throws Exception {
     List<?> groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
 
     HashMap<String, Object> test = new HashMap<>();
