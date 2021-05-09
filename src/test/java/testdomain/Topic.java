@@ -20,13 +20,15 @@ import java.util.List;
 
 public class Topic implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   private String topicTitle;
-  private List descriptionList;
+  private List<?> descriptionList;
 
   /**
    * @return Returns the descriptionList.
    */
-  public List getDescriptionList() {
+  public List<?> getDescriptionList() {
     return descriptionList;
   }
 
@@ -34,7 +36,7 @@ public class Topic implements Serializable {
    * @param descriptionList
    *          The descriptionList to set.
    */
-  public void setDescriptionList(List description) {
+  public void setDescriptionList(List<?> description) {
     this.descriptionList = description;
   }
 

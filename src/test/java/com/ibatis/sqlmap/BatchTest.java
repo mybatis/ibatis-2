@@ -45,7 +45,7 @@ public class BatchTest extends BaseSqlMapTest {
 
   @Test
   public void testExecutebatchDetailed() {
-    List accountList1 = new ArrayList();
+    List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -81,7 +81,7 @@ public class BatchTest extends BaseSqlMapTest {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List accountList2 = new ArrayList();
+    List<Account> accountList2 = new ArrayList<Account>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");
@@ -133,7 +133,7 @@ public class BatchTest extends BaseSqlMapTest {
         sqlMap.insert("insertAccountViaInlineParameters", accountList2.get(i));
       }
 
-      List results = sqlMap.executeBatchDetailed();
+      List<?> results = sqlMap.executeBatchDetailed();
       sqlMap.commitTransaction();
 
       assertEquals(3, results.size());
@@ -162,7 +162,7 @@ public class BatchTest extends BaseSqlMapTest {
 
   @Test
   public void testExecutebatchDetailedWithError() {
-    List accountList1 = new ArrayList();
+    List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -198,7 +198,7 @@ public class BatchTest extends BaseSqlMapTest {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List accountList2 = new ArrayList();
+    List<Account> accountList2 = new ArrayList<Account>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");
@@ -279,7 +279,7 @@ public class BatchTest extends BaseSqlMapTest {
       BatchUpdateException bue = e.getBatchUpdateException();
       assertEquals(1, bue.getUpdateCounts().length);
 
-      List results = e.getSuccessfulBatchResults();
+      List<?> results = e.getSuccessfulBatchResults();
       assertEquals(2, results.size());
       BatchResult br = (BatchResult) results.get(0);
       assertEquals(5, br.getUpdateCounts().length);
@@ -298,7 +298,7 @@ public class BatchTest extends BaseSqlMapTest {
 
   @Test
   public void testExecutebatch() {
-    List accountList1 = new ArrayList();
+    List<Account> accountList1 = new ArrayList<Account>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -334,7 +334,7 @@ public class BatchTest extends BaseSqlMapTest {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List accountList2 = new ArrayList();
+    List<Account> accountList2 = new ArrayList<Account>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");

@@ -39,9 +39,9 @@ public class ComplexTypeTest extends BaseSqlMapTest {
 
   @Test
   public void testMapBeanMap() throws Exception {
-    Map map = new HashMap();
+    Map<String, ComplexBean> map = new HashMap<>();
     ComplexBean bean = new ComplexBean();
-    bean.setMap(new HashMap());
+    bean.setMap(new HashMap<String, Integer>());
     bean.getMap().put("id", Integer.valueOf(1));
     map.put("bean", bean);
 

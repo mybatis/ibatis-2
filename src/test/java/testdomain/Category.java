@@ -20,11 +20,12 @@ import java.util.List;
 
 public class Category implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private String categoryId;
   private Category parentCategory;
   private String name;
   private String description;
-  private List productList;
+  private List<?> productList;
 
   public String getCategoryId() {
     return categoryId;
@@ -50,11 +51,11 @@ public class Category implements Serializable {
     this.description = description;
   }
 
-  public List getProductList() {
+  public List<?> getProductList() {
     return productList;
   }
 
-  public void setProductList(List productList) {
+  public void setProductList(List<?> productList) {
     this.productList = productList;
   }
 

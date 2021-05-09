@@ -22,6 +22,7 @@ import java.io.Serializable;
  */
 public class ArticleIndexDenorm implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private String categoryTitle;
 
   private String topicTitle;

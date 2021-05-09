@@ -39,7 +39,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
   @Test
   public void testDiscriminator() throws Exception {
 
-    List list = sqlMap.queryForList("getDocuments", null);
+    List<?> list = sqlMap.queryForList("getDocuments", null);
     assertEquals(6, list.size());
 
     assertTrue(list.get(0) instanceof Book);
@@ -64,7 +64,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
 
   @Test
   public void testDiscriminatorInNestedResultMap() throws Exception {
-    List list = sqlMap.queryForList("getPersonDocuments");
+    List<?> list = sqlMap.queryForList("getPersonDocuments");
     assertEquals(3, list.size());
 
     assertTrue(((PersonDocument) list.get(0)).getFavoriteDocument() instanceof Magazine);
@@ -75,7 +75,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
 
   @Test
   public void testDiscriminatorWithNestedResultMap() throws Exception {
-    List list = sqlMap.queryForList("getDocumentsWithAttributes");
+    List<?> list = sqlMap.queryForList("getDocumentsWithAttributes");
     assertEquals(6, list.size());
 
     assertTrue(list.get(0) instanceof Book);

@@ -20,8 +20,9 @@ import java.util.List;
 
 public class ArticleIndex implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private String categoryTitle;
-  private List topics;
+  private List<?> topics;
 
   /**
    * @return Returns the categoryTitle.
@@ -41,7 +42,7 @@ public class ArticleIndex implements Serializable {
   /**
    * @return Returns the topics.
    */
-  public List getTopics() {
+  public List<?> getTopics() {
     return topics;
   }
 
@@ -49,7 +50,7 @@ public class ArticleIndex implements Serializable {
    * @param topics
    *          The topics to set.
    */
-  public void setTopics(List topics) {
+  public void setTopics(List<?> topics) {
     this.topics = topics;
   }
 }

@@ -25,11 +25,11 @@ public class MiniElement {
   private String name;
   private String bodyContent;
   private MiniElement parent;
-  private List attributeList = new ArrayList(1);
-  private List elementList = new ArrayList();
+  private List<MiniAttribute> attributeList = new ArrayList<MiniAttribute>(1);
+  private List<MiniElement> elementList = new ArrayList<MiniElement>();
 
-  private Map attributeMap = new HashMap(1);
-  private Map elementMap = new HashMap();
+  private Map<String, MiniAttribute> attributeMap = new HashMap<String, MiniAttribute>(1);
+  private Map<String, MiniElement> elementMap = new HashMap<String, MiniElement>();
 
   public MiniElement() {
   }

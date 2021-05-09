@@ -39,7 +39,7 @@ public class ResultObjectFactoryTest extends BaseSqlMapTest {
    */
   @Test
   public void testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
-    List results = sqlMap.queryForList("getAllItemsROF");
+    List<?> results = sqlMap.queryForList("getAllItemsROF");
     assertEquals(28, results.size());
     assertEquals(Integer.valueOf(1), ((IItem) results.get(2)).getSupplier().getSupplierId());
   }

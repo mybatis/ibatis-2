@@ -17,12 +17,15 @@ package badbeans;
 
 public class BeanWithNoGetterOverloadedSetters {
 
+  // bad bean with no getter on purpose
+  @SuppressWarnings("unused")
   private String value;
 
   public void setValue(String value) {
     this.value = value;
   }
 
+  // Duplicate is on purpose
   public void setValue(Integer value) {
     this.value = value.toString();
   }

@@ -36,19 +36,19 @@ public class RepeatingGroupMappingTest extends BaseSqlMapTest {
 
   @Test
   public void testGroupBy() throws Exception {
-    List list = sqlMap.queryForList("getAllCategories", null);
+    List<?> list = sqlMap.queryForList("getAllCategories", null);
     assertEquals(5, list.size());
   }
 
   @Test
   public void testGroupByExtended() throws Exception {
-    List list = sqlMap.queryForList("getAllCategoriesExtended", null);
+    List<?> list = sqlMap.queryForList("getAllCategoriesExtended", null);
     assertEquals(5, list.size());
   }
 
   @Test
   public void testNestedProperties() throws Exception {
-    List list = sqlMap.queryForList("getFish", null);
+    List<?> list = sqlMap.queryForList("getFish", null);
     assertEquals(1, list.size());
 
     Category cat = (Category) list.get(0);
@@ -78,7 +78,7 @@ public class RepeatingGroupMappingTest extends BaseSqlMapTest {
    */
   @Test
   public void testGroupByJIRA250() throws Exception {
-    List list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
+    List<?> list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
     Category cat = (Category) list.get(0);
     assertEquals(0, cat.getProductList().size());
   }

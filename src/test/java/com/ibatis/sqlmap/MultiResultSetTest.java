@@ -45,28 +45,28 @@ public class MultiResultSetTest extends BaseSqlMapTest {
 
   @Test
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
-    Map persons = new HashMap();
+    Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List results = sqlMap.queryForList("getMultiListsRm", persons);
+    List<?> results = sqlMap.queryForList("getMultiListsRm", persons);
     assertEquals(2, results.size());
-    assertEquals(2, ((List) results.get(0)).size());
-    assertEquals(2, ((List) results.get(1)).size());
+    assertEquals(2, ((List<?>) results.get(0)).size());
+    assertEquals(2, ((List<?>) results.get(1)).size());
   }
 
   @Test
   public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
-    Map persons = new HashMap();
+    Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List results = sqlMap.queryForList("getMultiListsRc", persons);
+    List<?> results = sqlMap.queryForList("getMultiListsRc", persons);
     assertEquals(2, results.size());
-    assertEquals(2, ((List) results.get(0)).size());
-    assertEquals(2, ((List) results.get(1)).size());
+    assertEquals(2, ((List<?>) results.get(0)).size());
+    assertEquals(2, ((List<?>) results.get(1)).size());
   }
 
   @Test

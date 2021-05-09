@@ -20,13 +20,14 @@ import java.util.Map;
 
 public class ComplexBean implements Serializable {
 
-  private Map map;
+  private static final long serialVersionUID = 1L;
+  private Map<String, Integer> map;
 
-  public Map getMap() {
+  public Map<String, Integer> getMap() {
     return map;
   }
 
-  public void setMap(Map map) {
+  public void setMap(Map<String, Integer> map) {
     this.map = map;
   }
 

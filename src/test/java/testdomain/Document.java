@@ -22,7 +22,7 @@ public class Document {
   private int id;
   private String title;
   private DocType type;
-  private List attributes;
+  private List<?> attributes;
 
   public int getId() {
     return id;
@@ -48,11 +48,11 @@ public class Document {
     this.type = type;
   }
 
-  public List getAttributes() {
+  public List<?> getAttributes() {
     return attributes;
   }
 
-  public void setAttributes(List attributes) {
+  public void setAttributes(List<?> attributes) {
     this.attributes = attributes;
   }
 

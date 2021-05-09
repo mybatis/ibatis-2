@@ -20,13 +20,13 @@ import java.util.List;
 public class SimpleNestedParameterObject {
 
   private NestedIterateParameterObject nestedIterateParameterObject;
-  private List nestedList;
+  private List<?> nestedList;
 
-  public List getNestedList() {
+  public List<?> getNestedList() {
     return nestedList;
   }
 
-  public void setNestedList(List nestedList) {
+  public void setNestedList(List<?> nestedList) {
     this.nestedList = nestedList;
   }
 
