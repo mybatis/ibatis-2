@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.*;
 
-public class NestedIterateTest extends BaseSqlMapTest {
+class NestedIterateTest extends BaseSqlMapTest {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void  setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/person-init.sql");
     initScript("scripts/jpetstore-hsqldb-schema.sql");
@@ -44,7 +44,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method works as expected
    */
   @Test
-  public void testShouldReturn9Rows() {
+  void  testShouldReturn9Rows() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -76,7 +76,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test shoud return 1 row: id 4
    */
   @Test
-  public void test02() {
+  void  test02() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -100,7 +100,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 8 rows: ids 1-3, 5-9
    */
   @Test
-  public void test03() {
+  void  test03() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(4)); // put first to make the test fail
     po.addId(Integer.valueOf(1));
@@ -131,7 +131,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 5 rows: ids 5-9
    */
   @Test
-  public void test04() {
+  void  test04() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -159,7 +159,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 6 rows: ids 4-9
    */
   @Test
-  public void test05() {
+  void  test05() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -188,7 +188,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 3 rows: ids 1-3
    */
   @Test
-  public void test06() {
+  void  test06() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
@@ -215,7 +215,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 4 rows: ids 1-4
    */
   @Test
-  public void test07() {
+  void  test07() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
@@ -243,7 +243,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method should return four rows: ids 1, 2, 7, 8
    */
   @Test
-  public void test08() {
+  void  test08() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addFirstName("Jeff");
     po.addFirstName("Matt");
@@ -268,7 +268,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
-  public void test09() {
+  void  test09() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -292,7 +292,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void test09a() {
+  void  test09a() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -319,7 +319,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test shoud return 1 row: id 4
    */
   @Test
-  public void test10() {
+  void  test10() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -343,7 +343,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 8 rows: ids 1-3, 5-9
    */
   @Test
-  public void test11() {
+  void  test11() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(4)); // put first to make the test fail
     po.addId(Integer.valueOf(1));
@@ -374,7 +374,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 5 rows: ids 5-9
    */
   @Test
-  public void test12() {
+  void  test12() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -402,7 +402,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 6 rows: ids 4-9
    */
   @Test
-  public void test13() {
+  void  test13() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -431,7 +431,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 3 rows: ids 1-3
    */
   @Test
-  public void test14() {
+  void  test14() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
@@ -458,7 +458,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This test should return 4 rows: ids 1-4
    */
   @Test
-  public void test15() {
+  void  test15() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
@@ -488,7 +488,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
-  public void test16() {
+  void  test16() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -521,7 +521,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
-  public void test17() {
+  void  test17() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -554,7 +554,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method tests <isNotPropertyAvailable> inside in <iterate>
    */
   @Test
-  public void test18() {
+  void  test18() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -583,7 +583,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method tests <isNotNull> inside an <iterate>
    */
   @Test
-  public void test19() {
+  void  test19() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -612,7 +612,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This method tests <isNotEmpty> inside an <iterate>
    */
   @Test
-  public void test20() {
+  void  test20() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
@@ -643,7 +643,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test21() {
+  void  test21() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -678,7 +678,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test22() {
+  void  test22() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -703,7 +703,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test23() {
+  void  test23() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -728,7 +728,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test24() {
+  void  test24() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -753,7 +753,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test25() {
+  void  test25() {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -779,7 +779,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This tests nesting when objects are maps and not a list nested in a list
    */
   @Test
-  public void test26() {
+  void  test26() {
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
@@ -811,7 +811,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This tests nesting when objects are maps and not a list nested in a list same as test26 except deeper
    */
   @Test
-  public void test27() {
+  void  test27() {
 
     Map<String, List<Map<String, NestedIterateParameterObject>>> firstMap = new HashMap<String, List<Map<String, NestedIterateParameterObject>>>();
 
@@ -852,7 +852,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This tests nesting when objects are maps and not a list nested in a list
    */
   @Test
-  public void test28() {
+  void  test28() {
 
     NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
@@ -885,7 +885,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    * This tests nesting when objects are maps and not a list nested in a list same as test26 except deeper
    */
   @Test
-  public void test29() {
+  void  test29() {
 
     SimpleNestedParameterObject firstParameterObject = new SimpleNestedParameterObject();
 
@@ -927,7 +927,7 @@ public class NestedIterateTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void test30() {
+  void  test30() {
 
     try {
 

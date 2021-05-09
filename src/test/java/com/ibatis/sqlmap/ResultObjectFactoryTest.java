@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.IItem;
 
-public class ResultObjectFactoryTest extends BaseSqlMapTest {
+class ResultObjectFactoryTest extends BaseSqlMapTest {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void  setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig_rof.xml", null);
     initScript("scripts/jpetstore-hsqldb-schema.sql");
     initScript("scripts/jpetstore-hsqldb-dataload.sql");
@@ -38,7 +38,7 @@ public class ResultObjectFactoryTest extends BaseSqlMapTest {
    *
    */
   @Test
-  public void testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
+  void  testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
     List<?> results = sqlMap.queryForList("getAllItemsROF");
     assertEquals(28, results.size());
     assertEquals(Integer.valueOf(1), ((IItem) results.get(2)).getSupplier().getSupplierId());

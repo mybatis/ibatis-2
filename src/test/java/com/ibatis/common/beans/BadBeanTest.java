@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import badbeans.*;
 
-public class BadBeanTest {
+class BadBeanTest {
 
   private static final String PROPNAME = "value";
   private static final Object STRING_VALUE = "1";
@@ -36,7 +36,7 @@ public class BadBeanTest {
   private static final Object[] INT_PARAMS = new Object[] { INT_VALUE };
 
   @Test
-  public void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
+  void  testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
     GoodBean bean = new GoodBean();
     ClassInfo info = ClassInfo.getInstance(GoodBean.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
@@ -46,7 +46,7 @@ public class BadBeanTest {
   }
 
   @Test
-  public void testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
+  void  testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
     BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
     info.getSetter(PROPNAME).invoke(bean, INT_PARAMS);
@@ -56,7 +56,7 @@ public class BadBeanTest {
   }
 
   @Test
-  public void testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
+  void  testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
     BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
     ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
@@ -66,7 +66,7 @@ public class BadBeanTest {
   }
 
   @Test
-  public void testShouldFailInitializingClassInfoForBeanWithNoGetterOverloadedSetter() {
+  void  testShouldFailInitializingClassInfoForBeanWithNoGetterOverloadedSetter() {
     try {
       try {
         ClassInfo.getInstance(BeanWithNoGetterOverloadedSetters.class);
@@ -81,7 +81,7 @@ public class BadBeanTest {
   }
 
   @Test
-  public void testShouldFailInitializingClassInfoForBeanWithDifferentTypeOverloadedSetter() {
+  void  testShouldFailInitializingClassInfoForBeanWithDifferentTypeOverloadedSetter() {
     try {
       try {
         ClassInfo.getInstance(BeanWithDifferentTypeOverloadedSetter.class);
@@ -96,7 +96,7 @@ public class BadBeanTest {
   }
 
   @Test
-  public void testUnwrapThrowable() {
+  void  testUnwrapThrowable() {
     SQLException cause = new SQLException("test");
     UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
     assertEquals(cause, ClassInfo.unwrapThrowable(e));

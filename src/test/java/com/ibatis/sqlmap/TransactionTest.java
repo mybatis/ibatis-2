@@ -25,10 +25,10 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-public class TransactionTest extends BaseSqlMapTest {
+class TransactionTest extends BaseSqlMapTest {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void  setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
@@ -36,7 +36,7 @@ public class TransactionTest extends BaseSqlMapTest {
   // TRANSACTION TESTS
 
   @Test
-  public void testStartCommitTransaction() throws SQLException {
+  void  testStartCommitTransaction() throws SQLException {
     Account account = newAccount6();
 
     try {
@@ -54,7 +54,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testTransactionAlreadyStarted() throws SQLException {
+  void  testTransactionAlreadyStarted() throws SQLException {
     Account account = newAccount6();
     boolean exceptionThrownAsExpected = false;
 
@@ -80,7 +80,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testNoTransactionStarted() throws SQLException {
+  void  testNoTransactionStarted() throws SQLException {
     Account account = newAccount6();
 
     sqlMap.update("insertAccountViaParameterMap", account);
@@ -99,7 +99,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testTransactionFailed() throws SQLException {
+  void  testTransactionFailed() throws SQLException {
     Account account = newAccount6();
 
     boolean exceptionThrownAsExpected = false;
@@ -118,7 +118,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testTransactionFailed2() throws SQLException {
+  void  testTransactionFailed2() throws SQLException {
     // testes method that does not require a parameter object
     Account account = newAccount6();
 
@@ -138,7 +138,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testStartRollbackTransaction() throws SQLException {
+  void  testStartRollbackTransaction() throws SQLException {
     Account account = newAccount6();
 
     try {
@@ -157,7 +157,7 @@ public class TransactionTest extends BaseSqlMapTest {
   // AUTOCOMMIT TESTS
 
   @Test
-  public void testAutoCommitUpdate() throws SQLException {
+  void  testAutoCommitUpdate() throws SQLException {
     Account account = newAccount6();
     sqlMap.update("insertAccountViaParameterMap", account);
     account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
@@ -165,7 +165,7 @@ public class TransactionTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testAutoCommitQuery() throws SQLException {
+  void  testAutoCommitQuery() throws SQLException {
     Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
     assertAccount1(account);
   }

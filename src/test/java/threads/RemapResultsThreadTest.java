@@ -26,15 +26,15 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-public class RemapResultsThreadTest {
+class RemapResultsThreadTest {
 
   @Test
-  public void testWithRemap() throws Exception {
+  void  testWithRemap() throws Exception {
     runTest("WithRemap");
   }
 
   @Test
-  public void testWithoutRemap() throws Exception {
+  void  testWithoutRemap() throws Exception {
     runTest("WithoutRemap");
   }
 
