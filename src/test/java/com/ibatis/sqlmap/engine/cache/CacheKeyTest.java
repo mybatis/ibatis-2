@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
  *        08 / 29 / 2006
  *        </pre>
  */
-public class CacheKeyTest {
+class CacheKeyTest {
 
   @Test
-  public void testUpdate() {
+  void testUpdate() {
     CacheKey key3 = new CacheKey();
 
     CacheKey key4 = new CacheKey();

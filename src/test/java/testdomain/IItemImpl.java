@@ -43,90 +43,112 @@ public class IItemImpl implements IItem {
     super();
   }
 
+  @Override
   public String getAttribute1() {
     return attribute1;
   }
 
+  @Override
   public void setAttribute1(String attribute1) {
     this.attribute1 = attribute1;
   }
 
+  @Override
   public String getAttribute2() {
     return attribute2;
   }
 
+  @Override
   public void setAttribute2(String attribute2) {
     this.attribute2 = attribute2;
   }
 
+  @Override
   public String getAttribute3() {
     return attribute3;
   }
 
+  @Override
   public void setAttribute3(String attribute3) {
     this.attribute3 = attribute3;
   }
 
+  @Override
   public String getAttribute4() {
     return attribute4;
   }
 
+  @Override
   public void setAttribute4(String attribute4) {
     this.attribute4 = attribute4;
   }
 
+  @Override
   public String getAttribute5() {
     return attribute5;
   }
 
+  @Override
   public void setAttribute5(String attribute5) {
     this.attribute5 = attribute5;
   }
 
+  @Override
   public String getItemId() {
     return itemId;
   }
 
+  @Override
   public void setItemId(String itemId) {
     this.itemId = itemId;
   }
 
+  @Override
   public BigDecimal getListPrice() {
     return listPrice;
   }
 
+  @Override
   public void setListPrice(BigDecimal listPrice) {
     this.listPrice = listPrice;
   }
 
+  @Override
   public String getProductId() {
     return productId;
   }
 
+  @Override
   public void setProductId(String productId) {
     this.productId = productId;
   }
 
+  @Override
   public String getStatus() {
     return status;
   }
 
+  @Override
   public void setStatus(String status) {
     this.status = status;
   }
 
+  @Override
   public ISupplier getSupplier() {
     return supplier;
   }
 
+  @Override
   public void setSupplier(ISupplier supplier) {
     this.supplier = supplier;
   }
 
+  @Override
   public BigDecimal getUnitCost() {
     return unitCost;
   }
 
+  @Override
   public void setUnitCost(BigDecimal unitCost) {
     this.unitCost = unitCost;
   }

@@ -23,16 +23,16 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PrivateMethodAccessTest extends BaseSqlMapTest {
+class PrivateMethodAccessTest extends BaseSqlMap {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/docs-init.sql");
   }
 
   @Test
-  public void testShouldSetPrivateProperties() throws Exception {
+  void testShouldSetPrivateProperties() throws Exception {
     List<?> list = sqlMap.queryForList("getPrivateBooks");
     assertNotNull(list);
     assertEquals(2, list.size());

@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-public class ComplexBeanProbeTest {
+class ComplexBeanProbeTest {
 
   @Test
-  public void testSetObject() {
+  void testSetObject() {
     SimpleClass mySimpleClass = new SimpleClass();
     Probe probe = ProbeFactory.getProbe(mySimpleClass);
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(1));

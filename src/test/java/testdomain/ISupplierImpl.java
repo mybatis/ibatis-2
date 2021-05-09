@@ -38,66 +38,82 @@ public class ISupplierImpl extends ISupplierKeyImpl implements ISupplier {
     super();
   }
 
+  @Override
   public String getAddressLine1() {
     return addressLine1;
   }
 
+  @Override
   public void setAddressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
+  @Override
   public String getAddressLine2() {
     return addressLine2;
   }
 
+  @Override
   public void setAddressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
+  @Override
   public String getCity() {
     return city;
   }
 
+  @Override
   public void setCity(String city) {
     this.city = city;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
 
+  @Override
   public String getPhone() {
     return phone;
   }
 
+  @Override
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
+  @Override
   public String getState() {
     return state;
   }
 
+  @Override
   public void setState(String state) {
     this.state = state;
   }
 
+  @Override
   public String getStatus() {
     return status;
   }
 
+  @Override
   public void setStatus(String status) {
     this.status = status;
   }
 
+  @Override
   public String getZip() {
     return zip;
   }
 
+  @Override
   public void setZip(String zip) {
     this.zip = zip;
   }

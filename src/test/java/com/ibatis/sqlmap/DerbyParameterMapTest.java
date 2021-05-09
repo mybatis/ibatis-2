@@ -22,12 +22,13 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * TestCase for validating PreparedStatement.setNull calls for Derby. See IBATIS-536 for more information.
  */
-public class DerbyParameterMapTest extends ParameterMapTest {
+class DerbyParameterMapTest extends ParameterMapTest {
 
   // SETUP & TEARDOWN
 
+  @Override
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }

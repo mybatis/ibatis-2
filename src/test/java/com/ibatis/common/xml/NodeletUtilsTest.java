@@ -22,13 +22,13 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
-public class NodeletUtilsTest {
+class NodeletUtilsTest {
 
   /**
    * Test for getting of a boolean argument.
    */
   @Test
-  public void testGetBooleanAttribute() {
+  void testGetBooleanAttribute() {
 
     Properties props = new Properties();
     props.setProperty("boolean1", "true");
@@ -49,7 +49,7 @@ public class NodeletUtilsTest {
    * Test for getting of a integer argument.
    */
   @Test
-  public void testGetIntAttribute() {
+  void testGetIntAttribute() {
 
     Properties props = new Properties();
     props.setProperty("int1", "0");
@@ -79,7 +79,7 @@ public class NodeletUtilsTest {
    * Test for getting of a boolean argument.
    */
   @Test
-  public void testParsePropertyTokens() {
+  void testParsePropertyTokens() {
 
     Properties props = new Properties();
     props.setProperty("key1", "0");

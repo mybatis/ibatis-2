@@ -20,7 +20,7 @@ import com.ibatis.sqlmap.engine.cache.lru.LruCacheControllerTest;
 
 import org.junit.jupiter.api.Test;
 
-public class MemoryCacheControllerTest extends LruCacheControllerTest {
+class MemoryCacheControllerTest extends LruCacheControllerTest {
 
   @Override
   protected CacheController getController() {

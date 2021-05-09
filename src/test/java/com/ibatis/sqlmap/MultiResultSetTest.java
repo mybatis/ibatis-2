@@ -30,12 +30,12 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MultiResultSetTest extends BaseSqlMapTest {
+class MultiResultSetTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
         Resources.getResourceAsProperties("com/ibatis/sqlmap/maps/DerbySqlMapConfig.properties"));
     initScript("scripts/account-init.sql");
@@ -44,7 +44,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
+  void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
     Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
@@ -57,7 +57,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
+  void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
     Map<String, Integer> persons = new HashMap<String, Integer>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
@@ -70,7 +70,7 @@ public class MultiResultSetTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testCallableStatementShouldReturnTwoResultSets() throws Exception {
+  void testCallableStatementShouldReturnTwoResultSets() throws Exception {
     sqlMap.startTransaction();
     Connection conn = sqlMap.getCurrentConnection();
     CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");

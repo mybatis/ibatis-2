@@ -22,14 +22,14 @@ import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PaginatedArrayListTest {
+class PaginatedArrayListTest {
 
   private PaginatedArrayList smallPageList;
   private PaginatedArrayList oddPageList;
   private PaginatedArrayList evenPageList;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     smallPageList = new PaginatedArrayList(5);
     smallPageList.add(Integer.valueOf(0));
     smallPageList.add(Integer.valueOf(1));
@@ -75,7 +75,7 @@ public class PaginatedArrayListTest {
   }
 
   @Test
-  public void testOddPaginatedIterator() {
+  void testOddPaginatedIterator() {
 
     assertEquals(true, oddPageList.isFirstPage());
     assertEquals(false, oddPageList.isPreviousPageAvailable());
@@ -145,7 +145,7 @@ public class PaginatedArrayListTest {
   }
 
   @Test
-  public void testEvenPaginatedIterator() {
+  void testEvenPaginatedIterator() {
 
     assertEquals(true, evenPageList.isFirstPage());
     assertEquals(false, evenPageList.isPreviousPageAvailable());
@@ -205,7 +205,7 @@ public class PaginatedArrayListTest {
   }
 
   @Test
-  public void testSmallPaginatedIterator() {
+  void testSmallPaginatedIterator() {
 
     assertEquals(true, smallPageList.isFirstPage());
     assertEquals(true, smallPageList.isLastPage());

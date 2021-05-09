@@ -32,10 +32,12 @@ public class ISupplierKeyImpl implements ISupplierKey {
     super();
   }
 
+  @Override
   public Integer getSupplierId() {
     return supplierId;
   }
 
+  @Override
   public void setSupplierId(Integer supplierId) {
     this.supplierId = supplierId;
   }

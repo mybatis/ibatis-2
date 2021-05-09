@@ -43,6 +43,7 @@ public class ResultObjectFactoryImpl implements ResultObjectFactory {
    * (non-Javadoc)
    * @see com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory#createInstance(java.lang.String, java.lang.Class)
    */
+  @Override
   public Object createInstance(String statementId, Class clazz) throws InstantiationException, IllegalAccessException {
 
     Object obj = null;
@@ -62,6 +63,7 @@ public class ResultObjectFactoryImpl implements ResultObjectFactory {
    * (non-Javadoc)
    * @see com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory#setProperty(java.lang.String, java.lang.String)
    */
+  @Override
   public void setProperty(String name, String value) {
     Log log = LogFactory.getLog(this.getClass());
 

@@ -39,11 +39,11 @@ import org.junit.jupiter.api.Test;
  * To change the template for this generated type comment go to Window - Preferences - Java - Code Generation - Code and
  * Comments
  */
-public class ResourcesTest {
+class ResourcesTest {
   private boolean isUsingPrivateClassloader = false;
 
   @Test
-  public void testSetDefaultClassLoader() {
+  void testSetDefaultClassLoader() {
     ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
     ClassLoader tmp = Resources.getDefaultClassLoader();
     Resources.setDefaultClassLoader(classLoader);
@@ -56,7 +56,7 @@ public class ResourcesTest {
    * Class to test for URL getResourceURL(String)
    */
   @Test
-  public void testGetResourceURLString() {
+  void testGetResourceURLString() {
     String resourceName;
     URL url;
 
@@ -85,7 +85,7 @@ public class ResourcesTest {
    * Class to test for URL getResourceURL(ClassLoader, String)
    */
   @Test
-  public void testGetResourceURLClassLoaderString() {
+  void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
     ClassLoader classLoader;
@@ -122,7 +122,7 @@ public class ResourcesTest {
    * Class to test for InputStream getResourceAsStream(String)
    */
   @Test
-  public void testGetResourceAsStreamString() {
+  void testGetResourceAsStreamString() {
     InputStream inputStream;
     String resourceName;
 
@@ -150,7 +150,7 @@ public class ResourcesTest {
    * Class to test for InputStream getResourceAsStream(ClassLoader, String)
    */
   @Test
-  public void testGetResourceAsStreamClassLoaderString() {
+  void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
     ClassLoader classLoader;
@@ -186,7 +186,7 @@ public class ResourcesTest {
    * Class to test for Properties getResourceAsProperties(String)
    */
   @Test
-  public void testGetResourceAsPropertiesString() {
+  void testGetResourceAsPropertiesString() {
     String resourceName;
     String testProp = "name";
     String testPropValue = "value";
@@ -220,7 +220,7 @@ public class ResourcesTest {
    * Class to test for Properties getResourceAsProperties(ClassLoader, String)
    */
   @Test
-  public void testGetResourceAsPropertiesClassLoaderString() {
+  void testGetResourceAsPropertiesClassLoaderString() {
     String resourceName;
     String testProp = "name";
     String testPropValue = "value";
@@ -261,58 +261,58 @@ public class ResourcesTest {
    * Class to test for Reader getResourceAsReader(String)
    */
   @Test
-  public void testGetResourceAsReaderString() {
+  void testGetResourceAsReaderString() {
   }
 
   /*
    * Class to test for Reader getResourceAsReader(ClassLoader, String)
    */
   @Test
-  public void testGetResourceAsReaderClassLoaderString() {
+  void testGetResourceAsReaderClassLoaderString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(String)
    */
   @Test
-  public void testGetResourceAsFileString() {
+  void testGetResourceAsFileString() {
   }
 
   /*
    * Class to test for File getResourceAsFile(ClassLoader, String)
    */
   @Test
-  public void testGetResourceAsFileClassLoaderString() {
+  void testGetResourceAsFileClassLoaderString() {
   }
 
   @Test
-  public void testGetUrlAsStream() {
+  void testGetUrlAsStream() {
   }
 
   @Test
-  public void testGetUrlAsReader() {
+  void testGetUrlAsReader() {
   }
 
   @Test
-  public void testGetUrlAsProperties() {
+  void testGetUrlAsProperties() {
   }
 
   @Test
-  public void testClassForName() {
+  void testClassForName() {
   }
 
   /*
    * Class to test for Object instantiate(String)
    */
   @Test
-  public void testInstantiateString() {
+  void testInstantiateString() {
   }
 
   /*
    * Class to test for Object instantiate(Class)
    */
   @Test
-  public void testInstantiateClass() {
+  void testInstantiateClass() {
   }
 
   /*

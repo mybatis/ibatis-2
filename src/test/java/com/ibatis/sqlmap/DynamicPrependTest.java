@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 import testdomain.Account;
 import testdomain.MyBean;
 
-public class DynamicPrependTest extends BaseSqlMapTest {
+class DynamicPrependTest extends BaseSqlMap {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
@@ -39,7 +39,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   // Iterate with prepend
 
   @Test
-  public void testIterateWithPrepend1() throws SQLException {
+  void testIterateWithPrepend1() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterateWithPrepend1", params);
     assertAccount1((Account) list.get(0));
@@ -47,7 +47,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2() throws SQLException {
+  void testIterateWithPrepend2() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterateWithPrepend2", params);
     assertAccount1((Account) list.get(0));
@@ -55,7 +55,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2b() throws SQLException {
+  void testIterateWithPrepend2b() throws SQLException {
 
     Account account1, account2, account3;
     account1 = new Account();
@@ -74,7 +74,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2c() throws SQLException {
+  void testIterateWithPrepend2c() throws SQLException {
 
     Account account1, account2, account3;
     account1 = new Account();
@@ -100,7 +100,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2d() throws SQLException {
+  void testIterateWithPrepend2d() throws SQLException {
 
     List<?> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
 
@@ -116,7 +116,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2e() throws SQLException {
+  void testIterateWithPrepend2e() throws SQLException {
 
     Object[] params = new Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
 
@@ -132,7 +132,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend2f() throws SQLException {
+  void testIterateWithPrepend2f() throws SQLException {
 
     int[] params = new int[] { 1, 2, 3 };
 
@@ -148,7 +148,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend3() throws SQLException {
+  void testIterateWithPrepend3() throws SQLException {
     List<Integer> params = Arrays.asList(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
     List<?> list = sqlMap.queryForList("dynamicIterateWithPrepend3", params);
     assertAccount1((Account) list.get(0));
@@ -156,7 +156,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testDynamicWithPrepend1() throws SQLException {
+  void testDynamicWithPrepend1() throws SQLException {
     Account account = new Account();
     account.setId(1);
     account = (Account) sqlMap.queryForObject("dynamicWithPrepend", account);
@@ -164,7 +164,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testDynamicWithPrepend2() throws SQLException {
+  void testDynamicWithPrepend2() throws SQLException {
     Account account = new Account();
     account.setId(1);
     account.setFirstName("Clinton");
@@ -173,7 +173,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testDynamicWithPrepend3() throws SQLException {
+  void testDynamicWithPrepend3() throws SQLException {
     Account account = new Account();
     account.setId(1);
     account.setFirstName("Clinton");
@@ -183,14 +183,14 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testIterateWithPrepend4() throws SQLException {
+  void testIterateWithPrepend4() throws SQLException {
     List<?> list = sqlMap.queryForList("dynamicWithPrepend", null);
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
   }
 
   @Test
-  public void testIterateWithTwoPrepends() throws SQLException {
+  void testIterateWithTwoPrepends() throws SQLException {
     Account account = new Account();
     account.setId(1);
     account.setFirstName("Clinton");
@@ -203,7 +203,7 @@ public class DynamicPrependTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testComplexDynamic() throws SQLException {
+  void testComplexDynamic() throws SQLException {
     Account account = new Account();
     account.setId(1);
     account.setFirstName("Clinton");

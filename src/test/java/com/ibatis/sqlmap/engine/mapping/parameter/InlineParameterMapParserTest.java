@@ -23,10 +23,10 @@ import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
 import org.junit.jupiter.api.Test;
 
-public class InlineParameterMapParserTest {
+class InlineParameterMapParserTest {
 
   @Test
-  public void testParseInlineParameterMapTypeHandlerFactoryString() {
+  void testParseInlineParameterMapTypeHandlerFactoryString() {
     InlineParameterMapParser parser = new InlineParameterMapParser();
     SqlText parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (1)");

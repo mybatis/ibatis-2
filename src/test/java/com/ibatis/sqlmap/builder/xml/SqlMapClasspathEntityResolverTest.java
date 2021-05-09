@@ -21,30 +21,30 @@ import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class SqlMapClasspathEntityResolverTest {
+class SqlMapClasspathEntityResolverTest {
 
   // ibatis.com
 
   @Test
-  public void testComConfigSystemId() {
+  void testComConfigSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  public void testComConfigPublicId() {
+  void testComConfigPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  public void testComMapSystemId() {
+  void testComMapSystemId() {
     String id = "http://www.ibatis.com/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  public void testComMapPublicId() {
+  void testComMapPublicId() {
     String id = "-//iBATIS.com//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
@@ -52,31 +52,31 @@ public class SqlMapClasspathEntityResolverTest {
   // ibatis.apache.org
 
   @Test
-  public void testOrgConfigSystemId() {
+  void testOrgConfigSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  public void testOrgConfigPublicId() {
+  void testOrgConfigPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  public void testOrgMapSystemId() {
+  void testOrgMapSystemId() {
     String id = "http://ibatis.apache.org/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
-  public void testOrgMapPublicId() {
+  void testOrgMapPublicId() {
     String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
-  public void testOddCase() {
+  void testOddCase() {
     String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }

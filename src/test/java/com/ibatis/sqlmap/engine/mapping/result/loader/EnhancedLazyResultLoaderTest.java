@@ -27,7 +27,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-public class EnhancedLazyResultLoaderTest {
+class EnhancedLazyResultLoaderTest {
 
   /**
    * Test if a method in a proxied object can access a default method of another class in the same package with default
@@ -36,7 +36,7 @@ public class EnhancedLazyResultLoaderTest {
    * Depending of the implementation of the Cglib-proxy the access will throw an IllegalAccessException.
    */
   @Test
-  public void testProxyMethodAccess() throws SQLException {
+  void testProxyMethodAccess() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
     EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean2", null, Bean2.class);
@@ -50,7 +50,7 @@ public class EnhancedLazyResultLoaderTest {
    * Test if a proxy for a null nevertheless dispatch to a default object.
    */
   @Test
-  public void testNullProxy() throws SQLException {
+  void testNullProxy() throws SQLException {
     SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
     EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean3", null, TestBean3.class);

@@ -18,7 +18,7 @@ package com.ibatis.sqlmap.engine.cache.fifo;
 import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.lru.LruCacheControllerTest;
 
-public class FifoCacheControllerTest extends LruCacheControllerTest {
+class FifoCacheControllerTest extends LruCacheControllerTest {
 
   @Override
   protected CacheController getController() {

@@ -23,16 +23,16 @@ import org.junit.jupiter.api.Test;
 import testdomain.FieldAccount;
 import testdomain.PrivateAccount;
 
-public class DirectFieldMappingTest extends BaseSqlMapTest {
+class DirectFieldMappingTest extends BaseSqlMap {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
 
   @Test
-  public void testInsertAndSelectDirectToFields() throws SQLException {
+  void testInsertAndSelectDirectToFields() throws SQLException {
     FieldAccount account = newFieldAccount6();
 
     sqlMap.insert("insertAccountFromFields", account);
@@ -44,7 +44,7 @@ public class DirectFieldMappingTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testGetAccountWithPrivateConstructor() throws SQLException {
+  void testGetAccountWithPrivateConstructor() throws SQLException {
     FieldAccount account = newFieldAccount6();
 
     sqlMap.insert("insertAccountFromFields", account);

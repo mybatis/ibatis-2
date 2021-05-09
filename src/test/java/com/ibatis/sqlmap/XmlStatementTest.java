@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test;
 import xmltester.*;
 import xmltester.MiniParser;
 
-public class XmlStatementTest extends BaseSqlMapTest {
+class XmlStatementTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
     initScript("scripts/order-init.sql");
@@ -39,7 +39,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testExecuteQueryForXml() throws SQLException {
+  void testExecuteQueryForXml() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>1</id></parameter>");
     assertNotNull(account);
     MiniDom dom = new MiniParser(account).getDom();
@@ -50,7 +50,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testExecuteQueryForXmlExternalMaps() throws SQLException {
+  void testExecuteQueryForXmlExternalMaps() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXmlExternalMaps", "<parameter><id>1</id></parameter>");
     assertNotNull(account);
     MiniDom dom = new MiniParser(account).getDom();
@@ -65,7 +65,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testExecuteQueryForOrderXml() throws SQLException {
+  void testExecuteQueryForOrderXml() throws SQLException {
     String order = (String) sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
     assertNotNull(order);
     MiniDom dom = new MiniParser(order).getDom();
@@ -74,7 +74,7 @@ public class XmlStatementTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testExecuteQueryForXmlSpecialChars() throws SQLException {
+  void testExecuteQueryForXmlSpecialChars() throws SQLException {
     String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>5</id></parameter>");
     assertNotNull(account);
     MiniDom dom = new MiniParser(account).getDom();

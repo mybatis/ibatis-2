@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Account;
 
-public class ParameterMapTest extends BaseSqlMapTest {
+class ParameterMapTest extends BaseSqlMap {
 
   // SETUP & TEARDOWN
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/account-init.sql");
   }
@@ -39,7 +39,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   // PARAMETER MAP FEATURE TESTS
 
   @Test
-  public void testNullValueReplacementMap() throws SQLException {
+  void testNullValueReplacementMap() throws SQLException {
     Account account = newAccount6();
 
     sqlMap.update("insertAccountViaParameterMap", account);
@@ -50,7 +50,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testNullValueReplacementInline() throws SQLException {
+  void testNullValueReplacementInline() throws SQLException {
     Account account = newAccount6();
 
     sqlMap.update("insertAccountViaInlineParameters", account);
@@ -61,7 +61,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testNullValueReplacementInlineWithDynamic() throws SQLException {
+  void testNullValueReplacementInlineWithDynamic() throws SQLException {
     Account account = newAccount6();
 
     account.setId(0);
@@ -88,7 +88,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testSpecifiedType() throws SQLException {
+  void testSpecifiedType() throws SQLException {
     Account account = newAccount6();
     account.setEmailAddress(null);
 
@@ -100,7 +100,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testUnknownParameterClass() throws SQLException {
+  void testUnknownParameterClass() throws SQLException {
     Account account = newAccount6();
     account.setEmailAddress(null);
 
@@ -112,7 +112,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testNullParameter() throws SQLException {
+  void testNullParameter() throws SQLException {
 
     Account account = (Account) sqlMap.queryForObject("getAccountNullParameter", null);
 
@@ -120,7 +120,7 @@ public class ParameterMapTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testNullParameter2() throws SQLException {
+  void testNullParameter2() throws SQLException {
 
     Account account = (Account) sqlMap.queryForObject("getAccountNullParameter");
 

@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class JavaBeanProbeTest {
+class JavaBeanProbeTest {
 
   @Test
-  public void testGetPropertyTypeForSetterObjectString() {
+  void testGetPropertyTypeForSetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForSetter(b, "testBean").equals(TestBean.class));
@@ -32,7 +32,7 @@ public class JavaBeanProbeTest {
   }
 
   @Test
-  public void testGetPropertyTypeForGetterObjectString() {
+  void testGetPropertyTypeForGetterObjectString() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForGetter(b, "testBean").equals(TestBean.class));
@@ -40,7 +40,7 @@ public class JavaBeanProbeTest {
   }
 
   @Test
-  public void testHasWritableProperty() {
+  void testHasWritableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.hasWritableProperty(b, "testBean"));
@@ -48,7 +48,7 @@ public class JavaBeanProbeTest {
   }
 
   @Test
-  public void testHasReadableProperty() {
+  void testHasReadableProperty() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     assertTrue(p.hasReadableProperty(b, "testBean"));
@@ -56,7 +56,7 @@ public class JavaBeanProbeTest {
   }
 
   @Test
-  public void testSetAndGetObject() {
+  void testSetAndGetObject() {
     TestBean b = getBean();
     Probe p = getProbe(b);
     float f[] = new float[3];

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import testdomain.Order;
 
-public class PropertyAccessPlanTest {
+class PropertyAccessPlanTest {
 
   private static final String[] properties = { "id", "id", "account.firstName", "account.lastName",
       "account.emailAddress", "cardType", "cardNumber", "cardExpiry", "favouriteLineItem.itemCode",
@@ -36,7 +36,7 @@ public class PropertyAccessPlanTest {
       "clinton@ibatis.com", "VISA", "1234567890", "05/06", "M100", Integer.valueOf(3), new BigDecimal(150) };
 
   @Test
-  public void testSetAndGetProperties() {
+  void testSetAndGetProperties() {
 
     AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);
 

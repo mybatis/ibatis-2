@@ -28,16 +28,16 @@ import testdomain.Document;
 import testdomain.Magazine;
 import testdomain.PersonDocument;
 
-public class DiscriminatorTest extends BaseSqlMapTest {
+class DiscriminatorTest extends BaseSqlMap {
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
     initScript("scripts/docs-init.sql");
   }
 
   @Test
-  public void testDiscriminator() throws Exception {
+  void testDiscriminator() throws Exception {
 
     List<?> list = sqlMap.queryForList("getDocuments", null);
     assertEquals(6, list.size());
@@ -63,7 +63,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testDiscriminatorInNestedResultMap() throws Exception {
+  void testDiscriminatorInNestedResultMap() throws Exception {
     List<?> list = sqlMap.queryForList("getPersonDocuments");
     assertEquals(3, list.size());
 
@@ -74,7 +74,7 @@ public class DiscriminatorTest extends BaseSqlMapTest {
   }
 
   @Test
-  public void testDiscriminatorWithNestedResultMap() throws Exception {
+  void testDiscriminatorWithNestedResultMap() throws Exception {
     List<?> list = sqlMap.queryForList("getDocumentsWithAttributes");
     assertEquals(6, list.size());
 
