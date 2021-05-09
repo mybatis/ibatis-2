@@ -23,11 +23,11 @@ import java.util.List;
  */
 public class MyBean {
 
-  public List getMyList() {
+  public List<?> getMyList() {
     return myList;
   }
 
-  public void setMyList(List myList) {
+  public void setMyList(List<?> myList) {
     this.myList = myList;
   }
 
@@ -47,7 +47,7 @@ public class MyBean {
     this.intArray = intArray;
   }
 
-  private List myList;
+  private List<?> myList;
   private Object[] myArray;
   private int[] intArray;
 

@@ -97,7 +97,7 @@ public class BaseSqlMapTest {
     assertEquals(account.getEmailAddress(), "jim.smith@somewhere.com");
   }
 
-  protected void assertList(List list) {
+  protected void assertList(List<?> list) {
     assertEquals(2, list.size());
   }
 
@@ -122,7 +122,7 @@ public class BaseSqlMapTest {
     assertNull(account.emailAddress());
   }
 
-  protected void assertAccount1(Map account) {
+  protected void assertAccount1(Map<?, ?> account) {
     Integer id = (Integer) account.get("id");
     String firstName = (String) account.get("firstName");
     String lastName = (String) account.get("lastName");
@@ -155,7 +155,7 @@ public class BaseSqlMapTest {
     assertEquals("C4B 4F4", order.getPostalCode());
   }
 
-  protected void assertOrder1(Map order) {
+  protected void assertOrder1(Map<?, ?> order) {
     Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
 
     assertEquals(Integer.valueOf(1), order.get("id"));

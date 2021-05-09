@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 
 public class LineItem implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private int id;
   private int orderId;
   private String itemCode;

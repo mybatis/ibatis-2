@@ -33,7 +33,7 @@ public class PrivateMethodAccessTest extends BaseSqlMapTest {
 
   @Test
   public void testShouldSetPrivateProperties() throws Exception {
-    List list = sqlMap.queryForList("getPrivateBooks");
+    List<?> list = sqlMap.queryForList("getPrivateBooks");
     assertNotNull(list);
     assertEquals(2, list.size());
   }

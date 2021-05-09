@@ -102,7 +102,7 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   @Test
   public void testGetAllLineItemProps() throws SQLException {
-    List list = sqlMap.queryForList("getAllLineItemProps", Integer.valueOf(1));
+    List<?> list = sqlMap.queryForList("getAllLineItemProps", Integer.valueOf(1));
 
     assertNotNull(list);
     assertEquals(2, list.size());
@@ -111,7 +111,7 @@ public class ResultMapTest extends BaseSqlMapTest {
   @Test
   public void testGetSomeLineItemProps() throws SQLException {
     try {
-      List list = sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
+      List<?> list = sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
 
       fail("Expected exception because column was missing.");
     } catch (NestedSQLException e) {
@@ -130,7 +130,7 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   @Test
   public void testHashMapMapping() throws SQLException {
-    Map order = (Map) sqlMap.queryForObject("getOrderAsMap", Integer.valueOf(1));
+    Map<?, ?> order = (Map<?, ?>) sqlMap.queryForObject("getOrderAsMap", Integer.valueOf(1));
     assertOrder1(order);
   }
 
@@ -142,7 +142,7 @@ public class ResultMapTest extends BaseSqlMapTest {
 
   @Test
   public void testSimpleTypeMapping() throws SQLException {
-    List list = sqlMap.queryForList("getAllCreditCardNumbersFromOrders", null);
+    List<?> list = sqlMap.queryForList("getAllCreditCardNumbersFromOrders", null);
 
     assertEquals(5, list.size());
     assertEquals("555555555555", list.get(0));

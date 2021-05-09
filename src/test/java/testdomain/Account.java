@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Account implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private int id;
   private String firstName;
   private String lastName;
@@ -29,7 +30,7 @@ public class Account implements Serializable {
   private int age;
   private Date dateAdded;
   private Account account;
-  private List accountList;
+  private List<Account> accountList;
   private boolean bannerOption;
   private boolean cartOption;
 
@@ -118,11 +119,11 @@ public class Account implements Serializable {
     this.account = account;
   }
 
-  public List getAccountList() {
+  public List<Account> getAccountList() {
     return accountList;
   }
 
-  public void setAccountList(List accountList) {
+  public void setAccountList(List<Account> accountList) {
     this.accountList = accountList;
   }
 

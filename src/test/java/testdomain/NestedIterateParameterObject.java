@@ -22,20 +22,20 @@ import java.util.Map;
 
 public class NestedIterateParameterObject {
 
-  private List idList;
-  private List lastNames;
-  private List firstNames;
-  private List orConditions;
+  private List<Integer> idList;
+  private List<String> lastNames;
+  private List<String> firstNames;
+  private List<AndCondition> orConditions;
 
   public NestedIterateParameterObject() {
     super();
-    idList = new ArrayList();
-    orConditions = new ArrayList();
-    lastNames = new ArrayList();
-    firstNames = new ArrayList();
+    idList = new ArrayList<Integer>();
+    orConditions = new ArrayList<AndCondition>();
+    lastNames = new ArrayList<String>();
+    firstNames = new ArrayList<String>();
   }
 
-  public List getIdList() {
+  public List<Integer> getIdList() {
     return idList;
   }
 
@@ -43,7 +43,7 @@ public class NestedIterateParameterObject {
     idList.add(id);
   }
 
-  public List getOrConditions() {
+  public List<AndCondition> getOrConditions() {
     return orConditions;
   }
 
@@ -52,19 +52,19 @@ public class NestedIterateParameterObject {
   }
 
   public static class AndCondition {
-    private List conditions;
+    private List<Map<String, Object>> conditions;
 
     public AndCondition() {
       super();
-      conditions = new ArrayList();
+      conditions = new ArrayList<Map<String, Object>>();
     }
 
-    public List getConditions() {
+    public List<Map<String, Object>> getConditions() {
       return conditions;
     }
 
     public void addCondition(String condition, Object value, Boolean include) {
-      Map map = new HashMap();
+      Map<String, Object> map = new HashMap<String, Object>();
       map.put("condition", condition);
       map.put("value", value);
       map.put("include", include);
@@ -72,7 +72,7 @@ public class NestedIterateParameterObject {
     }
   }
 
-  public List getFirstNames() {
+  public List<String> getFirstNames() {
     return firstNames;
   }
 
@@ -80,7 +80,7 @@ public class NestedIterateParameterObject {
     firstNames.add(firstName);
   }
 
-  public List getLastNames() {
+  public List<String> getLastNames() {
     return lastNames;
   }
 

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class Order implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private int id;
   private Account account;
   private Date date;
@@ -32,7 +33,7 @@ public class Order implements Serializable {
   private String city;
   private String province;
   private String postalCode;
-  private Collection lineItems;
+  private Collection<?> lineItems;
   private LineItem[] lineItemArray;
   private LineItem favouriteLineItem;
 
@@ -116,19 +117,19 @@ public class Order implements Serializable {
     this.postalCode = postalCode;
   }
 
-  public List getLineItemsList() {
-    return (List) lineItems;
+  public List<?> getLineItemsList() {
+    return (List<?>) lineItems;
   }
 
-  public void setLineItemsList(List lineItems) {
+  public void setLineItemsList(List<?> lineItems) {
     this.lineItems = lineItems;
   }
 
-  public Collection getLineItems() {
+  public Collection<?> getLineItems() {
     return lineItems;
   }
 
-  public void setLineItems(Collection lineItems) {
+  public void setLineItems(Collection<?> lineItems) {
     this.lineItems = lineItems;
   }
 

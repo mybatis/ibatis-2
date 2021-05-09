@@ -19,6 +19,8 @@ import java.io.Serializable;
 
 public class ProcBean implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   private String email1;
   private String email2;
   private String status;

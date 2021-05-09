@@ -18,4 +18,5 @@ package testdomain;
 import java.io.Serializable;
 
 public class SuperAccount extends Account implements Serializable {
+  private static final long serialVersionUID = 1L;
 }

@@ -148,19 +148,19 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForObjectViaResultClassPlusOne() throws SQLException {
-    List list = sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
+    List<?> list = sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
     assertList(list);
   }
 
   @Test
   public void testExecuteQueryForObjectAsHashMap() throws SQLException {
-    Map account = (HashMap) sqlMap.queryForObject("getAccountAsHashMap", Integer.valueOf(1));
+    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMap", Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   public void testExecuteQueryForObjectAsHashMapResultClass() throws SQLException {
-    Map account = (HashMap) sqlMap.queryForObject("getAccountAsHashMapResultClass", Integer.valueOf(1));
+    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMapResultClass", Integer.valueOf(1));
     assertAccount1(account);
   }
 
@@ -196,7 +196,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForListWithResultMap() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsViaResultMap", null);
+    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -210,7 +210,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryWithCustomTypeHandler() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
+    List<?> list = sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -554,7 +554,7 @@ public class StatementTest extends BaseSqlMapTest {
   @Test
   public void testExecuteQueryForListWithResultMapWithDynamicElement() throws SQLException {
 
-    List list = sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "LIKE");
+    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "LIKE");
 
     assertAccount1((Account) list.get(0));
     assertEquals(3, list.size());
@@ -570,7 +570,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForListResultClass() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsViaResultClass", null);
+    List<?> list = sqlMap.queryForList("getAllAccountsViaResultClass", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -583,33 +583,33 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForListWithHashMapResultMap() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
+    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
 
-    assertAccount1((Map) list.get(0));
+    assertAccount1((Map<?, ?>) list.get(0));
     assertEquals(5, list.size());
-    assertEquals(Integer.valueOf(1), ((Map) list.get(0)).get("id"));
-    assertEquals(Integer.valueOf(2), ((Map) list.get(1)).get("id"));
-    assertEquals(Integer.valueOf(3), ((Map) list.get(2)).get("id"));
-    assertEquals(Integer.valueOf(4), ((Map) list.get(3)).get("id"));
-    assertEquals(Integer.valueOf(5), ((Map) list.get(4)).get("id"));
+    assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("id"));
+    assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("id"));
+    assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("id"));
+    assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("id"));
+    assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("id"));
   }
 
   @Test
   public void testExecuteQueryForListWithHashMapResultClass() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
+    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
 
-    assertAccount1((Map) list.get(0));
+    assertAccount1((Map<?, ?>) list.get(0));
     assertEquals(5, list.size());
-    assertEquals(Integer.valueOf(1), ((Map) list.get(0)).get("ID"));
-    assertEquals(Integer.valueOf(2), ((Map) list.get(1)).get("ID"));
-    assertEquals(Integer.valueOf(3), ((Map) list.get(2)).get("ID"));
-    assertEquals(Integer.valueOf(4), ((Map) list.get(3)).get("ID"));
-    assertEquals(Integer.valueOf(5), ((Map) list.get(4)).get("ID"));
+    assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("ID"));
+    assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("ID"));
+    assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("ID"));
+    assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("ID"));
+    assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("ID"));
   }
 
   @Test
   public void testExecuteQueryForListWithSimpleResultClass() throws SQLException {
-    List list = sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
+    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
 
     assertEquals("clinton.begin@ibatis.com", list.get(0));
     assertEquals(5, list.size());
@@ -617,7 +617,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForListWithSimpleResultMap() throws SQLException {
-    List list = sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
+    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
 
     assertEquals("clinton.begin@ibatis.com", list.get(0));
     assertEquals(5, list.size());
@@ -625,7 +625,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForListWithSkipAndMax() throws SQLException {
-    List list = sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
+    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
 
     assertEquals(2, list.size());
     assertEquals(3, ((Account) list.get(0)).getId());
@@ -636,7 +636,7 @@ public class StatementTest extends BaseSqlMapTest {
   public void testExecuteQueryForListWithRowHandler() throws SQLException {
     TestRowHandler handler = new TestRowHandler();
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
-    List list = handler.getList();
+    List<Object> list = handler.getList();
     assertEquals(5, handler.getIndex());
     assertEquals(5, list.size());
     assertAccount1((Account) list.get(0));
@@ -653,7 +653,7 @@ public class StatementTest extends BaseSqlMapTest {
     // tests method that does not require a parameter object
     TestRowHandler handler = new TestRowHandler();
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", handler);
-    List list = handler.getList();
+    List<Object> list = handler.getList();
     assertEquals(5, handler.getIndex());
     assertEquals(5, list.size());
     assertAccount1((Account) list.get(0));
@@ -682,7 +682,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForMap() throws SQLException {
-    Map map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
+    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
 
     assertAccount1((Account) map.get("Begin"));
     assertEquals(5, map.size());
@@ -695,7 +695,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testExecuteQueryForMapWithValueProperty() throws SQLException {
-    Map map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
+    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
 
     assertEquals(5, map.size());
     assertEquals("Clinton", map.get("Begin"));
@@ -722,7 +722,7 @@ public class StatementTest extends BaseSqlMapTest {
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map param = new HashMap();
+    Map<String, Integer> param = new HashMap<String, Integer>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(10));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -768,7 +768,7 @@ public class StatementTest extends BaseSqlMapTest {
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map param = new HashMap();
+    Map<String, Integer> param = new HashMap<String, Integer>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(99));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -792,7 +792,7 @@ public class StatementTest extends BaseSqlMapTest {
     assertNull(key);
     assertEquals(100, item.getId());
 
-    Map param = new HashMap();
+    Map<String, Integer> param = new HashMap<String, Integer>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(100));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -874,7 +874,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testQueryDynamicSqlElement() throws SQLException {
-    List list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_ID");
+    List<?> list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_ID");
 
     assertEquals("clinton.begin@ibatis.com", (String) list.get(0));
 
@@ -889,7 +889,7 @@ public class StatementTest extends BaseSqlMapTest {
   public class TestRowHandler implements RowHandler {
     private int index = 0;
 
-    private List list = new ArrayList();
+    private List<Object> list = new ArrayList<Object>();
 
     public void handleRow(Object object) {
       index++;
@@ -897,7 +897,7 @@ public class StatementTest extends BaseSqlMapTest {
       list.add(object);
     }
 
-    public void handleRow(Object valueObject, List list) {
+    public void handleRow(Object valueObject, List<Object> list) {
       index++;
       assertEquals(index, ((Account) valueObject).getId());
       list.add(valueObject);
@@ -907,7 +907,7 @@ public class StatementTest extends BaseSqlMapTest {
       return index;
     }
 
-    public List getList() {
+    public List<Object> getList() {
       return list;
     }
 
@@ -915,7 +915,7 @@ public class StatementTest extends BaseSqlMapTest {
 
   @Test
   public void testNestedResultMaps() throws SQLException {
-    List list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
+    List<?> list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
 
     assertEquals(10, list.size());
 

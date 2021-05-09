@@ -21,6 +21,7 @@ import java.util.List;
 
 public class PrivateAccount implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private int id;
   private String firstName;
   private String lastName;
@@ -29,7 +30,7 @@ public class PrivateAccount implements Serializable {
   private int age;
   private Date dateAdded;
   private PrivateAccount account;
-  private List accountList;
+  private List<?> accountList;
   private boolean bannerOption;
   private boolean cartOption;
 
@@ -114,11 +115,11 @@ public class PrivateAccount implements Serializable {
     this.account = account;
   }
 
-  public List getAccountList() {
+  public List<?> getAccountList() {
     return accountList;
   }
 
-  public void setAccountList(List accountList) {
+  public void setAccountList(List<?> accountList) {
     this.accountList = accountList;
   }
 

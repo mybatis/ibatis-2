@@ -64,16 +64,16 @@ public class JiraIbatis260 extends BaseSqlMapTest {
    */
   @Test
   public void testIbatis260Error1() throws Exception {
-    List groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
+    List<?> groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
 
-    HashMap test = new HashMap();
-    Iterator indexIterator = groupedResult.iterator();
+    HashMap<String, Object> test = new HashMap<>();
+    Iterator<?> indexIterator = groupedResult.iterator();
     while (indexIterator.hasNext()) {
       ArticleIndex articleIndex = (ArticleIndex) indexIterator.next();
-      Iterator topicIterator = articleIndex.getTopics().iterator();
+      Iterator<?> topicIterator = articleIndex.getTopics().iterator();
       while (topicIterator.hasNext()) {
         Topic topic = (Topic) topicIterator.next();
-        Iterator descriptionIterator = topic.getDescriptionList().iterator();
+        Iterator<?> descriptionIterator = topic.getDescriptionList().iterator();
         while (descriptionIterator.hasNext()) {
           TopicDescription desc = (TopicDescription) descriptionIterator.next();
 
@@ -88,8 +88,8 @@ public class JiraIbatis260 extends BaseSqlMapTest {
     // the test case fails. If at the end the hashMap is not empty
     // the test case also fails.
     String key = null;
-    List flatResult = sqlMap.queryForList("getJira260FlatResult", null);
-    Iterator iterator = flatResult.iterator();
+    List<?> flatResult = sqlMap.queryForList("getJira260FlatResult", null);
+    Iterator<?> iterator = flatResult.iterator();
     while (iterator.hasNext()) {
       ArticleIndexDenorm articleIndex = (ArticleIndexDenorm) iterator.next();
       key = articleIndex.getCategoryTitle() + "||" + articleIndex.getTopicTitle() + "||"

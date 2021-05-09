@@ -81,7 +81,7 @@ public class PaginatedArrayListTest {
     assertEquals(false, oddPageList.isPreviousPageAvailable());
 
     int count = 0;
-    Iterator i = oddPageList.iterator();
+    Iterator<?> i = oddPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
@@ -151,7 +151,7 @@ public class PaginatedArrayListTest {
     assertEquals(false, evenPageList.isPreviousPageAvailable());
 
     int count = 0;
-    Iterator i = evenPageList.iterator();
+    Iterator<?> i = evenPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
@@ -214,7 +214,7 @@ public class PaginatedArrayListTest {
     assertEquals(false, smallPageList.isNextPageAvailable());
 
     int count = 0;
-    Iterator i = smallPageList.iterator();
+    Iterator<?> i = smallPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;

@@ -21,14 +21,4 @@ package testdomain;
  */
 public class PrivateBook extends Document {
 
-  private Integer pages;
-
-  private Integer getPages() {
-    return pages;
-  }
-
-  private void setPages(Integer pages) {
-    this.pages = pages;
-  }
-
 }
