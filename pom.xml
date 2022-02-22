@@ -74,6 +74,7 @@
     <osgi.dynamicImport>*</osgi.dynamicImport>
     <signature.artifact>java17</signature.artifact>
     <signature.version>1.0</signature.version>
+  	<closeTestReports>true</closeTestReports>
   </properties>
 
   <dependencies>
@@ -185,6 +186,7 @@
               <value>${project.build.directory}/ibderby</value>
             </property>
           </systemProperties>
+        	<disableXmlReport>${closeTestReports}</disableXmlReport>
         </configuration>
       </plugin>
     </plugins>
