@@ -74,6 +74,7 @@
     <osgi.dynamicImport>*</osgi.dynamicImport>
     <signature.artifact>java17</signature.artifact>
     <signature.version>1.0</signature.version>
+    <project.build.outputTimestamp>1645112687</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
