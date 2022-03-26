@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,95 +15,19 @@
  */
 package com.ibatis.sqlmap.engine.cache.fifo;
 
-import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.cache.CacheModel;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import com.ibatis.sqlmap.engine.cache.UsedCacheController;
 
 /**
  * FIFO (first in, first out) cache controller implementation.
  */
-public class FifoCacheController implements CacheController {
-
-  /** The cache size. */
-  private int cacheSize;
-
-  /** The cache. */
-  private Map cache;
-
-  /** The key list. */
-  private List keyList;
+public class FifoCacheController extends UsedCacheController {
 
   /**
    * Default constructor.
    */
   public FifoCacheController() {
-    this.cacheSize = 100;
-    this.cache = Collections.synchronizedMap(new HashMap());
-    this.keyList = Collections.synchronizedList(new LinkedList());
-  }
-
-  /**
-   * Gets the cache size.
-   *
-   * @return the cache size
-   */
-  public int getCacheSize() {
-    return cacheSize;
-  }
-
-  /**
-   * Sets the cache size.
-   *
-   * @param cacheSize
-   *          the new cache size
-   */
-  public void setCacheSize(int cacheSize) {
-    this.cacheSize = cacheSize;
-  }
-
-  /**
-   * Configures the cache
-   *
-   * @param props
-   *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
-   */
-  public void setProperties(Properties props) {
-    String size = props.getProperty("cache-size");
-    if (size == null) {
-      size = props.getProperty("size");
-    }
-    if (size != null) {
-      cacheSize = Integer.parseInt(size);
-    }
-  }
-
-  /**
-   * Add an object to the cache
-   *
-   * @param cacheModel
-   *          The cacheModel
-   * @param key
-   *          The key of the object to be cached
-   * @param value
-   *          The object to be cached
-   */
-  public void putObject(CacheModel cacheModel, Object key, Object value) {
-    cache.put(key, value);
-    keyList.add(key);
-    if (keyList.size() > cacheSize) {
-      try {
-        Object oldestKey = keyList.remove(0);
-        cache.remove(oldestKey);
-      } catch (IndexOutOfBoundsException e) {
-        // ignore
-      }
-    }
+    super();
   }
 
   /**
@@ -115,24 +39,9 @@ public class FifoCacheController implements CacheController {
    *          The key of the object to be returned
    * @return The cached object (or null)
    */
+  @Override
   public Object getObject(CacheModel cacheModel, Object key) {
     return cache.get(key);
-  }
-
-  public Object removeObject(CacheModel cacheModel, Object key) {
-    keyList.remove(key);
-    return cache.remove(key);
-  }
-
-  /**
-   * Flushes the cache.
-   *
-   * @param cacheModel
-   *          The cache model
-   */
-  public void flush(CacheModel cacheModel) {
-    cache.clear();
-    keyList.clear();
   }
 
 }

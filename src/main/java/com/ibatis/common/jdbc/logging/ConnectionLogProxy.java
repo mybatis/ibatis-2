@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 /**
  * Connection proxy to add logging.
@@ -68,7 +67,7 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
         stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
         return stmt;
       } else if ("createStatement".equals(method.getName())) {
-        Statement stmt = (Statement) method.invoke(connection, params);
+        PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
         stmt = StatementLogProxy.newInstance(stmt);
         return stmt;
       } else {

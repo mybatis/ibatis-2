@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public class SqlStatementParser {
   public void parseGeneralStatement(Node node, MappedStatement statement) {
 
     // get attributes
-    Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+    Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
     String id = attributes.getProperty("id");
     String parameterMapName = state.applyNamespace(attributes.getProperty("parameterMap"));
     String parameterClassName = attributes.getProperty("parameterClass");
@@ -151,7 +151,7 @@ public class SqlStatementParser {
           foundSQLFirst = true;
         }
       } else if (child.getNodeType() == Node.ELEMENT_NODE && "selectKey".equals(child.getNodeName())) {
-        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(child, state.getGlobalProps());
         String keyPropName = attributes.getProperty("keyProperty");
         String resultClassName = attributes.getProperty("resultClass");
         String type = attributes.getProperty("type");

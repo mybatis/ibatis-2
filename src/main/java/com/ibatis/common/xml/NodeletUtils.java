@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,84 +17,10 @@ package com.ibatis.common.xml;
 
 import java.util.Properties;
 
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-
 /**
  * The Class NodeletUtils.
  */
 public class NodeletUtils {
-
-  /**
-   * Gets the boolean attribute.
-   *
-   * @param attribs
-   *          the attribs
-   * @param name
-   *          the name
-   * @param def
-   *          the def
-   * @return the boolean attribute
-   */
-  public static boolean getBooleanAttribute(Properties attribs, String name, boolean def) {
-    String value = attribs.getProperty(name);
-    if (value == null) {
-      return def;
-    } else {
-      return "true".equals(value);
-    }
-  }
-
-  /**
-   * Gets the int attribute.
-   *
-   * @param attribs
-   *          the attribs
-   * @param name
-   *          the name
-   * @param def
-   *          the def
-   * @return the int attribute
-   */
-  public static int getIntAttribute(Properties attribs, String name, int def) {
-    String value = attribs.getProperty(name);
-    if (value == null) {
-      return def;
-    } else {
-      return Integer.parseInt(value);
-    }
-  }
-
-  /**
-   * Parses the attributes.
-   *
-   * @param n
-   *          the n
-   * @return the properties
-   */
-  public static Properties parseAttributes(Node n) {
-    return parseAttributes(n, null);
-  }
-
-  /**
-   * Parses the attributes.
-   *
-   * @param n
-   *          the n
-   * @param variables
-   *          the variables
-   * @return the properties
-   */
-  public static Properties parseAttributes(Node n, Properties variables) {
-    Properties attributes = new Properties();
-    NamedNodeMap attributeNodes = n.getAttributes();
-    for (int i = 0; i < attributeNodes.getLength(); i++) {
-      Node attribute = attributeNodes.item(i);
-      String value = parsePropertyTokens(attribute.getNodeValue(), variables);
-      attributes.put(attribute.getNodeName(), value);
-    }
-    return attributes;
-  }
 
   /**
    * Parses the property tokens.

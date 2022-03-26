@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,7 +114,7 @@ public class XMLSqlSource implements SqlSource {
 
         sqlBuffer.append(data);
       } else if ("include".equals(nodeName)) {
-        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(child, state.getGlobalProps());
         String refid = (String) attributes.get("refid");
         Node includeNode = (Node) state.getSqlIncludes().get(refid);
         if (includeNode == null) {
@@ -136,7 +136,7 @@ public class XMLSqlSource implements SqlSource {
           tag.setName(nodeName);
           tag.setHandler(handler);
 
-          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());
+          Properties attributes = GetXmlAttribute.parseAttributes(child, state.getGlobalProps());
 
           tag.setPrependAttr(attributes.getProperty("prepend"));
           tag.setPropertyAttr(attributes.getProperty("property"));

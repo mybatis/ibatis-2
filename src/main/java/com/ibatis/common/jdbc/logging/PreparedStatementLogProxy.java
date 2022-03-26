@@ -20,7 +20,6 @@ import com.ibatis.common.logging.Log;
 import com.ibatis.common.logging.LogFactory;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.CallableStatement;
@@ -30,13 +29,10 @@ import java.sql.ResultSet;
 /**
  * PreparedStatement proxy to add logging.
  */
-public class PreparedStatementLogProxy extends BaseLogProxy implements InvocationHandler {
+public class PreparedStatementLogProxy extends InvokeResultSetLog implements InvocationHandler {
 
   /** The Constant log. */
   private static final Log log = LogFactory.getLog(PreparedStatement.class);
-
-  /** The statement. */
-  private PreparedStatement statement;
 
   /** The sql. */
   private String sql;
@@ -91,19 +87,6 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
       }
     } catch (Throwable t) {
       throw ClassInfo.unwrapThrowable(t);
-    }
-  }
-
-  private Object getResultSet(Method method, Object[] params) throws IllegalAccessException, InvocationTargetException {
-    if ("executeQuery".equals(method.getName())) {
-      ResultSet rs = (ResultSet) method.invoke(statement, params);
-      if (rs != null) {
-        return ResultSetLogProxy.newInstance(rs);
-      } else {
-        return null;
-      }
-    } else {
-      return method.invoke(statement, params);
     }
   }
 

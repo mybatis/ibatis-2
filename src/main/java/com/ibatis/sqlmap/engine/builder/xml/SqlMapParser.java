@@ -96,7 +96,7 @@ public class SqlMapParser {
   private void addSqlMapNodelets() {
     parser.addNodelet("/sqlMap", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         state.setNamespace(attributes.getProperty("namespace"));
       }
     });
@@ -108,7 +108,7 @@ public class SqlMapParser {
   private void addSqlNodelets() {
     parser.addNodelet("/sqlMap/sql", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String id = attributes.getProperty("id");
         if (state.isUseStatementNamespaces()) {
           id = state.applyNamespace(id);
@@ -128,7 +128,7 @@ public class SqlMapParser {
   private void addTypeAliasNodelets() {
     parser.addNodelet("/sqlMap/typeAlias", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties prop = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String alias = prop.getProperty("alias");
         String type = prop.getProperty("type");
         state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);
@@ -142,7 +142,7 @@ public class SqlMapParser {
   private void addCacheModelNodelets() {
     parser.addNodelet("/sqlMap/cacheModel", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String id = state.applyNamespace(attributes.getProperty("id"));
         String type = attributes.getProperty("type");
         String readOnlyAttr = attributes.getProperty("readOnly");
@@ -172,7 +172,7 @@ public class SqlMapParser {
     parser.addNodelet("/sqlMap/cacheModel/property", new Nodelet() {
       public void process(Node node) throws Exception {
         state.getConfig().getErrorContext().setMoreInfo("Check the cache model properties.");
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String name = attributes.getProperty("name");
         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty("value"), state.getGlobalProps());
         state.getCacheProps().setProperty(name, value);
@@ -180,14 +180,14 @@ public class SqlMapParser {
     });
     parser.addNodelet("/sqlMap/cacheModel/flushOnExecute", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String statement = childAttributes.getProperty("statement");
         state.getCacheConfig().addFlushTriggerStatement(statement);
       }
     });
     parser.addNodelet("/sqlMap/cacheModel/flushInterval", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         try {
           int milliseconds = childAttributes.getProperty("milliseconds") == null ? 0
               : Integer.parseInt(childAttributes.getProperty("milliseconds"));
@@ -219,7 +219,7 @@ public class SqlMapParser {
     });
     parser.addNodelet("/sqlMap/parameterMap", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String id = state.applyNamespace(attributes.getProperty("id"));
         String parameterClassName = attributes.getProperty("class");
         parameterClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(parameterClassName);
@@ -235,7 +235,7 @@ public class SqlMapParser {
     });
     parser.addNodelet("/sqlMap/parameterMap/parameter", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String propertyName = childAttributes.getProperty("property");
         String jdbcType = childAttributes.getProperty("jdbcType");
         String type = childAttributes.getProperty("typeName");
@@ -285,7 +285,7 @@ public class SqlMapParser {
     });
     parser.addNodelet("/sqlMap/resultMap", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String id = state.applyNamespace(attributes.getProperty("id"));
         String resultClassName = attributes.getProperty("class");
         String extended = state.applyNamespace(attributes.getProperty("extends"));
@@ -306,7 +306,7 @@ public class SqlMapParser {
     });
     parser.addNodelet("/sqlMap/resultMap/result", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String propertyName = childAttributes.getProperty("property");
         String nullValue = childAttributes.getProperty("nullValue");
         String jdbcType = childAttributes.getProperty("jdbcType");
@@ -349,7 +349,7 @@ public class SqlMapParser {
 
     parser.addNodelet("/sqlMap/resultMap/discriminator/subMap", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String value = childAttributes.getProperty("value");
         String resultMap = childAttributes.getProperty("resultMap");
         resultMap = state.applyNamespace(resultMap);
@@ -359,7 +359,7 @@ public class SqlMapParser {
 
     parser.addNodelet("/sqlMap/resultMap/discriminator", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties childAttributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String nullValue = childAttributes.getProperty("nullValue");
         String jdbcType = childAttributes.getProperty("jdbcType");
         String javaType = childAttributes.getProperty("javaType");

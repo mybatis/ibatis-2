@@ -143,7 +143,7 @@ public class SqlMapConfigParser {
   private void addGlobalPropNodelets() {
     parser.addNodelet("/sqlMapConfig/properties", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String resource = attributes.getProperty("resource");
         String url = attributes.getProperty("url");
         state.setGlobalProperties(resource, url);
@@ -157,7 +157,7 @@ public class SqlMapConfigParser {
   private void addSettingsNodelets() {
     parser.addNodelet("/sqlMapConfig/settings", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         SqlMapConfiguration config = state.getConfig();
 
         String classInfoCacheEnabledAttr = attributes.getProperty("classInfoCacheEnabled");
@@ -206,7 +206,7 @@ public class SqlMapConfigParser {
   private void addTypeAliasNodelets() {
     parser.addNodelet("/sqlMapConfig/typeAlias", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties prop = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String alias = prop.getProperty("alias");
         String type = prop.getProperty("type");
         state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);
@@ -220,7 +220,7 @@ public class SqlMapConfigParser {
   private void addTypeHandlerNodelets() {
     parser.addNodelet("/sqlMapConfig/typeHandler", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties prop = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String jdbcType = prop.getProperty("jdbcType");
         String javaType = prop.getProperty("javaType");
         String callback = prop.getProperty("callback");
@@ -239,7 +239,7 @@ public class SqlMapConfigParser {
   private void addTransactionManagerNodelets() {
     parser.addNodelet("/sqlMapConfig/transactionManager/property", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String name = attributes.getProperty("name");
         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty("value"), state.getGlobalProps());
         state.getTransactionProps().setProperty(name, value);
@@ -247,7 +247,7 @@ public class SqlMapConfigParser {
     });
     parser.addNodelet("/sqlMapConfig/transactionManager/end()", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String type = attributes.getProperty("type");
         boolean commitRequired = "true".equals(attributes.getProperty("commitRequired"));
 
@@ -277,7 +277,7 @@ public class SqlMapConfigParser {
     });
     parser.addNodelet("/sqlMapConfig/transactionManager/dataSource/property", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String name = attributes.getProperty("name");
         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty("value"), state.getGlobalProps());
         state.getDsProps().setProperty(name, value);
@@ -287,7 +287,7 @@ public class SqlMapConfigParser {
       public void process(Node node) throws Exception {
         state.getConfig().getErrorContext().setActivity("configuring the data source");
 
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
 
         String type = attributes.getProperty("type");
         Properties props = state.getDsProps();
@@ -320,7 +320,7 @@ public class SqlMapConfigParser {
       public void process(Node node) throws Exception {
         state.getConfig().getErrorContext().setActivity("loading the SQL Map resource");
 
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
 
         String resource = attributes.getProperty("resource");
         String url = attributes.getProperty("url");
@@ -362,7 +362,7 @@ public class SqlMapConfigParser {
   private void addResultObjectFactoryNodelets() {
     parser.addNodelet("/sqlMapConfig/resultObjectFactory", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String type = attributes.getProperty("type");
 
         state.getConfig().getErrorContext().setActivity("configuring the Result Object Factory");
@@ -378,7 +378,7 @@ public class SqlMapConfigParser {
     });
     parser.addNodelet("/sqlMapConfig/resultObjectFactory/property", new Nodelet() {
       public void process(Node node) throws Exception {
-        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+        Properties attributes = GetXmlAttribute.parseAttributes(node, state.getGlobalProps());
         String name = attributes.getProperty("name");
         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty("value"), state.getGlobalProps());
         state.getConfig().getDelegate().getResultObjectFactory().setProperty(name, value);

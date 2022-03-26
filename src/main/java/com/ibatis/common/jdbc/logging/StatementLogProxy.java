@@ -20,22 +20,19 @@ import com.ibatis.common.logging.Log;
 import com.ibatis.common.logging.LogFactory;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
  * Statement proxy to add logging.
  */
-public class StatementLogProxy extends BaseLogProxy implements InvocationHandler {
+public class StatementLogProxy extends InvokeResultSetLog implements InvocationHandler {
 
   /** The Constant log. */
   private static final Log log = LogFactory.getLog(Statement.class);
-
-  /** The statement. */
-  private Statement statement;
 
   /**
    * Instantiates a new statement log proxy.
@@ -43,7 +40,7 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
    * @param stmt
    *          the stmt
    */
-  private StatementLogProxy(Statement stmt) {
+  private StatementLogProxy(PreparedStatement stmt) {
     super();
     this.statement = stmt;
   }
@@ -78,19 +75,6 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
     }
   }
 
-  private Object getResultSet(Method method, Object[] params) throws IllegalAccessException, InvocationTargetException {
-    if ("executeQuery".equals(method.getName())) {
-      ResultSet rs = (ResultSet) method.invoke(statement, params);
-      if (rs != null) {
-        return ResultSetLogProxy.newInstance(rs);
-      } else {
-        return null;
-      }
-    } else {
-      return method.invoke(statement, params);
-    }
-  }
-
   /**
    * Creates a logging version of a Statement.
    *
@@ -98,10 +82,10 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
    *          - the statement
    * @return - the proxy
    */
-  public static Statement newInstance(Statement stmt) {
+  public static PreparedStatement newInstance(PreparedStatement stmt) {
     InvocationHandler handler = new StatementLogProxy(stmt);
     ClassLoader cl = Statement.class.getClassLoader();
-    return (Statement) Proxy.newProxyInstance(cl, new Class[] { Statement.class }, handler);
+    return (PreparedStatement) Proxy.newProxyInstance(cl, new Class[] { Statement.class }, handler);
   }
 
   /**
