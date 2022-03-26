@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,23 +40,24 @@ public class DomProbe extends BaseProbe {
 
   @Override
   public String[] getReadablePropertyNames(Object object) {
+    List props = getProps(object);
+    return (String[]) props.toArray(new String[props.size()]);
+  }
+
+  // extract method refactoring - ASDC - Assignment3
+  private List getProps(Object object) {
     List props = new ArrayList();
     Element e = resolveElement(object);
     NodeList nodes = e.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
       props.add(nodes.item(i).getNodeName());
     }
-    return (String[]) props.toArray(new String[props.size()]);
+    return props;
   }
 
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-    List props = new ArrayList();
-    Element e = resolveElement(object);
-    NodeList nodes = e.getChildNodes();
-    for (int i = 0; i < nodes.getLength(); i++) {
-      props.add(nodes.item(i).getNodeName());
-    }
+    List props = getProps(object);
     return (String[]) props.toArray(new String[props.size()]);
   }
 

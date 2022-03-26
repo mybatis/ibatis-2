@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
   /** The first. */
   boolean first = true;
 
-  /** The rs. */
-  private ResultSet rs;
+  /** The rs. // rename variable refactoring - ASDC - Assignment3 */
+  private ResultSet resultSet;
 
   /**
    * Instantiates a new result set log proxy.
@@ -46,7 +46,7 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
    */
   private ResultSetLogProxy(ResultSet rs) {
     super();
-    this.rs = rs;
+    this.resultSet = rs;
     if (log.isDebugEnabled()) {
       log.debug("{rset-" + id + "} ResultSet");
     }
@@ -54,10 +54,10 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
 
   public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
     try {
-      Object o = method.invoke(rs, params);
+      Object o = method.invoke(resultSet, params);
       if (GET_METHODS.contains(method.getName())) {
         if (params[0] instanceof String) {
-          if (rs.wasNull()) {
+          if (resultSet.wasNull()) {
             setColumn(params[0], null);
           } else {
             setColumn(params[0], o);
@@ -102,8 +102,8 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
    *
    * @return the resultSet
    */
-  public ResultSet getRs() {
-    return rs;
+  public ResultSet getResultSet() {
+    return resultSet;
   }
 
 }

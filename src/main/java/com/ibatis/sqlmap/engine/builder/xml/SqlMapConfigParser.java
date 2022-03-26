@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -242,7 +242,7 @@ public class SqlMapConfigParser {
         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
         String name = attributes.getProperty("name");
         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty("value"), state.getGlobalProps());
-        state.getTxProps().setProperty(name, value);
+        state.getTransactionProps().setProperty(name, value);
       }
     });
     parser.addNodelet("/sqlMapConfig/transactionManager/end()", new Nodelet() {
@@ -259,7 +259,7 @@ public class SqlMapConfigParser {
           TransactionConfig config = (TransactionConfig) Resources.instantiate(type);
           config.setDataSource(state.getDataSource());
           state.getConfig().getErrorContext().setMoreInfo("Check the transaction manager properties or configuration.");
-          config.setProperties(state.getTxProps());
+          config.setProperties(state.getTransactionProps());
           config.setForceCommit(commitRequired);
           config.setDataSource(state.getDataSource());
           state.getConfig().getErrorContext().setMoreInfo(null);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,8 @@ public class XmlParserState {
   /** The global props. */
   private Properties globalProps = new Properties();
 
-  /** The tx props. */
-  private Properties txProps = new Properties();
+  /** The tx props. // rename variable refactoring - ASDC - Assignment3 */
+  private Properties transactionProps = new Properties();
 
   /** The ds props. */
   private Properties dsProps = new Properties();
@@ -96,8 +96,8 @@ public class XmlParserState {
    *
    * @return the tx props
    */
-  public Properties getTxProps() {
-    return txProps;
+  public Properties getTransactionProps() {
+    return transactionProps;
   }
 
   /**

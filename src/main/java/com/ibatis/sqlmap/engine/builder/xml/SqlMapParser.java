@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -319,15 +319,7 @@ public class SqlMapParser {
         String notNullColumn = childAttributes.getProperty("notNullColumn");
 
         state.getConfig().getErrorContext().setMoreInfo("Check the result mapping property type or name.");
-        Class javaClass = null;
-        try {
-          javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-          if (javaType != null && javaType.length() > 0) {
-            javaClass = Resources.classForName(javaType);
-          }
-        } catch (ClassNotFoundException e) {
-          throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
-        }
+        Class javaClass = getResolveAlias(javaType);
 
         state.getConfig().getErrorContext().setMoreInfo("Check the result mapping typeHandler attribute '" + callback
             + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
@@ -376,15 +368,7 @@ public class SqlMapParser {
         String callback = childAttributes.getProperty("typeHandler");
 
         state.getConfig().getErrorContext().setMoreInfo("Check the disriminator type or name.");
-        Class javaClass = null;
-        try {
-          javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-          if (javaType != null && javaType.length() > 0) {
-            javaClass = Resources.classForName(javaType);
-          }
-        } catch (ClassNotFoundException e) {
-          throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
-        }
+        Class javaClass = getResolveAlias(javaType);
 
         state.getConfig().getErrorContext().setMoreInfo("Check the result mapping discriminator typeHandler attribute '"
             + callback + "' (must be a TypeHandlerCallback implementation).");
@@ -411,6 +395,20 @@ public class SqlMapParser {
             typeHandlerImpl);
       }
     });
+  }
+
+  // extract method refactoring - ASDC - Assignment3
+  private Class getResolveAlias(String javaType) {
+    Class javaClass = null;
+    try {
+      javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
+      if (javaType != null && javaType.length() > 0) {
+        javaClass = Resources.classForName(javaType);
+      }
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException("Error setting java type on result discriminator mapping.  Cause: " + e);
+    }
+    return javaClass;
   }
 
   /**

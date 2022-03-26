@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2021 the original author or authors.
+    Copyright 2004-2022 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -161,31 +161,43 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <descriptors>
+              <descriptor>bundle.xml</descriptor>
+            </descriptors>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <systemProperties>
+              <property>
+                <name>derby.stream.error.file</name>
+                <value>${project.build.directory}/derby.log</value>
+              </property>
+              <property>
+                <name>derby.system.home</name>
+                <value>${project.build.directory}/ibderby</value>
+              </property>
+            </systemProperties>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
-          <descriptors>
-            <descriptor>bundle.xml</descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <systemProperties>
-            <property>
-              <name>derby.stream.error.file</name>
-              <value>${project.build.directory}/derby.log</value>
-            </property>
-            <property>
-              <name>derby.system.home</name>
-              <value>${project.build.directory}/ibderby</value>
-            </property>
-          </systemProperties>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
     </plugins>

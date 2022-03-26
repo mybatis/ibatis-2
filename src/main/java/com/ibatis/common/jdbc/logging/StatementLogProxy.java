@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.ibatis.common.logging.Log;
 import com.ibatis.common.logging.LogFactory;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
@@ -53,16 +54,7 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
         if (log.isDebugEnabled()) {
           log.debug("{stmt-" + id + "} Statement: " + removeBreakingWhitespace((String) params[0]));
         }
-        if ("executeQuery".equals(method.getName())) {
-          ResultSet rs = (ResultSet) method.invoke(statement, params);
-          if (rs != null) {
-            return ResultSetLogProxy.newInstance(rs);
-          } else {
-            return null;
-          }
-        } else {
-          return method.invoke(statement, params);
-        }
+        return getResultSet(method, params);
       } else if ("getResultSet".equals(method.getName())) {
         ResultSet rs = (ResultSet) method.invoke(statement, params);
         if (rs != null) {
@@ -83,6 +75,19 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
       }
     } catch (Throwable t) {
       throw ClassInfo.unwrapThrowable(t);
+    }
+  }
+
+  private Object getResultSet(Method method, Object[] params) throws IllegalAccessException, InvocationTargetException {
+    if ("executeQuery".equals(method.getName())) {
+      ResultSet rs = (ResultSet) method.invoke(statement, params);
+      if (rs != null) {
+        return ResultSetLogProxy.newInstance(rs);
+      } else {
+        return null;
+      }
+    } else {
+      return method.invoke(statement, params);
     }
   }
 
