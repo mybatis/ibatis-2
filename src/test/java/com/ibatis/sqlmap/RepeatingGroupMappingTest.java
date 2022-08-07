@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -64,12 +64,12 @@ class RepeatingGroupMappingTest extends BaseSqlMap {
   /**
    * This is a test case for iBATIS JIRA-250 "SELECT statement returns unexpected result when 'groupBy' and 'nullValue'
    * are specified in resultMaps."
-   *
+   * <p>
    * The problem was that when a child object in a resultmap only contained null values it would still be created when
    * one of the properties of the child object contained a nullValue attribute in the ResultMap. The nullValue would be
    * applied before checking whether all properties of the child were 'null', so at least 1 property would always be
    * non-null (the reason for the nullValue attribute).
-   *
+   * <p>
    * The fix is to first check whether all properties of the child are 'null', and if the child object contains at least
    * 1 non-null property to then only create the child object and apply the nullValue attribute.
    *

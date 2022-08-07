@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -42,7 +42,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param param
    *          the param
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -53,7 +55,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -66,7 +70,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param param
    *          the param
+   *
    * @return the int
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -77,7 +83,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the int
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -90,7 +98,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param param
    *          the param
+   *
    * @return the int
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -101,7 +111,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the int
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -114,7 +126,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param paramObject
    *          the param object
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -125,7 +139,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -140,7 +156,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the param object
    * @param resultObject
    *          the result object
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -153,7 +171,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param paramObject
    *          the param object
+   *
    * @return the list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -164,7 +184,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -181,7 +203,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the skip
    * @param max
    *          the max
+   *
    * @return the list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -196,7 +220,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the skip
    * @param max
    *          the max
+   *
    * @return the list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -211,7 +237,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the param object
    * @param pageSize
    *          the page size
+   *
    * @return the paginated list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -224,7 +252,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param pageSize
    *          the page size
+   *
    * @return the paginated list
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -239,7 +269,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the param object
    * @param keyProp
    *          the key prop
+   *
    * @return the map
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -256,7 +288,9 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the key prop
    * @param valueProp
    *          the value prop
+   *
    * @return the map
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -271,6 +305,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the param object
    * @param rowHandler
    *          the row handler
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -283,6 +318,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *          the id
    * @param rowHandler
    *          the row handler
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -301,6 +337,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param transactionIsolation
    *          the transaction isolation
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -334,6 +371,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * Execute batch.
    *
    * @return the int
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -343,6 +381,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * Execute batch detailed.
    *
    * @return the list
+   *
    * @throws SQLException
    *           the SQL exception
    * @throws BatchException
@@ -355,6 +394,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param connection
    *          the new user connection
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -364,6 +404,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * Gets the user connection.
    *
    * @return the user connection
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -373,6 +414,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * Gets the current connection.
    *
    * @return the current connection
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -390,6 +432,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param id
    *          the id
+   *
    * @return the mapped statement
    */
   MappedStatement getMappedStatement(String id);
@@ -434,6 +477,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @param conn
    *          the conn
+   *
    * @return the sql map session
    */
   SqlMapSession openSession(Connection conn);

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -75,6 +75,7 @@ public class DbcpConfiguration {
    *
    * @param map
    *          the map
+   *
    * @return the basic data source
    */
   private BasicDataSource newDbcpConfiguration(Map map) {
@@ -103,6 +104,7 @@ public class DbcpConfiguration {
    *          the property name
    * @param value
    *          the value
+   *
    * @return the object
    */
   private Object convertValue(Object object, String propertyName, String value) {
@@ -123,6 +125,7 @@ public class DbcpConfiguration {
    *
    * @param map
    *          the map
+   *
    * @return the basic data source
    */
   private BasicDataSource legacyDbcpConfiguration(Map map) {
@@ -176,6 +179,7 @@ public class DbcpConfiguration {
    *
    * @param s
    *          the s
+   *
    * @return true, if successful
    */
   private boolean notEmpty(String s) {

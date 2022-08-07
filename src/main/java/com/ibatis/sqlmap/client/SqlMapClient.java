@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -172,6 +172,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * TODO : Deprecated and will be removed.
    *
    * @return A session (DEPRECATED)
+   *
    * @deprecated Use openSession() instead. THIS METHOD WILL BE REMOVED BEFORE FINAL RELEASE.
    */
   public SqlMapSession getSession();
@@ -201,14 +202,12 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * <li>&lt;select&gt; -- queryForObject, queryForList or queryForMap, as determined by signature (see below)
    * <li>&lt;procedure&gt; -- determined by method name (see below)
    * </ul>
-   *
    * How select statements are run is determined by the method signature, as per the following:
    * <ul>
    * <li>Object methodName (Object param) -- queryForObject
    * <li>List methodName (Object param [, int skip, int max | , int pageSize]) -- queryForList
    * <li>Map methodName (Object param, String keyProp [,valueProp]) -- queryForMap
    * </ul>
-   *
    * How stored procedures are run is determined by the method name, as per the following:
    * <ul>
    * <li>insertXxxxx -- insert()
@@ -225,6 +224,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    *
    * @param iface
    *          The interface that contains methods representing the mapped statements contained.
+   *
    * @return An instance of iface that can be used to call mapped statements directly in a typesafe manner.
    */
   // public Object getMapper(Class iface);

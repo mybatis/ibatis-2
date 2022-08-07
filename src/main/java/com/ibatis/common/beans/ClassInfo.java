@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -348,6 +348,7 @@ public class ClassInfo {
    *
    * @param cls
    *          The class
+   *
    * @return An array containing all methods in this class
    */
   private Method[] getClassMethods(Class cls) {
@@ -406,6 +407,7 @@ public class ClassInfo {
    *
    * @param method
    *          the method
+   *
    * @return the signature
    */
   private String getSignature(Method method) {
@@ -430,6 +432,7 @@ public class ClassInfo {
    *
    * @param name
    *          the name
+   *
    * @return the string
    */
   private static String dropCase(String name) {
@@ -496,6 +499,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the property
+   *
    * @return The Method
    */
   public Method getSetter(String propertyName) {
@@ -516,6 +520,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the property
+   *
    * @return The Method
    */
   public Method getGetter(String propertyName) {
@@ -536,6 +541,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          the property name
+   *
    * @return the sets the invoker
    */
   public Invoker getSetInvoker(String propertyName) {
@@ -552,6 +558,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          the property name
+   *
    * @return the gets the invoker
    */
   public Invoker getGetInvoker(String propertyName) {
@@ -568,6 +575,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property
+   *
    * @return The Class of the propery setter
    */
   public Class getSetterType(String propertyName) {
@@ -584,6 +592,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property
+   *
    * @return The Class of the propery getter
    */
   public Class getGetterType(String propertyName) {
@@ -618,6 +627,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property to check
+   *
    * @return True if the object has a writeable property by the name
    */
   public boolean hasWritableProperty(String propertyName) {
@@ -629,6 +639,7 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property to check
+   *
    * @return True if the object has a readable property by the name
    */
   public boolean hasReadableProperty(String propertyName) {
@@ -640,6 +651,7 @@ public class ClassInfo {
    *
    * @param clazz
    *          The class to check
+   *
    * @return True if the class is known
    */
   public static boolean isKnownType(Class clazz) {
@@ -665,6 +677,7 @@ public class ClassInfo {
    *
    * @param clazz
    *          The class for which to lookup the method cache.
+   *
    * @return The method cache for the class
    */
   public static ClassInfo getInstance(Class clazz) {
@@ -695,6 +708,7 @@ public class ClassInfo {
    *
    * @param t
    *          - the exception to examine
+   *
    * @return The root cause
    */
   public static Throwable unwrapThrowable(Throwable t) {

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,6 +51,7 @@ public class InlineParameterMapParser {
    *          the type handler factory
    * @param sqlStatement
    *          the sql statement
+   *
    * @return the sql text
    */
   public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement) {
@@ -66,6 +67,7 @@ public class InlineParameterMapParser {
    *          the sql statement
    * @param parameterClass
    *          the parameter class
+   *
    * @return the sql text
    */
   public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement,
@@ -134,6 +136,7 @@ public class InlineParameterMapParser {
    *          the parameter class
    * @param typeHandlerFactory
    *          the type handler factory
+   *
    * @return the parameter mapping
    */
   private ParameterMapping newParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
@@ -214,6 +217,7 @@ public class InlineParameterMapParser {
    *          the parameter class
    * @param typeHandlerFactory
    *          the type handler factory
+   *
    * @return the parameter mapping
    */
   private ParameterMapping oldParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
@@ -284,6 +288,7 @@ public class InlineParameterMapParser {
    *          the java type
    * @param jdbcType
    *          the jdbc type
+   *
    * @return the type handler
    */
   private TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,6 +59,7 @@ public class LogFactory {
    *
    * @param aClass
    *          the a class
+   *
    * @return the log
    */
   public static Log getLog(Class aClass) {
@@ -74,7 +75,6 @@ public class LogFactory {
    * in situations where you want to use Log4J to log iBATIS activity but commons logging is on the classpath. Note that
    * this method is only effective for log classes obtained after calling this method. If you intend to use this method
    * you should call it before calling any other iBATIS method.
-   *
    */
   public static synchronized void selectLog4JLogging() {
     try {

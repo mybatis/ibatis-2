@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -66,7 +66,7 @@ public class IterateContext implements Iterator {
   /**
    * This variable is true if some of the sub elements have actually produced content. This is used to test whether to
    * add the open and conjunction text to the generated statement.
-   *
+   * <p>
    * This variable is used to replace the deprecated and dangerous isFirst method.
    */
   private boolean someSubElementsHaveContent;
@@ -74,7 +74,6 @@ public class IterateContext implements Iterator {
   /**
    * This variable is set by the doEndFragment method in IterateTagHandler to specify that the first content producing
    * sub element has happened. The doPrepend method will test the value to know whether or not to process the prepend.
-   *
    * This variable is used to replace the deprecated and dangerous isFirst method.
    */
   private boolean isPrependEnabled;
@@ -130,6 +129,7 @@ public class IterateContext implements Iterator {
    * Checks if is first.
    *
    * @return true, if is first
+   *
    * @deprecated This method should not be used to decide whether or not to add prepend and open text to the generated
    *             statement. Rather, use the methods isPrependEnabled() and someSubElementsHaveContent().
    */
@@ -151,6 +151,7 @@ public class IterateContext implements Iterator {
    *
    * @param array
    *          the array
+   *
    * @return the list
    */
   private List arrayToList(Object array) {
@@ -272,6 +273,7 @@ public class IterateContext implements Iterator {
    *
    * @param tagProperty
    *          the property of a TagHandler.
+   *
    * @return A Map containing the modified tag property in PROCESS_STRING key and the index where the modification
    *         occured in PROCESS_INDEX key.
    */
@@ -290,6 +292,7 @@ public class IterateContext implements Iterator {
    *
    * @param tagProperty
    *          the property of a TagHandler.
+   *
    * @return The tag property with all "[]" replaced with the correct iteration value.
    */
   public String addIndexToTagProperty(String tagProperty) {
@@ -304,6 +307,7 @@ public class IterateContext implements Iterator {
    *          The input String.
    * @param startIndex
    *          The index where search for property begins.
+   *
    * @return A Map containing the modified tag property in PROCESS_STRING key and the index where the modification
    *         occured in PROCESS_INDEX key.
    */

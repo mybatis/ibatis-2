@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,6 +36,7 @@ public interface ResultGetter {
    * Gets an array from the underlying result set.
    *
    * @return - the array
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -45,6 +46,7 @@ public interface ResultGetter {
    * Gets a BigDecimal from the underlying result set.
    *
    * @return - the BigDecimal
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -54,6 +56,7 @@ public interface ResultGetter {
    * Gets a Blob from the underlying result set.
    *
    * @return - the Blob
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -63,6 +66,7 @@ public interface ResultGetter {
    * Gets a boolean from the underlying result set.
    *
    * @return - the boolean
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -72,6 +76,7 @@ public interface ResultGetter {
    * Gets a byte from the underlying result set.
    *
    * @return - the byte
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -81,6 +86,7 @@ public interface ResultGetter {
    * Gets a byte[] from the underlying result set.
    *
    * @return - the byte[]
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -90,6 +96,7 @@ public interface ResultGetter {
    * Gets a Clob from the underlying result set.
    *
    * @return - the Clob
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -99,6 +106,7 @@ public interface ResultGetter {
    * Gets a Date from the underlying result set.
    *
    * @return - the Date
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -109,7 +117,9 @@ public interface ResultGetter {
    *
    * @param cal
    *          - the Calendar
+   *
    * @return - the Date
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -119,6 +129,7 @@ public interface ResultGetter {
    * Gets a double from the underlying result set.
    *
    * @return - the double
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -128,6 +139,7 @@ public interface ResultGetter {
    * Gets a float from the underlying result set.
    *
    * @return - the float
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -137,6 +149,7 @@ public interface ResultGetter {
    * Gets an int from the underlying result set.
    *
    * @return - the int
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -146,6 +159,7 @@ public interface ResultGetter {
    * Gets a long from the underlying result set.
    *
    * @return - the long
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -155,6 +169,7 @@ public interface ResultGetter {
    * Gets an Object from the underlying result set.
    *
    * @return - the Object
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -165,7 +180,9 @@ public interface ResultGetter {
    *
    * @param map
    *          - the Map
+   *
    * @return - the Object
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -175,6 +192,7 @@ public interface ResultGetter {
    * Gets a Ref from the underlying result set.
    *
    * @return - the Ref
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -184,6 +202,7 @@ public interface ResultGetter {
    * Gets a short from the underlying result set.
    *
    * @return - the short
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -193,6 +212,7 @@ public interface ResultGetter {
    * Gets a String from the underlying result set.
    *
    * @return - the String
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -202,6 +222,7 @@ public interface ResultGetter {
    * Gets a Time from the underlying result set.
    *
    * @return - the Time
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -212,7 +233,9 @@ public interface ResultGetter {
    *
    * @param cal
    *          - the Calendar
+   *
    * @return - the Time
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -222,6 +245,7 @@ public interface ResultGetter {
    * Gets a Timestamp from the underlying result set.
    *
    * @return - the Timestamp
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -232,7 +256,9 @@ public interface ResultGetter {
    *
    * @param cal
    *          - the Calendar
+   *
    * @return - the Timestamp
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -242,6 +268,7 @@ public interface ResultGetter {
    * Gets a URL from the underlying result set.
    *
    * @return - the URL
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
@@ -251,6 +278,7 @@ public interface ResultGetter {
    * Tells if the field was null.
    *
    * @return - true if it was null
+   *
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */

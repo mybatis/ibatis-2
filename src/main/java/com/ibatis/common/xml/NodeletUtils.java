@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ public class NodeletUtils {
    *          the name
    * @param def
    *          the def
+   *
    * @return the boolean attribute
    */
   public static boolean getBooleanAttribute(Properties attribs, String name, boolean def) {
@@ -54,6 +55,7 @@ public class NodeletUtils {
    *          the name
    * @param def
    *          the def
+   *
    * @return the int attribute
    */
   public static int getIntAttribute(Properties attribs, String name, int def) {
@@ -70,6 +72,7 @@ public class NodeletUtils {
    *
    * @param n
    *          the n
+   *
    * @return the properties
    */
   public static Properties parseAttributes(Node n) {
@@ -83,6 +86,7 @@ public class NodeletUtils {
    *          the n
    * @param variables
    *          the variables
+   *
    * @return the properties
    */
   public static Properties parseAttributes(Node n, Properties variables) {
@@ -103,6 +107,7 @@ public class NodeletUtils {
    *          the string
    * @param variables
    *          the variables
+   *
    * @return the string
    */
   public static String parsePropertyTokens(String string, Properties variables) {

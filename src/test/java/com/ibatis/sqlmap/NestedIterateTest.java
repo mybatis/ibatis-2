@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,9 +39,7 @@ class NestedIterateTest extends BaseSqlMap {
   }
 
   /**
-   * This test should return 9 rows: ids 1-9
-   *
-   * This method works as expected
+   * This test should return 9 rows: ids 1-9 This method works as expected
    */
   @Test
   void testShouldReturn9Rows() {
@@ -264,7 +262,7 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return two rows: ids 1, 2
-   *
+   * <p>
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -484,7 +482,7 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return six rows: ids 1-6
-   *
+   * <p>
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -516,8 +514,8 @@ class NestedIterateTest extends BaseSqlMap {
   }
 
   /**
-   * This method should return six rows: ids 1-6
-   *
+   * This method should return six rows: ids 1-6.
+   * <p>
    * This method works when Christian's IBATIS-281 patches are applied
    */
   @Test
@@ -550,7 +548,7 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return two rows: ids 1, 2
-   *
+   * <p>
    * This method tests <isNotPropertyAvailable> inside in <iterate>
    */
   @Test
@@ -579,7 +577,7 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return two rows: ids 1, 2
-   *
+   * <p>
    * This method tests <isNotNull> inside an <iterate>
    */
   @Test
@@ -608,7 +606,7 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return two rows: ids 1, 2
-   *
+   * <p>
    * This method tests <isNotEmpty> inside an <iterate>
    */
   @Test
@@ -637,10 +635,9 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return nine rows: ids 1-9
-   *
+   * <p>
    * This method tests the open, close, and prepend attributes when no sub elements satisfy - so no where clause should
    * be generated
-   *
    */
   @Test
   void test21() {
@@ -673,9 +670,8 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return one rows: id 4
-   *
+   * <p>
    * This method tests the open, close, and prepend attributes when the first element doesn't satisfy
-   *
    */
   @Test
   void test22() {
@@ -700,7 +696,6 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return one rows: id 1
-   *
    */
   @Test
   void test23() {
@@ -725,7 +720,6 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return one rows: id 9
-   *
    */
   @Test
   void test24() {
@@ -750,7 +744,6 @@ class NestedIterateTest extends BaseSqlMap {
 
   /**
    * This method should return three rows: id 1-3
-   *
    */
   @Test
   void test25() {
@@ -924,7 +917,6 @@ class NestedIterateTest extends BaseSqlMap {
   /**
    * This tests nesting when a list is initially nested in a bean. so it tests
    * [bean]->[list]->[property_of_object_on_exposed_index]
-   *
    */
   @Test
   void test30() {

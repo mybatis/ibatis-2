@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,6 +38,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the array to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -50,6 +51,7 @@ public interface ParameterSetter {
    *          - the InputStream
    * @param length
    *          - the length of the InputStream
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -60,6 +62,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          the new big decimal
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -72,6 +75,7 @@ public interface ParameterSetter {
    *          - the InputStream
    * @param length
    *          - the length of the InputStream
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -82,6 +86,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the blob
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -92,6 +97,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the boolean
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -102,6 +108,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the byte
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -112,6 +119,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the byte[]
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -124,6 +132,7 @@ public interface ParameterSetter {
    *          - the reader
    * @param length
    *          - the length of the reader
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -134,6 +143,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the clob
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -144,6 +154,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the date
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -156,6 +167,7 @@ public interface ParameterSetter {
    *          - the date
    * @param cal
    *          - the calendar
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -166,6 +178,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the double
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -176,6 +189,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          the float
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -186,6 +200,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the int
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -196,6 +211,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the long
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -206,6 +222,7 @@ public interface ParameterSetter {
    *
    * @param sqlType
    *          - the type for the null value
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -218,6 +235,7 @@ public interface ParameterSetter {
    *          - the type for the null value
    * @param typeName
    *          - the name of the type
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -228,6 +246,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the object to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -240,6 +259,7 @@ public interface ParameterSetter {
    *          - the object to set
    * @param targetSqlType
    *          - the sql type of the object
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -254,6 +274,7 @@ public interface ParameterSetter {
    *          - the sql type of the object
    * @param scale
    *          - the scale of the object
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -264,6 +285,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the reference to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -274,6 +296,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the short to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -284,6 +307,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the string to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -294,6 +318,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the time to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -306,6 +331,7 @@ public interface ParameterSetter {
    *          - the time to set
    * @param cal
    *          - the calendar to use
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -316,6 +342,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the timestamp to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -328,6 +355,7 @@ public interface ParameterSetter {
    *          - the timestamp to set
    * @param cal
    *          - the calendar to use
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
@@ -338,6 +366,7 @@ public interface ParameterSetter {
    *
    * @param x
    *          - the url to set
+   *
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */

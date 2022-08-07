@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * This class is used to create instances of result objects. It will use the configured ResultObjectFactory if there is
  * one, otherwise it will use iBATIS' normal methods.
- *
+ * <p>
  * Note that this class is somewhat tightly coupled with SqlExecuter - SqlExecute must call the setStatementId() and
  * setResultObjectFactory() methods before executing a statement. This is a result of using a ThreadLocal to hold the
  * current configuration for the statement under execution. Using a ThreadLocal is a solution for IBATIS-366. Without a
@@ -49,19 +49,19 @@ public class ResultObjectFactoryUtil {
 
   /**
    * Algorithm:
-   *
    * <ul>
    * <li>If factory is null, then create object internally()</li>
    * <li>Otherwise try to create object through factory</li>
    * <li>If null returned from factory, then create object internally</li>
    * </ul>
-   *
    * This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
    * configured.
    *
    * @param clazz
    *          the type of object to create
+   *
    * @return a new instance of the specified class. The instance must be castable to the specified class.
+   *
    * @throws InstantiationException
    *           if the instance cannot be created. If you throw this Exception, iBATIS will throw a runtime exception in
    *           response and will end.
@@ -93,7 +93,9 @@ public class ResultObjectFactoryUtil {
    *
    * @param clazz
    *          the clazz
+   *
    * @return the object
+   *
    * @throws InstantiationException
    *           the instantiation exception
    * @throws IllegalAccessException

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,7 @@ public class NestedSQLException extends SQLException {
    *
    * @param msg
    *          - the message for the exception
+   *
    * @see java.sql.SQLException
    */
   public NestedSQLException(String msg) {
@@ -40,6 +41,7 @@ public class NestedSQLException extends SQLException {
    *          - the reason for the exception
    * @param SQLState
    *          - the SQLState
+   *
    * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState) {
@@ -55,6 +57,7 @@ public class NestedSQLException extends SQLException {
    *          - the SQLState
    * @param vendorCode
    *          - a vendor supplied code to go w/ the message
+   *
    * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState, int vendorCode) {
@@ -83,6 +86,7 @@ public class NestedSQLException extends SQLException {
    *          - the SQLState
    * @param cause
    *          - the cause of the exception
+   *
    * @see java.sql.SQLException
    */
   public NestedSQLException(String reason, String SQLState, Throwable cause) {

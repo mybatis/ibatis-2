@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +50,9 @@ public class GenericProbe extends BaseProbe {
    *          - the object to probe
    * @param name
    *          - the name of the property (or map entry)
+   *
    * @return The value of the property (or map entry)
+   *
    * @see com.ibatis.common.beans.BaseProbe#getObject(java.lang.Object, java.lang.String)
    */
   public Object getObject(Object object, String name) {
@@ -91,6 +93,7 @@ public class GenericProbe extends BaseProbe {
    *          - the name of the property (or map entry)
    * @param value
    *          - the new value of the property (or map entry)
+   *
    * @see com.ibatis.common.beans.BaseProbe#setObject(java.lang.Object, java.lang.String, java.lang.Object)
    */
   public void setObject(Object object, String name, Object value) {
@@ -106,7 +109,9 @@ public class GenericProbe extends BaseProbe {
    *
    * @param object
    *          - the object to get properties for
+   *
    * @return The array of properties (or map entries)
+   *
    * @see com.ibatis.common.beans.BaseProbe#getReadablePropertyNames(java.lang.Object)
    */
   @Override
@@ -123,7 +128,9 @@ public class GenericProbe extends BaseProbe {
    *
    * @param object
    *          - the object to get properties for
+   *
    * @return The array of properties (or map entries)
+   *
    * @see com.ibatis.common.beans.BaseProbe#getWriteablePropertyNames(java.lang.Object)
    */
   @Override
@@ -142,7 +149,9 @@ public class GenericProbe extends BaseProbe {
    *          - The class to check
    * @param name
    *          - the name of the property
+   *
    * @return The type of the property
+   *
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForSetter(java.lang.Object, java.lang.String)
    */
   public Class getPropertyTypeForSetter(Object object, String name) {
@@ -162,7 +171,9 @@ public class GenericProbe extends BaseProbe {
    *          The bean to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
+   *
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForGetter(java.lang.Object, java.lang.String)
    */
   public Class getPropertyTypeForGetter(Object object, String name) {
@@ -184,7 +195,9 @@ public class GenericProbe extends BaseProbe {
    *          The bean to check
    * @param propertyName
    *          The property to check for
+   *
    * @return True if the property exists and is writable
+   *
    * @see com.ibatis.common.beans.Probe#hasWritableProperty(java.lang.Object, java.lang.String)
    */
   public boolean hasWritableProperty(Object object, String propertyName) {
@@ -202,7 +215,9 @@ public class GenericProbe extends BaseProbe {
    *          The bean to check
    * @param propertyName
    *          The property to check for
+   *
    * @return True if the property exists and is readable
+   *
    * @see com.ibatis.common.beans.Probe#hasReadableProperty(java.lang.Object, java.lang.String)
    */
   public boolean hasReadableProperty(Object object, String propertyName) {
@@ -238,6 +253,7 @@ public class GenericProbe extends BaseProbe {
    *          the type
    * @param name
    *          the name
+   *
    * @return the class property type for getter
    */
   private Class getClassPropertyTypeForGetter(Class type, String name) {
@@ -266,6 +282,7 @@ public class GenericProbe extends BaseProbe {
    *          The class to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
    */
   private Class getClassPropertyTypeForSetter(Class type, String name) {

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,9 @@ public interface SqlExecutor {
    *          - the sql statement to execute
    * @param parameters
    *          - the parameters for the sql statement
+   *
    * @return - the number of records changed
+   *
    * @throws SQLException
    *           - if the update fails
    */
@@ -67,6 +69,7 @@ public interface SqlExecutor {
    *          - the sql statement
    * @param parameters
    *          - the parameters for the statement
+   *
    * @throws SQLException
    *           - if the statement fails
    */
@@ -78,7 +81,9 @@ public interface SqlExecutor {
    *
    * @param sessionScope
    *          - the session scope
+   *
    * @return - the number of rows impacted by the batch
+   *
    * @throws SQLException
    *           - if a statement fails
    */
@@ -89,8 +94,10 @@ public interface SqlExecutor {
    *
    * @param sessionScope
    *          - the session scope
+   *
    * @return - a List of BatchResult objects (may be null if no batch has been initiated). There will be one BatchResult
    *         object in the list for each sub-batch executed
+   *
    * @throws SQLException
    *           if a database access error occurs, or the drive does not support batch statements
    * @throws BatchException
@@ -115,6 +122,7 @@ public interface SqlExecutor {
    *          - the maximum number of results to return
    * @param callback
    *          - the row handler for the query
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -132,7 +140,9 @@ public interface SqlExecutor {
    *          - the SQL to call the procedure
    * @param parameters
    *          - the parameters for the procedure
+   *
    * @return - the rows impacted by the procedure
+   *
    * @throws SQLException
    *           - if the procedure fails
    */
@@ -156,6 +166,7 @@ public interface SqlExecutor {
    *          - the maximum number of results to return
    * @param callback
    *          - a row handler for processing the results
+   *
    * @throws SQLException
    *           - if the procedure fails
    */
