@@ -53,8 +53,8 @@
     <url>https://github.com/mybatis/mybatis-2/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/mybatis-2/</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/mybatis/mybatis-2/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
