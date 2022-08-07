@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -273,6 +273,7 @@ public class SqlMapConfiguration {
    *          the read only
    * @param serialize
    *          the serialize
+   *
    * @return the cache model config
    */
   public CacheModelConfig newCacheModelConfig(String id, CacheController controller, boolean readOnly,
@@ -287,6 +288,7 @@ public class SqlMapConfiguration {
    *          the id
    * @param parameterClass
    *          the parameter class
+   *
    * @return the parameter map config
    */
   public ParameterMapConfig newParameterMapConfig(String id, Class parameterClass) {
@@ -306,6 +308,7 @@ public class SqlMapConfiguration {
    *          the extended
    * @param xmlName
    *          the xml name
+   *
    * @return the result map config
    */
   public ResultMapConfig newResultMapConfig(String id, Class resultClass, String groupBy, String extended,
@@ -346,6 +349,7 @@ public class SqlMapConfiguration {
    *          the cache model name
    * @param xmlResultName
    *          the xml result name
+   *
    * @return the mapped statement config
    */
   public MappedStatementConfig newMappedStatementConfig(String id, MappedStatement statement, SqlSource processor,
@@ -378,6 +382,7 @@ public class SqlMapConfiguration {
    *          the java type
    * @param jdbcType
    *          the jdbc type
+   *
    * @return the type handler
    */
   TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
@@ -400,6 +405,7 @@ public class SqlMapConfiguration {
    *          the jdbc type
    * @param useSetterToResolve
    *          the use setter to resolve
+   *
    * @return the type handler
    */
   TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,

@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,6 +56,7 @@ public class SqlMapClientBuilder {
    * @param reader
    *          A Reader instance that reads an sql-map-config.xml file. The reader should read an well formed
    *          sql-map-config.xml file.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(Reader reader) {
@@ -73,6 +74,7 @@ public class SqlMapClientBuilder {
    * @param props
    *          Properties to be used to provide values to dynamic property tokens in the sql-map-config.xml configuration
    *          file. This provides an easy way to achieve some level of programmatic configuration.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(Reader reader, Properties props) {
@@ -86,6 +88,7 @@ public class SqlMapClientBuilder {
    * @param inputStream
    *          An InputStream instance that reads an sql-map-config.xml file. The stream should read a well formed
    *          sql-map-config.xml file.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(InputStream inputStream) {
@@ -102,6 +105,7 @@ public class SqlMapClientBuilder {
    * @param props
    *          Properties to be used to provide values to dynamic property tokens in the sql-map-config.xml configuration
    *          file. This provides an easy way to achieve some level of programmatic configuration.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(InputStream inputStream, Properties props) {

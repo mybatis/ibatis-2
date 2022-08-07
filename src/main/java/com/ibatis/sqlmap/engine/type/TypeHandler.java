@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,6 +36,7 @@ public interface TypeHandler {
    *          - the parameter value
    * @param jdbcType
    *          - the JDBC type of the parameter
+   *
    * @throws SQLException
    *           if setting the parameter fails
    */
@@ -48,7 +49,9 @@ public interface TypeHandler {
    *          - the result set
    * @param columnName
    *          - the column name to get
+   *
    * @return - the column value
+   *
    * @throws SQLException
    *           if getting the value fails
    */
@@ -61,7 +64,9 @@ public interface TypeHandler {
    *          - the result set
    * @param columnIndex
    *          - the column to get (by index)
+   *
    * @return - the column value
+   *
    * @throws SQLException
    *           if getting the value fails
    */
@@ -74,7 +79,9 @@ public interface TypeHandler {
    *          - the statement
    * @param columnIndex
    *          - the column to get (by index)
+   *
    * @return - the column value
+   *
    * @throws SQLException
    *           if getting the value fails
    */
@@ -85,6 +92,7 @@ public interface TypeHandler {
    *
    * @param s
    *          - the String value
+   *
    * @return - the converted value
    */
   public Object valueOf(String s);
@@ -96,6 +104,7 @@ public interface TypeHandler {
    *          - one of the objects
    * @param string
    *          - the other object as a String
+   *
    * @return - true if they are equal
    */
   public boolean equals(Object object, String string);

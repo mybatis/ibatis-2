@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -66,7 +66,9 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -81,7 +83,9 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -101,7 +105,9 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -116,7 +122,9 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -136,7 +144,9 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -157,7 +167,9 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -176,7 +188,9 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -198,7 +212,9 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -218,7 +234,9 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -233,7 +251,9 @@ public class Resources extends Object {
    *          - the classloader used to load the resource
    * @param resource
    *          - the resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -246,7 +266,9 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return An input stream with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -261,7 +283,9 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return A Reader with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -274,7 +298,9 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return A Properties object with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
@@ -293,7 +319,9 @@ public class Resources extends Object {
    *
    * @param className
    *          - the class to load
+   *
    * @return The loaded class
+   *
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    */
@@ -315,7 +343,9 @@ public class Resources extends Object {
    *
    * @param className
    *          - the class to create
+   *
    * @return An instance of the class
+   *
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    * @throws InstantiationException
@@ -333,7 +363,9 @@ public class Resources extends Object {
    *
    * @param clazz
    *          - the class to create
+   *
    * @return An instance of the class
+   *
    * @throws InstantiationException
    *           If the class cannot be instantiaed
    * @throws IllegalAccessException

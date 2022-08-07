@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -140,6 +140,7 @@ public class SqlMapExecutorDelegate {
    * DO NOT DEPEND ON THIS. Here to avoid breaking spring integration.
    *
    * @return the max transactions
+   *
    * @deprecated
    */
   public int getMaxTransactions() {
@@ -287,6 +288,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the statement ID
+   *
    * @return - the mapped statement
    */
   public MappedStatement getMappedStatement(String id) {
@@ -321,6 +323,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the cache model
    */
   public CacheModel getCacheModel(String id) {
@@ -355,6 +358,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the result map
    */
   public ResultMap getResultMap(String id) {
@@ -389,6 +393,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the parameter map
    */
   public ParameterMap getParameterMap(String id) {
@@ -432,7 +437,9 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the generated key (or null)
+   *
    * @throws SQLException
    *           - if the insert fails
    */
@@ -502,7 +509,9 @@ public class SqlMapExecutorDelegate {
    *          the ms
    * @param param
    *          the param
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -536,7 +545,9 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the number of rows updated
+   *
    * @throws SQLException
    *           - if the update fails
    */
@@ -574,7 +585,9 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the number of rows deleted
+   *
    * @throws SQLException
    *           - if the delete fails
    */
@@ -591,7 +604,9 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param paramObject
    *          - the parameter object
+   *
    * @return - the result of the query
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -610,7 +625,9 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param resultObject
    *          - the result object (if not supplied or null, a new object will be created)
+   *
    * @return - the result of the query
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -649,7 +666,9 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param paramObject
    *          - the parameter object
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -670,7 +689,9 @@ public class SqlMapExecutorDelegate {
    *          - the number of rows to skip
    * @param max
    *          - the maximum number of rows to return
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -711,6 +732,7 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param rowHandler
    *          - the row handler
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -749,9 +771,12 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param pageSize
    *          - the page size
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
+   *
    * @deprecated All paginated list features have been deprecated
    */
   public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize)
@@ -770,7 +795,9 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param keyProp
    *          - the key property (from the results for the map)
+   *
    * @return - the Map
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -791,7 +818,9 @@ public class SqlMapExecutorDelegate {
    *          - the property for the map key
    * @param valueProp
    *          - the property for the map data
+   *
    * @return - the Map
+   *
    * @throws SQLException
    *           - if the query fails
    */
@@ -822,6 +851,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be started
    */
@@ -840,6 +870,7 @@ public class SqlMapExecutorDelegate {
    *          - the session
    * @param transactionIsolation
    *          the transaction isolation
+   *
    * @throws SQLException
    *           - if the transaction could not be started
    */
@@ -856,6 +887,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be committed
    */
@@ -877,6 +909,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be ended
    */
@@ -907,7 +940,9 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - the number of rows impacted by the batch
+   *
    * @throws SQLException
    *           - if the batch fails
    */
@@ -921,8 +956,10 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - a List of BatchResult objects (may be null if no batch has been initiated). There will be one BatchResult
    *         object in the list for each sub-batch executed
+   *
    * @throws SQLException
    *           if a database access error occurs, or the drive does not support batch statements
    * @throws BatchException
@@ -984,6 +1021,7 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - the transaction
    */
   public Transaction getTransaction(SessionScope sessionScope) {
@@ -999,6 +1037,7 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param autoStart
    *          the auto start
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -1015,6 +1054,7 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param autoStart
    *          the auto start
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -1033,7 +1073,9 @@ public class SqlMapExecutorDelegate {
    *          the auto start
    * @param trans
    *          the trans
+   *
    * @return the transaction
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -1072,6 +1114,7 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param mappedStatement
    *          the mapped statement
+   *
    * @return the statement scope
    */
   protected StatementScope beginStatementScope(SessionScope sessionScope, MappedStatement mappedStatement) {

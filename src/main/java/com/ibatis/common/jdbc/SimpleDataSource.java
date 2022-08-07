@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -212,20 +212,16 @@ public class SimpleDataSource implements DataSource {
         jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
 
         poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN))
-            : 10;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
 
         poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN))
-            : 5;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN)) : 5;
 
         poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME))
-            : 20000;
+            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
 
         poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT)
-            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT))
-            : 20000;
+            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
 
         poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
             && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
@@ -234,12 +230,10 @@ public class SimpleDataSource implements DataSource {
         poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
 
         poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN))
-            : 0;
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
 
         poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR))
-            : 0;
+            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
 
         jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
             && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
@@ -284,6 +278,7 @@ public class SimpleDataSource implements DataSource {
    *          the username
    * @param password
    *          the password
+   *
    * @return the int
    */
   private int assembleConnectionTypeCode(String url, String username, String password) {
@@ -619,6 +614,7 @@ public class SimpleDataSource implements DataSource {
    *
    * @param conn
    *          the conn
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -670,7 +666,9 @@ public class SimpleDataSource implements DataSource {
    *          the username
    * @param password
    *          the password
+   *
    * @return the simple pooled connection
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -788,6 +786,7 @@ public class SimpleDataSource implements DataSource {
    *
    * @param conn
    *          - the connection to check
+   *
    * @return True if the connection is still usable
    */
   private boolean pingConnection(SimplePooledConnection conn) {
@@ -847,6 +846,7 @@ public class SimpleDataSource implements DataSource {
    *
    * @param conn
    *          - the pooled connection to unwrap
+   *
    * @return The 'real' connection
    */
   public static Connection unwrapConnection(Connection conn) {
@@ -1090,6 +1090,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param obj
      *          - the other connection to test for equality
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -1115,6 +1116,7 @@ public class SimpleDataSource implements DataSource {
      *          - the method to be executed
      * @param args
      *          - the parameters to be passed to the method
+     *
      * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
      */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -1135,6 +1137,7 @@ public class SimpleDataSource implements DataSource {
      * Creates the statement.
      *
      * @return the statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1147,7 +1150,9 @@ public class SimpleDataSource implements DataSource {
      *
      * @param sql
      *          the sql
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1160,7 +1165,9 @@ public class SimpleDataSource implements DataSource {
      *
      * @param sql
      *          the sql
+     *
      * @return the callable statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1173,7 +1180,9 @@ public class SimpleDataSource implements DataSource {
      *
      * @param sql
      *          the sql
+     *
      * @return the string
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1186,6 +1195,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param autoCommit
      *          the new auto commit
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1197,6 +1207,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the auto commit.
      *
      * @return the auto commit
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1238,6 +1249,7 @@ public class SimpleDataSource implements DataSource {
      * Checks if is closed.
      *
      * @return true, if is closed
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1249,6 +1261,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the meta data.
      *
      * @return the meta data
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1261,6 +1274,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param readOnly
      *          the new read only
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1272,6 +1286,7 @@ public class SimpleDataSource implements DataSource {
      * Checks if is read only.
      *
      * @return true, if is read only
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1284,6 +1299,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param catalog
      *          the new catalog
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1295,6 +1311,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the catalog.
      *
      * @return the catalog
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1307,6 +1324,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param level
      *          the new transaction isolation
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1318,6 +1336,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the transaction isolation.
      *
      * @return the transaction isolation
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1329,6 +1348,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the warnings.
      *
      * @return the warnings
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1353,7 +1373,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set type
      * @param resultSetConcurrency
      *          the result set concurrency
+     *
      * @return the statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1370,7 +1392,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set type
      * @param resultSetConcurrency
      *          the result set concurrency
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1388,7 +1412,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set type
      * @param resultSetConcurrency
      *          the result set concurrency
+     *
      * @return the callable statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1400,6 +1426,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the type map.
      *
      * @return the type map
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1412,6 +1439,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param map
      *          the new type map
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1428,6 +1456,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param holdability
      *          the new holdability
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1439,6 +1468,7 @@ public class SimpleDataSource implements DataSource {
      * Gets the holdability.
      *
      * @return the holdability
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1450,6 +1480,7 @@ public class SimpleDataSource implements DataSource {
      * Sets the savepoint.
      *
      * @return the savepoint
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1462,7 +1493,9 @@ public class SimpleDataSource implements DataSource {
      *
      * @param name
      *          the name
+     *
      * @return the savepoint
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1475,6 +1508,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param savepoint
      *          the savepoint
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1487,6 +1521,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @param savepoint
      *          the savepoint
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1503,7 +1538,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set concurrency
      * @param resultSetHoldability
      *          the result set holdability
+     *
      * @return the statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1523,7 +1560,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set concurrency
      * @param resultSetHoldability
      *          the result set holdability
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1543,7 +1582,9 @@ public class SimpleDataSource implements DataSource {
      *          the result set concurrency
      * @param resultSetHoldability
      *          the result set holdability
+     *
      * @return the callable statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1559,7 +1600,9 @@ public class SimpleDataSource implements DataSource {
      *          the sql
      * @param autoGeneratedKeys
      *          the auto generated keys
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1574,7 +1617,9 @@ public class SimpleDataSource implements DataSource {
      *          the sql
      * @param columnIndexes
      *          the column indexes
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */
@@ -1589,7 +1634,9 @@ public class SimpleDataSource implements DataSource {
      *          the sql
      * @param columnNames
      *          the column names
+     *
      * @return the prepared statement
+     *
      * @throws SQLException
      *           the SQL exception
      */

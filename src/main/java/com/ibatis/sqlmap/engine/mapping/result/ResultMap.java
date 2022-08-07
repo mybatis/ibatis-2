@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -154,6 +154,7 @@ public class ResultMap {
    *          the key prefix
    * @param values
    *          the values
+   *
    * @return the unique key
    */
   public Object getUniqueKey(String keyPrefix, Object[] values) {
@@ -187,6 +188,7 @@ public class ResultMap {
    *
    * @param values
    *          the values
+   *
    * @return the unique key
    */
   public Object getUniqueKey(Object[] values) {
@@ -355,7 +357,9 @@ public class ResultMap {
    *          the statement scope
    * @param rs
    *          the rs
+   *
    * @return the result map
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -413,7 +417,9 @@ public class ResultMap {
    *          scope of the request
    * @param rs
    *          ResultSet to read from
+   *
    * @return row read as an array of column values.
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -475,6 +481,7 @@ public class ResultMap {
    *          the result object
    * @param values
    *          the values
+   *
    * @return the object
    */
   public Object setResultObjectValues(StatementScope statementScope, Object resultObject, Object[] values) {
@@ -621,7 +628,9 @@ public class ResultMap {
    *          the mapping
    * @param targetType
    *          the target type
+   *
    * @return the nested select mapping value
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -692,7 +701,9 @@ public class ResultMap {
    *          the mapping
    * @param parameterType
    *          the parameter type
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -710,6 +721,7 @@ public class ResultMap {
    *
    * @param root
    *          the root
+   *
    * @return the document
    */
   private Document newDocument(String root) {
@@ -729,7 +741,9 @@ public class ResultMap {
    *          the rs
    * @param mapping
    *          the mapping
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -771,7 +785,9 @@ public class ResultMap {
    *          the mapping
    * @param parameterType
    *          the parameter type
+   *
    * @return the object
+   *
    * @throws InstantiationException
    *           the instantiation exception
    * @throws IllegalAccessException
@@ -820,7 +836,9 @@ public class ResultMap {
    *          the rs
    * @param mapping
    *          the mapping
+   *
    * @return the primitive result mapping value
+   *
    * @throws SQLException
    *           the SQL exception
    */
@@ -850,7 +868,9 @@ public class ResultMap {
    *          the value
    * @param mapping
    *          the mapping
+   *
    * @return the object
+   *
    * @throws SqlMapException
    *           the sql map exception
    */

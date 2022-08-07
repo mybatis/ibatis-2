@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,6 +49,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    *          the tag
    * @param parameterObject
    *          the parameter object
+   *
    * @return true, if is condition
    */
   public abstract boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject);
@@ -92,6 +93,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    *          the tag
    * @param parameterObject
    *          the parameter object
+   *
    * @return the long
    */
   protected long compare(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
@@ -132,6 +134,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    *          the value 1
    * @param value2
    *          the value 2
+   *
    * @return the long
    */
   protected long compareValues(Class type, Object value1, Object value2) {
@@ -163,6 +166,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    *          the type
    * @param value
    *          the value
+   *
    * @return the object
    */
   protected Object convertValue(Class type, String value) {
@@ -203,6 +207,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    *          the ctx
    * @param tag
    *          the tag
+   *
    * @return the resolved property
    */
   protected String getResolvedProperty(SqlTagContext ctx, SqlTag tag) {

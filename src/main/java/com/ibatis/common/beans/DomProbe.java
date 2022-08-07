@@ -1,11 +1,11 @@
 /*
- * Copyright 2004-2021 the original author or authors.
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -127,6 +127,7 @@ public class DomProbe extends BaseProbe {
    *
    * @param object
    *          the object
+   *
    * @return the element
    */
   private Element resolveElement(Object object) {
@@ -217,6 +218,7 @@ public class DomProbe extends BaseProbe {
    *
    * @param element
    *          the element
+   *
    * @return the element value
    */
   private Object getElementValue(Element element) {
@@ -257,6 +259,7 @@ public class DomProbe extends BaseProbe {
    *          the name
    * @param create
    *          the create
+   *
    * @return the element
    */
   private Element findNestedNodeByName(Element element, String name, boolean create) {
@@ -291,6 +294,7 @@ public class DomProbe extends BaseProbe {
    *          the index
    * @param create
    *          the create
+   *
    * @return the element
    */
   private Element findNodeByName(Element element, String name, int index, boolean create) {
@@ -318,6 +322,7 @@ public class DomProbe extends BaseProbe {
    *          - the node to process
    * @param indent
    *          - how to indent the children of the node
+   *
    * @return The node as a String
    */
   public static String nodeToString(Node node, String indent) {
