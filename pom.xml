@@ -68,6 +68,8 @@
     <clirr.comparisonVersion>2.3.7</clirr.comparisonVersion>
     <java.version>7</java.version>
     <java.release.version>7</java.release.version>
+    <java.test.version>8</java.test.version>
+    <java.test.release.version>8</java.test.release.version>
     <module.name>org.mybatis.mybatis2</module.name>
     <osgi.export>org.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
     <osgi.import>*;resolution:=optional</osgi.import>
