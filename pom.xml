@@ -66,14 +66,14 @@
 
   <properties>
     <clirr.comparisonVersion>2.3.7</clirr.comparisonVersion>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <java.version>7</java.version>
+    <java.release.version>7</java.release.version>
+    <java.test.version>8</java.test.version>
+    <java.test.release.version>8</java.test.release.version>
     <module.name>org.mybatis.mybatis2</module.name>
     <osgi.export>org.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
     <osgi.import>*;resolution:=optional</osgi.import>
     <osgi.dynamicImport>*</osgi.dynamicImport>
-    <signature.artifact>java17</signature.artifact>
-    <signature.version>1.0</signature.version>
     <project.build.outputTimestamp>1645112687</project.build.outputTimestamp>
   </properties>
 
@@ -81,19 +81,19 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>2.0.0</version>
+      <version>1.7.36</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>2.0.0</version>
+      <version>1.7.36</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>2.0.0</version>
+      <version>1.7.36</version>
       <optional>true</optional>
     </dependency>
     <dependency>
