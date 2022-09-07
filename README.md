@@ -7,7 +7,7 @@ Legacy iBATIS (aka MyBatis 2) maintenance repository
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis2/mybatis.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/mybatis2/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-![mybatis](http://mybatis.github.io/images/mybatis-logo.png)
+![mybatis](https://mybatis.org/images/mybatis-logo.png)
 
 The MyBatis data mapper framework makes it easier to use a relational database with object-oriented applications.
 MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
