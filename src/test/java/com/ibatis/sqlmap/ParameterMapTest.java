@@ -76,6 +76,7 @@ class ParameterMapTest extends BaseSqlMap {
     account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(0));
 
     assertNotNull(expected);
+    System.out.println(expected.getMessage());
     assertMessageIsNullValueNotAllowed(expected.getMessage());
     assertNull(account);
   }
