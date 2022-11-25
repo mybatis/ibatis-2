@@ -76,14 +76,13 @@ class ParameterMapTest extends BaseSqlMap {
     account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(0));
 
     assertNotNull(expected);
-    System.out.println(expected.getMessage());
     assertMessageIsNullValueNotAllowed(expected.getMessage());
     assertNull(account);
   }
 
   protected void assertMessageIsNullValueNotAllowed(String message) {
     assertTrue(message.indexOf(
-        "integrity constraint violation: NOT NULL check constraint ; SYS_CT_14953 table: ACCOUNT column: ACC_ID") > -1,
+        "integrity constraint violation: NOT NULL check constraint") > -1,
         "Invalid exception message");
   }
 
