@@ -81,9 +81,8 @@ class ParameterMapTest extends BaseSqlMap {
   }
 
   protected void assertMessageIsNullValueNotAllowed(String message) {
-    assertTrue(message.indexOf(
-        "integrity constraint violation: NOT NULL check constraint") > -1,
-        "Invalid exception message");
+    assertTrue(message.indexOf("integrity constraint violation: NOT NULL check constraint") > -1
+        && message.indexOf("ACCOUNT column: ACC_ID") > -1, "Invalid exception message");
   }
 
   @Test
