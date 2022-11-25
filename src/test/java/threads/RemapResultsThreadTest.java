@@ -43,7 +43,14 @@ class RemapResultsThreadTest {
     Reader reader = Resources.getResourceAsReader(resource);
     SqlMapClient sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
 
+    sqlMap.update("drop");
     sqlMap.update("create");
+
+    for (int i = 0; i < 100; i++) {
+      sqlMap.update("inserta");
+      sqlMap.update("insertb");
+      sqlMap.update("insertc");
+    }
 
     int count = 2;
 
