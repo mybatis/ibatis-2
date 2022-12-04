@@ -28,7 +28,7 @@
 
   <groupId>org.mybatis</groupId>
   <artifactId>mybatis2</artifactId>
-  <version>2.4.5-SNAPSHOT</version>
+  <version>2.5.0</version>
   <packaging>jar</packaging>
 
   <name>mybatis2</name>
@@ -46,7 +46,7 @@
     <url>http://github.com/mybatis/mybatis-2</url>
     <connection>scm:git:ssh://github.com/mybatis/mybatis-2.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>mybatis2-2.5.0</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -76,7 +76,7 @@
     <osgi.dynamicImport>*</osgi.dynamicImport>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1757561022</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1670182658</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
