@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -15,10 +15,10 @@
  */
 package com.ibatis.common.beans;
 
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
+
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactoryUtil;
 
 /**
  * StaticBeanProbe provides methods that allow simple, reflective access to JavaBeans style properties. Methods are
@@ -46,11 +46,12 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @param object
    *          The bean
+   *
    * @return The properties
    */
   @Override
   public String[] getReadablePropertyNames(Object object) {
-<span class="nc" id="L53">    return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();</span>
+<span class="nc" id="L54">    return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();</span>
   }
 
   /**
@@ -58,11 +59,12 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @param object
    *          The bean
+   *
    * @return The properties
    */
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-<span class="nc" id="L65">    return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();</span>
+<span class="nc" id="L67">    return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();</span>
   }
 
   /**
@@ -72,34 +74,35 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The bean to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
    */
   public Class getPropertyTypeForSetter(Object object, String name) {
-<span class="fc" id="L78">    Class type = object.getClass();</span>
+<span class="fc" id="L81">    Class type = object.getClass();</span>
 
-<span class="fc bfc" id="L80" title="All 2 branches covered.">    if (object instanceof Class) {</span>
-<span class="fc" id="L81">      type = getClassPropertyTypeForSetter((Class) object, name);</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">    } else if (object instanceof Map) {</span>
-<span class="fc" id="L83">      Map map = (Map) object;</span>
-<span class="fc" id="L84">      Object value = map.get(name);</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">      if (value == null) {</span>
-<span class="fc" id="L86">        type = Object.class;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (object instanceof Class) {</span>
+<span class="fc" id="L84">      type = getClassPropertyTypeForSetter((Class) object, name);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    } else if (object instanceof Map) {</span>
+<span class="fc" id="L86">      Map map = (Map) object;</span>
+<span class="fc" id="L87">      Object value = map.get(name);</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">      if (value == null) {</span>
+<span class="fc" id="L89">        type = Object.class;</span>
       } else {
-<span class="nc" id="L88">        type = value.getClass();</span>
+<span class="nc" id="L91">        type = value.getClass();</span>
       }
-<span class="fc" id="L90">    } else {</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L92">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L94">          name = parser.nextToken();</span>
-<span class="fc" id="L95">          type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc" id="L93">    } else {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L95">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L97">          name = parser.nextToken();</span>
+<span class="fc" id="L98">          type = ClassInfo.getInstance(type).getSetterType(name);</span>
         }
-<span class="fc" id="L97">      } else {</span>
-<span class="fc" id="L98">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc" id="L100">      } else {</span>
+<span class="fc" id="L101">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
       }
     }
 
-<span class="fc" id="L102">    return type;</span>
+<span class="fc" id="L105">    return type;</span>
   }
 
   /**
@@ -109,34 +112,35 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The bean to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
    */
   public Class getPropertyTypeForGetter(Object object, String name) {
-<span class="fc" id="L115">    Class type = object.getClass();</span>
+<span class="fc" id="L119">    Class type = object.getClass();</span>
 
-<span class="pc bpc" id="L117" title="1 of 2 branches missed.">    if (object instanceof Class) {</span>
-<span class="nc" id="L118">      type = getClassPropertyTypeForGetter((Class) object, name);</span>
-<span class="pc bpc" id="L119" title="1 of 2 branches missed.">    } else if (object instanceof Map) {</span>
-<span class="nc" id="L120">      Map map = (Map) object;</span>
-<span class="nc" id="L121">      Object value = map.get(name);</span>
-<span class="nc bnc" id="L122" title="All 2 branches missed.">      if (value == null) {</span>
-<span class="nc" id="L123">        type = Object.class;</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">    if (object instanceof Class) {</span>
+<span class="nc" id="L122">      type = getClassPropertyTypeForGetter((Class) object, name);</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">    } else if (object instanceof Map) {</span>
+<span class="nc" id="L124">      Map map = (Map) object;</span>
+<span class="nc" id="L125">      Object value = map.get(name);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">      if (value == null) {</span>
+<span class="nc" id="L127">        type = Object.class;</span>
       } else {
-<span class="nc" id="L125">        type = value.getClass();</span>
+<span class="nc" id="L129">        type = value.getClass();</span>
       }
-<span class="nc" id="L127">    } else {</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L129">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc bfc" id="L130" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L131">          name = parser.nextToken();</span>
-<span class="fc" id="L132">          type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="nc" id="L131">    } else {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">      if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L133">        StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L135">          name = parser.nextToken();</span>
+<span class="fc" id="L136">          type = ClassInfo.getInstance(type).getGetterType(name);</span>
         }
-<span class="fc" id="L134">      } else {</span>
-<span class="fc" id="L135">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="fc" id="L138">      } else {</span>
+<span class="fc" id="L139">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
       }
     }
 
-<span class="fc" id="L139">    return type;</span>
+<span class="fc" id="L143">    return type;</span>
   }
 
   /**
@@ -146,21 +150,22 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The class to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
    */
   private Class getClassPropertyTypeForGetter(Class type, String name) {
 
-<span class="nc bnc" id="L153" title="All 2 branches missed.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="nc" id="L154">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="nc bnc" id="L155" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
-<span class="nc" id="L156">        name = parser.nextToken();</span>
-<span class="nc" id="L157">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="nc" id="L159">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
+<span class="nc" id="L161">        name = parser.nextToken();</span>
+<span class="nc" id="L162">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
       }
-<span class="nc" id="L159">    } else {</span>
-<span class="nc" id="L160">      type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="nc" id="L164">    } else {</span>
+<span class="nc" id="L165">      type = ClassInfo.getInstance(type).getGetterType(name);</span>
     }
 
-<span class="nc" id="L163">    return type;</span>
+<span class="nc" id="L168">    return type;</span>
   }
 
   /**
@@ -170,21 +175,22 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The class to check
    * @param name
    *          The name of the property
+   *
    * @return The type of the property
    */
   private Class getClassPropertyTypeForSetter(Class type, String name) {
 
-<span class="fc bfc" id="L177" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L178">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc bfc" id="L179" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L180">        name = parser.nextToken();</span>
-<span class="fc" id="L181">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L184">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L186">        name = parser.nextToken();</span>
+<span class="fc" id="L187">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
       }
-<span class="fc" id="L183">    } else {</span>
-<span class="fc" id="L184">      type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc" id="L189">    } else {</span>
+<span class="fc" id="L190">      type = ClassInfo.getInstance(type).getSetterType(name);</span>
     }
 
-<span class="fc" id="L187">    return type;</span>
+<span class="fc" id="L193">    return type;</span>
   }
 
   /**
@@ -194,23 +200,24 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The bean
    * @param name
    *          The property name
+   *
    * @return The property value (as an Object)
    */
   public Object getObject(Object object, String name) {
-<span class="fc bfc" id="L200" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L201">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc" id="L202">      Object value = object;</span>
-<span class="fc bfc" id="L203" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L204">        value = getProperty(value, parser.nextToken());</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L208">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc" id="L209">      Object value = object;</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L211">        value = getProperty(value, parser.nextToken());</span>
 
-<span class="fc bfc" id="L206" title="All 2 branches covered.">        if (value == null) {</span>
-<span class="fc" id="L207">          break;</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L214">          break;</span>
         }
 
       }
-<span class="fc" id="L211">      return value;</span>
+<span class="fc" id="L218">      return value;</span>
     } else {
-<span class="fc" id="L213">      return getProperty(object, name);</span>
+<span class="fc" id="L220">      return getProperty(object, name);</span>
     }
   }
 
@@ -225,35 +232,35 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The new value to set
    */
   public void setObject(Object object, String name, Object value) {
-<span class="fc bfc" id="L228" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L229">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc" id="L230">      String property = parser.nextToken();</span>
-<span class="fc" id="L231">      Object child = object;</span>
-<span class="fc bfc" id="L232" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L233">        Class type = getPropertyTypeForSetter(child, property);</span>
-<span class="fc" id="L234">        Object parent = child;</span>
-<span class="fc" id="L235">        child = getProperty(parent, property);</span>
-<span class="fc bfc" id="L236" title="All 2 branches covered.">        if (child == null) {</span>
-<span class="fc bfc" id="L237" title="All 2 branches covered.">          if (value == null) {</span>
-<span class="fc" id="L238">            return; // don't instantiate child path if value is null</span>
+<span class="fc bfc" id="L235" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L236">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc" id="L237">      String property = parser.nextToken();</span>
+<span class="fc" id="L238">      Object child = object;</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L240">        Class type = getPropertyTypeForSetter(child, property);</span>
+<span class="fc" id="L241">        Object parent = child;</span>
+<span class="fc" id="L242">        child = getProperty(parent, property);</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">        if (child == null) {</span>
+<span class="fc bfc" id="L244" title="All 2 branches covered.">          if (value == null) {</span>
+<span class="fc" id="L245">            return; // don't instantiate child path if value is null</span>
           } else {
             try {
-<span class="fc" id="L241">              child = ResultObjectFactoryUtil.createObjectThroughFactory(type);</span>
-<span class="fc" id="L242">              setObject(parent, property, child);</span>
-<span class="nc" id="L243">            } catch (Exception e) {</span>
-<span class="nc" id="L244">              throw new ProbeException(&quot;Cannot set value of property '&quot; + name + &quot;' because '&quot; + property</span>
-<span class="nc" id="L245">                  + &quot;' is null and cannot be instantiated on instance of &quot; + type.getName() + &quot;. Cause:&quot; + e.toString(),</span>
+<span class="fc" id="L248">              child = ResultObjectFactoryUtil.createObjectThroughFactory(type);</span>
+<span class="fc" id="L249">              setObject(parent, property, child);</span>
+<span class="nc" id="L250">            } catch (Exception e) {</span>
+<span class="nc" id="L251">              throw new ProbeException(&quot;Cannot set value of property '&quot; + name + &quot;' because '&quot; + property</span>
+<span class="nc" id="L252">                  + &quot;' is null and cannot be instantiated on instance of &quot; + type.getName() + &quot;. Cause:&quot; + e.toString(),</span>
                   e);
-<span class="fc" id="L247">            }</span>
+<span class="fc" id="L254">            }</span>
           }
         }
-<span class="fc" id="L250">        property = parser.nextToken();</span>
-<span class="fc" id="L251">      }</span>
-<span class="fc" id="L252">      setProperty(child, property, value);</span>
-<span class="fc" id="L253">    } else {</span>
-<span class="fc" id="L254">      setProperty(object, name, value);</span>
+<span class="fc" id="L257">        property = parser.nextToken();</span>
+<span class="fc" id="L258">      }</span>
+<span class="fc" id="L259">      setProperty(child, property, value);</span>
+<span class="fc" id="L260">    } else {</span>
+<span class="fc" id="L261">      setProperty(object, name, value);</span>
     }
-<span class="fc" id="L256">  }</span>
+<span class="fc" id="L263">  }</span>
 
   /**
    * Checks to see if a bean has a writable property be a given name
@@ -262,26 +269,27 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The bean to check
    * @param propertyName
    *          The property to check for
+   *
    * @return True if the property exists and is writable
    */
   public boolean hasWritableProperty(Object object, String propertyName) {
-<span class="fc" id="L268">    boolean hasProperty = false;</span>
-<span class="pc bpc" id="L269" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
-<span class="nc" id="L270">      hasProperty = true;// ((Map) object).containsKey(propertyName);</span>
+<span class="fc" id="L276">    boolean hasProperty = false;</span>
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
+<span class="nc" id="L278">      hasProperty = true;// ((Map) object).containsKey(propertyName);</span>
     } else {
-<span class="fc bfc" id="L272" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L273">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
-<span class="fc" id="L274">        Class type = object.getClass();</span>
-<span class="fc bfc" id="L275" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L276">          propertyName = parser.nextToken();</span>
-<span class="fc" id="L277">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
-<span class="fc" id="L278">          hasProperty = ClassInfo.getInstance(type).hasWritableProperty(propertyName);</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L281">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
+<span class="fc" id="L282">        Class type = object.getClass();</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L284">          propertyName = parser.nextToken();</span>
+<span class="fc" id="L285">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
+<span class="fc" id="L286">          hasProperty = ClassInfo.getInstance(type).hasWritableProperty(propertyName);</span>
         }
-<span class="fc" id="L280">      } else {</span>
-<span class="fc" id="L281">        hasProperty = ClassInfo.getInstance(object.getClass()).hasWritableProperty(propertyName);</span>
+<span class="fc" id="L288">      } else {</span>
+<span class="fc" id="L289">        hasProperty = ClassInfo.getInstance(object.getClass()).hasWritableProperty(propertyName);</span>
       }
     }
-<span class="fc" id="L284">    return hasProperty;</span>
+<span class="fc" id="L292">    return hasProperty;</span>
   }
 
   /**
@@ -291,75 +299,76 @@ public class ComplexBeanProbe extends BaseProbe {
    *          The bean to check
    * @param propertyName
    *          The property to check for
+   *
    * @return True if the property exists and is readable
    */
   public boolean hasReadableProperty(Object object, String propertyName) {
-<span class="fc" id="L297">    boolean hasProperty = false;</span>
-<span class="pc bpc" id="L298" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
-<span class="nc" id="L299">      hasProperty = true;// ((Map) object).containsKey(propertyName);</span>
+<span class="fc" id="L306">    boolean hasProperty = false;</span>
+<span class="pc bpc" id="L307" title="1 of 2 branches missed.">    if (object instanceof Map) {</span>
+<span class="nc" id="L308">      hasProperty = true;// ((Map) object).containsKey(propertyName);</span>
     } else {
-<span class="fc bfc" id="L301" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L302">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
-<span class="fc" id="L303">        Class type = object.getClass();</span>
-<span class="fc bfc" id="L304" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L305">          propertyName = parser.nextToken();</span>
-<span class="fc" id="L306">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
-<span class="fc" id="L307">          hasProperty = ClassInfo.getInstance(type).hasReadableProperty(propertyName);</span>
+<span class="fc bfc" id="L310" title="All 2 branches covered.">      if (propertyName.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L311">        StringTokenizer parser = new StringTokenizer(propertyName, &quot;.&quot;);</span>
+<span class="fc" id="L312">        Class type = object.getClass();</span>
+<span class="fc bfc" id="L313" title="All 2 branches covered.">        while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L314">          propertyName = parser.nextToken();</span>
+<span class="fc" id="L315">          type = ClassInfo.getInstance(type).getGetterType(propertyName);</span>
+<span class="fc" id="L316">          hasProperty = ClassInfo.getInstance(type).hasReadableProperty(propertyName);</span>
         }
-<span class="fc" id="L309">      } else {</span>
-<span class="fc" id="L310">        hasProperty = ClassInfo.getInstance(object.getClass()).hasReadableProperty(propertyName);</span>
+<span class="fc" id="L318">      } else {</span>
+<span class="fc" id="L319">        hasProperty = ClassInfo.getInstance(object.getClass()).hasReadableProperty(propertyName);</span>
       }
     }
-<span class="fc" id="L313">    return hasProperty;</span>
+<span class="fc" id="L322">    return hasProperty;</span>
   }
 
   @Override
   protected Object getProperty(Object object, String name) {
     try {
-<span class="fc" id="L319">      Object value = null;</span>
-<span class="fc bfc" id="L320" title="All 2 branches covered.">      if (name.indexOf('[') &gt; -1) {</span>
-<span class="fc" id="L321">        value = getIndexedProperty(object, name);</span>
+<span class="fc" id="L328">      Object value = null;</span>
+<span class="fc bfc" id="L329" title="All 2 branches covered.">      if (name.indexOf('[') &gt; -1) {</span>
+<span class="fc" id="L330">        value = getIndexedProperty(object, name);</span>
       } else {
-<span class="fc bfc" id="L323" title="All 2 branches covered.">        if (object instanceof Map) {</span>
-<span class="fc" id="L324">          int index = name.indexOf('.');</span>
-<span class="fc bfc" id="L325" title="All 2 branches covered.">          if (index &gt; -1) {</span>
-<span class="fc" id="L326">            String mapId = name.substring(0, index);</span>
-<span class="fc" id="L327">            value = getProperty(((Map) object).get(mapId), name.substring(index + 1));</span>
-<span class="fc" id="L328">          } else {</span>
-<span class="fc" id="L329">            value = ((Map) object).get(name);</span>
-          }
-
-<span class="fc" id="L332">        } else {</span>
+<span class="fc bfc" id="L332" title="All 2 branches covered.">        if (object instanceof Map) {</span>
 <span class="fc" id="L333">          int index = name.indexOf('.');</span>
 <span class="fc bfc" id="L334" title="All 2 branches covered.">          if (index &gt; -1) {</span>
-<span class="fc" id="L335">            String newName = name.substring(0, index);</span>
-<span class="fc" id="L336">            value = getProperty(getObject(object, newName), name.substring(index + 1));</span>
+<span class="fc" id="L335">            String mapId = name.substring(0, index);</span>
+<span class="fc" id="L336">            value = getProperty(((Map) object).get(mapId), name.substring(index + 1));</span>
 <span class="fc" id="L337">          } else {</span>
-<span class="fc" id="L338">            ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
-<span class="fc" id="L339">            Invoker method = classCache.getGetInvoker(name);</span>
-<span class="pc bpc" id="L340" title="1 of 2 branches missed.">            if (method == null) {</span>
-<span class="nc" id="L341">              throw new NoSuchMethodException(</span>
-<span class="nc" id="L342">                  &quot;No GET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
+<span class="fc" id="L338">            value = ((Map) object).get(name);</span>
+          }
+
+<span class="fc" id="L341">        } else {</span>
+<span class="fc" id="L342">          int index = name.indexOf('.');</span>
+<span class="fc bfc" id="L343" title="All 2 branches covered.">          if (index &gt; -1) {</span>
+<span class="fc" id="L344">            String newName = name.substring(0, index);</span>
+<span class="fc" id="L345">            value = getProperty(getObject(object, newName), name.substring(index + 1));</span>
+<span class="fc" id="L346">          } else {</span>
+<span class="fc" id="L347">            ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
+<span class="fc" id="L348">            Invoker method = classCache.getGetInvoker(name);</span>
+<span class="pc bpc" id="L349" title="1 of 2 branches missed.">            if (method == null) {</span>
+<span class="nc" id="L350">              throw new NoSuchMethodException(</span>
+<span class="nc" id="L351">                  &quot;No GET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
             }
             try {
-<span class="fc" id="L345">              value = method.invoke(object, NO_ARGUMENTS);</span>
-<span class="nc" id="L346">            } catch (Throwable t) {</span>
-<span class="nc" id="L347">              throw ClassInfo.unwrapThrowable(t);</span>
-<span class="fc" id="L348">            }</span>
+<span class="fc" id="L354">              value = method.invoke(object, NO_ARGUMENTS);</span>
+<span class="nc" id="L355">            } catch (Throwable t) {</span>
+<span class="nc" id="L356">              throw ClassInfo.unwrapThrowable(t);</span>
+<span class="fc" id="L357">            }</span>
           }
 
         }
       }
-<span class="fc" id="L353">      return value;</span>
-<span class="nc" id="L354">    } catch (ProbeException e) {</span>
-<span class="nc" id="L355">      throw e;</span>
-<span class="nc" id="L356">    } catch (Throwable t) {</span>
-<span class="nc bnc" id="L357" title="All 2 branches missed.">      if (object == null) {</span>
-<span class="nc" id="L358">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from null reference.  Cause: &quot; + t.toString(),</span>
+<span class="fc" id="L362">      return value;</span>
+<span class="nc" id="L363">    } catch (ProbeException e) {</span>
+<span class="nc" id="L364">      throw e;</span>
+<span class="nc" id="L365">    } catch (Throwable t) {</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">      if (object == null) {</span>
+<span class="nc" id="L367">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from null reference.  Cause: &quot; + t.toString(),</span>
             t);
       } else {
-<span class="nc" id="L361">        throw new ProbeException(</span>
-<span class="nc" id="L362">            &quot;Could not get property '&quot; + name + &quot;' from &quot; + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(),</span>
+<span class="nc" id="L370">        throw new ProbeException(</span>
+<span class="nc" id="L371">            &quot;Could not get property '&quot; + name + &quot;' from &quot; + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(),</span>
             t);
       }
     }
@@ -367,35 +376,35 @@ public class ComplexBeanProbe extends BaseProbe {
 
   @Override
   protected void setProperty(Object object, String name, Object value) {
-<span class="fc" id="L370">    ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
+<span class="fc" id="L379">    ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
     try {
-<span class="pc bpc" id="L372" title="1 of 2 branches missed.">      if (name.indexOf('[') &gt; -1) {</span>
-<span class="nc" id="L373">        setIndexedProperty(object, name, value);</span>
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">      if (name.indexOf('[') &gt; -1) {</span>
+<span class="nc" id="L382">        setIndexedProperty(object, name, value);</span>
       } else {
-<span class="fc bfc" id="L375" title="All 2 branches covered.">        if (object instanceof Map) {</span>
-<span class="fc" id="L376">          ((Map) object).put(name, value);</span>
+<span class="fc bfc" id="L384" title="All 2 branches covered.">        if (object instanceof Map) {</span>
+<span class="fc" id="L385">          ((Map) object).put(name, value);</span>
         } else {
-<span class="fc" id="L378">          Invoker method = classCache.getSetInvoker(name);</span>
-<span class="pc bpc" id="L379" title="1 of 2 branches missed.">          if (method == null) {</span>
-<span class="nc" id="L380">            throw new NoSuchMethodException(</span>
-<span class="nc" id="L381">                &quot;No SET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
+<span class="fc" id="L387">          Invoker method = classCache.getSetInvoker(name);</span>
+<span class="pc bpc" id="L388" title="1 of 2 branches missed.">          if (method == null) {</span>
+<span class="nc" id="L389">            throw new NoSuchMethodException(</span>
+<span class="nc" id="L390">                &quot;No SET method for property &quot; + name + &quot; on instance of &quot; + object.getClass().getName());</span>
           }
-<span class="fc" id="L383">          Object[] params = new Object[1];</span>
-<span class="fc" id="L384">          params[0] = value;</span>
+<span class="fc" id="L392">          Object[] params = new Object[1];</span>
+<span class="fc" id="L393">          params[0] = value;</span>
           try {
-<span class="fc" id="L386">            method.invoke(object, params);</span>
-<span class="fc" id="L387">          } catch (Throwable t) {</span>
-<span class="fc" id="L388">            throw ClassInfo.unwrapThrowable(t);</span>
-<span class="fc" id="L389">          }</span>
+<span class="fc" id="L395">            method.invoke(object, params);</span>
+<span class="fc" id="L396">          } catch (Throwable t) {</span>
+<span class="fc" id="L397">            throw ClassInfo.unwrapThrowable(t);</span>
+<span class="fc" id="L398">          }</span>
         }
       }
-<span class="nc" id="L392">    } catch (ProbeException e) {</span>
-<span class="nc" id="L393">      throw e;</span>
-<span class="fc" id="L394">    } catch (Throwable t) {</span>
-<span class="fc" id="L395">      throw new ProbeException(&quot;Could not set property '&quot; + name + &quot;' to value '&quot; + value + &quot;' for &quot;</span>
-<span class="fc" id="L396">          + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(), t);</span>
-<span class="fc" id="L397">    }</span>
-<span class="fc" id="L398">  }</span>
+<span class="nc" id="L401">    } catch (ProbeException e) {</span>
+<span class="nc" id="L402">      throw e;</span>
+<span class="fc" id="L403">    } catch (Throwable t) {</span>
+<span class="fc" id="L404">      throw new ProbeException(&quot;Could not set property '&quot; + name + &quot;' to value '&quot; + value + &quot;' for &quot;</span>
+<span class="fc" id="L405">          + object.getClass().getName() + &quot;.  Cause: &quot; + t.toString(), t);</span>
+<span class="fc" id="L406">    }</span>
+<span class="fc" id="L407">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

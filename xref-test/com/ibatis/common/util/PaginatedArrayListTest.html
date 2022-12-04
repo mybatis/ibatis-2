@@ -6,21 +6,21 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../testapidocs/com/ibatis/common/util/PaginatedArrayListTest.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2020 the original author or authors.</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> *    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">https://www.apache.org/licenses/LICENSE-2.0</a></em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.common.util;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,14 +30,14 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeEach;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PaginatedArrayListTest" href="../../../../com/ibatis/common/util/PaginatedArrayListTest.html#PaginatedArrayListTest">PaginatedArrayListTest</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">class</strong> <a name="PaginatedArrayListTest" href="../../../../com/ibatis/common/util/PaginatedArrayListTest.html#PaginatedArrayListTest">PaginatedArrayListTest</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>    <strong class="jxr_keyword">private</strong> PaginatedArrayList smallPageList;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>    <strong class="jxr_keyword">private</strong> PaginatedArrayList oddPageList;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>    <strong class="jxr_keyword">private</strong> PaginatedArrayList evenPageList;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>    @BeforeEach
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">void</strong> setUp() {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      smallPageList = <strong class="jxr_keyword">new</strong> PaginatedArrayList(5);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      smallPageList.add(Integer.valueOf(0));
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      smallPageList.add(Integer.valueOf(1));
@@ -83,13 +83,13 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>    }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>    @Test
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testOddPaginatedIterator() {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>    <strong class="jxr_keyword">void</strong> testOddPaginatedIterator() {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      assertEquals(<strong class="jxr_keyword">true</strong>, oddPageList.isFirstPage());
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      assertEquals(false, oddPageList.isPreviousPageAvailable());
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">int</strong> count = 0;
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      Iterator i = oddPageList.iterator();
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      Iterator&lt;?&gt; i = oddPageList.iterator();
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">while</strong> (i.hasNext()) {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>        i.next();
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>        count++;
@@ -153,13 +153,13 @@
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>   }
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> 
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>   @Test
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEvenPaginatedIterator() {
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>   <strong class="jxr_keyword">void</strong> testEvenPaginatedIterator() {
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     assertEquals(<strong class="jxr_keyword">true</strong>, evenPageList.isFirstPage());
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     assertEquals(false, evenPageList.isPreviousPageAvailable());
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">int</strong> count = 0;
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>     Iterator i = evenPageList.iterator();
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>     Iterator&lt;?&gt; i = evenPageList.iterator();
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">while</strong> (i.hasNext()) {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>       i.next();
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>       count++;
@@ -213,7 +213,7 @@
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>   }
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> 
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>   @Test
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSmallPaginatedIterator() {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>   <strong class="jxr_keyword">void</strong> testSmallPaginatedIterator() {
 <a class="jxr_linenumber" name="L209" href="#L209">209</a> 
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>     assertEquals(<strong class="jxr_keyword">true</strong>, smallPageList.isFirstPage());
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     assertEquals(<strong class="jxr_keyword">true</strong>, smallPageList.isLastPage());
@@ -222,7 +222,7 @@
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>     assertEquals(false, smallPageList.isNextPageAvailable());
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>     <strong class="jxr_keyword">int</strong> count = 0;
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     Iterator i = smallPageList.iterator();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>     Iterator&lt;?&gt; i = smallPageList.iterator();
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">while</strong> (i.hasNext()) {
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>       i.next();
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>       count++;
@@ -284,6 +284,6 @@
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2022 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

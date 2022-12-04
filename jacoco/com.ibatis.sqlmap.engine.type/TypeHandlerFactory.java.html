@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeHandlerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">TypeHandlerFactory.java</span></div><h1>TypeHandlerFactory.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeHandlerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">TypeHandlerFactory.java</span></div><h1>TypeHandlerFactory.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -133,10 +133,11 @@ public class TypeHandlerFactory {
    *
    * @param type
    *          - the class you want a TypeHandler for
+   *
    * @return - the handler
    */
   public TypeHandler getTypeHandler(Class type) {
-<span class="fc" id="L139">    return getTypeHandler(type, null);</span>
+<span class="fc" id="L140">    return getTypeHandler(type, null);</span>
   }
 
   /**
@@ -146,21 +147,22 @@ public class TypeHandlerFactory {
    *          - the class
    * @param jdbcType
    *          - the jdbc type
+   *
    * @return - the handler
    */
   public TypeHandler getTypeHandler(Class type, String jdbcType) {
-<span class="fc" id="L152">    Map jdbcHandlerMap = (Map) typeHandlerMap.get(type);</span>
-<span class="fc" id="L153">    TypeHandler handler = null;</span>
-<span class="fc bfc" id="L154" title="All 2 branches covered.">    if (jdbcHandlerMap != null) {</span>
-<span class="fc" id="L155">      handler = (TypeHandler) jdbcHandlerMap.get(jdbcType);</span>
-<span class="fc bfc" id="L156" title="All 2 branches covered.">      if (handler == null) {</span>
-<span class="fc" id="L157">        handler = (TypeHandler) jdbcHandlerMap.get(null);</span>
+<span class="fc" id="L154">    Map jdbcHandlerMap = (Map) typeHandlerMap.get(type);</span>
+<span class="fc" id="L155">    TypeHandler handler = null;</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (jdbcHandlerMap != null) {</span>
+<span class="fc" id="L157">      handler = (TypeHandler) jdbcHandlerMap.get(jdbcType);</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">      if (handler == null) {</span>
+<span class="fc" id="L159">        handler = (TypeHandler) jdbcHandlerMap.get(null);</span>
       }
     }
-<span class="pc bpc" id="L160" title="1 of 6 branches missed.">    if (handler == null &amp;&amp; type != null &amp;&amp; Enum.class.isAssignableFrom(type)) {</span>
-<span class="fc" id="L161">      handler = new EnumTypeHandler(type);</span>
+<span class="pc bpc" id="L162" title="1 of 6 branches missed.">    if (handler == null &amp;&amp; type != null &amp;&amp; Enum.class.isAssignableFrom(type)) {</span>
+<span class="fc" id="L163">      handler = new EnumTypeHandler(type);</span>
     }
-<span class="fc" id="L163">    return handler;</span>
+<span class="fc" id="L165">    return handler;</span>
   }
 
   /**
@@ -169,7 +171,7 @@ public class TypeHandlerFactory {
    * @return - if I told you, it would not be unknown, would it?
    */
   public TypeHandler getUnkownTypeHandler() {
-<span class="fc" id="L172">    return unknownTypeHandler;</span>
+<span class="fc" id="L174">    return unknownTypeHandler;</span>
   }
 
   /**
@@ -177,10 +179,11 @@ public class TypeHandlerFactory {
    *
    * @param type
    *          - the class
+   *
    * @return - true if there is a TypeHandler
    */
   public boolean hasTypeHandler(Class type) {
-<span class="pc bpc" id="L183" title="2 of 6 branches missed.">    return type != null &amp;&amp; (getTypeHandler(type) != null || Enum.class.isAssignableFrom(type));</span>
+<span class="pc bpc" id="L186" title="2 of 6 branches missed.">    return type != null &amp;&amp; (getTypeHandler(type) != null || Enum.class.isAssignableFrom(type));</span>
   }
 
   /**
@@ -192,8 +195,8 @@ public class TypeHandlerFactory {
    *          - the handler instance
    */
   public void register(Class type, TypeHandler handler) {
-<span class="fc" id="L195">    register(type, null, handler);</span>
-<span class="fc" id="L196">  }</span>
+<span class="fc" id="L198">    register(type, null, handler);</span>
+<span class="fc" id="L199">  }</span>
 
   /**
    * Register (add) a type handler for a class and JDBC type.
@@ -206,58 +209,59 @@ public class TypeHandlerFactory {
    *          - the handler instance
    */
   public void register(Class type, String jdbcType, TypeHandler handler) {
-<span class="fc" id="L209">    Map map = (Map) typeHandlerMap.get(type);</span>
-<span class="fc bfc" id="L210" title="All 2 branches covered.">    if (map == null) {</span>
-<span class="fc" id="L211">      map = new HashMap();</span>
-<span class="fc" id="L212">      typeHandlerMap.put(type, map);</span>
+<span class="fc" id="L212">    Map map = (Map) typeHandlerMap.get(type);</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">    if (map == null) {</span>
+<span class="fc" id="L214">      map = new HashMap();</span>
+<span class="fc" id="L215">      typeHandlerMap.put(type, map);</span>
     }
-<span class="fc" id="L214">    map.put(jdbcType, handler);</span>
+<span class="fc" id="L217">    map.put(jdbcType, handler);</span>
 
-<span class="fc bfc" id="L216" title="All 2 branches covered.">    if (reversePrimitiveMap.containsKey(type)) {</span>
-<span class="fc" id="L217">      register((Class) reversePrimitiveMap.get(type), jdbcType, handler);</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">    if (reversePrimitiveMap.containsKey(type)) {</span>
+<span class="fc" id="L220">      register((Class) reversePrimitiveMap.get(type), jdbcType, handler);</span>
     }
-<span class="fc" id="L219">  }</span>
+<span class="fc" id="L222">  }</span>
 
   /**
    * Lookup an aliased class and return it's REAL name.
    *
    * @param string
    *          - the alias
+   *
    * @return - the REAL name
    */
   public String resolveAlias(String string) {
-<span class="fc" id="L229">    String key = null;</span>
-<span class="fc bfc" id="L230" title="All 2 branches covered.">    if (string != null)</span>
-<span class="fc" id="L231">      key = string.toLowerCase();</span>
-<span class="fc" id="L232">    String value = null;</span>
-<span class="fc bfc" id="L233" title="All 2 branches covered.">    if (typeAliases.containsKey(key)) {</span>
-<span class="fc" id="L234">      value = (String) typeAliases.get(key);</span>
+<span class="fc" id="L233">    String key = null;</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">    if (string != null)</span>
+<span class="fc" id="L235">      key = string.toLowerCase();</span>
+<span class="fc" id="L236">    String value = null;</span>
+<span class="fc bfc" id="L237" title="All 2 branches covered.">    if (typeAliases.containsKey(key)) {</span>
+<span class="fc" id="L238">      value = (String) typeAliases.get(key);</span>
     } else {
-<span class="fc" id="L236">      value = string;</span>
+<span class="fc" id="L240">      value = string;</span>
     }
 
-<span class="fc" id="L239">    return value;</span>
+<span class="fc" id="L243">    return value;</span>
   }
 
   /**
    * Adds a type alias that is case insensitive. All of the following String, string, StRiNg will equate to the same
    * alias.
-   * 
+   *
    * @param alias
    *          - the alias
    * @param value
    *          - the real class name
    */
   public void putTypeAlias(String alias, String value) {
-<span class="fc" id="L252">    String key = null;</span>
-<span class="pc bpc" id="L253" title="1 of 2 branches missed.">    if (alias != null)</span>
-<span class="fc" id="L254">      key = alias.toLowerCase();</span>
-<span class="pc bpc" id="L255" title="1 of 4 branches missed.">    if (typeAliases.containsKey(key) &amp;&amp; !typeAliases.get(key).equals(value)) {</span>
-<span class="nc" id="L256">      throw new SqlMapException(&quot;Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '&quot; + key</span>
-<span class="nc" id="L257">          + &quot;' is already mapped to the value '&quot; + typeAliases.get(alias) + &quot;'.&quot;);</span>
+<span class="fc" id="L256">    String key = null;</span>
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">    if (alias != null)</span>
+<span class="fc" id="L258">      key = alias.toLowerCase();</span>
+<span class="pc bpc" id="L259" title="1 of 4 branches missed.">    if (typeAliases.containsKey(key) &amp;&amp; !typeAliases.get(key).equals(value)) {</span>
+<span class="nc" id="L260">      throw new SqlMapException(&quot;Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '&quot; + key</span>
+<span class="nc" id="L261">          + &quot;' is already mapped to the value '&quot; + typeAliases.get(alias) + &quot;'.&quot;);</span>
     }
-<span class="fc" id="L259">    typeAliases.put(key, value);</span>
-<span class="fc" id="L260">  }</span>
+<span class="fc" id="L263">    typeAliases.put(key, value);</span>
+<span class="fc" id="L264">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

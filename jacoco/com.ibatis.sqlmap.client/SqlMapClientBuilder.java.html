@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapClientBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.client</a> &gt; <span class="el_source">SqlMapClientBuilder.java</span></div><h1>SqlMapClientBuilder.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapClientBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.client</a> &gt; <span class="el_source">SqlMapClientBuilder.java</span></div><h1>SqlMapClientBuilder.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -28,7 +28,7 @@ import java.util.Properties;
  * instance. Its current implementation works with XML configuration files (e.g. sql-map-config.xml).
  * &lt;p&gt;
  * Example:
- * 
+ *
  * &lt;pre&gt;
  * Reader reader = Resources.getResourceAsReader(&amp;quot;properties/sql-map-config.xml&amp;quot;);
  * SqlMapClient client = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -56,11 +56,12 @@ public class SqlMapClientBuilder {
    * @param reader
    *          A Reader instance that reads an sql-map-config.xml file. The reader should read an well formed
    *          sql-map-config.xml file.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(Reader reader) {
     // return new XmlSqlMapClientBuilder().buildSqlMap(reader);
-<span class="fc" id="L63">    return new SqlMapConfigParser().parse(reader);</span>
+<span class="fc" id="L64">    return new SqlMapConfigParser().parse(reader);</span>
   }
 
   /**
@@ -73,11 +74,12 @@ public class SqlMapClientBuilder {
    * @param props
    *          Properties to be used to provide values to dynamic property tokens in the sql-map-config.xml configuration
    *          file. This provides an easy way to achieve some level of programmatic configuration.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(Reader reader, Properties props) {
     // return new XmlSqlMapClientBuilder().buildSqlMap(reader, props);
-<span class="fc" id="L80">    return new SqlMapConfigParser().parse(reader, props);</span>
+<span class="fc" id="L82">    return new SqlMapConfigParser().parse(reader, props);</span>
   }
 
   /**
@@ -86,10 +88,11 @@ public class SqlMapClientBuilder {
    * @param inputStream
    *          An InputStream instance that reads an sql-map-config.xml file. The stream should read a well formed
    *          sql-map-config.xml file.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(InputStream inputStream) {
-<span class="nc" id="L92">    return new SqlMapConfigParser().parse(inputStream);</span>
+<span class="nc" id="L95">    return new SqlMapConfigParser().parse(inputStream);</span>
   }
 
   /**
@@ -102,10 +105,11 @@ public class SqlMapClientBuilder {
    * @param props
    *          Properties to be used to provide values to dynamic property tokens in the sql-map-config.xml configuration
    *          file. This provides an easy way to achieve some level of programmatic configuration.
+   *
    * @return An SqlMapClient instance.
    */
   public static SqlMapClient buildSqlMapClient(InputStream inputStream, Properties props) {
-<span class="nc" id="L108">    return new SqlMapConfigParser().parse(inputStream, props);</span>
+<span class="nc" id="L112">    return new SqlMapConfigParser().parse(inputStream, props);</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Resources.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.resources</a> &gt; <span class="el_source">Resources.java</span></div><h1>Resources.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Resources.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.resources</a> &gt; <span class="el_source">Resources.java</span></div><h1>Resources.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -66,12 +66,14 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static URL getResourceURL(String resource) throws IOException {
-<span class="fc" id="L74">    return getResourceURL(getClassLoader(), resource);</span>
+<span class="fc" id="L76">    return getResourceURL(getClassLoader(), resource);</span>
   }
 
   /**
@@ -81,19 +83,21 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static URL getResourceURL(ClassLoader loader, String resource) throws IOException {
-<span class="fc" id="L89">    URL url = null;</span>
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">    if (loader != null)</span>
-<span class="fc" id="L91">      url = loader.getResource(resource);</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">    if (url == null)</span>
-<span class="fc" id="L93">      url = ClassLoader.getSystemResource(resource);</span>
-<span class="fc bfc" id="L94" title="All 2 branches covered.">    if (url == null)</span>
-<span class="fc" id="L95">      throw new IOException(&quot;Could not find resource &quot; + resource);</span>
-<span class="fc" id="L96">    return url;</span>
+<span class="fc" id="L93">    URL url = null;</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">    if (loader != null)</span>
+<span class="fc" id="L95">      url = loader.getResource(resource);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">    if (url == null)</span>
+<span class="fc" id="L97">      url = ClassLoader.getSystemResource(resource);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">    if (url == null)</span>
+<span class="fc" id="L99">      throw new IOException(&quot;Could not find resource &quot; + resource);</span>
+<span class="fc" id="L100">    return url;</span>
   }
 
   /**
@@ -101,12 +105,14 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static InputStream getResourceAsStream(String resource) throws IOException {
-<span class="fc" id="L109">    return getResourceAsStream(getClassLoader(), resource);</span>
+<span class="fc" id="L115">    return getResourceAsStream(getClassLoader(), resource);</span>
   }
 
   /**
@@ -116,19 +122,21 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static InputStream getResourceAsStream(ClassLoader loader, String resource) throws IOException {
-<span class="fc" id="L124">    InputStream in = null;</span>
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">    if (loader != null)</span>
-<span class="fc" id="L126">      in = loader.getResourceAsStream(resource);</span>
-<span class="fc bfc" id="L127" title="All 2 branches covered.">    if (in == null)</span>
-<span class="fc" id="L128">      in = ClassLoader.getSystemResourceAsStream(resource);</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">    if (in == null)</span>
-<span class="fc" id="L130">      throw new IOException(&quot;Could not find resource &quot; + resource);</span>
-<span class="fc" id="L131">    return in;</span>
+<span class="fc" id="L132">    InputStream in = null;</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">    if (loader != null)</span>
+<span class="fc" id="L134">      in = loader.getResourceAsStream(resource);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">    if (in == null)</span>
+<span class="fc" id="L136">      in = ClassLoader.getSystemResourceAsStream(resource);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    if (in == null)</span>
+<span class="fc" id="L138">      throw new IOException(&quot;Could not find resource &quot; + resource);</span>
+<span class="fc" id="L139">    return in;</span>
   }
 
   /**
@@ -136,18 +144,20 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Properties getResourceAsProperties(String resource) throws IOException {
-<span class="fc" id="L144">    Properties props = new Properties();</span>
-<span class="fc" id="L145">    InputStream in = null;</span>
-<span class="fc" id="L146">    String propfile = resource;</span>
-<span class="fc" id="L147">    in = getResourceAsStream(propfile);</span>
-<span class="fc" id="L148">    props.load(in);</span>
-<span class="fc" id="L149">    in.close();</span>
-<span class="fc" id="L150">    return props;</span>
+<span class="fc" id="L154">    Properties props = new Properties();</span>
+<span class="fc" id="L155">    InputStream in = null;</span>
+<span class="fc" id="L156">    String propfile = resource;</span>
+<span class="fc" id="L157">    in = getResourceAsStream(propfile);</span>
+<span class="fc" id="L158">    props.load(in);</span>
+<span class="fc" id="L159">    in.close();</span>
+<span class="fc" id="L160">    return props;</span>
   }
 
   /**
@@ -157,18 +167,20 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Properties getResourceAsProperties(ClassLoader loader, String resource) throws IOException {
-<span class="fc" id="L165">    Properties props = new Properties();</span>
-<span class="fc" id="L166">    InputStream in = null;</span>
-<span class="fc" id="L167">    String propfile = resource;</span>
-<span class="fc" id="L168">    in = getResourceAsStream(loader, propfile);</span>
-<span class="fc" id="L169">    props.load(in);</span>
-<span class="fc" id="L170">    in.close();</span>
-<span class="fc" id="L171">    return props;</span>
+<span class="fc" id="L177">    Properties props = new Properties();</span>
+<span class="fc" id="L178">    InputStream in = null;</span>
+<span class="fc" id="L179">    String propfile = resource;</span>
+<span class="fc" id="L180">    in = getResourceAsStream(loader, propfile);</span>
+<span class="fc" id="L181">    props.load(in);</span>
+<span class="fc" id="L182">    in.close();</span>
+<span class="fc" id="L183">    return props;</span>
   }
 
   /**
@@ -176,19 +188,21 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Reader getResourceAsReader(String resource) throws IOException {
     Reader reader;
-<span class="pc bpc" id="L185" title="1 of 2 branches missed.">    if (charset == null) {</span>
-<span class="fc" id="L186">      reader = new InputStreamReader(getResourceAsStream(resource));</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">    if (charset == null) {</span>
+<span class="fc" id="L200">      reader = new InputStreamReader(getResourceAsStream(resource));</span>
     } else {
-<span class="nc" id="L188">      reader = new InputStreamReader(getResourceAsStream(resource), charset);</span>
+<span class="nc" id="L202">      reader = new InputStreamReader(getResourceAsStream(resource), charset);</span>
     }
 
-<span class="fc" id="L191">    return reader;</span>
+<span class="fc" id="L205">    return reader;</span>
   }
 
   /**
@@ -198,19 +212,21 @@ public class Resources extends Object {
    *          The classloader used to load the resource
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Reader getResourceAsReader(ClassLoader loader, String resource) throws IOException {
     Reader reader;
-<span class="nc bnc" id="L207" title="All 2 branches missed.">    if (charset == null) {</span>
-<span class="nc" id="L208">      reader = new InputStreamReader(getResourceAsStream(loader, resource));</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">    if (charset == null) {</span>
+<span class="nc" id="L224">      reader = new InputStreamReader(getResourceAsStream(loader, resource));</span>
     } else {
-<span class="nc" id="L210">      reader = new InputStreamReader(getResourceAsStream(loader, resource), charset);</span>
+<span class="nc" id="L226">      reader = new InputStreamReader(getResourceAsStream(loader, resource), charset);</span>
     }
 
-<span class="nc" id="L213">    return reader;</span>
+<span class="nc" id="L229">    return reader;</span>
   }
 
   /**
@@ -218,12 +234,14 @@ public class Resources extends Object {
    *
    * @param resource
    *          The resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(String resource) throws IOException {
-<span class="nc" id="L226">    return new File(getResourceURL(resource).getFile());</span>
+<span class="nc" id="L244">    return new File(getResourceURL(resource).getFile());</span>
   }
 
   /**
@@ -233,12 +251,14 @@ public class Resources extends Object {
    *          - the classloader used to load the resource
    * @param resource
    *          - the resource to find
+   *
    * @return The resource
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(ClassLoader loader, String resource) throws IOException {
-<span class="nc" id="L241">    return new File(getResourceURL(loader, resource).getFile());</span>
+<span class="nc" id="L261">    return new File(getResourceURL(loader, resource).getFile());</span>
   }
 
   /**
@@ -246,14 +266,16 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return An input stream with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static InputStream getUrlAsStream(String urlString) throws IOException {
-<span class="nc" id="L254">    URL url = new URL(urlString);</span>
-<span class="nc" id="L255">    URLConnection conn = url.openConnection();</span>
-<span class="nc" id="L256">    return conn.getInputStream();</span>
+<span class="nc" id="L276">    URL url = new URL(urlString);</span>
+<span class="nc" id="L277">    URLConnection conn = url.openConnection();</span>
+<span class="nc" id="L278">    return conn.getInputStream();</span>
   }
 
   /**
@@ -261,12 +283,14 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return A Reader with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Reader getUrlAsReader(String urlString) throws IOException {
-<span class="nc" id="L269">    return new InputStreamReader(getUrlAsStream(urlString));</span>
+<span class="nc" id="L293">    return new InputStreamReader(getUrlAsStream(urlString));</span>
   }
 
   /**
@@ -274,18 +298,20 @@ public class Resources extends Object {
    *
    * @param urlString
    *          - the URL to get
+   *
    * @return A Properties object with the data from the URL
+   *
    * @throws IOException
    *           If the resource cannot be found or read
    */
   public static Properties getUrlAsProperties(String urlString) throws IOException {
-<span class="nc" id="L282">    Properties props = new Properties();</span>
-<span class="nc" id="L283">    InputStream in = null;</span>
-<span class="nc" id="L284">    String propfile = urlString;</span>
-<span class="nc" id="L285">    in = getUrlAsStream(propfile);</span>
-<span class="nc" id="L286">    props.load(in);</span>
-<span class="nc" id="L287">    in.close();</span>
-<span class="nc" id="L288">    return props;</span>
+<span class="nc" id="L308">    Properties props = new Properties();</span>
+<span class="nc" id="L309">    InputStream in = null;</span>
+<span class="nc" id="L310">    String propfile = urlString;</span>
+<span class="nc" id="L311">    in = getUrlAsStream(propfile);</span>
+<span class="nc" id="L312">    props.load(in);</span>
+<span class="nc" id="L313">    in.close();</span>
+<span class="nc" id="L314">    return props;</span>
   }
 
   /**
@@ -293,21 +319,23 @@ public class Resources extends Object {
    *
    * @param className
    *          - the class to load
+   *
    * @return The loaded class
+   *
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    */
   public static Class classForName(String className) throws ClassNotFoundException {
-<span class="fc" id="L301">    Class clazz = null;</span>
+<span class="fc" id="L329">    Class clazz = null;</span>
     try {
-<span class="fc" id="L303">      clazz = getClassLoader().loadClass(className);</span>
-<span class="nc" id="L304">    } catch (Exception e) {</span>
+<span class="fc" id="L331">      clazz = getClassLoader().loadClass(className);</span>
+<span class="nc" id="L332">    } catch (Exception e) {</span>
       // Ignore. Failsafe below.
-<span class="fc" id="L306">    }</span>
-<span class="pc bpc" id="L307" title="1 of 2 branches missed.">    if (clazz == null) {</span>
-<span class="nc" id="L308">      clazz = Class.forName(className);</span>
+<span class="fc" id="L334">    }</span>
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">    if (clazz == null) {</span>
+<span class="nc" id="L336">      clazz = Class.forName(className);</span>
     }
-<span class="fc" id="L310">    return clazz;</span>
+<span class="fc" id="L338">    return clazz;</span>
   }
 
   /**
@@ -315,7 +343,9 @@ public class Resources extends Object {
    *
    * @param className
    *          - the class to create
+   *
    * @return An instance of the class
+   *
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    * @throws InstantiationException
@@ -325,7 +355,7 @@ public class Resources extends Object {
    */
   public static Object instantiate(String className)
       throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-<span class="fc" id="L328">    return instantiate(classForName(className));</span>
+<span class="fc" id="L358">    return instantiate(classForName(className));</span>
   }
 
   /**
@@ -333,7 +363,9 @@ public class Resources extends Object {
    *
    * @param clazz
    *          - the class to create
+   *
    * @return An instance of the class
+   *
    * @throws InstantiationException
    *           If the class cannot be instantiaed
    * @throws IllegalAccessException
@@ -341,13 +373,13 @@ public class Resources extends Object {
    */
   public static Object instantiate(Class clazz) throws InstantiationException, IllegalAccessException {
     try {
-<span class="fc" id="L344">      return ClassInfo.getInstance(clazz).instantiateClass();</span>
-<span class="nc" id="L345">    } catch (Exception e) {</span>
+<span class="fc" id="L376">      return ClassInfo.getInstance(clazz).instantiateClass();</span>
+<span class="nc" id="L377">    } catch (Exception e) {</span>
       // Try alternative...theoretically should fail for the exact same
       // reason, but in case of a weird security manager, this will help
       // some cases.
       // return clazz.newInstance();
-<span class="nc" id="L350">      return clazz.newInstance();</span>
+<span class="nc" id="L382">      return clazz.newInstance();</span>
     }
   }
 
@@ -357,10 +389,10 @@ public class Resources extends Object {
    * @return the class loader
    */
   private static ClassLoader getClassLoader() {
-<span class="pc bpc" id="L360" title="1 of 2 branches missed.">    if (defaultClassLoader != null) {</span>
-<span class="nc" id="L361">      return defaultClassLoader;</span>
+<span class="pc bpc" id="L392" title="1 of 2 branches missed.">    if (defaultClassLoader != null) {</span>
+<span class="nc" id="L393">      return defaultClassLoader;</span>
     } else {
-<span class="fc" id="L363">      return Thread.currentThread().getContextClassLoader();</span>
+<span class="fc" id="L395">      return Thread.currentThread().getContextClassLoader();</span>
     }
   }
 
@@ -370,7 +402,7 @@ public class Resources extends Object {
    * @return the charset
    */
   public static Charset getCharset() {
-<span class="nc" id="L373">    return charset;</span>
+<span class="nc" id="L405">    return charset;</span>
   }
 
   /**
@@ -381,8 +413,8 @@ public class Resources extends Object {
    *          the new charset
    */
   public static void setCharset(Charset charset) {
-<span class="nc" id="L384">    Resources.charset = charset;</span>
-<span class="nc" id="L385">  }</span>
+<span class="nc" id="L416">    Resources.charset = charset;</span>
+<span class="nc" id="L417">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

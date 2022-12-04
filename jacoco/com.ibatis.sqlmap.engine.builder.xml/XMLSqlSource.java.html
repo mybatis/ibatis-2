@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLSqlSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">XMLSqlSource.java</span></div><h1>XMLSqlSource.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLSqlSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">XMLSqlSource.java</span></div><h1>XMLSqlSource.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -22,10 +22,11 @@ import com.ibatis.sqlmap.engine.mapping.sql.*;
 import com.ibatis.sqlmap.engine.mapping.sql.dynamic.*;
 import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.*;
 import com.ibatis.sqlmap.engine.mapping.sql.raw.*;
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.*;
 
 import java.util.Properties;
+
+import org.w3c.dom.*;
+import org.w3c.dom.CharacterData;
 
 /**
  * The Class XMLSqlSource.
@@ -33,7 +34,7 @@ import java.util.Properties;
 public class XMLSqlSource implements SqlSource {
 
   /** The Constant PARAM_PARSER. */
-<span class="fc" id="L36">  private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();</span>
+<span class="fc" id="L37">  private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();</span>
 
   /** The state. */
   private XmlParserState state;
@@ -49,23 +50,23 @@ public class XMLSqlSource implements SqlSource {
    * @param parentNode
    *          the parent node
    */
-<span class="fc" id="L52">  public XMLSqlSource(XmlParserState config, Node parentNode) {</span>
-<span class="fc" id="L53">    this.state = config;</span>
-<span class="fc" id="L54">    this.parentNode = parentNode;</span>
-<span class="fc" id="L55">  }</span>
+<span class="fc" id="L53">  public XMLSqlSource(XmlParserState config, Node parentNode) {</span>
+<span class="fc" id="L54">    this.state = config;</span>
+<span class="fc" id="L55">    this.parentNode = parentNode;</span>
+<span class="fc" id="L56">  }</span>
 
   public Sql getSql() {
-<span class="fc" id="L58">    state.getConfig().getErrorContext().setActivity(&quot;processing an SQL statement&quot;);</span>
+<span class="fc" id="L59">    state.getConfig().getErrorContext().setActivity(&quot;processing an SQL statement&quot;);</span>
 
-<span class="fc" id="L60">    boolean isDynamic = false;</span>
-<span class="fc" id="L61">    StringBuilder sqlBuffer = new StringBuilder();</span>
-<span class="fc" id="L62">    DynamicSql dynamic = new DynamicSql(state.getConfig().getClient().getDelegate());</span>
-<span class="fc" id="L63">    isDynamic = parseDynamicTags(parentNode, dynamic, sqlBuffer, isDynamic, false);</span>
-<span class="fc" id="L64">    String sqlStatement = sqlBuffer.toString();</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">    if (isDynamic) {</span>
-<span class="fc" id="L66">      return dynamic;</span>
+<span class="fc" id="L61">    boolean isDynamic = false;</span>
+<span class="fc" id="L62">    StringBuilder sqlBuffer = new StringBuilder();</span>
+<span class="fc" id="L63">    DynamicSql dynamic = new DynamicSql(state.getConfig().getClient().getDelegate());</span>
+<span class="fc" id="L64">    isDynamic = parseDynamicTags(parentNode, dynamic, sqlBuffer, isDynamic, false);</span>
+<span class="fc" id="L65">    String sqlStatement = sqlBuffer.toString();</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">    if (isDynamic) {</span>
+<span class="fc" id="L67">      return dynamic;</span>
     } else {
-<span class="fc" id="L68">      return new RawSql(sqlStatement);</span>
+<span class="fc" id="L69">      return new RawSql(sqlStatement);</span>
     }
   }
 
@@ -82,96 +83,97 @@ public class XMLSqlSource implements SqlSource {
    *          the is dynamic
    * @param postParseRequired
    *          the post parse required
+   *
    * @return true, if successful
    */
   private boolean parseDynamicTags(Node node, DynamicParent dynamic, StringBuilder sqlBuffer, boolean isDynamic,
       boolean postParseRequired) {
-<span class="fc" id="L89">    state.getConfig().getErrorContext().setActivity(&quot;parsing dynamic SQL tags&quot;);</span>
+<span class="fc" id="L91">    state.getConfig().getErrorContext().setActivity(&quot;parsing dynamic SQL tags&quot;);</span>
 
-<span class="fc" id="L91">    NodeList children = node.getChildNodes();</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L93">      Node child = children.item(i);</span>
-<span class="fc" id="L94">      String nodeName = child.getNodeName();</span>
-<span class="fc bfc" id="L95" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
+<span class="fc" id="L93">    NodeList children = node.getChildNodes();</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L95">      Node child = children.item(i);</span>
+<span class="fc" id="L96">      String nodeName = child.getNodeName();</span>
+<span class="fc bfc" id="L97" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
 
-<span class="fc" id="L97">        String data = ((CharacterData) child).getData();</span>
-<span class="fc" id="L98">        data = NodeletUtils.parsePropertyTokens(data, state.getGlobalProps());</span>
+<span class="fc" id="L99">        String data = ((CharacterData) child).getData();</span>
+<span class="fc" id="L100">        data = NodeletUtils.parsePropertyTokens(data, state.getGlobalProps());</span>
 
         SqlText sqlText;
 
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (postParseRequired) {</span>
-<span class="fc" id="L103">          sqlText = new SqlText();</span>
-<span class="fc" id="L104">          sqlText.setPostParseRequired(postParseRequired);</span>
-<span class="fc" id="L105">          sqlText.setText(data);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (postParseRequired) {</span>
+<span class="fc" id="L105">          sqlText = new SqlText();</span>
+<span class="fc" id="L106">          sqlText.setPostParseRequired(postParseRequired);</span>
+<span class="fc" id="L107">          sqlText.setText(data);</span>
         } else {
-<span class="fc" id="L107">          sqlText = PARAM_PARSER</span>
-<span class="fc" id="L108">              .parseInlineParameterMap(state.getConfig().getClient().getDelegate().getTypeHandlerFactory(), data, null);</span>
-<span class="fc" id="L109">          sqlText.setPostParseRequired(postParseRequired);</span>
+<span class="fc" id="L109">          sqlText = PARAM_PARSER</span>
+<span class="fc" id="L110">              .parseInlineParameterMap(state.getConfig().getClient().getDelegate().getTypeHandlerFactory(), data, null);</span>
+<span class="fc" id="L111">          sqlText.setPostParseRequired(postParseRequired);</span>
         }
 
-<span class="fc" id="L112">        dynamic.addChild(sqlText);</span>
+<span class="fc" id="L114">        dynamic.addChild(sqlText);</span>
 
-<span class="fc" id="L114">        sqlBuffer.append(data);</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">      } else if (&quot;include&quot;.equals(nodeName)) {</span>
-<span class="fc" id="L116">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
-<span class="fc" id="L117">        String refid = (String) attributes.get(&quot;refid&quot;);</span>
-<span class="fc" id="L118">        Node includeNode = (Node) state.getSqlIncludes().get(refid);</span>
-<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (includeNode == null) {</span>
-<span class="nc" id="L120">          String nsrefid = state.applyNamespace(refid);</span>
-<span class="nc" id="L121">          includeNode = (Node) state.getSqlIncludes().get(nsrefid);</span>
-<span class="nc bnc" id="L122" title="All 2 branches missed.">          if (includeNode == null) {</span>
-<span class="nc" id="L123">            throw new RuntimeException(&quot;Could not find SQL statement to include with refid '&quot; + refid + &quot;'&quot;);</span>
+<span class="fc" id="L116">        sqlBuffer.append(data);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">      } else if (&quot;include&quot;.equals(nodeName)) {</span>
+<span class="fc" id="L118">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L119">        String refid = (String) attributes.get(&quot;refid&quot;);</span>
+<span class="fc" id="L120">        Node includeNode = (Node) state.getSqlIncludes().get(refid);</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if (includeNode == null) {</span>
+<span class="nc" id="L122">          String nsrefid = state.applyNamespace(refid);</span>
+<span class="nc" id="L123">          includeNode = (Node) state.getSqlIncludes().get(nsrefid);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">          if (includeNode == null) {</span>
+<span class="nc" id="L125">            throw new RuntimeException(&quot;Could not find SQL statement to include with refid '&quot; + refid + &quot;'&quot;);</span>
           }
         }
-<span class="fc" id="L126">        isDynamic = parseDynamicTags(includeNode, dynamic, sqlBuffer, isDynamic, false);</span>
-<span class="fc" id="L127">      } else {</span>
-<span class="fc" id="L128">        state.getConfig().getErrorContext().setMoreInfo(&quot;Check the dynamic tags.&quot;);</span>
+<span class="fc" id="L128">        isDynamic = parseDynamicTags(includeNode, dynamic, sqlBuffer, isDynamic, false);</span>
+<span class="fc" id="L129">      } else {</span>
+<span class="fc" id="L130">        state.getConfig().getErrorContext().setMoreInfo(&quot;Check the dynamic tags.&quot;);</span>
 
-<span class="fc" id="L130">        SqlTagHandler handler = SqlTagHandlerFactory.getSqlTagHandler(nodeName);</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (handler != null) {</span>
-<span class="fc" id="L132">          isDynamic = true;</span>
+<span class="fc" id="L132">        SqlTagHandler handler = SqlTagHandlerFactory.getSqlTagHandler(nodeName);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (handler != null) {</span>
+<span class="fc" id="L134">          isDynamic = true;</span>
 
-<span class="fc" id="L134">          SqlTag tag = new SqlTag();</span>
-<span class="fc" id="L135">          tag.setName(nodeName);</span>
-<span class="fc" id="L136">          tag.setHandler(handler);</span>
+<span class="fc" id="L136">          SqlTag tag = new SqlTag();</span>
+<span class="fc" id="L137">          tag.setName(nodeName);</span>
+<span class="fc" id="L138">          tag.setHandler(handler);</span>
 
-<span class="fc" id="L138">          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L140">          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
 
-<span class="fc" id="L140">          tag.setPrependAttr(attributes.getProperty(&quot;prepend&quot;));</span>
-<span class="fc" id="L141">          tag.setPropertyAttr(attributes.getProperty(&quot;property&quot;));</span>
-<span class="fc" id="L142">          tag.setRemoveFirstPrepend(attributes.getProperty(&quot;removeFirstPrepend&quot;));</span>
+<span class="fc" id="L142">          tag.setPrependAttr(attributes.getProperty(&quot;prepend&quot;));</span>
+<span class="fc" id="L143">          tag.setPropertyAttr(attributes.getProperty(&quot;property&quot;));</span>
+<span class="fc" id="L144">          tag.setRemoveFirstPrepend(attributes.getProperty(&quot;removeFirstPrepend&quot;));</span>
 
-<span class="fc" id="L144">          tag.setOpenAttr(attributes.getProperty(&quot;open&quot;));</span>
-<span class="fc" id="L145">          tag.setCloseAttr(attributes.getProperty(&quot;close&quot;));</span>
+<span class="fc" id="L146">          tag.setOpenAttr(attributes.getProperty(&quot;open&quot;));</span>
+<span class="fc" id="L147">          tag.setCloseAttr(attributes.getProperty(&quot;close&quot;));</span>
 
-<span class="fc" id="L147">          tag.setComparePropertyAttr(attributes.getProperty(&quot;compareProperty&quot;));</span>
-<span class="fc" id="L148">          tag.setCompareValueAttr(attributes.getProperty(&quot;compareValue&quot;));</span>
-<span class="fc" id="L149">          tag.setConjunctionAttr(attributes.getProperty(&quot;conjunction&quot;));</span>
+<span class="fc" id="L149">          tag.setComparePropertyAttr(attributes.getProperty(&quot;compareProperty&quot;));</span>
+<span class="fc" id="L150">          tag.setCompareValueAttr(attributes.getProperty(&quot;compareValue&quot;));</span>
+<span class="fc" id="L151">          tag.setConjunctionAttr(attributes.getProperty(&quot;conjunction&quot;));</span>
 
           // an iterate ancestor requires a post parse
 
-<span class="fc bfc" id="L153" title="All 2 branches covered.">          if (dynamic instanceof SqlTag) {</span>
-<span class="fc" id="L154">            SqlTag parentSqlTag = (SqlTag) dynamic;</span>
-<span class="fc bfc" id="L155" title="All 4 branches covered.">            if (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof IterateTagHandler) {</span>
-<span class="fc" id="L156">              tag.setPostParseRequired(true);</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">          if (dynamic instanceof SqlTag) {</span>
+<span class="fc" id="L156">            SqlTag parentSqlTag = (SqlTag) dynamic;</span>
+<span class="fc bfc" id="L157" title="All 4 branches covered.">            if (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof IterateTagHandler) {</span>
+<span class="fc" id="L158">              tag.setPostParseRequired(true);</span>
             }
-<span class="pc bpc" id="L158" title="1 of 2 branches missed.">          } else if (dynamic instanceof DynamicSql) {</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">            if (tag.getHandler() instanceof IterateTagHandler) {</span>
-<span class="fc" id="L160">              tag.setPostParseRequired(true);</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">          } else if (dynamic instanceof DynamicSql) {</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            if (tag.getHandler() instanceof IterateTagHandler) {</span>
+<span class="fc" id="L162">              tag.setPostParseRequired(true);</span>
             }
           }
 
-<span class="fc" id="L164">          dynamic.addChild(tag);</span>
+<span class="fc" id="L166">          dynamic.addChild(tag);</span>
 
-<span class="pc bpc" id="L166" title="1 of 2 branches missed.">          if (child.hasChildNodes()) {</span>
-<span class="fc" id="L167">            isDynamic = parseDynamicTags(child, tag, sqlBuffer, isDynamic, tag.isPostParseRequired());</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">          if (child.hasChildNodes()) {</span>
+<span class="fc" id="L169">            isDynamic = parseDynamicTags(child, tag, sqlBuffer, isDynamic, tag.isPostParseRequired());</span>
           }
         }
       }
     }
-<span class="fc" id="L172">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
-<span class="fc" id="L173">    return isDynamic;</span>
+<span class="fc" id="L174">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
+<span class="fc" id="L175">    return isDynamic;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

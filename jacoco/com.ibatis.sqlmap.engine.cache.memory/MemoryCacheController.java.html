@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemoryCacheController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.memory</a> &gt; <span class="el_source">MemoryCacheController.java</span></div><h1>MemoryCacheController.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemoryCacheController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.memory</a> &gt; <span class="el_source">MemoryCacheController.java</span></div><h1>MemoryCacheController.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -100,36 +100,37 @@ import java.util.Properties;
    *          The cache model
    * @param key
    *          The key of the object to be returned
+   *
    * @return The cached object (or null)
    */
   public Object getObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L106">    Object value = null;</span>
-<span class="fc" id="L107">    Object ref = cache.get(key);</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">    if (ref != null) {</span>
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
-<span class="nc" id="L110">        value = ((StrongReference) ref).get();</span>
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
-<span class="nc" id="L112">        value = ((SoftReference) ref).get();</span>
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
-<span class="fc" id="L114">        value = ((WeakReference) ref).get();</span>
+<span class="fc" id="L107">    Object value = null;</span>
+<span class="fc" id="L108">    Object ref = cache.get(key);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">    if (ref != null) {</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
+<span class="nc" id="L111">        value = ((StrongReference) ref).get();</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
+<span class="nc" id="L113">        value = ((SoftReference) ref).get();</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
+<span class="fc" id="L115">        value = ((WeakReference) ref).get();</span>
       }
     }
-<span class="fc" id="L117">    return value;</span>
+<span class="fc" id="L118">    return value;</span>
   }
 
   public Object removeObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L121">    Object value = null;</span>
-<span class="fc" id="L122">    Object ref = cache.remove(key);</span>
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">    if (ref != null) {</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
-<span class="nc" id="L125">        value = ((StrongReference) ref).get();</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
-<span class="nc" id="L127">        value = ((SoftReference) ref).get();</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
-<span class="fc" id="L129">        value = ((WeakReference) ref).get();</span>
+<span class="fc" id="L122">    Object value = null;</span>
+<span class="fc" id="L123">    Object ref = cache.remove(key);</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">    if (ref != null) {</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
+<span class="nc" id="L126">        value = ((StrongReference) ref).get();</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
+<span class="nc" id="L128">        value = ((SoftReference) ref).get();</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
+<span class="fc" id="L130">        value = ((WeakReference) ref).get();</span>
       }
     }
-<span class="fc" id="L132">    return value;</span>
+<span class="fc" id="L133">    return value;</span>
   }
 
   /**
@@ -139,8 +140,8 @@ import java.util.Properties;
    *          The cache model
    */
   public void flush(CacheModel cacheModel) {
-<span class="fc" id="L142">    cache.clear();</span>
-<span class="fc" id="L143">  }</span>
+<span class="fc" id="L143">    cache.clear();</span>
+<span class="fc" id="L144">  }</span>
 
   /**
    * Class to implement a strong (permanent) reference.
@@ -156,9 +157,9 @@ import java.util.Properties;
      * @param object
      *          - the Object to store
      */
-<span class="nc" id="L159">    public StrongReference(Object object) {</span>
-<span class="nc" id="L160">      this.object = object;</span>
-<span class="nc" id="L161">    }</span>
+<span class="nc" id="L160">    public StrongReference(Object object) {</span>
+<span class="nc" id="L161">      this.object = object;</span>
+<span class="nc" id="L162">    }</span>
 
     /**
      * Getter to get the object stored in the StrongReference.
@@ -166,9 +167,9 @@ import java.util.Properties;
      * @return - the stored Object
      */
     public Object get() {
-<span class="nc" id="L169">      return object;</span>
+<span class="nc" id="L170">      return object;</span>
     }
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">DomProbe.java</span></div><h1>DomProbe.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">DomProbe.java</span></div><h1>DomProbe.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package com.ibatis.common.beans;
+
+import com.ibatis.common.resources.Resources;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -30,8 +32,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-
-import com.ibatis.common.resources.Resources;
 
 /**
  * A Probe implementation for working with DOM objects.
@@ -127,18 +127,19 @@ import com.ibatis.common.resources.Resources;
    *
    * @param object
    *          the object
+   *
    * @return the element
    */
   private Element resolveElement(Object object) {
-<span class="fc" id="L133">    Element element = null;</span>
-<span class="pc bpc" id="L134" title="1 of 2 branches missed.">    if (object instanceof Document) {</span>
-<span class="fc" id="L135">      element = (Element) ((Document) object).getLastChild();</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">    } else if (object instanceof Element) {</span>
-<span class="nc" id="L137">      element = (Element) object;</span>
+<span class="fc" id="L134">    Element element = null;</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">    if (object instanceof Document) {</span>
+<span class="fc" id="L136">      element = (Element) ((Document) object).getLastChild();</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    } else if (object instanceof Element) {</span>
+<span class="nc" id="L138">      element = (Element) object;</span>
     } else {
-<span class="nc" id="L139">      throw new ProbeException(&quot;An unknown object type was passed to DomProbe.  Must be a Document.&quot;);</span>
+<span class="nc" id="L140">      throw new ProbeException(&quot;An unknown object type was passed to DomProbe.  Must be a Document.&quot;);</span>
     }
-<span class="fc" id="L141">    return element;</span>
+<span class="fc" id="L142">    return element;</span>
   }
 
   /**
@@ -150,89 +151,90 @@ import com.ibatis.common.resources.Resources;
    *          the value
    */
   private void setElementValue(Element element, Object value) {
-<span class="fc" id="L153">    CharacterData data = null;</span>
+<span class="fc" id="L154">    CharacterData data = null;</span>
 
-<span class="fc" id="L155">    Element prop = element;</span>
+<span class="fc" id="L156">    Element prop = element;</span>
 
-<span class="fc bfc" id="L157" title="All 2 branches covered.">    if (value instanceof Collection) {</span>
-<span class="fc" id="L158">      Iterator items = ((Collection) value).iterator();</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">      while (items.hasNext()) {</span>
-<span class="fc" id="L160">        Document valdoc = (Document) items.next();</span>
-<span class="fc" id="L161">        NodeList list = valdoc.getChildNodes();</span>
-<span class="fc bfc" id="L162" title="All 2 branches covered.">        for (int i = 0; i &lt; list.getLength(); i++) {</span>
-<span class="fc" id="L163">          Node newNode = element.getOwnerDocument().importNode(list.item(i), true);</span>
-<span class="fc" id="L164">          element.appendChild(newNode);</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">    if (value instanceof Collection) {</span>
+<span class="fc" id="L159">      Iterator items = ((Collection) value).iterator();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">      while (items.hasNext()) {</span>
+<span class="fc" id="L161">        Document valdoc = (Document) items.next();</span>
+<span class="fc" id="L162">        NodeList list = valdoc.getChildNodes();</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        for (int i = 0; i &lt; list.getLength(); i++) {</span>
+<span class="fc" id="L164">          Node newNode = element.getOwnerDocument().importNode(list.item(i), true);</span>
+<span class="fc" id="L165">          element.appendChild(newNode);</span>
         }
-<span class="fc" id="L166">      }</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">    } else if (value instanceof Document) {</span>
-<span class="fc" id="L168">      Document valdoc = (Document) value;</span>
-<span class="fc" id="L169">      Node lastChild = valdoc.getLastChild();</span>
-<span class="fc" id="L170">      NodeList list = lastChild.getChildNodes();</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">      for (int i = 0; i &lt; list.getLength(); i++) {</span>
-<span class="fc" id="L172">        Node newNode = element.getOwnerDocument().importNode(list.item(i), true);</span>
-<span class="fc" id="L173">        element.appendChild(newNode);</span>
+<span class="fc" id="L167">      }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">    } else if (value instanceof Document) {</span>
+<span class="fc" id="L169">      Document valdoc = (Document) value;</span>
+<span class="fc" id="L170">      Node lastChild = valdoc.getLastChild();</span>
+<span class="fc" id="L171">      NodeList list = lastChild.getChildNodes();</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">      for (int i = 0; i &lt; list.getLength(); i++) {</span>
+<span class="fc" id="L173">        Node newNode = element.getOwnerDocument().importNode(list.item(i), true);</span>
+<span class="fc" id="L174">        element.appendChild(newNode);</span>
       }
-<span class="pc bpc" id="L175" title="1 of 2 branches missed.">    } else if (value instanceof Element) {</span>
-<span class="nc" id="L176">      Node newNode = element.getOwnerDocument().importNode((Element) value, true);</span>
-<span class="nc" id="L177">      element.appendChild(newNode);</span>
-<span class="nc" id="L178">    } else {</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">    } else if (value instanceof Element) {</span>
+<span class="nc" id="L177">      Node newNode = element.getOwnerDocument().importNode((Element) value, true);</span>
+<span class="nc" id="L178">      element.appendChild(newNode);</span>
+<span class="nc" id="L179">    } else {</span>
       // Find text child element
-<span class="fc" id="L180">      NodeList texts = prop.getChildNodes();</span>
-<span class="pc bpc" id="L181" title="1 of 2 branches missed.">      if (texts.getLength() == 1) {</span>
-<span class="nc" id="L182">        Node child = texts.item(0);</span>
-<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (child instanceof CharacterData) {</span>
+<span class="fc" id="L181">      NodeList texts = prop.getChildNodes();</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">      if (texts.getLength() == 1) {</span>
+<span class="nc" id="L183">        Node child = texts.item(0);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (child instanceof CharacterData) {</span>
           // Use existing text.
-<span class="nc" id="L185">          data = (CharacterData) child;</span>
+<span class="nc" id="L186">          data = (CharacterData) child;</span>
         } else {
           // Remove non-text, add text.
-<span class="nc" id="L188">          prop.removeChild(child);</span>
-<span class="nc" id="L189">          Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
-<span class="nc" id="L190">          prop.appendChild(text);</span>
-<span class="nc" id="L191">          data = text;</span>
+<span class="nc" id="L189">          prop.removeChild(child);</span>
+<span class="nc" id="L190">          Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
+<span class="nc" id="L191">          prop.appendChild(text);</span>
+<span class="nc" id="L192">          data = text;</span>
         }
-<span class="pc bpc" id="L193" title="1 of 2 branches missed.">      } else if (texts.getLength() &gt; 1) {</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">      } else if (texts.getLength() &gt; 1) {</span>
         // Remove all, add text.
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        for (int i = texts.getLength() - 1; i &gt;= 0; i--) {</span>
-<span class="nc" id="L196">          prop.removeChild(texts.item(i));</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        for (int i = texts.getLength() - 1; i &gt;= 0; i--) {</span>
+<span class="nc" id="L197">          prop.removeChild(texts.item(i));</span>
         }
-<span class="nc" id="L198">        Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
-<span class="nc" id="L199">        prop.appendChild(text);</span>
-<span class="nc" id="L200">        data = text;</span>
-<span class="nc" id="L201">      } else {</span>
+<span class="nc" id="L199">        Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
+<span class="nc" id="L200">        prop.appendChild(text);</span>
+<span class="nc" id="L201">        data = text;</span>
+<span class="nc" id="L202">      } else {</span>
         // Add text.
-<span class="fc" id="L203">        Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
-<span class="fc" id="L204">        prop.appendChild(text);</span>
-<span class="fc" id="L205">        data = text;</span>
+<span class="fc" id="L204">        Text text = prop.getOwnerDocument().createTextNode(String.valueOf(value));</span>
+<span class="fc" id="L205">        prop.appendChild(text);</span>
+<span class="fc" id="L206">        data = text;</span>
       }
-<span class="fc" id="L207">      data.setData(String.valueOf(value));</span>
+<span class="fc" id="L208">      data.setData(String.valueOf(value));</span>
     }
 
     // Set type attribute
     // prop.setAttribute(&quot;type&quot;, value == null ? &quot;null&quot; : value.getClass().getName());
 
-<span class="fc" id="L213">  }</span>
+<span class="fc" id="L214">  }</span>
 
   /**
    * Gets the element value.
    *
    * @param element
    *          the element
+   *
    * @return the element value
    */
   private Object getElementValue(Element element) {
-<span class="fc" id="L223">    StringBuilder value = null;</span>
+<span class="fc" id="L225">    StringBuilder value = null;</span>
 
-<span class="fc" id="L225">    Element prop = element;</span>
+<span class="fc" id="L227">    Element prop = element;</span>
 
-<span class="pc bpc" id="L227" title="1 of 2 branches missed.">    if (prop != null) {</span>
+<span class="pc bpc" id="L229" title="1 of 2 branches missed.">    if (prop != null) {</span>
       // Find text child elements
-<span class="fc" id="L229">      NodeList texts = prop.getChildNodes();</span>
-<span class="pc bpc" id="L230" title="1 of 2 branches missed.">      if (texts.getLength() &gt; 0) {</span>
-<span class="fc" id="L231">        value = new StringBuilder();</span>
-<span class="fc bfc" id="L232" title="All 2 branches covered.">        for (int i = 0; i &lt; texts.getLength(); i++) {</span>
-<span class="fc" id="L233">          Node text = texts.item(i);</span>
-<span class="pc bpc" id="L234" title="1 of 2 branches missed.">          if (text instanceof CharacterData) {</span>
-<span class="fc" id="L235">            value.append(((CharacterData) text).getData());</span>
+<span class="fc" id="L231">      NodeList texts = prop.getChildNodes();</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">      if (texts.getLength() &gt; 0) {</span>
+<span class="fc" id="L233">        value = new StringBuilder();</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        for (int i = 0; i &lt; texts.getLength(); i++) {</span>
+<span class="fc" id="L235">          Node text = texts.item(i);</span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">          if (text instanceof CharacterData) {</span>
+<span class="fc" id="L237">            value.append(((CharacterData) text).getData());</span>
           }
         }
       }
@@ -241,10 +243,10 @@ import com.ibatis.common.resources.Resources;
     // convert to proper type
     // value = convert(value.toString());
 
-<span class="pc bpc" id="L244" title="1 of 2 branches missed.">    if (value == null) {</span>
-<span class="nc" id="L245">      return null;</span>
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">    if (value == null) {</span>
+<span class="nc" id="L247">      return null;</span>
     } else {
-<span class="fc" id="L247">      return value.toString();</span>
+<span class="fc" id="L249">      return value.toString();</span>
     }
   }
 
@@ -257,27 +259,28 @@ import com.ibatis.common.resources.Resources;
    *          the name
    * @param create
    *          the create
+   *
    * @return the element
    */
   private Element findNestedNodeByName(Element element, String name, boolean create) {
-<span class="fc" id="L263">    Element child = element;</span>
+<span class="fc" id="L266">    Element child = element;</span>
 
-<span class="fc" id="L265">    StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;, false);</span>
-<span class="fc bfc" id="L266" title="All 2 branches covered.">    while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L267">      String childName = parser.nextToken();</span>
-<span class="fc bfc" id="L268" title="All 2 branches covered.">      if (childName.indexOf('[') &gt; -1) {</span>
-<span class="fc" id="L269">        String propName = childName.substring(0, childName.indexOf('['));</span>
-<span class="fc" id="L270">        int i = Integer.parseInt(childName.substring(childName.indexOf('[') + 1, childName.indexOf(']')));</span>
-<span class="fc" id="L271">        child = findNodeByName(child, propName, i, create);</span>
-<span class="fc" id="L272">      } else {</span>
-<span class="fc" id="L273">        child = findNodeByName(child, childName, 0, create);</span>
+<span class="fc" id="L268">    StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;, false);</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">    while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L270">      String childName = parser.nextToken();</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">      if (childName.indexOf('[') &gt; -1) {</span>
+<span class="fc" id="L272">        String propName = childName.substring(0, childName.indexOf('['));</span>
+<span class="fc" id="L273">        int i = Integer.parseInt(childName.substring(childName.indexOf('[') + 1, childName.indexOf(']')));</span>
+<span class="fc" id="L274">        child = findNodeByName(child, propName, i, create);</span>
+<span class="fc" id="L275">      } else {</span>
+<span class="fc" id="L276">        child = findNodeByName(child, childName, 0, create);</span>
       }
-<span class="pc bpc" id="L275" title="1 of 2 branches missed.">      if (child == null) {</span>
-<span class="nc" id="L276">        break;</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">      if (child == null) {</span>
+<span class="nc" id="L279">        break;</span>
       }
-<span class="fc" id="L278">    }</span>
+<span class="fc" id="L281">    }</span>
 
-<span class="fc" id="L280">    return child;</span>
+<span class="fc" id="L283">    return child;</span>
   }
 
   /**
@@ -291,24 +294,25 @@ import com.ibatis.common.resources.Resources;
    *          the index
    * @param create
    *          the create
+   *
    * @return the element
    */
   private Element findNodeByName(Element element, String name, int index, boolean create) {
-<span class="fc" id="L297">    Element prop = null;</span>
+<span class="fc" id="L301">    Element prop = null;</span>
 
     // Find named property element
-<span class="fc" id="L300">    NodeList propNodes = element.getElementsByTagName(name);</span>
-<span class="fc bfc" id="L301" title="All 2 branches covered.">    if (propNodes.getLength() &gt; index) {</span>
-<span class="fc" id="L302">      prop = (Element) propNodes.item(index);</span>
+<span class="fc" id="L304">    NodeList propNodes = element.getElementsByTagName(name);</span>
+<span class="fc bfc" id="L305" title="All 2 branches covered.">    if (propNodes.getLength() &gt; index) {</span>
+<span class="fc" id="L306">      prop = (Element) propNodes.item(index);</span>
     } else {
-<span class="pc bpc" id="L304" title="1 of 2 branches missed.">      if (create) {</span>
-<span class="fc bfc" id="L305" title="All 2 branches covered.">        for (int i = 0; i &lt; index + 1; i++) {</span>
-<span class="fc" id="L306">          prop = element.getOwnerDocument().createElement(name);</span>
-<span class="fc" id="L307">          element.appendChild(prop);</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">      if (create) {</span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">        for (int i = 0; i &lt; index + 1; i++) {</span>
+<span class="fc" id="L310">          prop = element.getOwnerDocument().createElement(name);</span>
+<span class="fc" id="L311">          element.appendChild(prop);</span>
         }
       }
     }
-<span class="fc" id="L311">    return prop;</span>
+<span class="fc" id="L315">    return prop;</span>
   }
 
   /**
@@ -318,57 +322,58 @@ import com.ibatis.common.resources.Resources;
    *          - the node to process
    * @param indent
    *          - how to indent the children of the node
+   *
    * @return The node as a String
    */
   public static String nodeToString(Node node, String indent) {
-<span class="nc" id="L324">    StringWriter stringWriter = new StringWriter();</span>
-<span class="nc" id="L325">    PrintWriter printWriter = new PrintWriter(stringWriter);</span>
+<span class="nc" id="L329">    StringWriter stringWriter = new StringWriter();</span>
+<span class="nc" id="L330">    PrintWriter printWriter = new PrintWriter(stringWriter);</span>
 
-<span class="nc bnc" id="L327" title="All 4 branches missed.">    switch (node.getNodeType()) {</span>
+<span class="nc bnc" id="L332" title="All 4 branches missed.">    switch (node.getNodeType()) {</span>
 
       case Node.DOCUMENT_NODE:
-<span class="nc" id="L330">        printWriter.println(&quot;&lt;xml version=\&quot;1.0\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L335">        printWriter.println(&quot;&lt;xml version=\&quot;1.0\&quot;&gt;\n&quot;);</span>
         // recurse on each child
-<span class="nc" id="L332">        NodeList nodes = node.getChildNodes();</span>
-<span class="nc bnc" id="L333" title="All 2 branches missed.">        if (nodes != null) {</span>
-<span class="nc bnc" id="L334" title="All 2 branches missed.">          for (int i = 0; i &lt; nodes.getLength(); i++) {</span>
-<span class="nc" id="L335">            printWriter.print(nodeToString(nodes.item(i), &quot;&quot;));</span>
+<span class="nc" id="L337">        NodeList nodes = node.getChildNodes();</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">        if (nodes != null) {</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">          for (int i = 0; i &lt; nodes.getLength(); i++) {</span>
+<span class="nc" id="L340">            printWriter.print(nodeToString(nodes.item(i), &quot;&quot;));</span>
           }
         }
         break;
 
       case Node.ELEMENT_NODE:
-<span class="nc" id="L341">        String name = node.getNodeName();</span>
-<span class="nc" id="L342">        printWriter.print(indent + &quot;&lt;&quot; + name);</span>
-<span class="nc" id="L343">        NamedNodeMap attributes = node.getAttributes();</span>
-<span class="nc bnc" id="L344" title="All 2 branches missed.">        for (int i = 0; i &lt; attributes.getLength(); i++) {</span>
-<span class="nc" id="L345">          Node current = attributes.item(i);</span>
-<span class="nc" id="L346">          printWriter.print(&quot; &quot; + current.getNodeName() + &quot;=\&quot;&quot; + current.getNodeValue() + &quot;\&quot;&quot;);</span>
+<span class="nc" id="L346">        String name = node.getNodeName();</span>
+<span class="nc" id="L347">        printWriter.print(indent + &quot;&lt;&quot; + name);</span>
+<span class="nc" id="L348">        NamedNodeMap attributes = node.getAttributes();</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">        for (int i = 0; i &lt; attributes.getLength(); i++) {</span>
+<span class="nc" id="L350">          Node current = attributes.item(i);</span>
+<span class="nc" id="L351">          printWriter.print(&quot; &quot; + current.getNodeName() + &quot;=\&quot;&quot; + current.getNodeValue() + &quot;\&quot;&quot;);</span>
         }
-<span class="nc" id="L348">        printWriter.print(&quot;&gt;&quot;);</span>
+<span class="nc" id="L353">        printWriter.print(&quot;&gt;&quot;);</span>
 
         // recurse on each child
-<span class="nc" id="L351">        NodeList children = node.getChildNodes();</span>
-<span class="nc bnc" id="L352" title="All 2 branches missed.">        if (children != null) {</span>
-<span class="nc bnc" id="L353" title="All 2 branches missed.">          for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="nc" id="L354">            printWriter.print(nodeToString(children.item(i), indent + indent));</span>
+<span class="nc" id="L356">        NodeList children = node.getChildNodes();</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">        if (children != null) {</span>
+<span class="nc bnc" id="L358" title="All 2 branches missed.">          for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="nc" id="L359">            printWriter.print(nodeToString(children.item(i), indent + indent));</span>
           }
         }
 
-<span class="nc" id="L358">        printWriter.print(&quot;&lt;/&quot; + name + &quot;&gt;&quot;);</span>
-<span class="nc" id="L359">        break;</span>
+<span class="nc" id="L363">        printWriter.print(&quot;&lt;/&quot; + name + &quot;&gt;&quot;);</span>
+<span class="nc" id="L364">        break;</span>
 
       case Node.TEXT_NODE:
-<span class="nc" id="L362">        printWriter.print(node.getNodeValue());</span>
+<span class="nc" id="L367">        printWriter.print(node.getNodeValue());</span>
         break;
     }
 
-<span class="nc" id="L366">    printWriter.flush();</span>
-<span class="nc" id="L367">    String result = stringWriter.getBuffer().toString();</span>
-<span class="nc" id="L368">    printWriter.close();</span>
+<span class="nc" id="L371">    printWriter.flush();</span>
+<span class="nc" id="L372">    String result = stringWriter.getBuffer().toString();</span>
+<span class="nc" id="L373">    printWriter.close();</span>
 
-<span class="nc" id="L370">    return result;</span>
+<span class="nc" id="L375">    return result;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ClassInfo.java</span></div><h1>ClassInfo.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ClassInfo.java</span></div><h1>ClassInfo.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -171,7 +171,7 @@ public class ClassInfo {
 <span class="fc" id="L171">          addGetMethod(name, method);</span>
         }
 <span class="pc bpc" id="L173" title="1 of 4 branches missed.">      } else if (name.startsWith(&quot;is&quot;) &amp;&amp; name.length() &gt; 2) {</span>
-<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        if (method.getParameterTypes().length == 0) {</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (method.getParameterTypes().length == 0) {</span>
 <span class="fc" id="L175">          name = dropCase(name);</span>
 <span class="fc" id="L176">          addGetMethod(name, method);</span>
         }
@@ -302,11 +302,11 @@ public class ClassInfo {
 <span class="pc bpc" id="L302" title="1 of 2 branches missed.">      if (canAccessPrivateMethods()) {</span>
         try {
 <span class="fc" id="L304">          field.setAccessible(true);</span>
-<span class="nc" id="L305">        } catch (Exception e) {</span>
+<span class="fc" id="L305">        } catch (Exception e) {</span>
           // Ignored. This is only a final precaution, nothing we can do.
 <span class="fc" id="L307">        }</span>
       }
-<span class="pc bpc" id="L309" title="1 of 2 branches missed.">      if (field.isAccessible()) {</span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">      if (field.isAccessible()) {</span>
 <span class="fc bfc" id="L310" title="All 2 branches covered.">        if (!setMethods.containsKey(field.getName())) {</span>
 <span class="fc" id="L311">          addSetField(field);</span>
         }
@@ -348,27 +348,28 @@ public class ClassInfo {
    *
    * @param cls
    *          The class
+   *
    * @return An array containing all methods in this class
    */
   private Method[] getClassMethods(Class cls) {
-<span class="fc" id="L354">    HashMap uniqueMethods = new HashMap();</span>
-<span class="fc" id="L355">    Class currentClass = cls;</span>
-<span class="fc bfc" id="L356" title="All 2 branches covered.">    while (currentClass != null) {</span>
-<span class="fc" id="L357">      addUniqueMethods(uniqueMethods, currentClass.getDeclaredMethods());</span>
+<span class="fc" id="L355">    HashMap uniqueMethods = new HashMap();</span>
+<span class="fc" id="L356">    Class currentClass = cls;</span>
+<span class="fc bfc" id="L357" title="All 2 branches covered.">    while (currentClass != null) {</span>
+<span class="fc" id="L358">      addUniqueMethods(uniqueMethods, currentClass.getDeclaredMethods());</span>
 
       // we also need to look for interface methods -
       // because the class may be abstract
-<span class="fc" id="L361">      Class[] interfaces = currentClass.getInterfaces();</span>
-<span class="fc bfc" id="L362" title="All 2 branches covered.">      for (int i = 0; i &lt; interfaces.length; i++) {</span>
-<span class="fc" id="L363">        addUniqueMethods(uniqueMethods, interfaces[i].getMethods());</span>
+<span class="fc" id="L362">      Class[] interfaces = currentClass.getInterfaces();</span>
+<span class="fc bfc" id="L363" title="All 2 branches covered.">      for (int i = 0; i &lt; interfaces.length; i++) {</span>
+<span class="fc" id="L364">        addUniqueMethods(uniqueMethods, interfaces[i].getMethods());</span>
       }
 
-<span class="fc" id="L366">      currentClass = currentClass.getSuperclass();</span>
-<span class="fc" id="L367">    }</span>
+<span class="fc" id="L367">      currentClass = currentClass.getSuperclass();</span>
+<span class="fc" id="L368">    }</span>
 
-<span class="fc" id="L369">    Collection methods = uniqueMethods.values();</span>
+<span class="fc" id="L370">    Collection methods = uniqueMethods.values();</span>
 
-<span class="fc" id="L371">    return (Method[]) methods.toArray(new Method[methods.size()]);</span>
+<span class="fc" id="L372">    return (Method[]) methods.toArray(new Method[methods.size()]);</span>
   }
 
   /**
@@ -380,49 +381,50 @@ public class ClassInfo {
    *          the methods
    */
   private void addUniqueMethods(HashMap uniqueMethods, Method[] methods) {
-<span class="fc bfc" id="L383" title="All 2 branches covered.">    for (Method currentMethod : methods) {</span>
-<span class="fc bfc" id="L384" title="All 2 branches covered.">      if (!currentMethod.isBridge()) {</span>
-<span class="fc" id="L385">        String signature = getSignature(currentMethod);</span>
+<span class="fc bfc" id="L384" title="All 2 branches covered.">    for (Method currentMethod : methods) {</span>
+<span class="fc bfc" id="L385" title="All 2 branches covered.">      if (!currentMethod.isBridge()) {</span>
+<span class="fc" id="L386">        String signature = getSignature(currentMethod);</span>
         // check to see if the method is already known
         // if it is known, then an extended class must have
         // overridden a method
-<span class="fc bfc" id="L389" title="All 2 branches covered.">        if (!uniqueMethods.containsKey(signature)) {</span>
-<span class="pc bpc" id="L390" title="1 of 2 branches missed.">          if (canAccessPrivateMethods()) {</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        if (!uniqueMethods.containsKey(signature)) {</span>
+<span class="pc bpc" id="L391" title="1 of 2 branches missed.">          if (canAccessPrivateMethods()) {</span>
             try {
-<span class="fc" id="L392">              currentMethod.setAccessible(true);</span>
-<span class="nc" id="L393">            } catch (Exception e) {</span>
+<span class="fc" id="L393">              currentMethod.setAccessible(true);</span>
+<span class="fc" id="L394">            } catch (Exception e) {</span>
               // Ignored. This is only a final precaution, nothing we can do.
-<span class="fc" id="L395">            }</span>
+<span class="fc" id="L396">            }</span>
           }
 
-<span class="fc" id="L398">          uniqueMethods.put(signature, currentMethod);</span>
+<span class="fc" id="L399">          uniqueMethods.put(signature, currentMethod);</span>
         }
       }
     }
-<span class="fc" id="L402">  }</span>
+<span class="fc" id="L403">  }</span>
 
   /**
    * Gets the signature.
    *
    * @param method
    *          the method
+   *
    * @return the signature
    */
   private String getSignature(Method method) {
-<span class="fc" id="L412">    StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L413">    sb.append(method.getName());</span>
-<span class="fc" id="L414">    Class[] parameters = method.getParameterTypes();</span>
+<span class="fc" id="L414">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L415">    sb.append(method.getName());</span>
+<span class="fc" id="L416">    Class[] parameters = method.getParameterTypes();</span>
 
-<span class="fc bfc" id="L416" title="All 2 branches covered.">    for (int i = 0; i &lt; parameters.length; i++) {</span>
-<span class="fc bfc" id="L417" title="All 2 branches covered.">      if (i == 0) {</span>
-<span class="fc" id="L418">        sb.append(':');</span>
+<span class="fc bfc" id="L418" title="All 2 branches covered.">    for (int i = 0; i &lt; parameters.length; i++) {</span>
+<span class="fc bfc" id="L419" title="All 2 branches covered.">      if (i == 0) {</span>
+<span class="fc" id="L420">        sb.append(':');</span>
       } else {
-<span class="fc" id="L420">        sb.append(',');</span>
+<span class="fc" id="L422">        sb.append(',');</span>
       }
-<span class="fc" id="L422">      sb.append(parameters[i].getName());</span>
+<span class="fc" id="L424">      sb.append(parameters[i].getName());</span>
     }
 
-<span class="fc" id="L425">    return sb.toString();</span>
+<span class="fc" id="L427">    return sb.toString();</span>
   }
 
   /**
@@ -430,22 +432,23 @@ public class ClassInfo {
    *
    * @param name
    *          the name
+   *
    * @return the string
    */
   private static String dropCase(String name) {
-<span class="fc bfc" id="L436" title="All 2 branches covered.">    if (name.startsWith(&quot;is&quot;)) {</span>
-<span class="fc" id="L437">      name = name.substring(2);</span>
-<span class="pc bpc" id="L438" title="1 of 4 branches missed.">    } else if (name.startsWith(&quot;get&quot;) || name.startsWith(&quot;set&quot;)) {</span>
-<span class="fc" id="L439">      name = name.substring(3);</span>
+<span class="fc bfc" id="L439" title="All 2 branches covered.">    if (name.startsWith(&quot;is&quot;)) {</span>
+<span class="fc" id="L440">      name = name.substring(2);</span>
+<span class="pc bpc" id="L441" title="1 of 4 branches missed.">    } else if (name.startsWith(&quot;get&quot;) || name.startsWith(&quot;set&quot;)) {</span>
+<span class="fc" id="L442">      name = name.substring(3);</span>
     } else {
-<span class="nc" id="L441">      throw new ProbeException(&quot;Error parsing property name '&quot; + name + &quot;'.  Didn't start with 'is', 'get' or 'set'.&quot;);</span>
+<span class="nc" id="L444">      throw new ProbeException(&quot;Error parsing property name '&quot; + name + &quot;'.  Didn't start with 'is', 'get' or 'set'.&quot;);</span>
     }
 
-<span class="pc bpc" id="L444" title="3 of 6 branches missed.">    if (name.length() == 1 || (name.length() &gt; 1 &amp;&amp; !Character.isUpperCase(name.charAt(1)))) {</span>
-<span class="fc" id="L445">      name = name.substring(0, 1).toLowerCase(Locale.US) + name.substring(1);</span>
+<span class="pc bpc" id="L447" title="3 of 6 branches missed.">    if (name.length() == 1 || (name.length() &gt; 1 &amp;&amp; !Character.isUpperCase(name.charAt(1)))) {</span>
+<span class="fc" id="L448">      name = name.substring(0, 1).toLowerCase(Locale.US) + name.substring(1);</span>
     }
 
-<span class="fc" id="L448">    return name;</span>
+<span class="fc" id="L451">    return name;</span>
   }
 
   /**
@@ -455,14 +458,14 @@ public class ClassInfo {
    */
   private static boolean canAccessPrivateMethods() {
     try {
-<span class="fc" id="L458">      SecurityManager securityManager = System.getSecurityManager();</span>
-<span class="pc bpc" id="L459" title="1 of 2 branches missed.">      if (null != securityManager) {</span>
-<span class="nc" id="L460">        securityManager.checkPermission(new ReflectPermission(&quot;suppressAccessChecks&quot;));</span>
+<span class="fc" id="L461">      SecurityManager securityManager = System.getSecurityManager();</span>
+<span class="pc bpc" id="L462" title="1 of 2 branches missed.">      if (null != securityManager) {</span>
+<span class="nc" id="L463">        securityManager.checkPermission(new ReflectPermission(&quot;suppressAccessChecks&quot;));</span>
       }
-<span class="nc" id="L462">    } catch (SecurityException e) {</span>
-<span class="nc" id="L463">      return false;</span>
-<span class="fc" id="L464">    }</span>
-<span class="fc" id="L465">    return true;</span>
+<span class="nc" id="L465">    } catch (SecurityException e) {</span>
+<span class="nc" id="L466">      return false;</span>
+<span class="fc" id="L467">    }</span>
+<span class="fc" id="L468">    return true;</span>
   }
 
   /**
@@ -471,7 +474,7 @@ public class ClassInfo {
    * @return The class name
    */
   public String getClassName() {
-<span class="nc" id="L474">    return className;</span>
+<span class="nc" id="L477">    return className;</span>
   }
 
   /**
@@ -480,14 +483,14 @@ public class ClassInfo {
    * @return the object
    */
   public Object instantiateClass() {
-<span class="pc bpc" id="L483" title="1 of 2 branches missed.">    if (defaultConstructor != null) {</span>
+<span class="pc bpc" id="L486" title="1 of 2 branches missed.">    if (defaultConstructor != null) {</span>
       try {
-<span class="fc" id="L485">        return defaultConstructor.newInstance(null);</span>
-<span class="nc" id="L486">      } catch (Exception e) {</span>
-<span class="nc" id="L487">        throw new RuntimeException(&quot;Error instantiating class. Cause: &quot; + e, e);</span>
+<span class="fc" id="L488">        return defaultConstructor.newInstance(null);</span>
+<span class="nc" id="L489">      } catch (Exception e) {</span>
+<span class="nc" id="L490">        throw new RuntimeException(&quot;Error instantiating class. Cause: &quot; + e, e);</span>
       }
     } else {
-<span class="nc" id="L490">      throw new RuntimeException(&quot;Error instantiating class.  There is no default constructor for class &quot; + className);</span>
+<span class="nc" id="L493">      throw new RuntimeException(&quot;Error instantiating class.  There is no default constructor for class &quot; + className);</span>
     }
   }
 
@@ -496,19 +499,20 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the property
+   *
    * @return The Method
    */
   public Method getSetter(String propertyName) {
-<span class="fc" id="L502">    Invoker method = (Invoker) setMethods.get(propertyName);</span>
-<span class="pc bpc" id="L503" title="1 of 2 branches missed.">    if (method == null) {</span>
-<span class="nc" id="L504">      throw new ProbeException(</span>
+<span class="fc" id="L506">    Invoker method = (Invoker) setMethods.get(propertyName);</span>
+<span class="pc bpc" id="L507" title="1 of 2 branches missed.">    if (method == null) {</span>
+<span class="nc" id="L508">      throw new ProbeException(</span>
           &quot;There is no WRITEABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="pc bpc" id="L507" title="1 of 2 branches missed.">    if (!(method instanceof MethodInvoker)) {</span>
-<span class="nc" id="L508">      throw new ProbeException(</span>
+<span class="pc bpc" id="L511" title="1 of 2 branches missed.">    if (!(method instanceof MethodInvoker)) {</span>
+<span class="nc" id="L512">      throw new ProbeException(</span>
           &quot;Can't get setter method because '&quot; + propertyName + &quot;' is a field in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L511">    return ((MethodInvoker) method).getMethod();</span>
+<span class="fc" id="L515">    return ((MethodInvoker) method).getMethod();</span>
   }
 
   /**
@@ -516,19 +520,20 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the property
+   *
    * @return The Method
    */
   public Method getGetter(String propertyName) {
-<span class="fc" id="L522">    Invoker method = (Invoker) getMethods.get(propertyName);</span>
-<span class="pc bpc" id="L523" title="1 of 2 branches missed.">    if (method == null) {</span>
-<span class="nc" id="L524">      throw new ProbeException(</span>
+<span class="fc" id="L527">    Invoker method = (Invoker) getMethods.get(propertyName);</span>
+<span class="pc bpc" id="L528" title="1 of 2 branches missed.">    if (method == null) {</span>
+<span class="nc" id="L529">      throw new ProbeException(</span>
           &quot;There is no READABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="pc bpc" id="L527" title="1 of 2 branches missed.">    if (!(method instanceof MethodInvoker)) {</span>
-<span class="nc" id="L528">      throw new ProbeException(</span>
+<span class="pc bpc" id="L532" title="1 of 2 branches missed.">    if (!(method instanceof MethodInvoker)) {</span>
+<span class="nc" id="L533">      throw new ProbeException(</span>
           &quot;Can't get getter method because '&quot; + propertyName + &quot;' is a field in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L531">    return ((MethodInvoker) method).getMethod();</span>
+<span class="fc" id="L536">    return ((MethodInvoker) method).getMethod();</span>
   }
 
   /**
@@ -536,15 +541,16 @@ public class ClassInfo {
    *
    * @param propertyName
    *          the property name
+   *
    * @return the sets the invoker
    */
   public Invoker getSetInvoker(String propertyName) {
-<span class="fc" id="L542">    Invoker method = (Invoker) setMethods.get(propertyName);</span>
-<span class="pc bpc" id="L543" title="1 of 2 branches missed.">    if (method == null) {</span>
-<span class="nc" id="L544">      throw new ProbeException(</span>
+<span class="fc" id="L548">    Invoker method = (Invoker) setMethods.get(propertyName);</span>
+<span class="pc bpc" id="L549" title="1 of 2 branches missed.">    if (method == null) {</span>
+<span class="nc" id="L550">      throw new ProbeException(</span>
           &quot;There is no WRITEABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L547">    return method;</span>
+<span class="fc" id="L553">    return method;</span>
   }
 
   /**
@@ -552,15 +558,16 @@ public class ClassInfo {
    *
    * @param propertyName
    *          the property name
+   *
    * @return the gets the invoker
    */
   public Invoker getGetInvoker(String propertyName) {
-<span class="fc" id="L558">    Invoker method = (Invoker) getMethods.get(propertyName);</span>
-<span class="pc bpc" id="L559" title="1 of 2 branches missed.">    if (method == null) {</span>
-<span class="nc" id="L560">      throw new ProbeException(</span>
+<span class="fc" id="L565">    Invoker method = (Invoker) getMethods.get(propertyName);</span>
+<span class="pc bpc" id="L566" title="1 of 2 branches missed.">    if (method == null) {</span>
+<span class="nc" id="L567">      throw new ProbeException(</span>
           &quot;There is no READABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L563">    return method;</span>
+<span class="fc" id="L570">    return method;</span>
   }
 
   /**
@@ -568,15 +575,16 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property
+   *
    * @return The Class of the propery setter
    */
   public Class getSetterType(String propertyName) {
-<span class="fc" id="L574">    Class clazz = (Class) setTypes.get(propertyName);</span>
-<span class="fc bfc" id="L575" title="All 2 branches covered.">    if (clazz == null) {</span>
-<span class="fc" id="L576">      throw new ProbeException(</span>
+<span class="fc" id="L582">    Class clazz = (Class) setTypes.get(propertyName);</span>
+<span class="fc bfc" id="L583" title="All 2 branches covered.">    if (clazz == null) {</span>
+<span class="fc" id="L584">      throw new ProbeException(</span>
           &quot;There is no WRITEABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L579">    return clazz;</span>
+<span class="fc" id="L587">    return clazz;</span>
   }
 
   /**
@@ -584,15 +592,16 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property
+   *
    * @return The Class of the propery getter
    */
   public Class getGetterType(String propertyName) {
-<span class="fc" id="L590">    Class clazz = (Class) getTypes.get(propertyName);</span>
-<span class="pc bpc" id="L591" title="1 of 2 branches missed.">    if (clazz == null) {</span>
-<span class="nc" id="L592">      throw new ProbeException(</span>
+<span class="fc" id="L599">    Class clazz = (Class) getTypes.get(propertyName);</span>
+<span class="pc bpc" id="L600" title="1 of 2 branches missed.">    if (clazz == null) {</span>
+<span class="nc" id="L601">      throw new ProbeException(</span>
           &quot;There is no READABLE property named '&quot; + propertyName + &quot;' in class '&quot; + className + &quot;'&quot;);
     }
-<span class="fc" id="L595">    return clazz;</span>
+<span class="fc" id="L604">    return clazz;</span>
   }
 
   /**
@@ -601,7 +610,7 @@ public class ClassInfo {
    * @return The array
    */
   public String[] getReadablePropertyNames() {
-<span class="nc" id="L604">    return readablePropertyNames;</span>
+<span class="nc" id="L613">    return readablePropertyNames;</span>
   }
 
   /**
@@ -610,7 +619,7 @@ public class ClassInfo {
    * @return The array
    */
   public String[] getWriteablePropertyNames() {
-<span class="fc" id="L613">    return writeablePropertyNames;</span>
+<span class="fc" id="L622">    return writeablePropertyNames;</span>
   }
 
   /**
@@ -618,10 +627,11 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property to check
+   *
    * @return True if the object has a writeable property by the name
    */
   public boolean hasWritableProperty(String propertyName) {
-<span class="fc" id="L624">    return setMethods.keySet().contains(propertyName);</span>
+<span class="fc" id="L634">    return setMethods.keySet().contains(propertyName);</span>
   }
 
   /**
@@ -629,10 +639,11 @@ public class ClassInfo {
    *
    * @param propertyName
    *          - the name of the property to check
+   *
    * @return True if the object has a readable property by the name
    */
   public boolean hasReadableProperty(String propertyName) {
-<span class="fc" id="L635">    return getMethods.keySet().contains(propertyName);</span>
+<span class="fc" id="L646">    return getMethods.keySet().contains(propertyName);</span>
   }
 
   /**
@@ -640,23 +651,24 @@ public class ClassInfo {
    *
    * @param clazz
    *          The class to check
+   *
    * @return True if the class is known
    */
   public static boolean isKnownType(Class clazz) {
-<span class="pc bpc" id="L646" title="1 of 2 branches missed.">    if (SIMPLE_TYPE_SET.contains(clazz)) {</span>
-<span class="nc" id="L647">      return true;</span>
-<span class="pc bpc" id="L648" title="1 of 2 branches missed.">    } else if (Collection.class.isAssignableFrom(clazz)) {</span>
-<span class="nc" id="L649">      return true;</span>
-<span class="pc bpc" id="L650" title="1 of 2 branches missed.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
-<span class="nc" id="L651">      return true;</span>
-<span class="pc bpc" id="L652" title="1 of 2 branches missed.">    } else if (List.class.isAssignableFrom(clazz)) {</span>
-<span class="nc" id="L653">      return true;</span>
-<span class="pc bpc" id="L654" title="1 of 2 branches missed.">    } else if (Set.class.isAssignableFrom(clazz)) {</span>
-<span class="nc" id="L655">      return true;</span>
-<span class="pc bpc" id="L656" title="1 of 2 branches missed.">    } else if (Iterator.class.isAssignableFrom(clazz)) {</span>
-<span class="nc" id="L657">      return true;</span>
+<span class="pc bpc" id="L658" title="1 of 2 branches missed.">    if (SIMPLE_TYPE_SET.contains(clazz)) {</span>
+<span class="nc" id="L659">      return true;</span>
+<span class="pc bpc" id="L660" title="1 of 2 branches missed.">    } else if (Collection.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L661">      return true;</span>
+<span class="pc bpc" id="L662" title="1 of 2 branches missed.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L663">      return true;</span>
+<span class="pc bpc" id="L664" title="1 of 2 branches missed.">    } else if (List.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L665">      return true;</span>
+<span class="pc bpc" id="L666" title="1 of 2 branches missed.">    } else if (Set.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L667">      return true;</span>
+<span class="pc bpc" id="L668" title="1 of 2 branches missed.">    } else if (Iterator.class.isAssignableFrom(clazz)) {</span>
+<span class="nc" id="L669">      return true;</span>
     } else {
-<span class="fc" id="L659">      return false;</span>
+<span class="fc" id="L671">      return false;</span>
     }
   }
 
@@ -665,18 +677,19 @@ public class ClassInfo {
    *
    * @param clazz
    *          The class for which to lookup the method cache.
+   *
    * @return The method cache for the class
    */
   public static ClassInfo getInstance(Class clazz) {
-<span class="pc bpc" id="L671" title="1 of 2 branches missed.">    if (cacheEnabled) {</span>
-<span class="fc" id="L672">      ClassInfo cached = (ClassInfo) CLASS_INFO_MAP.get(clazz);</span>
-<span class="fc bfc" id="L673" title="All 2 branches covered.">      if (cached == null) {</span>
-<span class="fc" id="L674">        cached = new ClassInfo(clazz);</span>
-<span class="fc" id="L675">        CLASS_INFO_MAP.put(clazz, cached);</span>
+<span class="pc bpc" id="L684" title="1 of 2 branches missed.">    if (cacheEnabled) {</span>
+<span class="fc" id="L685">      ClassInfo cached = (ClassInfo) CLASS_INFO_MAP.get(clazz);</span>
+<span class="fc bfc" id="L686" title="All 2 branches covered.">      if (cached == null) {</span>
+<span class="fc" id="L687">        cached = new ClassInfo(clazz);</span>
+<span class="fc" id="L688">        CLASS_INFO_MAP.put(clazz, cached);</span>
       }
-<span class="fc" id="L677">      return cached;</span>
+<span class="fc" id="L690">      return cached;</span>
     } else {
-<span class="nc" id="L679">      return new ClassInfo(clazz);</span>
+<span class="nc" id="L692">      return new ClassInfo(clazz);</span>
     }
   }
 
@@ -687,28 +700,29 @@ public class ClassInfo {
    *          the new cache enabled
    */
   public static void setCacheEnabled(boolean cacheEnabled) {
-<span class="fc" id="L690">    ClassInfo.cacheEnabled = cacheEnabled;</span>
-<span class="fc" id="L691">  }</span>
+<span class="fc" id="L703">    ClassInfo.cacheEnabled = cacheEnabled;</span>
+<span class="fc" id="L704">  }</span>
 
   /**
    * Examines a Throwable object and gets it's root cause.
    *
    * @param t
    *          - the exception to examine
+   *
    * @return The root cause
    */
   public static Throwable unwrapThrowable(Throwable t) {
-<span class="fc" id="L701">    Throwable t2 = t;</span>
+<span class="fc" id="L715">    Throwable t2 = t;</span>
     while (true) {
-<span class="fc bfc" id="L703" title="All 2 branches covered.">      if (t2 instanceof InvocationTargetException) {</span>
-<span class="fc" id="L704">        t2 = ((InvocationTargetException) t).getTargetException();</span>
-<span class="fc bfc" id="L705" title="All 2 branches covered.">      } else if (t2 instanceof UndeclaredThrowableException) {</span>
-<span class="fc" id="L706">        t2 = ((UndeclaredThrowableException) t).getUndeclaredThrowable();</span>
+<span class="fc bfc" id="L717" title="All 2 branches covered.">      if (t2 instanceof InvocationTargetException) {</span>
+<span class="fc" id="L718">        t2 = ((InvocationTargetException) t).getTargetException();</span>
+<span class="fc bfc" id="L719" title="All 2 branches covered.">      } else if (t2 instanceof UndeclaredThrowableException) {</span>
+<span class="fc" id="L720">        t2 = ((UndeclaredThrowableException) t).getUndeclaredThrowable();</span>
       } else {
-<span class="fc" id="L708">        return t2;</span>
+<span class="fc" id="L722">        return t2;</span>
       }
     }
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseAccessPlan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">BaseAccessPlan.java</span></div><h1>BaseAccessPlan.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseAccessPlan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">BaseAccessPlan.java</span></div><h1>BaseAccessPlan.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -51,14 +51,15 @@ public abstract class BaseAccessPlan implements AccessPlan {
    *
    * @param propertyNames
    *          the property names
+   *
    * @return the types
    */
   protected Class[] getTypes(String[] propertyNames) {
-<span class="nc" id="L57">    Class[] types = new Class[propertyNames.length];</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="nc" id="L59">      types[i] = info.getGetterType(propertyNames[i]);</span>
+<span class="nc" id="L58">    Class[] types = new Class[propertyNames.length];</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L60">      types[i] = info.getGetterType(propertyNames[i]);</span>
     }
-<span class="nc" id="L61">    return types;</span>
+<span class="nc" id="L62">    return types;</span>
   }
 
   /**
@@ -66,14 +67,15 @@ public abstract class BaseAccessPlan implements AccessPlan {
    *
    * @param propertyNames
    *          the property names
+   *
    * @return the getters
    */
   protected Invoker[] getGetters(String[] propertyNames) {
-<span class="fc" id="L72">    Invoker[] methods = new Invoker[propertyNames.length];</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="fc" id="L74">      methods[i] = info.getGetInvoker(propertyNames[i]);</span>
+<span class="fc" id="L74">    Invoker[] methods = new Invoker[propertyNames.length];</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc" id="L76">      methods[i] = info.getGetInvoker(propertyNames[i]);</span>
     }
-<span class="fc" id="L76">    return methods;</span>
+<span class="fc" id="L78">    return methods;</span>
   }
 
   /**
@@ -81,14 +83,15 @@ public abstract class BaseAccessPlan implements AccessPlan {
    *
    * @param propertyNames
    *          the property names
+   *
    * @return the setters
    */
   protected Invoker[] getSetters(String[] propertyNames) {
-<span class="fc" id="L87">    Invoker[] methods = new Invoker[propertyNames.length];</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="fc" id="L89">      methods[i] = info.getSetInvoker(propertyNames[i]);</span>
+<span class="fc" id="L90">    Invoker[] methods = new Invoker[propertyNames.length];</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc" id="L92">      methods[i] = info.getSetInvoker(propertyNames[i]);</span>
     }
-<span class="fc" id="L91">    return methods;</span>
+<span class="fc" id="L94">    return methods;</span>
   }
 
   /**
@@ -96,14 +99,15 @@ public abstract class BaseAccessPlan implements AccessPlan {
    *
    * @param propertyNames
    *          the property names
+   *
    * @return the getter names
    */
   protected String[] getGetterNames(String[] propertyNames) {
-<span class="nc" id="L102">    String[] names = new String[propertyNames.length];</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="nc" id="L104">      names[i] = info.getGetter(propertyNames[i]).getName();</span>
+<span class="nc" id="L106">    String[] names = new String[propertyNames.length];</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L108">      names[i] = info.getGetter(propertyNames[i]).getName();</span>
     }
-<span class="nc" id="L106">    return names;</span>
+<span class="nc" id="L110">    return names;</span>
   }
 
   /**
@@ -111,15 +115,16 @@ public abstract class BaseAccessPlan implements AccessPlan {
    *
    * @param propertyNames
    *          the property names
+   *
    * @return the setter names
    */
   protected String[] getSetterNames(String[] propertyNames) {
-<span class="nc" id="L117">    String[] names = new String[propertyNames.length];</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="nc" id="L119">      names[i] = info.getSetter(propertyNames[i]).getName();</span>
+<span class="nc" id="L122">    String[] names = new String[propertyNames.length];</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L124">      names[i] = info.getSetter(propertyNames[i]).getName();</span>
     }
-<span class="nc" id="L121">    return names;</span>
+<span class="nc" id="L126">    return names;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

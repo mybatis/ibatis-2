@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapExecutorDelegate.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.impl</a> &gt; <span class="el_source">SqlMapExecutorDelegate.java</span></div><h1>SqlMapExecutorDelegate.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapExecutorDelegate.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.impl</a> &gt; <span class="el_source">SqlMapExecutorDelegate.java</span></div><h1>SqlMapExecutorDelegate.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -14,15 +14,6 @@
  * limitations under the License.
  */
 package com.ibatis.sqlmap.engine.impl;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
 
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
@@ -51,6 +42,15 @@ import com.ibatis.sqlmap.engine.transaction.TransactionManager;
 import com.ibatis.sqlmap.engine.transaction.TransactionState;
 import com.ibatis.sqlmap.engine.transaction.user.UserProvidedTransaction;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * The workhorse that really runs the SQL.
@@ -140,10 +140,11 @@ public class SqlMapExecutorDelegate {
    * DO NOT DEPEND ON THIS. Here to avoid breaking spring integration.
    *
    * @return the max transactions
+   *
    * @deprecated
    */
   public int getMaxTransactions() {
-<span class="nc" id="L146">    return -1;</span>
+<span class="nc" id="L147">    return -1;</span>
   }
 
   /**
@@ -152,7 +153,7 @@ public class SqlMapExecutorDelegate {
    * @return - the DataExchangeFactory
    */
   public DataExchangeFactory getDataExchangeFactory() {
-<span class="fc" id="L155">    return dataExchangeFactory;</span>
+<span class="fc" id="L156">    return dataExchangeFactory;</span>
   }
 
   /**
@@ -161,7 +162,7 @@ public class SqlMapExecutorDelegate {
    * @return - the TypeHandlerFactory
    */
   public TypeHandlerFactory getTypeHandlerFactory() {
-<span class="fc" id="L164">    return typeHandlerFactory;</span>
+<span class="fc" id="L165">    return typeHandlerFactory;</span>
   }
 
   /**
@@ -170,7 +171,7 @@ public class SqlMapExecutorDelegate {
    * @return - the status
    */
   public boolean isLazyLoadingEnabled() {
-<span class="fc" id="L173">    return lazyLoadingEnabled;</span>
+<span class="fc" id="L174">    return lazyLoadingEnabled;</span>
   }
 
   /**
@@ -180,8 +181,8 @@ public class SqlMapExecutorDelegate {
    *          - the new state of caching
    */
   public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
-<span class="fc" id="L183">    this.lazyLoadingEnabled = lazyLoadingEnabled;</span>
-<span class="fc" id="L184">  }</span>
+<span class="fc" id="L184">    this.lazyLoadingEnabled = lazyLoadingEnabled;</span>
+<span class="fc" id="L185">  }</span>
 
   /**
    * Getter for the status of caching.
@@ -189,7 +190,7 @@ public class SqlMapExecutorDelegate {
    * @return - the status
    */
   public boolean isCacheModelsEnabled() {
-<span class="fc" id="L192">    return cacheModelsEnabled;</span>
+<span class="fc" id="L193">    return cacheModelsEnabled;</span>
   }
 
   /**
@@ -199,8 +200,8 @@ public class SqlMapExecutorDelegate {
    *          - the new state of caching
    */
   public void setCacheModelsEnabled(boolean cacheModelsEnabled) {
-<span class="fc" id="L202">    this.cacheModelsEnabled = cacheModelsEnabled;</span>
-<span class="fc" id="L203">  }</span>
+<span class="fc" id="L203">    this.cacheModelsEnabled = cacheModelsEnabled;</span>
+<span class="fc" id="L204">  }</span>
 
   /**
    * Getter for the status of CGLib enhancements.
@@ -208,7 +209,7 @@ public class SqlMapExecutorDelegate {
    * @return - the status
    */
   public boolean isEnhancementEnabled() {
-<span class="fc" id="L211">    return enhancementEnabled;</span>
+<span class="fc" id="L212">    return enhancementEnabled;</span>
   }
 
   /**
@@ -218,8 +219,8 @@ public class SqlMapExecutorDelegate {
    *          - the new state
    */
   public void setEnhancementEnabled(boolean enhancementEnabled) {
-<span class="fc" id="L221">    this.enhancementEnabled = enhancementEnabled;</span>
-<span class="fc" id="L222">  }</span>
+<span class="fc" id="L222">    this.enhancementEnabled = enhancementEnabled;</span>
+<span class="fc" id="L223">  }</span>
 
   /**
    * Checks if is use column label.
@@ -227,7 +228,7 @@ public class SqlMapExecutorDelegate {
    * @return true, if is use column label
    */
   public boolean isUseColumnLabel() {
-<span class="fc" id="L230">    return useColumnLabel;</span>
+<span class="fc" id="L231">    return useColumnLabel;</span>
   }
 
   /**
@@ -237,8 +238,8 @@ public class SqlMapExecutorDelegate {
    *          the new use column label
    */
   public void setUseColumnLabel(boolean useColumnLabel) {
-<span class="fc" id="L240">    this.useColumnLabel = useColumnLabel;</span>
-<span class="fc" id="L241">  }</span>
+<span class="fc" id="L241">    this.useColumnLabel = useColumnLabel;</span>
+<span class="fc" id="L242">  }</span>
 
   /**
    * Getter for the transaction manager.
@@ -246,7 +247,7 @@ public class SqlMapExecutorDelegate {
    * @return - the transaction manager
    */
   public TransactionManager getTxManager() {
-<span class="fc" id="L249">    return txManager;</span>
+<span class="fc" id="L250">    return txManager;</span>
   }
 
   /**
@@ -256,8 +257,8 @@ public class SqlMapExecutorDelegate {
    *          - the transaction manager
    */
   public void setTxManager(TransactionManager txManager) {
-<span class="fc" id="L259">    this.txManager = txManager;</span>
-<span class="fc" id="L260">  }</span>
+<span class="fc" id="L260">    this.txManager = txManager;</span>
+<span class="fc" id="L261">  }</span>
 
   /**
    * Add a mapped statement.
@@ -266,12 +267,12 @@ public class SqlMapExecutorDelegate {
    *          - the mapped statement to add
    */
   public void addMappedStatement(MappedStatement ms) {
-<span class="pc bpc" id="L269" title="1 of 2 branches missed.">    if (mappedStatements.containsKey(ms.getId())) {</span>
-<span class="nc" id="L270">      throw new SqlMapException(&quot;There is already a statement named &quot; + ms.getId() + &quot; in this SqlMap.&quot;);</span>
+<span class="pc bpc" id="L270" title="1 of 2 branches missed.">    if (mappedStatements.containsKey(ms.getId())) {</span>
+<span class="nc" id="L271">      throw new SqlMapException(&quot;There is already a statement named &quot; + ms.getId() + &quot; in this SqlMap.&quot;);</span>
     }
-<span class="fc" id="L272">    ms.setBaseCacheKey(hashCode());</span>
-<span class="fc" id="L273">    mappedStatements.put(ms.getId(), ms);</span>
-<span class="fc" id="L274">  }</span>
+<span class="fc" id="L273">    ms.setBaseCacheKey(hashCode());</span>
+<span class="fc" id="L274">    mappedStatements.put(ms.getId(), ms);</span>
+<span class="fc" id="L275">  }</span>
 
   /**
    * Get an iterator of the mapped statements.
@@ -279,7 +280,7 @@ public class SqlMapExecutorDelegate {
    * @return - the iterator
    */
   public Iterator getMappedStatementNames() {
-<span class="nc" id="L282">    return mappedStatements.keySet().iterator();</span>
+<span class="nc" id="L283">    return mappedStatements.keySet().iterator();</span>
   }
 
   /**
@@ -287,14 +288,15 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the statement ID
+   *
    * @return - the mapped statement
    */
   public MappedStatement getMappedStatement(String id) {
-<span class="fc" id="L293">    MappedStatement ms = (MappedStatement) mappedStatements.get(id);</span>
-<span class="pc bpc" id="L294" title="1 of 2 branches missed.">    if (ms == null) {</span>
-<span class="nc" id="L295">      throw new SqlMapException(&quot;There is no statement named &quot; + id + &quot; in this SqlMap.&quot;);</span>
+<span class="fc" id="L295">    MappedStatement ms = (MappedStatement) mappedStatements.get(id);</span>
+<span class="pc bpc" id="L296" title="1 of 2 branches missed.">    if (ms == null) {</span>
+<span class="nc" id="L297">      throw new SqlMapException(&quot;There is no statement named &quot; + id + &quot; in this SqlMap.&quot;);</span>
     }
-<span class="fc" id="L297">    return ms;</span>
+<span class="fc" id="L299">    return ms;</span>
   }
 
   /**
@@ -304,8 +306,8 @@ public class SqlMapExecutorDelegate {
    *          - the model to add
    */
   public void addCacheModel(CacheModel model) {
-<span class="fc" id="L307">    cacheModels.put(model.getId(), model);</span>
-<span class="fc" id="L308">  }</span>
+<span class="fc" id="L309">    cacheModels.put(model.getId(), model);</span>
+<span class="fc" id="L310">  }</span>
 
   /**
    * Get an iterator of the cache models.
@@ -313,7 +315,7 @@ public class SqlMapExecutorDelegate {
    * @return - the cache models
    */
   public Iterator getCacheModelNames() {
-<span class="fc" id="L316">    return cacheModels.keySet().iterator();</span>
+<span class="fc" id="L318">    return cacheModels.keySet().iterator();</span>
   }
 
   /**
@@ -321,14 +323,15 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the cache model
    */
   public CacheModel getCacheModel(String id) {
-<span class="fc" id="L327">    CacheModel model = (CacheModel) cacheModels.get(id);</span>
-<span class="pc bpc" id="L328" title="1 of 2 branches missed.">    if (model == null) {</span>
-<span class="nc" id="L329">      throw new SqlMapException(&quot;There is no cache model named &quot; + id + &quot; in this SqlMap.&quot;);</span>
+<span class="fc" id="L330">    CacheModel model = (CacheModel) cacheModels.get(id);</span>
+<span class="pc bpc" id="L331" title="1 of 2 branches missed.">    if (model == null) {</span>
+<span class="nc" id="L332">      throw new SqlMapException(&quot;There is no cache model named &quot; + id + &quot; in this SqlMap.&quot;);</span>
     }
-<span class="fc" id="L331">    return model;</span>
+<span class="fc" id="L334">    return model;</span>
   }
 
   /**
@@ -338,8 +341,8 @@ public class SqlMapExecutorDelegate {
    *          - the result map to add
    */
   public void addResultMap(ResultMap map) {
-<span class="fc" id="L341">    resultMaps.put(map.getId(), map);</span>
-<span class="fc" id="L342">  }</span>
+<span class="fc" id="L344">    resultMaps.put(map.getId(), map);</span>
+<span class="fc" id="L345">  }</span>
 
   /**
    * Get an iterator of the result maps.
@@ -347,7 +350,7 @@ public class SqlMapExecutorDelegate {
    * @return - the result maps
    */
   public Iterator getResultMapNames() {
-<span class="fc" id="L350">    return resultMaps.keySet().iterator();</span>
+<span class="fc" id="L353">    return resultMaps.keySet().iterator();</span>
   }
 
   /**
@@ -355,14 +358,15 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the result map
    */
   public ResultMap getResultMap(String id) {
-<span class="fc" id="L361">    ResultMap map = (ResultMap) resultMaps.get(id);</span>
-<span class="pc bpc" id="L362" title="1 of 2 branches missed.">    if (map == null) {</span>
-<span class="nc" id="L363">      throw new SqlMapException(&quot;There is no result map named &quot; + id + &quot; in this SqlMap.&quot;);</span>
+<span class="fc" id="L365">    ResultMap map = (ResultMap) resultMaps.get(id);</span>
+<span class="pc bpc" id="L366" title="1 of 2 branches missed.">    if (map == null) {</span>
+<span class="nc" id="L367">      throw new SqlMapException(&quot;There is no result map named &quot; + id + &quot; in this SqlMap.&quot;);</span>
     }
-<span class="fc" id="L365">    return map;</span>
+<span class="fc" id="L369">    return map;</span>
   }
 
   /**
@@ -372,8 +376,8 @@ public class SqlMapExecutorDelegate {
    *          - the map to add
    */
   public void addParameterMap(ParameterMap map) {
-<span class="fc" id="L375">    parameterMaps.put(map.getId(), map);</span>
-<span class="fc" id="L376">  }</span>
+<span class="fc" id="L379">    parameterMaps.put(map.getId(), map);</span>
+<span class="fc" id="L380">  }</span>
 
   /**
    * Get an iterator of all of the parameter maps.
@@ -381,7 +385,7 @@ public class SqlMapExecutorDelegate {
    * @return - the parameter maps
    */
   public Iterator getParameterMapNames() {
-<span class="nc" id="L384">    return parameterMaps.keySet().iterator();</span>
+<span class="nc" id="L388">    return parameterMaps.keySet().iterator();</span>
   }
 
   /**
@@ -389,25 +393,26 @@ public class SqlMapExecutorDelegate {
    *
    * @param id
    *          - the ID
+   *
    * @return - the parameter map
    */
   public ParameterMap getParameterMap(String id) {
-<span class="fc" id="L395">    ParameterMap map = (ParameterMap) parameterMaps.get(id);</span>
-<span class="pc bpc" id="L396" title="1 of 2 branches missed.">    if (map == null) {</span>
-<span class="nc" id="L397">      throw new SqlMapException(&quot;There is no parameter map named &quot; + id + &quot; in this SqlMap.&quot;);</span>
+<span class="fc" id="L400">    ParameterMap map = (ParameterMap) parameterMaps.get(id);</span>
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">    if (map == null) {</span>
+<span class="nc" id="L402">      throw new SqlMapException(&quot;There is no parameter map named &quot; + id + &quot; in this SqlMap.&quot;);</span>
     }
-<span class="fc" id="L399">    return map;</span>
+<span class="fc" id="L404">    return map;</span>
   }
 
   /**
    * Flush all of the data caches.
    */
   public void flushDataCache() {
-<span class="fc" id="L406">    Iterator models = cacheModels.values().iterator();</span>
-<span class="fc bfc" id="L407" title="All 2 branches covered.">    while (models.hasNext()) {</span>
-<span class="fc" id="L408">      ((CacheModel) models.next()).flush();</span>
+<span class="fc" id="L411">    Iterator models = cacheModels.values().iterator();</span>
+<span class="fc bfc" id="L412" title="All 2 branches covered.">    while (models.hasNext()) {</span>
+<span class="fc" id="L413">      ((CacheModel) models.next()).flush();</span>
     }
-<span class="fc" id="L410">  }</span>
+<span class="fc" id="L415">  }</span>
 
   /**
    * Flush a single cache by ID.
@@ -416,11 +421,11 @@ public class SqlMapExecutorDelegate {
    *          - the ID
    */
   public void flushDataCache(String id) {
-<span class="nc" id="L419">    CacheModel model = getCacheModel(id);</span>
-<span class="nc bnc" id="L420" title="All 2 branches missed.">    if (model != null) {</span>
-<span class="nc" id="L421">      model.flush();</span>
+<span class="nc" id="L424">    CacheModel model = getCacheModel(id);</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">    if (model != null) {</span>
+<span class="nc" id="L426">      model.flush();</span>
     }
-<span class="nc" id="L423">  }</span>
+<span class="nc" id="L428">  }</span>
 
   // -- Basic Methods
   /**
@@ -432,63 +437,65 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the generated key (or null)
+   *
    * @throws SQLException
    *           - if the insert fails
    */
   public Object insert(SessionScope sessionScope, String id, Object param) throws SQLException {
-<span class="fc" id="L440">    Object generatedKey = null;</span>
+<span class="fc" id="L447">    Object generatedKey = null;</span>
 
-<span class="fc" id="L442">    MappedStatement ms = getMappedStatement(id);</span>
-<span class="fc" id="L443">    Transaction trans = getTransaction(sessionScope);</span>
-<span class="fc bfc" id="L444" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
+<span class="fc" id="L449">    MappedStatement ms = getMappedStatement(id);</span>
+<span class="fc" id="L450">    Transaction trans = getTransaction(sessionScope);</span>
+<span class="fc bfc" id="L451" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
 
     try {
-<span class="fc" id="L447">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
+<span class="fc" id="L454">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
 
-<span class="fc" id="L449">      SelectKeyStatement selectKeyStatement = null;</span>
-<span class="pc bpc" id="L450" title="1 of 2 branches missed.">      if (ms instanceof InsertStatement) {</span>
-<span class="fc" id="L451">        selectKeyStatement = ((InsertStatement) ms).getSelectKeyStatement();</span>
+<span class="fc" id="L456">      SelectKeyStatement selectKeyStatement = null;</span>
+<span class="pc bpc" id="L457" title="1 of 2 branches missed.">      if (ms instanceof InsertStatement) {</span>
+<span class="fc" id="L458">        selectKeyStatement = ((InsertStatement) ms).getSelectKeyStatement();</span>
       }
 
       // Here we get the old value for the key property. We'll want it later if for some
       // reason the
       // insert fails.
-<span class="fc" id="L457">      Object oldKeyValue = null;</span>
-<span class="fc" id="L458">      String keyProperty = null;</span>
-<span class="fc" id="L459">      boolean resetKeyValueOnFailure = false;</span>
-<span class="fc bfc" id="L460" title="All 4 branches covered.">      if (selectKeyStatement != null &amp;&amp; !selectKeyStatement.isRunAfterSQL()) {</span>
-<span class="fc" id="L461">        keyProperty = selectKeyStatement.getKeyProperty();</span>
-<span class="fc" id="L462">        oldKeyValue = PROBE.getObject(param, keyProperty);</span>
-<span class="fc" id="L463">        generatedKey = executeSelectKey(sessionScope, trans, ms, param);</span>
-<span class="fc" id="L464">        resetKeyValueOnFailure = true;</span>
+<span class="fc" id="L464">      Object oldKeyValue = null;</span>
+<span class="fc" id="L465">      String keyProperty = null;</span>
+<span class="fc" id="L466">      boolean resetKeyValueOnFailure = false;</span>
+<span class="fc bfc" id="L467" title="All 4 branches covered.">      if (selectKeyStatement != null &amp;&amp; !selectKeyStatement.isRunAfterSQL()) {</span>
+<span class="fc" id="L468">        keyProperty = selectKeyStatement.getKeyProperty();</span>
+<span class="fc" id="L469">        oldKeyValue = PROBE.getObject(param, keyProperty);</span>
+<span class="fc" id="L470">        generatedKey = executeSelectKey(sessionScope, trans, ms, param);</span>
+<span class="fc" id="L471">        resetKeyValueOnFailure = true;</span>
       }
 
-<span class="fc" id="L467">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
+<span class="fc" id="L474">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
       try {
-<span class="fc" id="L469">        ms.executeUpdate(statementScope, trans, param);</span>
-<span class="fc" id="L470">      } catch (SQLException e) {</span>
+<span class="fc" id="L476">        ms.executeUpdate(statementScope, trans, param);</span>
+<span class="fc" id="L477">      } catch (SQLException e) {</span>
         // uh-oh, the insert failed, so if we set the reset flag earlier, we'll put the old
         // value
         // back...
-<span class="pc bpc" id="L474" title="1 of 2 branches missed.">        if (resetKeyValueOnFailure)</span>
-<span class="nc" id="L475">          PROBE.setObject(param, keyProperty, oldKeyValue);</span>
+<span class="pc bpc" id="L481" title="1 of 2 branches missed.">        if (resetKeyValueOnFailure)</span>
+<span class="nc" id="L482">          PROBE.setObject(param, keyProperty, oldKeyValue);</span>
         // ...and still throw the exception.
-<span class="fc" id="L477">        throw e;</span>
+<span class="fc" id="L484">        throw e;</span>
       } finally {
-<span class="fc" id="L479">        endStatementScope(statementScope);</span>
+<span class="fc" id="L486">        endStatementScope(statementScope);</span>
       }
 
-<span class="fc bfc" id="L482" title="All 4 branches covered.">      if (selectKeyStatement != null &amp;&amp; selectKeyStatement.isRunAfterSQL()) {</span>
-<span class="fc" id="L483">        generatedKey = executeSelectKey(sessionScope, trans, ms, param);</span>
+<span class="fc bfc" id="L489" title="All 4 branches covered.">      if (selectKeyStatement != null &amp;&amp; selectKeyStatement.isRunAfterSQL()) {</span>
+<span class="fc" id="L490">        generatedKey = executeSelectKey(sessionScope, trans, ms, param);</span>
       }
 
-<span class="fc" id="L486">      autoCommitTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L493">      autoCommitTransaction(sessionScope, autoStart);</span>
     } finally {
-<span class="fc" id="L488">      autoEndTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L495">      autoEndTransaction(sessionScope, autoStart);</span>
     }
 
-<span class="fc" id="L491">    return generatedKey;</span>
+<span class="fc" id="L498">    return generatedKey;</span>
   }
 
   /**
@@ -502,29 +509,31 @@ public class SqlMapExecutorDelegate {
    *          the ms
    * @param param
    *          the param
+   *
    * @return the object
+   *
    * @throws SQLException
    *           the SQL exception
    */
   private Object executeSelectKey(SessionScope sessionScope, Transaction trans, MappedStatement ms, Object param)
       throws SQLException {
-<span class="fc" id="L511">    Object generatedKey = null;</span>
+<span class="fc" id="L520">    Object generatedKey = null;</span>
     StatementScope statementScope;
-<span class="fc" id="L513">    InsertStatement insert = (InsertStatement) ms;</span>
-<span class="fc" id="L514">    SelectKeyStatement selectKeyStatement = insert.getSelectKeyStatement();</span>
-<span class="pc bpc" id="L515" title="1 of 2 branches missed.">    if (selectKeyStatement != null) {</span>
-<span class="fc" id="L516">      statementScope = beginStatementScope(sessionScope, selectKeyStatement);</span>
+<span class="fc" id="L522">    InsertStatement insert = (InsertStatement) ms;</span>
+<span class="fc" id="L523">    SelectKeyStatement selectKeyStatement = insert.getSelectKeyStatement();</span>
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">    if (selectKeyStatement != null) {</span>
+<span class="fc" id="L525">      statementScope = beginStatementScope(sessionScope, selectKeyStatement);</span>
       try {
-<span class="fc" id="L518">        generatedKey = selectKeyStatement.executeQueryForObject(statementScope, trans, param, null);</span>
-<span class="fc" id="L519">        String keyProp = selectKeyStatement.getKeyProperty();</span>
-<span class="pc bpc" id="L520" title="1 of 2 branches missed.">        if (keyProp != null) {</span>
-<span class="fc" id="L521">          PROBE.setObject(param, keyProp, generatedKey);</span>
+<span class="fc" id="L527">        generatedKey = selectKeyStatement.executeQueryForObject(statementScope, trans, param, null);</span>
+<span class="fc" id="L528">        String keyProp = selectKeyStatement.getKeyProperty();</span>
+<span class="pc bpc" id="L529" title="1 of 2 branches missed.">        if (keyProp != null) {</span>
+<span class="fc" id="L530">          PROBE.setObject(param, keyProp, generatedKey);</span>
         }
       } finally {
-<span class="fc" id="L524">        endStatementScope(statementScope);</span>
+<span class="fc" id="L533">        endStatementScope(statementScope);</span>
       }
     }
-<span class="fc" id="L527">    return generatedKey;</span>
+<span class="fc" id="L536">    return generatedKey;</span>
   }
 
   /**
@@ -536,33 +545,35 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the number of rows updated
+   *
    * @throws SQLException
    *           - if the update fails
    */
   public int update(SessionScope sessionScope, String id, Object param) throws SQLException {
-<span class="fc" id="L544">    int rows = 0;</span>
+<span class="fc" id="L555">    int rows = 0;</span>
 
-<span class="fc" id="L546">    MappedStatement ms = getMappedStatement(id);</span>
-<span class="fc" id="L547">    Transaction trans = getTransaction(sessionScope);</span>
-<span class="fc bfc" id="L548" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
+<span class="fc" id="L557">    MappedStatement ms = getMappedStatement(id);</span>
+<span class="fc" id="L558">    Transaction trans = getTransaction(sessionScope);</span>
+<span class="fc bfc" id="L559" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
 
     try {
-<span class="fc" id="L551">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
+<span class="fc" id="L562">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
 
-<span class="fc" id="L553">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
+<span class="fc" id="L564">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
       try {
-<span class="fc" id="L555">        rows = ms.executeUpdate(statementScope, trans, param);</span>
+<span class="fc" id="L566">        rows = ms.executeUpdate(statementScope, trans, param);</span>
       } finally {
-<span class="fc" id="L557">        endStatementScope(statementScope);</span>
+<span class="fc" id="L568">        endStatementScope(statementScope);</span>
       }
 
-<span class="fc" id="L560">      autoCommitTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L571">      autoCommitTransaction(sessionScope, autoStart);</span>
     } finally {
-<span class="fc" id="L562">      autoEndTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L573">      autoEndTransaction(sessionScope, autoStart);</span>
     }
 
-<span class="fc" id="L565">    return rows;</span>
+<span class="fc" id="L576">    return rows;</span>
   }
 
   /**
@@ -574,12 +585,14 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param param
    *          - the parameter object
+   *
    * @return - the number of rows deleted
+   *
    * @throws SQLException
    *           - if the delete fails
    */
   public int delete(SessionScope sessionScope, String id, Object param) throws SQLException {
-<span class="nc" id="L582">    return update(sessionScope, id, param);</span>
+<span class="nc" id="L595">    return update(sessionScope, id, param);</span>
   }
 
   /**
@@ -591,12 +604,14 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param paramObject
    *          - the parameter object
+   *
    * @return - the result of the query
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public Object queryForObject(SessionScope sessionScope, String id, Object paramObject) throws SQLException {
-<span class="fc" id="L599">    return queryForObject(sessionScope, id, paramObject, null);</span>
+<span class="fc" id="L614">    return queryForObject(sessionScope, id, paramObject, null);</span>
   }
 
   /**
@@ -610,34 +625,36 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param resultObject
    *          - the result object (if not supplied or null, a new object will be created)
+   *
    * @return - the result of the query
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public Object queryForObject(SessionScope sessionScope, String id, Object paramObject, Object resultObject)
       throws SQLException {
-<span class="fc" id="L619">    Object object = null;</span>
+<span class="fc" id="L636">    Object object = null;</span>
 
-<span class="fc" id="L621">    MappedStatement ms = getMappedStatement(id);</span>
-<span class="fc" id="L622">    Transaction trans = getTransaction(sessionScope);</span>
-<span class="fc bfc" id="L623" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
+<span class="fc" id="L638">    MappedStatement ms = getMappedStatement(id);</span>
+<span class="fc" id="L639">    Transaction trans = getTransaction(sessionScope);</span>
+<span class="fc bfc" id="L640" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
 
     try {
-<span class="fc" id="L626">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
+<span class="fc" id="L643">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
 
-<span class="fc" id="L628">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
+<span class="fc" id="L645">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
       try {
-<span class="fc" id="L630">        object = ms.executeQueryForObject(statementScope, trans, paramObject, resultObject);</span>
+<span class="fc" id="L647">        object = ms.executeQueryForObject(statementScope, trans, paramObject, resultObject);</span>
       } finally {
-<span class="fc" id="L632">        endStatementScope(statementScope);</span>
+<span class="fc" id="L649">        endStatementScope(statementScope);</span>
       }
 
-<span class="fc" id="L635">      autoCommitTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L652">      autoCommitTransaction(sessionScope, autoStart);</span>
     } finally {
-<span class="fc" id="L637">      autoEndTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L654">      autoEndTransaction(sessionScope, autoStart);</span>
     }
 
-<span class="fc" id="L640">    return object;</span>
+<span class="fc" id="L657">    return object;</span>
   }
 
   /**
@@ -649,12 +666,14 @@ public class SqlMapExecutorDelegate {
    *          - the statement ID
    * @param paramObject
    *          - the parameter object
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public List queryForList(SessionScope sessionScope, String id, Object paramObject) throws SQLException {
-<span class="fc" id="L657">    return queryForList(sessionScope, id, paramObject, SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);</span>
+<span class="fc" id="L676">    return queryForList(sessionScope, id, paramObject, SqlExecutor.NO_SKIPPED_RESULTS, SqlExecutor.NO_MAXIMUM_RESULTS);</span>
   }
 
   /**
@@ -670,34 +689,36 @@ public class SqlMapExecutorDelegate {
    *          - the number of rows to skip
    * @param max
    *          - the maximum number of rows to return
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public List queryForList(SessionScope sessionScope, String id, Object paramObject, int skip, int max)
       throws SQLException {
-<span class="fc" id="L679">    List list = null;</span>
+<span class="fc" id="L700">    List list = null;</span>
 
-<span class="fc" id="L681">    MappedStatement ms = getMappedStatement(id);</span>
-<span class="fc" id="L682">    Transaction trans = getTransaction(sessionScope);</span>
-<span class="fc bfc" id="L683" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
+<span class="fc" id="L702">    MappedStatement ms = getMappedStatement(id);</span>
+<span class="fc" id="L703">    Transaction trans = getTransaction(sessionScope);</span>
+<span class="fc bfc" id="L704" title="All 2 branches covered.">    boolean autoStart = trans == null;</span>
 
     try {
-<span class="fc" id="L686">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
+<span class="fc" id="L707">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
 
-<span class="fc" id="L688">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
+<span class="fc" id="L709">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
       try {
-<span class="fc" id="L690">        list = ms.executeQueryForList(statementScope, trans, paramObject, skip, max);</span>
+<span class="fc" id="L711">        list = ms.executeQueryForList(statementScope, trans, paramObject, skip, max);</span>
       } finally {
-<span class="fc" id="L692">        endStatementScope(statementScope);</span>
+<span class="fc" id="L713">        endStatementScope(statementScope);</span>
       }
 
-<span class="fc" id="L695">      autoCommitTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L716">      autoCommitTransaction(sessionScope, autoStart);</span>
     } finally {
-<span class="fc" id="L697">      autoEndTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L718">      autoEndTransaction(sessionScope, autoStart);</span>
     }
 
-<span class="fc" id="L700">    return list;</span>
+<span class="fc" id="L721">    return list;</span>
   }
 
   /**
@@ -711,32 +732,33 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param rowHandler
    *          - the row handler
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public void queryWithRowHandler(SessionScope sessionScope, String id, Object paramObject, RowHandler rowHandler)
       throws SQLException {
 
-<span class="fc" id="L720">    MappedStatement ms = getMappedStatement(id);</span>
-<span class="fc" id="L721">    Transaction trans = getTransaction(sessionScope);</span>
-<span class="pc bpc" id="L722" title="1 of 2 branches missed.">    boolean autoStart = trans == null;</span>
+<span class="fc" id="L742">    MappedStatement ms = getMappedStatement(id);</span>
+<span class="fc" id="L743">    Transaction trans = getTransaction(sessionScope);</span>
+<span class="pc bpc" id="L744" title="1 of 2 branches missed.">    boolean autoStart = trans == null;</span>
 
     try {
-<span class="fc" id="L725">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
+<span class="fc" id="L747">      trans = autoStartTransaction(sessionScope, autoStart, trans);</span>
 
-<span class="fc" id="L727">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
+<span class="fc" id="L749">      StatementScope statementScope = beginStatementScope(sessionScope, ms);</span>
       try {
-<span class="fc" id="L729">        ms.executeQueryWithRowHandler(statementScope, trans, paramObject, rowHandler);</span>
+<span class="fc" id="L751">        ms.executeQueryWithRowHandler(statementScope, trans, paramObject, rowHandler);</span>
       } finally {
-<span class="fc" id="L731">        endStatementScope(statementScope);</span>
+<span class="fc" id="L753">        endStatementScope(statementScope);</span>
       }
 
-<span class="fc" id="L734">      autoCommitTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L756">      autoCommitTransaction(sessionScope, autoStart);</span>
     } finally {
-<span class="fc" id="L736">      autoEndTransaction(sessionScope, autoStart);</span>
+<span class="fc" id="L758">      autoEndTransaction(sessionScope, autoStart);</span>
     }
 
-<span class="fc" id="L739">  }</span>
+<span class="fc" id="L761">  }</span>
 
   /**
    * Execute a query and return a paginated list.
@@ -749,14 +771,17 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param pageSize
    *          - the page size
+   *
    * @return - the data list
+   *
    * @throws SQLException
    *           - if the query fails
+   *
    * @deprecated All paginated list features have been deprecated
    */
   public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize)
       throws SQLException {
-<span class="fc" id="L759">    return new PaginatedDataList(sessionScope.getSqlMapExecutor(), id, paramObject, pageSize);</span>
+<span class="fc" id="L784">    return new PaginatedDataList(sessionScope.getSqlMapExecutor(), id, paramObject, pageSize);</span>
   }
 
   /**
@@ -770,12 +795,14 @@ public class SqlMapExecutorDelegate {
    *          - the parameter object
    * @param keyProp
    *          - the key property (from the results for the map)
+   *
    * @return - the Map
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp) throws SQLException {
-<span class="fc" id="L778">    return queryForMap(sessionScope, id, paramObject, keyProp, null);</span>
+<span class="fc" id="L805">    return queryForMap(sessionScope, id, paramObject, keyProp, null);</span>
   }
 
   /**
@@ -791,29 +818,31 @@ public class SqlMapExecutorDelegate {
    *          - the property for the map key
    * @param valueProp
    *          - the property for the map data
+   *
    * @return - the Map
+   *
    * @throws SQLException
    *           - if the query fails
    */
   public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp, String valueProp)
       throws SQLException {
-<span class="fc" id="L800">    Map map = new HashMap();</span>
+<span class="fc" id="L829">    Map map = new HashMap();</span>
 
-<span class="fc" id="L802">    List list = queryForList(sessionScope, id, paramObject);</span>
+<span class="fc" id="L831">    List list = queryForList(sessionScope, id, paramObject);</span>
 
-<span class="fc bfc" id="L804" title="All 2 branches covered.">    for (int i = 0, n = list.size(); i &lt; n; i++) {</span>
-<span class="fc" id="L805">      Object object = list.get(i);</span>
-<span class="fc" id="L806">      Object key = PROBE.getObject(object, keyProp);</span>
-<span class="fc" id="L807">      Object value = null;</span>
-<span class="fc bfc" id="L808" title="All 2 branches covered.">      if (valueProp == null) {</span>
-<span class="fc" id="L809">        value = object;</span>
+<span class="fc bfc" id="L833" title="All 2 branches covered.">    for (int i = 0, n = list.size(); i &lt; n; i++) {</span>
+<span class="fc" id="L834">      Object object = list.get(i);</span>
+<span class="fc" id="L835">      Object key = PROBE.getObject(object, keyProp);</span>
+<span class="fc" id="L836">      Object value = null;</span>
+<span class="fc bfc" id="L837" title="All 2 branches covered.">      if (valueProp == null) {</span>
+<span class="fc" id="L838">        value = object;</span>
       } else {
-<span class="fc" id="L811">        value = PROBE.getObject(object, valueProp);</span>
+<span class="fc" id="L840">        value = PROBE.getObject(object, valueProp);</span>
       }
-<span class="fc" id="L813">      map.put(key, value);</span>
+<span class="fc" id="L842">      map.put(key, value);</span>
     }
 
-<span class="fc" id="L816">    return map;</span>
+<span class="fc" id="L845">    return map;</span>
   }
 
   // -- Transaction Control Methods
@@ -822,16 +851,17 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be started
    */
   public void startTransaction(SessionScope sessionScope) throws SQLException {
     try {
-<span class="fc" id="L830">      txManager.begin(sessionScope);</span>
-<span class="fc" id="L831">    } catch (TransactionException e) {</span>
-<span class="fc" id="L832">      throw new NestedSQLException(&quot;Could not start transaction.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L833">    }</span>
-<span class="fc" id="L834">  }</span>
+<span class="fc" id="L860">      txManager.begin(sessionScope);</span>
+<span class="fc" id="L861">    } catch (TransactionException e) {</span>
+<span class="fc" id="L862">      throw new NestedSQLException(&quot;Could not start transaction.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L863">    }</span>
+<span class="fc" id="L864">  }</span>
 
   /**
    * Start a transaction on the session with the specified isolation level.
@@ -840,57 +870,60 @@ public class SqlMapExecutorDelegate {
    *          - the session
    * @param transactionIsolation
    *          the transaction isolation
+   *
    * @throws SQLException
    *           - if the transaction could not be started
    */
   public void startTransaction(SessionScope sessionScope, int transactionIsolation) throws SQLException {
     try {
-<span class="nc" id="L848">      txManager.begin(sessionScope, transactionIsolation);</span>
-<span class="nc" id="L849">    } catch (TransactionException e) {</span>
-<span class="nc" id="L850">      throw new NestedSQLException(&quot;Could not start transaction.  Cause: &quot; + e, e);</span>
-<span class="nc" id="L851">    }</span>
-<span class="nc" id="L852">  }</span>
+<span class="nc" id="L879">      txManager.begin(sessionScope, transactionIsolation);</span>
+<span class="nc" id="L880">    } catch (TransactionException e) {</span>
+<span class="nc" id="L881">      throw new NestedSQLException(&quot;Could not start transaction.  Cause: &quot; + e, e);</span>
+<span class="nc" id="L882">    }</span>
+<span class="nc" id="L883">  }</span>
 
   /**
    * Commit the transaction on a session.
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be committed
    */
   public void commitTransaction(SessionScope sessionScope) throws SQLException {
     try {
       // Auto batch execution
-<span class="fc bfc" id="L865" title="All 2 branches covered.">      if (sessionScope.isInBatch()) {</span>
-<span class="fc" id="L866">        executeBatch(sessionScope);</span>
+<span class="fc bfc" id="L897" title="All 2 branches covered.">      if (sessionScope.isInBatch()) {</span>
+<span class="fc" id="L898">        executeBatch(sessionScope);</span>
       }
-<span class="fc" id="L868">      sqlExecutor.cleanup(sessionScope);</span>
-<span class="fc" id="L869">      txManager.commit(sessionScope);</span>
-<span class="fc" id="L870">    } catch (TransactionException e) {</span>
-<span class="fc" id="L871">      throw new NestedSQLException(&quot;Could not commit transaction.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L872">    }</span>
-<span class="fc" id="L873">  }</span>
+<span class="fc" id="L900">      sqlExecutor.cleanup(sessionScope);</span>
+<span class="fc" id="L901">      txManager.commit(sessionScope);</span>
+<span class="fc" id="L902">    } catch (TransactionException e) {</span>
+<span class="fc" id="L903">      throw new NestedSQLException(&quot;Could not commit transaction.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L904">    }</span>
+<span class="fc" id="L905">  }</span>
 
   /**
    * End the transaction on a session.
    *
    * @param sessionScope
    *          - the session
+   *
    * @throws SQLException
    *           - if the transaction could not be ended
    */
   public void endTransaction(SessionScope sessionScope) throws SQLException {
     try {
       try {
-<span class="fc" id="L886">        sqlExecutor.cleanup(sessionScope);</span>
+<span class="fc" id="L919">        sqlExecutor.cleanup(sessionScope);</span>
       } finally {
-<span class="fc" id="L888">        txManager.end(sessionScope);</span>
+<span class="fc" id="L921">        txManager.end(sessionScope);</span>
       }
-<span class="fc" id="L890">    } catch (TransactionException e) {</span>
-<span class="fc" id="L891">      throw new NestedSQLException(&quot;Error while ending transaction.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L892">    }</span>
-<span class="fc" id="L893">  }</span>
+<span class="fc" id="L923">    } catch (TransactionException e) {</span>
+<span class="fc" id="L924">      throw new NestedSQLException(&quot;Error while ending transaction.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L925">    }</span>
+<span class="fc" id="L926">  }</span>
 
   /**
    * Start a batch for a session.
@@ -899,21 +932,23 @@ public class SqlMapExecutorDelegate {
    *          - the session
    */
   public void startBatch(SessionScope sessionScope) {
-<span class="fc" id="L902">    sessionScope.setInBatch(true);</span>
-<span class="fc" id="L903">  }</span>
+<span class="fc" id="L935">    sessionScope.setInBatch(true);</span>
+<span class="fc" id="L936">  }</span>
 
   /**
    * Execute a batch for a session.
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - the number of rows impacted by the batch
+   *
    * @throws SQLException
    *           - if the batch fails
    */
   public int executeBatch(SessionScope sessionScope) throws SQLException {
-<span class="fc" id="L915">    sessionScope.setInBatch(false);</span>
-<span class="fc" id="L916">    return sqlExecutor.executeBatch(sessionScope);</span>
+<span class="fc" id="L950">    sessionScope.setInBatch(false);</span>
+<span class="fc" id="L951">    return sqlExecutor.executeBatch(sessionScope);</span>
   }
 
   /**
@@ -921,16 +956,18 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - a List of BatchResult objects (may be null if no batch has been initiated). There will be one BatchResult
    *         object in the list for each sub-batch executed
+   *
    * @throws SQLException
    *           if a database access error occurs, or the drive does not support batch statements
    * @throws BatchException
    *           if the driver throws BatchUpdateException
    */
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException {
-<span class="fc" id="L932">    sessionScope.setInBatch(false);</span>
-<span class="fc" id="L933">    return sqlExecutor.executeBatchDetailed(sessionScope);</span>
+<span class="fc" id="L969">    sessionScope.setInBatch(false);</span>
+<span class="fc" id="L970">    return sqlExecutor.executeBatchDetailed(sessionScope);</span>
   }
 
   /**
@@ -942,20 +979,20 @@ public class SqlMapExecutorDelegate {
    *          - the user supplied connection
    */
   public void setUserProvidedTransaction(SessionScope sessionScope, Connection userConnection) {
-<span class="pc bpc" id="L945" title="1 of 2 branches missed.">    if (sessionScope.getTransactionState() == TransactionState.STATE_USER_PROVIDED) {</span>
-<span class="nc" id="L946">      sessionScope.recallTransactionState();</span>
+<span class="pc bpc" id="L982" title="1 of 2 branches missed.">    if (sessionScope.getTransactionState() == TransactionState.STATE_USER_PROVIDED) {</span>
+<span class="nc" id="L983">      sessionScope.recallTransactionState();</span>
     }
-<span class="pc bpc" id="L948" title="1 of 2 branches missed.">    if (userConnection != null) {</span>
-<span class="fc" id="L949">      Connection conn = userConnection;</span>
-<span class="fc" id="L950">      sessionScope.saveTransactionState();</span>
-<span class="fc" id="L951">      sessionScope.setTransaction(new UserProvidedTransaction(conn));</span>
-<span class="fc" id="L952">      sessionScope.setTransactionState(TransactionState.STATE_USER_PROVIDED);</span>
-<span class="fc" id="L953">    } else {</span>
-<span class="nc" id="L954">      sessionScope.setTransaction(null);</span>
-<span class="nc" id="L955">      sessionScope.closePreparedStatements();</span>
-<span class="nc" id="L956">      sessionScope.cleanup();</span>
+<span class="pc bpc" id="L985" title="1 of 2 branches missed.">    if (userConnection != null) {</span>
+<span class="fc" id="L986">      Connection conn = userConnection;</span>
+<span class="fc" id="L987">      sessionScope.saveTransactionState();</span>
+<span class="fc" id="L988">      sessionScope.setTransaction(new UserProvidedTransaction(conn));</span>
+<span class="fc" id="L989">      sessionScope.setTransactionState(TransactionState.STATE_USER_PROVIDED);</span>
+<span class="fc" id="L990">    } else {</span>
+<span class="nc" id="L991">      sessionScope.setTransaction(null);</span>
+<span class="nc" id="L992">      sessionScope.closePreparedStatements();</span>
+<span class="nc" id="L993">      sessionScope.cleanup();</span>
     }
-<span class="fc" id="L958">  }</span>
+<span class="fc" id="L995">  }</span>
 
   /**
    * Get the DataSource for the session.
@@ -963,11 +1000,11 @@ public class SqlMapExecutorDelegate {
    * @return - the DataSource
    */
   public DataSource getDataSource() {
-<span class="fc" id="L966">    DataSource ds = null;</span>
-<span class="pc bpc" id="L967" title="1 of 2 branches missed.">    if (txManager != null) {</span>
-<span class="fc" id="L968">      ds = txManager.getConfig().getDataSource();</span>
+<span class="fc" id="L1003">    DataSource ds = null;</span>
+<span class="pc bpc" id="L1004" title="1 of 2 branches missed.">    if (txManager != null) {</span>
+<span class="fc" id="L1005">      ds = txManager.getConfig().getDataSource();</span>
     }
-<span class="fc" id="L970">    return ds;</span>
+<span class="fc" id="L1007">    return ds;</span>
   }
 
   /**
@@ -976,7 +1013,7 @@ public class SqlMapExecutorDelegate {
    * @return the SqlExecutor
    */
   public SqlExecutor getSqlExecutor() {
-<span class="fc" id="L979">    return sqlExecutor;</span>
+<span class="fc" id="L1016">    return sqlExecutor;</span>
   }
 
   /**
@@ -984,10 +1021,11 @@ public class SqlMapExecutorDelegate {
    *
    * @param sessionScope
    *          - the session
+   *
    * @return - the transaction
    */
   public Transaction getTransaction(SessionScope sessionScope) {
-<span class="fc" id="L990">    return sessionScope.getTransaction();</span>
+<span class="fc" id="L1028">    return sessionScope.getTransaction();</span>
   }
 
   // -- Protected Methods
@@ -999,14 +1037,15 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param autoStart
    *          the auto start
+   *
    * @throws SQLException
    *           the SQL exception
    */
   protected void autoEndTransaction(SessionScope sessionScope, boolean autoStart) throws SQLException {
-<span class="fc bfc" id="L1006" title="All 2 branches covered.">    if (autoStart) {</span>
-<span class="fc" id="L1007">      sessionScope.getSqlMapTxMgr().endTransaction();</span>
+<span class="fc bfc" id="L1045" title="All 2 branches covered.">    if (autoStart) {</span>
+<span class="fc" id="L1046">      sessionScope.getSqlMapTxMgr().endTransaction();</span>
     }
-<span class="fc" id="L1009">  }</span>
+<span class="fc" id="L1048">  }</span>
 
   /**
    * Auto commit transaction.
@@ -1015,14 +1054,15 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param autoStart
    *          the auto start
+   *
    * @throws SQLException
    *           the SQL exception
    */
   protected void autoCommitTransaction(SessionScope sessionScope, boolean autoStart) throws SQLException {
-<span class="fc bfc" id="L1022" title="All 2 branches covered.">    if (autoStart) {</span>
-<span class="fc" id="L1023">      sessionScope.getSqlMapTxMgr().commitTransaction();</span>
+<span class="fc bfc" id="L1062" title="All 2 branches covered.">    if (autoStart) {</span>
+<span class="fc" id="L1063">      sessionScope.getSqlMapTxMgr().commitTransaction();</span>
     }
-<span class="fc" id="L1025">  }</span>
+<span class="fc" id="L1065">  }</span>
 
   /**
    * Auto start transaction.
@@ -1033,36 +1073,38 @@ public class SqlMapExecutorDelegate {
    *          the auto start
    * @param trans
    *          the trans
+   *
    * @return the transaction
+   *
    * @throws SQLException
    *           the SQL exception
    */
   protected Transaction autoStartTransaction(SessionScope sessionScope, boolean autoStart, Transaction trans)
       throws SQLException {
-<span class="fc" id="L1042">    Transaction transaction = trans;</span>
-<span class="fc bfc" id="L1043" title="All 2 branches covered.">    if (autoStart) {</span>
-<span class="fc" id="L1044">      sessionScope.getSqlMapTxMgr().startTransaction();</span>
-<span class="fc" id="L1045">      transaction = getTransaction(sessionScope);</span>
+<span class="fc" id="L1084">    Transaction transaction = trans;</span>
+<span class="fc bfc" id="L1085" title="All 2 branches covered.">    if (autoStart) {</span>
+<span class="fc" id="L1086">      sessionScope.getSqlMapTxMgr().startTransaction();</span>
+<span class="fc" id="L1087">      transaction = getTransaction(sessionScope);</span>
     }
-<span class="fc" id="L1047">    return transaction;</span>
+<span class="fc" id="L1089">    return transaction;</span>
   }
 
   @Override
   public boolean equals(Object obj) {
-<span class="nc bnc" id="L1052" title="All 2 branches missed.">    return this == obj;</span>
+<span class="nc bnc" id="L1094" title="All 2 branches missed.">    return this == obj;</span>
   }
 
   @Override
   public int hashCode() {
-<span class="fc" id="L1057">    CacheKey key = new CacheKey();</span>
-<span class="pc bpc" id="L1058" title="1 of 2 branches missed.">    if (txManager != null) {</span>
-<span class="fc" id="L1059">      key.update(txManager);</span>
-<span class="pc bpc" id="L1060" title="1 of 2 branches missed.">      if (txManager.getConfig().getDataSource() != null) {</span>
-<span class="fc" id="L1061">        key.update(txManager.getConfig().getDataSource());</span>
+<span class="fc" id="L1099">    CacheKey key = new CacheKey();</span>
+<span class="pc bpc" id="L1100" title="1 of 2 branches missed.">    if (txManager != null) {</span>
+<span class="fc" id="L1101">      key.update(txManager);</span>
+<span class="pc bpc" id="L1102" title="1 of 2 branches missed.">      if (txManager.getConfig().getDataSource() != null) {</span>
+<span class="fc" id="L1103">        key.update(txManager.getConfig().getDataSource());</span>
       }
     }
-<span class="fc" id="L1064">    key.update(System.identityHashCode(this));</span>
-<span class="fc" id="L1065">    return key.hashCode();</span>
+<span class="fc" id="L1106">    key.update(System.identityHashCode(this));</span>
+<span class="fc" id="L1107">    return key.hashCode();</span>
   }
 
   /**
@@ -1072,13 +1114,14 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    * @param mappedStatement
    *          the mapped statement
+   *
    * @return the statement scope
    */
   protected StatementScope beginStatementScope(SessionScope sessionScope, MappedStatement mappedStatement) {
-<span class="fc" id="L1078">    StatementScope statementScope = new StatementScope(sessionScope);</span>
-<span class="fc" id="L1079">    sessionScope.incrementRequestStackDepth();</span>
-<span class="fc" id="L1080">    mappedStatement.initRequest(statementScope);</span>
-<span class="fc" id="L1081">    return statementScope;</span>
+<span class="fc" id="L1121">    StatementScope statementScope = new StatementScope(sessionScope);</span>
+<span class="fc" id="L1122">    sessionScope.incrementRequestStackDepth();</span>
+<span class="fc" id="L1123">    mappedStatement.initRequest(statementScope);</span>
+<span class="fc" id="L1124">    return statementScope;</span>
   }
 
   /**
@@ -1088,8 +1131,8 @@ public class SqlMapExecutorDelegate {
    *          the statement scope
    */
   protected void endStatementScope(StatementScope statementScope) {
-<span class="fc" id="L1091">    statementScope.getSession().decrementRequestStackDepth();</span>
-<span class="fc" id="L1092">  }</span>
+<span class="fc" id="L1134">    statementScope.getSession().decrementRequestStackDepth();</span>
+<span class="fc" id="L1135">  }</span>
 
   /**
    * Begin session scope.
@@ -1097,7 +1140,7 @@ public class SqlMapExecutorDelegate {
    * @return the session scope
    */
   protected SessionScope beginSessionScope() {
-<span class="fc" id="L1100">    return new SessionScope();</span>
+<span class="fc" id="L1143">    return new SessionScope();</span>
   }
 
   /**
@@ -1107,8 +1150,8 @@ public class SqlMapExecutorDelegate {
    *          the session scope
    */
   protected void endSessionScope(SessionScope sessionScope) {
-<span class="fc" id="L1110">    sessionScope.cleanup();</span>
-<span class="fc" id="L1111">  }</span>
+<span class="fc" id="L1153">    sessionScope.cleanup();</span>
+<span class="fc" id="L1154">  }</span>
 
   /**
    * Gets the result object factory.
@@ -1116,7 +1159,7 @@ public class SqlMapExecutorDelegate {
    * @return the result object factory
    */
   public ResultObjectFactory getResultObjectFactory() {
-<span class="fc" id="L1119">    return resultObjectFactory;</span>
+<span class="fc" id="L1162">    return resultObjectFactory;</span>
   }
 
   /**
@@ -1126,8 +1169,8 @@ public class SqlMapExecutorDelegate {
    *          the new result object factory
    */
   public void setResultObjectFactory(ResultObjectFactory resultObjectFactory) {
-<span class="fc" id="L1129">    this.resultObjectFactory = resultObjectFactory;</span>
-<span class="fc" id="L1130">  }</span>
+<span class="fc" id="L1172">    this.resultObjectFactory = resultObjectFactory;</span>
+<span class="fc" id="L1173">  }</span>
 
   /**
    * Checks if is statement cache enabled.
@@ -1135,7 +1178,7 @@ public class SqlMapExecutorDelegate {
    * @return true, if is statement cache enabled
    */
   public boolean isStatementCacheEnabled() {
-<span class="fc" id="L1138">    return statementCacheEnabled;</span>
+<span class="fc" id="L1181">    return statementCacheEnabled;</span>
   }
 
   /**
@@ -1145,8 +1188,8 @@ public class SqlMapExecutorDelegate {
    *          the new statement cache enabled
    */
   public void setStatementCacheEnabled(boolean statementCacheEnabled) {
-<span class="fc" id="L1148">    this.statementCacheEnabled = statementCacheEnabled;</span>
-<span class="fc" id="L1149">  }</span>
+<span class="fc" id="L1191">    this.statementCacheEnabled = statementCacheEnabled;</span>
+<span class="fc" id="L1192">  }</span>
 
   /**
    * Checks if is force multiple result set support.
@@ -1154,7 +1197,7 @@ public class SqlMapExecutorDelegate {
    * @return true, if is force multiple result set support
    */
   public boolean isForceMultipleResultSetSupport() {
-<span class="fc" id="L1157">    return forceMultipleResultSetSupport;</span>
+<span class="fc" id="L1200">    return forceMultipleResultSetSupport;</span>
   }
 
   /**
@@ -1164,7 +1207,7 @@ public class SqlMapExecutorDelegate {
    *          the new force multiple result set support
    */
   public void setForceMultipleResultSetSupport(boolean forceMultipleResultSetSupport) {
-<span class="fc" id="L1167">    this.forceMultipleResultSetSupport = forceMultipleResultSetSupport;</span>
-<span class="fc" id="L1168">  }</span>
+<span class="fc" id="L1210">    this.forceMultipleResultSetSupport = forceMultipleResultSetSupport;</span>
+<span class="fc" id="L1211">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

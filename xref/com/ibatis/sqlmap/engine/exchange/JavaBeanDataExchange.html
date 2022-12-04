@@ -6,21 +6,21 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/exchange/JavaBeanDataExchange.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2020 the original author or authors.</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> *    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">https://www.apache.org/licenses/LICENSE-2.0</a></em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.exchange;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.accessplan.AccessPlan;
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initialize(Map properties) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      Object map = properties.get(<span class="jxr_string">"map"</span>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">if</strong> (map instanceof <a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a>) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>        <a name="ParameterMap" href="<a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a>../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a> parameterMap = (<a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a>) map;
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>        <a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a> parameterMap = (<a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a>) map;
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>        <strong class="jxr_keyword">if</strong> (parameterMap != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <a name="ParameterMapping" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a>[] parameterMappings = parameterMap.getParameterMappings();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          String[] parameterPropNames = <strong class="jxr_keyword">new</strong> String[parameterMappings.length];
@@ -94,7 +94,7 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>        }
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (map instanceof <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>        <a name="ResultMap" hre<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = (<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) map;
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>        <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = (<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) map;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>        <strong class="jxr_keyword">if</strong> (resultMap != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <a name="ResultMapping" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMapping.html#ResultMapping">ResultMapping</a>[] resultMappings = resultMap.getResultMappings();
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          String[] resultPropNames = <strong class="jxr_keyword">new</strong> String[resultMappings.length];
@@ -163,21 +163,22 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">   *          the mappings</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">   * @param values</em>
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">   *          the values</em>
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">   * @return the output param values</em>
-<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>   <strong class="jxr_keyword">private</strong> Object[] getOutputParamValues(<a name="ParameterMapping" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a>[] mappings, Object[] values) {
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     List outParamValues = <strong class="jxr_keyword">new</strong> ArrayList();
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; mappings.length; i++) {
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>       <strong class="jxr_keyword">if</strong> (mappings[i].isOutputAllowed()) {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         outParamValues.add(values[i]);
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>       }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     }
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>     <strong class="jxr_keyword">return</strong> outParamValues.toArray();
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>   }
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> 
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> }
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">   * @return the output param values</em>
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>   <strong class="jxr_keyword">private</strong> Object[] getOutputParamValues(<a name="ParameterMapping" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a>[] mappings, Object[] values) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     List outParamValues = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; mappings.length; i++) {
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>       <strong class="jxr_keyword">if</strong> (mappings[i].isOutputAllowed()) {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         outParamValues.add(values[i]);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>       }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     }
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">return</strong> outParamValues.toArray();
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>   }
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> 
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2022 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

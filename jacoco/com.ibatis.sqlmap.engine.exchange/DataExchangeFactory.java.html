@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataExchangeFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">DataExchangeFactory.java</span></div><h1>DataExchangeFactory.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataExchangeFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.exchange</a> &gt; <span class="el_source">DataExchangeFactory.java</span></div><h1>DataExchangeFactory.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -73,25 +73,26 @@ public class DataExchangeFactory {
    *
    * @param clazz
    *          - the class to get a DataExchange object for
+   *
    * @return - the DataExchange object
    */
   public DataExchange getDataExchangeForClass(Class clazz) {
-<span class="fc" id="L79">    DataExchange dataExchange = null;</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">    if (clazz == null) {</span>
-<span class="fc" id="L81">      dataExchange = complexDataExchange;</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L83">      dataExchange = domDataExchange;</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">    } else if (List.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L85">      dataExchange = listDataExchange;</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
-<span class="fc" id="L87">      dataExchange = mapDataExchange;</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz) != null) {</span>
-<span class="fc" id="L89">      dataExchange = primitiveDataExchange;</span>
+<span class="fc" id="L80">    DataExchange dataExchange = null;</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">    if (clazz == null) {</span>
+<span class="fc" id="L82">      dataExchange = complexDataExchange;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
+<span class="fc" id="L84">      dataExchange = domDataExchange;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    } else if (List.class.isAssignableFrom(clazz)) {</span>
+<span class="fc" id="L86">      dataExchange = listDataExchange;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">    } else if (Map.class.isAssignableFrom(clazz)) {</span>
+<span class="fc" id="L88">      dataExchange = mapDataExchange;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz) != null) {</span>
+<span class="fc" id="L90">      dataExchange = primitiveDataExchange;</span>
     } else {
-<span class="fc" id="L91">      dataExchange = new JavaBeanDataExchange(this);</span>
+<span class="fc" id="L92">      dataExchange = new JavaBeanDataExchange(this);</span>
     }
-<span class="fc" id="L93">    return dataExchange;</span>
+<span class="fc" id="L94">    return dataExchange;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -6,21 +6,21 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/config/MappedStatementConfig.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright 2004-2020 the original author or authors.</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *    <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> *    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">https://www.apache.org/licenses/LICENSE-2.0</a></em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.config;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.beans.*;
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="Probe" href="../../../../../com/ibatis/common/beans/Probe.html#Probe">Probe</a> PROBE = ProbeFactory.getProbe();
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>    <em class="jxr_javadoccomment">/** The Constant PARAM_PARSER. */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="InlineParameterMapParser" href="../../../../../com/ibatis/sqlmap/engine/<a name="InlineParameterMapParser" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/InlineParameterMapParser.html#InlineParameterMapParser">InlineParameterMapParser</a>ParameterMapParser.html#InlineParameterMapParser">InlineParameterMapParser</a> PARAM_PARSER = <strong class="jxr_keyword">new</strong> <a name="InlineParameterMapParser" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/InlineParameterMapParser.html#InlineParameterMapParser">InlineParameterMapParser</a>();
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="InlineParameterMapParser" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/InlineParameterMapParser.html#InlineParameterMapParser">InlineParameterMapParser</a> PARAM_PARSER = <strong class="jxr_keyword">new</strong> <a name="InlineParameterMapParser" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/InlineParameterMapParser.html#InlineParameterMapParser">InlineParameterMapParser</a>();
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>    <em class="jxr_javadoccomment">/** The error context. */</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>    <strong class="jxr_keyword">private</strong> <a name="ErrorContext" href="../../../../../com/ibatis/sqlmap/engine/scope/ErrorContext.html#ErrorContext">ErrorContext</a> errorContext;
@@ -158,7 +158,7 @@
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     setSqlForStatement(statement, sql);
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>     <em class="jxr_comment">// set up either null result map or automatic result mapping</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <a name="ResultMap" hre<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = (<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) statement.getResultMap();
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = (<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) statement.getResultMap();
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     <strong class="jxr_keyword">if</strong> (resultMap == <strong class="jxr_keyword">null</strong> &amp;&amp; resultClass == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>       statement.setResultMap(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>     } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (resultMap == <strong class="jxr_keyword">null</strong>) {
@@ -211,10 +211,10 @@
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSelectKeyStatement(<a name="SqlSource" href="../../../../../com/ibatis/sqlmap/engine/config/SqlSource.html#SqlSource">SqlSource</a> processor, String resultClassName, String keyPropName,
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>       <strong class="jxr_keyword">boolean</strong> runAfterSQL, String type) {
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">if</strong> (rootStatement instanceof <a name="InsertStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>) {
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>       <a name="InsertStatement" href="../.<a name="InsertStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a> insertStatement = ((<a name="InsertStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>) rootStatement);
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>       <a name="InsertStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a> insertStatement = ((<a name="InsertStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>) rootStatement);
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>       Class parameterClass = insertStatement.getParameterClass();
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>       errorContext.setActivity(<span class="jxr_string">"parsing a select key"</span>);
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>       <a name="SelectKeyStatement" href="../../../../../com/ibatis/sqlmap/engine/mappin<a name="SelectKeyStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectKeyStatement.html#SelectKeyStatement">SelectKeyStatement</a>KeyStatement.html#SelectKeyStatement">SelectKeyStatement</a> selectKeyStatement = <strong class="jxr_keyword">new</strong> <a name="SelectKeyStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectKeyStatement.html#SelectKeyStatement">SelectKeyStatement</a>();
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>       <a name="SelectKeyStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectKeyStatement.html#SelectKeyStatement">SelectKeyStatement</a> selectKeyStatement = <strong class="jxr_keyword">new</strong> <a name="SelectKeyStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectKeyStatement.html#SelectKeyStatement">SelectKeyStatement</a>();
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>       resultClassName = typeHandlerFactory.resolveAlias(resultClassName);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>       Class resultClass = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> 
@@ -325,30 +325,31 @@
 <a class="jxr_linenumber" name="L317" href="#L317">317</a> <em class="jxr_javadoccomment">   *          the first result class</em>
 <a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">   * @param xmlResultName</em>
 <a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">   *          the xml result name</em>
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">   * @return the result map</em>
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>   <strong class="jxr_keyword">private</strong> <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> buildAutoResultMap(<strong class="jxr_keyword">boolean</strong> allowRemapping, <a name="MappedStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a> statement, Class firstResultClass,
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>       String xmlResultName) {
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap;
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>     resultMap = <strong class="jxr_keyword">new</strong> <a name="AutoResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/AutoResultMap.html#AutoResultMap">AutoResultMap</a>(client.getDelegate(), allowRemapping);
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>     resultMap.setId(statement.getId() + <span class="jxr_string">"-AutoResultMap"</span>);
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>     resultMap.setResultClass(firstResultClass);
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>     resultMap.setXmlName(xmlResultName);
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>     resultMap.setResource(statement.getResource());
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>     <strong class="jxr_keyword">return</strong> resultMap;
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>   }
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">   * Gets the mapped statement.</em>
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">   * @return the mapped statement</em>
-<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>   <strong class="jxr_keyword">public</strong> <a name="MappedStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a> getMappedStatement() {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">return</strong> mappedStatement;
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>   }
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> }
+<a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">   * @return the result map</em>
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>   <strong class="jxr_keyword">private</strong> <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> buildAutoResultMap(<strong class="jxr_keyword">boolean</strong> allowRemapping, <a name="MappedStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a> statement, Class firstResultClass,
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>       String xmlResultName) {
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap;
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>     resultMap = <strong class="jxr_keyword">new</strong> <a name="AutoResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/AutoResultMap.html#AutoResultMap">AutoResultMap</a>(client.getDelegate(), allowRemapping);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>     resultMap.setId(statement.getId() + <span class="jxr_string">"-AutoResultMap"</span>);
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>     resultMap.setResultClass(firstResultClass);
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     resultMap.setXmlName(xmlResultName);
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>     resultMap.setResource(statement.getResource());
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     <strong class="jxr_keyword">return</strong> resultMap;
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>   }
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">   * Gets the mapped statement.</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">   * @return the mapped statement</em>
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>   <strong class="jxr_keyword">public</strong> <a name="MappedStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a> getMappedStatement() {
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">return</strong> mappedStatement;
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>   }
+<a class="jxr_linenumber" name="L342" href="#L342">342</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2020 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2022 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

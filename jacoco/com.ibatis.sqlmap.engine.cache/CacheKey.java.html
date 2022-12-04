@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheKey.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache</a> &gt; <span class="el_source">CacheKey.java</span></div><h1>CacheKey.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheKey.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache</a> &gt; <span class="el_source">CacheKey.java</span></div><h1>CacheKey.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -16,8 +16,8 @@
 package com.ibatis.sqlmap.engine.cache;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hash value generator for cache keys.
@@ -85,11 +85,12 @@ public class CacheKey implements Cloneable, Serializable {
    *
    * @param x
    *          - the int value
+   *
    * @return the cache key
    */
   public CacheKey update(int x) {
-<span class="fc" id="L91">    update(Integer.valueOf(x));</span>
-<span class="fc" id="L92">    return this;</span>
+<span class="fc" id="L92">    update(Integer.valueOf(x));</span>
+<span class="fc" id="L93">    return this;</span>
   }
 
   /**
@@ -97,74 +98,75 @@ public class CacheKey implements Cloneable, Serializable {
    *
    * @param object
    *          - the object
+   *
    * @return the cachekey
    */
   public CacheKey update(Object object) {
-<span class="fc" id="L103">    int baseHashCode = object.hashCode();</span>
+<span class="fc" id="L105">    int baseHashCode = object.hashCode();</span>
 
-<span class="fc" id="L105">    count++;</span>
-<span class="fc" id="L106">    checksum += baseHashCode;</span>
-<span class="fc" id="L107">    baseHashCode *= count;</span>
+<span class="fc" id="L107">    count++;</span>
+<span class="fc" id="L108">    checksum += baseHashCode;</span>
+<span class="fc" id="L109">    baseHashCode *= count;</span>
 
-<span class="fc" id="L109">    hashcode = multiplier * hashcode + baseHashCode;</span>
+<span class="fc" id="L111">    hashcode = multiplier * hashcode + baseHashCode;</span>
 
-<span class="fc" id="L111">    paramList.add(object);</span>
+<span class="fc" id="L113">    paramList.add(object);</span>
 
-<span class="fc" id="L113">    return this;</span>
+<span class="fc" id="L115">    return this;</span>
   }
 
   @Override
   public boolean equals(Object object) {
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">    if (this == object)</span>
-<span class="nc" id="L119">      return true;</span>
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">    if (!(object instanceof CacheKey))</span>
-<span class="nc" id="L121">      return false;</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">    if (this == object)</span>
+<span class="nc" id="L121">      return true;</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">    if (!(object instanceof CacheKey))</span>
+<span class="nc" id="L123">      return false;</span>
 
-<span class="fc" id="L123">    final CacheKey cacheKey = (CacheKey) object;</span>
+<span class="fc" id="L125">    final CacheKey cacheKey = (CacheKey) object;</span>
 
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">    if (hashcode != cacheKey.hashcode)</span>
-<span class="nc" id="L126">      return false;</span>
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">    if (checksum != cacheKey.checksum)</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">    if (hashcode != cacheKey.hashcode)</span>
 <span class="nc" id="L128">      return false;</span>
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">    if (count != cacheKey.count)</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">    if (checksum != cacheKey.checksum)</span>
 <span class="nc" id="L130">      return false;</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">    if (count != cacheKey.count)</span>
+<span class="nc" id="L132">      return false;</span>
 
-<span class="fc bfc" id="L132" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
-<span class="fc" id="L133">      Object thisParam = paramList.get(i);</span>
-<span class="fc" id="L134">      Object thatParam = cacheKey.paramList.get(i);</span>
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">      if (thisParam == null) {</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (thatParam != null)</span>
-<span class="nc" id="L137">          return false;</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
+<span class="fc" id="L135">      Object thisParam = paramList.get(i);</span>
+<span class="fc" id="L136">      Object thatParam = cacheKey.paramList.get(i);</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">      if (thisParam == null) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (thatParam != null)</span>
+<span class="nc" id="L139">          return false;</span>
       } else {
-<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (!thisParam.equals(thatParam))</span>
-<span class="fc" id="L140">          return false;</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (!thisParam.equals(thatParam))</span>
+<span class="fc" id="L142">          return false;</span>
       }
     }
 
-<span class="fc" id="L144">    return true;</span>
+<span class="fc" id="L146">    return true;</span>
   }
 
   @Override
   public int hashCode() {
-<span class="fc" id="L149">    return hashcode;</span>
+<span class="fc" id="L151">    return hashcode;</span>
   }
 
   @Override
   public String toString() {
-<span class="fc" id="L154">    StringBuilder returnValue = new StringBuilder().append(hashcode).append('|').append(checksum);</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
-<span class="fc" id="L156">      returnValue.append('|').append(paramList.get(i));</span>
+<span class="fc" id="L156">    StringBuilder returnValue = new StringBuilder().append(hashcode).append('|').append(checksum);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">    for (int i = 0; i &lt; paramList.size(); i++) {</span>
+<span class="fc" id="L158">      returnValue.append('|').append(paramList.get(i));</span>
     }
 
-<span class="fc" id="L159">    return returnValue.toString();</span>
+<span class="fc" id="L161">    return returnValue.toString();</span>
   }
 
   @Override
   public CacheKey clone() throws CloneNotSupportedException {
-<span class="nc" id="L164">    CacheKey clonedCacheKey = (CacheKey) super.clone();</span>
-<span class="nc" id="L165">    clonedCacheKey.paramList = new ArrayList&lt;Object&gt;(paramList);</span>
-<span class="nc" id="L166">    return clonedCacheKey;</span>
+<span class="nc" id="L166">    CacheKey clonedCacheKey = (CacheKey) super.clone();</span>
+<span class="nc" id="L167">    clonedCacheKey.paramList = new ArrayList&lt;Object&gt;(paramList);</span>
+<span class="nc" id="L168">    return clonedCacheKey;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

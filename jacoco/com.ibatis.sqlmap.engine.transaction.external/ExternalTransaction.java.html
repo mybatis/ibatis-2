@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExternalTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.external</a> &gt; <span class="el_source">ExternalTransaction.java</span></div><h1>ExternalTransaction.java</h1><pre class="source lang-java linenums">/**
- * Copyright 2004-2020 the original author or authors.
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExternalTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.external</a> &gt; <span class="el_source">ExternalTransaction.java</span></div><h1>ExternalTransaction.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -22,9 +22,10 @@ import com.ibatis.sqlmap.engine.transaction.IsolationLevel;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 /**
  * The Class ExternalTransaction.
@@ -32,7 +33,7 @@ import java.sql.SQLException;
 public class ExternalTransaction implements Transaction {
 
   /** The Constant connectionLog. */
-<span class="nc" id="L35">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+<span class="nc" id="L36">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
 
   /** The data source. */
   private DataSource dataSource;
@@ -47,7 +48,7 @@ public class ExternalTransaction implements Transaction {
   private Connection connection;
 
   /** The isolation level. */
-<span class="nc" id="L50">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+<span class="nc" id="L51">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
 
   /**
    * Instantiates a new external transaction.
@@ -60,21 +61,22 @@ public class ExternalTransaction implements Transaction {
    *          the set auto commit allowed
    * @param isolationLevel
    *          the isolation level
+   *
    * @throws TransactionException
    *           the transaction exception
    */
   public ExternalTransaction(DataSource ds, boolean defaultAutoCommit, boolean setAutoCommitAllowed, int isolationLevel)
-<span class="nc" id="L67">      throws TransactionException {</span>
+<span class="nc" id="L69">      throws TransactionException {</span>
     // Check Parameters
-<span class="nc" id="L69">    dataSource = ds;</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">    if (dataSource == null) {</span>
-<span class="nc" id="L71">      throw new TransactionException(&quot;ExternalTransaction initialization failed.  DataSource was null.&quot;);</span>
+<span class="nc" id="L71">    dataSource = ds;</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">    if (dataSource == null) {</span>
+<span class="nc" id="L73">      throw new TransactionException(&quot;ExternalTransaction initialization failed.  DataSource was null.&quot;);</span>
     }
 
-<span class="nc" id="L74">    this.defaultAutoCommit = defaultAutoCommit;</span>
-<span class="nc" id="L75">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
-<span class="nc" id="L76">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
-<span class="nc" id="L77">  }</span>
+<span class="nc" id="L76">    this.defaultAutoCommit = defaultAutoCommit;</span>
+<span class="nc" id="L77">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
+<span class="nc" id="L78">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="nc" id="L79">  }</span>
 
   /**
    * Inits the.
@@ -86,48 +88,48 @@ public class ExternalTransaction implements Transaction {
    */
   private void init() throws SQLException, TransactionException {
     // Open JDBC Transaction
-<span class="nc" id="L89">    connection = dataSource.getConnection();</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L91">      throw new TransactionException(</span>
+<span class="nc" id="L91">    connection = dataSource.getConnection();</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L93">      throw new TransactionException(</span>
           &quot;ExternalTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
     }
     // Isolation Level
-<span class="nc" id="L95">    isolationLevel.applyIsolationLevel(connection);</span>
+<span class="nc" id="L97">    isolationLevel.applyIsolationLevel(connection);</span>
     // AutoCommit
-<span class="nc bnc" id="L97" title="All 2 branches missed.">    if (setAutoCommitAllowed) {</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">      if (connection.getAutoCommit() != defaultAutoCommit) {</span>
-<span class="nc" id="L99">        connection.setAutoCommit(defaultAutoCommit);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (setAutoCommitAllowed) {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">      if (connection.getAutoCommit() != defaultAutoCommit) {</span>
+<span class="nc" id="L101">        connection.setAutoCommit(defaultAutoCommit);</span>
       }
     }
     // Debug
-<span class="nc bnc" id="L103" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
-<span class="nc" id="L104">      connection = ConnectionLogProxy.newInstance(connection);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L106">      connection = ConnectionLogProxy.newInstance(connection);</span>
     }
-<span class="nc" id="L106">  }</span>
+<span class="nc" id="L108">  }</span>
 
   public void commit() throws SQLException, TransactionException {
-<span class="nc" id="L109">  }</span>
+<span class="nc" id="L111">  }</span>
 
   public void rollback() throws SQLException, TransactionException {
-<span class="nc" id="L112">  }</span>
+<span class="nc" id="L114">  }</span>
 
   public void close() throws SQLException, TransactionException {
-<span class="nc bnc" id="L115" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    if (connection != null) {</span>
       try {
-<span class="nc" id="L117">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="nc" id="L119">        isolationLevel.restoreIsolationLevel(connection);</span>
       } finally {
-<span class="nc" id="L119">        connection.close();</span>
-<span class="nc" id="L120">        connection = null;</span>
+<span class="nc" id="L121">        connection.close();</span>
+<span class="nc" id="L122">        connection = null;</span>
       }
     }
-<span class="nc" id="L123">  }</span>
+<span class="nc" id="L125">  }</span>
 
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L127">      init();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L129">      init();</span>
     }
-<span class="nc" id="L129">    return connection;</span>
+<span class="nc" id="L131">    return connection;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
