@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,20 @@
  */
 package com.ibatis.sqlmap.engine.builder.xml;
 
-import com.ibatis.common.resources.*;
-import com.ibatis.common.xml.*;
-import com.ibatis.sqlmap.client.*;
-import com.ibatis.sqlmap.engine.cache.*;
-import com.ibatis.sqlmap.engine.config.*;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.common.xml.Nodelet;
+import com.ibatis.common.xml.NodeletException;
+import com.ibatis.common.xml.NodeletParser;
+import com.ibatis.common.xml.NodeletUtils;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.engine.cache.CacheController;
+import com.ibatis.sqlmap.engine.config.CacheModelConfig;
+import com.ibatis.sqlmap.engine.config.ParameterMapConfig;
+import com.ibatis.sqlmap.engine.config.ResultMapConfig;
 import com.ibatis.sqlmap.engine.mapping.statement.*;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.Properties;
 
 import org.w3c.dom.Node;
