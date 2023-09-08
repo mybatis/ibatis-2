@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,36 @@
  */
 package com.ibatis.sqlmap.engine.config;
 
-import com.ibatis.common.beans.*;
-import com.ibatis.common.resources.*;
-import com.ibatis.sqlmap.client.*;
-import com.ibatis.sqlmap.client.extensions.*;
-import com.ibatis.sqlmap.engine.accessplan.*;
-import com.ibatis.sqlmap.engine.cache.*;
-import com.ibatis.sqlmap.engine.cache.fifo.*;
-import com.ibatis.sqlmap.engine.cache.lru.*;
-import com.ibatis.sqlmap.engine.cache.memory.*;
-import com.ibatis.sqlmap.engine.datasource.*;
-import com.ibatis.sqlmap.engine.impl.*;
-import com.ibatis.sqlmap.engine.mapping.result.*;
-import com.ibatis.sqlmap.engine.mapping.statement.*;
-import com.ibatis.sqlmap.engine.scope.*;
-import com.ibatis.sqlmap.engine.transaction.*;
-import com.ibatis.sqlmap.engine.transaction.external.*;
-import com.ibatis.sqlmap.engine.transaction.jdbc.*;
-import com.ibatis.sqlmap.engine.transaction.jta.*;
+import com.ibatis.common.beans.ClassInfo;
+import com.ibatis.common.beans.Probe;
+import com.ibatis.common.beans.ProbeFactory;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
+import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
+import com.ibatis.sqlmap.engine.cache.CacheController;
+import com.ibatis.sqlmap.engine.cache.CacheModel;
+import com.ibatis.sqlmap.engine.cache.fifo.FifoCacheController;
+import com.ibatis.sqlmap.engine.cache.lru.LruCacheController;
+import com.ibatis.sqlmap.engine.cache.memory.MemoryCacheController;
+import com.ibatis.sqlmap.engine.datasource.DbcpDataSourceFactory;
+import com.ibatis.sqlmap.engine.datasource.JndiDataSourceFactory;
+import com.ibatis.sqlmap.engine.datasource.SimpleDataSourceFactory;
+import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
+import com.ibatis.sqlmap.engine.mapping.result.Discriminator;
+import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+import com.ibatis.sqlmap.engine.scope.ErrorContext;
+import com.ibatis.sqlmap.engine.transaction.TransactionManager;
+import com.ibatis.sqlmap.engine.transaction.external.ExternalTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jdbc.JdbcTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig;
 import com.ibatis.sqlmap.engine.type.*;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * The Class SqlMapConfiguration.
