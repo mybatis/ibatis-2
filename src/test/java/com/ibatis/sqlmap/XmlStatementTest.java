@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 
 import xmltester.MiniDom;
 import xmltester.MiniParser;
-import xmltester.MiniParser;
 
 class XmlStatementTest extends BaseSqlMap {
 
