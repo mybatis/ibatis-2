@@ -473,8 +473,6 @@ public class SqlMapConfiguration {
     typeHandlerFactory.putTypeAlias("FIFO", FifoCacheController.class.getName());
     typeHandlerFactory.putTypeAlias("LRU", LruCacheController.class.getName());
     typeHandlerFactory.putTypeAlias("MEMORY", MemoryCacheController.class.getName());
-    // use a string for OSCache to avoid unnecessary loading of properties upon init
-    typeHandlerFactory.putTypeAlias("OSCACHE", "com.ibatis.sqlmap.engine.cache.oscache.OSCacheController");
 
     // TYPE ALIASEs
     typeHandlerFactory.putTypeAlias("dom", DomTypeMarker.class.getName());
