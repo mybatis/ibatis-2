@@ -65,7 +65,7 @@
   </distributionManagement>
 
   <properties>
-    <clirr.comparisonVersion>2.3.7</clirr.comparisonVersion>
+    <clirr.comparisonVersion>2.4.4</clirr.comparisonVersion>
     <java.version>8</java.version>
     <java.release.version>8</java.release.version>
     <java.test.version>8</java.test.version>
