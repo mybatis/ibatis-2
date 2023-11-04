@@ -23,7 +23,7 @@
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
     <version>39</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>org.mybatis</groupId>
@@ -32,21 +32,19 @@
   <packaging>jar</packaging>
 
   <name>mybatis2</name>
-  <description>
-    The mybatis data mapper framework makes it easier to use a relational database with object-oriented
+  <description>The mybatis data mapper framework makes it easier to use a relational database with object-oriented
     applications. mybatis couples objects with stored procedures or SQL statements using a XML descriptor or
     annotations. Simplicity is the biggest advantage of the mybatis data mapper over object relational mapping
-    tools.
-  </description>
+    tools.</description>
   <url>http://www.mybatis.org/</url>
 
   <inceptionYear>2004</inceptionYear>
 
   <scm>
-    <url>http://github.com/mybatis/mybatis-2</url>
     <connection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</developerConnection>
     <tag>HEAD</tag>
+    <url>http://github.com/mybatis/mybatis-2</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -116,10 +114,10 @@
       <version>2.11.0</version>
       <scope>provided</scope>
       <exclusions>
-          <exclusion>
-              <groupId>commons-logging</groupId>
-              <artifactId>commons-logging</artifactId>
-          </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -193,16 +191,16 @@
 
   </build>
 
-    <profiles>
-        <profile>
-            <id>jdk17on</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <properties>
-                <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-            </properties>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <id>jdk17on</id>
+      <activation>
+        <jdk>[17,)</jdk>
+      </activation>
+      <properties>
+        <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
