@@ -29,7 +29,6 @@ import java.util.Properties;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.CharacterData;
 
 /**
  * The Class XMLSqlSource.
