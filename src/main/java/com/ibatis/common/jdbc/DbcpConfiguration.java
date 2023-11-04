@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@ package com.ibatis.common.jdbc;
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 /**
  * Wrapper class to simplify use of DBCP.
@@ -151,7 +152,7 @@ public class DbcpConfiguration {
       }
 
       if (notEmpty(maxActive)) {
-        basicDataSource.setMaxActive(Integer.parseInt(maxActive));
+        basicDataSource.setMaxTotal(Integer.parseInt(maxActive));
       }
 
       if (notEmpty(maxIdle)) {
@@ -159,7 +160,7 @@ public class DbcpConfiguration {
       }
 
       if (notEmpty(maxWait)) {
-        basicDataSource.setMaxWait(Integer.parseInt(maxWait));
+        basicDataSource.setMaxWait(Duration.ofMillis(Integer.parseInt(maxWait)));
       }
 
       Iterator props = map.keySet().iterator();
