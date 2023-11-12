@@ -29,7 +29,6 @@
   <groupId>org.mybatis</groupId>
   <artifactId>mybatis2</artifactId>
   <version>2.5.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
 
   <name>mybatis2</name>
   <description>The mybatis data mapper framework makes it easier to use a relational database with object-oriented
@@ -64,6 +63,7 @@
 
   <properties>
     <clirr.comparisonVersion>2.4.4</clirr.comparisonVersion>
+    <derby.version>10.17.1.0</derby.version>
     <java.version>8</java.version>
     <java.release.version>8</java.release.version>
     <java.test.version>8</java.test.version>
@@ -143,19 +143,19 @@
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
-      <version>10.16.1.1</version>
+      <version>${derby.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derbyshared</artifactId>
-      <version>10.16.1.1</version>
+      <version>${derby.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derbyoptionaltools</artifactId>
-      <version>10.16.1.1</version>
+      <version>${derby.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -193,12 +193,31 @@
 
   <profiles>
     <profile>
+      <id>pre16</id>
+      <activation>
+        <jdk>(,16)</jdk>
+      </activation>
+      <properties>
+          <derby.version>10.15.2.0</derby.version>
+      </properties>
+    </profile>
+    <profile>
       <id>jdk17on</id>
       <activation>
         <jdk>[17,)</jdk>
       </activation>
       <properties>
         <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+        <derby.version>10.16.1.1</derby.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>19</id>
+      <activation>
+        <jdk>[19,)</jdk>
+      </activation>
+      <properties>
+          <derby.version>10.17.1.0</derby.version>
       </properties>
     </profile>
   </profiles>
