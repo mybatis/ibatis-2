@@ -35,7 +35,7 @@
     applications. mybatis couples objects with stored procedures or SQL statements using a XML descriptor or
     annotations. Simplicity is the biggest advantage of the mybatis data mapper over object relational mapping
     tools.</description>
-  <url>http://www.mybatis.org/</url>
+  <url>https://www.mybatis.org/ibatis-2/</url>
 
   <inceptionYear>2004</inceptionYear>
 
@@ -43,7 +43,7 @@
     <connection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</developerConnection>
     <tag>HEAD</tag>
-    <url>http://github.com/mybatis/mybatis-2</url>
+    <url>http://github.com/mybatis/mybatis-2/</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
