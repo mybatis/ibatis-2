@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CacheModelConfig xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/config/CacheModelConfig.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2023 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -23,119 +23,120 @@
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.config;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.cache.*;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.impl.*;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.scope.*;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.Properties;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * The Class CacheModelConfig.</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="CacheModelConfig" href="../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a> {
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>    <em class="jxr_javadoccomment">/** The error context. */</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>    <strong class="jxr_keyword">private</strong> <a name="ErrorContext" href="../../../../../com/ibatis/sqlmap/engine/scope/ErrorContext.html#ErrorContext">ErrorContext</a> errorContext;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <em class="jxr_javadoccomment">/** The cache model. */</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a> cacheModel;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">   * Instantiates a new cache model config.</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">   * @param config</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">   *          the config</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   * @param id</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   *          the id</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   * @param controller</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   *          the controller</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   * @param readOnly</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">   *          the read only</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">   * @param serialize</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">   *          the serialize</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>    <a name="CacheModelConfig" href="../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a>(<a name="SqlMapConfiguration" href="../../../../../com/ibatis/sqlmap/engine/config/SqlMapConfiguration.html#SqlMapConfiguration">SqlMapConfiguration</a> config, String id, <a name="CacheController" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheController.html#CacheController">CacheController</a> controller, <strong class="jxr_keyword">boolean</strong> readOnly,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>        <strong class="jxr_keyword">boolean</strong> serialize) {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">this</strong>.errorContext = config.getErrorContext();
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">this</strong>.cacheModel = <strong class="jxr_keyword">new</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a>();
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <a name="SqlMapClientImpl" href="../../../../../com/ibatis/sqlmap/engine/impl/SqlMapClientImpl.html#SqlMapClientImpl">SqlMapClientImpl</a> client = config.getClient();
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      errorContext.setActivity(<span class="jxr_string">"building a cache model"</span>);
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      cacheModel.setReadOnly(readOnly);
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      cacheModel.setSerialize(serialize);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      errorContext.setObjectId(id + <span class="jxr_string">" cache model"</span>);
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model type."</span>);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      cacheModel.setId(id);
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      cacheModel.setResource(errorContext.getResource());
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>        cacheModel.setCacheController(controller);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting Cache Controller Class.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model configuration."</span>);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">if</strong> (client.getDelegate().isCacheModelsEnabled()) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>        client.getDelegate().addCacheModel(cacheModel);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      errorContext.setMoreInfo(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      errorContext.setObjectId(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>    }
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">   * Sets the flush interval.</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">   * @param hours</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   *          the hours</em>
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   * @param minutes</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   *          the minutes</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   * @param seconds</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   *          the seconds</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   * @param milliseconds</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   *          the milliseconds</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlushInterval(<strong class="jxr_keyword">long</strong> hours, <strong class="jxr_keyword">long</strong> minutes, <strong class="jxr_keyword">long</strong> seconds, <strong class="jxr_keyword">long</strong> milliseconds) {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model flush interval."</span>);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">long</strong> t = 0L;
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      t += milliseconds;
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      t += seconds * 1000L;
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      t += minutes * 60L * 1000L;
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      t += hours * 60L * 60L * 1000L;
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">if</strong> (t &lt; 1L)
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>            <span class="jxr_string">"A flush interval must specify one or more of milliseconds, seconds, minutes or hours."</span>);
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      cacheModel.setFlushInterval(t);
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>    }
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">   * Adds the flush trigger statement.</em>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">   * @param statement</em>
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">   *          the statement</em>
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addFlushTriggerStatement(String statement) {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model flush on statement elements."</span>);
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     cacheModel.addFlushTriggerStatement(statement);
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>   }
-<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">   * Gets the cache model.</em>
-<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">   * @return the cache model</em>
-<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>   <strong class="jxr_keyword">public</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a> getCacheModel() {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">return</strong> cacheModel;
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>   }
-<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">   * Sets the controller properties.</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">   * @param cacheProps</em>
-<a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">   *          the new controller properties</em>
-<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setControllerProperties(Properties cacheProps) {
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     cacheModel.setControllerProperties(cacheProps);
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>   }
-<a class="jxr_linenumber" name="L128" href="#L128">128</a> }
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.cache.CacheController;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.cache.CacheModel;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.scope.ErrorContext;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.Properties;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * The Class CacheModelConfig.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="CacheModelConfig" href="../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a> {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>    <em class="jxr_javadoccomment">/** The error context. */</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">private</strong> <a name="ErrorContext" href="../../../../../com/ibatis/sqlmap/engine/scope/ErrorContext.html#ErrorContext">ErrorContext</a> errorContext;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <em class="jxr_javadoccomment">/** The cache model. */</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a> cacheModel;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">   * Instantiates a new cache model config.</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">   * @param config</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   *          the config</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   * @param id</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   *          the id</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   * @param controller</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   *          the controller</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">   * @param readOnly</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">   *          the read only</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">   * @param serialize</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">   *          the serialize</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <a name="CacheModelConfig" href="../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a>(<a name="SqlMapConfiguration" href="../../../../../com/ibatis/sqlmap/engine/config/SqlMapConfiguration.html#SqlMapConfiguration">SqlMapConfiguration</a> config, String id, <a name="CacheController" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheController.html#CacheController">CacheController</a> controller, <strong class="jxr_keyword">boolean</strong> readOnly,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>        <strong class="jxr_keyword">boolean</strong> serialize) {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">this</strong>.errorContext = config.getErrorContext();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">this</strong>.cacheModel = <strong class="jxr_keyword">new</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a>();
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <a name="SqlMapClientImpl" href="../../../../../com/ibatis/sqlmap/engine/impl/SqlMapClientImpl.html#SqlMapClientImpl">SqlMapClientImpl</a> client = config.getClient();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      errorContext.setActivity(<span class="jxr_string">"building a cache model"</span>);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      cacheModel.setReadOnly(readOnly);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      cacheModel.setSerialize(serialize);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      errorContext.setObjectId(id + <span class="jxr_string">" cache model"</span>);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model type."</span>);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      cacheModel.setId(id);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      cacheModel.setResource(errorContext.getResource());
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>        cacheModel.setCacheController(controller);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting Cache Controller Class.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model configuration."</span>);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">if</strong> (client.getDelegate().isCacheModelsEnabled()) {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>        client.getDelegate().addCacheModel(cacheModel);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      errorContext.setMoreInfo(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      errorContext.setObjectId(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>    }
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">   * Sets the flush interval.</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   * @param hours</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   *          the hours</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @param minutes</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   *          the minutes</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   * @param seconds</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   *          the seconds</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   * @param milliseconds</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   *          the milliseconds</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlushInterval(<strong class="jxr_keyword">long</strong> hours, <strong class="jxr_keyword">long</strong> minutes, <strong class="jxr_keyword">long</strong> seconds, <strong class="jxr_keyword">long</strong> milliseconds) {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model flush interval."</span>);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">long</strong> t = 0L;
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      t += milliseconds;
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>      t += seconds * 1000L;
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      t += minutes * 60L * 1000L;
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      t += hours * 60L * 60L * 1000L;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">if</strong> (t &lt; 1L)
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>            <span class="jxr_string">"A flush interval must specify one or more of milliseconds, seconds, minutes or hours."</span>);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      cacheModel.setFlushInterval(t);
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>    }
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   * Adds the flush trigger statement.</em>
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">   * @param statement</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">   *          the statement</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addFlushTriggerStatement(String statement) {
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     errorContext.setMoreInfo(<span class="jxr_string">"Check the cache model flush on statement elements."</span>);
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     cacheModel.addFlushTriggerStatement(statement);
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>   }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">   * Gets the cache model.</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">   * @return the cache model</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>   <strong class="jxr_keyword">public</strong> <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a> getCacheModel() {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">return</strong> cacheModel;
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   }
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> 
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">   * Sets the controller properties.</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">   * @param cacheProps</em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">   *          the new controller properties</em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setControllerProperties(Properties cacheProps) {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     cacheModel.setControllerProperties(cacheProps);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>   }
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2004&#x2013;2022 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2004&#x2013;2024 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
 </body>
 </html>

@@ -20,7 +20,6 @@ com.ibatis.sqlmap.engine.cache
 com.ibatis.sqlmap.engine.cache.fifo
 com.ibatis.sqlmap.engine.cache.lru
 com.ibatis.sqlmap.engine.cache.memory
-com.ibatis.sqlmap.engine.cache.oscache
 com.ibatis.sqlmap.engine.config
 com.ibatis.sqlmap.engine.datasource
 com.ibatis.sqlmap.engine.exchange
