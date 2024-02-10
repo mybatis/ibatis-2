@@ -3,6 +3,7 @@
 .project
 .settings
 /target/
+.github/keys/
 .mvn/wrapper/maven-wrapper.jar
 pom.xml.releaseBackup
 release.properties
