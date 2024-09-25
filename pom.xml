@@ -62,6 +62,10 @@
   </distributionManagement>
 
   <properties>
+    <!-- Maven compiler options -->
+    <java.version>11</java.version>
+    <java.release.version>11</java.release.version>
+
     <clirr.comparisonVersion>2.4.4</clirr.comparisonVersion>
     <derby.version>10.17.1.0</derby.version>
     <java.version>8</java.version>
