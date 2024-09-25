@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.*;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -195,6 +196,7 @@ public class NodeletParser {
   private Document createDocument(Reader reader)
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
     factory.setValidating(validation);
 
     factory.setNamespaceAware(false);
@@ -241,6 +243,7 @@ public class NodeletParser {
   private Document createDocument(InputStream inputStream)
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
     factory.setValidating(validation);
 
     factory.setNamespaceAware(false);
