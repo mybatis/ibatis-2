@@ -197,6 +197,8 @@ public class NodeletParser {
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
     factory.setValidating(validation);
 
     factory.setNamespaceAware(false);
@@ -244,6 +246,8 @@ public class NodeletParser {
       throws ParserConfigurationException, FactoryConfigurationError, SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
     factory.setValidating(validation);
 
     factory.setNamespaceAware(false);
