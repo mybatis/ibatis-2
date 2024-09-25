@@ -199,13 +199,12 @@
     <profile>
       <id>jdk17on</id>
       <activation>
-        <jdk>[17,)</jdk>
+        <jdk>[17,19]</jdk>
       </activation>
       <properties>
         <derby.version>10.16.1.1</derby.version>
       </properties>
     </profile>
-    <profile>
       <id>19</id>
       <activation>
         <jdk>[19,)</jdk>
