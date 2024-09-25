@@ -454,6 +454,8 @@ public class MappedStatement {
     try {
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
       return documentBuilder.parse(new ReaderInputStream(new StringReader(s)));
     } catch (Exception e) {
