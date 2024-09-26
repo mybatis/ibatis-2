@@ -179,7 +179,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <systemPropertyVariables >
+          <systemPropertyVariables>
             <property>
               <name>derby.stream.error.file</name>
               <value>${project.build.directory}/derby.log</value>
@@ -188,7 +188,7 @@
               <name>derby.system.home</name>
               <value>${project.build.directory}/ibderby</value>
             </property>
-          </systemPropertyVariables >
+          </systemPropertyVariables>
         </configuration>
       </plugin>
     </plugins>
