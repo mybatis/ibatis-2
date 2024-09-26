@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultMapping.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">ResultMapping.java</span></div><h1>ResultMapping.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.result;
+
+import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
+import com.ibatis.sqlmap.engine.type.TypeHandler;
+
+/**
+ * Basic implementation of ResultMapping.
+ */
+<span class="fc" id="L24">public class ResultMapping {</span>
+
+  /** The property name. */
+  private String propertyName;
+
+  /** The column name. */
+  private String columnName;
+
+  /** The column index. */
+  private int columnIndex;
+
+  /** The type handler. */
+  private TypeHandler typeHandler;
+
+  /** The jdbc type. */
+  private int jdbcType;
+
+  /** The jdbc type name. */
+  private String jdbcTypeName;
+
+  /** The null value. */
+  private String nullValue;
+
+  /** The not null column. */
+  private String notNullColumn;
+
+  /** The statement name. */
+  private String statementName;
+
+  /** The java type. */
+  private Class javaType;
+
+  /** The nested result map name. */
+  private String nestedResultMapName;
+
+  /** The error string. */
+  private String errorString;
+
+  /**
+   * Gets the property name.
+   *
+   * @return the property name
+   */
+  public String getPropertyName() {
+<span class="fc" id="L68">    return propertyName;</span>
+  }
+
+  /**
+   * Setter for the object property name (used by the automap, and the builder).
+   *
+   * @param propertyName
+   *          - the property name
+   */
+  public void setPropertyName(String propertyName) {
+<span class="fc" id="L78">    this.errorString = &quot;Check the result mapping for the '&quot; + propertyName + &quot;' property.&quot;;</span>
+<span class="fc" id="L79">    this.propertyName = propertyName;</span>
+<span class="fc" id="L80">  }</span>
+
+  /**
+   * Getter for the error message when something goes wrong mapping this property.
+   *
+   * @return - the error message
+   */
+  public String getErrorString() {
+<span class="fc" id="L88">    return errorString;</span>
+  }
+
+  /**
+   * Getter for the column name that we are mapping.
+   *
+   * @return - the column name
+   */
+  public String getColumnName() {
+<span class="fc" id="L97">    return columnName;</span>
+  }
+
+  /**
+   * Setter for the column name we are mapping (used by the automap or builder).
+   *
+   * @param columnName
+   *          - the column name
+   */
+  public void setColumnName(String columnName) {
+<span class="fc" id="L107">    this.columnName = columnName;</span>
+<span class="fc" id="L108">  }</span>
+
+  /**
+   * Getter for the column index that we are mapping.
+   *
+   * @return - the column index
+   */
+  public int getColumnIndex() {
+<span class="fc" id="L116">    return columnIndex;</span>
+  }
+
+  /**
+   * Setter for the column index we are mapping (used by the automap or builder).
+   *
+   * @param columnIndex
+   *          - the column index
+   */
+  public void setColumnIndex(int columnIndex) {
+<span class="fc" id="L126">    this.columnIndex = columnIndex;</span>
+<span class="fc" id="L127">  }</span>
+
+  /**
+   * Getter for the type handler for the column.
+   *
+   * @return - the type handler
+   */
+  public TypeHandler getTypeHandler() {
+<span class="fc" id="L135">    return typeHandler;</span>
+  }
+
+  /**
+   * Setter for the type handler for the column.
+   *
+   * @param typeHandler
+   *          - the type handler
+   */
+  public void setTypeHandler(TypeHandler typeHandler) {
+<span class="fc" id="L145">    this.typeHandler = typeHandler;</span>
+<span class="fc" id="L146">  }</span>
+
+  /**
+   * Setter for the Java type of the column.
+   *
+   * @return - the Java type
+   */
+  public Class getJavaType() {
+<span class="fc" id="L154">    return javaType;</span>
+  }
+
+  /**
+   * Setter for the Java type of the column.
+   *
+   * @param javaType
+   *          - the Java type
+   */
+  public void setJavaType(Class javaType) {
+<span class="fc" id="L164">    this.javaType = javaType;</span>
+<span class="fc" id="L165">  }</span>
+
+  /**
+   * Getter for the JDBC type of the column.
+   *
+   * @return - the JDBC type
+   */
+  public int getJdbcType() {
+<span class="nc" id="L173">    return jdbcType;</span>
+  }
+
+  /**
+   * Getter for the JDBC type name of the column.
+   *
+   * @return - the JDBC type name
+   */
+  public String getJdbcTypeName() {
+<span class="nc" id="L182">    return jdbcTypeName;</span>
+  }
+
+  /**
+   * Setter for the JDBC type name of the column.
+   *
+   * @param jdbcTypeName
+   *          - the JDBC type name
+   */
+  public void setJdbcTypeName(String jdbcTypeName) {
+<span class="fc" id="L192">    this.jdbcTypeName = jdbcTypeName;</span>
+<span class="fc" id="L193">    this.jdbcType = JdbcTypeRegistry.getType(jdbcTypeName);</span>
+<span class="fc" id="L194">  }</span>
+
+  /**
+   * Getter for what to return if the column is null.
+   *
+   * @return - the null substitution
+   */
+  public String getNullValue() {
+<span class="fc" id="L202">    return nullValue;</span>
+  }
+
+  /**
+   * Setter for what to return if the column is null.
+   *
+   * @param nullValue
+   *          - the null substitution
+   */
+  public void setNullValue(String nullValue) {
+<span class="fc" id="L212">    this.nullValue = nullValue;</span>
+<span class="fc" id="L213">  }</span>
+
+  /**
+   * Getter for the name of the column to check for null before instantiating a nested resultMapping value.
+   *
+   * @return - the null substitution
+   */
+  public String getNotNullColumn() {
+<span class="fc" id="L221">    return notNullColumn;</span>
+  }
+
+  /**
+   * Setter for the name of the column to check for null before instantiating a nested resultMapping value.
+   *
+   * @param notNullColumn
+   *          - the column name
+   */
+  public void setNotNullColumn(String notNullColumn) {
+<span class="fc" id="L231">    this.notNullColumn = notNullColumn;</span>
+<span class="fc" id="L232">  }</span>
+
+  /**
+   * Getter for the name of the statement.
+   *
+   * @return - the name
+   */
+  public String getStatementName() {
+<span class="fc" id="L240">    return statementName;</span>
+  }
+
+  /**
+   * Setter for the name of the statement.
+   *
+   * @param statementName
+   *          - the name
+   */
+  public void setStatementName(String statementName) {
+<span class="fc" id="L250">    this.statementName = statementName;</span>
+<span class="fc" id="L251">  }</span>
+
+  /**
+   * Gets the nested result map name.
+   *
+   * @return the nested result map name
+   */
+  public String getNestedResultMapName() {
+<span class="fc" id="L259">    return nestedResultMapName;</span>
+  }
+
+  /**
+   * Sets the nested result map name.
+   *
+   * @param nestedResultMapName
+   *          the new nested result map name
+   */
+  public void setNestedResultMapName(String nestedResultMapName) {
+<span class="fc" id="L269">    this.nestedResultMapName = nestedResultMapName;</span>
+<span class="fc" id="L270">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemoryCacheLevel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.memory</a> &gt; <span class="el_source">MemoryCacheLevel.java</span></div><h1>MemoryCacheLevel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.cache.memory;
+
+import com.ibatis.sqlmap.client.SqlMapException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * An enumeration for the values for the memory cache levels.
+ */
+public final class MemoryCacheLevel {
+
+  /** The cache level map. */
+<span class="fc" id="L29">  private static Map cacheLevelMap = new HashMap();</span>
+
+  /**
+   * Constant for weak caching This cache model is probably the best choice in most cases. It will increase performance
+   * for popular results, but it will absolutely release the memory to be used in allocating other objects, assuming
+   * that the results are not currently in use.
+   */
+  public final static MemoryCacheLevel WEAK;
+
+  /**
+   * Constant for soft caching. This cache model will reduce the likelihood of running out of memory in case the results
+   * are not currently in use and the memory is needed for other objects. However, this is not the most aggressive
+   * cache-model in that regard. Hence, memory still might be allocated and unavailable for more important objects.
+   */
+  public final static MemoryCacheLevel SOFT;
+
+  /**
+   * Constant for strong caching. This cache model will guarantee that the results stay in memory until the cache is
+   * explicitly flushed. This is ideal for results that are:
+   * &lt;ol&gt;
+   * &lt;li&gt;very small&lt;/li&gt;
+   * &lt;li&gt;absolutely static&lt;/li&gt;
+   * &lt;li&gt;used very often&lt;/li&gt;
+   * &lt;/ol&gt;
+   * The advantage is that performance will be very good for this particular query. The disadvantage is that if the
+   * memory used by these results is needed, then it will not be released to make room for other objects (possibly more
+   * important objects).
+   */
+  public final static MemoryCacheLevel STRONG;
+
+  /** The reference type. */
+  private String referenceType;
+
+  static {
+<span class="fc" id="L63">    WEAK = new MemoryCacheLevel(&quot;WEAK&quot;);</span>
+<span class="fc" id="L64">    SOFT = new MemoryCacheLevel(&quot;SOFT&quot;);</span>
+<span class="fc" id="L65">    STRONG = new MemoryCacheLevel(&quot;STRONG&quot;);</span>
+
+<span class="fc" id="L67">    cacheLevelMap.put(WEAK.referenceType, WEAK);</span>
+<span class="fc" id="L68">    cacheLevelMap.put(SOFT.referenceType, SOFT);</span>
+<span class="fc" id="L69">    cacheLevelMap.put(STRONG.referenceType, STRONG);</span>
+<span class="fc" id="L70">  }</span>
+
+  /**
+   * Creates a new instance of CacheLevel.
+   *
+   * @param type
+   *          the type
+   */
+<span class="fc" id="L78">  private MemoryCacheLevel(String type) {</span>
+<span class="fc" id="L79">    this.referenceType = type;</span>
+<span class="fc" id="L80">  }</span>
+
+  /**
+   * Getter for the reference type.
+   *
+   * @return the type of reference type used
+   */
+  public String getReferenceType() {
+<span class="nc" id="L88">    return this.referenceType;</span>
+  }
+
+  /**
+   * Gets a MemoryCacheLevel by name.
+   *
+   * @param refType
+   *          the name of the reference type
+   *
+   * @return the MemoryCacheLevel that the name indicates
+   */
+  public static MemoryCacheLevel getByReferenceType(String refType) {
+<span class="nc" id="L100">    MemoryCacheLevel cacheLevel = (MemoryCacheLevel) cacheLevelMap.get(refType);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">    if (cacheLevel == null) {</span>
+<span class="nc" id="L102">      throw new SqlMapException(&quot;Error getting CacheLevel (reference type) for name: '&quot; + refType + &quot;'.&quot;);</span>
+    }
+<span class="nc" id="L104">    return cacheLevel;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

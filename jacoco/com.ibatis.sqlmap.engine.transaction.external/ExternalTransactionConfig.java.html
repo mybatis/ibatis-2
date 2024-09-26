@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExternalTransactionConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.external</a> &gt; <span class="el_source">ExternalTransactionConfig.java</span></div><h1>ExternalTransactionConfig.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2023 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.transaction.external;
+
+import com.ibatis.sqlmap.engine.transaction.BaseTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionException;
+
+import java.sql.SQLException;
+import java.util.Properties;
+
+/**
+ * The Class ExternalTransactionConfig.
+ */
+<span class="nc" id="L28">public class ExternalTransactionConfig extends BaseTransactionConfig {</span>
+
+  /** The default auto commit. */
+<span class="nc" id="L31">  private boolean defaultAutoCommit = false;</span>
+
+  /** The set auto commit allowed. */
+<span class="nc" id="L34">  private boolean setAutoCommitAllowed = true;</span>
+
+  public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
+<span class="nc" id="L37">    return new ExternalTransaction(dataSource, defaultAutoCommit, setAutoCommitAllowed, transactionIsolation);</span>
+  }
+
+  /**
+   * Checks if is default auto commit.
+   *
+   * @return true, if is default auto commit
+   */
+  public boolean isDefaultAutoCommit() {
+<span class="nc" id="L46">    return defaultAutoCommit;</span>
+  }
+
+  /**
+   * Sets the default auto commit.
+   *
+   * @param defaultAutoCommit
+   *          the new default auto commit
+   */
+  public void setDefaultAutoCommit(boolean defaultAutoCommit) {
+<span class="nc" id="L56">    this.defaultAutoCommit = defaultAutoCommit;</span>
+<span class="nc" id="L57">  }</span>
+
+  /**
+   * Checks if is sets the auto commit allowed.
+   *
+   * @return true, if is sets the auto commit allowed
+   */
+  public boolean isSetAutoCommitAllowed() {
+<span class="nc" id="L65">    return setAutoCommitAllowed;</span>
+  }
+
+  /**
+   * Sets the sets the auto commit allowed.
+   *
+   * @param setAutoCommitAllowed
+   *          the new sets the auto commit allowed
+   */
+  public void setSetAutoCommitAllowed(boolean setAutoCommitAllowed) {
+<span class="nc" id="L75">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
+<span class="nc" id="L76">  }</span>
+
+  public void setProperties(Properties props) throws SQLException, TransactionException {
+<span class="nc" id="L79">    String dacProp = props.getProperty(&quot;DefaultAutoCommit&quot;);</span>
+<span class="nc" id="L80">    String sacaProp = props.getProperty(&quot;SetAutoCommitAllowed&quot;);</span>
+<span class="nc" id="L81">    defaultAutoCommit = &quot;true&quot;.equals(dacProp);</span>
+<span class="nc bnc" id="L82" title="All 4 branches missed.">    setAutoCommitAllowed = &quot;true&quot;.equals(sacaProp) || sacaProp == null;</span>
+<span class="nc" id="L83">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

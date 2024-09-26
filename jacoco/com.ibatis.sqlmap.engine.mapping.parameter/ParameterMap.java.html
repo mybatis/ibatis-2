@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">ParameterMap.java</span></div><h1>ParameterMap.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2023 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.parameter;
+
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.sqlmap.engine.cache.CacheKey;
+import com.ibatis.sqlmap.engine.exchange.DataExchange;
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
+import com.ibatis.sqlmap.engine.scope.ErrorContext;
+import com.ibatis.sqlmap.engine.scope.StatementScope;
+import com.ibatis.sqlmap.engine.type.CustomTypeHandler;
+import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
+import com.ibatis.sqlmap.engine.type.TypeHandler;
+
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * The Class ParameterMap.
+ */
+public class ParameterMap {
+
+  /** The Constant log. */
+<span class="fc" id="L43">  private static final Log log = LogFactory.getLog(ParameterMap.class);</span>
+
+  /** The id. */
+  private String id;
+
+  /** The parameter class. */
+  private Class parameterClass;
+
+  /** The parameter mappings. */
+  private ParameterMapping[] parameterMappings;
+
+  /** The use set object for null value. */
+  private Boolean useSetObjectForNullValue;
+
+  /** The sql type to use for null value. */
+  private int sqlTypeToUseForNullValue;
+
+  /** The data exchange. */
+  private DataExchange dataExchange;
+
+  /** The resource. */
+  private String resource;
+
+  /** The parameter mapping index. */
+<span class="fc" id="L67">  private Map parameterMappingIndex = new HashMap();</span>
+
+  /** The delegate. */
+  private SqlMapExecutorDelegate delegate;
+
+  /**
+   * Instantiates a new parameter map.
+   *
+   * @param delegate
+   *          the delegate
+   */
+<span class="fc" id="L78">  public ParameterMap(SqlMapExecutorDelegate delegate) {</span>
+<span class="fc" id="L79">    this.delegate = delegate;</span>
+<span class="fc" id="L80">  }</span>
+
+  /**
+   * Gets the delegate.
+   *
+   * @return the delegate
+   */
+  public SqlMapExecutorDelegate getDelegate() {
+<span class="nc" id="L88">    return delegate;</span>
+  }
+
+  /**
+   * Gets the id.
+   *
+   * @return the id
+   */
+  public String getId() {
+<span class="fc" id="L97">    return id;</span>
+  }
+
+  /**
+   * Sets the id.
+   *
+   * @param id
+   *          the new id
+   */
+  public void setId(String id) {
+<span class="fc" id="L107">    this.id = id;</span>
+<span class="fc" id="L108">  }</span>
+
+  /**
+   * Gets the parameter class.
+   *
+   * @return the parameter class
+   */
+  public Class getParameterClass() {
+<span class="fc" id="L116">    return parameterClass;</span>
+  }
+
+  /**
+   * Sets the parameter class.
+   *
+   * @param parameterClass
+   *          the new parameter class
+   */
+  public void setParameterClass(Class parameterClass) {
+<span class="fc" id="L126">    this.parameterClass = parameterClass;</span>
+<span class="fc" id="L127">  }</span>
+
+  /**
+   * Gets the data exchange.
+   *
+   * @return the data exchange
+   */
+  public DataExchange getDataExchange() {
+<span class="nc" id="L135">    return dataExchange;</span>
+  }
+
+  /**
+   * Sets the data exchange.
+   *
+   * @param dataExchange
+   *          the new data exchange
+   */
+  public void setDataExchange(DataExchange dataExchange) {
+<span class="nc" id="L145">    this.dataExchange = dataExchange;</span>
+<span class="nc" id="L146">  }</span>
+
+  /**
+   * Gets the parameter mappings.
+   *
+   * @return the parameter mappings
+   */
+  public ParameterMapping[] getParameterMappings() {
+<span class="fc" id="L154">    return parameterMappings;</span>
+  }
+
+  /**
+   * Sets the parameter mapping list.
+   *
+   * @param parameterMappingList
+   *          the new parameter mapping list
+   */
+  public void setParameterMappingList(List parameterMappingList) {
+<span class="fc" id="L164">    this.parameterMappings = (ParameterMapping[]) parameterMappingList</span>
+<span class="fc" id="L165">        .toArray(new ParameterMapping[parameterMappingList.size()]);</span>
+<span class="fc" id="L166">    parameterMappingIndex.clear();</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">    for (int i = 0; i &lt; parameterMappings.length; i++) {</span>
+<span class="fc" id="L168">      parameterMappingIndex.put(parameterMappings[i].getPropertyName(), Integer.valueOf(i));</span>
+    }
+<span class="fc" id="L170">    Map props = new HashMap();</span>
+<span class="fc" id="L171">    props.put(&quot;map&quot;, this);</span>
+
+<span class="fc" id="L173">    dataExchange = delegate.getDataExchangeFactory().getDataExchangeForClass(parameterClass);</span>
+<span class="fc" id="L174">    dataExchange.initialize(props);</span>
+<span class="fc" id="L175">  }</span>
+
+  /**
+   * Gets the parameter index.
+   *
+   * @param propertyName
+   *          the property name
+   *
+   * @return the parameter index
+   */
+  public int getParameterIndex(String propertyName) {
+<span class="nc" id="L186">    Integer idx = null;</span>
+<span class="nc" id="L187">    idx = (Integer) parameterMappingIndex.get(propertyName);</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">    return idx == null ? -1 : idx.intValue();</span>
+  }
+
+  /**
+   * Gets the parameter count.
+   *
+   * @return the parameter count
+   */
+  public int getParameterCount() {
+<span class="nc" id="L197">    return this.parameterMappings.length;</span>
+  }
+
+  /**
+   * Sets the parameters.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param ps
+   *          the ps
+   * @param parameters
+   *          the parameters
+   *
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public void setParameters(StatementScope statementScope, PreparedStatement ps, Object[] parameters)
+      throws SQLException {
+
+<span class="fc" id="L216">    ErrorContext errorContext = statementScope.getErrorContext();</span>
+<span class="fc" id="L217">    errorContext.setActivity(&quot;applying a parameter map&quot;);</span>
+<span class="fc" id="L218">    errorContext.setObjectId(this.getId());</span>
+<span class="fc" id="L219">    errorContext.setResource(this.getResource());</span>
+<span class="fc" id="L220">    errorContext.setMoreInfo(&quot;Check the parameter map.&quot;);</span>
+
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">    if (parameterMappings != null) {</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">      for (int i = 0; i &lt; parameterMappings.length; i++) {</span>
+<span class="fc" id="L224">        ParameterMapping mapping = parameterMappings[i];</span>
+<span class="fc" id="L225">        errorContext.setMoreInfo(mapping.getErrorString());</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">        if (mapping.isInputAllowed()) {</span>
+<span class="fc" id="L227">          setParameter(ps, mapping, parameters, i);</span>
+        }
+      }
+    }
+<span class="fc" id="L231">  }</span>
+
+  /**
+   * Gets the parameter object values.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   *
+   * @return the parameter object values
+   */
+  public Object[] getParameterObjectValues(StatementScope statementScope, Object parameterObject) {
+<span class="fc" id="L244">    return dataExchange.getData(statementScope, this, parameterObject);</span>
+  }
+
+  /**
+   * Gets the cache key.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   *
+   * @return the cache key
+   */
+  public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
+<span class="fc" id="L258">    return dataExchange.getCacheKey(statementScope, this, parameterObject);</span>
+  }
+
+  /**
+   * Refresh parameter object values.
+   *
+   * @param statementScope
+   *          the statement scope
+   * @param parameterObject
+   *          the parameter object
+   * @param values
+   *          the values
+   */
+  public void refreshParameterObjectValues(StatementScope statementScope, Object parameterObject, Object[] values) {
+<span class="fc" id="L272">    dataExchange.setData(statementScope, this, parameterObject, values);</span>
+<span class="fc" id="L273">  }</span>
+
+  /**
+   * Gets the resource.
+   *
+   * @return the resource
+   */
+  public String getResource() {
+<span class="fc" id="L281">    return resource;</span>
+  }
+
+  /**
+   * Sets the resource.
+   *
+   * @param resource
+   *          the new resource
+   */
+  public void setResource(String resource) {
+<span class="fc" id="L291">    this.resource = resource;</span>
+<span class="fc" id="L292">  }</span>
+
+  /**
+   * Sets the parameter.
+   *
+   * @param ps
+   *          the ps
+   * @param mapping
+   *          the mapping
+   * @param parameters
+   *          the parameters
+   * @param i
+   *          the i
+   *
+   * @throws SQLException
+   *           the SQL exception
+   */
+  protected void setParameter(PreparedStatement ps, ParameterMapping mapping, Object[] parameters, int i)
+      throws SQLException {
+<span class="fc" id="L311">    Object value = parameters[i];</span>
+    // Apply Null Value
+<span class="fc" id="L313">    String nullValueString = mapping.getNullValue();</span>
+<span class="fc bfc" id="L314" title="All 2 branches covered.">    if (nullValueString != null) {</span>
+<span class="fc" id="L315">      TypeHandler handler = mapping.getTypeHandler();</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">      if (handler.equals(value, nullValueString)) {</span>
+<span class="fc" id="L317">        value = null;</span>
+      }
+    }
+
+    // Set Parameter
+<span class="fc" id="L322">    TypeHandler typeHandler = mapping.getTypeHandler();</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">    if (value != null) {</span>
+<span class="fc" id="L324">      typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">    } else if (typeHandler instanceof CustomTypeHandler) {</span>
+<span class="nc" id="L326">      typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());</span>
+    } else {
+<span class="fc" id="L328">      int jdbcType = mapping.getJdbcType();</span>
+<span class="fc bfc" id="L329" title="All 2 branches covered.">      if (jdbcType != JdbcTypeRegistry.UNKNOWN_TYPE) {</span>
+<span class="fc" id="L330">        ps.setNull(i + 1, jdbcType);</span>
+      } else {
+        // Cloned from Spring StatementCreatorUtils.java (IBATIS-536)
+<span class="fc bfc" id="L333" title="All 2 branches covered.">        if (useSetObjectForNullValue == null) {</span>
+          // Keep current JDBC connection preferences for limiting introspections
+<span class="fc" id="L335">          useSetObjectForNullValue = Boolean.FALSE;</span>
+<span class="fc" id="L336">          sqlTypeToUseForNullValue = Types.NULL;</span>
+          try {
+<span class="fc" id="L338">            DatabaseMetaData dbmd = ps.getConnection().getMetaData();</span>
+<span class="fc" id="L339">            String databaseProductName = dbmd.getDatabaseProductName();</span>
+<span class="fc" id="L340">            String jdbcDriverName = dbmd.getDriverName();</span>
+<span class="pc bpc" id="L341" title="2 of 4 branches missed.">            if (databaseProductName.startsWith(&quot;Informix&quot;) || databaseProductName.startsWith(&quot;Microsoft SQL Server&quot;)) {</span>
+<span class="nc" id="L342">              useSetObjectForNullValue = Boolean.TRUE;</span>
+<span class="pc bpc" id="L343" title="2 of 4 branches missed.">            } else if (databaseProductName.startsWith(&quot;DB2&quot;) || jdbcDriverName.startsWith(&quot;jConnect&quot;)</span>
+<span class="pc bpc" id="L344" title="1 of 4 branches missed.">                || jdbcDriverName.startsWith(&quot;SQLServer&quot;) || jdbcDriverName.startsWith(&quot;Apache Derby Embedded&quot;)) {</span>
+<span class="fc" id="L345">              sqlTypeToUseForNullValue = Types.VARCHAR;</span>
+            }
+<span class="nc" id="L347">          } catch (Throwable ex) {</span>
+<span class="nc" id="L348">            log.debug(&quot;Could not check database or driver name: &quot; + ex.getMessage());</span>
+<span class="fc" id="L349">          }</span>
+        }
+<span class="pc bpc" id="L351" title="1 of 2 branches missed.">        if (useSetObjectForNullValue.booleanValue()) {</span>
+<span class="nc" id="L352">          ps.setObject(i + 1, null);</span>
+        } else {
+<span class="fc" id="L354">          ps.setNull(i + 1, sqlTypeToUseForNullValue);</span>
+        }
+      }
+    }
+<span class="fc" id="L358">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapClientImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.impl</a> &gt; <span class="el_source">SqlMapClientImpl.java</span></div><h1>SqlMapClientImpl.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2023 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.impl;
+
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.common.util.PaginatedList;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.client.SqlMapSession;
+import com.ibatis.sqlmap.client.event.RowHandler;
+import com.ibatis.sqlmap.engine.execution.BatchException;
+import com.ibatis.sqlmap.engine.execution.SqlExecutor;
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+/**
+ * Implementation of ExtendedSqlMapClient.
+ */
+public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
+
+  /** The Constant log. */
+<span class="fc" id="L43">  private static final Log log = LogFactory.getLog(SqlMapClientImpl.class);</span>
+
+  /** Delegate for SQL execution. */
+  public SqlMapExecutorDelegate delegate;
+
+  /** The local sql map session. */
+<span class="fc" id="L49">  protected ThreadLocal&lt;SqlMapSessionImpl&gt; localSqlMapSession = new ThreadLocal&lt;SqlMapSessionImpl&gt;();</span>
+
+  /**
+   * Constructor to supply a delegate.
+   *
+   * @param delegate
+   *          - the delegate
+   */
+<span class="fc" id="L57">  public SqlMapClientImpl(SqlMapExecutorDelegate delegate) {</span>
+<span class="fc" id="L58">    this.delegate = delegate;</span>
+<span class="fc" id="L59">  }</span>
+
+  public Object insert(String id, Object param) throws SQLException {
+<span class="fc" id="L62">    return getLocalSqlMapSession().insert(id, param);</span>
+  }
+
+  public Object insert(String id) throws SQLException {
+<span class="nc" id="L66">    return getLocalSqlMapSession().insert(id);</span>
+  }
+
+  public int update(String id, Object param) throws SQLException {
+<span class="fc" id="L70">    return getLocalSqlMapSession().update(id, param);</span>
+  }
+
+  public int update(String id) throws SQLException {
+<span class="fc" id="L74">    return getLocalSqlMapSession().update(id);</span>
+  }
+
+  public int delete(String id, Object param) throws SQLException {
+<span class="nc" id="L78">    return getLocalSqlMapSession().delete(id, param);</span>
+  }
+
+  public int delete(String id) throws SQLException {
+<span class="nc" id="L82">    return getLocalSqlMapSession().delete(id);</span>
+  }
+
+  public Object queryForObject(String id, Object paramObject) throws SQLException {
+<span class="fc" id="L86">    return getLocalSqlMapSession().queryForObject(id, paramObject);</span>
+  }
+
+  public Object queryForObject(String id) throws SQLException {
+<span class="fc" id="L90">    return getLocalSqlMapSession().queryForObject(id);</span>
+  }
+
+  public Object queryForObject(String id, Object paramObject, Object resultObject) throws SQLException {
+<span class="fc" id="L94">    return getLocalSqlMapSession().queryForObject(id, paramObject, resultObject);</span>
+  }
+
+  public List queryForList(String id, Object paramObject) throws SQLException {
+<span class="fc" id="L98">    return getLocalSqlMapSession().queryForList(id, paramObject);</span>
+  }
+
+  public List queryForList(String id) throws SQLException {
+<span class="fc" id="L102">    return getLocalSqlMapSession().queryForList(id);</span>
+  }
+
+  public List queryForList(String id, Object paramObject, int skip, int max) throws SQLException {
+<span class="fc" id="L106">    return getLocalSqlMapSession().queryForList(id, paramObject, skip, max);</span>
+  }
+
+  public List queryForList(String id, int skip, int max) throws SQLException {
+<span class="nc" id="L110">    return getLocalSqlMapSession().queryForList(id, skip, max);</span>
+  }
+
+  /**
+   * @deprecated All paginated list features have been deprecated
+   */
+  public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
+<span class="fc" id="L117">    return getLocalSqlMapSession().queryForPaginatedList(id, paramObject, pageSize);</span>
+  }
+
+  /**
+   * @deprecated All paginated list features have been deprecated
+   */
+  public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
+<span class="fc" id="L124">    return getLocalSqlMapSession().queryForPaginatedList(id, pageSize);</span>
+  }
+
+  public Map queryForMap(String id, Object paramObject, String keyProp) throws SQLException {
+<span class="fc" id="L128">    return getLocalSqlMapSession().queryForMap(id, paramObject, keyProp);</span>
+  }
+
+  public Map queryForMap(String id, Object paramObject, String keyProp, String valueProp) throws SQLException {
+<span class="fc" id="L132">    return getLocalSqlMapSession().queryForMap(id, paramObject, keyProp, valueProp);</span>
+  }
+
+  public void queryWithRowHandler(String id, Object paramObject, RowHandler rowHandler) throws SQLException {
+<span class="fc" id="L136">    getLocalSqlMapSession().queryWithRowHandler(id, paramObject, rowHandler);</span>
+<span class="fc" id="L137">  }</span>
+
+  public void queryWithRowHandler(String id, RowHandler rowHandler) throws SQLException {
+<span class="fc" id="L140">    getLocalSqlMapSession().queryWithRowHandler(id, rowHandler);</span>
+<span class="fc" id="L141">  }</span>
+
+  public void startTransaction() throws SQLException {
+<span class="fc" id="L144">    getLocalSqlMapSession().startTransaction();</span>
+<span class="fc" id="L145">  }</span>
+
+  public void startTransaction(int transactionIsolation) throws SQLException {
+<span class="nc" id="L148">    getLocalSqlMapSession().startTransaction(transactionIsolation);</span>
+<span class="nc" id="L149">  }</span>
+
+  public void commitTransaction() throws SQLException {
+<span class="fc" id="L152">    getLocalSqlMapSession().commitTransaction();</span>
+<span class="fc" id="L153">  }</span>
+
+  public void endTransaction() throws SQLException {
+    try {
+<span class="fc" id="L157">      getLocalSqlMapSession().endTransaction();</span>
+    } finally {
+<span class="fc" id="L159">      getLocalSqlMapSession().close();</span>
+<span class="fc" id="L160">      localSqlMapSession.remove();</span>
+    }
+<span class="fc" id="L162">  }</span>
+
+  public void startBatch() throws SQLException {
+<span class="fc" id="L165">    getLocalSqlMapSession().startBatch();</span>
+<span class="fc" id="L166">  }</span>
+
+  public int executeBatch() throws SQLException {
+<span class="fc" id="L169">    return getLocalSqlMapSession().executeBatch();</span>
+  }
+
+  public List executeBatchDetailed() throws SQLException, BatchException {
+<span class="fc" id="L173">    return getLocalSqlMapSession().executeBatchDetailed();</span>
+  }
+
+  public void setUserConnection(Connection connection) throws SQLException {
+    try {
+<span class="fc" id="L178">      getLocalSqlMapSession().setUserConnection(connection);</span>
+    } finally {
+<span class="pc bpc" id="L180" title="1 of 2 branches missed.">      if (connection == null) {</span>
+<span class="nc" id="L181">        getLocalSqlMapSession().close();</span>
+      }
+    }
+<span class="fc" id="L184">  }</span>
+
+  /**
+   * TODO Deprecated.
+   *
+   * @return Current connection
+   *
+   * @throws SQLException
+   *           the SQL exception
+   *
+   * @deprecated
+   */
+  public Connection getUserConnection() throws SQLException {
+<span class="nc" id="L197">    return getCurrentConnection();</span>
+  }
+
+  public Connection getCurrentConnection() throws SQLException {
+<span class="fc" id="L201">    return getLocalSqlMapSession().getCurrentConnection();</span>
+  }
+
+  public DataSource getDataSource() {
+<span class="fc" id="L205">    return delegate.getDataSource();</span>
+  }
+
+  public MappedStatement getMappedStatement(String id) {
+<span class="fc" id="L209">    return delegate.getMappedStatement(id);</span>
+  }
+
+  public boolean isLazyLoadingEnabled() {
+<span class="fc" id="L213">    return delegate.isLazyLoadingEnabled();</span>
+  }
+
+  public boolean isEnhancementEnabled() {
+<span class="fc" id="L217">    return delegate.isEnhancementEnabled();</span>
+  }
+
+  public SqlExecutor getSqlExecutor() {
+<span class="fc" id="L221">    return delegate.getSqlExecutor();</span>
+  }
+
+  public SqlMapExecutorDelegate getDelegate() {
+<span class="fc" id="L225">    return delegate;</span>
+  }
+
+  public SqlMapSession openSession() {
+<span class="fc" id="L229">    SqlMapSessionImpl sqlMapSession = new SqlMapSessionImpl(this);</span>
+<span class="fc" id="L230">    sqlMapSession.open();</span>
+<span class="fc" id="L231">    return sqlMapSession;</span>
+  }
+
+  public SqlMapSession openSession(Connection conn) {
+    try {
+<span class="fc" id="L236">      SqlMapSessionImpl sqlMapSession = new SqlMapSessionImpl(this);</span>
+<span class="fc" id="L237">      sqlMapSession.open();</span>
+<span class="fc" id="L238">      sqlMapSession.setUserConnection(conn);</span>
+<span class="fc" id="L239">      return sqlMapSession;</span>
+<span class="nc" id="L240">    } catch (SQLException e) {</span>
+<span class="nc" id="L241">      throw new SqlMapException(&quot;Error setting user provided connection.  Cause: &quot; + e, e);</span>
+    }
+  }
+
+  /**
+   * TODO : DEPRECATED
+   *
+   * @deprecated Use openSession()
+   */
+  public SqlMapSession getSession() {
+<span class="nc" id="L251">    log.warn(</span>
+        &quot;Use of a deprecated API detected.  SqlMapClient.getSession() is deprecated.  Use SqlMapClient.openSession() instead.&quot;);
+<span class="nc" id="L253">    return openSession();</span>
+  }
+
+  public void flushDataCache() {
+<span class="fc" id="L257">    delegate.flushDataCache();</span>
+<span class="fc" id="L258">  }</span>
+
+  public void flushDataCache(String cacheId) {
+<span class="nc" id="L261">    delegate.flushDataCache(cacheId);</span>
+<span class="nc" id="L262">  }</span>
+
+  /**
+   * Gets the local sql map session.
+   *
+   * @return the local sql map session
+   */
+  protected SqlMapSessionImpl getLocalSqlMapSession() {
+<span class="fc" id="L270">    SqlMapSessionImpl sqlMapSession = localSqlMapSession.get();</span>
+<span class="pc bpc" id="L271" title="1 of 4 branches missed.">    if (sqlMapSession == null || sqlMapSession.isClosed()) {</span>
+<span class="fc" id="L272">      sqlMapSession = new SqlMapSessionImpl(this);</span>
+<span class="fc" id="L273">      localSqlMapSession.set(sqlMapSession);</span>
+    }
+<span class="fc" id="L275">    return sqlMapSession;</span>
+  }
+
+  public ResultObjectFactory getResultObjectFactory() {
+<span class="fc" id="L279">    return delegate.getResultObjectFactory();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
