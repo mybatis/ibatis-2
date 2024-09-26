@@ -110,7 +110,7 @@ public class RowHandlerCallback {
     try {
       TransformerFactory tFactory = TransformerFactory.newInstance();
       tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-      tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+      tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
       Transformer transformer = tFactory.newTransformer();
 
       DOMSource source = new DOMSource(document);
