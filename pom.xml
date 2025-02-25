@@ -68,7 +68,7 @@
 
     <clirr.comparisonVersion>2.4.4</clirr.comparisonVersion>
     <derby.version>10.17.1.0</derby.version>
-    <slf4j.version>2.0.16</slf4j.version>
+    <slf4j.version>2.0.17</slf4j.version>
 
     <module.name>org.mybatis.mybatis2</module.name>
     <osgi.export>org.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
