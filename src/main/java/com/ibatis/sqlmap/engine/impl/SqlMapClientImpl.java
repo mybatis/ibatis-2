@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,6 +113,7 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
     return getLocalSqlMapSession().queryForPaginatedList(id, paramObject, pageSize);
   }
@@ -120,6 +121,7 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
     return getLocalSqlMapSession().queryForPaginatedList(id, pageSize);
   }
@@ -184,15 +186,16 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
   }
 
   /**
-   * TODO Deprecated.
+   * Get user connection.
    *
    * @return Current connection
    *
    * @throws SQLException
    *           the SQL exception
    *
-   * @deprecated
+   * @deprecated Use getCurrentconnection() instead.
    */
+  @Deprecated
   public Connection getUserConnection() throws SQLException {
     return getCurrentConnection();
   }
@@ -243,10 +246,11 @@ public class SqlMapClientImpl implements SqlMapClient, ExtendedSqlMapClient {
   }
 
   /**
-   * TODO : DEPRECATED
+   * GetSession.
    *
    * @deprecated Use openSession()
    */
+  @Deprecated
   public SqlMapSession getSession() {
     log.warn(
         "Use of a deprecated API detected.  SqlMapClient.getSession() is deprecated.  Use SqlMapClient.openSession() instead.");

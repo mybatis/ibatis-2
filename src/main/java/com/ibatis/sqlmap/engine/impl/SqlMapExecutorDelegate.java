@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -143,6 +143,7 @@ public class SqlMapExecutorDelegate {
    *
    * @deprecated
    */
+  @Deprecated
   public int getMaxTransactions() {
     return -1;
   }
@@ -779,6 +780,7 @@ public class SqlMapExecutorDelegate {
    *
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize)
       throws SQLException {
     return new PaginatedDataList(sessionScope.getSqlMapExecutor(), id, paramObject, pageSize);

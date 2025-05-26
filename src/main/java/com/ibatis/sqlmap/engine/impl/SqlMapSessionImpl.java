@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,6 +144,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
     return delegate.queryForPaginatedList(sessionScope, id, paramObject, pageSize);
   }
@@ -151,6 +152,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
     return queryForPaginatedList(id, null, pageSize);
   }
@@ -204,15 +206,16 @@ public class SqlMapSessionImpl implements SqlMapSession {
   }
 
   /**
-   * TODO Deprecated.
+   * Get User connection.
    *
    * @return Current connection
    *
    * @throws SQLException
    *           the SQL exception
    *
-   * @deprecated
+   * @deprecated Use {@link #getCurrentConnection()} instead.
    */
+  @Deprecated
   public Connection getUserConnection() throws SQLException {
     return getCurrentConnection();
   }
