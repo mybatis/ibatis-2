@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuntimeSQLException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.exception</a> &gt; <span class="el_source">RuntimeSQLException.java</span></div><h1>RuntimeSQLException.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.common.jdbc.exception;
+
+import java.sql.SQLException;
+
+/**
+ * Unchecked exception to allow passing an Exception with the original SQLException.
+ */
+public class RuntimeSQLException extends RuntimeException {
+
+  /**
+   * Default constructor.
+   */
+<span class="nc" id="L28">  public RuntimeSQLException() {</span>
+<span class="nc" id="L29">  }</span>
+
+  /**
+   * Constructor to pass along a message.
+   *
+   * @param msg
+   *          - the message
+   */
+  public RuntimeSQLException(String msg) {
+<span class="nc" id="L38">    super(msg);</span>
+<span class="nc" id="L39">  }</span>
+
+  /**
+   * Constructor to pass along another exception.
+   *
+   * @param sqlException
+   *          - the exception
+   */
+  public RuntimeSQLException(SQLException sqlException) {
+<span class="nc" id="L48">    super(sqlException);</span>
+<span class="nc" id="L49">  }</span>
+
+  /**
+   * Constructor to pass along a message and an exception.
+   *
+   * @param msg
+   *          - the message
+   * @param sqlException
+   *          - the exception
+   */
+  public RuntimeSQLException(String msg, SQLException sqlException) {
+<span class="nc" id="L60">    super(msg, sqlException);</span>
+<span class="nc" id="L61">  }</span>
+
+  /**
+   * Getter for the SQL State.
+   *
+   * @return - the state
+   */
+  public String getSQLState() {
+<span class="nc" id="L69">    Throwable cause = getCause();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">    if (cause instanceof SQLException) {</span>
+<span class="nc" id="L71">      return ((SQLException) cause).getSQLState();</span>
+    } else {
+<span class="nc" id="L73">      return null;</span>
+    }
+
+  }
+
+  /**
+   * Getter for the error code.
+   *
+   * @return - the error code
+   */
+  public int getErrorCode() {
+<span class="nc" id="L84">    Throwable cause = getCause();</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">    if (cause instanceof SQLException) {</span>
+<span class="nc" id="L86">      return ((SQLException) cause).getErrorCode();</span>
+    } else {
+<span class="nc" id="L88">      return -1;</span>
+    }
+  }
+
+  /**
+   * Get the next exception in the chain.
+   *
+   * @return - the next exception
+   */
+  public SQLException getNextException() {
+<span class="nc" id="L98">    Throwable cause = getCause();</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (cause instanceof SQLException) {</span>
+<span class="nc" id="L100">      return ((SQLException) cause).getNextException();</span>
+    } else {
+<span class="nc" id="L102">      return null;</span>
+    }
+  }
+
+  /**
+   * Set the next exception in the chain.
+   *
+   * @param ex
+   *          - the next exception
+   */
+  public synchronized void setNextException(SQLException ex) {
+<span class="nc" id="L113">    Throwable cause = getCause();</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    if (cause instanceof SQLException) {</span>
+<span class="nc" id="L115">      ((SQLException) cause).setNextException(ex);</span>
+    }
+<span class="nc" id="L117">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

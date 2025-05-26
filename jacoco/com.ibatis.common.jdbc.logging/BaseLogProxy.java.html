@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseLogProxy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">BaseLogProxy.java</span></div><h1>BaseLogProxy.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2022 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.common.jdbc.logging;
+
+import java.util.*;
+
+/**
+ * Base class for proxies to do logging.
+ */
+public class BaseLogProxy {
+
+  /** The next id. */
+<span class="nc" id="L26">  private static int nextId = 100000;</span>
+
+  /** The Constant SET_METHODS. */
+<span class="nc" id="L29">  protected static final Set SET_METHODS = new HashSet();</span>
+
+  /** The Constant GET_METHODS. */
+<span class="nc" id="L32">  protected static final Set GET_METHODS = new HashSet();</span>
+
+  /** The Constant EXECUTE_METHODS. */
+<span class="nc" id="L35">  protected static final Set EXECUTE_METHODS = new HashSet();</span>
+
+  /** The column map. */
+<span class="nc" id="L38">  private Map columnMap = new HashMap();</span>
+
+  /** The column names. */
+<span class="nc" id="L41">  private List columnNames = new ArrayList();</span>
+
+  /** The column values. */
+<span class="nc" id="L44">  private List columnValues = new ArrayList();</span>
+
+  /** The id. */
+  protected int id;
+
+  /**
+   * Default constructor.
+   */
+<span class="nc" id="L52">  public BaseLogProxy() {</span>
+<span class="nc" id="L53">    id = getNextId();</span>
+<span class="nc" id="L54">  }</span>
+
+  static {
+<span class="nc" id="L57">    SET_METHODS.add(&quot;setString&quot;);</span>
+<span class="nc" id="L58">    SET_METHODS.add(&quot;setInt&quot;);</span>
+<span class="nc" id="L59">    SET_METHODS.add(&quot;setByte&quot;);</span>
+<span class="nc" id="L60">    SET_METHODS.add(&quot;setShort&quot;);</span>
+<span class="nc" id="L61">    SET_METHODS.add(&quot;setLong&quot;);</span>
+<span class="nc" id="L62">    SET_METHODS.add(&quot;setDouble&quot;);</span>
+<span class="nc" id="L63">    SET_METHODS.add(&quot;setFloat&quot;);</span>
+<span class="nc" id="L64">    SET_METHODS.add(&quot;setTimestamp&quot;);</span>
+<span class="nc" id="L65">    SET_METHODS.add(&quot;setDate&quot;);</span>
+<span class="nc" id="L66">    SET_METHODS.add(&quot;setTime&quot;);</span>
+<span class="nc" id="L67">    SET_METHODS.add(&quot;setArray&quot;);</span>
+<span class="nc" id="L68">    SET_METHODS.add(&quot;setBigDecimal&quot;);</span>
+<span class="nc" id="L69">    SET_METHODS.add(&quot;setAsciiStream&quot;);</span>
+<span class="nc" id="L70">    SET_METHODS.add(&quot;setBinaryStream&quot;);</span>
+<span class="nc" id="L71">    SET_METHODS.add(&quot;setBlob&quot;);</span>
+<span class="nc" id="L72">    SET_METHODS.add(&quot;setBoolean&quot;);</span>
+<span class="nc" id="L73">    SET_METHODS.add(&quot;setBytes&quot;);</span>
+<span class="nc" id="L74">    SET_METHODS.add(&quot;setCharacterStream&quot;);</span>
+<span class="nc" id="L75">    SET_METHODS.add(&quot;setClob&quot;);</span>
+<span class="nc" id="L76">    SET_METHODS.add(&quot;setObject&quot;);</span>
+<span class="nc" id="L77">    SET_METHODS.add(&quot;setNull&quot;);</span>
+
+<span class="nc" id="L79">    GET_METHODS.add(&quot;getString&quot;);</span>
+<span class="nc" id="L80">    GET_METHODS.add(&quot;getInt&quot;);</span>
+<span class="nc" id="L81">    GET_METHODS.add(&quot;getByte&quot;);</span>
+<span class="nc" id="L82">    GET_METHODS.add(&quot;getShort&quot;);</span>
+<span class="nc" id="L83">    GET_METHODS.add(&quot;getLong&quot;);</span>
+<span class="nc" id="L84">    GET_METHODS.add(&quot;getDouble&quot;);</span>
+<span class="nc" id="L85">    GET_METHODS.add(&quot;getFloat&quot;);</span>
+<span class="nc" id="L86">    GET_METHODS.add(&quot;getTimestamp&quot;);</span>
+<span class="nc" id="L87">    GET_METHODS.add(&quot;getDate&quot;);</span>
+<span class="nc" id="L88">    GET_METHODS.add(&quot;getTime&quot;);</span>
+<span class="nc" id="L89">    GET_METHODS.add(&quot;getArray&quot;);</span>
+<span class="nc" id="L90">    GET_METHODS.add(&quot;getBigDecimal&quot;);</span>
+<span class="nc" id="L91">    GET_METHODS.add(&quot;getAsciiStream&quot;);</span>
+<span class="nc" id="L92">    GET_METHODS.add(&quot;getBinaryStream&quot;);</span>
+<span class="nc" id="L93">    GET_METHODS.add(&quot;getBlob&quot;);</span>
+<span class="nc" id="L94">    GET_METHODS.add(&quot;getBoolean&quot;);</span>
+<span class="nc" id="L95">    GET_METHODS.add(&quot;getBytes&quot;);</span>
+<span class="nc" id="L96">    GET_METHODS.add(&quot;getCharacterStream&quot;);</span>
+<span class="nc" id="L97">    GET_METHODS.add(&quot;getClob&quot;);</span>
+<span class="nc" id="L98">    GET_METHODS.add(&quot;getObject&quot;);</span>
+<span class="nc" id="L99">    GET_METHODS.add(&quot;getNull&quot;);</span>
+
+<span class="nc" id="L101">    EXECUTE_METHODS.add(&quot;execute&quot;);</span>
+<span class="nc" id="L102">    EXECUTE_METHODS.add(&quot;executeUpdate&quot;);</span>
+<span class="nc" id="L103">    EXECUTE_METHODS.add(&quot;executeQuery&quot;);</span>
+
+<span class="nc" id="L105">  }</span>
+
+  /**
+   * Sets the column.
+   *
+   * @param key
+   *          the key
+   * @param value
+   *          the value
+   */
+  protected void setColumn(Object key, Object value) {
+<span class="nc" id="L116">    columnMap.put(key, value);</span>
+<span class="nc" id="L117">    columnNames.add(key);</span>
+<span class="nc" id="L118">    columnValues.add(value);</span>
+<span class="nc" id="L119">  }</span>
+
+  /**
+   * Gets the column.
+   *
+   * @param key
+   *          the key
+   *
+   * @return the column
+   */
+  protected Object getColumn(Object key) {
+<span class="nc" id="L130">    return columnMap.get(key);</span>
+  }
+
+  /**
+   * Gets the value string.
+   *
+   * @return the value string
+   */
+  protected String getValueString() {
+<span class="nc" id="L139">    return columnValues.toString();</span>
+  }
+
+  /**
+   * Gets the type string.
+   *
+   * @return the type string
+   */
+  protected String getTypeString() {
+<span class="nc" id="L148">    List typeList = new ArrayList(columnValues.size());</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">    for (int i = 0; i &lt; columnValues.size(); i++) {</span>
+<span class="nc" id="L150">      Object value = columnValues.get(i);</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">      if (value == null) {</span>
+<span class="nc" id="L152">        typeList.add(&quot;null&quot;);</span>
+      } else {
+<span class="nc" id="L154">        typeList.add(value.getClass().getName());</span>
+      }
+    }
+<span class="nc" id="L157">    return typeList.toString();</span>
+  }
+
+  /**
+   * Gets the column string.
+   *
+   * @return the column string
+   */
+  protected String getColumnString() {
+<span class="nc" id="L166">    return columnNames.toString();</span>
+  }
+
+  /**
+   * Clear column info.
+   */
+  protected void clearColumnInfo() {
+<span class="nc" id="L173">    columnMap.clear();</span>
+<span class="nc" id="L174">    columnNames.clear();</span>
+<span class="nc" id="L175">    columnValues.clear();</span>
+<span class="nc" id="L176">  }</span>
+
+  /**
+   * Removes the breaking whitespace.
+   *
+   * @param original
+   *          the original
+   *
+   * @return the string
+   */
+  protected String removeBreakingWhitespace(String original) {
+<span class="nc" id="L187">    return original.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ');</span>
+  }
+
+  /**
+   * Gets the next id.
+   *
+   * @return the next id
+   */
+  protected synchronized static int getNextId() {
+<span class="nc" id="L196">    return nextId++;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

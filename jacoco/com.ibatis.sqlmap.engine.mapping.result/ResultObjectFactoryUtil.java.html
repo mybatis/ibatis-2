@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultObjectFactoryUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">ResultObjectFactoryUtil.java</span></div><h1>ResultObjectFactoryUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.result;
+
+import com.ibatis.common.resources.Resources;
+
+import java.util.*;
+
+/**
+ * This class is used to create instances of result objects. It will use the configured ResultObjectFactory if there is
+ * one, otherwise it will use iBATIS' normal methods.
+ * &lt;p&gt;
+ * Note that this class is somewhat tightly coupled with SqlExecuter - SqlExecute must call the setStatementId() and
+ * setResultObjectFactory() methods before executing a statement. This is a result of using a ThreadLocal to hold the
+ * current configuration for the statement under execution. Using a ThreadLocal is a solution for IBATIS-366. Without a
+ * ThreadLocal, the current factory and statement id would have to be added to many method signatures - often in
+ * inappropriate places.
+ *
+ * @author Jeff Butler
+ */
+public class ResultObjectFactoryUtil {
+
+  /**
+   * Use a ThreadLocal to hold the current statementId and factory. This is much easier than passing these items all
+   * over the place, and it has no measurable impact on performance (I did a test with 100000 result rows and found no
+   * impact - Jeff Butler).
+   */
+<span class="fc" id="L41">  private static ThreadLocal&lt;Deque&lt;FactorySettings&gt;&gt; factorySettings = new ThreadLocal&lt;&gt;();</span>
+
+  /**
+   * Utility class - no instances.
+   */
+  private ResultObjectFactoryUtil() {
+    super();
+  }
+
+  /**
+   * Algorithm:
+   * &lt;ul&gt;
+   * &lt;li&gt;If factory is null, then create object internally()&lt;/li&gt;
+   * &lt;li&gt;Otherwise try to create object through factory&lt;/li&gt;
+   * &lt;li&gt;If null returned from factory, then create object internally&lt;/li&gt;
+   * &lt;/ul&gt;
+   * This allows the factory to selectively create objects, also allows for the common possibility that a factory is not
+   * configured.
+   *
+   * @param clazz
+   *          the type of object to create
+   *
+   * @return a new instance of the specified class. The instance must be castable to the specified class.
+   *
+   * @throws InstantiationException
+   *           if the instance cannot be created. If you throw this Exception, iBATIS will throw a runtime exception in
+   *           response and will end.
+   * @throws IllegalAccessException
+   *           if the constructor cannot be accessed. If you throw this Exception, iBATIS will throw a runtime exception
+   *           in response and will end.
+   */
+  public static Object createObjectThroughFactory(Class clazz) throws InstantiationException, IllegalAccessException {
+
+<span class="fc" id="L74">    FactorySettings fs = getCurrentFactorySettings();</span>
+
+    Object obj;
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (fs.getResultObjectFactory() == null) {</span>
+<span class="fc" id="L78">      obj = createObjectInternally(clazz);</span>
+    } else {
+<span class="fc" id="L80">      obj = fs.getResultObjectFactory().createInstance(fs.getStatementId(), clazz);</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">      if (obj == null) {</span>
+<span class="nc" id="L82">        obj = createObjectInternally(clazz);</span>
+      }
+    }
+
+<span class="fc" id="L86">    return obj;</span>
+  }
+
+  /**
+   * This method creates object using iBATIS' normal mechanism. We translate List and Collection to ArrayList, and Set
+   * to HashSet because these interfaces may be requested in nested resultMaps and we want to supply default
+   * implementations.
+   *
+   * @param clazz
+   *          the clazz
+   *
+   * @return the object
+   *
+   * @throws InstantiationException
+   *           the instantiation exception
+   * @throws IllegalAccessException
+   *           the illegal access exception
+   */
+  private static Object createObjectInternally(Class clazz) throws InstantiationException, IllegalAccessException {
+    Class classToCreate;
+<span class="fc bfc" id="L106" title="All 4 branches covered.">    if (clazz == List.class || clazz == Collection.class) {</span>
+<span class="fc" id="L107">      classToCreate = ArrayList.class;</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">    } else if (clazz == Set.class) {</span>
+<span class="nc" id="L109">      classToCreate = HashSet.class;</span>
+    } else {
+<span class="fc" id="L111">      classToCreate = clazz;</span>
+    }
+
+<span class="fc" id="L114">    return Resources.instantiate(classToCreate);</span>
+  }
+
+  /**
+   * This method pushes a new result object factory configuration onto the stack. We use a stack because the method can
+   * be called in a &quot;nested&quot; fashion if there are sub-selects. Calls to this method should be equally balanced with
+   * calls to cleanupResultObjectFactory().
+   *
+   * @param resultObjectFactory
+   *          the result object factory
+   * @param statementId
+   *          the statement id
+   */
+  public static void setupResultObjectFactory(ResultObjectFactory resultObjectFactory, String statementId) {
+<span class="fc" id="L128">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">    if (fss == null) {</span>
+<span class="fc" id="L130">      fss = new ArrayDeque&lt;&gt;();</span>
+<span class="fc" id="L131">      factorySettings.set(fss);</span>
+    }
+
+<span class="fc" id="L134">    FactorySettings fs = new FactorySettings();</span>
+<span class="fc" id="L135">    fs.setResultObjectFactory(resultObjectFactory);</span>
+<span class="fc" id="L136">    fs.setStatementId(statementId);</span>
+<span class="fc" id="L137">    fss.push(fs);</span>
+<span class="fc" id="L138">  }</span>
+
+  /**
+   * Removes the FactorySettings bound to the current thread to avoid classloader leak issues. This method pops the top
+   * item off the stack, and kills the stack if there are no items left.
+   */
+  public static void cleanupResultObjectFactory() {
+<span class="fc" id="L145">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">    if (!fss.isEmpty()) {</span>
+<span class="fc" id="L147">      fss.pop();</span>
+    }
+
+<span class="fc bfc" id="L150" title="All 2 branches covered.">    if (fss.isEmpty()) {</span>
+<span class="fc" id="L151">      factorySettings.remove();</span>
+    }
+<span class="fc" id="L153">  }</span>
+
+  /**
+   * Gets the current factory settings.
+   *
+   * @return the current factory settings
+   */
+  private static FactorySettings getCurrentFactorySettings() {
+<span class="fc" id="L161">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+    FactorySettings fs;
+<span class="pc bpc" id="L163" title="1 of 4 branches missed.">    if (fss == null || fss.isEmpty()) {</span>
+      // this shouldn't happen if the SqlExecuter is behaving correctly
+<span class="fc" id="L165">      fs = new FactorySettings();</span>
+    } else {
+<span class="fc" id="L167">      fs = fss.peek();</span>
+    }
+
+<span class="fc" id="L170">    return fs;</span>
+  }
+
+  /**
+   * The Class FactorySettings.
+   */
+  private static class FactorySettings {
+
+    /** The result object factory. */
+    private ResultObjectFactory resultObjectFactory;
+
+    /** The statement id. */
+    private String statementId;
+
+    /**
+     * Gets the result object factory.
+     *
+     * @return the result object factory
+     */
+    public ResultObjectFactory getResultObjectFactory() {
+<span class="fc" id="L190">      return resultObjectFactory;</span>
+    }
+
+    /**
+     * Sets the result object factory.
+     *
+     * @param resultObjectFactory
+     *          the new result object factory
+     */
+    public void setResultObjectFactory(ResultObjectFactory resultObjectFactory) {
+<span class="fc" id="L200">      this.resultObjectFactory = resultObjectFactory;</span>
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * Gets the statement id.
+     *
+     * @return the statement id
+     */
+    public String getStatementId() {
+<span class="fc" id="L209">      return statementId;</span>
+    }
+
+    /**
+     * Sets the statement id.
+     *
+     * @param statementId
+     *          the new statement id
+     */
+    public void setStatementId(String statementId) {
+<span class="fc" id="L219">      this.statementId = statementId;</span>
+<span class="fc" id="L220">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
