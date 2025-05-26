@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,9 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
   public Object getResult(ResultGetter getter) throws SQLException {
     int i = getter.getInt();
     if (i == 100) {
-      return new Boolean(true);
+      return Boolean.valueOf(true);
     } else if (i == 200) {
-      return new Boolean(false);
+      return Boolean.valueOf(false);
     } else {
       throw new SQLException("Unexpected value " + i + " found where 100 or 200 was expected.");
     }
@@ -49,9 +49,9 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
   @Override
   public Object valueOf(String s) {
     if ("100".equalsIgnoreCase(s)) {
-      return new Boolean(true);
+      return Boolean.valueOf(true);
     } else if ("200".equalsIgnoreCase(s)) {
-      return new Boolean(false);
+      return Boolean.valueOf(false);
     } else {
       throw new SqlMapException("Unexpected value " + s + " found where 100 or 200 was expected.");
     }
