@@ -158,13 +158,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
-      <artifactId>derbyshared</artifactId>
-      <version>${derby.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derbyoptionaltools</artifactId>
+      <artifactId>derbytools</artifactId>
       <version>${derby.version}</version>
       <scope>test</scope>
     </dependency>
