@@ -71,14 +71,14 @@ public class JdbcTypeRegistry {
    * @return - the int value (from java.sql.Types)
    */
   public static int getType(String name) {
-    if (name == null)
+    if (name == null) {
       return UNKNOWN_TYPE;
+    }
     Integer i = TYPE_MAP.get(name);
     if (i != null) {
       return i.intValue();
-    } else {
-      return UNKNOWN_TYPE;
     }
+    return UNKNOWN_TYPE;
   }
 
   /**

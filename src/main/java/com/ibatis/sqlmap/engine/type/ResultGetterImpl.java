@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,15 @@ import com.ibatis.sqlmap.client.extensions.ResultGetter;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.Ref;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -63,202 +71,206 @@ public class ResultGetterImpl implements ResultGetter {
     this.name = columnName;
   }
 
+  @Override
   public Array getArray() throws SQLException {
     if (name != null) {
       return rs.getArray(name);
-    } else {
-      return rs.getArray(index);
     }
+    return rs.getArray(index);
   }
 
+  @Override
   public BigDecimal getBigDecimal() throws SQLException {
     if (name != null) {
       return rs.getBigDecimal(name);
-    } else {
-      return rs.getBigDecimal(index);
     }
+    return rs.getBigDecimal(index);
   }
 
+  @Override
   public Blob getBlob() throws SQLException {
     if (name != null) {
       return rs.getBlob(name);
-    } else {
-      return rs.getBlob(index);
     }
+    return rs.getBlob(index);
   }
 
+  @Override
   public boolean getBoolean() throws SQLException {
     if (name != null) {
       return rs.getBoolean(name);
-    } else {
-      return rs.getBoolean(index);
     }
+    return rs.getBoolean(index);
   }
 
+  @Override
   public byte getByte() throws SQLException {
     if (name != null) {
       return rs.getByte(name);
-    } else {
-      return rs.getByte(index);
     }
+    return rs.getByte(index);
   }
 
+  @Override
   public byte[] getBytes() throws SQLException {
     if (name != null) {
       return rs.getBytes(name);
-    } else {
-      return rs.getBytes(index);
     }
+    return rs.getBytes(index);
   }
 
+  @Override
   public Clob getClob() throws SQLException {
     if (name != null) {
       return rs.getClob(name);
-    } else {
-      return rs.getClob(index);
     }
+    return rs.getClob(index);
   }
 
+  @Override
   public Date getDate() throws SQLException {
     if (name != null) {
       return rs.getDate(name);
-    } else {
-      return rs.getDate(index);
     }
+    return rs.getDate(index);
   }
 
+  @Override
   public Date getDate(Calendar cal) throws SQLException {
     if (name != null) {
       return rs.getDate(name, cal);
-    } else {
-      return rs.getDate(index, cal);
     }
+    return rs.getDate(index, cal);
   }
 
+  @Override
   public double getDouble() throws SQLException {
     if (name != null) {
       return rs.getDouble(name);
-    } else {
-      return rs.getDouble(index);
     }
+    return rs.getDouble(index);
   }
 
+  @Override
   public float getFloat() throws SQLException {
     if (name != null) {
       return rs.getFloat(name);
-    } else {
-      return rs.getFloat(index);
     }
+    return rs.getFloat(index);
   }
 
+  @Override
   public int getInt() throws SQLException {
     if (name != null) {
       return rs.getInt(name);
-    } else {
-      return rs.getInt(index);
     }
+    return rs.getInt(index);
   }
 
+  @Override
   public long getLong() throws SQLException {
     if (name != null) {
       return rs.getLong(name);
-    } else {
-      return rs.getLong(index);
     }
+    return rs.getLong(index);
   }
 
+  @Override
   public Object getObject() throws SQLException {
     if (name != null) {
       return rs.getObject(name);
-    } else {
-      return rs.getObject(index);
     }
+    return rs.getObject(index);
   }
 
+  @Override
   public Object getObject(Map map) throws SQLException {
     if (name != null) {
       return rs.getObject(name, map);
-    } else {
-      return rs.getObject(index, map);
     }
+    return rs.getObject(index, map);
   }
 
+  @Override
   public Ref getRef() throws SQLException {
     if (name != null) {
       return rs.getRef(name);
-    } else {
-      return rs.getRef(index);
     }
+    return rs.getRef(index);
   }
 
+  @Override
   public short getShort() throws SQLException {
     if (name != null) {
       return rs.getShort(name);
-    } else {
-      return rs.getShort(index);
     }
+    return rs.getShort(index);
   }
 
+  @Override
   public String getString() throws SQLException {
     if (name != null) {
       return rs.getString(name);
-    } else {
-      return rs.getString(index);
     }
+    return rs.getString(index);
   }
 
+  @Override
   public Time getTime() throws SQLException {
     if (name != null) {
       return rs.getTime(name);
-    } else {
-      return rs.getTime(index);
     }
+    return rs.getTime(index);
   }
 
+  @Override
   public Time getTime(Calendar cal) throws SQLException {
     if (name != null) {
       return rs.getTime(name);
-    } else {
-      return rs.getTime(index);
     }
+    return rs.getTime(index);
   }
 
+  @Override
   public Timestamp getTimestamp() throws SQLException {
     if (name != null) {
       return rs.getTimestamp(name);
-    } else {
-      return rs.getTimestamp(index);
     }
+    return rs.getTimestamp(index);
   }
 
+  @Override
   public Timestamp getTimestamp(Calendar cal) throws SQLException {
     if (name != null) {
       return rs.getTimestamp(name, cal);
-    } else {
-      return rs.getTimestamp(index, cal);
     }
+    return rs.getTimestamp(index, cal);
   }
 
+  @Override
   public URL getURL() throws SQLException {
     if (name != null) {
       return rs.getURL(name);
-    } else {
-      return rs.getURL(index);
     }
+    return rs.getURL(index);
   }
 
+  @Override
   public boolean wasNull() throws SQLException {
     return rs.wasNull();
   }
 
+  @Override
   public ResultSet getResultSet() {
     return rs;
   }
 
+  @Override
   public int getColumnIndex() {
     return index;
   }
 
+  @Override
   public String getColumnName() {
     return name;
   }

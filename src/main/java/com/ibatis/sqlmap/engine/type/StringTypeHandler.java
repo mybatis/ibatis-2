@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,37 +25,39 @@ import java.sql.SQLException;
  */
 public class StringTypeHandler extends BaseTypeHandler implements TypeHandler {
 
+  @Override
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
-    ps.setString(i, ((String) parameter));
+    ps.setString(i, (String) parameter);
   }
 
+  @Override
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
     Object s = rs.getString(columnName);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return s;
     }
+    return s;
   }
 
+  @Override
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     Object s = rs.getString(columnIndex);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return s;
     }
+    return s;
   }
 
+  @Override
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     Object s = cs.getString(columnIndex);
     if (cs.wasNull()) {
       return null;
-    } else {
-      return s;
     }
+    return s;
   }
 
+  @Override
   public Object valueOf(String s) {
     return s;
   }
