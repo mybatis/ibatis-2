@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,10 +155,10 @@ public class SqlMapParser {
         String type = attributes.getProperty("type");
         String readOnlyAttr = attributes.getProperty("readOnly");
         Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null
-            : new Boolean("true".equals(readOnlyAttr));
+            : Boolean.valueOf("true".equals(readOnlyAttr));
         String serializeAttr = attributes.getProperty("serialize");
         Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null
-            : new Boolean("true".equals(serializeAttr));
+            : Boolean.valueOf("true".equals(serializeAttr));
         type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
         Class clazz = Resources.classForName(type);
         if (readOnly == null) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -270,13 +270,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -294,13 +294,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -490,13 +490,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(false));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -523,13 +523,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(false));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -556,13 +556,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(false));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -585,13 +585,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(false));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {
@@ -614,13 +614,13 @@ class NestedIterateTest extends BaseSqlMap {
     NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Jeff", new Boolean(false));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     andCondition = new NestedIterateParameterObject.AndCondition();
-    andCondition.addCondition("first_name =", "Matt", new Boolean(true));
-    andCondition.addCondition("last_name =", "Jones", new Boolean(true));
+    andCondition.addCondition("first_name =", "Matt", Boolean.valueOf(true));
+    andCondition.addCondition("last_name =", "Jones", Boolean.valueOf(true));
     po.addOrCondition(andCondition);
 
     try {

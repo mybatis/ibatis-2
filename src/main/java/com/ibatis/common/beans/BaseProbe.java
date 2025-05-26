@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +97,7 @@ public abstract class BaseProbe implements Probe {
       } else if (list instanceof char[]) {
         value = Character.valueOf(((char[]) list)[i]);
       } else if (list instanceof boolean[]) {
-        value = new Boolean(((boolean[]) list)[i]);
+        value = Boolean.valueOf(((boolean[]) list)[i]);
       } else if (list instanceof byte[]) {
         value = Byte.valueOf(((byte[]) list)[i]);
       } else if (list instanceof double[]) {
