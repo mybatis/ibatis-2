@@ -165,12 +165,7 @@ public class ClassInfo {
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
       String name = method.getName();
-      if (name.startsWith("get") && name.length() > 3) {
-        if (method.getParameterTypes().length == 0) {
-          name = dropCase(name);
-          addGetMethod(name, method);
-        }
-      } else if (name.startsWith("is") && name.length() > 2) {
+      if ((name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2)) {
         if (method.getParameterTypes().length == 0) {
           name = dropCase(name);
           addGetMethod(name, method);
