@@ -32,7 +32,7 @@ public class TypeHandlerFactory {
   private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);
 
   /** The type aliases. */
-  private final HashMap typeAliases = new HashMap<>();
+  private final Map<String, String> typeAliases = new HashMap<>();
 
   /** The Constant reversePrimitiveMap. */
   private static final Map reversePrimitiveMap = new HashMap<>() {
@@ -235,7 +235,7 @@ public class TypeHandlerFactory {
       key = string.toLowerCase();
     String value = null;
     if (typeAliases.containsKey(key)) {
-      value = (String) typeAliases.get(key);
+      value = typeAliases.get(key);
     } else {
       value = string;
     }

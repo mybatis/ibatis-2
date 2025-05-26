@@ -93,7 +93,7 @@ public class ResultMapConfig {
     resultMap.setId(id);
     resultMap.setXmlName(xmlName);
     resultMap.setResource(errorContext.getResource());
-    if (groupBy != null && groupBy.length() > 0) {
+    if (groupBy != null && !groupBy.isEmpty()) {
       StringTokenizer parser = new StringTokenizer(groupBy, ", ", false);
       while (parser.hasMoreTokens()) {
         resultMap.addGroupByProperty(parser.nextToken());
@@ -114,7 +114,7 @@ public class ResultMapConfig {
           resultMap.addNestedResultMappings((ResultMapping) iter.next());
         }
       }
-      if (groupBy == null || groupBy.length() == 0) {
+      if (groupBy == null || groupBy.isEmpty()) {
         if (extendedResultMap.hasGroupBy()) {
           Iterator i = extendedResultMap.groupByProps();
           while (i.hasNext()) {

@@ -21,7 +21,6 @@ import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 
 import java.sql.ResultSet;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -261,7 +260,8 @@ public class StatementScope {
    */
   public Map getUniqueKeys(ResultMap map) {
     if (uniqueKeys == null) {
-      return Collections.emptyMap();
+      // Do not change this code as expected 'null' here not empty
+      return null;
     }
     return (Map) uniqueKeys.get(map);
   }

@@ -28,7 +28,7 @@ public class JdbcTypeRegistry {
   public static final int UNKNOWN_TYPE = -99999999;
 
   /** The Constant TYPE_MAP. */
-  private static final Map TYPE_MAP = new HashMap<>();
+  private static final Map<String, Integer> TYPE_MAP = new HashMap<>();
 
   /**
    * Value for a JDBC 3.o datalink type
@@ -73,7 +73,7 @@ public class JdbcTypeRegistry {
   public static int getType(String name) {
     if (name == null)
       return UNKNOWN_TYPE;
-    Integer i = (Integer) TYPE_MAP.get(name);
+    Integer i = TYPE_MAP.get(name);
     if (i != null) {
       return i.intValue();
     } else {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package com.ibatis.sqlmap.engine.datasource;
 
 import com.ibatis.sqlmap.client.SqlMapException;
 
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -38,7 +37,7 @@ public class JndiDataSourceFactory implements DataSourceFactory {
   public void initialize(Map properties) {
     try {
       InitialContext initCtx = null;
-      Hashtable context = getContextProperties(properties);
+      Properties context = getContextProperties(properties);
 
       if (context == null) {
         initCtx = new InitialContext();
@@ -53,9 +52,8 @@ public class JndiDataSourceFactory implements DataSourceFactory {
       } else if (properties.containsKey("DBFullJndiContext")) { // LEGACY --Backward
                                                                 // compatibility
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DBFullJndiContext"));
-      } else if (properties.containsKey("DBInitialContext") && properties.containsKey("DBLookup")) { // LEGACY
-                                                                                                     // --Backward
-                                                                                                     // compatibility
+      } else if (properties.containsKey("DBInitialContext") && properties.containsKey("DBLookup")) {
+        // LEGACY - Backward compatibility
         Context ctx = (Context) initCtx.lookup((String) properties.get("DBInitialContext"));
         dataSource = (DataSource) ctx.lookup((String) properties.get("DBLookup"));
       }
@@ -77,9 +75,9 @@ public class JndiDataSourceFactory implements DataSourceFactory {
    *
    * @return the context properties
    */
-  private static Hashtable getContextProperties(Map allProps) {
+  private static Properties getContextProperties(Map allProps) {
     final String PREFIX = "context.";
-    Hashtable contextProperties = null;
+    Properties contextProperties = null;
     Iterator keys = allProps.keySet().iterator();
     while (keys.hasNext()) {
       String key = (String) keys.next();
