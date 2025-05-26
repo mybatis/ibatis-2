@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,26 +42,31 @@ public class CustomTypeHandler extends BaseTypeHandler implements TypeHandler {
     this.callback = callback;
   }
 
+  @Override
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
     ParameterSetter setter = new ParameterSetterImpl(ps, i);
     callback.setParameter(setter, parameter);
   }
 
+  @Override
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(rs, columnName);
     return callback.getResult(getter);
   }
 
+  @Override
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(rs, columnIndex);
     return callback.getResult(getter);
   }
 
+  @Override
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     ResultGetter getter = new ResultGetterImpl(new CallableStatementResultSet(cs), columnIndex);
     return callback.getResult(getter);
   }
 
+  @Override
   public Object valueOf(String s) {
     return callback.valueOf(s);
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import java.sql.Types;
  */
 public class ClobTypeHandlerCallback implements TypeHandlerCallback {
 
+  @Override
   public Object getResult(ResultGetter getter) throws SQLException {
     String value;
     Clob clob = getter.getClob();
@@ -42,6 +43,7 @@ public class ClobTypeHandlerCallback implements TypeHandlerCallback {
     return value;
   }
 
+  @Override
   public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
     String s = (String) parameter;
     if (s != null) {
@@ -52,6 +54,7 @@ public class ClobTypeHandlerCallback implements TypeHandlerCallback {
     }
   }
 
+  @Override
   public Object valueOf(String s) {
     return s;
   }

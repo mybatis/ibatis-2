@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public interface TypeHandler {
    * @throws SQLException
    *           if setting the parameter fails
    */
-  public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException;
+  void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException;
 
   /**
    * Gets a column from a result set.
@@ -55,7 +55,7 @@ public interface TypeHandler {
    * @throws SQLException
    *           if getting the value fails
    */
-  public Object getResult(ResultSet rs, String columnName) throws SQLException;
+  Object getResult(ResultSet rs, String columnName) throws SQLException;
 
   /**
    * Gets a column from a result set.
@@ -70,7 +70,7 @@ public interface TypeHandler {
    * @throws SQLException
    *           if getting the value fails
    */
-  public Object getResult(ResultSet rs, int columnIndex) throws SQLException;
+  Object getResult(ResultSet rs, int columnIndex) throws SQLException;
 
   /**
    * Gets a column from a callable statement.
@@ -85,7 +85,7 @@ public interface TypeHandler {
    * @throws SQLException
    *           if getting the value fails
    */
-  public Object getResult(CallableStatement cs, int columnIndex) throws SQLException;
+  Object getResult(CallableStatement cs, int columnIndex) throws SQLException;
 
   /**
    * Converts the String to the type that this handler deals with.
@@ -95,7 +95,7 @@ public interface TypeHandler {
    *
    * @return - the converted value
    */
-  public Object valueOf(String s);
+  Object valueOf(String s);
 
   /**
    * Compares two values (that this handler deals with) for equality.
@@ -107,6 +107,6 @@ public interface TypeHandler {
    *
    * @return - true if they are equal
    */
-  public boolean equals(Object object, String string);
+  boolean equals(Object object, String string);
 
 }
