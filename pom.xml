@@ -137,11 +137,11 @@
       <version>5.12.2</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>2.7.4</version>
-      <classifier>jdk8</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
