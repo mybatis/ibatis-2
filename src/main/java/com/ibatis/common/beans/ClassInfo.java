@@ -54,10 +54,10 @@ public class ClassInfo {
   private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
   /** The Constant SIMPLE_TYPE_SET. */
-  private static final Set SIMPLE_TYPE_SET = new HashSet();
+  private static final Set SIMPLE_TYPE_SET = new HashSet<>();
 
   /** The Constant CLASS_INFO_MAP. */
-  private static final Map<Class, ClassInfo> CLASS_INFO_MAP = new ConcurrentHashMap<Class, ClassInfo>();
+  private static final Map<Class, ClassInfo> CLASS_INFO_MAP = new ConcurrentHashMap<>();
 
   /** The class name. */
   private String className;

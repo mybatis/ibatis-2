@@ -270,7 +270,7 @@ public class ResultMap {
    */
   public void addGroupByProperty(String name) {
     if (groupByProps == null) {
-      groupByProps = new HashSet();
+      groupByProps = new HashSet<>();
     }
     groupByProps.add(name);
   }

@@ -26,13 +26,13 @@ public class BaseLogProxy {
   private static int nextId = 100000;
 
   /** The Constant SET_METHODS. */
-  protected static final Set SET_METHODS = new HashSet();
+  protected static final Set SET_METHODS = new HashSet<>();
 
   /** The Constant GET_METHODS. */
-  protected static final Set GET_METHODS = new HashSet();
+  protected static final Set GET_METHODS = new HashSet<>();
 
   /** The Constant EXECUTE_METHODS. */
-  protected static final Set EXECUTE_METHODS = new HashSet();
+  protected static final Set EXECUTE_METHODS = new HashSet<>();
 
   /** The column map. */
   private Map columnMap = new HashMap<>();
@@ -145,7 +145,7 @@ public class BaseLogProxy {
    * @return the type string
    */
   protected String getTypeString() {
-    List typeList = new ArrayList(columnValues.size());
+    List typeList = new ArrayList<>(columnValues.size());
     for (int i = 0; i < columnValues.size(); i++) {
       Object value = columnValues.get(i);
       if (value == null) {
