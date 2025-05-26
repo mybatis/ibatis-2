@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -138,7 +138,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    * @return the long
    */
   protected long compareValues(Class type, Object value1, Object value2) {
-    long result = NOT_COMPARABLE;
+    long result;
 
     if (value1 == null || value2 == null) {
       result = value1 == value2 ? 0 : NOT_COMPARABLE;
@@ -224,10 +224,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
         }
       }
 
-      if (prop.indexOf(START_INDEX) > -1) {
-        if (itCtx != null) {
-          prop = itCtx.addIndexToTagProperty(prop);
-        }
+      if (prop.indexOf(START_INDEX) > -1 && itCtx != null) {
+        prop = itCtx.addIndexToTagProperty(prop);
       }
     }
 
