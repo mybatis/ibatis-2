@@ -379,7 +379,6 @@ public class Resources extends Object {
       // Try alternative...theoretically should fail for the exact same
       // reason, but in case of a weird security manager, this will help
       // some cases.
-      // return clazz.newInstance();
       return clazz.newInstance();
     }
   }
