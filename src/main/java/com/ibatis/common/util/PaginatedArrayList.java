@@ -26,7 +26,7 @@ import java.util.*;
 public class PaginatedArrayList implements PaginatedList {
 
   /** The Constant EMPTY_LIST. */
-  private static final ArrayList EMPTY_LIST = new ArrayList(0);
+  private static final ArrayList EMPTY_LIST = new ArrayList<>(0);
 
   /** The list. */
   private List list;
@@ -64,7 +64,7 @@ public class PaginatedArrayList implements PaginatedList {
   public PaginatedArrayList(int initialCapacity, int pageSize) {
     this.pageSize = pageSize;
     this.index = 0;
-    this.list = new ArrayList(initialCapacity);
+    this.list = new ArrayList<>(initialCapacity);
     repaginate();
   }
 
@@ -79,7 +79,7 @@ public class PaginatedArrayList implements PaginatedList {
   public PaginatedArrayList(Collection c, int pageSize) {
     this.pageSize = pageSize;
     this.index = 0;
-    this.list = new ArrayList(c);
+    this.list = new ArrayList<>(c);
     repaginate();
   }
 
