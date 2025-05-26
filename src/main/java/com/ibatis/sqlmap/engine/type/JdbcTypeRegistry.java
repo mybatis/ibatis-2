@@ -33,12 +33,12 @@ public class JdbcTypeRegistry {
   /**
    * Value for a JDBC 3.o datalink type
    */
-  public final static int JDBC_30_DATALINK = 70;
+  public static final int JDBC_30_DATALINK = 70;
 
   /**
    * Value for a JDBC 3.o boolean type
    */
-  public final static int JDBC_30_BOOLEAN = 16;
+  public static final int JDBC_30_BOOLEAN = 16;
 
   static {
     initializeTypes();

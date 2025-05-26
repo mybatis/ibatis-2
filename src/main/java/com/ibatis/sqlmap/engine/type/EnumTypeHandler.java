@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,34 +43,34 @@ public class EnumTypeHandler extends BaseTypeHandler implements TypeHandler {
   }
 
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
-    Object s = rs.getString(columnName);
+    String s = rs.getString(columnName);
     if (rs.wasNull()) {
       return null;
     } else {
-      return Enum.valueOf(type, (String) s);
+      return Enum.valueOf(type, s);
     }
   }
 
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
-    Object s = rs.getString(columnIndex);
+    String s = rs.getString(columnIndex);
     if (rs.wasNull()) {
       return null;
     } else {
-      return Enum.valueOf(type, (String) s);
+      return Enum.valueOf(type, s);
     }
   }
 
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
-    Object s = cs.getString(columnIndex);
+    String s = cs.getString(columnIndex);
     if (cs.wasNull()) {
       return null;
     } else {
-      return Enum.valueOf(type, (String) s);
+      return Enum.valueOf(type, s);
     }
   }
 
   public Object valueOf(String s) {
-    return Enum.valueOf(type, (String) s);
+    return Enum.valueOf(type, s);
   }
 
 }

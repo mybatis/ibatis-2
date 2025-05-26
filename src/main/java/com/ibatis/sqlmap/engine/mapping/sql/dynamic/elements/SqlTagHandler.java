@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 public interface SqlTagHandler {
 
   /** The Constant SKIP_BODY. */
-  // BODY TAG
   public static final int SKIP_BODY = 0;
 
   /** The Constant INCLUDE_BODY. */

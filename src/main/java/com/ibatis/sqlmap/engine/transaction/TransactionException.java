@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,9 @@ package com.ibatis.sqlmap.engine.transaction;
  * The Class TransactionException.
  */
 public class TransactionException extends Exception {
+
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
   /**
    * Instantiates a new transaction exception.

@@ -301,8 +301,7 @@ public class SessionScope {
   public PreparedStatement getPreparedStatement(String sql) throws SQLException {
     if (!hasPreparedStatementFor(sql))
       throw new SqlMapException("Could not get prepared statement.  This is likely a bug.");
-    PreparedStatement ps = (PreparedStatement) preparedStatements.get(sql);
-    return ps;
+    return (PreparedStatement) preparedStatements.get(sql);
   }
 
   /**
