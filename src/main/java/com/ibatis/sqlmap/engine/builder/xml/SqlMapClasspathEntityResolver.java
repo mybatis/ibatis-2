@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,13 +42,9 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
   private static final Map doctypeMap = new HashMap();
 
   static {
-    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-config-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
-    doctypeMap.put("-//iBATIS.com//DTD SQL Map Config 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
     doctypeMap.put("https://ibatis.apache.org/dtd/sql-map-config-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
     doctypeMap.put("-//ibatis.apache.org//DTD SQL Map Config 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);
 
-    doctypeMap.put("http://www.ibatis.com/dtd/sql-map-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
-    doctypeMap.put("-//iBATIS.com//DTD SQL Map 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
     doctypeMap.put("https://ibatis.apache.org/dtd/sql-map-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
     doctypeMap.put("-//ibatis.apache.org//DTD SQL Map 2.0//EN".toUpperCase(Locale.ROOT), SQL_MAP_DTD);
   }

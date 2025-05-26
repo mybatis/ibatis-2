@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,32 +22,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 class SqlMapClasspathEntityResolverTest {
-
-  // ibatis.com
-
-  @Test
-  void testComConfigSystemId() {
-    String id = "http://www.ibatis.com/dtd/sql-map-config-2.dtd";
-    assertSystemIdCanBeResolved(id);
-  }
-
-  @Test
-  void testComConfigPublicId() {
-    String id = "-//iBATIS.com//DTD SQL Map Config 2.0//EN";
-    assertPublicIdCanBeResolved(id);
-  }
-
-  @Test
-  void testComMapSystemId() {
-    String id = "http://www.ibatis.com/dtd/sql-map-2.dtd";
-    assertSystemIdCanBeResolved(id);
-  }
-
-  @Test
-  void testComMapPublicId() {
-    String id = "-//iBATIS.com//DTD SQL Map 2.0//EN";
-    assertPublicIdCanBeResolved(id);
-  }
 
   // ibatis.apache.org
 
