@@ -37,7 +37,7 @@ import org.xml.sax.*;
 public class NodeletParser {
 
   /** The let map. */
-  private Map letMap = new HashMap();
+  private Map letMap = new HashMap<>();
 
   /** The validation. */
   private boolean validation;
@@ -306,7 +306,7 @@ public class NodeletParser {
   private static class Path {
 
     /** The node list. */
-    private List nodeList = new ArrayList();
+    private List nodeList = new ArrayList<>();
 
     /**
      * Instantiates a new path.

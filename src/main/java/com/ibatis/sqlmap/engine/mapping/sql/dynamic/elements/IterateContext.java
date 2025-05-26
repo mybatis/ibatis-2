@@ -160,7 +160,7 @@ public class IterateContext implements Iterator {
     if (array instanceof Object[]) {
       list = Arrays.asList((Object[]) array);
     } else {
-      list = new ArrayList();
+      list = new ArrayList<>();
       for (int i = 0, n = Array.getLength(array); i < n; i++) {
         list.add(Array.get(array, i));
       }
@@ -326,7 +326,7 @@ public class IterateContext implements Iterator {
         modificationIndex = propertyIndex + endProperty.length();
       }
     }
-    Map ret = new HashMap();
+    Map ret = new HashMap<>();
     ret.put(PROCESS_INDEX, Integer.valueOf(modificationIndex));
     ret.put(PROCESS_STRING, input);
     return ret;

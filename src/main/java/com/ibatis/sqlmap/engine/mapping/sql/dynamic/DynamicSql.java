@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class DynamicSql implements Sql, DynamicParent {
   private static final InlineParameterMapParser PARAM_PARSER = new InlineParameterMapParser();
 
   /** The children. */
-  private List children = new ArrayList();
+  private List children = new ArrayList<>();
 
   /** The delegate. */
   private SqlMapExecutorDelegate delegate;

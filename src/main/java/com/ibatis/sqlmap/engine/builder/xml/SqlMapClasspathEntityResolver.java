@@ -39,7 +39,7 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
   private static final String SQL_MAP_DTD = "com/ibatis/sqlmap/engine/builder/xml/sql-map-2.dtd";
 
   /** The Constant doctypeMap. */
-  private static final Map doctypeMap = new HashMap();
+  private static final Map doctypeMap = new HashMap<>();
 
   static {
     doctypeMap.put("https://ibatis.apache.org/dtd/sql-map-config-2.dtd".toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,10 +99,10 @@ public class SimpleDataSource implements DataSource {
   private final Object POOL_LOCK = new Object();
 
   /** The idle connections. */
-  private List idleConnections = new ArrayList();
+  private List idleConnections = new ArrayList<>();
 
   /** The active connections. */
-  private List activeConnections = new ArrayList();
+  private List activeConnections = new ArrayList<>();
 
   /** The request count. */
   private long requestCount = 0;

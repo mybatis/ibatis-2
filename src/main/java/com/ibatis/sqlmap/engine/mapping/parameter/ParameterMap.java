@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public class ParameterMap {
   private String resource;
 
   /** The parameter mapping index. */
-  private Map parameterMappingIndex = new HashMap();
+  private Map parameterMappingIndex = new HashMap<>();
 
   /** The delegate. */
   private SqlMapExecutorDelegate delegate;
@@ -167,7 +167,7 @@ public class ParameterMap {
     for (int i = 0; i < parameterMappings.length; i++) {
       parameterMappingIndex.put(parameterMappings[i].getPropertyName(), Integer.valueOf(i));
     }
-    Map props = new HashMap();
+    Map props = new HashMap<>();
     props.put("map", this);
 
     dataExchange = delegate.getDataExchangeFactory().getDataExchangeForClass(parameterClass);

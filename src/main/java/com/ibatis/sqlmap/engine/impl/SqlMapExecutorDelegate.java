@@ -109,10 +109,10 @@ public class SqlMapExecutorDelegate {
    * Default constructor.
    */
   public SqlMapExecutorDelegate() {
-    mappedStatements = new HashMap();
-    cacheModels = new HashMap();
-    resultMaps = new HashMap();
-    parameterMaps = new HashMap();
+    mappedStatements = new HashMap<>();
+    cacheModels = new HashMap<>();
+    resultMaps = new HashMap<>();
+    parameterMaps = new HashMap<>();
 
     sqlExecutor = new DefaultSqlExecutor();
     typeHandlerFactory = new TypeHandlerFactory();
@@ -285,7 +285,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a mappedstatement by its ID.
+   * Get a mapped statement by its ID.
    *
    * @param id
    *          - the statement ID
@@ -828,7 +828,7 @@ public class SqlMapExecutorDelegate {
    */
   public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp, String valueProp)
       throws SQLException {
-    Map map = new HashMap();
+    Map map = new HashMap<>();
 
     List list = queryForList(sessionScope, id, paramObject);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,12 +97,12 @@ public class AutoResultMap extends ResultMap {
       ClassInfo classInfo = ClassInfo.getInstance(getResultClass());
       String[] propertyNames = classInfo.getWriteablePropertyNames();
 
-      Map propertyMap = new HashMap();
+      Map propertyMap = new HashMap<>();
       for (int i = 0; i < propertyNames.length; i++) {
         propertyMap.put(propertyNames[i].toUpperCase(java.util.Locale.ENGLISH), propertyNames[i]);
       }
 
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -148,7 +148,7 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeXmlResults(ResultSet rs) {
     try {
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -173,7 +173,7 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeMapResults(ResultSet rs) {
     try {
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -208,7 +208,7 @@ public class AutoResultMap extends ResultMap {
       resultMapping.setColumnIndex(1);
       resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()));
 
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       resultMappingList.add(resultMapping);
 
       setResultMappingList(resultMappingList);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import java.util.Map;
 public final class MemoryCacheLevel {
 
   /** The cache level map. */
-  private static Map cacheLevelMap = new HashMap();
+  private static Map cacheLevelMap = new HashMap<>();
 
   /**
    * Constant for weak caching This cache model is probably the best choice in most cases. It will increase performance

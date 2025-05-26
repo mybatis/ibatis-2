@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -380,7 +380,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
       MappedStatement statement = statementScope.getStatement();
       DefaultRowHandler defaultRowHandler = ((DefaultRowHandler) callback.getRowHandler());
       if (statement.hasMultipleResultMaps()) {
-        List multipleResults = new ArrayList();
+        List multipleResults = new ArrayList<>();
         multipleResults.add(defaultRowHandler.getList());
         ResultMap[] resultMaps = statement.getAdditionalResultMaps();
         int i = 0;
@@ -859,10 +859,10 @@ public class DefaultSqlExecutor implements SqlExecutor {
     private String currentSql;
 
     /** The statement list. */
-    private List statementList = new ArrayList();
+    private List statementList = new ArrayList<>();
 
     /** The batch result list. */
-    private List batchResultList = new ArrayList();
+    private List batchResultList = new ArrayList<>();
 
     /** The size. */
     private int size;
@@ -956,7 +956,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
      *           if the driver throws BatchUpdateException
      */
     public List executeBatchDetailed() throws SQLException, BatchException {
-      List answer = new ArrayList();
+      List answer = new ArrayList<>();
       for (int i = 0, n = statementList.size(); i < n; i++) {
         BatchResult br = (BatchResult) batchResultList.get(i);
         PreparedStatement ps = (PreparedStatement) statementList.get(i);
