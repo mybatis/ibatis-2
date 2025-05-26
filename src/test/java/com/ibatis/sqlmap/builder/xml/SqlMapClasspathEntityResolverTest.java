@@ -53,7 +53,7 @@ class SqlMapClasspathEntityResolverTest {
 
   @Test
   void testOrgConfigSystemId() {
-    String id = "http://ibatis.apache.org/dtd/sql-map-config-2.dtd";
+    String id = "https://ibatis.apache.org/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
@@ -65,7 +65,7 @@ class SqlMapClasspathEntityResolverTest {
 
   @Test
   void testOrgMapSystemId() {
-    String id = "http://ibatis.apache.org/dtd/sql-map-2.dtd";
+    String id = "https://ibatis.apache.org/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
