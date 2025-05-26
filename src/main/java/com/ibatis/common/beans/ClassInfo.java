@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,16 +69,16 @@ public class ClassInfo {
   private String[] writeablePropertyNames = EMPTY_STRING_ARRAY;
 
   /** The set methods. */
-  private HashMap setMethods = new HashMap();
+  private HashMap setMethods = new HashMap<>();
 
   /** The get methods. */
-  private HashMap getMethods = new HashMap();
+  private HashMap getMethods = new HashMap<>();
 
   /** The set types. */
-  private HashMap setTypes = new HashMap();
+  private HashMap setTypes = new HashMap<>();
 
   /** The get types. */
-  private HashMap getTypes = new HashMap();
+  private HashMap getTypes = new HashMap<>();
 
   /** The default constructor. */
   private Constructor defaultConstructor;
@@ -199,7 +199,7 @@ public class ClassInfo {
    *          the cls
    */
   private void addSetMethods(Class cls) {
-    Map conflictingSetters = new HashMap();
+    Map conflictingSetters = new HashMap<>();
     Method[] methods = getClassMethods(cls);
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
@@ -230,7 +230,7 @@ public class ClassInfo {
   private void addSetterConflict(Map conflictingSetters, String name, Method method) {
     List list = (List) conflictingSetters.get(name);
     if (list == null) {
-      list = new ArrayList();
+      list = new ArrayList<>();
       conflictingSetters.put(name, list);
     }
     list.add(method);
@@ -352,7 +352,7 @@ public class ClassInfo {
    * @return An array containing all methods in this class
    */
   private Method[] getClassMethods(Class cls) {
-    HashMap uniqueMethods = new HashMap();
+    HashMap uniqueMethods = new HashMap<>();
     Class currentClass = cls;
     while (currentClass != null) {
       addUniqueMethods(uniqueMethods, currentClass.getDeclaredMethods());

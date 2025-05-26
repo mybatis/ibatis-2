@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class DomProbe extends BaseProbe {
 
   @Override
   public String[] getReadablePropertyNames(Object object) {
-    List props = new ArrayList();
+    List props = new ArrayList<>();
     Element e = resolveElement(object);
     NodeList nodes = e.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
@@ -51,7 +51,7 @@ public class DomProbe extends BaseProbe {
 
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-    List props = new ArrayList();
+    List props = new ArrayList<>();
     Element e = resolveElement(object);
     NodeList nodes = e.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {

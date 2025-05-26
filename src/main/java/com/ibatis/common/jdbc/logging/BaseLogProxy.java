@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,13 +35,13 @@ public class BaseLogProxy {
   protected static final Set EXECUTE_METHODS = new HashSet();
 
   /** The column map. */
-  private Map columnMap = new HashMap();
+  private Map columnMap = new HashMap<>();
 
   /** The column names. */
-  private List columnNames = new ArrayList();
+  private List columnNames = new ArrayList<>();
 
   /** The column values. */
-  private List columnValues = new ArrayList();
+  private List columnValues = new ArrayList<>();
 
   /** The id. */
   protected int id;

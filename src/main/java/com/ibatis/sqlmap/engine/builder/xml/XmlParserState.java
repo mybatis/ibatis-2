@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class XmlParserState {
   private boolean useStatementNamespaces = false;
 
   /** The sql includes. */
-  private Map sqlIncludes = new HashMap();
+  private Map sqlIncludes = new HashMap<>();
 
   /** The param config. */
   private ParameterMapConfig paramConfig;
@@ -253,7 +253,7 @@ public class XmlParserState {
    * @return the all but first token
    */
   public String[] getAllButFirstToken(String s) {
-    List strings = new ArrayList();
+    List strings = new ArrayList<>();
     StringTokenizer parser = new StringTokenizer(s, ", ", false);
     parser.nextToken();
     while (parser.hasMoreTokens()) {

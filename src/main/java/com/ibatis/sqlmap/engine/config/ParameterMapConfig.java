@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ public class ParameterMapConfig {
     errorContext.setObjectId(id + " parameter map");
     parameterMap.setParameterClass(parameterClass);
     errorContext.setMoreInfo("Check the parameter mappings.");
-    this.parameterMappingList = new ArrayList();
+    this.parameterMappingList = new ArrayList<>();
     client.getDelegate().addParameterMap(parameterMap);
   }
 

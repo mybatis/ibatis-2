@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class SqlTagContext {
   private LinkedList iterateContextStack;
 
   /** The parameter mappings. */
-  private ArrayList parameterMappings = new ArrayList();
+  private ArrayList parameterMappings = new ArrayList<>();
 
   /**
    * Instantiates a new sql tag context.
@@ -53,7 +53,7 @@ public class SqlTagContext {
   public SqlTagContext() {
     sw = new StringWriter();
     out = new PrintWriter(sw);
-    attributes = new HashMap();
+    attributes = new HashMap<>();
     removeFirstPrependStack = new LinkedList();
     iterateContextStack = new LinkedList();
   }

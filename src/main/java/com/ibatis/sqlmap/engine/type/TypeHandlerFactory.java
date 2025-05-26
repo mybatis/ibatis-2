@@ -26,16 +26,16 @@ import java.util.*;
 public class TypeHandlerFactory {
 
   /** The type handler map. */
-  private final Map typeHandlerMap = new HashMap();
+  private final Map typeHandlerMap = new HashMap<>();
 
   /** The unknown type handler. */
   private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);
 
   /** The type aliases. */
-  private final HashMap typeAliases = new HashMap();
+  private final HashMap typeAliases = new HashMap<>();
 
   /** The Constant reversePrimitiveMap. */
-  private static final Map reversePrimitiveMap = new HashMap() {
+  private static final Map reversePrimitiveMap = new HashMap<>() {
     {
       put(Byte.class, byte.class);
       put(Short.class, short.class);
@@ -211,7 +211,7 @@ public class TypeHandlerFactory {
   public void register(Class type, String jdbcType, TypeHandler handler) {
     Map map = (Map) typeHandlerMap.get(type);
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
       typeHandlerMap.put(type, map);
     }
     map.put(jdbcType, handler);

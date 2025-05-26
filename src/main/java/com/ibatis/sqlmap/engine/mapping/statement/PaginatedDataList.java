@@ -101,7 +101,7 @@ public class PaginatedDataList implements PaginatedList {
       if (index > 0) {
         prevPageList = getList(index - 1, pageSize);
       } else {
-        prevPageList = new ArrayList();
+        prevPageList = new ArrayList<>();
       }
     } catch (SQLException e) {
       throw new RuntimeException("Unexpected error while repaginating paged list.  Cause: " + e, e);

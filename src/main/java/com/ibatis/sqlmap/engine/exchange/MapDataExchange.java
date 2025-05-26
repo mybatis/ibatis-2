@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
     Map map = (Map) resultObject;
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
     }
 
     ResultMapping[] mappings = resultMap.getResultMappings();
@@ -82,7 +82,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
     Map map = (Map) parameterObject;
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
     }
 
     ParameterMapping[] mappings = parameterMap.getParameterMappings();

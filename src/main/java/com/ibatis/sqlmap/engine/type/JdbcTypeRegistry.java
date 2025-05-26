@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class JdbcTypeRegistry {
   public static final int UNKNOWN_TYPE = -99999999;
 
   /** The Constant TYPE_MAP. */
-  private static final Map TYPE_MAP = new HashMap();
+  private static final Map TYPE_MAP = new HashMap<>();
 
   /**
    * Value for a JDBC 3.o datalink type
