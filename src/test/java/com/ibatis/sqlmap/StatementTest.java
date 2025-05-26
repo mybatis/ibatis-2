@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -722,7 +722,7 @@ class StatementTest extends BaseSqlMap {
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<String, Integer>();
+    Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(10));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -768,7 +768,7 @@ class StatementTest extends BaseSqlMap {
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<String, Integer>();
+    Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(99));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -792,7 +792,7 @@ class StatementTest extends BaseSqlMap {
     assertNull(key);
     assertEquals(100, item.getId());
 
-    Map<String, Integer> param = new HashMap<String, Integer>();
+    Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(100));
     LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
@@ -889,7 +889,7 @@ class StatementTest extends BaseSqlMap {
   class TestRowHandler implements RowHandler {
     private int index = 0;
 
-    private List<Object> list = new ArrayList<Object>();
+    private List<Object> list = new ArrayList<>();
 
     @Override
     public void handleRow(Object object) {

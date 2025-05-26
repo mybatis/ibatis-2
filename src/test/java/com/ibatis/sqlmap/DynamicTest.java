@@ -226,9 +226,8 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testQueryByExample() throws SQLException {
-    Account account;
+    Account account = new Account();
 
-    account = new Account();
     account.setId(1);
     account = (Account) sqlMap.queryForObject("dynamicQueryByExample", account);
     assertAccount1(account);
@@ -260,9 +259,8 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testRemappableResults() throws SQLException {
-    Account account;
+    Account account = new Account();
 
-    account = new Account();
     account.setId(1);
     account = (Account) sqlMap.queryForObject("testRemappableResults", Integer.valueOf(1));
 
@@ -278,7 +276,7 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsPropertyAvailable() throws Exception {
-    Map<String, Comparable> account = new HashMap<String, Comparable>();
+    Map<String, Comparable> account = new HashMap<>();
 
     account.put("id", Integer.valueOf(1));
     account.put("name", "Clinton");

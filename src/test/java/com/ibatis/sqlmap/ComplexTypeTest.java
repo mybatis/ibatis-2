@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ class ComplexTypeTest extends BaseSqlMap {
   void testMapBeanMap() throws Exception {
     Map<String, ComplexBean> map = new HashMap<>();
     ComplexBean bean = new ComplexBean();
-    bean.setMap(new HashMap<String, Integer>());
+    bean.setMap(new HashMap<>());
     bean.getMap().put("id", Integer.valueOf(1));
     map.put("bean", bean);
 

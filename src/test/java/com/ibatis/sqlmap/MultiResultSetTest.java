@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ class MultiResultSetTest extends BaseSqlMap {
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
-    Map<String, Integer> persons = new HashMap<String, Integer>();
+    Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
@@ -58,7 +58,7 @@ class MultiResultSetTest extends BaseSqlMap {
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
-    Map<String, Integer> persons = new HashMap<String, Integer>();
+    Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));

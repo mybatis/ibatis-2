@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ class BatchTest extends BaseSqlMap {
 
   @Test
   void testExecutebatchDetailed() {
-    List<Account> accountList1 = new ArrayList<Account>();
+    List<Account> accountList1 = new ArrayList<>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -80,7 +80,7 @@ class BatchTest extends BaseSqlMap {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List<Account> accountList2 = new ArrayList<Account>();
+    List<Account> accountList2 = new ArrayList<>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");
@@ -114,8 +114,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.startBatch();
 
       // insert 5 accounts
-      for (int i = 0; i < accountList1.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList1.get(i));
+      for (Account element : accountList1) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -128,8 +128,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
-      for (int i = 0; i < accountList2.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList2.get(i));
+      for (Account element : accountList2) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       List<?> results = sqlMap.executeBatchDetailed();
@@ -146,9 +146,7 @@ class BatchTest extends BaseSqlMap {
       br = (BatchResult) results.get(2);
       assertEquals(4, br.getUpdateCounts().length);
 
-    } catch (BatchException e) {
-      fail(e.getMessage());
-    } catch (SQLException e) {
+    } catch (BatchException | SQLException e) {
       fail(e.getMessage());
     } finally {
       try {
@@ -161,7 +159,7 @@ class BatchTest extends BaseSqlMap {
 
   @Test
   void testExecutebatchDetailedWithError() {
-    List<Account> accountList1 = new ArrayList<Account>();
+    List<Account> accountList1 = new ArrayList<>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -197,7 +195,7 @@ class BatchTest extends BaseSqlMap {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List<Account> accountList2 = new ArrayList<Account>();
+    List<Account> accountList2 = new ArrayList<>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");
@@ -231,8 +229,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.startBatch();
 
       // insert 5 accounts
-      for (int i = 0; i < accountList1.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList1.get(i));
+      for (Account element : accountList1) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -267,8 +265,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
-      for (int i = 0; i < accountList2.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList2.get(i));
+      for (Account element : accountList2) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       sqlMap.executeBatchDetailed();
@@ -297,7 +295,7 @@ class BatchTest extends BaseSqlMap {
 
   @Test
   void testExecutebatch() {
-    List<Account> accountList1 = new ArrayList<Account>();
+    List<Account> accountList1 = new ArrayList<>();
     Account account = new Account();
     account.setId(10);
     account.setFirstName("fred");
@@ -333,7 +331,7 @@ class BatchTest extends BaseSqlMap {
     account.setEmailAddress("fred.flintstone@gmail.com");
     accountList1.add(account);
 
-    List<Account> accountList2 = new ArrayList<Account>();
+    List<Account> accountList2 = new ArrayList<>();
     account = new Account();
     account.setId(15);
     account.setFirstName("fred");
@@ -367,8 +365,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.startBatch();
 
       // insert 5 accounts
-      for (int i = 0; i < accountList1.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList1.get(i));
+      for (Account element : accountList1) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -381,8 +379,8 @@ class BatchTest extends BaseSqlMap {
       sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
-      for (int i = 0; i < accountList2.size(); i++) {
-        sqlMap.insert("insertAccountViaInlineParameters", accountList2.get(i));
+      for (Account element : accountList2) {
+        sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       int results = sqlMap.executeBatch();
