@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.Properties;
 
 /**
@@ -241,7 +242,7 @@ public class Resources extends Object {
    *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(String resource) throws IOException {
-    return new File(getResourceURL(resource).getFile());
+    return Path.of(getResourceURL(resource).toString()).toFile();
   }
 
   /**
@@ -258,7 +259,7 @@ public class Resources extends Object {
    *           If the resource cannot be found or read
    */
   public static File getResourceAsFile(ClassLoader loader, String resource) throws IOException {
-    return new File(getResourceURL(loader, resource).getFile());
+    return Path.of(getResourceURL(loader, resource).toString()).toFile();
   }
 
   /**
