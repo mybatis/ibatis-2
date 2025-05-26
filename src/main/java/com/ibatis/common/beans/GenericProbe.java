@@ -55,6 +55,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.BaseProbe#getObject(java.lang.Object, java.lang.String)
    */
+  @Override
   public Object getObject(Object object, String name) {
 
     if (object instanceof org.w3c.dom.Document) {
@@ -96,6 +97,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.BaseProbe#setObject(java.lang.Object, java.lang.String, java.lang.Object)
    */
+  @Override
   public void setObject(Object object, String name, Object value) {
     if (object instanceof org.w3c.dom.Document) {
       DOM_PROBE.setObject(object, name, value);
@@ -154,6 +156,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForSetter(java.lang.Object, java.lang.String)
    */
+  @Override
   public Class getPropertyTypeForSetter(Object object, String name) {
     if (object instanceof Class) {
       return getClassPropertyTypeForSetter((Class) object, name);
@@ -176,6 +179,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.Probe#getPropertyTypeForGetter(java.lang.Object, java.lang.String)
    */
+  @Override
   public Class getPropertyTypeForGetter(Object object, String name) {
     if (object instanceof Class) {
       return getClassPropertyTypeForGetter((Class) object, name);
@@ -200,6 +204,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.Probe#hasWritableProperty(java.lang.Object, java.lang.String)
    */
+  @Override
   public boolean hasWritableProperty(Object object, String propertyName) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.hasWritableProperty(object, propertyName);
@@ -220,6 +225,7 @@ public class GenericProbe extends BaseProbe {
    *
    * @see com.ibatis.common.beans.Probe#hasReadableProperty(java.lang.Object, java.lang.String)
    */
+  @Override
   public boolean hasReadableProperty(Object object, String propertyName) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.hasReadableProperty(object, propertyName);

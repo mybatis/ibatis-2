@@ -18,7 +18,10 @@ package com.ibatis.common.xml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,8 +29,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.*;
-import org.xml.sax.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * The NodeletParser is a callback based parser similar to SAX. The big difference is that rather than having a single
@@ -212,14 +224,17 @@ public class NodeletParser {
     DocumentBuilder builder = factory.newDocumentBuilder();
     builder.setEntityResolver(entityResolver);
     builder.setErrorHandler(new ErrorHandler() {
+      @Override
       public void error(SAXParseException exception) throws SAXException {
         throw exception;
       }
 
+      @Override
       public void fatalError(SAXParseException exception) throws SAXException {
         throw exception;
       }
 
+      @Override
       public void warning(SAXParseException exception) throws SAXException {
       }
     });
@@ -263,14 +278,17 @@ public class NodeletParser {
     DocumentBuilder builder = factory.newDocumentBuilder();
     builder.setEntityResolver(entityResolver);
     builder.setErrorHandler(new ErrorHandler() {
+      @Override
       public void error(SAXParseException exception) throws SAXException {
         throw exception;
       }
 
+      @Override
       public void fatalError(SAXParseException exception) throws SAXException {
         throw exception;
       }
 
+      @Override
       public void warning(SAXParseException exception) throws SAXException {
       }
     });

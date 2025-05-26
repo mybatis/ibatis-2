@@ -15,7 +15,12 @@
  */
 package com.ibatis.common.jdbc.logging;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Base class for proxies to do logging.

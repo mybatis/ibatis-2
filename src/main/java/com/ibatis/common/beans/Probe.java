@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public interface Probe {
    *
    * @return The property value (as an Object)
    */
-  public Object getObject(Object object, String name);
+  Object getObject(Object object, String name);
 
   /**
    * Sets the value of a property on an object.
@@ -42,7 +42,7 @@ public interface Probe {
    * @param value
    *          - the new value to set
    */
-  public void setObject(Object object, String name, Object value);
+  void setObject(Object object, String name, Object value);
 
   /**
    * Returns the class that the setter expects when setting a property.
@@ -54,7 +54,7 @@ public interface Probe {
    *
    * @return The type of the property
    */
-  public Class getPropertyTypeForSetter(Object object, String name);
+  Class getPropertyTypeForSetter(Object object, String name);
 
   /**
    * Returns the class that the getter will return when reading a property.
@@ -66,7 +66,7 @@ public interface Probe {
    *
    * @return The type of the property
    */
-  public Class getPropertyTypeForGetter(Object object, String name);
+  Class getPropertyTypeForGetter(Object object, String name);
 
   /**
    * Checks to see if an object has a writable property by a given name.
@@ -78,7 +78,7 @@ public interface Probe {
    *
    * @return True if the property exists and is writable
    */
-  public boolean hasWritableProperty(Object object, String propertyName);
+  boolean hasWritableProperty(Object object, String propertyName);
 
   /**
    * Checks to see if an object has a readable property by a given name.
@@ -90,6 +90,6 @@ public interface Probe {
    *
    * @return True if the property exists and is readable
    */
-  public boolean hasReadableProperty(Object object, String propertyName);
+  boolean hasReadableProperty(Object object, String propertyName);
 
 }

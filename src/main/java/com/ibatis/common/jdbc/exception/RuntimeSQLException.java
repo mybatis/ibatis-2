@@ -72,9 +72,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getSQLState();
-    } else {
-      return null;
     }
+    return null;
 
   }
 
@@ -87,9 +86,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getErrorCode();
-    } else {
-      return -1;
     }
+    return -1;
   }
 
   /**
@@ -101,9 +99,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getNextException();
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**

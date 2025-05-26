@@ -57,9 +57,8 @@ public class ProbeFactory {
   public static Probe getProbe(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM;
-    } else {
-      return BEAN;
     }
+    return BEAN;
   }
 
 }

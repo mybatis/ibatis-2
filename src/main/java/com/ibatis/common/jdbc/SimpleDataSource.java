@@ -24,8 +24,22 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.sql.*;
-import java.util.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
+import java.sql.SQLWarning;
+import java.sql.Savepoint;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
@@ -288,6 +302,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#getConnection()
    */
+  @Override
   public Connection getConnection() throws SQLException {
     return popConnection(jdbcUsername, jdbcPassword).getProxyConnection();
   }
@@ -295,6 +310,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#getConnection(java.lang.String, java.lang.String)
    */
+  @Override
   public Connection getConnection(String username, String password) throws SQLException {
     return popConnection(username, password).getProxyConnection();
   }
@@ -302,6 +318,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#setLoginTimeout(int)
    */
+  @Override
   public void setLoginTimeout(int loginTimeout) throws SQLException {
     DriverManager.setLoginTimeout(loginTimeout);
   }
@@ -309,6 +326,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#getLoginTimeout()
    */
+  @Override
   public int getLoginTimeout() throws SQLException {
     return DriverManager.getLoginTimeout();
   }
@@ -316,6 +334,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#setLogWriter(java.io.PrintWriter)
    */
+  @Override
   public void setLogWriter(PrintWriter logWriter) throws SQLException {
     DriverManager.setLogWriter(logWriter);
   }
@@ -323,6 +342,7 @@ public class SimpleDataSource implements DataSource {
   /**
    * @see javax.sql.DataSource#getLogWriter()
    */
+  @Override
   public PrintWriter getLogWriter() throws SQLException {
     return DriverManager.getLogWriter();
   }
@@ -857,6 +877,7 @@ public class SimpleDataSource implements DataSource {
     }
   }
 
+  @Override
   protected void finalize() throws Throwable {
     forceCloseAll();
   }
@@ -1081,6 +1102,7 @@ public class SimpleDataSource implements DataSource {
       return realConnection;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
     }
@@ -1093,6 +1115,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @see java.lang.Object#equals(java.lang.Object)
      */
+    @Override
     public boolean equals(Object obj) {
       if (obj instanceof SimplePooledConnection) {
         return realConnection.hashCode() == (((SimplePooledConnection) obj).realConnection.hashCode());
@@ -1119,6 +1142,7 @@ public class SimpleDataSource implements DataSource {
      *
      * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
      */
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       String methodName = method.getName();
       if (CLOSE.hashCode() == methodName.hashCode() && CLOSE.equals(methodName)) {
@@ -1646,16 +1670,19 @@ public class SimpleDataSource implements DataSource {
 
   }
 
+  @Override
   public Logger getParentLogger() throws SQLFeatureNotSupportedException {
     // TODO Auto-generated method stub
     return null;
   }
 
+  @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
     // TODO Auto-generated method stub
     return null;
   }
 
+  @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     // TODO Auto-generated method stub
     return false;

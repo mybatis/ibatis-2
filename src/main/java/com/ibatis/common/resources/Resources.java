@@ -17,7 +17,11 @@ package com.ibatis.common.resources;
 
 import com.ibatis.common.beans.ClassInfo;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -154,9 +158,8 @@ public class Resources extends Object {
    */
   public static Properties getResourceAsProperties(String resource) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = resource;
-    in = getResourceAsStream(propfile);
+    InputStream in = getResourceAsStream(propfile);
     props.load(in);
     in.close();
     return props;
@@ -177,9 +180,8 @@ public class Resources extends Object {
    */
   public static Properties getResourceAsProperties(ClassLoader loader, String resource) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = resource;
-    in = getResourceAsStream(loader, propfile);
+    InputStream in = getResourceAsStream(loader, propfile);
     props.load(in);
     in.close();
     return props;
@@ -308,9 +310,8 @@ public class Resources extends Object {
    */
   public static Properties getUrlAsProperties(String urlString) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = urlString;
-    in = getUrlAsStream(propfile);
+    InputStream in = getUrlAsStream(propfile);
     props.load(in);
     in.close();
     return props;
