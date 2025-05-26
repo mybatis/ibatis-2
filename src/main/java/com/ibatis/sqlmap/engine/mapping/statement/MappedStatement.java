@@ -195,7 +195,7 @@ public class MappedStatement {
 
       if (list.size() > 1) {
         throw new SQLException("Error: executeQueryForObject returned too many results.");
-      } else if (list.size() > 0) {
+      } else if (!list.isEmpty()) {
         object = list.get(0);
       }
 

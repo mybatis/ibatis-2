@@ -112,7 +112,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is prepend available
    */
   public boolean isPrependAvailable() {
-    return prependAttr != null && prependAttr.length() > 0;
+    return prependAttr != null && !prependAttr.isEmpty();
   }
 
   /**
@@ -121,7 +121,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is close available
    */
   public boolean isCloseAvailable() {
-    return closeAttr != null && closeAttr.length() > 0;
+    return closeAttr != null && !closeAttr.isEmpty();
   }
 
   /**
@@ -130,7 +130,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is open available
    */
   public boolean isOpenAvailable() {
-    return openAttr != null && openAttr.length() > 0;
+    return openAttr != null && !openAttr.isEmpty();
   }
 
   /**
@@ -139,7 +139,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is conjunction available
    */
   public boolean isConjunctionAvailable() {
-    return conjunctionAttr != null && conjunctionAttr.length() > 0;
+    return conjunctionAttr != null && !conjunctionAttr.isEmpty();
   }
 
   /**
