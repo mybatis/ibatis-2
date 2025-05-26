@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class ResultObjectFactoryUtil {
    * over the place, and it has no measurable impact on performance (I did a test with 100000 result rows and found no
    * impact - Jeff Butler).
    */
-  private static ThreadLocal factorySettings = new ThreadLocal();
+  private static ThreadLocal<Deque<FactorySettings>> factorySettings = new ThreadLocal<>();
 
   /**
    * Utility class - no instances.
@@ -111,8 +111,7 @@ public class ResultObjectFactoryUtil {
       classToCreate = clazz;
     }
 
-    Object obj = Resources.instantiate(classToCreate);
-    return obj;
+    return Resources.instantiate(classToCreate);
   }
 
   /**
@@ -126,9 +125,9 @@ public class ResultObjectFactoryUtil {
    *          the statement id
    */
   public static void setupResultObjectFactory(ResultObjectFactory resultObjectFactory, String statementId) {
-    Stack<FactorySettings> fss = (Stack<FactorySettings>) factorySettings.get();
+    Deque<FactorySettings> fss = factorySettings.get();
     if (fss == null) {
-      fss = new Stack<FactorySettings>();
+      fss = new ArrayDeque<>();
       factorySettings.set(fss);
     }
 
@@ -143,12 +142,12 @@ public class ResultObjectFactoryUtil {
    * item off the stack, and kills the stack if there are no items left.
    */
   public static void cleanupResultObjectFactory() {
-    Stack<FactorySettings> fss = (Stack<FactorySettings>) factorySettings.get();
-    if (!fss.empty()) {
+    Deque<FactorySettings> fss = factorySettings.get();
+    if (!fss.isEmpty()) {
       fss.pop();
     }
 
-    if (fss.empty()) {
+    if (fss.isEmpty()) {
       factorySettings.remove();
     }
   }
@@ -159,9 +158,9 @@ public class ResultObjectFactoryUtil {
    * @return the current factory settings
    */
   private static FactorySettings getCurrentFactorySettings() {
-    Stack<FactorySettings> fss = (Stack<FactorySettings>) factorySettings.get();
+    Deque<FactorySettings> fss = factorySettings.get();
     FactorySettings fs;
-    if (fss == null || fss.empty()) {
+    if (fss == null || fss.isEmpty()) {
       // this shouldn't happen if the SqlExecuter is behaving correctly
       fs = new FactorySettings();
     } else {
