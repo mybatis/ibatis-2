@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,9 +88,8 @@ class ResourcesTest {
   void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
-    ClassLoader classLoader;
+    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
-    classLoader = new TestCL(this.getClass().getClassLoader());
     resourceName = "java/lang/String.class";
     url = null;
     isUsingPrivateClassloader = false;
@@ -124,9 +123,8 @@ class ResourcesTest {
   @Test
   void testGetResourceAsStreamString() {
     InputStream inputStream;
-    String resourceName;
+    String resourceName = "java/lang/String.class";
 
-    resourceName = "java/lang/String.class";
     inputStream = null;
     try {
       inputStream = Resources.getResourceAsStream(resourceName);
@@ -153,9 +151,8 @@ class ResourcesTest {
   void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
-    ClassLoader classLoader;
+    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
-    classLoader = new TestCL(this.getClass().getClassLoader());
     resourceName = "java/lang/String.class";
     inputStream = null;
     isUsingPrivateClassloader = false;

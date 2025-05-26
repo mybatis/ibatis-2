@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,11 @@ public class MiniElement {
   private String name;
   private String bodyContent;
   private MiniElement parent;
-  private List<MiniAttribute> attributeList = new ArrayList<MiniAttribute>(1);
-  private List<MiniElement> elementList = new ArrayList<MiniElement>();
+  private List<MiniAttribute> attributeList = new ArrayList<>(1);
+  private List<MiniElement> elementList = new ArrayList<>();
 
-  private Map<String, MiniAttribute> attributeMap = new HashMap<String, MiniAttribute>(1);
-  private Map<String, MiniElement> elementMap = new HashMap<String, MiniElement>();
+  private Map<String, MiniAttribute> attributeMap = new HashMap<>(1);
+  private Map<String, MiniElement> elementMap = new HashMap<>();
 
   public MiniElement() {
   }

@@ -29,7 +29,8 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
     String s = getter.getString();
     if ("Aye".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
-    } else if ("Nay".equalsIgnoreCase(s)) {
+    }
+    if ("Nay".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
     } else {
       throw new SQLException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");
@@ -50,7 +51,8 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
   public Object valueOf(String s) {
     if ("Aye".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
-    } else if ("Nay".equalsIgnoreCase(s)) {
+    }
+    if ("Nay".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
     } else {
       throw new SqlMapException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");

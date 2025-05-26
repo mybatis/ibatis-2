@@ -29,7 +29,8 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
     int i = getter.getInt();
     if (i == 100) {
       return Boolean.valueOf(true);
-    } else if (i == 200) {
+    }
+    if (i == 200) {
       return Boolean.valueOf(false);
     } else {
       throw new SQLException("Unexpected value " + i + " found where 100 or 200 was expected.");
@@ -50,7 +51,8 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
   public Object valueOf(String s) {
     if ("100".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
-    } else if ("200".equalsIgnoreCase(s)) {
+    }
+    if ("200".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
     } else {
       throw new SqlMapException("Unexpected value " + s + " found where 100 or 200 was expected.");
