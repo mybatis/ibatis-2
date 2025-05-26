@@ -51,6 +51,7 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
     }
   }
 
+  @Override
   public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
     try {
       if ("prepareStatement".equals(method.getName())) {

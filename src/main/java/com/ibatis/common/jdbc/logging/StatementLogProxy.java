@@ -47,6 +47,7 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
     this.statement = stmt;
   }
 
+  @Override
   public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
     try {
       if (EXECUTE_METHODS.contains(method.getName())) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public interface Log {
    * @param s
    *          the s
    */
-  public void debug(String s);
+  void debug(String s);
 
   /**
    * Warn.
@@ -59,6 +59,6 @@ public interface Log {
    * @param s
    *          the s
    */
-  public void warn(String s);
+  void warn(String s);
 
 }
