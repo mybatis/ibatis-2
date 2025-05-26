@@ -169,7 +169,7 @@ public class XmlParserState {
    */
   public String applyNamespace(String id) {
     String newId = id;
-    if (namespace != null && namespace.length() > 0 && id != null && id.indexOf('.') < 0) {
+    if (namespace != null && !namespace.isEmpty() && id != null && id.indexOf('.') < 0) {
       newId = namespace + "." + id;
     }
     return newId;
