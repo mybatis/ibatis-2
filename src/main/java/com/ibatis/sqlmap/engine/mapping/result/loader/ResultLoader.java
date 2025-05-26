@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ public class ResultLoader {
     if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (Set.class.isAssignableFrom(targetType)) {
-      value = new HashSet(client.queryForList(statementName, parameterObject));
+      value = new HashSet<>(client.queryForList(statementName, parameterObject));
     } else if (Collection.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (targetType.isArray()) {

@@ -751,7 +751,7 @@ public class MappedStatement {
    *          the result map
    */
   public void addResultMap(ResultMap resultMap) {
-    List resultMapList = Arrays.asList(additionalResultMaps);
+    List<ResultMap> resultMapList = Arrays.asList(additionalResultMaps);
     resultMapList = new ArrayList<>(resultMapList);
     resultMapList.add(resultMap);
     additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);

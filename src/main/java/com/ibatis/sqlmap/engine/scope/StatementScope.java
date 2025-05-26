@@ -260,6 +260,7 @@ public class StatementScope {
    */
   public Map getUniqueKeys(ResultMap map) {
     if (uniqueKeys == null) {
+      // Do not change this code as expected 'null' here not empty
       return null;
     }
     return (Map) uniqueKeys.get(map);

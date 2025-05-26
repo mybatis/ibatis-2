@@ -46,10 +46,6 @@ import java.util.Properties;
  */
 public class DefaultSqlExecutor implements SqlExecutor {
 
-  //
-  // Public Methods
-  //
-
   /**
    * Execute an update
    *
@@ -845,10 +841,6 @@ public class DefaultSqlExecutor implements SqlExecutor {
       statement.setQueryTimeout(mappedStatement.getTimeout().intValue());
     }
   }
-
-  //
-  // Inner Classes
-  //
 
   /**
    * The Class Batch.

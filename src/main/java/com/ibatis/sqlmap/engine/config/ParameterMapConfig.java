@@ -128,7 +128,7 @@ public class ParameterMapConfig {
     mapping.setTypeName(outParamType);
     mapping.setResultMapName(resultMap);
     mapping.setNullValue(nullValue);
-    if (mode != null && mode.length() > 0) {
+    if (mode != null && !mode.isEmpty()) {
       mapping.setMode(mode);
     }
     mapping.setTypeHandler(handler);
