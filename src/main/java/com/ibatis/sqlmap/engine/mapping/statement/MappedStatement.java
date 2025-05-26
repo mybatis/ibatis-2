@@ -644,10 +644,10 @@ public class MappedStatement {
     // After reviewing this implementation I could not figure out why baseCacheKey is used for
     // this anyway as it's not needed, so I removed it.
     // The values used from the pmap.getCacheKey, plus id, plus the params below are unique and
-    // the same accross machines, so now I get replicated
+    // the same across machines, so now I get replicated
     // cache hits when I force failover in my cluster
 
-    // I wish I could make a unit test for this, but I can't do it as the old implementaion
+    // I wish I could make a unit test for this, but I can't do it as the old implementation
     // works on 1 machine, but fails across machines.
     // cacheKey.update(baseCacheKey);
 
