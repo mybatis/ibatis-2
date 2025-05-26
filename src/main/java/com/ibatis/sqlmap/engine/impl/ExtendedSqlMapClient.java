@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,10 @@ import javax.sql.DataSource;
 /**
  * The Interface ExtendedSqlMapClient.
  *
- * @deprecated - this class is uneccessary and should be removed as soon as possible. Currently spring integration
+ * @deprecated - this class is unnecessary and should be removed as soon as possible. Currently spring integration
  *             depends on it.
  */
+@Deprecated
 public interface ExtendedSqlMapClient extends SqlMapClient {
 
   /**
