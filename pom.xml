@@ -71,7 +71,7 @@
     <slf4j.version>2.0.17</slf4j.version>
 
     <module.name>org.mybatis.mybatis2</module.name>
-    <osgi.export>org.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
+    <osgi.export>com.ibatis.*;version=${project.version};-noimport:=true</osgi.export>
     <osgi.import>*;resolution:=optional</osgi.import>
     <osgi.dynamicImport>*</osgi.dynamicImport>
 
