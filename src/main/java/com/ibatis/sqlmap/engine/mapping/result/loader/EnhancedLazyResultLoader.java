@@ -88,12 +88,6 @@ public class EnhancedLazyResultLoader {
     /** The target type. */
     protected Class targetType;
 
-    /** The loaded. */
-    protected boolean loaded;
-
-    /** The result object. */
-    protected Object resultObject;
-
     /**
      * Constructor for an enhanced lazy list loader implementation.
      *

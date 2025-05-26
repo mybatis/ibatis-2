@@ -19,6 +19,7 @@ import com.ibatis.common.beans.ClassInfo;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
@@ -104,8 +105,8 @@ public class LazyResultLoader implements InvocationHandler {
       if (resultObject != null) {
         try {
           return method.invoke(resultObject, objects);
-        } catch (Throwable t) {
-          throw ClassInfo.unwrapThrowable(t);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+          throw ClassInfo.unwrapThrowable(e);
         }
       } else {
         return null;

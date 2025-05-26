@@ -93,7 +93,7 @@ public class ResultLoader {
     if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (Set.class.isAssignableFrom(targetType)) {
-      value = new HashSet(client.queryForList(statementName, parameterObject));
+      value = new HashSet<>(client.queryForList(statementName, parameterObject));
     } else if (Collection.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (targetType.isArray()) {
