@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ public class ScriptRunner {
   private String delimiter = DEFAULT_DELIMITER;
 
   /** The full line delimiter. */
-  private boolean fullLineDelimiter = false;
+  private boolean fullLineDelimiter;
 
   /**
    * Default constructor.
@@ -180,9 +180,7 @@ public class ScriptRunner {
           connection.setAutoCommit(originalAutoCommit);
         }
       }
-    } catch (IOException e) {
-      throw e;
-    } catch (SQLException e) {
+    } catch (IOException | SQLException e) {
       throw e;
     } catch (Exception e) {
       throw new RuntimeException("Error running script.  Cause: " + e, e);
@@ -214,9 +212,9 @@ public class ScriptRunner {
         String trimmedLine = line.trim();
         if (trimmedLine.startsWith("--")) {
           println(trimmedLine);
-        } else if (trimmedLine.length() < 1 || trimmedLine.startsWith("//")) {
+        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith("//")) {
           // Do nothing
-        } else if (trimmedLine.length() < 1 || trimmedLine.startsWith("--")) {
+        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith("--")) {
           // Do nothing
         } else if (!fullLineDelimiter && trimmedLine.endsWith(getDelimiter())
             || fullLineDelimiter && trimmedLine.equals(getDelimiter())) {
@@ -276,12 +274,7 @@ public class ScriptRunner {
       if (!autoCommit) {
         conn.commit();
       }
-    } catch (SQLException e) {
-      e.fillInStackTrace();
-      printlnError("Error executing: " + command);
-      printlnError(e);
-      throw e;
-    } catch (IOException e) {
+    } catch (IOException | SQLException e) {
       e.fillInStackTrace();
       printlnError("Error executing: " + command);
       printlnError(e);

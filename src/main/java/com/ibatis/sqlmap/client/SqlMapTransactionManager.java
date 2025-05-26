@@ -130,8 +130,6 @@ public interface SqlMapTransactionManager {
 
   /**
    * Returns the current user supplied connection as set by setUserConnection().
-   * <p>
-   * TODO : DEPRECATED
    *
    * @return The current user supplied connection.
    *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,7 +123,7 @@ public interface ParameterSetter {
    * @throws SQLException
    *           - thrown if the underlying prepared statement throws it
    */
-  public void setBytes(byte x[]) throws SQLException;
+  public void setBytes(byte[] x) throws SQLException;
 
   /**
    * Set a character stream on the underlying prepared statement.

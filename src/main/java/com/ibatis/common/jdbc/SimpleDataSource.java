@@ -224,7 +224,7 @@ public class SimpleDataSource implements DataSource {
             ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
 
         poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
-            && Boolean.valueOf((String) props.get(PROP_POOL_PING_ENABLED)).booleanValue();
+            && Boolean.parseBoolean((String) props.get(PROP_POOL_PING_ENABLED));
 
         prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);
         poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
@@ -236,7 +236,7 @@ public class SimpleDataSource implements DataSource {
             ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
 
         jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
-            && Boolean.valueOf((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT)).booleanValue();
+            && Boolean.parseBoolean((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT));
 
         useDriverProps = false;
         Iterator propIter = props.keySet().iterator();
@@ -680,7 +680,7 @@ public class SimpleDataSource implements DataSource {
 
     while (conn == null) {
       synchronized (POOL_LOCK) {
-        if (idleConnections.size() > 0) {
+        if (!idleConnections.isEmpty()) {
           // Pool has available connection
           conn = (SimplePooledConnection) idleConnections.remove(0);
           if (log.isDebugEnabled()) {
