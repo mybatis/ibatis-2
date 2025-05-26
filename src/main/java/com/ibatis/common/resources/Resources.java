@@ -351,7 +351,7 @@ public class Resources extends Object {
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    * @throws InstantiationException
-   *           If the class cannot be instantiaed
+   *           If the class cannot be instantiated
    * @throws IllegalAccessException
    *           If the class is not public, or other access problems arise
    */
@@ -369,7 +369,7 @@ public class Resources extends Object {
    * @return An instance of the class
    *
    * @throws InstantiationException
-   *           If the class cannot be instantiaed
+   *           If the class cannot be instantiated
    * @throws IllegalAccessException
    *           If the class is not public, or other access problems arise
    */

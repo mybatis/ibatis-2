@@ -485,7 +485,7 @@ public class ClassInfo {
   public Object instantiateClass() {
     if (defaultConstructor != null) {
       try {
-        return defaultConstructor.newInstance(null);
+        return defaultConstructor.newInstance();
       } catch (Exception e) {
         throw new RuntimeException("Error instantiating class. Cause: " + e, e);
       }
