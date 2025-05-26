@@ -128,7 +128,7 @@ public class SqlMapExecutorDelegate {
   public void setCustomExecutor(String sqlExecutorClass) {
     try {
       Class factoryClass = Class.forName(sqlExecutorClass);
-      sqlExecutor = (SqlExecutor) factoryClass.newInstance();
+      sqlExecutor = (SqlExecutor) factoryClass.getDeclaredConstructor().newInstance();
     } catch (Exception e) {
       throw new SqlMapException(
           "Error instantiating " + sqlExecutorClass + ". Please check the class given in properties file. Cause: " + e,
