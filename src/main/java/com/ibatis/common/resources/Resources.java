@@ -18,6 +18,7 @@ package com.ibatis.common.resources;
 import com.ibatis.common.beans.ClassInfo;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -379,7 +380,12 @@ public class Resources extends Object {
       // Try alternative...theoretically should fail for the exact same
       // reason, but in case of a weird security manager, this will help
       // some cases.
-      return clazz.newInstance();
+      try {
+        return clazz.getDeclaredConstructor().newInstance();
+      } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
+        // Should never happen, but just in case...
+        return null;
+      }
     }
   }
 
