@@ -23,7 +23,7 @@ DROP TABLE PERSON;
 -- Creating Tables
 
 create table person (
-  id int not null, 
+  id int not null,
   first_name char(50) not null,
   last_name char(50) not null,
   primary key (id)
