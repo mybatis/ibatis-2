@@ -108,6 +108,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm</artifactId>
+      <version>9.8</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
       <version>3.3.0</version>
