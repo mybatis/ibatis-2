@@ -28,6 +28,7 @@ public class DefaultRowHandler implements RowHandler {
   /** The list. */
   private List list = new ArrayList<>();
 
+  @Override
   public void handleRow(Object valueObject) {
     list.add(valueObject);
   }

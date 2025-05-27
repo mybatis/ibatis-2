@@ -183,8 +183,7 @@ public class ParameterMap {
    * @return the parameter index
    */
   public int getParameterIndex(String propertyName) {
-    Integer idx = null;
-    idx = (Integer) parameterMappingIndex.get(propertyName);
+    Integer idx = (Integer) parameterMappingIndex.get(propertyName);
     return idx == null ? -1 : idx.intValue();
   }
 
@@ -320,9 +319,7 @@ public class ParameterMap {
 
     // Set Parameter
     TypeHandler typeHandler = mapping.getTypeHandler();
-    if (value != null) {
-      typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());
-    } else if (typeHandler instanceof CustomTypeHandler) {
+    if ((value != null) || (typeHandler instanceof CustomTypeHandler)) {
       typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());
     } else {
       int jdbcType = mapping.getJdbcType();

@@ -26,7 +26,10 @@ import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An automatic result map for simple stuff.
@@ -75,7 +78,8 @@ public class AutoResultMap extends ResultMap {
     if (getResultClass() == null) {
       throw new SqlMapException(
           "The automatic ResultMap named " + this.getId() + " had a null result class (not allowed).");
-    } else if (Map.class.isAssignableFrom(getResultClass())) {
+    }
+    if (Map.class.isAssignableFrom(getResultClass())) {
       initializeMapResults(rs);
     } else if (getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()) != null) {
       initializePrimitiveResults(rs);
@@ -98,8 +102,8 @@ public class AutoResultMap extends ResultMap {
       String[] propertyNames = classInfo.getWriteablePropertyNames();
 
       Map propertyMap = new HashMap<>();
-      for (int i = 0; i < propertyNames.length; i++) {
-        propertyMap.put(propertyNames[i].toUpperCase(java.util.Locale.ENGLISH), propertyNames[i]);
+      for (String propertyName : propertyNames) {
+        propertyMap.put(propertyName.toUpperCase(java.util.Locale.ENGLISH), propertyName);
       }
 
       List resultMappingList = new ArrayList<>();
@@ -234,9 +238,8 @@ public class AutoResultMap extends ResultMap {
   private String getColumnIdentifier(ResultSetMetaData rsmd, int i) throws SQLException {
     if (delegate.isUseColumnLabel()) {
       return rsmd.getColumnLabel(i);
-    } else {
-      return rsmd.getColumnName(i);
     }
+    return rsmd.getColumnName(i);
   }
 
 }

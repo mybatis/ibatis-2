@@ -20,7 +20,11 @@ import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class to load results into objects.
@@ -121,7 +125,8 @@ public class ResultLoader {
       Iterator iter = list.iterator();
       int index = 0;
       while (iter.hasNext()) {
-        Array.set(array, index++, iter.next());
+        Array.set(array, index, iter.next());
+        index++;
       }
     } else {
       array = list.toArray((Object[]) array);
