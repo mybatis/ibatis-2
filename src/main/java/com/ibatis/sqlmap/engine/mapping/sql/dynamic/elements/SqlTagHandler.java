@@ -21,13 +21,13 @@ package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
 public interface SqlTagHandler {
 
   /** The Constant SKIP_BODY. */
-  public static final int SKIP_BODY = 0;
+  int SKIP_BODY = 0;
 
   /** The Constant INCLUDE_BODY. */
-  public static final int INCLUDE_BODY = 1;
+  int INCLUDE_BODY = 1;
 
   /** The Constant REPEAT_BODY. */
-  public static final int REPEAT_BODY = 2;
+  int REPEAT_BODY = 2;
 
   /**
    * Do start fragment.
@@ -41,7 +41,7 @@ public interface SqlTagHandler {
    *
    * @return the int
    */
-  public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject);
+  int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject);
 
   /**
    * Do end fragment.
@@ -57,7 +57,7 @@ public interface SqlTagHandler {
    *
    * @return the int
    */
-  public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
+  int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
 
   /**
    * Do prepend.
@@ -71,6 +71,6 @@ public interface SqlTagHandler {
    * @param bodyContent
    *          the body content
    */
-  public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
+  void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent);
 
 }

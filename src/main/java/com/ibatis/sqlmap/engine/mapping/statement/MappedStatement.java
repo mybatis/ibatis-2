@@ -136,8 +136,6 @@ public class MappedStatement {
       statementScope.setResultMap(resultMap);
       statementScope.setParameterMap(parameterMap);
 
-      int rows = 0;
-
       errorContext.setMoreInfo("Check the parameter map.");
       Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);
 
@@ -146,7 +144,7 @@ public class MappedStatement {
 
       errorContext.setActivity("executing mapped statement");
       errorContext.setMoreInfo("Check the statement or the result map.");
-      rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);
+      int rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);
 
       errorContext.setMoreInfo("Check the output parameters.");
       if (parameterObject != null) {
@@ -195,7 +193,8 @@ public class MappedStatement {
 
       if (list.size() > 1) {
         throw new SQLException("Error: executeQueryForObject returned too many results.");
-      } else if (!list.isEmpty()) {
+      }
+      if (!list.isEmpty()) {
         object = list.get(0);
       }
 
@@ -371,9 +370,8 @@ public class MappedStatement {
     if (statementScope.getSession().isInBatch()) {
       getSqlExecutor().addBatch(statementScope, conn, sqlString, parameters);
       return 0;
-    } else {
-      return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);
     }
+    return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);
   }
 
   /**

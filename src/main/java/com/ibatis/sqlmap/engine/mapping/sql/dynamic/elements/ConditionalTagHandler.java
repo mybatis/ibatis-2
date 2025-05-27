@@ -61,9 +61,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
 
     if (isCondition(ctx, tag, parameterObject)) {
       return SqlTagHandler.INCLUDE_BODY;
-    } else {
-      return SqlTagHandler.SKIP_BODY;
     }
+    return SqlTagHandler.SKIP_BODY;
   }
 
   @Override
@@ -118,7 +117,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     if (comparePropertyName != null) {
       Object value2 = PROBE.getObject(parameterObject, comparePropertyName);
       return compareValues(type, value1, value2);
-    } else if (compareValue != null) {
+    }
+    if (compareValue != null) {
       return compareValues(type, value1, compareValue);
     } else {
       throw new RuntimeException("Error comparing in conditional fragment.  Uknown 'compare to' values.");
@@ -172,7 +172,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
   protected Object convertValue(Class type, String value) {
     if (type == String.class) {
       return value;
-    } else if (type == Byte.class || type == byte.class) {
+    }
+    if (type == Byte.class || type == byte.class) {
       return Byte.valueOf(value);
     } else if (type == Short.class || type == short.class) {
       return Short.valueOf(value);

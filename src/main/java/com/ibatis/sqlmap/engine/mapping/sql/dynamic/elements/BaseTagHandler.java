@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
  */
 public abstract class BaseTagHandler implements SqlTagHandler {
 
+  @Override
   public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     ctx.pushRemoveFirstPrependMarker(tag);
     return SqlTagHandler.INCLUDE_BODY;
   }
 
+  @Override
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
     if (tag.isCloseAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {
       if (bodyContent.toString().trim().length() > 0) {
@@ -34,6 +36,7 @@ public abstract class BaseTagHandler implements SqlTagHandler {
     return SqlTagHandler.INCLUDE_BODY;
   }
 
+  @Override
   public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
 
     if (tag.isOpenAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {

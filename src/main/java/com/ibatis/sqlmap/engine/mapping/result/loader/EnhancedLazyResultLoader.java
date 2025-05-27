@@ -132,6 +132,7 @@ public class EnhancedLazyResultLoader {
       }
     }
 
+    @Override
     public Object loadObject() throws Exception {
       try {
         Object result = ResultLoader.getResult(client, statementName, parameterObject, targetType);

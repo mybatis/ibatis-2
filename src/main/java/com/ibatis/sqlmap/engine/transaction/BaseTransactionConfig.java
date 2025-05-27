@@ -31,18 +31,22 @@ public abstract class BaseTransactionConfig implements TransactionConfig {
   /** The force commit. */
   protected boolean forceCommit;
 
+  @Override
   public boolean isForceCommit() {
     return forceCommit;
   }
 
+  @Override
   public void setForceCommit(boolean forceCommit) {
     this.forceCommit = forceCommit;
   }
 
+  @Override
   public DataSource getDataSource() {
     return dataSource;
   }
 
+  @Override
   public void setDataSource(DataSource ds) {
     this.dataSource = ds;
   }
@@ -52,6 +56,7 @@ public abstract class BaseTransactionConfig implements TransactionConfig {
    *
    * @return -1
    */
+  @Override
   @Deprecated
   public int getMaximumConcurrentTransactions() {
     return -1;
@@ -63,6 +68,7 @@ public abstract class BaseTransactionConfig implements TransactionConfig {
    * @param maximumConcurrentTransactions
    *          - do not use here for Spring integration
    */
+  @Override
   @Deprecated
   public void setMaximumConcurrentTransactions(int maximumConcurrentTransactions) {
   }
@@ -73,6 +79,7 @@ public abstract class BaseTransactionConfig implements TransactionConfig {
    * @param props
    *          - properties
    */
+  @Override
   @Deprecated
   public void initialize(Properties props) throws SQLException, TransactionException {
     setProperties(props);
