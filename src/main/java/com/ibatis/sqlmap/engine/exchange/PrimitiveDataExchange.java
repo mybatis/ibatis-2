@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,11 @@ public class PrimitiveDataExchange extends BaseDataExchange implements DataExcha
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
     Object[] data = new Object[mappings.length];
@@ -49,10 +51,12 @@ public class PrimitiveDataExchange extends BaseDataExchange implements DataExcha
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     return values[0];
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     return values[0];

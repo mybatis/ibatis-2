@@ -41,9 +41,11 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
     Object[] data = new Object[mappings.length];
@@ -91,6 +93,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     ResultMapping[] mappings = resultMap.getResultMappings();
     List data = new ArrayList<>();
@@ -102,6 +105,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();

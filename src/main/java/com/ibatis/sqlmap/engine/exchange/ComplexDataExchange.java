@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,9 +45,11 @@ public class ComplexDataExchange extends BaseDataExchange implements DataExchang
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();
     if (parameterObject == null) {
@@ -71,6 +73,7 @@ public class ComplexDataExchange extends BaseDataExchange implements DataExchang
     }
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();
     if (typeHandlerFactory.hasTypeHandler(resultMap.getResultClass())) {
@@ -92,6 +95,7 @@ public class ComplexDataExchange extends BaseDataExchange implements DataExchang
     }
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     TypeHandlerFactory typeHandlerFactory = getDataExchangeFactory().getTypeHandlerFactory();

@@ -239,6 +239,7 @@ public class CacheModel implements ExecuteListener {
    * @param statement
    *          The statement to execute
    */
+  @Override
   public void onExecuteStatement(MappedStatement statement) {
     flush();
   }
