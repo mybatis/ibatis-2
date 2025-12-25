@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public interface DataExchange {
    * @param properties
    *          the properties
    */
-  public void initialize(Map properties);
+  void initialize(Map properties);
 
   /**
    * Gets a data array from a parameter object.
@@ -47,7 +47,7 @@ public interface DataExchange {
    *
    * @return - the objects
    */
-  public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);
+  Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);
 
   /**
    * Sets values from a data array into a result object.
@@ -63,7 +63,7 @@ public interface DataExchange {
    *
    * @return the resultObject
    */
-  public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values);
+  Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values);
 
   /**
    * Sets values from a data array into a parameter object.
@@ -79,8 +79,7 @@ public interface DataExchange {
    *
    * @return parameterObject
    */
-  public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
-      Object[] values);
+  Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject, Object[] values);
 
   /**
    * Returns an object capable of being a unique cache key for a parameter object.
@@ -94,6 +93,6 @@ public interface DataExchange {
    *
    * @return - a cache key
    */
-  public CacheKey getCacheKey(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);
+  CacheKey getCacheKey(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject);
 
 }

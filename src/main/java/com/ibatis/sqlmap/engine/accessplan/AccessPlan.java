@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public interface AccessPlan {
    * @param values
    *          - the property values
    */
-  public void setProperties(Object object, Object[] values);
+  void setProperties(Object object, Object[] values);
 
   /**
    * Gets all of the properties of a bean.
@@ -38,6 +38,6 @@ public interface AccessPlan {
    *
    * @return the properties
    */
-  public Object[] getProperties(Object object);
+  Object[] getProperties(Object object);
 
 }

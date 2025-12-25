@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,13 +30,13 @@ public interface DataSourceFactory {
    * @param map
    *          - the configuration information
    */
-  public void initialize(Map map);
+  void initialize(Map map);
 
   /**
    * Returns a datasource.
    *
    * @return an implementation of DataSource
    */
-  public DataSource getDataSource();
+  DataSource getDataSource();
 
 }

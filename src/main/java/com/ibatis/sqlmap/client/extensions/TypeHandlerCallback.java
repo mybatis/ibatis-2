@@ -82,7 +82,7 @@ public interface TypeHandlerCallback {
    * @throws SQLException
    *           If any error occurs.
    */
-  public void setParameter(ParameterSetter setter, Object parameter) throws SQLException;
+  void setParameter(ParameterSetter setter, Object parameter) throws SQLException;
 
   /**
    * Performs processing on a value before after it has been retrieved from a ResultSet.
@@ -95,7 +95,7 @@ public interface TypeHandlerCallback {
    * @throws SQLException
    *           If any error occurs.
    */
-  public Object getResult(ResultGetter getter) throws SQLException;
+  Object getResult(ResultGetter getter) throws SQLException;
 
   /**
    * Casts the string representation of a value into a type recognized by this type handler. This method is used to
@@ -114,6 +114,6 @@ public interface TypeHandlerCallback {
    *         <li>null, only if null was passed in.</li>
    *         </ol>
    */
-  public Object valueOf(String s);
+  Object valueOf(String s);
 
 }
