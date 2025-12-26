@@ -41,7 +41,13 @@ import com.ibatis.sqlmap.engine.transaction.TransactionManager;
 import com.ibatis.sqlmap.engine.transaction.external.ExternalTransactionConfig;
 import com.ibatis.sqlmap.engine.transaction.jdbc.JdbcTransactionConfig;
 import com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig;
-import com.ibatis.sqlmap.engine.type.*;
+import com.ibatis.sqlmap.engine.type.CustomTypeHandler;
+import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
+import com.ibatis.sqlmap.engine.type.DomTypeMarker;
+import com.ibatis.sqlmap.engine.type.TypeHandler;
+import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
+import com.ibatis.sqlmap.engine.type.XmlCollectionTypeMarker;
+import com.ibatis.sqlmap.engine.type.XmlTypeMarker;
 
 import java.util.Iterator;
 

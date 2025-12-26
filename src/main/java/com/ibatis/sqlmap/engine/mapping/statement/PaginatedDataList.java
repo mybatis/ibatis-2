@@ -19,7 +19,11 @@ import com.ibatis.common.util.PaginatedList;
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * The Class PaginatedDataList.
