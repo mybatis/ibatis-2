@@ -46,9 +46,11 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     Probe probe = ProbeFactory.getProbe(parameterObject);
 
@@ -62,6 +64,7 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
     return values;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
 
     String name = resultMap.getXmlName();
@@ -92,6 +95,7 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
     return resultObject;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     Probe probe = ProbeFactory.getProbe(parameterObject);

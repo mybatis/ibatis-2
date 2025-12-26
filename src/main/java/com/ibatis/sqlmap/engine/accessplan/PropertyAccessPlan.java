@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ public class PropertyAccessPlan extends BaseAccessPlan {
     getters = getGetters(propertyNames);
   }
 
+  @Override
   public void setProperties(Object object, Object[] values) {
     int i = 0;
     try {
@@ -64,6 +65,7 @@ public class PropertyAccessPlan extends BaseAccessPlan {
     }
   }
 
+  @Override
   public Object[] getProperties(Object object) {
     int i = 0;
     Object[] values = new Object[propertyNames.length];

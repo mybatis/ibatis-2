@@ -34,6 +34,7 @@ public class JndiDataSourceFactory implements DataSourceFactory {
   /** The data source. */
   private DataSource dataSource;
 
+  @Override
   public void initialize(Map properties) {
     try {
       InitialContext initCtx = null;
@@ -63,6 +64,7 @@ public class JndiDataSourceFactory implements DataSourceFactory {
     }
   }
 
+  @Override
   public DataSource getDataSource() {
     return dataSource;
   }
