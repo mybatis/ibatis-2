@@ -121,7 +121,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    *
    * @return An SqlMapSession instance.
    */
-  public SqlMapSession openSession();
+  SqlMapSession openSession();
 
   /**
    * Returns a single threaded SqlMapSession implementation for use by one user. Remember though, that SqlMapClient
@@ -166,7 +166,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    *
    * @return An SqlMapSession instance.
    */
-  public SqlMapSession openSession(Connection conn);
+  SqlMapSession openSession(Connection conn);
 
   /**
    * TODO : Deprecated and will be removed.
@@ -176,12 +176,12 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * @deprecated Use openSession() instead. THIS METHOD WILL BE REMOVED BEFORE FINAL RELEASE.
    */
   @Deprecated
-  public SqlMapSession getSession();
+  SqlMapSession getSession();
 
   /**
    * Flushes all data caches.
    */
-  public void flushDataCache();
+  void flushDataCache();
 
   /**
    * Flushes the data cache that matches the cache model ID provided. cacheId should include the namespace, even when
@@ -190,7 +190,7 @@ public interface SqlMapClient extends SqlMapExecutor, SqlMapTransactionManager {
    * @param cacheId
    *          The cache model to flush
    */
-  public void flushDataCache(String cacheId);
+  void flushDataCache(String cacheId);
 
   /**
    * Returns a generated implementation of a cusom mapper class as specified by the method parameter. The generated

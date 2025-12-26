@@ -47,7 +47,7 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           the SQL exception
    */
-  public void startTransaction() throws SQLException;
+  void startTransaction() throws SQLException;
 
   /**
    * Demarcates the beginning of a transaction scope using the specified transaction isolation. Transactions must be
@@ -71,7 +71,7 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           the SQL exception
    */
-  public void startTransaction(int transactionIsolation) throws SQLException;
+  void startTransaction(int transactionIsolation) throws SQLException;
 
   /**
    * Commits the currently started transaction.
@@ -79,7 +79,7 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           If an error occurs while committing the transaction, or the transaction could not be committed.
    */
-  public void commitTransaction() throws SQLException;
+  void commitTransaction() throws SQLException;
 
   /**
    * Ends a transaction and rolls back if necessary. If the transaction has been started, but not committed, it will be
@@ -88,7 +88,7 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           If an error occurs during rollback or the transaction could not be ended.
    */
-  public void endTransaction() throws SQLException;
+  void endTransaction() throws SQLException;
 
   /**
    * Allows the developer to easily use an externally supplied connection when executing statements.
@@ -126,7 +126,7 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           the SQL exception
    */
-  public void setUserConnection(Connection connnection) throws SQLException;
+  void setUserConnection(Connection connnection) throws SQLException;
 
   /**
    * Returns the current user supplied connection as set by setUserConnection().
@@ -139,7 +139,7 @@ public interface SqlMapTransactionManager {
    * @deprecated Use getCurrentConnection() instead.
    */
   @Deprecated
-  public Connection getUserConnection() throws SQLException;
+  Connection getUserConnection() throws SQLException;
 
   /**
    * Returns the current connection in use. If no connection exists null will be returned. There may be no connection if
@@ -150,13 +150,13 @@ public interface SqlMapTransactionManager {
    * @throws SQLException
    *           the SQL exception
    */
-  public Connection getCurrentConnection() throws SQLException;
+  Connection getCurrentConnection() throws SQLException;
 
   /**
    * Returns the DataSource instance currently being used by the SqlMapSession.
    *
    * @return The DataSource instance currently being used by the SqlMapSession.
    */
-  public DataSource getDataSource();
+  DataSource getDataSource();
 
 }
