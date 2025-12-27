@@ -442,17 +442,19 @@ public class SqlMapConfiguration {
     } else if (typeHandlerFactory.getTypeHandler(clazz, jdbcType) != null) {
       // Primitive
       handler = typeHandlerFactory.getTypeHandler(clazz, jdbcType);
-    } else // JavaBean
-    if (javaType == null) {
-      if (useSetterToResolve) {
-        Class type = PROBE.getPropertyTypeForSetter(clazz, propertyName);
-        handler = typeHandlerFactory.getTypeHandler(type, jdbcType);
-      } else {
-        Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);
-        handler = typeHandlerFactory.getTypeHandler(type, jdbcType);
-      }
     } else {
-      handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
+      // JavaBean
+      if (javaType == null) {
+        if (useSetterToResolve) {
+          Class type = PROBE.getPropertyTypeForSetter(clazz, propertyName);
+          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);
+        } else {
+          Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);
+          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);
+        }
+      } else {
+        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
+      }
     }
     return handler;
   }
