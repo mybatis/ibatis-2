@@ -60,13 +60,9 @@ public class GenericProbe extends BaseProbe {
 
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getObject(object, name);
-    } else if (object instanceof List) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    } else if (object instanceof Object[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    } else if (object instanceof char[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    } else if (object instanceof boolean[]) {
+    }
+    if ((object instanceof List) || (object instanceof Object[]) || (object instanceof char[])
+        || (object instanceof boolean[])) {
       return BEAN_PROBE.getIndexedProperty(object, name);
     } else if (object instanceof byte[]) {
       return BEAN_PROBE.getIndexedProperty(object, name);
