@@ -166,9 +166,8 @@ public class MappedStatementConfig {
       resultMap = buildAutoResultMap(allowRemapping, statement, resultClass, xmlResultName);
       statement.setResultMap(resultMap);
       if (additionalResultClasses != null) {
-        for (int i = 0; i < additionalResultClasses.length; i++) {
-          statement
-              .addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i], xmlResultName));
+        for (Class additionalResultClass : additionalResultClasses) {
+          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClass, xmlResultName));
         }
       }
 
