@@ -149,7 +149,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
       if (value2 instanceof String && type != String.class) {
         value1 = value1.toString();
       }
-      if (!(value1 instanceof Comparable && value2 instanceof Comparable)) {
+      if (!(value1 instanceof Comparable) || !(value2 instanceof Comparable)) {
         value1 = value1.toString();
         value2 = value2.toString();
       }

@@ -233,7 +233,7 @@ public class PaginatedDataList implements PaginatedList {
 
   @Override
   public boolean isMiddlePage() {
-    return !(isFirstPage() || isLastPage());
+    return !isFirstPage() && !isLastPage();
   }
 
   @Override

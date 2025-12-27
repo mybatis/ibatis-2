@@ -566,7 +566,7 @@ public class SimpleDataSource implements DataSource {
     builder.append("\n jdbcDriver                     ").append(jdbcDriver);
     builder.append("\n jdbcUrl                        ").append(jdbcUrl);
     builder.append("\n jdbcUsername                   ").append(jdbcUsername);
-    builder.append("\n jdbcPassword                   ").append((jdbcPassword == null ? "NULL" : "************"));
+    builder.append("\n jdbcPassword                   ").append(jdbcPassword == null ? "NULL" : "************");
     builder.append("\n poolMaxActiveConnections       ").append(poolMaximumActiveConnections);
     builder.append("\n poolMaxIdleConnections         ").append(poolMaximumIdleConnections);
     builder.append("\n poolMaxCheckoutTime            " + poolMaximumCheckoutTime);
@@ -778,7 +778,7 @@ public class SimpleDataSource implements DataSource {
             badConnectionCount++;
             localBadConnectionCount++;
             conn = null;
-            if (localBadConnectionCount > (poolMaximumIdleConnections + 3)) {
+            if (localBadConnectionCount > poolMaximumIdleConnections + 3) {
               if (log.isDebugEnabled()) {
                 log.debug("SimpleDataSource: Could not get a good connection to the database.");
               }
@@ -872,9 +872,8 @@ public class SimpleDataSource implements DataSource {
   public static Connection unwrapConnection(Connection conn) {
     if (conn instanceof SimplePooledConnection) {
       return ((SimplePooledConnection) conn).getRealConnection();
-    } else {
-      return conn;
     }
+    return conn;
   }
 
   @Override
@@ -892,7 +891,7 @@ public class SimpleDataSource implements DataSource {
     private static final String CLOSE = "close";
 
     /** The Constant IFACES. */
-    private static final Class[] IFACES = new Class[] { Connection.class };
+    private static final Class[] IFACES = { Connection.class };
 
     /** The hash code. */
     private int hashCode = 0;
@@ -982,9 +981,8 @@ public class SimpleDataSource implements DataSource {
     public int getRealHashCode() {
       if (realConnection == null) {
         return 0;
-      } else {
-        return realConnection.hashCode();
       }
+      return realConnection.hashCode();
     }
 
     /**

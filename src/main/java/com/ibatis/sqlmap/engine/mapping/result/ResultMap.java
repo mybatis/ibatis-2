@@ -706,11 +706,9 @@ public class ResultMap {
    */
   private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType)
       throws SQLException {
-    Object parameterObject;
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
     TypeHandler th = typeHandlerFactory.getTypeHandler(parameterType);
-    parameterObject = th.getResult(rs, mapping.getColumnName());
-    return parameterObject;
+    return th.getResult(rs, mapping.getColumnName());
   }
 
   /**
