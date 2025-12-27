@@ -107,7 +107,7 @@ public class DynamicSql implements Sql, DynamicParent {
 
     ParameterMap map = new ParameterMap(delegate);
     map.setId(statementScope.getStatement().getId() + "-InlineParameterMap");
-    map.setParameterClass((statementScope.getStatement()).getParameterClass());
+    map.setParameterClass(statementScope.getStatement().getParameterClass());
     map.setParameterMappingList(ctx.getParameterMappings());
 
     String dynSql = ctx.getBodyText();

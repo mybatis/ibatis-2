@@ -28,6 +28,8 @@ import java.util.List;
  */
 public class BatchException extends Exception {
 
+  private static final long serialVersionUID = 1L;
+
   /** The successful batch results. */
   private List successfulBatchResults;
 

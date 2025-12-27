@@ -72,9 +72,8 @@ public class XMLSqlSource implements SqlSource {
     String sqlStatement = sqlBuffer.toString();
     if (isDynamic) {
       return dynamic;
-    } else {
-      return new RawSql(sqlStatement);
     }
+    return new RawSql(sqlStatement);
   }
 
   /**
@@ -164,10 +163,8 @@ public class XMLSqlSource implements SqlSource {
             if (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof IterateTagHandler) {
               tag.setPostParseRequired(true);
             }
-          } else if (dynamic instanceof DynamicSql) {
-            if (tag.getHandler() instanceof IterateTagHandler) {
-              tag.setPostParseRequired(true);
-            }
+          } else if ((dynamic instanceof DynamicSql) && (tag.getHandler() instanceof IterateTagHandler)) {
+            tag.setPostParseRequired(true);
           }
 
           dynamic.addChild(tag);

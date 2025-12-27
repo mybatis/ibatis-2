@@ -99,8 +99,9 @@ public class InlineParameterMapParser {
           mappingList.add(mapping);
           newSqlBuffer.append("?");
           boolean hasMoreTokens = parser.hasMoreTokens();
-          if (hasMoreTokens)
+          if (hasMoreTokens) {
             token = parser.nextToken();
+          }
           if (!hasMoreTokens || !PARAMETER_TOKEN.equals(token)) {
             throw new SqlMapException(
                 "Unterminated inline parameter in mapped statement near '" + newSqlBuffer.toString() + "'");
@@ -303,9 +304,10 @@ public class InlineParameterMapParser {
     } else if (java.util.Map.class.isAssignableFrom(clazz)) {
       // Map
       if (javaType == null) {
-        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+        handler = typeHandlerFactory.getUnkownTypeHandler();
+        // BUG 1012591 -
+        // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+        // jdbcType);
       } else {
         try {
           javaType = typeHandlerFactory.resolveAlias(javaType);

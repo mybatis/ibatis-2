@@ -297,7 +297,7 @@ public class CacheModel implements ExecuteListener {
       }
 
       value = controller.getObject(this, key);
-      if (serialize && !readOnly && (value != NULL_OBJECT && value != null)) {
+      if (serialize && !readOnly && value != NULL_OBJECT && value != null) {
         try {
           ByteArrayInputStream bis = new ByteArrayInputStream((byte[]) value);
           ObjectInputStream ois = new ObjectInputStream(bis);
@@ -332,8 +332,9 @@ public class CacheModel implements ExecuteListener {
    *          The object to be cached
    */
   public void putObject(CacheKey key, Object value) {
-    if (null == value)
+    if (null == value) {
       value = NULL_OBJECT;
+    }
     synchronized (this) {
       if (serialize && !readOnly && value != NULL_OBJECT) {
         try {
@@ -380,7 +381,7 @@ public class CacheModel implements ExecuteListener {
     output.append("': ");
     output.append(action);
     if (addValue) {
-      String cacheObjectStr = (cacheValue == null ? "null" : cacheValue.toString());
+      String cacheObjectStr = cacheValue == null ? "null" : cacheValue.toString();
       output.append(" '");
       if (cacheObjectStr.length() < getMaxObjectLogSize()) {
         output.append(cacheObjectStr);

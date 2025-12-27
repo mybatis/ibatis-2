@@ -119,7 +119,8 @@ public class EnhancedLazyResultLoader {
     public Object loadResult() throws SQLException {
       if (DomTypeMarker.class.isAssignableFrom(targetType)) {
         return ResultLoader.getResult(client, statementName, parameterObject, targetType);
-      } else if (Collection.class.isAssignableFrom(targetType)) {
+      }
+      if (Collection.class.isAssignableFrom(targetType)) {
         if (Set.class.isAssignableFrom(targetType)) {
           return Enhancer.create(Object.class, SET_INTERFACES, this);
         } else {

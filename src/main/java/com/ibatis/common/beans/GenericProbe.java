@@ -120,9 +120,8 @@ public class GenericProbe extends BaseProbe {
   public String[] getReadablePropertyNames(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getReadablePropertyNames(object);
-    } else {
-      return BEAN_PROBE.getReadablePropertyNames(object);
     }
+    return BEAN_PROBE.getReadablePropertyNames(object);
   }
 
   /**
@@ -139,9 +138,8 @@ public class GenericProbe extends BaseProbe {
   public String[] getWriteablePropertyNames(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getWriteablePropertyNames(object);
-    } else {
-      return BEAN_PROBE.getWriteablePropertyNames(object);
     }
+    return BEAN_PROBE.getWriteablePropertyNames(object);
   }
 
   /**
@@ -160,7 +158,8 @@ public class GenericProbe extends BaseProbe {
   public Class getPropertyTypeForSetter(Object object, String name) {
     if (object instanceof Class) {
       return getClassPropertyTypeForSetter((Class) object, name);
-    } else if (object instanceof org.w3c.dom.Document) {
+    }
+    if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getPropertyTypeForSetter(object, name);
     } else {
       return BEAN_PROBE.getPropertyTypeForSetter(object, name);
@@ -183,7 +182,8 @@ public class GenericProbe extends BaseProbe {
   public Class getPropertyTypeForGetter(Object object, String name) {
     if (object instanceof Class) {
       return getClassPropertyTypeForGetter((Class) object, name);
-    } else if (object instanceof org.w3c.dom.Document) {
+    }
+    if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getPropertyTypeForGetter(object, name);
     } else if (name.indexOf('[') > -1) {
       return BEAN_PROBE.getIndexedType(object, name);
@@ -208,9 +208,8 @@ public class GenericProbe extends BaseProbe {
   public boolean hasWritableProperty(Object object, String propertyName) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.hasWritableProperty(object, propertyName);
-    } else {
-      return BEAN_PROBE.hasWritableProperty(object, propertyName);
     }
+    return BEAN_PROBE.hasWritableProperty(object, propertyName);
   }
 
   /**
@@ -229,9 +228,8 @@ public class GenericProbe extends BaseProbe {
   public boolean hasReadableProperty(Object object, String propertyName) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.hasReadableProperty(object, propertyName);
-    } else {
-      return BEAN_PROBE.hasReadableProperty(object, propertyName);
     }
+    return BEAN_PROBE.hasReadableProperty(object, propertyName);
   }
 
   @Override
@@ -247,9 +245,8 @@ public class GenericProbe extends BaseProbe {
   protected Object getProperty(Object object, String property) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getProperty(object, property);
-    } else {
-      return BEAN_PROBE.getProperty(object, property);
     }
+    return BEAN_PROBE.getProperty(object, property);
   }
 
   /**

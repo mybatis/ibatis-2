@@ -27,6 +27,7 @@ import com.ibatis.sqlmap.engine.type.TypeHandler;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -102,11 +103,9 @@ public class ResultMapConfig {
     resultMap.setResultClass(resultClass);
     errorContext.setMoreInfo("Check the extended result map.");
     if (extendsResultMap != null) {
-      ResultMap extendedResultMap = (ResultMap) client.getDelegate().getResultMap(extendsResultMap);
+      ResultMap extendedResultMap = client.getDelegate().getResultMap(extendsResultMap);
       ResultMapping[] resultMappings = extendedResultMap.getResultMappings();
-      for (int i = 0; i < resultMappings.length; i++) {
-        resultMappingList.add(resultMappings[i]);
-      }
+      resultMappingList.addAll(Arrays.asList(resultMappings));
       List nestedResultMappings = extendedResultMap.getNestedResultMappings();
       if (nestedResultMappings != null) {
         Iterator iter = nestedResultMappings.iterator();
@@ -114,12 +113,10 @@ public class ResultMapConfig {
           resultMap.addNestedResultMappings((ResultMapping) iter.next());
         }
       }
-      if (groupBy == null || groupBy.isEmpty()) {
-        if (extendedResultMap.hasGroupBy()) {
-          Iterator i = extendedResultMap.groupByProps();
-          while (i.hasNext()) {
-            resultMap.addGroupByProperty((String) i.next());
-          }
+      if ((groupBy == null || groupBy.isEmpty()) && extendedResultMap.hasGroupBy()) {
+        Iterator i = extendedResultMap.groupByProps();
+        while (i.hasNext()) {
+          resultMap.addGroupByProperty((String) i.next());
         }
       }
     }

@@ -83,7 +83,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
 
       } else {
 
-        int index = Integer.parseInt((propName.substring(propName.indexOf('[') + 1, propName.length() - 1)));
+        int index = Integer.parseInt(propName.substring(propName.indexOf('[') + 1, propName.length() - 1));
         data[i] = ((List) parameterObject).get(index);
 
       }
@@ -98,7 +98,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     List data = new ArrayList<>();
     for (int i = 0; i < mappings.length; i++) {
       String propName = mappings[i].getPropertyName();
-      int index = Integer.parseInt((propName.substring(1, propName.length() - 1)));
+      int index = Integer.parseInt(propName.substring(1, propName.length() - 1));
       data.set(index, values[i]);
     }
     return data;
@@ -112,7 +112,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     for (int i = 0; i < mappings.length; i++) {
       if (mappings[i].isOutputAllowed()) {
         String propName = mappings[i].getPropertyName();
-        int index = Integer.parseInt((propName.substring(1, propName.length() - 1)));
+        int index = Integer.parseInt(propName.substring(1, propName.length() - 1));
         data.set(index, values[i]);
       }
     }

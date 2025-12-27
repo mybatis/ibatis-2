@@ -212,9 +212,7 @@ public class ScriptRunner {
         String trimmedLine = line.trim();
         if (trimmedLine.startsWith("--")) {
           println(trimmedLine);
-        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith("//")) {
-          // Do nothing
-        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith("--")) {
+        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith("//") || trimmedLine.startsWith("--")) {
           // Do nothing
         } else if (!fullLineDelimiter && trimmedLine.endsWith(getDelimiter())
             || fullLineDelimiter && trimmedLine.equals(getDelimiter())) {

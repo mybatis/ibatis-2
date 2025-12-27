@@ -265,12 +265,12 @@ public class PaginatedArrayList implements PaginatedList {
 
   @Override
   public boolean isMiddlePage() {
-    return !(isFirstPage() || isLastPage());
+    return !isFirstPage() && !isLastPage();
   }
 
   @Override
   public boolean isLastPage() {
-    return list.size() - ((index + 1) * pageSize) < 1;
+    return list.size() - (index + 1) * pageSize < 1;
   }
 
   @Override

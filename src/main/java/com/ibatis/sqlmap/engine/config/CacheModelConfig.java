@@ -91,9 +91,10 @@ public class CacheModelConfig {
     t += seconds * 1000L;
     t += minutes * 60L * 1000L;
     t += hours * 60L * 60L * 1000L;
-    if (t < 1L)
+    if (t < 1L) {
       throw new RuntimeException(
           "A flush interval must specify one or more of milliseconds, seconds, minutes or hours.");
+    }
     cacheModel.setFlushInterval(t);
   }
 

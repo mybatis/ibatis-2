@@ -48,10 +48,11 @@ public class JndiDataSourceFactory implements DataSourceFactory {
 
       if (properties.containsKey("DataSource")) {
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DataSource"));
-      } else if (properties.containsKey("DBJndiContext")) { // LEGACY --Backward compatibility
+      } else if (properties.containsKey("DBJndiContext")) {
+        // LEGACY --Backward compatibility
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DBJndiContext"));
-      } else if (properties.containsKey("DBFullJndiContext")) { // LEGACY --Backward
-                                                                // compatibility
+      } else if (properties.containsKey("DBFullJndiContext")) {
+        // LEGACY --Backward compatibility
         dataSource = (DataSource) initCtx.lookup((String) properties.get("DBFullJndiContext"));
       } else if (properties.containsKey("DBInitialContext") && properties.containsKey("DBLookup")) {
         // LEGACY - Backward compatibility
