@@ -21,7 +21,11 @@ import com.ibatis.sqlmap.engine.mapping.parameter.InlineParameterMapParser;
 import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.sql.SqlText;
 import com.ibatis.sqlmap.engine.mapping.sql.dynamic.DynamicSql;
-import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.*;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.DynamicParent;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.IterateTagHandler;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTag;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTagHandler;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTagHandlerFactory;
 import com.ibatis.sqlmap.engine.mapping.sql.raw.RawSql;
 
 import java.util.Properties;
