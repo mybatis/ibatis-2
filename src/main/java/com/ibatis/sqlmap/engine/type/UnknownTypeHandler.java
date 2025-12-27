@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
     this.factory = factory;
   }
 
+  @Override
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
     Class searchClass = parameter.getClass();
     if (searchClass == null) {
@@ -47,33 +48,34 @@ public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
     handler.setParameter(ps, i, parameter, jdbcType);
   }
 
+  @Override
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
     Object object = rs.getObject(columnName);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return object;
     }
+    return object;
   }
 
+  @Override
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     Object object = rs.getObject(columnIndex);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return object;
     }
+    return object;
   }
 
+  @Override
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     Object object = cs.getObject(columnIndex);
     if (cs.wasNull()) {
       return null;
-    } else {
-      return object;
     }
+    return object;
   }
 
+  @Override
   public Object valueOf(String s) {
     return s;
   }
@@ -82,11 +84,10 @@ public class UnknownTypeHandler extends BaseTypeHandler implements TypeHandler {
   public boolean equals(Object object, String string) {
     if (object == null || string == null) {
       return object == string;
-    } else {
-      TypeHandler handler = factory.getTypeHandler(object.getClass());
-      Object castedObject = handler.valueOf(string);
-      return object.equals(castedObject);
     }
+    TypeHandler handler = factory.getTypeHandler(object.getClass());
+    Object castedObject = handler.valueOf(string);
+    return object.equals(castedObject);
   }
 
 }

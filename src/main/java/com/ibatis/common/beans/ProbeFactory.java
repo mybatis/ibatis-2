@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,13 @@ public class ProbeFactory {
   private static final Probe GENERIC = new GenericProbe();
 
   /**
+   * Private constructor to prevent instantiation.
+   */
+  private ProbeFactory() {
+    // Prevent instantiation
+  }
+
+  /**
    * Factory method for getting a Probe object.
    *
    * @return An implementation of the Probe interface
@@ -50,9 +57,8 @@ public class ProbeFactory {
   public static Probe getProbe(Object object) {
     if (object instanceof org.w3c.dom.Document) {
       return DOM;
-    } else {
-      return BEAN;
     }
+    return BEAN;
   }
 
 }

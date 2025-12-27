@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,9 +61,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
 
     if (isCondition(ctx, tag, parameterObject)) {
       return SqlTagHandler.INCLUDE_BODY;
-    } else {
-      return SqlTagHandler.SKIP_BODY;
     }
+    return SqlTagHandler.SKIP_BODY;
   }
 
   @Override
@@ -118,7 +117,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     if (comparePropertyName != null) {
       Object value2 = PROBE.getObject(parameterObject, comparePropertyName);
       return compareValues(type, value1, value2);
-    } else if (compareValue != null) {
+    }
+    if (compareValue != null) {
       return compareValues(type, value1, compareValue);
     } else {
       throw new RuntimeException("Error comparing in conditional fragment.  Uknown 'compare to' values.");
@@ -138,7 +138,7 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
    * @return the long
    */
   protected long compareValues(Class type, Object value1, Object value2) {
-    long result = NOT_COMPARABLE;
+    long result;
 
     if (value1 == null || value2 == null) {
       result = value1 == value2 ? 0 : NOT_COMPARABLE;
@@ -172,7 +172,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
   protected Object convertValue(Class type, String value) {
     if (type == String.class) {
       return value;
-    } else if (type == Byte.class || type == byte.class) {
+    }
+    if (type == Byte.class || type == byte.class) {
       return Byte.valueOf(value);
     } else if (type == Short.class || type == short.class) {
       return Short.valueOf(value);
@@ -224,10 +225,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
         }
       }
 
-      if (prop.indexOf(START_INDEX) > -1) {
-        if (itCtx != null) {
-          prop = itCtx.addIndexToTagProperty(prop);
-        }
+      if (prop.indexOf(START_INDEX) > -1 && itCtx != null) {
+        prop = itCtx.addIndexToTagProperty(prop);
       }
     }
 

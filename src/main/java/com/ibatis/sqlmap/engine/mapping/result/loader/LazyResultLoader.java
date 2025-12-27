@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.ibatis.common.beans.ClassInfo;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
@@ -104,8 +105,8 @@ public class LazyResultLoader implements InvocationHandler {
       if (resultObject != null) {
         try {
           return method.invoke(resultObject, objects);
-        } catch (Throwable t) {
-          throw ClassInfo.unwrapThrowable(t);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+          throw ClassInfo.unwrapThrowable(e);
         }
       } else {
         return null;

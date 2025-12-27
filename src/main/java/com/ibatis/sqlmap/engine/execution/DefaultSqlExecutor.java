@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,10 +46,6 @@ import java.util.Properties;
  */
 public class DefaultSqlExecutor implements SqlExecutor {
 
-  //
-  // Public Methods
-  //
-
   /**
    * Execute an update
    *
@@ -67,6 +63,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the update fails
    */
+  @Override
   public int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -106,6 +103,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the statement fails
    */
+  @Override
   public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     Batch batch = (Batch) statementScope.getSession().getBatch();
@@ -127,6 +125,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if a statement fails
    */
+  @Override
   public int executeBatch(SessionScope sessionScope) throws SQLException {
     int rows = 0;
     Batch batch = (Batch) sessionScope.getBatch();
@@ -154,6 +153,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws BatchException
    *           if the driver throws BatchUpdateException
    */
+  @Override
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException {
     List answer = null;
     Batch batch = (Batch) sessionScope.getBatch();
@@ -188,6 +188,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the query fails
    */
+  @Override
   public void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -246,6 +247,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
+  @Override
   public int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -297,6 +299,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
+  @Override
   public void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -344,6 +347,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  @Override
   public void init(SqlMapConfiguration config, Properties globalProps) {
     // No implementation is required in DefaultSqlExecutor.
   }
@@ -380,7 +384,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
       MappedStatement statement = statementScope.getStatement();
       DefaultRowHandler defaultRowHandler = ((DefaultRowHandler) callback.getRowHandler());
       if (statement.hasMultipleResultMaps()) {
-        List multipleResults = new ArrayList();
+        List multipleResults = new ArrayList<>();
         multipleResults.add(defaultRowHandler.getList());
         ResultMap[] resultMaps = statement.getAdditionalResultMaps();
         int i = 0;
@@ -674,6 +678,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @param sessionScope
    *          - the session to clean up
    */
+  @Override
   public void cleanup(SessionScope sessionScope) {
     Batch batch = (Batch) sessionScope.getBatch();
     if (batch != null) {
@@ -846,10 +851,6 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
-  //
-  // Inner Classes
-  //
-
   /**
    * The Class Batch.
    */
@@ -859,10 +860,10 @@ public class DefaultSqlExecutor implements SqlExecutor {
     private String currentSql;
 
     /** The statement list. */
-    private List statementList = new ArrayList();
+    private List statementList = new ArrayList<>();
 
     /** The batch result list. */
-    private List batchResultList = new ArrayList();
+    private List batchResultList = new ArrayList<>();
 
     /** The size. */
     private int size;
@@ -956,7 +957,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
      *           if the driver throws BatchUpdateException
      */
     public List executeBatchDetailed() throws SQLException, BatchException {
-      List answer = new ArrayList();
+      List answer = new ArrayList<>();
       for (int i = 0, n = statementList.size(); i < n; i++) {
         BatchResult br = (BatchResult) batchResultList.get(i);
         PreparedStatement ps = (PreparedStatement) statementList.get(i);

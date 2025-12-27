@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ public class IsPropertyAvailableTagHandler extends ConditionalTagHandler {
   public boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     if (parameterObject == null) {
       return false;
-    } else if (parameterObject instanceof Map) {
+    }
+    if (parameterObject instanceof Map) {
       return ((Map) parameterObject).containsKey(tag.getPropertyAttr());
     } else {
       String property = getResolvedProperty(ctx, tag);

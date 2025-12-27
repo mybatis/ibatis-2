@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,13 +87,13 @@ public class ResultMapConfig {
     this.delegate = config.getDelegate();
     this.typeHandlerFactory = config.getTypeHandlerFactory();
     this.resultMap = new ResultMap(client.getDelegate());
-    this.resultMappingList = new ArrayList();
+    this.resultMappingList = new ArrayList<>();
     errorContext.setActivity("building a result map");
     errorContext.setObjectId(id + " result map");
     resultMap.setId(id);
     resultMap.setXmlName(xmlName);
     resultMap.setResource(errorContext.getResource());
-    if (groupBy != null && groupBy.length() > 0) {
+    if (groupBy != null && !groupBy.isEmpty()) {
       StringTokenizer parser = new StringTokenizer(groupBy, ", ", false);
       while (parser.hasMoreTokens()) {
         resultMap.addGroupByProperty(parser.nextToken());
@@ -114,7 +114,7 @@ public class ResultMapConfig {
           resultMap.addNestedResultMappings((ResultMapping) iter.next());
         }
       }
-      if (groupBy == null || groupBy.length() == 0) {
+      if (groupBy == null || groupBy.isEmpty()) {
         if (extendedResultMap.hasGroupBy()) {
           Iterator i = extendedResultMap.groupByProps();
           while (i.hasNext()) {

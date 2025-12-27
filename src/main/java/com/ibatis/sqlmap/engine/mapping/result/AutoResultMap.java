@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,10 @@ import com.ibatis.sqlmap.engine.type.DomTypeMarker;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An automatic result map for simple stuff.
@@ -75,7 +78,8 @@ public class AutoResultMap extends ResultMap {
     if (getResultClass() == null) {
       throw new SqlMapException(
           "The automatic ResultMap named " + this.getId() + " had a null result class (not allowed).");
-    } else if (Map.class.isAssignableFrom(getResultClass())) {
+    }
+    if (Map.class.isAssignableFrom(getResultClass())) {
       initializeMapResults(rs);
     } else if (getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()) != null) {
       initializePrimitiveResults(rs);
@@ -97,12 +101,12 @@ public class AutoResultMap extends ResultMap {
       ClassInfo classInfo = ClassInfo.getInstance(getResultClass());
       String[] propertyNames = classInfo.getWriteablePropertyNames();
 
-      Map propertyMap = new HashMap();
-      for (int i = 0; i < propertyNames.length; i++) {
-        propertyMap.put(propertyNames[i].toUpperCase(java.util.Locale.ENGLISH), propertyNames[i]);
+      Map propertyMap = new HashMap<>();
+      for (String propertyName : propertyNames) {
+        propertyMap.put(propertyName.toUpperCase(java.util.Locale.ENGLISH), propertyName);
       }
 
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -148,7 +152,7 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeXmlResults(ResultSet rs) {
     try {
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -173,7 +177,7 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeMapResults(ResultSet rs) {
     try {
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       for (int i = 0, n = rsmd.getColumnCount(); i < n; i++) {
         String columnName = getColumnIdentifier(rsmd, i + 1);
@@ -208,7 +212,7 @@ public class AutoResultMap extends ResultMap {
       resultMapping.setColumnIndex(1);
       resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()));
 
-      List resultMappingList = new ArrayList();
+      List resultMappingList = new ArrayList<>();
       resultMappingList.add(resultMapping);
 
       setResultMappingList(resultMappingList);
@@ -234,9 +238,8 @@ public class AutoResultMap extends ResultMap {
   private String getColumnIdentifier(ResultSetMetaData rsmd, int i) throws SQLException {
     if (delegate.isUseColumnLabel()) {
       return rsmd.getColumnLabel(i);
-    } else {
-      return rsmd.getColumnName(i);
     }
+    return rsmd.getColumnName(i);
   }
 
 }

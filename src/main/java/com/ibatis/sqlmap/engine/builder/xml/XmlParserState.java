@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,12 @@ import com.ibatis.sqlmap.engine.config.ParameterMapConfig;
 import com.ibatis.sqlmap.engine.config.ResultMapConfig;
 import com.ibatis.sqlmap.engine.config.SqlMapConfiguration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javax.sql.DataSource;
 
@@ -49,7 +54,7 @@ public class XmlParserState {
   private boolean useStatementNamespaces = false;
 
   /** The sql includes. */
-  private Map sqlIncludes = new HashMap();
+  private Map sqlIncludes = new HashMap<>();
 
   /** The param config. */
   private ParameterMapConfig paramConfig;
@@ -169,7 +174,7 @@ public class XmlParserState {
    */
   public String applyNamespace(String id) {
     String newId = id;
-    if (namespace != null && namespace.length() > 0 && id != null && id.indexOf('.') < 0) {
+    if (namespace != null && !namespace.isEmpty() && id != null && id.indexOf('.') < 0) {
       newId = namespace + "." + id;
     }
     return newId;
@@ -253,7 +258,7 @@ public class XmlParserState {
    * @return the all but first token
    */
   public String[] getAllButFirstToken(String s) {
-    List strings = new ArrayList();
+    List strings = new ArrayList<>();
     StringTokenizer parser = new StringTokenizer(s, ", ", false);
     parser.nextToken();
     while (parser.hasMoreTokens()) {

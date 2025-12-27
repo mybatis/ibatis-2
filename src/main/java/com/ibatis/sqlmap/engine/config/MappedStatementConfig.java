@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ public class MappedStatementConfig {
     setSqlForStatement(statement, sql);
 
     // set up either null result map or automatic result mapping
-    ResultMap resultMap = (ResultMap) statement.getResultMap();
+    ResultMap resultMap = statement.getResultMap();
     if (resultMap == null && resultClass == null) {
       statement.setResultMap(null);
     } else if (resultMap == null) {
@@ -185,7 +185,7 @@ public class MappedStatementConfig {
     errorContext.setMoreInfo(null);
     errorContext.setObjectId(null);
     statement.setSqlMapClient(client);
-    if (cacheModelName != null && cacheModelName.length() > 0 && client.getDelegate().isCacheModelsEnabled()) {
+    if (cacheModelName != null && !cacheModelName.isEmpty() && client.getDelegate().isCacheModelsEnabled()) {
       CacheModel cacheModel = client.getDelegate().getCacheModel(cacheModelName);
       mappedStatement = new CachingStatement(statement, cacheModel);
     } else {

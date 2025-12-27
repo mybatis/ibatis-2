@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if the update fails
    */
-  public int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+  int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException;
 
   /**
@@ -73,8 +73,7 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if the statement fails
    */
-  public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
-      throws SQLException;
+  void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters) throws SQLException;
 
   /**
    * Execute a batch of statements.
@@ -87,7 +86,7 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if a statement fails
    */
-  public int executeBatch(SessionScope sessionScope) throws SQLException;
+  int executeBatch(SessionScope sessionScope) throws SQLException;
 
   /**
    * Execute a batch of statements.
@@ -103,7 +102,7 @@ public interface SqlExecutor {
    * @throws BatchException
    *           if the driver throws BatchUpdateException
    */
-  public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException;
+  List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException;
 
   /**
    * Long form of the method to execute a query.
@@ -126,8 +125,8 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if the query fails
    */
-  public void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
-      int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException;
+  void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters, int skipResults,
+      int maxResults, RowHandlerCallback callback) throws SQLException;
 
   /**
    * Execute a stored procedure that updates data.
@@ -146,7 +145,7 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
-  public int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
+  int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException;
 
   /**
@@ -170,7 +169,7 @@ public interface SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
-  public void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
+  void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException;
 
   /**
@@ -179,7 +178,7 @@ public interface SqlExecutor {
    * @param sessionScope
    *          - the session to clean up
    */
-  public void cleanup(SessionScope sessionScope);
+  void cleanup(SessionScope sessionScope);
 
   /**
    * Initializing SQL Executor by passing configuration and global properties.
@@ -189,5 +188,5 @@ public interface SqlExecutor {
    * @param globalProps
    *          the global props
    */
-  public void init(SqlMapConfiguration config, Properties globalProps);
+  void init(SqlMapConfiguration config, Properties globalProps);
 }

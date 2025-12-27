@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class SqlTag implements SqlChild, DynamicParent {
   private SqlTag parent;
 
   /** The children. */
-  private List children = new ArrayList();
+  private List children = new ArrayList<>();
 
   /** The post parse required. */
   private boolean postParseRequired = false;
@@ -112,7 +112,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is prepend available
    */
   public boolean isPrependAvailable() {
-    return prependAttr != null && prependAttr.length() > 0;
+    return prependAttr != null && !prependAttr.isEmpty();
   }
 
   /**
@@ -121,7 +121,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is close available
    */
   public boolean isCloseAvailable() {
-    return closeAttr != null && closeAttr.length() > 0;
+    return closeAttr != null && !closeAttr.isEmpty();
   }
 
   /**
@@ -130,7 +130,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is open available
    */
   public boolean isOpenAvailable() {
-    return openAttr != null && openAttr.length() > 0;
+    return openAttr != null && !openAttr.isEmpty();
   }
 
   /**
@@ -139,7 +139,7 @@ public class SqlTag implements SqlChild, DynamicParent {
    * @return true, if is conjunction available
    */
   public boolean isConjunctionAvailable() {
-    return conjunctionAttr != null && conjunctionAttr.length() > 0;
+    return conjunctionAttr != null && !conjunctionAttr.isEmpty();
   }
 
   /**
@@ -275,6 +275,7 @@ public class SqlTag implements SqlChild, DynamicParent {
     this.conjunctionAttr = conjunctionAttr;
   }
 
+  @Override
   public void addChild(SqlChild child) {
     if (child instanceof SqlTag) {
       ((SqlTag) child).parent = this;

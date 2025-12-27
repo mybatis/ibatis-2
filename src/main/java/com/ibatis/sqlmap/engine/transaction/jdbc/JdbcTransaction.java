@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,18 +91,21 @@ public class JdbcTransaction implements Transaction {
     }
   }
 
+  @Override
   public void commit() throws SQLException, TransactionException {
     if (connection != null) {
       connection.commit();
     }
   }
 
+  @Override
   public void rollback() throws SQLException, TransactionException {
     if (connection != null) {
       connection.rollback();
     }
   }
 
+  @Override
   public void close() throws SQLException, TransactionException {
     if (connection != null) {
       try {
@@ -114,6 +117,7 @@ public class JdbcTransaction implements Transaction {
     }
   }
 
+  @Override
   public Connection getConnection() throws SQLException, TransactionException {
     if (connection == null) {
       init();

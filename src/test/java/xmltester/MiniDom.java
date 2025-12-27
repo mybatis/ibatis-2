@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,9 +63,8 @@ public class MiniDom {
     MiniAttribute attribute = element.getAttribute(token);
     if (attribute == null) {
       return null;
-    } else {
-      return attribute.getValue();
     }
+    return attribute.getValue();
   }
 
   public void setAttribute(String name, String value) {
@@ -130,7 +129,7 @@ public class MiniDom {
   }
 
   private void printElement(StringBuilder builder, MiniElement element, int tabLevel, boolean isRoot) {
-    if (!isRoot || (isRoot && !ignoreRoot)) {
+    if (!isRoot || isRoot && !ignoreRoot) {
       printTabs(builder, tabLevel);
       printElementOpen(builder, element);
     }
@@ -145,7 +144,7 @@ public class MiniDom {
       builder.append("\r\n");
       printTabs(builder, tabLevel);
     }
-    if (!isRoot || (isRoot && !ignoreRoot)) {
+    if (!isRoot || isRoot && !ignoreRoot) {
       printElementClose(builder, element);
     }
   }

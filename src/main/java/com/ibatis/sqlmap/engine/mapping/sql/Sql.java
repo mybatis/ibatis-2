@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public interface Sql {
    *
    * @return the sql
    */
-  public String getSql(StatementScope statementScope, Object parameterObject);
+  String getSql(StatementScope statementScope, Object parameterObject);
 
   /**
    * Gets the parameter map.
@@ -46,7 +46,7 @@ public interface Sql {
    *
    * @return the parameter map
    */
-  public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject);
+  ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject);
 
   /**
    * Gets the result map.
@@ -58,7 +58,7 @@ public interface Sql {
    *
    * @return the result map
    */
-  public ResultMap getResultMap(StatementScope statementScope, Object parameterObject);
+  ResultMap getResultMap(StatementScope statementScope, Object parameterObject);
 
   /**
    * Cleanup.
@@ -66,6 +66,6 @@ public interface Sql {
    * @param statementScope
    *          the statement scope
    */
-  public void cleanup(StatementScope statementScope);
+  void cleanup(StatementScope statementScope);
 
 }

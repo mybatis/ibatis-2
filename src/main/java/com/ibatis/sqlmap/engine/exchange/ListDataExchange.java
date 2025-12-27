@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,11 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
     Object[] data = new Object[mappings.length];
@@ -91,9 +93,10 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     ResultMapping[] mappings = resultMap.getResultMappings();
-    List data = new ArrayList();
+    List data = new ArrayList<>();
     for (int i = 0; i < mappings.length; i++) {
       String propName = mappings[i].getPropertyName();
       int index = Integer.parseInt((propName.substring(1, propName.length() - 1)));
@@ -102,10 +105,11 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
-    List data = new ArrayList();
+    List data = new ArrayList<>();
     for (int i = 0; i < mappings.length; i++) {
       if (mappings[i].isOutputAllowed()) {
         String propName = mappings[i].getPropertyName();

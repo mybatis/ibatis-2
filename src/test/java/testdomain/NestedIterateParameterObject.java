@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,10 @@ public class NestedIterateParameterObject {
   private List<AndCondition> orConditions;
 
   public NestedIterateParameterObject() {
-    super();
-    idList = new ArrayList<Integer>();
-    orConditions = new ArrayList<AndCondition>();
-    lastNames = new ArrayList<String>();
-    firstNames = new ArrayList<String>();
+    idList = new ArrayList<>();
+    orConditions = new ArrayList<>();
+    lastNames = new ArrayList<>();
+    firstNames = new ArrayList<>();
   }
 
   public List<Integer> getIdList() {
@@ -55,8 +54,7 @@ public class NestedIterateParameterObject {
     private List<Map<String, Object>> conditions;
 
     public AndCondition() {
-      super();
-      conditions = new ArrayList<Map<String, Object>>();
+      conditions = new ArrayList<>();
     }
 
     public List<Map<String, Object>> getConditions() {
@@ -64,7 +62,7 @@ public class NestedIterateParameterObject {
     }
 
     public void addCondition(String condition, Object value, Boolean include) {
-      Map<String, Object> map = new HashMap<String, Object>();
+      Map<String, Object> map = new HashMap<>();
       map.put("condition", condition);
       map.put("value", value);
       map.put("include", include);

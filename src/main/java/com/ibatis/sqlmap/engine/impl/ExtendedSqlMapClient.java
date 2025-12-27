@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,10 @@ import javax.sql.DataSource;
 /**
  * The Interface ExtendedSqlMapClient.
  *
- * @deprecated - this class is uneccessary and should be removed as soon as possible. Currently spring integration
+ * @deprecated - this class is unnecessary and should be removed as soon as possible. Currently spring integration
  *             depends on it.
  */
+@Deprecated
 public interface ExtendedSqlMapClient extends SqlMapClient {
 
   /**
@@ -52,6 +53,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Object insert(String id, Object param) throws SQLException;
 
   /**
@@ -65,6 +67,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Object insert(String id) throws SQLException;
 
   /**
@@ -80,6 +83,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   int update(String id, Object param) throws SQLException;
 
   /**
@@ -93,6 +97,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   int update(String id) throws SQLException;
 
   /**
@@ -108,6 +113,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   int delete(String id, Object param) throws SQLException;
 
   /**
@@ -121,6 +127,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   int delete(String id) throws SQLException;
 
   /**
@@ -136,6 +143,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Object queryForObject(String id, Object paramObject) throws SQLException;
 
   /**
@@ -149,6 +157,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Object queryForObject(String id) throws SQLException;
 
   /**
@@ -166,6 +175,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Object queryForObject(String id, Object paramObject, Object resultObject) throws SQLException;
 
   /**
@@ -181,6 +191,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   List queryForList(String id, Object paramObject) throws SQLException;
 
   /**
@@ -194,6 +205,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   List queryForList(String id) throws SQLException;
 
   /**
@@ -213,6 +225,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   List queryForList(String id, Object paramObject, int skip, int max) throws SQLException;
 
   /**
@@ -230,6 +243,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   List queryForList(String id, int skip, int max) throws SQLException;
 
   /**
@@ -247,6 +261,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException;
 
   /**
@@ -262,6 +277,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException;
 
   /**
@@ -279,6 +295,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Map queryForMap(String id, Object paramObject, String keyProp) throws SQLException;
 
   /**
@@ -298,6 +315,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Map queryForMap(String id, Object paramObject, String keyProp, String valueProp) throws SQLException;
 
   /**
@@ -313,6 +331,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void queryWithRowHandler(String id, Object paramObject, RowHandler rowHandler) throws SQLException;
 
   /**
@@ -326,6 +345,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void queryWithRowHandler(String id, RowHandler rowHandler) throws SQLException;
 
   /**
@@ -334,6 +354,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void startTransaction() throws SQLException;
 
   /**
@@ -345,6 +366,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void startTransaction(int transactionIsolation) throws SQLException;
 
   /**
@@ -353,6 +375,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void commitTransaction() throws SQLException;
 
   /**
@@ -361,6 +384,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void endTransaction() throws SQLException;
 
   /**
@@ -369,6 +393,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void startBatch() throws SQLException;
 
   /**
@@ -379,6 +404,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   int executeBatch() throws SQLException;
 
   /**
@@ -391,6 +417,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws BatchException
    *           the batch exception
    */
+  @Override
   List executeBatchDetailed() throws SQLException, BatchException;
 
   /**
@@ -402,6 +429,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   void setUserConnection(Connection connection) throws SQLException;
 
   /**
@@ -412,6 +440,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Connection getUserConnection() throws SQLException;
 
   /**
@@ -422,6 +451,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @throws SQLException
    *           the SQL exception
    */
+  @Override
   Connection getCurrentConnection() throws SQLException;
 
   /**
@@ -429,6 +459,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @return the data source
    */
+  @Override
   DataSource getDataSource();
 
   /**
@@ -474,6 +505,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @return the sql map session
    */
+  @Override
   SqlMapSession openSession();
 
   /**
@@ -484,6 +516,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @return the sql map session
    */
+  @Override
   SqlMapSession openSession(Connection conn);
 
   /**
@@ -491,11 +524,13 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    *
    * @return the session
    */
+  @Override
   SqlMapSession getSession();
 
   /**
    * Flush data cache.
    */
+  @Override
   void flushDataCache();
 
   /**
@@ -504,6 +539,7 @@ public interface ExtendedSqlMapClient extends SqlMapClient {
    * @param cacheId
    *          the cache id
    */
+  @Override
   void flushDataCache(String cacheId);
 
   /**

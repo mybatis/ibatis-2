@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,17 +28,17 @@ public class JdbcTypeRegistry {
   public static final int UNKNOWN_TYPE = -99999999;
 
   /** The Constant TYPE_MAP. */
-  private static final Map TYPE_MAP = new HashMap();
+  private static final Map<String, Integer> TYPE_MAP = new HashMap<>();
 
   /**
    * Value for a JDBC 3.o datalink type
    */
-  public final static int JDBC_30_DATALINK = 70;
+  public static final int JDBC_30_DATALINK = 70;
 
   /**
    * Value for a JDBC 3.o boolean type
    */
-  public final static int JDBC_30_BOOLEAN = 16;
+  public static final int JDBC_30_BOOLEAN = 16;
 
   static {
     initializeTypes();
@@ -71,14 +71,14 @@ public class JdbcTypeRegistry {
    * @return - the int value (from java.sql.Types)
    */
   public static int getType(String name) {
-    if (name == null)
-      return UNKNOWN_TYPE;
-    Integer i = (Integer) TYPE_MAP.get(name);
-    if (i != null) {
-      return i.intValue();
-    } else {
+    if (name == null) {
       return UNKNOWN_TYPE;
     }
+    Integer i = TYPE_MAP.get(name);
+    if (i != null) {
+      return i.intValue();
+    }
+    return UNKNOWN_TYPE;
   }
 
   /**

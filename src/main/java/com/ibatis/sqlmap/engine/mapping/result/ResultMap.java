@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -270,7 +270,7 @@ public class ResultMap {
    */
   public void addGroupByProperty(String name) {
     if (groupByProps == null) {
-      groupByProps = new HashSet();
+      groupByProps = new HashSet<>();
     }
     groupByProps.add(name);
   }
@@ -301,7 +301,7 @@ public class ResultMap {
    */
   public void addNestedResultMappings(ResultMapping mapping) {
     if (nestedResultMappings == null) {
-      nestedResultMappings = new ArrayList();
+      nestedResultMappings = new ArrayList<>();
     }
     nestedResultMappings.add(mapping);
   }
@@ -395,7 +395,7 @@ public class ResultMap {
       this.resultMappings = (ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]);
     }
 
-    Map props = new HashMap();
+    Map props = new HashMap<>();
     props.put("map", this);
     dataExchange = getDelegate().getDataExchangeFactory().getDataExchangeForClass(resultClass);
     dataExchange.initialize(props);
@@ -502,7 +502,7 @@ public class ResultMap {
       // Lazy init key set, only if we're grouped by something (i.e. ukey != null)
       if (ukey != null) {
         if (uniqueKeys == null) {
-          uniqueKeys = new HashMap();
+          uniqueKeys = new HashMap<>();
           statementScope.setUniqueKeys(this, uniqueKeys);
         }
         uniqueKeys.put(ukey, resultObject);
@@ -684,9 +684,7 @@ public class ResultMap {
         }
       }
       return result;
-    } catch (InstantiationException e) {
-      throw new NestedSQLException("Error setting nested bean property.  Cause: " + e, e);
-    } catch (IllegalAccessException e) {
+    } catch (InstantiationException | IllegalAccessException e) {
       throw new NestedSQLException("Error setting nested bean property.  Cause: " + e, e);
     }
 
@@ -801,7 +799,7 @@ public class ResultMap {
 
     Object parameterObject;
     if (parameterType == null) {
-      parameterObject = new HashMap();
+      parameterObject = new HashMap<>();
     } else {
       parameterObject = ResultObjectFactoryUtil.createObjectThroughFactory(parameterType);
     }

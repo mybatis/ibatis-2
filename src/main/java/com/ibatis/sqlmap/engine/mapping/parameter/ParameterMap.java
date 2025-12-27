@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public class ParameterMap {
   private String resource;
 
   /** The parameter mapping index. */
-  private Map parameterMappingIndex = new HashMap();
+  private Map parameterMappingIndex = new HashMap<>();
 
   /** The delegate. */
   private SqlMapExecutorDelegate delegate;
@@ -167,7 +167,7 @@ public class ParameterMap {
     for (int i = 0; i < parameterMappings.length; i++) {
       parameterMappingIndex.put(parameterMappings[i].getPropertyName(), Integer.valueOf(i));
     }
-    Map props = new HashMap();
+    Map props = new HashMap<>();
     props.put("map", this);
 
     dataExchange = delegate.getDataExchangeFactory().getDataExchangeForClass(parameterClass);
@@ -183,8 +183,7 @@ public class ParameterMap {
    * @return the parameter index
    */
   public int getParameterIndex(String propertyName) {
-    Integer idx = null;
-    idx = (Integer) parameterMappingIndex.get(propertyName);
+    Integer idx = (Integer) parameterMappingIndex.get(propertyName);
     return idx == null ? -1 : idx.intValue();
   }
 
@@ -320,9 +319,7 @@ public class ParameterMap {
 
     // Set Parameter
     TypeHandler typeHandler = mapping.getTypeHandler();
-    if (value != null) {
-      typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());
-    } else if (typeHandler instanceof CustomTypeHandler) {
+    if ((value != null) || (typeHandler instanceof CustomTypeHandler)) {
       typeHandler.setParameter(ps, i + 1, value, mapping.getJdbcTypeName());
     } else {
       int jdbcType = mapping.getJdbcType();

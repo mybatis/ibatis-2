@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,11 +154,11 @@ public class SqlMapParser {
         String id = state.applyNamespace(attributes.getProperty("id"));
         String type = attributes.getProperty("type");
         String readOnlyAttr = attributes.getProperty("readOnly");
-        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.length() <= 0 ? null
-            : new Boolean("true".equals(readOnlyAttr));
+        Boolean readOnly = readOnlyAttr == null || readOnlyAttr.isEmpty() ? null
+            : Boolean.valueOf("true".equals(readOnlyAttr));
         String serializeAttr = attributes.getProperty("serialize");
-        Boolean serialize = serializeAttr == null || serializeAttr.length() <= 0 ? null
-            : new Boolean("true".equals(serializeAttr));
+        Boolean serialize = serializeAttr == null || serializeAttr.isEmpty() ? null
+            : Boolean.valueOf("true".equals(serializeAttr));
         type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
         Class clazz = Resources.classForName(type);
         if (readOnly == null) {
@@ -263,7 +263,7 @@ public class SqlMapParser {
         javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
         Class javaClass = null;
         try {
-          if (javaType != null && javaType.length() > 0) {
+          if (javaType != null && !javaType.isEmpty()) {
             javaClass = Resources.classForName(javaType);
           }
         } catch (ClassNotFoundException e) {
@@ -330,7 +330,7 @@ public class SqlMapParser {
         Class javaClass = null;
         try {
           javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-          if (javaType != null && javaType.length() > 0) {
+          if (javaType != null && !javaType.isEmpty()) {
             javaClass = Resources.classForName(javaType);
           }
         } catch (ClassNotFoundException e) {
@@ -341,7 +341,7 @@ public class SqlMapParser {
             + "' (must be a TypeHandler or TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
-          if (callback != null && callback.length() > 0) {
+          if (callback != null && !callback.isEmpty()) {
             callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
             typeHandlerImpl = Resources.instantiate(callback);
           }
@@ -387,7 +387,7 @@ public class SqlMapParser {
         Class javaClass = null;
         try {
           javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-          if (javaType != null && javaType.length() > 0) {
+          if (javaType != null && !javaType.isEmpty()) {
             javaClass = Resources.classForName(javaType);
           }
         } catch (ClassNotFoundException e) {
@@ -398,7 +398,7 @@ public class SqlMapParser {
             + callback + "' (must be a TypeHandlerCallback implementation).");
         Object typeHandlerImpl = null;
         try {
-          if (callback != null && callback.length() > 0) {
+          if (callback != null && !callback.isEmpty()) {
             callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
             typeHandlerImpl = Resources.instantiate(callback);
           }

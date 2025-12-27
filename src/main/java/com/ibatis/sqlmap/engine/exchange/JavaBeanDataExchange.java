@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,6 +62,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
    * @param properties
    *          the properties
    */
+  @Override
   public void initialize(Map properties) {
     Object map = properties.get("map");
     if (map instanceof ParameterMap) {
@@ -75,7 +76,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
         parameterPlan = AccessPlanFactory.getAccessPlan(parameterMap.getParameterClass(), parameterPropNames);
 
         // OUTPUT PARAMS
-        List outParamList = new ArrayList();
+        List outParamList = new ArrayList<>();
         for (int i = 0; i < parameterPropNames.length; i++) {
           if (parameterMappings[i].isOutputAllowed()) {
             outParamList.add(parameterMappings[i].getPropertyName());
@@ -98,6 +99,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
     }
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     if (parameterPlan != null) {
       return parameterPlan.getProperties(parameterObject);
@@ -106,6 +108,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
     }
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     if (resultPlan != null) {
       Object object = resultObject;
@@ -129,6 +132,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
   }
 
   // Bug ibatis-12
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     if (outParamPlan != null) {
@@ -159,7 +163,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
    * @return the output param values
    */
   private Object[] getOutputParamValues(ParameterMapping[] mappings, Object[] values) {
-    List outParamValues = new ArrayList();
+    List outParamValues = new ArrayList<>();
     for (int i = 0; i < mappings.length; i++) {
       if (mappings[i].isOutputAllowed()) {
         outParamValues.add(values[i]);

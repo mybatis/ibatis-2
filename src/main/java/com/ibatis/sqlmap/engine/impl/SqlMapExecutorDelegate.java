@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,10 +109,10 @@ public class SqlMapExecutorDelegate {
    * Default constructor.
    */
   public SqlMapExecutorDelegate() {
-    mappedStatements = new HashMap();
-    cacheModels = new HashMap();
-    resultMaps = new HashMap();
-    parameterMaps = new HashMap();
+    mappedStatements = new HashMap<>();
+    cacheModels = new HashMap<>();
+    resultMaps = new HashMap<>();
+    parameterMaps = new HashMap<>();
 
     sqlExecutor = new DefaultSqlExecutor();
     typeHandlerFactory = new TypeHandlerFactory();
@@ -128,7 +128,7 @@ public class SqlMapExecutorDelegate {
   public void setCustomExecutor(String sqlExecutorClass) {
     try {
       Class factoryClass = Class.forName(sqlExecutorClass);
-      sqlExecutor = (SqlExecutor) factoryClass.newInstance();
+      sqlExecutor = (SqlExecutor) factoryClass.getDeclaredConstructor().newInstance();
     } catch (Exception e) {
       throw new SqlMapException(
           "Error instantiating " + sqlExecutorClass + ". Please check the class given in properties file. Cause: " + e,
@@ -143,6 +143,7 @@ public class SqlMapExecutorDelegate {
    *
    * @deprecated
    */
+  @Deprecated
   public int getMaxTransactions() {
     return -1;
   }
@@ -284,7 +285,7 @@ public class SqlMapExecutorDelegate {
   }
 
   /**
-   * Get a mappedstatement by its ID.
+   * Get a mapped statement by its ID.
    *
    * @param id
    *          - the statement ID
@@ -478,8 +479,9 @@ public class SqlMapExecutorDelegate {
         // uh-oh, the insert failed, so if we set the reset flag earlier, we'll put the old
         // value
         // back...
-        if (resetKeyValueOnFailure)
+        if (resetKeyValueOnFailure) {
           PROBE.setObject(param, keyProperty, oldKeyValue);
+        }
         // ...and still throw the exception.
         throw e;
       } finally {
@@ -779,6 +781,7 @@ public class SqlMapExecutorDelegate {
    *
    * @deprecated All paginated list features have been deprecated
    */
+  @Deprecated
   public PaginatedList queryForPaginatedList(SessionScope sessionScope, String id, Object paramObject, int pageSize)
       throws SQLException {
     return new PaginatedDataList(sessionScope.getSqlMapExecutor(), id, paramObject, pageSize);
@@ -826,12 +829,11 @@ public class SqlMapExecutorDelegate {
    */
   public Map queryForMap(SessionScope sessionScope, String id, Object paramObject, String keyProp, String valueProp)
       throws SQLException {
-    Map map = new HashMap();
+    Map map = new HashMap<>();
 
     List list = queryForList(sessionScope, id, paramObject);
 
-    for (int i = 0, n = list.size(); i < n; i++) {
-      Object object = list.get(i);
+    for (Object object : list) {
       Object key = PROBE.getObject(object, keyProp);
       Object value = null;
       if (valueProp == null) {

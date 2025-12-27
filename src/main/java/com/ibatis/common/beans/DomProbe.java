@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class DomProbe extends BaseProbe {
 
   @Override
   public String[] getReadablePropertyNames(Object object) {
-    List props = new ArrayList();
+    List props = new ArrayList<>();
     Element e = resolveElement(object);
     NodeList nodes = e.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
@@ -51,7 +51,7 @@ public class DomProbe extends BaseProbe {
 
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-    List props = new ArrayList();
+    List props = new ArrayList<>();
     Element e = resolveElement(object);
     NodeList nodes = e.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
@@ -60,6 +60,7 @@ public class DomProbe extends BaseProbe {
     return (String[]) props.toArray(new String[props.size()]);
   }
 
+  @Override
   public Class getPropertyTypeForSetter(Object object, String name) {
     Element e = findNestedNodeByName(resolveElement(object), name, false);
     // todo alias types, don't use exceptions like this
@@ -70,6 +71,7 @@ public class DomProbe extends BaseProbe {
     }
   }
 
+  @Override
   public Class getPropertyTypeForGetter(Object object, String name) {
     Element e = findNestedNodeByName(resolveElement(object), name, false);
     // todo alias types, don't use exceptions like this
@@ -80,14 +82,17 @@ public class DomProbe extends BaseProbe {
     }
   }
 
+  @Override
   public boolean hasWritableProperty(Object object, String propertyName) {
     return findNestedNodeByName(resolveElement(object), propertyName, false) != null;
   }
 
+  @Override
   public boolean hasReadableProperty(Object object, String propertyName) {
     return findNestedNodeByName(resolveElement(object), propertyName, false) != null;
   }
 
+  @Override
   public Object getObject(Object object, String name) {
     Object value = null;
     Element element = findNestedNodeByName(resolveElement(object), name, false);
@@ -97,6 +102,7 @@ public class DomProbe extends BaseProbe {
     return value;
   }
 
+  @Override
   public void setObject(Object object, String name, Object value) {
     Element element = findNestedNodeByName(resolveElement(object), name, true);
     if (element != null) {

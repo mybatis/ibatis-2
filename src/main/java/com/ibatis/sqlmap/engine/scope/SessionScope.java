@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@ public class SessionScope {
    * Default constructor.
    */
   public SessionScope() {
-    this.preparedStatements = new HashMap();
+    this.preparedStatements = new HashMap<>();
     this.inBatch = false;
     this.requestStackDepth = 0;
     this.id = getNextId();
@@ -299,10 +299,10 @@ public class SessionScope {
    *           the SQL exception
    */
   public PreparedStatement getPreparedStatement(String sql) throws SQLException {
-    if (!hasPreparedStatementFor(sql))
+    if (!hasPreparedStatementFor(sql)) {
       throw new SqlMapException("Could not get prepared statement.  This is likely a bug.");
-    PreparedStatement ps = (PreparedStatement) preparedStatements.get(sql);
-    return ps;
+    }
+    return (PreparedStatement) preparedStatements.get(sql);
   }
 
   /**

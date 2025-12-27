@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,11 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
     super(dataExchangeFactory);
   }
 
+  @Override
   public void initialize(Map properties) {
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     if (!(parameterObject instanceof Map)) {
       throw new RuntimeException("Error.  Object passed into MapDataExchange was not an instance of Map.");
@@ -56,6 +58,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
     return data;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     if (!(resultObject == null || resultObject instanceof Map)) {
       throw new RuntimeException("Error.  Object passed into MapDataExchange was not an instance of Map.");
@@ -63,7 +66,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
     Map map = (Map) resultObject;
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
     }
 
     ResultMapping[] mappings = resultMap.getResultMappings();
@@ -74,6 +77,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
     return map;
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     if (!(parameterObject == null || parameterObject instanceof Map)) {
@@ -82,7 +86,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
     Map map = (Map) parameterObject;
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
     }
 
     ParameterMapping[] mappings = parameterMap.getParameterMappings();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,13 @@ package com.ibatis.sqlmap.engine.type;
 import com.ibatis.sqlmap.client.SqlMapException;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Not much of a suprise, this is a factory class for TypeHandler objects.
@@ -26,16 +32,18 @@ import java.util.*;
 public class TypeHandlerFactory {
 
   /** The type handler map. */
-  private final Map typeHandlerMap = new HashMap();
+  private final Map typeHandlerMap = new HashMap<>();
 
   /** The unknown type handler. */
   private final TypeHandler unknownTypeHandler = new UnknownTypeHandler(this);
 
   /** The type aliases. */
-  private final HashMap typeAliases = new HashMap();
+  private final Map<String, String> typeAliases = new HashMap<>();
 
   /** The Constant reversePrimitiveMap. */
-  private static final Map reversePrimitiveMap = new HashMap() {
+  private static final Map reversePrimitiveMap = new HashMap<>() {
+    private static final long serialVersionUID = 1L;
+
     {
       put(Byte.class, byte.class);
       put(Short.class, short.class);
@@ -53,9 +61,8 @@ public class TypeHandlerFactory {
    * Default constructor.
    */
   public TypeHandlerFactory() {
-    TypeHandler handler;
+    TypeHandler handler = new BooleanTypeHandler();
 
-    handler = new BooleanTypeHandler();
     register(Boolean.class, handler);
     register(boolean.class, handler);
 
@@ -211,7 +218,7 @@ public class TypeHandlerFactory {
   public void register(Class type, String jdbcType, TypeHandler handler) {
     Map map = (Map) typeHandlerMap.get(type);
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<>();
       typeHandlerMap.put(type, map);
     }
     map.put(jdbcType, handler);
@@ -231,11 +238,12 @@ public class TypeHandlerFactory {
    */
   public String resolveAlias(String string) {
     String key = null;
-    if (string != null)
+    if (string != null) {
       key = string.toLowerCase();
+    }
     String value = null;
     if (typeAliases.containsKey(key)) {
-      value = (String) typeAliases.get(key);
+      value = typeAliases.get(key);
     } else {
       value = string;
     }
@@ -254,8 +262,9 @@ public class TypeHandlerFactory {
    */
   public void putTypeAlias(String alias, String value) {
     String key = null;
-    if (alias != null)
+    if (alias != null) {
       key = alias.toLowerCase();
+    }
     if (typeAliases.containsKey(key) && !typeAliases.get(key).equals(value)) {
       throw new SqlMapException("Error in XmlSqlMapClientBuilder.  Alias name conflict occurred.  The alias '" + key
           + "' is already mapped to the value '" + typeAliases.get(alias) + "'.");

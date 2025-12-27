@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public interface CacheController {
    * @param cacheModel
    *          - the model to flush
    */
-  public void flush(CacheModel cacheModel);
+  void flush(CacheModel cacheModel);
 
   /**
    * Get an object from a cache model.
@@ -40,7 +40,7 @@ public interface CacheController {
    *
    * @return the object if in the cache, or null(?)
    */
-  public Object getObject(CacheModel cacheModel, Object key);
+  Object getObject(CacheModel cacheModel, Object key);
 
   /**
    * Remove an object from a cache model.
@@ -52,7 +52,7 @@ public interface CacheController {
    *
    * @return the removed object(?)
    */
-  public Object removeObject(CacheModel cacheModel, Object key);
+  Object removeObject(CacheModel cacheModel, Object key);
 
   /**
    * Put an object into a cache model.
@@ -64,7 +64,7 @@ public interface CacheController {
    * @param object
    *          - the object to add
    */
-  public void putObject(CacheModel cacheModel, Object key, Object object);
+  void putObject(CacheModel cacheModel, Object key, Object object);
 
   /**
    * Configure a cache controller.
@@ -72,6 +72,6 @@ public interface CacheController {
    * @param props
    *          - the properties object continaing configuration information
    */
-  public void setProperties(Properties props);
+  void setProperties(Properties props);
 
 }

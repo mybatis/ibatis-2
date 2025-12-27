@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,15 @@ package com.ibatis.sqlmap.client.extensions;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.Ref;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -40,7 +48,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Array getArray() throws SQLException;
+  Array getArray() throws SQLException;
 
   /**
    * Gets a BigDecimal from the underlying result set.
@@ -50,7 +58,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public BigDecimal getBigDecimal() throws SQLException;
+  BigDecimal getBigDecimal() throws SQLException;
 
   /**
    * Gets a Blob from the underlying result set.
@@ -60,7 +68,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Blob getBlob() throws SQLException;
+  Blob getBlob() throws SQLException;
 
   /**
    * Gets a boolean from the underlying result set.
@@ -70,7 +78,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public boolean getBoolean() throws SQLException;
+  boolean getBoolean() throws SQLException;
 
   /**
    * Gets a byte from the underlying result set.
@@ -80,7 +88,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public byte getByte() throws SQLException;
+  byte getByte() throws SQLException;
 
   /**
    * Gets a byte[] from the underlying result set.
@@ -90,7 +98,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public byte[] getBytes() throws SQLException;
+  byte[] getBytes() throws SQLException;
 
   /**
    * Gets a Clob from the underlying result set.
@@ -100,7 +108,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Clob getClob() throws SQLException;
+  Clob getClob() throws SQLException;
 
   /**
    * Gets a Date from the underlying result set.
@@ -110,7 +118,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Date getDate() throws SQLException;
+  Date getDate() throws SQLException;
 
   /**
    * Gets a Date from the underlying result set using a calendar.
@@ -123,7 +131,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Date getDate(Calendar cal) throws SQLException;
+  Date getDate(Calendar cal) throws SQLException;
 
   /**
    * Gets a double from the underlying result set.
@@ -133,7 +141,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public double getDouble() throws SQLException;
+  double getDouble() throws SQLException;
 
   /**
    * Gets a float from the underlying result set.
@@ -143,7 +151,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public float getFloat() throws SQLException;
+  float getFloat() throws SQLException;
 
   /**
    * Gets an int from the underlying result set.
@@ -153,7 +161,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public int getInt() throws SQLException;
+  int getInt() throws SQLException;
 
   /**
    * Gets a long from the underlying result set.
@@ -163,7 +171,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public long getLong() throws SQLException;
+  long getLong() throws SQLException;
 
   /**
    * Gets an Object from the underlying result set.
@@ -173,7 +181,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Object getObject() throws SQLException;
+  Object getObject() throws SQLException;
 
   /**
    * Gets an Object from the underlying result set using a Map.
@@ -186,7 +194,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Object getObject(Map map) throws SQLException;
+  Object getObject(Map map) throws SQLException;
 
   /**
    * Gets a Ref from the underlying result set.
@@ -196,7 +204,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Ref getRef() throws SQLException;
+  Ref getRef() throws SQLException;
 
   /**
    * Gets a short from the underlying result set.
@@ -206,7 +214,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public short getShort() throws SQLException;
+  short getShort() throws SQLException;
 
   /**
    * Gets a String from the underlying result set.
@@ -216,7 +224,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public String getString() throws SQLException;
+  String getString() throws SQLException;
 
   /**
    * Gets a Time from the underlying result set.
@@ -226,7 +234,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Time getTime() throws SQLException;
+  Time getTime() throws SQLException;
 
   /**
    * Gets a Time from the underlying result set using a Calendar.
@@ -239,7 +247,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Time getTime(Calendar cal) throws SQLException;
+  Time getTime(Calendar cal) throws SQLException;
 
   /**
    * Gets a Timestamp from the underlying result set.
@@ -249,7 +257,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Timestamp getTimestamp() throws SQLException;
+  Timestamp getTimestamp() throws SQLException;
 
   /**
    * Gets a Timestamp from the underlying result set.
@@ -262,7 +270,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public Timestamp getTimestamp(Calendar cal) throws SQLException;
+  Timestamp getTimestamp(Calendar cal) throws SQLException;
 
   /**
    * Gets a URL from the underlying result set.
@@ -272,7 +280,7 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public URL getURL() throws SQLException;
+  URL getURL() throws SQLException;
 
   /**
    * Tells if the field was null.
@@ -282,14 +290,14 @@ public interface ResultGetter {
    * @throws SQLException
    *           - if the underlying result set throws an exception
    */
-  public boolean wasNull() throws SQLException;
+  boolean wasNull() throws SQLException;
 
   /**
    * Returns the underlying ResultSet...be careful!
    *
    * @return a ResultSet instance.
    */
-  public ResultSet getResultSet();
+  ResultSet getResultSet();
 
   /**
    * Returns the name of the column being got in the underlying ResultSet. May be <code>null</code> in which case the
@@ -297,7 +305,7 @@ public interface ResultGetter {
    *
    * @return the column name (may be null)
    */
-  public String getColumnName();
+  String getColumnName();
 
   /**
    * Returns the index of the column being got in the underlying ResultSet. Only use this method if the value returned
@@ -305,5 +313,5 @@ public interface ResultGetter {
    *
    * @return the index of the column (if zero then use the column name)
    */
-  public int getColumnIndex();
+  int getColumnIndex();
 }

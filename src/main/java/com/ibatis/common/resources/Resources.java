@@ -17,7 +17,12 @@ package com.ibatis.common.resources;
 
 import com.ibatis.common.beans.ClassInfo;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -153,9 +158,8 @@ public class Resources extends Object {
    */
   public static Properties getResourceAsProperties(String resource) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = resource;
-    in = getResourceAsStream(propfile);
+    InputStream in = getResourceAsStream(propfile);
     props.load(in);
     in.close();
     return props;
@@ -176,9 +180,8 @@ public class Resources extends Object {
    */
   public static Properties getResourceAsProperties(ClassLoader loader, String resource) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = resource;
-    in = getResourceAsStream(loader, propfile);
+    InputStream in = getResourceAsStream(loader, propfile);
     props.load(in);
     in.close();
     return props;
@@ -307,9 +310,8 @@ public class Resources extends Object {
    */
   public static Properties getUrlAsProperties(String urlString) throws IOException {
     Properties props = new Properties();
-    InputStream in = null;
     String propfile = urlString;
-    in = getUrlAsStream(propfile);
+    InputStream in = getUrlAsStream(propfile);
     props.load(in);
     in.close();
     return props;
@@ -350,7 +352,7 @@ public class Resources extends Object {
    * @throws ClassNotFoundException
    *           If the class cannot be found (duh!)
    * @throws InstantiationException
-   *           If the class cannot be instantiaed
+   *           If the class cannot be instantiated
    * @throws IllegalAccessException
    *           If the class is not public, or other access problems arise
    */
@@ -368,7 +370,7 @@ public class Resources extends Object {
    * @return An instance of the class
    *
    * @throws InstantiationException
-   *           If the class cannot be instantiaed
+   *           If the class cannot be instantiated
    * @throws IllegalAccessException
    *           If the class is not public, or other access problems arise
    */
@@ -379,8 +381,12 @@ public class Resources extends Object {
       // Try alternative...theoretically should fail for the exact same
       // reason, but in case of a weird security manager, this will help
       // some cases.
-      // return clazz.newInstance();
-      return clazz.newInstance();
+      try {
+        return clazz.getDeclaredConstructor().newInstance();
+      } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
+        // Should never happen, but just in case...
+        return null;
+      }
     }
   }
 

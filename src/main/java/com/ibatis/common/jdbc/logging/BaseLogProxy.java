@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
  */
 package com.ibatis.common.jdbc.logging;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Base class for proxies to do logging.
@@ -26,22 +31,22 @@ public class BaseLogProxy {
   private static int nextId = 100000;
 
   /** The Constant SET_METHODS. */
-  protected static final Set SET_METHODS = new HashSet();
+  protected static final Set SET_METHODS = new HashSet<>();
 
   /** The Constant GET_METHODS. */
-  protected static final Set GET_METHODS = new HashSet();
+  protected static final Set GET_METHODS = new HashSet<>();
 
   /** The Constant EXECUTE_METHODS. */
-  protected static final Set EXECUTE_METHODS = new HashSet();
+  protected static final Set EXECUTE_METHODS = new HashSet<>();
 
   /** The column map. */
-  private Map columnMap = new HashMap();
+  private Map columnMap = new HashMap<>();
 
   /** The column names. */
-  private List columnNames = new ArrayList();
+  private List columnNames = new ArrayList<>();
 
   /** The column values. */
-  private List columnValues = new ArrayList();
+  private List columnValues = new ArrayList<>();
 
   /** The id. */
   protected int id;
@@ -145,7 +150,7 @@ public class BaseLogProxy {
    * @return the type string
    */
   protected String getTypeString() {
-    List typeList = new ArrayList(columnValues.size());
+    List typeList = new ArrayList<>(columnValues.size());
     for (int i = 0; i < columnValues.size(); i++) {
       Object value = columnValues.get(i);
       if (value == null) {

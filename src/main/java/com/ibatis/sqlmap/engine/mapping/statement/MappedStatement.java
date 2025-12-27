@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2024 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@ public class MappedStatement {
   private ResultMap[] additionalResultMaps = new ResultMap[0];
 
   /** The execute listeners. */
-  private List executeListeners = new ArrayList();
+  private List executeListeners = new ArrayList<>();
 
   /** The resource. */
   private String resource;
@@ -136,8 +136,6 @@ public class MappedStatement {
       statementScope.setResultMap(resultMap);
       statementScope.setParameterMap(parameterMap);
 
-      int rows = 0;
-
       errorContext.setMoreInfo("Check the parameter map.");
       Object[] parameters = parameterMap.getParameterObjectValues(statementScope, parameterObject);
 
@@ -146,7 +144,7 @@ public class MappedStatement {
 
       errorContext.setActivity("executing mapped statement");
       errorContext.setMoreInfo("Check the statement or the result map.");
-      rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);
+      int rows = sqlExecuteUpdate(statementScope, trans.getConnection(), sqlString, parameters);
 
       errorContext.setMoreInfo("Check the output parameters.");
       if (parameterObject != null) {
@@ -195,7 +193,8 @@ public class MappedStatement {
 
       if (list.size() > 1) {
         throw new SQLException("Error: executeQueryForObject returned too many results.");
-      } else if (list.size() > 0) {
+      }
+      if (!list.isEmpty()) {
         object = list.get(0);
       }
 
@@ -371,9 +370,8 @@ public class MappedStatement {
     if (statementScope.getSession().isInBatch()) {
       getSqlExecutor().addBatch(statementScope, conn, sqlString, parameters);
       return 0;
-    } else {
-      return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);
     }
+    return getSqlExecutor().executeUpdate(statementScope, conn, sqlString, parameters);
   }
 
   /**
@@ -644,10 +642,10 @@ public class MappedStatement {
     // After reviewing this implementation I could not figure out why baseCacheKey is used for
     // this anyway as it's not needed, so I removed it.
     // The values used from the pmap.getCacheKey, plus id, plus the params below are unique and
-    // the same accross machines, so now I get replicated
+    // the same across machines, so now I get replicated
     // cache hits when I force failover in my cluster
 
-    // I wish I could make a unit test for this, but I can't do it as the old implementaion
+    // I wish I could make a unit test for this, but I can't do it as the old implementation
     // works on 1 machine, but fails across machines.
     // cacheKey.update(baseCacheKey);
 
@@ -751,8 +749,8 @@ public class MappedStatement {
    *          the result map
    */
   public void addResultMap(ResultMap resultMap) {
-    List resultMapList = Arrays.asList(additionalResultMaps);
-    resultMapList = new ArrayList(resultMapList);
+    List<ResultMap> resultMapList = Arrays.asList(additionalResultMaps);
+    resultMapList = new ArrayList<>(resultMapList);
     resultMapList.add(resultMap);
     additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);
   }

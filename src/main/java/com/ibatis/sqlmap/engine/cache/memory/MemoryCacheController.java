@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public class MemoryCacheController implements CacheController {
   private MemoryCacheLevel referenceType = MemoryCacheLevel.WEAK;
 
   /** The cache. */
-  private Map cache = Collections.synchronizedMap(new HashMap());
+  private Map cache = Collections.synchronizedMap(new HashMap<>());
 
   /**
    * Configures the cache
@@ -42,6 +42,7 @@ public class MemoryCacheController implements CacheController {
    * @param props
    *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
    */
+  @Override
   public void setProperties(Properties props) {
     String refType = props.getProperty("reference-type");
     if (refType == null) {
@@ -81,6 +82,7 @@ public class MemoryCacheController implements CacheController {
    * @param value
    *          The object to be cached
    */
+  @Override
   public void putObject(CacheModel cacheModel, Object key, Object value) {
     Object reference = null;
     if (referenceType.equals(MemoryCacheLevel.WEAK)) {
@@ -103,6 +105,7 @@ public class MemoryCacheController implements CacheController {
    *
    * @return The cached object (or null)
    */
+  @Override
   public Object getObject(CacheModel cacheModel, Object key) {
     Object value = null;
     Object ref = cache.get(key);
@@ -118,6 +121,7 @@ public class MemoryCacheController implements CacheController {
     return value;
   }
 
+  @Override
   public Object removeObject(CacheModel cacheModel, Object key) {
     Object value = null;
     Object ref = cache.remove(key);
@@ -139,6 +143,7 @@ public class MemoryCacheController implements CacheController {
    * @param cacheModel
    *          The cache model
    */
+  @Override
   public void flush(CacheModel cacheModel) {
     cache.clear();
   }

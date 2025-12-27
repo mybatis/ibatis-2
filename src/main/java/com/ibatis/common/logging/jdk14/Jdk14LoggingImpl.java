@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,22 +36,27 @@ public class Jdk14LoggingImpl implements com.ibatis.common.logging.Log {
     log = Logger.getLogger(clazz.getName());
   }
 
+  @Override
   public boolean isDebugEnabled() {
     return log.isLoggable(Level.FINE);
   }
 
+  @Override
   public void error(String s, Throwable e) {
     log.log(Level.SEVERE, s, e);
   }
 
+  @Override
   public void error(String s) {
     log.log(Level.SEVERE, s);
   }
 
+  @Override
   public void debug(String s) {
     log.log(Level.FINE, s);
   }
 
+  @Override
   public void warn(String s) {
     log.log(Level.WARNING, s);
   }

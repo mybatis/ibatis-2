@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class LruCacheController implements CacheController {
    */
   public LruCacheController() {
     this.cacheSize = 100;
-    this.cache = Collections.synchronizedMap(new HashMap());
+    this.cache = Collections.synchronizedMap(new HashMap<>());
     this.keyList = Collections.synchronizedList(new LinkedList());
   }
 
@@ -73,6 +73,7 @@ public class LruCacheController implements CacheController {
    * @param props
    *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
    */
+  @Override
   public void setProperties(Properties props) {
     String size = props.getProperty("cache-size");
     if (size == null) {
@@ -93,6 +94,7 @@ public class LruCacheController implements CacheController {
    * @param value
    *          The object to be cached
    */
+  @Override
   public void putObject(CacheModel cacheModel, Object key, Object value) {
     cache.put(key, value);
     keyList.add(key);
@@ -116,6 +118,7 @@ public class LruCacheController implements CacheController {
    *
    * @return The cached object (or null)
    */
+  @Override
   public Object getObject(CacheModel cacheModel, Object key) {
     Object result = cache.get(key);
     keyList.remove(key);
@@ -125,6 +128,7 @@ public class LruCacheController implements CacheController {
     return result;
   }
 
+  @Override
   public Object removeObject(CacheModel cacheModel, Object key) {
     keyList.remove(key);
     return cache.remove(key);
@@ -136,6 +140,7 @@ public class LruCacheController implements CacheController {
    * @param cacheModel
    *          The cache model
    */
+  @Override
   public void flush(CacheModel cacheModel) {
     cache.clear();
     keyList.clear();

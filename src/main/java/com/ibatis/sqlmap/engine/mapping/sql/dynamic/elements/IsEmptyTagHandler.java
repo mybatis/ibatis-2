@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class IsEmptyTagHandler extends ConditionalTagHandler {
         value = parameterObject;
       }
       if (value instanceof Collection) {
-        return value == null || ((Collection) value).size() < 1;
+        return ((Collection) value).isEmpty();
       } else if (value != null && value.getClass().isArray()) {
         return Array.getLength(value) == 0;
       } else {

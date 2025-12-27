@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,37 +29,39 @@ public class DateOnlyTypeHandler extends BaseTypeHandler implements TypeHandler 
   /** The Constant DATE_FORMAT. */
   private static final String DATE_FORMAT = "yyyy/MM/dd";
 
+  @Override
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
     ps.setDate(i, new java.sql.Date(((Date) parameter).getTime()));
   }
 
+  @Override
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
     java.sql.Date sqlDate = rs.getDate(columnName);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return new java.util.Date(sqlDate.getTime());
     }
+    return new java.util.Date(sqlDate.getTime());
   }
 
+  @Override
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     java.sql.Date sqlDate = rs.getDate(columnIndex);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return new java.util.Date(sqlDate.getTime());
     }
+    return new java.util.Date(sqlDate.getTime());
   }
 
+  @Override
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     java.sql.Date sqlDate = cs.getDate(columnIndex);
     if (cs.wasNull()) {
       return null;
-    } else {
-      return new java.util.Date(sqlDate.getTime());
     }
+    return new java.util.Date(sqlDate.getTime());
   }
 
+  @Override
   public Object valueOf(String s) {
     return SimpleDateFormatter.format(DATE_FORMAT, s);
   }

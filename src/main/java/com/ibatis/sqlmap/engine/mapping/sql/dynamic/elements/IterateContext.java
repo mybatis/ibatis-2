@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,15 +103,18 @@ public class IterateContext implements Iterator {
     }
   }
 
+  @Override
   public boolean hasNext() {
     return iterator != null && iterator.hasNext();
   }
 
+  @Override
   public Object next() {
     index++;
     return iterator.next();
   }
 
+  @Override
   public void remove() {
     iterator.remove();
   }
@@ -133,6 +136,7 @@ public class IterateContext implements Iterator {
    * @deprecated This method should not be used to decide whether or not to add prepend and open text to the generated
    *             statement. Rather, use the methods isPrependEnabled() and someSubElementsHaveContent().
    */
+  @Deprecated
   public boolean isFirst() {
     return index == 0;
   }
@@ -159,7 +163,7 @@ public class IterateContext implements Iterator {
     if (array instanceof Object[]) {
       list = Arrays.asList((Object[]) array);
     } else {
-      list = new ArrayList();
+      list = new ArrayList<>();
       for (int i = 0, n = Array.getLength(array); i < n; i++) {
         list.add(Array.get(array, i));
       }
@@ -282,9 +286,8 @@ public class IterateContext implements Iterator {
       Map parentResult = parent.processTagProperty(tagProperty);
       return this.addIndex((String) parentResult.get(PROCESS_STRING),
           ((Integer) parentResult.get(PROCESS_INDEX)).intValue());
-    } else {
-      return this.addIndex(tagProperty, 0);
     }
+    return this.addIndex(tagProperty, 0);
   }
 
   /**
@@ -325,7 +328,7 @@ public class IterateContext implements Iterator {
         modificationIndex = propertyIndex + endProperty.length();
       }
     }
-    Map ret = new HashMap();
+    Map ret = new HashMap<>();
     ret.put(PROCESS_INDEX, Integer.valueOf(modificationIndex));
     ret.put(PROCESS_STRING, input);
     return ret;
