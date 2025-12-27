@@ -60,7 +60,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
 
   @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-    if (!(resultObject == null || resultObject instanceof Map)) {
+    if (((resultObject != null) && !(resultObject instanceof Map))) {
       throw new RuntimeException("Error.  Object passed into MapDataExchange was not an instance of Map.");
     }
 
@@ -80,7 +80,7 @@ public class MapDataExchange extends BaseDataExchange implements DataExchange {
   @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
-    if (!(parameterObject == null || parameterObject instanceof Map)) {
+    if (((parameterObject != null) && !(parameterObject instanceof Map))) {
       throw new RuntimeException("Error.  Object passed into MapDataExchange was not an instance of Map.");
     }
 

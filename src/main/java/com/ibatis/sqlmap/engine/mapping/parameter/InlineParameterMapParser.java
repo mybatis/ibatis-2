@@ -304,9 +304,10 @@ public class InlineParameterMapParser {
     } else if (java.util.Map.class.isAssignableFrom(clazz)) {
       // Map
       if (javaType == null) {
-        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+        handler = typeHandlerFactory.getUnkownTypeHandler();
+        // BUG 1012591 -
+        // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
+        // jdbcType);
       } else {
         try {
           javaType = typeHandlerFactory.resolveAlias(javaType);

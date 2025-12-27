@@ -103,9 +103,8 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     if (parameterPlan != null) {
       return parameterPlan.getProperties(parameterObject);
-    } else {
-      return NO_DATA;
     }
+    return NO_DATA;
   }
 
   @Override

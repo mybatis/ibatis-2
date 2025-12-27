@@ -373,8 +373,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    */
   private ResultSet handleMultipleResults(PreparedStatement ps, StatementScope statementScope, int skipResults,
       int maxResults, RowHandlerCallback callback) throws SQLException {
-    ResultSet rs;
-    rs = getFirstResultSet(statementScope, ps);
+    ResultSet rs = getFirstResultSet(statementScope, ps);
     if (rs != null) {
       handleResults(statementScope, rs, skipResults, maxResults, callback);
     }
@@ -405,6 +404,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
       } else {
         while (moveToNextResultsSafely(statementScope, ps)) {
           ;
+        }
       }
     }
     // End additional ResultSet handling
@@ -585,7 +585,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
   private void retrieveOutputParameters(StatementScope statementScope, CallableStatement cs,
       ParameterMapping[] mappings, Object[] parameters, RowHandlerCallback callback) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
-      ParameterMapping mapping = ((ParameterMapping) mappings[i]);
+      ParameterMapping mapping = mappings[i];
       if (mapping.isOutputAllowed()) {
         if ("java.sql.ResultSet".equalsIgnoreCase(mapping.getJavaTypeName())) {
           ResultSet rs = (ResultSet) cs.getObject(i + 1);
@@ -622,7 +622,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    */
   private void registerOutputParameters(CallableStatement cs, ParameterMapping[] mappings) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
-      ParameterMapping mapping = ((ParameterMapping) mappings[i]);
+      ParameterMapping mapping = mappings[i];
       if (mapping.isOutputAllowed()) {
         if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { // @added
           cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
