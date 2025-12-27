@@ -73,7 +73,8 @@ public class PreparedStatementLogProxy extends BaseLogProxy implements Invocatio
         } else {
           return method.invoke(statement, params);
         }
-      } else if (SET_METHODS.contains(method.getName())) {
+      }
+      if (SET_METHODS.contains(method.getName())) {
         if ("setNull".equals(method.getName())) {
           setColumn(params[0], null);
         } else {

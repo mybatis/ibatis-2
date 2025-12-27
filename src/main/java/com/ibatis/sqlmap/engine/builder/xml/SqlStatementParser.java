@@ -125,9 +125,8 @@ public class SqlStatementParser {
     try {
       if (resultClassName != null) {
         return Resources.classForName(state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName));
-      } else {
-        return null;
       }
+      return null;
     } catch (ClassNotFoundException e) {
       throw new SqlMapException("Error.  Could not initialize class.  Cause: " + e, e);
     }

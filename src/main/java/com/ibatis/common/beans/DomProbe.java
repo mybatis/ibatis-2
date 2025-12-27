@@ -251,9 +251,8 @@ public class DomProbe extends BaseProbe {
 
     if (value == null) {
       return null;
-    } else {
-      return value.toString();
     }
+    return value.toString();
   }
 
   /**
@@ -310,12 +309,10 @@ public class DomProbe extends BaseProbe {
     NodeList propNodes = element.getElementsByTagName(name);
     if (propNodes.getLength() > index) {
       prop = (Element) propNodes.item(index);
-    } else {
-      if (create) {
-        for (int i = 0; i < index + 1; i++) {
-          prop = element.getOwnerDocument().createElement(name);
-          element.appendChild(prop);
-        }
+    } else if (create) {
+      for (int i = 0; i < index + 1; i++) {
+        prop = element.getOwnerDocument().createElement(name);
+        element.appendChild(prop);
       }
     }
     return prop;

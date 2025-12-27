@@ -70,7 +70,8 @@ public class TransactionManager {
     if (state == TransactionState.STATE_STARTED) {
       throw new TransactionException(
           "TransactionManager could not start a new transaction.  " + "A transaction is already started.");
-    } else if (state == TransactionState.STATE_USER_PROVIDED) {
+    }
+    if (state == TransactionState.STATE_USER_PROVIDED) {
       throw new TransactionException("TransactionManager could not start a new transaction.  "
           + "A user provided connection is currently being used by this session.  "
           + "The calling .setUserConnection (null) will clear the user provided transaction.");
@@ -102,7 +103,8 @@ public class TransactionManager {
           + "A user provided connection is currently being used by this session.  "
           + "You must call the commit() method of the Connection directly.  "
           + "The calling .setUserConnection (null) will clear the user provided transaction.");
-    } else if (state != TransactionState.STATE_STARTED && state != TransactionState.STATE_COMMITTED) {
+    }
+    if (state != TransactionState.STATE_STARTED && state != TransactionState.STATE_COMMITTED) {
       throw new TransactionException("TransactionManager could not commit.  No transaction is started.");
     }
     if (sessionScope.isCommitRequired() || config.isForceCommit()) {
