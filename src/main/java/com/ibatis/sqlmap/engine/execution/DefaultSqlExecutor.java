@@ -930,8 +930,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
      */
     public int executeBatch() throws SQLException {
       int totalRowCount = 0;
-      for (int i = 0, n = statementList.size(); i < n; i++) {
-        PreparedStatement ps = (PreparedStatement) statementList.get(i);
+      for (Object element : statementList) {
+        PreparedStatement ps = (PreparedStatement) element;
         int[] rowCounts = ps.executeBatch();
         for (int j = 0; j < rowCounts.length; j++) {
           if (rowCounts[j] == Statement.SUCCESS_NO_INFO) {
@@ -987,8 +987,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
      *          the session scope
      */
     public void cleanupBatch(SessionScope sessionScope) {
-      for (int i = 0, n = statementList.size(); i < n; i++) {
-        PreparedStatement ps = (PreparedStatement) statementList.get(i);
+      for (Object element : statementList) {
+        PreparedStatement ps = (PreparedStatement) element;
         closeStatement(sessionScope, ps);
       }
       currentSql = null;

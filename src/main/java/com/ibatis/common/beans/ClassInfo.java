@@ -137,8 +137,7 @@ public class ClassInfo {
    */
   private void addDefaultConstructor(Class clazz) {
     Constructor[] consts = clazz.getDeclaredConstructors();
-    for (int i = 0; i < consts.length; i++) {
-      Constructor constructor = consts[i];
+    for (Constructor constructor : consts) {
       if (constructor.getParameterTypes().length == 0) {
         if (canAccessPrivateMethods()) {
           try {
@@ -162,8 +161,7 @@ public class ClassInfo {
    */
   private void addGetMethods(Class cls) {
     Method[] methods = getClassMethods(cls);
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
+    for (Method method : methods) {
       String name = method.getName();
       if ((name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2)) {
         if (method.getParameterTypes().length == 0) {
@@ -196,8 +194,7 @@ public class ClassInfo {
   private void addSetMethods(Class cls) {
     Map conflictingSetters = new HashMap<>();
     Method[] methods = getClassMethods(cls);
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
+    for (Method method : methods) {
       String name = method.getName();
       if (name.startsWith("set") && name.length() > 3) {
         if (method.getParameterTypes().length == 1) {
@@ -292,8 +289,7 @@ public class ClassInfo {
    */
   private void addFields(Class clazz) {
     Field[] fields = clazz.getDeclaredFields();
-    for (int i = 0; i < fields.length; i++) {
-      Field field = fields[i];
+    for (Field field : fields) {
       if (canAccessPrivateMethods()) {
         try {
           field.setAccessible(true);
@@ -355,8 +351,8 @@ public class ClassInfo {
       // we also need to look for interface methods -
       // because the class may be abstract
       Class[] interfaces = currentClass.getInterfaces();
-      for (int i = 0; i < interfaces.length; i++) {
-        addUniqueMethods(uniqueMethods, interfaces[i].getMethods());
+      for (Class element : interfaces) {
+        addUniqueMethods(uniqueMethods, element.getMethods());
       }
 
       currentClass = currentClass.getSuperclass();

@@ -41,9 +41,9 @@ public abstract class BaseDataExchange implements DataExchange {
   public CacheKey getCacheKey(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     CacheKey key = new CacheKey();
     Object[] data = getData(statementScope, parameterMap, parameterObject);
-    for (int i = 0; i < data.length; i++) {
-      if (data[i] != null) {
-        key.update(data[i]);
+    for (Object element : data) {
+      if (element != null) {
+        key.update(element);
       }
     }
     return key;
