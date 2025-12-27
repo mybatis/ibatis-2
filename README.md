@@ -15,5 +15,7 @@ Simplicity is the biggest advantage of the MyBatis data mapper over object relat
 
 Users are advised to upgrade to myBatis 3.  Both mybatis (ibatis) 2 and mybatis 3 can be used together.  Changes to this repo will only be considered if small bug fixes.  Given its widespread usage still, this repo will be kept alive as java conditions change as long as needed.
 
-Javax Namespace Support - 2.6.x
-Jakarta Namespace Support - 2.7.x
+EE Support
+----------
+* Javax Namespace Support - 2.6.x
+* Jakarta Namespace Support - 2.7.x
