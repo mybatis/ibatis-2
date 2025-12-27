@@ -99,8 +99,9 @@ public class InlineParameterMapParser {
           mappingList.add(mapping);
           newSqlBuffer.append("?");
           boolean hasMoreTokens = parser.hasMoreTokens();
-          if (hasMoreTokens)
+          if (hasMoreTokens) {
             token = parser.nextToken();
+          }
           if (!hasMoreTokens || !PARAMETER_TOKEN.equals(token)) {
             throw new SqlMapException(
                 "Unterminated inline parameter in mapped statement near '" + newSqlBuffer.toString() + "'");

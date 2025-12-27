@@ -125,14 +125,11 @@ public class AutoResultMap extends ResultMap {
         }
         if (type != null || matchedProp != null) {
           ResultMapping resultMapping = new ResultMapping();
-          resultMapping.setPropertyName((matchedProp != null ? matchedProp : columnName));
+          resultMapping.setPropertyName(matchedProp != null ? matchedProp : columnName);
           resultMapping.setColumnName(columnName);
           resultMapping.setColumnIndex(i + 1);
-          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); // map
-                                                                                                    // SQL
-                                                                                                    // to
-                                                                                                    // JDBC
-                                                                                                    // type
+          // map SQL to JDBC type
+          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type));
           resultMappingList.add(resultMapping);
         }
       }

@@ -76,8 +76,9 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(Reader reader, Properties props) {
-    if (props != null)
+    if (props != null) {
       state.setGlobalProps(props);
+    }
     return parse(reader);
   }
 
@@ -111,8 +112,9 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(InputStream inputStream, Properties props) {
-    if (props != null)
+    if (props != null) {
       state.setGlobalProps(props);
+    }
     return parse(inputStream);
   }
 

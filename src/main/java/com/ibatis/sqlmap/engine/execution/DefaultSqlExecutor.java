@@ -389,8 +389,9 @@ public class DefaultSqlExecutor implements SqlExecutor {
         ResultMap[] resultMaps = statement.getAdditionalResultMaps();
         int i = 0;
         while (moveToNextResultsSafely(statementScope, ps)) {
-          if (i >= resultMaps.length)
+          if (i >= resultMaps.length) {
             break;
+          }
           ResultMap rm = resultMaps[i];
           statementScope.setResultMap(rm);
           rs = ps.getResultSet();
@@ -402,7 +403,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
         defaultRowHandler.setList(multipleResults);
         statementScope.setResultMap(statement.getResultMap());
       } else {
-        while (moveToNextResultsSafely(statementScope, ps))
+        while (moveToNextResultsSafely(statementScope, ps)) {
           ;
       }
     }

@@ -117,10 +117,12 @@ public class CacheKey implements Cloneable, Serializable {
 
   @Override
   public boolean equals(Object object) {
-    if (this == object)
+    if (this == object) {
       return true;
-    if (!(object instanceof CacheKey))
+    }
+    if (!(object instanceof CacheKey)) {
       return false;
+    }
 
     final CacheKey cacheKey = (CacheKey) object;
 
