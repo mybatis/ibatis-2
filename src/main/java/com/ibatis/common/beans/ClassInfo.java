@@ -51,7 +51,7 @@ public class ClassInfo {
   private static boolean cacheEnabled = true;
 
   /** The Constant EMPTY_STRING_ARRAY. */
-  private static final String[] EMPTY_STRING_ARRAY = new String[0];
+  private static final String[] EMPTY_STRING_ARRAY = {};
 
   /** The Constant SIMPLE_TYPE_SET. */
   private static final Set SIMPLE_TYPE_SET = new HashSet<>();

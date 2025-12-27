@@ -35,7 +35,7 @@ import java.util.Map;
 public class JavaBeanDataExchange extends BaseDataExchange implements DataExchange {
 
   /** The Constant NO_DATA. */
-  private static final Object[] NO_DATA = new Object[0];
+  private static final Object[] NO_DATA = {};
 
   /** The result plan. */
   private AccessPlan resultPlan;
