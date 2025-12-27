@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
 public class ComplexBeanProbe extends BaseProbe {
 
   /** The Constant NO_ARGUMENTS. */
-  private static final Object[] NO_ARGUMENTS = new Object[0];
+  private static final Object[] NO_ARGUMENTS = {};
 
   /**
    * Instantiates a new complex bean probe.

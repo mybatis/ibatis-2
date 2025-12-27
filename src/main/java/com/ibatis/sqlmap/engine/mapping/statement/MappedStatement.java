@@ -81,7 +81,7 @@ public class MappedStatement {
   private Integer timeout;
 
   /** The additional result maps. */
-  private ResultMap[] additionalResultMaps = new ResultMap[0];
+  private ResultMap[] additionalResultMaps = {};
 
   /** The execute listeners. */
   private List executeListeners = new ArrayList<>();

@@ -24,10 +24,10 @@ import com.ibatis.sqlmap.engine.scope.StatementScope;
 public class NoParameterMap extends ParameterMap {
 
   /** The Constant NO_PARAMETERS. */
-  private static final ParameterMapping[] NO_PARAMETERS = new ParameterMapping[0];
+  private static final ParameterMapping[] NO_PARAMETERS = {};
 
   /** The Constant NO_DATA. */
-  private static final Object[] NO_DATA = new Object[0];
+  private static final Object[] NO_DATA = {};
 
   /**
    * Instantiates a new no parameter map.
