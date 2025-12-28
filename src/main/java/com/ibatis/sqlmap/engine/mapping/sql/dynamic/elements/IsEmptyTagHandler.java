@@ -43,11 +43,11 @@ public class IsEmptyTagHandler extends ConditionalTagHandler {
     }
     if (value instanceof Collection) {
       return ((Collection) value).isEmpty();
-    } else if (value != null && value.getClass().isArray()) {
-      return Array.getLength(value) == 0;
-    } else {
-      return value == null || String.valueOf(value).equals("");
     }
+    if (value != null && value.getClass().isArray()) {
+      return Array.getLength(value) == 0;
+    }
+    return value == null || String.valueOf(value).equals("");
   }
 
 }

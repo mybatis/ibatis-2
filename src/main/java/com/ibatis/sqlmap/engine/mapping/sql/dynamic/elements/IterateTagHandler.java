@@ -109,9 +109,8 @@ public class IterateTagHandler extends BaseTagHandler {
     iterate.setAllowNext(true);
     if (iterate.isFinal()) {
       return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
-    } else {
-      return REPEAT_BODY;
     }
+    return REPEAT_BODY;
   }
 
   @Override

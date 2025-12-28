@@ -62,14 +62,13 @@ public class ComplexDataExchange extends BaseDataExchange implements DataExchang
         data[i] = parameterObject;
       }
       return data;
-    } else {
-      Object[] data = new Object[parameterMap.getParameterMappings().length];
-      ParameterMapping[] mappings = parameterMap.getParameterMappings();
-      for (int i = 0; i < mappings.length; i++) {
-        data[i] = PROBE.getObject(parameterObject, mappings[i].getPropertyName());
-      }
-      return data;
     }
+    Object[] data = new Object[parameterMap.getParameterMappings().length];
+    ParameterMapping[] mappings = parameterMap.getParameterMappings();
+    for (int i = 0; i < mappings.length; i++) {
+      data[i] = PROBE.getObject(parameterObject, mappings[i].getPropertyName());
+    }
+    return data;
   }
 
   @Override

@@ -20,13 +20,12 @@ import com.ibatis.sqlmap.engine.transaction.BaseTransactionConfig;
 import com.ibatis.sqlmap.engine.transaction.Transaction;
 import com.ibatis.sqlmap.engine.transaction.TransactionException;
 
-import jakarta.transaction.UserTransaction;
-
 import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.transaction.UserTransaction;
 
 /**
  * The Class JtaTransactionConfig.

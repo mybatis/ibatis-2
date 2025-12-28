@@ -67,12 +67,12 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
         }
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
         return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
-      } else if ("createStatement".equals(method.getName())) {
+      }
+      if ("createStatement".equals(method.getName())) {
         Statement stmt = (Statement) method.invoke(connection, params);
         return StatementLogProxy.newInstance(stmt);
-      } else {
-        return method.invoke(connection, params);
       }
+      return method.invoke(connection, params);
     } catch (Throwable t) {
       Throwable t1 = ClassInfo.unwrapThrowable(t);
       log.error("Error calling Connection." + method.getName() + ':', t1);
