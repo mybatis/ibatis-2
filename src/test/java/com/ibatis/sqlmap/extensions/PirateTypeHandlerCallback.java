@@ -32,9 +32,8 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
     }
     if ("Nay".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
-    } else {
-      throw new SQLException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");
     }
+    throw new SQLException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");
   }
 
   @Override
@@ -54,9 +53,8 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
     }
     if ("Nay".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
-    } else {
-      throw new SqlMapException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");
     }
+    throw new SqlMapException("Unexpected value " + s + " found where 'Aye' or 'Nay' was expected.");
   }
 
 }
