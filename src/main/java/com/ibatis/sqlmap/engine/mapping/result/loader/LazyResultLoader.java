@@ -97,6 +97,7 @@ public class LazyResultLoader implements InvocationHandler {
     }
   }
 
+  @Override
   public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
     if ("finalize".hashCode() == method.getName().hashCode() && "finalize".equals(method.getName())) {
       return null;

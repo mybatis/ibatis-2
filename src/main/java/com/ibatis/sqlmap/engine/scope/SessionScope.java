@@ -316,12 +316,11 @@ public class SessionScope {
    *          the ps
    */
   public void putPreparedStatement(SqlMapExecutorDelegate delegate, String sql, PreparedStatement ps) {
-    if (delegate.isStatementCacheEnabled()) {
-      if (!isInBatch()) {
-        if (hasPreparedStatementFor(sql))
-          throw new SqlMapException("Duplicate prepared statement found.  This is likely a bug.");
-        preparedStatements.put(sql, ps);
+    if (delegate.isStatementCacheEnabled() && !isInBatch()) {
+      if (hasPreparedStatementFor(sql)) {
+        throw new SqlMapException("Duplicate prepared statement found.  This is likely a bug.");
       }
+      preparedStatements.put(sql, ps);
     }
   }
 

@@ -257,19 +257,17 @@ public class IterateContext implements Iterator {
    * @return The last property of any bean specified in this IterateContext.
    */
   public String getEndProperty() {
-    if (parent != null) {
-      int parentPropertyIndex = property.indexOf(parent.getProperty());
-      if (parentPropertyIndex > -1) {
-        int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);
-        int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);
-        return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1,
-            property.length());
-      } else {
-        return property;
-      }
-    } else {
+    if (parent == null) {
       return property;
     }
+
+    int parentPropertyIndex = property.indexOf(parent.getProperty());
+    if (parentPropertyIndex > -1) {
+      int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);
+      int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);
+      return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1);
+    }
+    return property;
   }
 
   /**
@@ -319,14 +317,12 @@ public class IterateContext implements Iterator {
     int propertyIndex = input.indexOf(endProperty, startIndex);
     int modificationIndex = 0;
     // Is the iterate property in the tag property at all?
-    if (propertyIndex > -1) {
-      // Make sure the tag property does not already have a number.
-      if (input.charAt(propertyIndex + endProperty.length()) == ']') {
-        // Add iteration number to property.
-        input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()
-            + input.substring(propertyIndex + endProperty.length());
-        modificationIndex = propertyIndex + endProperty.length();
-      }
+    // Make sure the tag property does not already have a number.
+    if ((propertyIndex > -1) && (input.charAt(propertyIndex + endProperty.length()) == ']')) {
+      // Add iteration number to property.
+      input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()
+          + input.substring(propertyIndex + endProperty.length());
+      modificationIndex = propertyIndex + endProperty.length();
     }
     Map ret = new HashMap<>();
     ret.put(PROCESS_INDEX, Integer.valueOf(modificationIndex));
