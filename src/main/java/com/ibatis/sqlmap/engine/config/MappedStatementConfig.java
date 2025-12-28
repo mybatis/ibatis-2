@@ -121,8 +121,8 @@ public class MappedStatementConfig {
     if (resultMapName != null) {
       statement.setResultMap(client.getDelegate().getResultMap(resultMapName));
       if (additionalResultMapNames != null) {
-        for (int i = 0; i < additionalResultMapNames.length; i++) {
-          statement.addResultMap(client.getDelegate().getResultMap(additionalResultMapNames[i]));
+        for (String additionalResultMapName : additionalResultMapNames) {
+          statement.addResultMap(client.getDelegate().getResultMap(additionalResultMapName));
         }
       }
     }
@@ -166,9 +166,8 @@ public class MappedStatementConfig {
       resultMap = buildAutoResultMap(allowRemapping, statement, resultClass, xmlResultName);
       statement.setResultMap(resultMap);
       if (additionalResultClasses != null) {
-        for (int i = 0; i < additionalResultClasses.length; i++) {
-          statement
-              .addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i], xmlResultName));
+        for (Class additionalResultClass : additionalResultClasses) {
+          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClass, xmlResultName));
         }
       }
 
@@ -331,8 +330,7 @@ public class MappedStatementConfig {
    */
   private ResultMap buildAutoResultMap(boolean allowRemapping, MappedStatement statement, Class firstResultClass,
       String xmlResultName) {
-    ResultMap resultMap;
-    resultMap = new AutoResultMap(client.getDelegate(), allowRemapping);
+    ResultMap resultMap = new AutoResultMap(client.getDelegate(), allowRemapping);
     resultMap.setId(statement.getId() + "-AutoResultMap");
     resultMap.setResultClass(firstResultClass);
     resultMap.setXmlName(xmlResultName);

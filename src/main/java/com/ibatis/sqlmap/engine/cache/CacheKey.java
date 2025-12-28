@@ -18,11 +18,14 @@ package com.ibatis.sqlmap.engine.cache;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Hash value generator for cache keys.
  */
 public class CacheKey implements Cloneable, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The Constant DEFAULT_MULTIPLYER. */
   private static final int DEFAULT_MULTIPLYER = 37;
@@ -117,29 +120,24 @@ public class CacheKey implements Cloneable, Serializable {
 
   @Override
   public boolean equals(Object object) {
-    if (this == object)
+    if (this == object) {
       return true;
-    if (!(object instanceof CacheKey))
+    }
+    if (!(object instanceof CacheKey)) {
       return false;
+    }
 
     final CacheKey cacheKey = (CacheKey) object;
 
-    if (hashcode != cacheKey.hashcode)
+    if (hashcode != cacheKey.hashcode || checksum != cacheKey.checksum || count != cacheKey.count) {
       return false;
-    if (checksum != cacheKey.checksum)
-      return false;
-    if (count != cacheKey.count)
-      return false;
+    }
 
     for (int i = 0; i < paramList.size(); i++) {
       Object thisParam = paramList.get(i);
       Object thatParam = cacheKey.paramList.get(i);
-      if (thisParam == null) {
-        if (thatParam != null)
-          return false;
-      } else {
-        if (!thisParam.equals(thatParam))
-          return false;
+      if (!Objects.equals(thisParam, thatParam)) {
+        return false;
       }
     }
 
@@ -154,8 +152,8 @@ public class CacheKey implements Cloneable, Serializable {
   @Override
   public String toString() {
     StringBuilder returnValue = new StringBuilder().append(hashcode).append('|').append(checksum);
-    for (int i = 0; i < paramList.size(); i++) {
-      returnValue.append('|').append(paramList.get(i));
+    for (Object element : paramList) {
+      returnValue.append('|').append(element);
     }
 
     return returnValue.toString();
@@ -164,7 +162,7 @@ public class CacheKey implements Cloneable, Serializable {
   @Override
   public CacheKey clone() throws CloneNotSupportedException {
     CacheKey clonedCacheKey = (CacheKey) super.clone();
-    clonedCacheKey.paramList = new ArrayList<Object>(paramList);
+    clonedCacheKey.paramList = new ArrayList<>(paramList);
     return clonedCacheKey;
   }
 

@@ -373,8 +373,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    */
   private ResultSet handleMultipleResults(PreparedStatement ps, StatementScope statementScope, int skipResults,
       int maxResults, RowHandlerCallback callback) throws SQLException {
-    ResultSet rs;
-    rs = getFirstResultSet(statementScope, ps);
+    ResultSet rs = getFirstResultSet(statementScope, ps);
     if (rs != null) {
       handleResults(statementScope, rs, skipResults, maxResults, callback);
     }
@@ -389,8 +388,9 @@ public class DefaultSqlExecutor implements SqlExecutor {
         ResultMap[] resultMaps = statement.getAdditionalResultMaps();
         int i = 0;
         while (moveToNextResultsSafely(statementScope, ps)) {
-          if (i >= resultMaps.length)
+          if (i >= resultMaps.length) {
             break;
+          }
           ResultMap rm = resultMaps[i];
           statementScope.setResultMap(rm);
           rs = ps.getResultSet();
@@ -402,8 +402,9 @@ public class DefaultSqlExecutor implements SqlExecutor {
         defaultRowHandler.setList(multipleResults);
         statementScope.setResultMap(statement.getResultMap());
       } else {
-        while (moveToNextResultsSafely(statementScope, ps))
+        while (moveToNextResultsSafely(statementScope, ps)) {
           ;
+        }
       }
     }
     // End additional ResultSet handling
@@ -584,7 +585,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
   private void retrieveOutputParameters(StatementScope statementScope, CallableStatement cs,
       ParameterMapping[] mappings, Object[] parameters, RowHandlerCallback callback) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
-      ParameterMapping mapping = ((ParameterMapping) mappings[i]);
+      ParameterMapping mapping = mappings[i];
       if (mapping.isOutputAllowed()) {
         if ("java.sql.ResultSet".equalsIgnoreCase(mapping.getJavaTypeName())) {
           ResultSet rs = (ResultSet) cs.getObject(i + 1);
@@ -621,7 +622,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    */
   private void registerOutputParameters(CallableStatement cs, ParameterMapping[] mappings) throws SQLException {
     for (int i = 0; i < mappings.length; i++) {
-      ParameterMapping mapping = ((ParameterMapping) mappings[i]);
+      ParameterMapping mapping = mappings[i];
       if (mapping.isOutputAllowed()) {
         if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { // @added
           cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
@@ -930,8 +931,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
      */
     public int executeBatch() throws SQLException {
       int totalRowCount = 0;
-      for (int i = 0, n = statementList.size(); i < n; i++) {
-        PreparedStatement ps = (PreparedStatement) statementList.get(i);
+      for (Object element : statementList) {
+        PreparedStatement ps = (PreparedStatement) element;
         int[] rowCounts = ps.executeBatch();
         for (int j = 0; j < rowCounts.length; j++) {
           if (rowCounts[j] == Statement.SUCCESS_NO_INFO) {
@@ -987,8 +988,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
      *          the session scope
      */
     public void cleanupBatch(SessionScope sessionScope) {
-      for (int i = 0, n = statementList.size(); i < n; i++) {
-        PreparedStatement ps = (PreparedStatement) statementList.get(i);
+      for (Object element : statementList) {
+        PreparedStatement ps = (PreparedStatement) element;
         closeStatement(sessionScope, ps);
       }
       currentSql = null;

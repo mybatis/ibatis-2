@@ -25,7 +25,12 @@ import com.ibatis.sqlmap.engine.cache.CacheController;
 import com.ibatis.sqlmap.engine.config.CacheModelConfig;
 import com.ibatis.sqlmap.engine.config.ParameterMapConfig;
 import com.ibatis.sqlmap.engine.config.ResultMapConfig;
-import com.ibatis.sqlmap.engine.mapping.statement.*;
+import com.ibatis.sqlmap.engine.mapping.statement.DeleteStatement;
+import com.ibatis.sqlmap.engine.mapping.statement.InsertStatement;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+import com.ibatis.sqlmap.engine.mapping.statement.ProcedureStatement;
+import com.ibatis.sqlmap.engine.mapping.statement.SelectStatement;
+import com.ibatis.sqlmap.engine.mapping.statement.UpdateStatement;
 
 import java.io.InputStream;
 import java.io.Reader;

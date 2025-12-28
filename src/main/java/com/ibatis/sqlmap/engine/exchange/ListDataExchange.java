@@ -60,20 +60,19 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
 
         Object tempData = parameterObject;
 
-        for (int x = 0; x < propertyArray.length; x++) {
+        for (String element : propertyArray) {
 
           // is property an array reference
-          int arrayStartIndex = propertyArray[x].indexOf('[');
+          int arrayStartIndex = element.indexOf('[');
 
           if (arrayStartIndex == -1) {
 
             // is a normal property
-            tempData = ProbeFactory.getProbe().getObject(tempData, propertyArray[x]);
+            tempData = ProbeFactory.getProbe().getObject(tempData, element);
 
           } else {
 
-            int index = Integer
-                .parseInt(propertyArray[x].substring(arrayStartIndex + 1, propertyArray[x].length() - 1));
+            int index = Integer.parseInt(element.substring(arrayStartIndex + 1, element.length() - 1));
             tempData = ((List) tempData).get(index);
 
           }
@@ -84,7 +83,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
 
       } else {
 
-        int index = Integer.parseInt((propName.substring(propName.indexOf('[') + 1, propName.length() - 1)));
+        int index = Integer.parseInt(propName.substring(propName.indexOf('[') + 1, propName.length() - 1));
         data[i] = ((List) parameterObject).get(index);
 
       }
@@ -99,7 +98,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     List data = new ArrayList<>();
     for (int i = 0; i < mappings.length; i++) {
       String propName = mappings[i].getPropertyName();
-      int index = Integer.parseInt((propName.substring(1, propName.length() - 1)));
+      int index = Integer.parseInt(propName.substring(1, propName.length() - 1));
       data.set(index, values[i]);
     }
     return data;
@@ -113,7 +112,7 @@ public class ListDataExchange extends BaseDataExchange implements DataExchange {
     for (int i = 0; i < mappings.length; i++) {
       if (mappings[i].isOutputAllowed()) {
         String propName = mappings[i].getPropertyName();
-        int index = Integer.parseInt((propName.substring(1, propName.length() - 1)));
+        int index = Integer.parseInt(propName.substring(1, propName.length() - 1));
         data.set(index, values[i]);
       }
     }

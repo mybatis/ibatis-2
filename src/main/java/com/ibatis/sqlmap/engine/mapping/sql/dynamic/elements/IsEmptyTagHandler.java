@@ -33,21 +33,20 @@ public class IsEmptyTagHandler extends ConditionalTagHandler {
   public boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     if (parameterObject == null) {
       return true;
+    }
+    String prop = getResolvedProperty(ctx, tag);
+    Object value;
+    if (prop != null) {
+      value = PROBE.getObject(parameterObject, prop);
     } else {
-      String prop = getResolvedProperty(ctx, tag);
-      Object value;
-      if (prop != null) {
-        value = PROBE.getObject(parameterObject, prop);
-      } else {
-        value = parameterObject;
-      }
-      if (value instanceof Collection) {
-        return ((Collection) value).isEmpty();
-      } else if (value != null && value.getClass().isArray()) {
-        return Array.getLength(value) == 0;
-      } else {
-        return value == null || String.valueOf(value).equals("");
-      }
+      value = parameterObject;
+    }
+    if (value instanceof Collection) {
+      return ((Collection) value).isEmpty();
+    } else if (value != null && value.getClass().isArray()) {
+      return Array.getLength(value) == 0;
+    } else {
+      return value == null || String.valueOf(value).equals("");
     }
   }
 

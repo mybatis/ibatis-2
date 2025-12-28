@@ -64,7 +64,8 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
         } else {
           return method.invoke(statement, params);
         }
-      } else if ("getResultSet".equals(method.getName())) {
+      }
+      if ("getResultSet".equals(method.getName())) {
         ResultSet rs = (ResultSet) method.invoke(statement, params);
         if (rs != null) {
           return ResultSetLogProxy.newInstance(rs);

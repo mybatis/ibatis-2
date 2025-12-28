@@ -323,9 +323,8 @@ public class ResultMap {
   public ResultMapping[] getResultMappings() {
     if (allowRemapping) {
       return (ResultMapping[]) remappableResultMappings.get();
-    } else {
-      return resultMappings;
     }
+    return resultMappings;
   }
 
   /**
@@ -366,7 +365,7 @@ public class ResultMap {
   public ResultMap resolveSubMap(StatementScope statementScope, ResultSet rs) throws SQLException {
     ResultMap subMap = this;
     if (discriminator != null) {
-      ResultMapping mapping = (ResultMapping) discriminator.getResultMapping();
+      ResultMapping mapping = discriminator.getResultMapping();
       Object value = getPrimitiveResultMappingValue(rs, mapping);
       if (value == null) {
         value = doNullMapping(value, mapping);
@@ -389,8 +388,7 @@ public class ResultMap {
    */
   public void setResultMappingList(List resultMappingList) {
     if (allowRemapping) {
-      this.remappableResultMappings
-          .set((ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]));
+      this.remappableResultMappings.set(resultMappingList.toArray(new ResultMapping[resultMappingList.size()]));
     } else {
       this.resultMappings = (ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]);
     }
@@ -433,13 +431,14 @@ public class ResultMap {
     boolean foundData = false;
     Object[] columnValues = new Object[getResultMappings().length];
     for (int i = 0; i < getResultMappings().length; i++) {
-      ResultMapping mapping = (ResultMapping) getResultMappings()[i];
+      ResultMapping mapping = getResultMappings()[i];
       errorContext.setMoreInfo(mapping.getErrorString());
       if (mapping.getStatementName() != null) {
         if (resultClass == null) {
           throw new SqlMapException(
               "The result class was null when trying to get results for ResultMap named " + getId() + ".");
-        } else if (Map.class.isAssignableFrom(resultClass)) {
+        }
+        if (Map.class.isAssignableFrom(resultClass)) {
           Class javaType = mapping.getJavaType();
           if (javaType == null) {
             javaType = Object.class;
@@ -707,11 +706,9 @@ public class ResultMap {
    */
   private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType)
       throws SQLException {
-    Object parameterObject;
     TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();
     TypeHandler th = typeHandlerFactory.getTypeHandler(parameterType);
-    parameterObject = th.getResult(rs, mapping.getColumnName());
-    return parameterObject;
+    return th.getResult(rs, mapping.getColumnName());
   }
 
   /**

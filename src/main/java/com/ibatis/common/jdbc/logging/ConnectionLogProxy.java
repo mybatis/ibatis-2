@@ -59,19 +59,17 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
           log.debug("{conn-" + id + "} Preparing Statement: " + removeBreakingWhitespace((String) params[0]));
         }
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
-        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
-        return stmt;
-      } else if ("prepareCall".equals(method.getName())) {
+        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
+      }
+      if ("prepareCall".equals(method.getName())) {
         if (log.isDebugEnabled()) {
           log.debug("{conn-" + id + "} Preparing Call: " + removeBreakingWhitespace((String) params[0]));
         }
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
-        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
-        return stmt;
+        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
       } else if ("createStatement".equals(method.getName())) {
         Statement stmt = (Statement) method.invoke(connection, params);
-        stmt = StatementLogProxy.newInstance(stmt);
-        return stmt;
+        return StatementLogProxy.newInstance(stmt);
       } else {
         return method.invoke(connection, params);
       }

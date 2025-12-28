@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class LogFactory {
       try {
         Resources.classForName(testClassName);
         Class implClass = Resources.classForName(implClassName);
-        logConstructor = implClass.getConstructor(new Class[] { Class.class });
+        logConstructor = implClass.getConstructor(Class.class);
       } catch (Throwable t) {
       }
     }
@@ -64,7 +64,7 @@ public class LogFactory {
    */
   public static Log getLog(Class aClass) {
     try {
-      return (Log) logConstructor.newInstance(new Object[] { aClass });
+      return (Log) logConstructor.newInstance(aClass);
     } catch (Throwable t) {
       throw new RuntimeException("Error creating logger for class " + aClass + ".  Cause: " + t, t);
     }
@@ -80,7 +80,7 @@ public class LogFactory {
     try {
       Resources.classForName("org.apache.log4j.Logger");
       Class implClass = Resources.classForName("com.ibatis.common.logging.log4j.Log4jImpl");
-      logConstructor = implClass.getConstructor(new Class[] { Class.class });
+      logConstructor = implClass.getConstructor(Class.class);
     } catch (Throwable t) {
     }
   }
@@ -95,7 +95,7 @@ public class LogFactory {
     try {
       Resources.classForName("java.util.logging.Logger");
       Class implClass = Resources.classForName("com.ibatis.common.logging.jdk14.Jdk14LoggingImpl");
-      logConstructor = implClass.getConstructor(new Class[] { Class.class });
+      logConstructor = implClass.getConstructor(Class.class);
     } catch (Throwable t) {
     }
   }

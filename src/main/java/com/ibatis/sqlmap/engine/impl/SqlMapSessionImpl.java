@@ -80,14 +80,18 @@ public class SqlMapSessionImpl implements SqlMapSession {
 
   @Override
   public void close() {
-    if (delegate != null && sessionScope != null)
+    if (delegate != null && sessionScope != null) {
       delegate.endSessionScope(sessionScope);
-    if (sessionScope != null)
+    }
+    if (sessionScope != null) {
       sessionScope = null;
-    if (delegate != null)
+    }
+    if (delegate != null) {
       delegate = null;
-    if (!closed)
+    }
+    if (!closed) {
       closed = true;
+    }
   }
 
   @Override

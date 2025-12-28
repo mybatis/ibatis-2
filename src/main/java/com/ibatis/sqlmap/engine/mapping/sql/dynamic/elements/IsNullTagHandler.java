@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,15 @@ public class IsNullTagHandler extends ConditionalTagHandler {
   public boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     if (parameterObject == null) {
       return true;
-    } else {
-      String prop = getResolvedProperty(ctx, tag);
-      Object value;
-      if (prop != null) {
-        value = PROBE.getObject(parameterObject, prop);
-      } else {
-        value = parameterObject;
-      }
-      return value == null;
     }
+    String prop = getResolvedProperty(ctx, tag);
+    Object value;
+    if (prop != null) {
+      value = PROBE.getObject(parameterObject, prop);
+    } else {
+      value = parameterObject;
+    }
+    return value == null;
   }
 
 }
