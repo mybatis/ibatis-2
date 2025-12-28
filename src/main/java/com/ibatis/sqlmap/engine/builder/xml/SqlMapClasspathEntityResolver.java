@@ -65,10 +65,12 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
   @Override
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
 
-    if (publicId != null)
+    if (publicId != null) {
       publicId = publicId.toUpperCase(Locale.ROOT);
-    if (systemId != null)
+    }
+    if (systemId != null) {
       systemId = systemId.toUpperCase(Locale.ROOT);
+    }
 
     InputSource source = null;
     try {

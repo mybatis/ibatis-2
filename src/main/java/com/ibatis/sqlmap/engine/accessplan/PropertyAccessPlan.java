@@ -24,7 +24,7 @@ import com.ibatis.common.beans.Invoker;
 public class PropertyAccessPlan extends BaseAccessPlan {
 
   /** The Constant NO_ARGUMENTS. */
-  protected static final Object[] NO_ARGUMENTS = new Object[0];
+  protected static final Object[] NO_ARGUMENTS = {};
 
   /** The setters. */
   protected Invoker[] setters;

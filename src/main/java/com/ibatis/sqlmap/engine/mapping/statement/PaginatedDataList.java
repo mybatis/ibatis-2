@@ -193,17 +193,17 @@ public class PaginatedDataList implements PaginatedList {
    *           the SQL exception
    */
   private List getList(int idx, int localPageSize) throws SQLException {
-    return sqlMapExecutor.queryForList(statementName, parameterObject, (idx) * pageSize, localPageSize);
+    return sqlMapExecutor.queryForList(statementName, parameterObject, idx * pageSize, localPageSize);
   }
 
+  @Override
   public boolean nextPage() {
     if (isNextPageAvailable()) {
       index++;
       pageForward();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   @Override
@@ -212,9 +212,8 @@ public class PaginatedDataList implements PaginatedList {
       index--;
       pageBack();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   @Override
@@ -234,7 +233,7 @@ public class PaginatedDataList implements PaginatedList {
 
   @Override
   public boolean isMiddlePage() {
-    return !(isFirstPage() || isLastPage());
+    return !isFirstPage() && !isLastPage();
   }
 
   @Override

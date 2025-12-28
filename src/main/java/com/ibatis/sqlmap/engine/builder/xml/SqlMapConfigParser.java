@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,8 +76,9 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(Reader reader, Properties props) {
-    if (props != null)
+    if (props != null) {
       state.setGlobalProps(props);
+    }
     return parse(reader);
   }
 
@@ -111,8 +112,9 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(InputStream inputStream, Properties props) {
-    if (props != null)
+    if (props != null) {
       state.setGlobalProps(props);
+    }
     return parse(inputStream);
   }
 

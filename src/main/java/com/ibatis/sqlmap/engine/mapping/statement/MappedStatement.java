@@ -81,7 +81,7 @@ public class MappedStatement {
   private Integer timeout;
 
   /** The additional result maps. */
-  private ResultMap[] additionalResultMaps = new ResultMap[0];
+  private ResultMap[] additionalResultMaps = {};
 
   /** The execute listeners. */
   private List executeListeners = new ArrayList<>();
@@ -430,11 +430,9 @@ public class MappedStatement {
                 + "' but found '" + newParam.getClass().getName() + "'.");
           }
         }
-      } else {
-        if (!parameterClass.isAssignableFrom(newParam.getClass())) {
-          throw new SQLException("Invalid parameter object type.  Expected '" + parameterClass.getName()
-              + "' but found '" + newParam.getClass().getName() + "'.");
-        }
+      } else if (!parameterClass.isAssignableFrom(newParam.getClass())) {
+        throw new SQLException("Invalid parameter object type.  Expected '" + parameterClass.getName() + "' but found '"
+            + newParam.getClass().getName() + "'.");
       }
     }
     return newParam;
@@ -677,8 +675,8 @@ public class MappedStatement {
    * Notify listeners.
    */
   public void notifyListeners() {
-    for (int i = 0, n = executeListeners.size(); i < n; i++) {
-      ((ExecuteListener) executeListeners.get(i)).onExecuteStatement(this);
+    for (Object executeListener : executeListeners) {
+      ((ExecuteListener) executeListener).onExecuteStatement(this);
     }
   }
 
@@ -752,7 +750,7 @@ public class MappedStatement {
     List<ResultMap> resultMapList = Arrays.asList(additionalResultMaps);
     resultMapList = new ArrayList<>(resultMapList);
     resultMapList.add(resultMap);
-    additionalResultMaps = (ResultMap[]) resultMapList.toArray(new ResultMap[resultMapList.size()]);
+    additionalResultMaps = resultMapList.toArray(new ResultMap[resultMapList.size()]);
   }
 
   /**

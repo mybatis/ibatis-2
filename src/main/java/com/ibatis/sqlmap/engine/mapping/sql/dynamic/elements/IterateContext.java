@@ -94,7 +94,7 @@ public class IterateContext implements Iterator {
     if (collection instanceof Collection) {
       this.iterator = ((Collection) collection).iterator();
     } else if (collection instanceof Iterator) {
-      this.iterator = ((Iterator) collection);
+      this.iterator = (Iterator) collection;
     } else if (collection.getClass().isArray()) {
       List list = arrayToList(collection);
       this.iterator = list.iterator();

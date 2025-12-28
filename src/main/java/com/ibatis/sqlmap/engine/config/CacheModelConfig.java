@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,9 +91,10 @@ public class CacheModelConfig {
     t += seconds * 1000L;
     t += minutes * 60L * 1000L;
     t += hours * 60L * 60L * 1000L;
-    if (t < 1L)
+    if (t < 1L) {
       throw new RuntimeException(
           "A flush interval must specify one or more of milliseconds, seconds, minutes or hours.");
+    }
     cacheModel.setFlushInterval(t);
   }
 

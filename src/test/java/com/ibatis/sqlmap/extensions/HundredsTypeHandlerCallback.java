@@ -32,9 +32,8 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
     }
     if (i == 200) {
       return Boolean.valueOf(false);
-    } else {
-      throw new SQLException("Unexpected value " + i + " found where 100 or 200 was expected.");
     }
+    throw new SQLException("Unexpected value " + i + " found where 100 or 200 was expected.");
   }
 
   @Override
@@ -54,9 +53,8 @@ public class HundredsTypeHandlerCallback implements TypeHandlerCallback {
     }
     if ("200".equalsIgnoreCase(s)) {
       return Boolean.valueOf(false);
-    } else {
-      throw new SqlMapException("Unexpected value " + s + " found where 100 or 200 was expected.");
     }
+    throw new SqlMapException("Unexpected value " + s + " found where 100 or 200 was expected.");
   }
 
 }

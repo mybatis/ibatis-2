@@ -59,22 +59,20 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
           log.debug("{conn-" + id + "} Preparing Statement: " + removeBreakingWhitespace((String) params[0]));
         }
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
-        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
-        return stmt;
-      } else if ("prepareCall".equals(method.getName())) {
+        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
+      }
+      if ("prepareCall".equals(method.getName())) {
         if (log.isDebugEnabled()) {
           log.debug("{conn-" + id + "} Preparing Call: " + removeBreakingWhitespace((String) params[0]));
         }
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
-        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
-        return stmt;
-      } else if ("createStatement".equals(method.getName())) {
-        Statement stmt = (Statement) method.invoke(connection, params);
-        stmt = StatementLogProxy.newInstance(stmt);
-        return stmt;
-      } else {
-        return method.invoke(connection, params);
+        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);
       }
+      if ("createStatement".equals(method.getName())) {
+        Statement stmt = (Statement) method.invoke(connection, params);
+        return StatementLogProxy.newInstance(stmt);
+      }
+      return method.invoke(connection, params);
     } catch (Throwable t) {
       Throwable t1 = ClassInfo.unwrapThrowable(t);
       log.error("Error calling Connection." + method.getName() + ':', t1);

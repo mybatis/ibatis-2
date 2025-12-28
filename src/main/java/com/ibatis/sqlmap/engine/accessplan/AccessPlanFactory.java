@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ public class AccessPlanFactory {
     if (clazz == null || propertyNames == null) {
       complex = true;
     } else {
-      for (int i = 0; i < propertyNames.length; i++) {
-        if (propertyNames[i].indexOf('[') > -1 || propertyNames[i].indexOf('.') > -1) {
+      for (String propertyName : propertyNames) {
+        if (propertyName.indexOf('[') > -1 || propertyName.indexOf('.') > -1) {
           complex = true;
           break;
         }

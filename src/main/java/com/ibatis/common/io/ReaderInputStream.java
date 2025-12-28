@@ -108,10 +108,12 @@ public class ReaderInputStream extends InputStream {
    */
   @Override
   public int read() throws IOException {
-    if (index >= length)
+    if (index >= length) {
       fillBuffer();
-    if (index >= length)
+    }
+    if (index >= length) {
       return -1;
+    }
     return 0xff & buffer[index++];
   }
 
@@ -122,8 +124,9 @@ public class ReaderInputStream extends InputStream {
    *           Signals that an I/O exception has occurred.
    */
   protected void fillBuffer() throws IOException {
-    if (length < 0)
+    if (length < 0) {
       return;
+    }
     int numChars = reader.read(chars);
     if (numChars < 0) {
       length = -1;
@@ -142,10 +145,12 @@ public class ReaderInputStream extends InputStream {
    */
   @Override
   public int read(byte[] data, int off, int len) throws IOException {
-    if (index >= length)
+    if (index >= length) {
       fillBuffer();
-    if (index >= length)
+    }
+    if (index >= length) {
       return -1;
+    }
     int amount = Math.min(len, length - index);
     System.arraycopy(buffer, index, data, off, amount);
     index += amount;
@@ -157,7 +162,7 @@ public class ReaderInputStream extends InputStream {
    */
   @Override
   public int available() throws IOException {
-    return (index < length) ? length - index : ((length >= 0) && reader.ready()) ? 1 : 0;
+    return index < length ? length - index : length >= 0 && reader.ready() ? 1 : 0;
   }
 
   /**

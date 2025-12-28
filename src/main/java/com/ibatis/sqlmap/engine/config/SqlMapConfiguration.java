@@ -434,9 +434,8 @@ public class SqlMapConfiguration {
     } else if (java.util.Map.class.isAssignableFrom(clazz)) {
       // Map
       if (javaType == null) {
-        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+        handler = typeHandlerFactory.getUnkownTypeHandler();
+        // BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);
       } else {
         handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);
       }
@@ -499,12 +498,11 @@ public class SqlMapConfiguration {
       while (statementNames.hasNext()) {
         String statementName = (String) statementNames.next();
         MappedStatement statement = client.getDelegate().getMappedStatement(statementName);
-        if (statement != null) {
-          statement.addExecuteListener(cacheModel);
-        } else {
+        if (statement == null) {
           throw new RuntimeException("Could not find statement named '" + statementName
               + "' for use as a flush trigger for the cache model named '" + cacheName + "'.");
         }
+        statement.addExecuteListener(cacheModel);
       }
     }
   }

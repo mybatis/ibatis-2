@@ -65,57 +65,52 @@ public class IterateTagHandler extends BaseTagHandler {
 
     if (iterate.hasNext()) {
       return INCLUDE_BODY;
-    } else {
-      return SKIP_BODY;
     }
+    return SKIP_BODY;
   }
 
   @Override
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
     IterateContext iterate = (IterateContext) ctx.getAttribute(tag);
 
-    if (iterate.hasNext() || iterate.isFinal()) {
-
-      if (iterate.isAllowNext()) {
-        iterate.next();
-      }
-
-      if (!bodyContent.toString().trim().isEmpty()) {
-        // the sub element produced a result. If it is the first one
-        // to produce a result, then we need to add the open
-        // text. If it is not the first to produce a result then
-        // we need to add the conjunction text
-        if (iterate.someSubElementsHaveContent()) {
-          if (tag.isConjunctionAvailable()) {
-            bodyContent.insert(0, tag.getConjunctionAttr());
-          }
-        } else {
-          // we need to specify that this is the first content
-          // producing element so that the doPrepend method will
-          // add the prepend
-          iterate.setPrependEnabled(true);
-
-          if (tag.isOpenAvailable()) {
-            bodyContent.insert(0, tag.getOpenAttr());
-          }
-        }
-        iterate.setSomeSubElementsHaveContent(true);
-      }
-
-      if (iterate.isLast() && iterate.someSubElementsHaveContent() && tag.isCloseAvailable()) {
-        bodyContent.append(tag.getCloseAttr());
-      }
-
-      iterate.setAllowNext(true);
-      if (iterate.isFinal()) {
-        return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
-      } else {
-        return REPEAT_BODY;
-      }
-
-    } else {
+    if (!iterate.hasNext() && !iterate.isFinal()) {
       return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
     }
+    if (iterate.isAllowNext()) {
+      iterate.next();
+    }
+
+    if (!bodyContent.toString().trim().isEmpty()) {
+      // the sub element produced a result. If it is the first one
+      // to produce a result, then we need to add the open
+      // text. If it is not the first to produce a result then
+      // we need to add the conjunction text
+      if (iterate.someSubElementsHaveContent()) {
+        if (tag.isConjunctionAvailable()) {
+          bodyContent.insert(0, tag.getConjunctionAttr());
+        }
+      } else {
+        // we need to specify that this is the first content
+        // producing element so that the doPrepend method will
+        // add the prepend
+        iterate.setPrependEnabled(true);
+
+        if (tag.isOpenAvailable()) {
+          bodyContent.insert(0, tag.getOpenAttr());
+        }
+      }
+      iterate.setSomeSubElementsHaveContent(true);
+    }
+
+    if (iterate.isLast() && iterate.someSubElementsHaveContent() && tag.isCloseAvailable()) {
+      bodyContent.append(tag.getCloseAttr());
+    }
+
+    iterate.setAllowNext(true);
+    if (iterate.isFinal()) {
+      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);
+    }
+    return REPEAT_BODY;
   }
 
   @Override

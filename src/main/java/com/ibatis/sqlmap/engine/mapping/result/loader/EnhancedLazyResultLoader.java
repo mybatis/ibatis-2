@@ -34,10 +34,10 @@ import net.sf.cglib.proxy.NoOp;
 public class EnhancedLazyResultLoader {
 
   /** The Constant SET_INTERFACES. */
-  private static final Class[] SET_INTERFACES = new Class[] { Set.class };
+  private static final Class[] SET_INTERFACES = { Set.class };
 
   /** The Constant LIST_INTERFACES. */
-  private static final Class[] LIST_INTERFACES = new Class[] { List.class };
+  private static final Class[] LIST_INTERFACES = { List.class };
 
   /** The loader. */
   private Object loader;
@@ -119,17 +119,17 @@ public class EnhancedLazyResultLoader {
     public Object loadResult() throws SQLException {
       if (DomTypeMarker.class.isAssignableFrom(targetType)) {
         return ResultLoader.getResult(client, statementName, parameterObject, targetType);
-      } else if (Collection.class.isAssignableFrom(targetType)) {
+      }
+      if (Collection.class.isAssignableFrom(targetType)) {
         if (Set.class.isAssignableFrom(targetType)) {
           return Enhancer.create(Object.class, SET_INTERFACES, this);
-        } else {
-          return Enhancer.create(Object.class, LIST_INTERFACES, this);
         }
-      } else if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {
-        return ResultLoader.getResult(client, statementName, parameterObject, targetType);
-      } else {
-        return Enhancer.create(targetType, this);
+        return Enhancer.create(Object.class, LIST_INTERFACES, this);
       }
+      if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {
+        return ResultLoader.getResult(client, statementName, parameterObject, targetType);
+      }
+      return Enhancer.create(targetType, this);
     }
 
     @Override

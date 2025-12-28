@@ -58,30 +58,29 @@ public class StatementLogProxy extends BaseLogProxy implements InvocationHandler
           ResultSet rs = (ResultSet) method.invoke(statement, params);
           if (rs != null) {
             return ResultSetLogProxy.newInstance(rs);
-          } else {
-            return null;
           }
-        } else {
-          return method.invoke(statement, params);
+          return null;
         }
-      } else if ("getResultSet".equals(method.getName())) {
+        return method.invoke(statement, params);
+      }
+      if ("getResultSet".equals(method.getName())) {
         ResultSet rs = (ResultSet) method.invoke(statement, params);
         if (rs != null) {
           return ResultSetLogProxy.newInstance(rs);
-        } else {
-          return null;
         }
-      } else if ("equals".equals(method.getName())) {
+        return null;
+      }
+      if ("equals".equals(method.getName())) {
         Object ps = params[0];
         if (ps instanceof Proxy) {
           return Boolean.valueOf(proxy == ps);
         }
         return Boolean.valueOf(false);
-      } else if ("hashCode".equals(method.getName())) {
-        return Integer.valueOf(proxy.hashCode());
-      } else {
-        return method.invoke(statement, params);
       }
+      if ("hashCode".equals(method.getName())) {
+        return Integer.valueOf(proxy.hashCode());
+      }
+      return method.invoke(statement, params);
     } catch (Throwable t) {
       throw ClassInfo.unwrapThrowable(t);
     }

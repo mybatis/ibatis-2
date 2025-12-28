@@ -107,7 +107,7 @@ public class DynamicSql implements Sql, DynamicParent {
 
     ParameterMap map = new ParameterMap(delegate);
     map.setId(statementScope.getStatement().getId() + "-InlineParameterMap");
-    map.setParameterClass((statementScope.getStatement()).getParameterClass());
+    map.setParameterClass(statementScope.getStatement().getParameterClass());
     map.setParameterMappingList(ctx.getParameterMappings());
 
     String dynSql = ctx.getBodyText();
@@ -169,8 +169,8 @@ public class DynamicSql implements Sql, DynamicParent {
 
           ParameterMapping[] mappings = sqlText.getParameterMappings();
           if (mappings != null) {
-            for (int i = 0, n = mappings.length; i < n; i++) {
-              ctx.addParameterMapping(mappings[i]);
+            for (ParameterMapping mapping : mappings) {
+              ctx.addParameterMapping(mapping);
             }
           }
         } else {
@@ -196,8 +196,8 @@ public class DynamicSql implements Sql, DynamicParent {
           ParameterMapping[] mappings = sqlText.getParameterMappings();
           out.print(sqlText.getText());
           if (mappings != null) {
-            for (int i = 0, n = mappings.length; i < n; i++) {
-              ctx.addParameterMapping(mappings[i]);
+            for (ParameterMapping mapping : mappings) {
+              ctx.addParameterMapping(mapping);
             }
           }
         }
@@ -247,13 +247,13 @@ public class DynamicSql implements Sql, DynamicParent {
    */
   protected void iteratePropertyReplace(StringBuilder bodyContent, IterateContext iterate) {
     if (iterate != null) {
-      String[] mappings = new String[] { "#", "$" };
-      for (int i = 0; i < mappings.length; i++) {
+      String[] mappings = { "#", "$" };
+      for (String mapping : mappings) {
         int startIndex = 0;
         int endIndex = -1;
         while (startIndex > -1 && startIndex < bodyContent.length()) {
-          startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
-          endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
+          startIndex = bodyContent.indexOf(mapping, endIndex + 1);
+          endIndex = bodyContent.indexOf(mapping, startIndex + 1);
           if (startIndex > -1 && endIndex > -1) {
             bodyContent.replace(startIndex + 1, endIndex,
                 iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));

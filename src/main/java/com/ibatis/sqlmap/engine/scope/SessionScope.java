@@ -351,13 +351,16 @@ public class SessionScope {
 
   @Override
   public boolean equals(Object parameterObject) {
-    if (this == parameterObject)
+    if (this == parameterObject) {
       return true;
-    if (!(parameterObject instanceof SessionScope))
+    }
+    if (!(parameterObject instanceof SessionScope)) {
       return false;
+    }
     final SessionScope sessionScope = (SessionScope) parameterObject;
-    if (id != sessionScope.id)
+    if (id != sessionScope.id) {
       return false;
+    }
     return true;
   }
 
