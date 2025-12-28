@@ -55,6 +55,5 @@ public class IsPropertyAvailableTagHandler extends ConditionalTagHandler {
       return ((Map) parameterObject).containsKey(property);
     }
     return PROBE.hasReadableProperty(parameterObject, property);
-    }
   }
 }
