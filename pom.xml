@@ -42,7 +42,7 @@
   <scm>
     <connection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/mybatis-2.git</developerConnection>
-    <tag>mybatis2-2.7.1</tag>
+    <tag>HEAD</tag>
     <url>https://github.com/mybatis/mybatis-2/</url>
   </scm>
   <issueManagement>
