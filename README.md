@@ -17,5 +17,5 @@ Users are advised to upgrade to myBatis 3.  Both mybatis (ibatis) 2 and mybatis 
 
 EE Support
 ----------
-* Javax Namespace Support - 2.7.x
-* Jakarta Namespace Support - 2.8.x
+* Javax Namespace Support - 2.7.x and before
+* Jakarta and Javax Namespace Support - 2.8.x and after
