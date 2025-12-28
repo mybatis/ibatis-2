@@ -62,6 +62,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
    * @param properties
    *          the properties
    */
+  @Override
   public void initialize(Map properties) {
     Object map = properties.get("map");
     if (map instanceof ParameterMap) {
@@ -98,6 +99,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
     }
   }
 
+  @Override
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
     if (parameterPlan != null) {
       return parameterPlan.getProperties(parameterObject);
@@ -106,6 +108,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
     }
   }
 
+  @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
     if (resultPlan != null) {
       Object object = resultObject;
@@ -129,6 +132,7 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
   }
 
   // Bug ibatis-12
+  @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
     if (outParamPlan != null) {

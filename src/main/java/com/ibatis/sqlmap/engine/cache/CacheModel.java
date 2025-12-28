@@ -20,7 +20,11 @@ import com.ibatis.common.logging.LogFactory;
 import com.ibatis.sqlmap.engine.mapping.statement.ExecuteListener;
 import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
@@ -239,6 +243,7 @@ public class CacheModel implements ExecuteListener {
    * @param statement
    *          The statement to execute
    */
+  @Override
   public void onExecuteStatement(MappedStatement statement) {
     flush();
   }

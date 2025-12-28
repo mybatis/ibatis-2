@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,12 +38,14 @@ public class ComplexAccessPlan extends BaseAccessPlan {
     super(clazz, propertyNames);
   }
 
+  @Override
   public void setProperties(Object object, Object[] values) {
     for (int i = 0; i < propertyNames.length; i++) {
       PROBE.setObject(object, propertyNames[i], values[i]);
     }
   }
 
+  @Override
   public Object[] getProperties(Object object) {
     Object[] values = new Object[propertyNames.length];
     for (int i = 0; i < propertyNames.length; i++) {

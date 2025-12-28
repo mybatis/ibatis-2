@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,10 +39,12 @@ public class EnhancedPropertyAccessPlan extends BaseAccessPlan {
         getTypes(propertyNames));
   }
 
+  @Override
   public void setProperties(Object object, Object[] values) {
     bulkBean.setPropertyValues(object, values);
   }
 
+  @Override
   public Object[] getProperties(Object object) {
     return bulkBean.getPropertyValues(object);
   }

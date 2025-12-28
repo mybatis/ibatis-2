@@ -63,6 +63,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the update fails
    */
+  @Override
   public int executeUpdate(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -102,6 +103,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the statement fails
    */
+  @Override
   public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     Batch batch = (Batch) statementScope.getSession().getBatch();
@@ -123,6 +125,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if a statement fails
    */
+  @Override
   public int executeBatch(SessionScope sessionScope) throws SQLException {
     int rows = 0;
     Batch batch = (Batch) sessionScope.getBatch();
@@ -150,6 +153,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws BatchException
    *           if the driver throws BatchUpdateException
    */
+  @Override
   public List executeBatchDetailed(SessionScope sessionScope) throws SQLException, BatchException {
     List answer = null;
     Batch batch = (Batch) sessionScope.getBatch();
@@ -184,6 +188,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the query fails
    */
+  @Override
   public void executeQuery(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -242,6 +247,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
+  @Override
   public int executeUpdateProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
       throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -293,6 +299,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @throws SQLException
    *           - if the procedure fails
    */
+  @Override
   public void executeQueryProcedure(StatementScope statementScope, Connection conn, String sql, Object[] parameters,
       int skipResults, int maxResults, RowHandlerCallback callback) throws SQLException {
     ErrorContext errorContext = statementScope.getErrorContext();
@@ -340,6 +347,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     }
   }
 
+  @Override
   public void init(SqlMapConfiguration config, Properties globalProps) {
     // No implementation is required in DefaultSqlExecutor.
   }
@@ -670,6 +678,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
    * @param sessionScope
    *          - the session to clean up
    */
+  @Override
   public void cleanup(SessionScope sessionScope) {
     Batch batch = (Batch) sessionScope.getBatch();
     if (batch != null) {

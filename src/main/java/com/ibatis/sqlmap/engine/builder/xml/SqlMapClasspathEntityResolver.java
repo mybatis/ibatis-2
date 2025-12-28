@@ -62,6 +62,7 @@ public class SqlMapClasspathEntityResolver implements EntityResolver {
    * @throws SAXException
    *           If anything goes wrong
    */
+  @Override
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
 
     if (publicId != null)
