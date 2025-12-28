@@ -318,7 +318,7 @@ public class IterateContext implements Iterator {
     int modificationIndex = 0;
     // Is the iterate property in the tag property at all?
     // Make sure the tag property does not already have a number.
-    if ((propertyIndex > -1) && (input.charAt(propertyIndex + endProperty.length()) == ']')) {
+    if (propertyIndex > -1 && input.charAt(propertyIndex + endProperty.length()) == ']') {
       // Add iteration number to property.
       input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()
           + input.substring(propertyIndex + endProperty.length());
