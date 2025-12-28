@@ -173,14 +173,12 @@ public class ResultMap {
       }
       if (keyBuffer.length() < 1) {
         return null;
-      } else {
-        // seperator value not likely to appear in a database
-        keyBuffer.append(KEY_SEPARATOR);
-        return keyBuffer.toString();
       }
-    } else {
-      return null;
+      // seperator value not likely to appear in a database
+      keyBuffer.append(KEY_SEPARATOR);
+      return keyBuffer.toString();
     }
+    return null;
   }
 
   /**
@@ -877,13 +875,11 @@ public class ResultMap {
         if (nullValue != null)
           value = typeHandler.valueOf(nullValue);
         return value;
-      } else {
-        throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
-            + "' to the column '" + mapping.getColumnName()
-            + "'.  One or both of the types, or the combination of types is not supported.");
       }
-    } else {
-      return value;
+      throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
+          + "' to the column '" + mapping.getColumnName()
+          + "'.  One or both of the types, or the combination of types is not supported.");
     }
+    return value;
   }
 }
