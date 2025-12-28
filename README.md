@@ -3,7 +3,7 @@ Legacy iBATIS (aka MyBatis 2) maintenance repository
 
 [![Java CI](https://github.com/mybatis/ibatis-2/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/ibatis-2/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/mybatis/ibatis-2/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/ibatis-2?branch=master)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis2/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis2)
+[![Maven Central](https://img.shields.io/maven-central/v/org.mybatis/mybatis2)](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis2)
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis/mybatis2.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/mybatis2/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
