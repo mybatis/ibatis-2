@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <a name="ParameterMap" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a> map = <strong class="jxr_keyword">new</strong> <a name="ParameterMap" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a>(delegate);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     map.setId(statementScope.getStatement().getId() + <span class="jxr_string">"-InlineParameterMap"</span>);
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     map.setParameterClass((statementScope.getStatement()).getParameterClass());
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     map.setParameterClass(statementScope.getStatement().getParameterClass());
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     map.setParameterMappingList(ctx.getParameterMappings());
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     String dynSql = ctx.getBodyText();
@@ -177,8 +177,8 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>           <a name="ParameterMapping" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>               ctx.addParameterMapping(mappings[i]);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>             <strong class="jxr_keyword">for</strong> (<a name="ParameterMapping" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a> mapping : mappings) {
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>               ctx.addParameterMapping(mapping);
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             }
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>           }
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         } <strong class="jxr_keyword">else</strong> {
@@ -204,8 +204,8 @@
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>           <a name="ParameterMapping" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a>[] mappings = sqlText.getParameterMappings();
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>           out.print(sqlText.getText());
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>           <strong class="jxr_keyword">if</strong> (mappings != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = mappings.length; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>               ctx.addParameterMapping(mappings[i]);
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">for</strong> (<a name="ParameterMapping" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMapping.html#ParameterMapping">ParameterMapping</a> mapping : mappings) {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>               ctx.addParameterMapping(mapping);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             }
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>           }
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         }
@@ -255,13 +255,13 @@
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> iteratePropertyReplace(StringBuilder bodyContent, <a name="IterateContext" href="../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html#IterateContext">IterateContext</a> iterate) {
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">if</strong> (iterate != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>       String[] mappings = <strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"#"</span>, <span class="jxr_string">"$"</span> };
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; mappings.length; i++) {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>       String[] mappings = { <span class="jxr_string">"#"</span>, <span class="jxr_string">"$"</span> };
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>       <strong class="jxr_keyword">for</strong> (String mapping : mappings) {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">int</strong> startIndex = 0;
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">int</strong> endIndex = -1;
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>         <strong class="jxr_keyword">while</strong> (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>           startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>           endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>           startIndex = bodyContent.indexOf(mapping, endIndex + 1);
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>           endIndex = bodyContent.indexOf(mapping, startIndex + 1);
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>           <strong class="jxr_keyword">if</strong> (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>             bodyContent.replace(startIndex + 1, endIndex,
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>                 iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));

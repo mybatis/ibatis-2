@@ -148,7 +148,7 @@ import java.util.Date;
 <span class="fc bfc" id="L148" title="All 4 branches covered.">      if (value2 instanceof String &amp;&amp; type != String.class) {</span>
 <span class="fc" id="L149">        value1 = value1.toString();</span>
       }
-<span class="pc bpc" id="L151" title="2 of 4 branches missed.">      if (!(value1 instanceof Comparable &amp;&amp; value2 instanceof Comparable)) {</span>
+<span class="pc bpc" id="L151" title="2 of 4 branches missed.">      if (!(value1 instanceof Comparable) || !(value2 instanceof Comparable)) {</span>
 <span class="nc" id="L152">        value1 = value1.toString();</span>
 <span class="nc" id="L153">        value2 = value2.toString();</span>
       }

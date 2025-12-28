@@ -72,9 +72,8 @@ public class XMLSqlSource implements SqlSource {
 <span class="fc" id="L72">    String sqlStatement = sqlBuffer.toString();</span>
 <span class="fc bfc" id="L73" title="All 2 branches covered.">    if (isDynamic) {</span>
 <span class="fc" id="L74">      return dynamic;</span>
-    } else {
-<span class="fc" id="L76">      return new RawSql(sqlStatement);</span>
     }
+<span class="fc" id="L76">    return new RawSql(sqlStatement);</span>
   }
 
   /**
@@ -95,91 +94,89 @@ public class XMLSqlSource implements SqlSource {
    */
   private boolean parseDynamicTags(Node node, DynamicParent dynamic, StringBuilder sqlBuffer, boolean isDynamic,
       boolean postParseRequired) {
-<span class="fc" id="L98">    state.getConfig().getErrorContext().setActivity(&quot;parsing dynamic SQL tags&quot;);</span>
+<span class="fc" id="L97">    state.getConfig().getErrorContext().setActivity(&quot;parsing dynamic SQL tags&quot;);</span>
 
-<span class="fc" id="L100">    NodeList children = node.getChildNodes();</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L102">      Node child = children.item(i);</span>
-<span class="fc" id="L103">      String nodeName = child.getNodeName();</span>
-<span class="fc bfc" id="L104" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
+<span class="fc" id="L99">    NodeList children = node.getChildNodes();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L101">      Node child = children.item(i);</span>
+<span class="fc" id="L102">      String nodeName = child.getNodeName();</span>
+<span class="fc bfc" id="L103" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
 
-<span class="fc" id="L106">        String data = ((CharacterData) child).getData();</span>
-<span class="fc" id="L107">        data = NodeletUtils.parsePropertyTokens(data, state.getGlobalProps());</span>
+<span class="fc" id="L105">        String data = ((CharacterData) child).getData();</span>
+<span class="fc" id="L106">        data = NodeletUtils.parsePropertyTokens(data, state.getGlobalProps());</span>
 
         SqlText sqlText;
 
-<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (postParseRequired) {</span>
-<span class="fc" id="L112">          sqlText = new SqlText();</span>
-<span class="fc" id="L113">          sqlText.setPostParseRequired(postParseRequired);</span>
-<span class="fc" id="L114">          sqlText.setText(data);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (postParseRequired) {</span>
+<span class="fc" id="L111">          sqlText = new SqlText();</span>
+<span class="fc" id="L112">          sqlText.setPostParseRequired(postParseRequired);</span>
+<span class="fc" id="L113">          sqlText.setText(data);</span>
         } else {
-<span class="fc" id="L116">          sqlText = PARAM_PARSER</span>
-<span class="fc" id="L117">              .parseInlineParameterMap(state.getConfig().getClient().getDelegate().getTypeHandlerFactory(), data, null);</span>
-<span class="fc" id="L118">          sqlText.setPostParseRequired(postParseRequired);</span>
+<span class="fc" id="L115">          sqlText = PARAM_PARSER</span>
+<span class="fc" id="L116">              .parseInlineParameterMap(state.getConfig().getClient().getDelegate().getTypeHandlerFactory(), data, null);</span>
+<span class="fc" id="L117">          sqlText.setPostParseRequired(postParseRequired);</span>
         }
 
-<span class="fc" id="L121">        dynamic.addChild(sqlText);</span>
+<span class="fc" id="L120">        dynamic.addChild(sqlText);</span>
 
-<span class="fc" id="L123">        sqlBuffer.append(data);</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">      } else if (&quot;include&quot;.equals(nodeName)) {</span>
-<span class="fc" id="L125">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
-<span class="fc" id="L126">        String refid = (String) attributes.get(&quot;refid&quot;);</span>
-<span class="fc" id="L127">        Node includeNode = (Node) state.getSqlIncludes().get(refid);</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (includeNode == null) {</span>
-<span class="nc" id="L129">          String nsrefid = state.applyNamespace(refid);</span>
-<span class="nc" id="L130">          includeNode = (Node) state.getSqlIncludes().get(nsrefid);</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">          if (includeNode == null) {</span>
-<span class="nc" id="L132">            throw new RuntimeException(&quot;Could not find SQL statement to include with refid '&quot; + refid + &quot;'&quot;);</span>
+<span class="fc" id="L122">        sqlBuffer.append(data);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">      } else if (&quot;include&quot;.equals(nodeName)) {</span>
+<span class="fc" id="L124">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L125">        String refid = (String) attributes.get(&quot;refid&quot;);</span>
+<span class="fc" id="L126">        Node includeNode = (Node) state.getSqlIncludes().get(refid);</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (includeNode == null) {</span>
+<span class="nc" id="L128">          String nsrefid = state.applyNamespace(refid);</span>
+<span class="nc" id="L129">          includeNode = (Node) state.getSqlIncludes().get(nsrefid);</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">          if (includeNode == null) {</span>
+<span class="nc" id="L131">            throw new RuntimeException(&quot;Could not find SQL statement to include with refid '&quot; + refid + &quot;'&quot;);</span>
           }
         }
-<span class="fc" id="L135">        isDynamic = parseDynamicTags(includeNode, dynamic, sqlBuffer, isDynamic, false);</span>
-<span class="fc" id="L136">      } else {</span>
-<span class="fc" id="L137">        state.getConfig().getErrorContext().setMoreInfo(&quot;Check the dynamic tags.&quot;);</span>
+<span class="fc" id="L134">        isDynamic = parseDynamicTags(includeNode, dynamic, sqlBuffer, isDynamic, false);</span>
+<span class="fc" id="L135">      } else {</span>
+<span class="fc" id="L136">        state.getConfig().getErrorContext().setMoreInfo(&quot;Check the dynamic tags.&quot;);</span>
 
-<span class="fc" id="L139">        SqlTagHandler handler = SqlTagHandlerFactory.getSqlTagHandler(nodeName);</span>
-<span class="fc bfc" id="L140" title="All 2 branches covered.">        if (handler != null) {</span>
-<span class="fc" id="L141">          isDynamic = true;</span>
+<span class="fc" id="L138">        SqlTagHandler handler = SqlTagHandlerFactory.getSqlTagHandler(nodeName);</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (handler != null) {</span>
+<span class="fc" id="L140">          isDynamic = true;</span>
 
-<span class="fc" id="L143">          SqlTag tag = new SqlTag();</span>
-<span class="fc" id="L144">          tag.setName(nodeName);</span>
-<span class="fc" id="L145">          tag.setHandler(handler);</span>
+<span class="fc" id="L142">          SqlTag tag = new SqlTag();</span>
+<span class="fc" id="L143">          tag.setName(nodeName);</span>
+<span class="fc" id="L144">          tag.setHandler(handler);</span>
 
-<span class="fc" id="L147">          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L146">          Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
 
-<span class="fc" id="L149">          tag.setPrependAttr(attributes.getProperty(&quot;prepend&quot;));</span>
-<span class="fc" id="L150">          tag.setPropertyAttr(attributes.getProperty(&quot;property&quot;));</span>
-<span class="fc" id="L151">          tag.setRemoveFirstPrepend(attributes.getProperty(&quot;removeFirstPrepend&quot;));</span>
+<span class="fc" id="L148">          tag.setPrependAttr(attributes.getProperty(&quot;prepend&quot;));</span>
+<span class="fc" id="L149">          tag.setPropertyAttr(attributes.getProperty(&quot;property&quot;));</span>
+<span class="fc" id="L150">          tag.setRemoveFirstPrepend(attributes.getProperty(&quot;removeFirstPrepend&quot;));</span>
 
-<span class="fc" id="L153">          tag.setOpenAttr(attributes.getProperty(&quot;open&quot;));</span>
-<span class="fc" id="L154">          tag.setCloseAttr(attributes.getProperty(&quot;close&quot;));</span>
+<span class="fc" id="L152">          tag.setOpenAttr(attributes.getProperty(&quot;open&quot;));</span>
+<span class="fc" id="L153">          tag.setCloseAttr(attributes.getProperty(&quot;close&quot;));</span>
 
-<span class="fc" id="L156">          tag.setComparePropertyAttr(attributes.getProperty(&quot;compareProperty&quot;));</span>
-<span class="fc" id="L157">          tag.setCompareValueAttr(attributes.getProperty(&quot;compareValue&quot;));</span>
-<span class="fc" id="L158">          tag.setConjunctionAttr(attributes.getProperty(&quot;conjunction&quot;));</span>
+<span class="fc" id="L155">          tag.setComparePropertyAttr(attributes.getProperty(&quot;compareProperty&quot;));</span>
+<span class="fc" id="L156">          tag.setCompareValueAttr(attributes.getProperty(&quot;compareValue&quot;));</span>
+<span class="fc" id="L157">          tag.setConjunctionAttr(attributes.getProperty(&quot;conjunction&quot;));</span>
 
           // an iterate ancestor requires a post parse
 
-<span class="fc bfc" id="L162" title="All 2 branches covered.">          if (dynamic instanceof SqlTag) {</span>
-<span class="fc" id="L163">            SqlTag parentSqlTag = (SqlTag) dynamic;</span>
-<span class="fc bfc" id="L164" title="All 4 branches covered.">            if (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof IterateTagHandler) {</span>
-<span class="fc" id="L165">              tag.setPostParseRequired(true);</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">          if (dynamic instanceof SqlTag) {</span>
+<span class="fc" id="L162">            SqlTag parentSqlTag = (SqlTag) dynamic;</span>
+<span class="fc bfc" id="L163" title="All 4 branches covered.">            if (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof IterateTagHandler) {</span>
+<span class="fc" id="L164">              tag.setPostParseRequired(true);</span>
             }
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">          } else if (dynamic instanceof DynamicSql) {</span>
-<span class="fc bfc" id="L168" title="All 2 branches covered.">            if (tag.getHandler() instanceof IterateTagHandler) {</span>
-<span class="fc" id="L169">              tag.setPostParseRequired(true);</span>
-            }
+<span class="pc bpc" id="L166" title="1 of 4 branches missed.">          } else if ((dynamic instanceof DynamicSql) &amp;&amp; (tag.getHandler() instanceof IterateTagHandler)) {</span>
+<span class="fc" id="L167">            tag.setPostParseRequired(true);</span>
           }
 
-<span class="fc" id="L173">          dynamic.addChild(tag);</span>
+<span class="fc" id="L170">          dynamic.addChild(tag);</span>
 
-<span class="pc bpc" id="L175" title="1 of 2 branches missed.">          if (child.hasChildNodes()) {</span>
-<span class="fc" id="L176">            isDynamic = parseDynamicTags(child, tag, sqlBuffer, isDynamic, tag.isPostParseRequired());</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">          if (child.hasChildNodes()) {</span>
+<span class="fc" id="L173">            isDynamic = parseDynamicTags(child, tag, sqlBuffer, isDynamic, tag.isPostParseRequired());</span>
           }
         }
       }
     }
-<span class="fc" id="L181">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
-<span class="fc" id="L182">    return isDynamic;</span>
+<span class="fc" id="L178">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
+<span class="fc" id="L179">    return isDynamic;</span>
   }
 
 }

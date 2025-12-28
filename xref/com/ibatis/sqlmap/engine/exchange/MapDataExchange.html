@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>    @Override
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    <strong class="jxr_keyword">public</strong> Object setData(<a name="StatementScope" href="../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html#StatementScope">StatementScope</a> statementScope, <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap, Object resultObject, Object[] values) {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">if</strong> (!(resultObject == <strong class="jxr_keyword">null</strong> || resultObject instanceof Map)) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">if</strong> (resultObject != <strong class="jxr_keyword">null</strong> &amp;&amp; !(resultObject instanceof Map)) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error.  Object passed into MapDataExchange was not an instance of Map."</span>);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>    @Override
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>    <strong class="jxr_keyword">public</strong> Object setData(<a name="StatementScope" href="../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html#StatementScope">StatementScope</a> statementScope, <a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a> parameterMap, Object parameterObject,
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>        Object[] values) {
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">if</strong> (!(parameterObject == <strong class="jxr_keyword">null</strong> || parameterObject instanceof Map)) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">if</strong> (parameterObject != <strong class="jxr_keyword">null</strong> &amp;&amp; !(parameterObject instanceof Map)) {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error.  Object passed into MapDataExchange was not an instance of Map."</span>);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  

@@ -212,78 +212,76 @@ public class ScriptRunner {
 <span class="fc" id="L212">        String trimmedLine = line.trim();</span>
 <span class="fc bfc" id="L213" title="All 2 branches covered.">        if (trimmedLine.startsWith(&quot;--&quot;)) {</span>
 <span class="fc" id="L214">          println(trimmedLine);</span>
-<span class="pc bpc" id="L215" title="1 of 4 branches missed.">        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith(&quot;//&quot;)) {</span>
+<span class="pc bpc" id="L215" title="2 of 6 branches missed.">        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith(&quot;//&quot;) || trimmedLine.startsWith(&quot;--&quot;)) {</span>
           // Do nothing
-<span class="pc bpc" id="L217" title="2 of 4 branches missed.">        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith(&quot;--&quot;)) {</span>
-          // Do nothing
-<span class="pc bpc" id="L219" title="2 of 6 branches missed.">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter())</span>
-<span class="nc bnc" id="L220" title="All 2 branches missed.">            || fullLineDelimiter &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
-<span class="fc" id="L221">          command.append(line.substring(0, line.lastIndexOf(getDelimiter())));</span>
-<span class="fc" id="L222">          command.append(&quot; &quot;);</span>
-<span class="fc" id="L223">          Statement statement = conn.createStatement();</span>
+<span class="pc bpc" id="L217" title="2 of 6 branches missed.">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter())</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">            || fullLineDelimiter &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
+<span class="fc" id="L219">          command.append(line.substring(0, line.lastIndexOf(getDelimiter())));</span>
+<span class="fc" id="L220">          command.append(&quot; &quot;);</span>
+<span class="fc" id="L221">          Statement statement = conn.createStatement();</span>
 
-<span class="fc" id="L225">          println(command);</span>
+<span class="fc" id="L223">          println(command);</span>
 
-<span class="fc" id="L227">          boolean hasResults = false;</span>
-<span class="pc bpc" id="L228" title="1 of 2 branches missed.">          if (stopOnError) {</span>
-<span class="nc" id="L229">            hasResults = statement.execute(command.toString());</span>
+<span class="fc" id="L225">          boolean hasResults = false;</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">          if (stopOnError) {</span>
+<span class="nc" id="L227">            hasResults = statement.execute(command.toString());</span>
           } else {
             try {
-<span class="fc" id="L232">              statement.execute(command.toString());</span>
-<span class="fc" id="L233">            } catch (SQLException e) {</span>
-<span class="fc" id="L234">              e.fillInStackTrace();</span>
-<span class="fc" id="L235">              printlnError(&quot;Error executing: &quot; + command);</span>
-<span class="fc" id="L236">              printlnError(e);</span>
-<span class="fc" id="L237">            }</span>
+<span class="fc" id="L230">              statement.execute(command.toString());</span>
+<span class="fc" id="L231">            } catch (SQLException e) {</span>
+<span class="fc" id="L232">              e.fillInStackTrace();</span>
+<span class="fc" id="L233">              printlnError(&quot;Error executing: &quot; + command);</span>
+<span class="fc" id="L234">              printlnError(e);</span>
+<span class="fc" id="L235">            }</span>
           }
 
-<span class="pc bpc" id="L240" title="3 of 4 branches missed.">          if (autoCommit &amp;&amp; !conn.getAutoCommit()) {</span>
-<span class="nc" id="L241">            conn.commit();</span>
+<span class="pc bpc" id="L238" title="3 of 4 branches missed.">          if (autoCommit &amp;&amp; !conn.getAutoCommit()) {</span>
+<span class="nc" id="L239">            conn.commit();</span>
           }
 
-<span class="fc" id="L244">          ResultSet rs = statement.getResultSet();</span>
-<span class="pc bpc" id="L245" title="3 of 4 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
-<span class="nc" id="L246">            ResultSetMetaData md = rs.getMetaData();</span>
-<span class="nc" id="L247">            int cols = md.getColumnCount();</span>
-<span class="nc bnc" id="L248" title="All 2 branches missed.">            for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L249">              String name = md.getColumnLabel(i + 1);</span>
-<span class="nc" id="L250">              print(name + &quot;\t&quot;);</span>
+<span class="fc" id="L242">          ResultSet rs = statement.getResultSet();</span>
+<span class="pc bpc" id="L243" title="3 of 4 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
+<span class="nc" id="L244">            ResultSetMetaData md = rs.getMetaData();</span>
+<span class="nc" id="L245">            int cols = md.getColumnCount();</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">            for (int i = 0; i &lt; cols; i++) {</span>
+<span class="nc" id="L247">              String name = md.getColumnLabel(i + 1);</span>
+<span class="nc" id="L248">              print(name + &quot;\t&quot;);</span>
             }
-<span class="nc" id="L252">            println(&quot;&quot;);</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc bnc" id="L254" title="All 2 branches missed.">              for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L255">                String value = rs.getString(i + 1);</span>
-<span class="nc" id="L256">                print(value + &quot;\t&quot;);</span>
+<span class="nc" id="L250">            println(&quot;&quot;);</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">              for (int i = 0; i &lt; cols; i++) {</span>
+<span class="nc" id="L253">                String value = rs.getString(i + 1);</span>
+<span class="nc" id="L254">                print(value + &quot;\t&quot;);</span>
               }
-<span class="nc" id="L258">              println(&quot;&quot;);</span>
+<span class="nc" id="L256">              println(&quot;&quot;);</span>
             }
           }
 
-<span class="fc" id="L262">          command = null;</span>
+<span class="fc" id="L260">          command = null;</span>
           try {
-<span class="fc" id="L264">            statement.close();</span>
-<span class="nc" id="L265">          } catch (Exception e) {</span>
+<span class="fc" id="L262">            statement.close();</span>
+<span class="nc" id="L263">          } catch (Exception e) {</span>
             // Ignore to workaround a bug in Jakarta DBCP
-<span class="fc" id="L267">          }</span>
-<span class="fc" id="L268">          Thread.yield();</span>
-<span class="fc" id="L269">        } else {</span>
-<span class="fc" id="L270">          command.append(line);</span>
-<span class="fc" id="L271">          command.append(&quot; &quot;);</span>
+<span class="fc" id="L265">          }</span>
+<span class="fc" id="L266">          Thread.yield();</span>
+<span class="fc" id="L267">        } else {</span>
+<span class="fc" id="L268">          command.append(line);</span>
+<span class="fc" id="L269">          command.append(&quot; &quot;);</span>
         }
-<span class="fc" id="L273">      }</span>
-<span class="pc bpc" id="L274" title="1 of 2 branches missed.">      if (!autoCommit) {</span>
-<span class="fc" id="L275">        conn.commit();</span>
+<span class="fc" id="L271">      }</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">      if (!autoCommit) {</span>
+<span class="fc" id="L273">        conn.commit();</span>
       }
-<span class="nc" id="L277">    } catch (IOException | SQLException e) {</span>
-<span class="nc" id="L278">      e.fillInStackTrace();</span>
-<span class="nc" id="L279">      printlnError(&quot;Error executing: &quot; + command);</span>
-<span class="nc" id="L280">      printlnError(e);</span>
-<span class="nc" id="L281">      throw e;</span>
+<span class="nc" id="L275">    } catch (IOException | SQLException e) {</span>
+<span class="nc" id="L276">      e.fillInStackTrace();</span>
+<span class="nc" id="L277">      printlnError(&quot;Error executing: &quot; + command);</span>
+<span class="nc" id="L278">      printlnError(e);</span>
+<span class="nc" id="L279">      throw e;</span>
     } finally {
-<span class="fc" id="L283">      conn.rollback();</span>
-<span class="fc" id="L284">      flush();</span>
+<span class="fc" id="L281">      conn.rollback();</span>
+<span class="fc" id="L282">      flush();</span>
     }
-<span class="fc" id="L286">  }</span>
+<span class="fc" id="L284">  }</span>
 
   /**
    * Gets the delimiter.
@@ -291,7 +289,7 @@ public class ScriptRunner {
    * @return the delimiter
    */
   private String getDelimiter() {
-<span class="fc" id="L294">    return delimiter;</span>
+<span class="fc" id="L292">    return delimiter;</span>
   }
 
   /**
@@ -301,10 +299,10 @@ public class ScriptRunner {
    *          the o
    */
   private void print(Object o) {
-<span class="nc bnc" id="L304" title="All 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L305">      System.out.print(o);</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">    if (logWriter != null) {</span>
+<span class="nc" id="L303">      System.out.print(o);</span>
     }
-<span class="nc" id="L307">  }</span>
+<span class="nc" id="L305">  }</span>
 
   /**
    * Println.
@@ -313,10 +311,10 @@ public class ScriptRunner {
    *          the o
    */
   private void println(Object o) {
-<span class="pc bpc" id="L316" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L317">      logWriter.println(o);</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
+<span class="nc" id="L315">      logWriter.println(o);</span>
     }
-<span class="fc" id="L319">  }</span>
+<span class="fc" id="L317">  }</span>
 
   /**
    * Println error.
@@ -325,22 +323,22 @@ public class ScriptRunner {
    *          the o
    */
   private void printlnError(Object o) {
-<span class="pc bpc" id="L328" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L329">      errorLogWriter.println(o);</span>
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
+<span class="nc" id="L327">      errorLogWriter.println(o);</span>
     }
-<span class="fc" id="L331">  }</span>
+<span class="fc" id="L329">  }</span>
 
   /**
    * Flush.
    */
   private void flush() {
-<span class="pc bpc" id="L337" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L338">      logWriter.flush();</span>
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
+<span class="nc" id="L336">      logWriter.flush();</span>
     }
-<span class="pc bpc" id="L340" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L341">      errorLogWriter.flush();</span>
+<span class="pc bpc" id="L338" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
+<span class="nc" id="L339">      errorLogWriter.flush();</span>
     }
-<span class="fc" id="L343">  }</span>
+<span class="fc" id="L341">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

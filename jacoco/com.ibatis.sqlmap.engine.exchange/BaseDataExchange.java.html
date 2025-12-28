@@ -41,9 +41,9 @@ public abstract class BaseDataExchange implements DataExchange {
   public CacheKey getCacheKey(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
 <span class="fc" id="L42">    CacheKey key = new CacheKey();</span>
 <span class="fc" id="L43">    Object[] data = getData(statementScope, parameterMap, parameterObject);</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">    for (int i = 0; i &lt; data.length; i++) {</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">      if (data[i] != null) {</span>
-<span class="fc" id="L46">        key.update(data[i]);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    for (Object element : data) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">      if (element != null) {</span>
+<span class="fc" id="L46">        key.update(element);</span>
       }
     }
 <span class="fc" id="L49">    return key;</span>

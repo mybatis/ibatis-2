@@ -33,22 +33,21 @@ import java.util.Collection;
   public boolean isCondition(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
 <span class="pc bpc" id="L34" title="1 of 2 branches missed.">    if (parameterObject == null) {</span>
 <span class="nc" id="L35">      return true;</span>
-    } else {
-<span class="fc" id="L37">      String prop = getResolvedProperty(ctx, tag);</span>
-      Object value;
-<span class="fc bfc" id="L39" title="All 2 branches covered.">      if (prop != null) {</span>
-<span class="fc" id="L40">        value = PROBE.getObject(parameterObject, prop);</span>
-      } else {
-<span class="fc" id="L42">        value = parameterObject;</span>
-      }
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">      if (value instanceof Collection) {</span>
-<span class="nc" id="L45">        return ((Collection) value).isEmpty();</span>
-<span class="pc bpc" id="L46" title="1 of 4 branches missed.">      } else if (value != null &amp;&amp; value.getClass().isArray()) {</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        return Array.getLength(value) == 0;</span>
-      } else {
-<span class="fc bfc" id="L49" title="All 4 branches covered.">        return value == null || String.valueOf(value).equals(&quot;&quot;);</span>
-      }
     }
+<span class="fc" id="L37">    String prop = getResolvedProperty(ctx, tag);</span>
+    Object value;
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    if (prop != null) {</span>
+<span class="fc" id="L40">      value = PROBE.getObject(parameterObject, prop);</span>
+    } else {
+<span class="fc" id="L42">      value = parameterObject;</span>
+    }
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">    if (value instanceof Collection) {</span>
+<span class="nc" id="L45">      return ((Collection) value).isEmpty();</span>
+    }
+<span class="pc bpc" id="L47" title="1 of 4 branches missed.">    if (value != null &amp;&amp; value.getClass().isArray()) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">      return Array.getLength(value) == 0;</span>
+    }
+<span class="fc bfc" id="L50" title="All 4 branches covered.">    return value == null || String.valueOf(value).equals(&quot;&quot;);</span>
   }
 
 }

@@ -49,9 +49,9 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>    <strong class="jxr_keyword">public</strong> <a name="CacheKey" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheKey.html#CacheKey">CacheKey</a> getCacheKey(<a name="StatementScope" href="../../../../../com/ibatis/sqlmap/engine/scope/StatementScope.html#StatementScope">StatementScope</a> statementScope, <a name="ParameterMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/parameter/ParameterMap.html#ParameterMap">ParameterMap</a> parameterMap, Object parameterObject) {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <a name="CacheKey" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheKey.html#CacheKey">CacheKey</a> key = <strong class="jxr_keyword">new</strong> <a name="CacheKey" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheKey.html#CacheKey">CacheKey</a>();
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      Object[] data = getData(statementScope, parameterMap, parameterObject);
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; data.length; i++) {
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>        <strong class="jxr_keyword">if</strong> (data[i] != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          key.update(data[i]);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">for</strong> (Object element : data) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>        <strong class="jxr_keyword">if</strong> (element != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          key.update(element);
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>        }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      }
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">return</strong> key;

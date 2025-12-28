@@ -94,7 +94,7 @@ public class IterateContext implements Iterator {
 <span class="fc bfc" id="L94" title="All 2 branches covered.">    if (collection instanceof Collection) {</span>
 <span class="fc" id="L95">      this.iterator = ((Collection) collection).iterator();</span>
 <span class="pc bpc" id="L96" title="1 of 2 branches missed.">    } else if (collection instanceof Iterator) {</span>
-<span class="nc" id="L97">      this.iterator = ((Iterator) collection);</span>
+<span class="nc" id="L97">      this.iterator = (Iterator) collection;</span>
 <span class="pc bpc" id="L98" title="1 of 2 branches missed.">    } else if (collection.getClass().isArray()) {</span>
 <span class="fc" id="L99">      List list = arrayToList(collection);</span>
 <span class="fc" id="L100">      this.iterator = list.iterator();</span>

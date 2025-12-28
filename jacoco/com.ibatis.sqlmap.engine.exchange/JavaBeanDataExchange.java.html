@@ -35,7 +35,7 @@ import java.util.Map;
 public class JavaBeanDataExchange extends BaseDataExchange implements DataExchange {
 
   /** The Constant NO_DATA. */
-<span class="fc" id="L38">  private static final Object[] NO_DATA = new Object[0];</span>
+<span class="fc" id="L38">  private static final Object[] NO_DATA = {};</span>
 
   /** The result plan. */
   private AccessPlan resultPlan;
@@ -103,31 +103,30 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
   public Object[] getData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject) {
 <span class="pc bpc" id="L104" title="1 of 2 branches missed.">    if (parameterPlan != null) {</span>
 <span class="fc" id="L105">      return parameterPlan.getProperties(parameterObject);</span>
-    } else {
-<span class="nc" id="L107">      return NO_DATA;</span>
     }
+<span class="nc" id="L107">    return NO_DATA;</span>
   }
 
   @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">    if (resultPlan != null) {</span>
-<span class="fc" id="L114">      Object object = resultObject;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">    if (resultPlan != null) {</span>
+<span class="fc" id="L113">      Object object = resultObject;</span>
 
-<span class="fc" id="L116">      ErrorContext errorContext = statementScope.getErrorContext();</span>
+<span class="fc" id="L115">      ErrorContext errorContext = statementScope.getErrorContext();</span>
 
-<span class="fc bfc" id="L118" title="All 2 branches covered.">      if (object == null) {</span>
-<span class="fc" id="L119">        errorContext.setMoreInfo(&quot;The error occured while instantiating the result object&quot;);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">      if (object == null) {</span>
+<span class="fc" id="L118">        errorContext.setMoreInfo(&quot;The error occured while instantiating the result object&quot;);</span>
         try {
-<span class="fc" id="L121">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
-<span class="nc" id="L122">        } catch (Exception e) {</span>
-<span class="nc" id="L123">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L124">        }</span>
+<span class="fc" id="L120">          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());</span>
+<span class="nc" id="L121">        } catch (Exception e) {</span>
+<span class="nc" id="L122">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate result class.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L123">        }</span>
       }
-<span class="fc" id="L126">      errorContext.setMoreInfo(&quot;The error happened while setting a property on the result object.&quot;);</span>
-<span class="fc" id="L127">      resultPlan.setProperties(object, values);</span>
-<span class="fc" id="L128">      return object;</span>
+<span class="fc" id="L125">      errorContext.setMoreInfo(&quot;The error happened while setting a property on the result object.&quot;);</span>
+<span class="fc" id="L126">      resultPlan.setProperties(object, values);</span>
+<span class="fc" id="L127">      return object;</span>
     } else {
-<span class="nc" id="L130">      return null;</span>
+<span class="nc" id="L129">      return null;</span>
     }
   }
 
@@ -135,20 +134,20 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
   @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
-<span class="nc bnc" id="L138" title="All 2 branches missed.">    if (outParamPlan != null) {</span>
-<span class="nc" id="L139">      Object object = parameterObject;</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">      if (object == null) {</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    if (outParamPlan != null) {</span>
+<span class="nc" id="L138">      Object object = parameterObject;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      if (object == null) {</span>
         try {
-<span class="nc" id="L142">          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());</span>
-<span class="nc" id="L143">        } catch (Exception e) {</span>
-<span class="nc" id="L144">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate parameter class. Cause: &quot; + e, e);</span>
-<span class="nc" id="L145">        }</span>
+<span class="nc" id="L141">          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());</span>
+<span class="nc" id="L142">        } catch (Exception e) {</span>
+<span class="nc" id="L143">          throw new RuntimeException(&quot;JavaBeansDataExchange could not instantiate parameter class. Cause: &quot; + e, e);</span>
+<span class="nc" id="L144">        }</span>
       }
-<span class="nc" id="L147">      values = getOutputParamValues(parameterMap.getParameterMappings(), values);</span>
-<span class="nc" id="L148">      outParamPlan.setProperties(object, values);</span>
-<span class="nc" id="L149">      return object;</span>
+<span class="nc" id="L146">      values = getOutputParamValues(parameterMap.getParameterMappings(), values);</span>
+<span class="nc" id="L147">      outParamPlan.setProperties(object, values);</span>
+<span class="nc" id="L148">      return object;</span>
     } else {
-<span class="nc" id="L151">      return null;</span>
+<span class="nc" id="L150">      return null;</span>
     }
   }
 
@@ -163,13 +162,13 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
    * @return the output param values
    */
   private Object[] getOutputParamValues(ParameterMapping[] mappings, Object[] values) {
-<span class="nc" id="L166">    List outParamValues = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">      if (mappings[i].isOutputAllowed()) {</span>
-<span class="nc" id="L169">        outParamValues.add(values[i]);</span>
+<span class="nc" id="L165">    List outParamValues = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">      if (mappings[i].isOutputAllowed()) {</span>
+<span class="nc" id="L168">        outParamValues.add(values[i]);</span>
       }
     }
-<span class="nc" id="L172">    return outParamValues.toArray();</span>
+<span class="nc" id="L171">    return outParamValues.toArray();</span>
   }
 
 }

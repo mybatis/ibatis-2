@@ -48,25 +48,26 @@ import javax.sql.DataSource;
 
 <span class="nc bnc" id="L49" title="All 2 branches missed.">      if (properties.containsKey(&quot;DataSource&quot;)) {</span>
 <span class="nc" id="L50">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DataSource&quot;));</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBJndiContext&quot;)) { // LEGACY --Backward compatibility</span>
-<span class="nc" id="L52">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBJndiContext&quot;));</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBFullJndiContext&quot;)) { // LEGACY --Backward</span>
-                                                                // compatibility
-<span class="nc" id="L55">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBFullJndiContext&quot;));</span>
-<span class="nc bnc" id="L56" title="All 4 branches missed.">      } else if (properties.containsKey(&quot;DBInitialContext&quot;) &amp;&amp; properties.containsKey(&quot;DBLookup&quot;)) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBJndiContext&quot;)) {</span>
+        // LEGACY --Backward compatibility
+<span class="nc" id="L53">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBJndiContext&quot;));</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">      } else if (properties.containsKey(&quot;DBFullJndiContext&quot;)) {</span>
+        // LEGACY --Backward compatibility
+<span class="nc" id="L56">        dataSource = (DataSource) initCtx.lookup((String) properties.get(&quot;DBFullJndiContext&quot;));</span>
+<span class="nc bnc" id="L57" title="All 4 branches missed.">      } else if (properties.containsKey(&quot;DBInitialContext&quot;) &amp;&amp; properties.containsKey(&quot;DBLookup&quot;)) {</span>
         // LEGACY - Backward compatibility
-<span class="nc" id="L58">        Context ctx = (Context) initCtx.lookup((String) properties.get(&quot;DBInitialContext&quot;));</span>
-<span class="nc" id="L59">        dataSource = (DataSource) ctx.lookup((String) properties.get(&quot;DBLookup&quot;));</span>
+<span class="nc" id="L59">        Context ctx = (Context) initCtx.lookup((String) properties.get(&quot;DBInitialContext&quot;));</span>
+<span class="nc" id="L60">        dataSource = (DataSource) ctx.lookup((String) properties.get(&quot;DBLookup&quot;));</span>
       }
 
-<span class="nc" id="L62">    } catch (NamingException e) {</span>
-<span class="nc" id="L63">      throw new SqlMapException(&quot;There was an error configuring JndiDataSourceTransactionPool. Cause: &quot; + e, e);</span>
-<span class="nc" id="L64">    }</span>
-<span class="nc" id="L65">  }</span>
+<span class="nc" id="L63">    } catch (NamingException e) {</span>
+<span class="nc" id="L64">      throw new SqlMapException(&quot;There was an error configuring JndiDataSourceTransactionPool. Cause: &quot; + e, e);</span>
+<span class="nc" id="L65">    }</span>
+<span class="nc" id="L66">  }</span>
 
   @Override
   public DataSource getDataSource() {
-<span class="nc" id="L69">    return dataSource;</span>
+<span class="nc" id="L70">    return dataSource;</span>
   }
 
   /**
@@ -78,20 +79,20 @@ import javax.sql.DataSource;
    * @return the context properties
    */
   private static Properties getContextProperties(Map allProps) {
-<span class="nc" id="L81">    final String PREFIX = &quot;context.&quot;;</span>
-<span class="nc" id="L82">    Properties contextProperties = null;</span>
-<span class="nc" id="L83">    Iterator keys = allProps.keySet().iterator();</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">    while (keys.hasNext()) {</span>
-<span class="nc" id="L85">      String key = (String) keys.next();</span>
-<span class="nc" id="L86">      String value = (String) allProps.get(key);</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">      if (key.startsWith(PREFIX)) {</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (contextProperties == null) {</span>
-<span class="nc" id="L89">          contextProperties = new Properties();</span>
+<span class="nc" id="L82">    final String PREFIX = &quot;context.&quot;;</span>
+<span class="nc" id="L83">    Properties contextProperties = null;</span>
+<span class="nc" id="L84">    Iterator keys = allProps.keySet().iterator();</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">    while (keys.hasNext()) {</span>
+<span class="nc" id="L86">      String key = (String) keys.next();</span>
+<span class="nc" id="L87">      String value = (String) allProps.get(key);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">      if (key.startsWith(PREFIX)) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (contextProperties == null) {</span>
+<span class="nc" id="L90">          contextProperties = new Properties();</span>
         }
-<span class="nc" id="L91">        contextProperties.put(key.substring(PREFIX.length()), value);</span>
+<span class="nc" id="L92">        contextProperties.put(key.substring(PREFIX.length()), value);</span>
       }
-<span class="nc" id="L93">    }</span>
-<span class="nc" id="L94">    return contextProperties;</span>
+<span class="nc" id="L94">    }</span>
+<span class="nc" id="L95">    return contextProperties;</span>
   }
 
 }

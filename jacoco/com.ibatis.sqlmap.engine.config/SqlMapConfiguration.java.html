@@ -434,30 +434,29 @@ public class SqlMapConfiguration {
 <span class="fc bfc" id="L434" title="All 2 branches covered.">    } else if (java.util.Map.class.isAssignableFrom(clazz)) {</span>
       // Map
 <span class="fc bfc" id="L436" title="All 2 branches covered.">      if (javaType == null) {</span>
-<span class="fc" id="L437">        handler = typeHandlerFactory.getUnkownTypeHandler(); // BUG 1012591 -</span>
-                                                             // typeHandlerFactory.getTypeHandler(java.lang.Object.class,
-                                                             // jdbcType);
+<span class="fc" id="L437">        handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+        // BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);
       } else {
-<span class="fc" id="L441">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
+<span class="fc" id="L440">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
       }
-<span class="fc bfc" id="L443" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz, jdbcType) != null) {</span>
+<span class="fc bfc" id="L442" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz, jdbcType) != null) {</span>
       // Primitive
-<span class="fc" id="L445">      handler = typeHandlerFactory.getTypeHandler(clazz, jdbcType);</span>
+<span class="fc" id="L444">      handler = typeHandlerFactory.getTypeHandler(clazz, jdbcType);</span>
     } else {
       // JavaBean
-<span class="fc bfc" id="L448" title="All 2 branches covered.">      if (javaType == null) {</span>
-<span class="fc bfc" id="L449" title="All 2 branches covered.">        if (useSetterToResolve) {</span>
-<span class="fc" id="L450">          Class type = PROBE.getPropertyTypeForSetter(clazz, propertyName);</span>
-<span class="fc" id="L451">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
-<span class="fc" id="L452">        } else {</span>
-<span class="fc" id="L453">          Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);</span>
-<span class="fc" id="L454">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
-<span class="fc" id="L455">        }</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">      if (javaType == null) {</span>
+<span class="fc bfc" id="L448" title="All 2 branches covered.">        if (useSetterToResolve) {</span>
+<span class="fc" id="L449">          Class type = PROBE.getPropertyTypeForSetter(clazz, propertyName);</span>
+<span class="fc" id="L450">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
+<span class="fc" id="L451">        } else {</span>
+<span class="fc" id="L452">          Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);</span>
+<span class="fc" id="L453">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
+<span class="fc" id="L454">        }</span>
       } else {
-<span class="fc" id="L457">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
+<span class="fc" id="L456">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
       }
     }
-<span class="fc" id="L460">    return handler;</span>
+<span class="fc" id="L459">    return handler;</span>
   }
 
   /**
@@ -465,65 +464,64 @@ public class SqlMapConfiguration {
    */
   private void registerDefaultTypeAliases() {
     // TRANSACTION ALIASES
-<span class="fc" id="L468">    typeHandlerFactory.putTypeAlias(&quot;JDBC&quot;, JdbcTransactionConfig.class.getName());</span>
-<span class="fc" id="L469">    typeHandlerFactory.putTypeAlias(&quot;JTA&quot;, JtaTransactionConfig.class.getName());</span>
-<span class="fc" id="L470">    typeHandlerFactory.putTypeAlias(&quot;EXTERNAL&quot;, ExternalTransactionConfig.class.getName());</span>
+<span class="fc" id="L467">    typeHandlerFactory.putTypeAlias(&quot;JDBC&quot;, JdbcTransactionConfig.class.getName());</span>
+<span class="fc" id="L468">    typeHandlerFactory.putTypeAlias(&quot;JTA&quot;, JtaTransactionConfig.class.getName());</span>
+<span class="fc" id="L469">    typeHandlerFactory.putTypeAlias(&quot;EXTERNAL&quot;, ExternalTransactionConfig.class.getName());</span>
 
     // DATA SOURCE ALIASES
-<span class="fc" id="L473">    typeHandlerFactory.putTypeAlias(&quot;SIMPLE&quot;, SimpleDataSourceFactory.class.getName());</span>
-<span class="fc" id="L474">    typeHandlerFactory.putTypeAlias(&quot;DBCP&quot;, DbcpDataSourceFactory.class.getName());</span>
-<span class="fc" id="L475">    typeHandlerFactory.putTypeAlias(&quot;JNDI&quot;, JndiDataSourceFactory.class.getName());</span>
+<span class="fc" id="L472">    typeHandlerFactory.putTypeAlias(&quot;SIMPLE&quot;, SimpleDataSourceFactory.class.getName());</span>
+<span class="fc" id="L473">    typeHandlerFactory.putTypeAlias(&quot;DBCP&quot;, DbcpDataSourceFactory.class.getName());</span>
+<span class="fc" id="L474">    typeHandlerFactory.putTypeAlias(&quot;JNDI&quot;, JndiDataSourceFactory.class.getName());</span>
 
     // CACHE ALIASES
-<span class="fc" id="L478">    typeHandlerFactory.putTypeAlias(&quot;FIFO&quot;, FifoCacheController.class.getName());</span>
-<span class="fc" id="L479">    typeHandlerFactory.putTypeAlias(&quot;LRU&quot;, LruCacheController.class.getName());</span>
-<span class="fc" id="L480">    typeHandlerFactory.putTypeAlias(&quot;MEMORY&quot;, MemoryCacheController.class.getName());</span>
+<span class="fc" id="L477">    typeHandlerFactory.putTypeAlias(&quot;FIFO&quot;, FifoCacheController.class.getName());</span>
+<span class="fc" id="L478">    typeHandlerFactory.putTypeAlias(&quot;LRU&quot;, LruCacheController.class.getName());</span>
+<span class="fc" id="L479">    typeHandlerFactory.putTypeAlias(&quot;MEMORY&quot;, MemoryCacheController.class.getName());</span>
 
     // TYPE ALIASEs
-<span class="fc" id="L483">    typeHandlerFactory.putTypeAlias(&quot;dom&quot;, DomTypeMarker.class.getName());</span>
-<span class="fc" id="L484">    typeHandlerFactory.putTypeAlias(&quot;domCollection&quot;, DomCollectionTypeMarker.class.getName());</span>
-<span class="fc" id="L485">    typeHandlerFactory.putTypeAlias(&quot;xml&quot;, XmlTypeMarker.class.getName());</span>
-<span class="fc" id="L486">    typeHandlerFactory.putTypeAlias(&quot;xmlCollection&quot;, XmlCollectionTypeMarker.class.getName());</span>
-<span class="fc" id="L487">  }</span>
+<span class="fc" id="L482">    typeHandlerFactory.putTypeAlias(&quot;dom&quot;, DomTypeMarker.class.getName());</span>
+<span class="fc" id="L483">    typeHandlerFactory.putTypeAlias(&quot;domCollection&quot;, DomCollectionTypeMarker.class.getName());</span>
+<span class="fc" id="L484">    typeHandlerFactory.putTypeAlias(&quot;xml&quot;, XmlTypeMarker.class.getName());</span>
+<span class="fc" id="L485">    typeHandlerFactory.putTypeAlias(&quot;xmlCollection&quot;, XmlCollectionTypeMarker.class.getName());</span>
+<span class="fc" id="L486">  }</span>
 
   /**
    * Wire up cache models.
    */
   private void wireUpCacheModels() {
     // Wire Up Cache Models
-<span class="fc" id="L494">    Iterator cacheNames = client.getDelegate().getCacheModelNames();</span>
-<span class="fc bfc" id="L495" title="All 2 branches covered.">    while (cacheNames.hasNext()) {</span>
-<span class="fc" id="L496">      String cacheName = (String) cacheNames.next();</span>
-<span class="fc" id="L497">      CacheModel cacheModel = client.getDelegate().getCacheModel(cacheName);</span>
-<span class="fc" id="L498">      Iterator statementNames = cacheModel.getFlushTriggerStatementNames();</span>
-<span class="fc bfc" id="L499" title="All 2 branches covered.">      while (statementNames.hasNext()) {</span>
-<span class="fc" id="L500">        String statementName = (String) statementNames.next();</span>
-<span class="fc" id="L501">        MappedStatement statement = client.getDelegate().getMappedStatement(statementName);</span>
-<span class="pc bpc" id="L502" title="1 of 2 branches missed.">        if (statement != null) {</span>
-<span class="fc" id="L503">          statement.addExecuteListener(cacheModel);</span>
-        } else {
-<span class="nc" id="L505">          throw new RuntimeException(&quot;Could not find statement named '&quot; + statementName</span>
+<span class="fc" id="L493">    Iterator cacheNames = client.getDelegate().getCacheModelNames();</span>
+<span class="fc bfc" id="L494" title="All 2 branches covered.">    while (cacheNames.hasNext()) {</span>
+<span class="fc" id="L495">      String cacheName = (String) cacheNames.next();</span>
+<span class="fc" id="L496">      CacheModel cacheModel = client.getDelegate().getCacheModel(cacheName);</span>
+<span class="fc" id="L497">      Iterator statementNames = cacheModel.getFlushTriggerStatementNames();</span>
+<span class="fc bfc" id="L498" title="All 2 branches covered.">      while (statementNames.hasNext()) {</span>
+<span class="fc" id="L499">        String statementName = (String) statementNames.next();</span>
+<span class="fc" id="L500">        MappedStatement statement = client.getDelegate().getMappedStatement(statementName);</span>
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">        if (statement == null) {</span>
+<span class="nc" id="L502">          throw new RuntimeException(&quot;Could not find statement named '&quot; + statementName</span>
               + &quot;' for use as a flush trigger for the cache model named '&quot; + cacheName + &quot;'.&quot;);
         }
-<span class="fc" id="L508">      }</span>
-<span class="fc" id="L509">    }</span>
-<span class="fc" id="L510">  }</span>
+<span class="fc" id="L505">        statement.addExecuteListener(cacheModel);</span>
+<span class="fc" id="L506">      }</span>
+<span class="fc" id="L507">    }</span>
+<span class="fc" id="L508">  }</span>
 
   /**
    * Bind result map discriminators.
    */
   private void bindResultMapDiscriminators() {
     // Bind discriminators
-<span class="fc" id="L517">    Iterator names = delegate.getResultMapNames();</span>
-<span class="fc bfc" id="L518" title="All 2 branches covered.">    while (names.hasNext()) {</span>
-<span class="fc" id="L519">      String name = (String) names.next();</span>
-<span class="fc" id="L520">      ResultMap rm = delegate.getResultMap(name);</span>
-<span class="fc" id="L521">      Discriminator disc = rm.getDiscriminator();</span>
-<span class="fc bfc" id="L522" title="All 2 branches covered.">      if (disc != null) {</span>
-<span class="fc" id="L523">        disc.bindSubMaps();</span>
+<span class="fc" id="L515">    Iterator names = delegate.getResultMapNames();</span>
+<span class="fc bfc" id="L516" title="All 2 branches covered.">    while (names.hasNext()) {</span>
+<span class="fc" id="L517">      String name = (String) names.next();</span>
+<span class="fc" id="L518">      ResultMap rm = delegate.getResultMap(name);</span>
+<span class="fc" id="L519">      Discriminator disc = rm.getDiscriminator();</span>
+<span class="fc bfc" id="L520" title="All 2 branches covered.">      if (disc != null) {</span>
+<span class="fc" id="L521">        disc.bindSubMaps();</span>
       }
-<span class="fc" id="L525">    }</span>
-<span class="fc" id="L526">  }</span>
+<span class="fc" id="L523">    }</span>
+<span class="fc" id="L524">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

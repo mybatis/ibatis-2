@@ -59,26 +59,24 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
 <span class="nc" id="L59">          log.debug(&quot;{conn-&quot; + id + &quot;} Preparing Statement: &quot; + removeBreakingWhitespace((String) params[0]));</span>
         }
 <span class="nc" id="L61">        PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);</span>
-<span class="nc" id="L62">        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);</span>
-<span class="nc" id="L63">        return stmt;</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">      } else if (&quot;prepareCall&quot;.equals(method.getName())) {</span>
+<span class="nc" id="L62">        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);</span>
+      }
+<span class="nc bnc" id="L64" title="All 2 branches missed.">      if (&quot;prepareCall&quot;.equals(method.getName())) {</span>
 <span class="nc bnc" id="L65" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
 <span class="nc" id="L66">          log.debug(&quot;{conn-&quot; + id + &quot;} Preparing Call: &quot; + removeBreakingWhitespace((String) params[0]));</span>
         }
 <span class="nc" id="L68">        PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);</span>
-<span class="nc" id="L69">        stmt = PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);</span>
-<span class="nc" id="L70">        return stmt;</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">      } else if (&quot;createStatement&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L72">        Statement stmt = (Statement) method.invoke(connection, params);</span>
-<span class="nc" id="L73">        stmt = StatementLogProxy.newInstance(stmt);</span>
-<span class="nc" id="L74">        return stmt;</span>
-      } else {
-<span class="nc" id="L76">        return method.invoke(connection, params);</span>
+<span class="nc" id="L69">        return PreparedStatementLogProxy.newInstance(stmt, (String) params[0]);</span>
       }
-<span class="nc" id="L78">    } catch (Throwable t) {</span>
-<span class="nc" id="L79">      Throwable t1 = ClassInfo.unwrapThrowable(t);</span>
-<span class="nc" id="L80">      log.error(&quot;Error calling Connection.&quot; + method.getName() + ':', t1);</span>
-<span class="nc" id="L81">      throw t1;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">      if (&quot;createStatement&quot;.equals(method.getName())) {</span>
+<span class="nc" id="L72">        Statement stmt = (Statement) method.invoke(connection, params);</span>
+<span class="nc" id="L73">        return StatementLogProxy.newInstance(stmt);</span>
+      }
+<span class="nc" id="L75">      return method.invoke(connection, params);</span>
+<span class="nc" id="L76">    } catch (Throwable t) {</span>
+<span class="nc" id="L77">      Throwable t1 = ClassInfo.unwrapThrowable(t);</span>
+<span class="nc" id="L78">      log.error(&quot;Error calling Connection.&quot; + method.getName() + ':', t1);</span>
+<span class="nc" id="L79">      throw t1;</span>
     }
 
   }
@@ -92,9 +90,9 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
    * @return - the connection with logging
    */
   public static Connection newInstance(Connection conn) {
-<span class="nc" id="L95">    InvocationHandler handler = new ConnectionLogProxy(conn);</span>
-<span class="nc" id="L96">    ClassLoader cl = Connection.class.getClassLoader();</span>
-<span class="nc" id="L97">    return (Connection) Proxy.newProxyInstance(cl, new Class[] { Connection.class }, handler);</span>
+<span class="nc" id="L93">    InvocationHandler handler = new ConnectionLogProxy(conn);</span>
+<span class="nc" id="L94">    ClassLoader cl = Connection.class.getClassLoader();</span>
+<span class="nc" id="L95">    return (Connection) Proxy.newProxyInstance(cl, new Class[] { Connection.class }, handler);</span>
   }
 
   /**
@@ -103,7 +101,7 @@ public class ConnectionLogProxy extends BaseLogProxy implements InvocationHandle
    * @return the connection
    */
   public Connection getConnection() {
-<span class="nc" id="L106">    return connection;</span>
+<span class="nc" id="L104">    return connection;</span>
   }
 
 }

@@ -125,24 +125,21 @@ public class AutoResultMap extends ResultMap {
         }
 <span class="pc bpc" id="L126" title="1 of 4 branches missed.">        if (type != null || matchedProp != null) {</span>
 <span class="fc" id="L127">          ResultMapping resultMapping = new ResultMapping();</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">          resultMapping.setPropertyName((matchedProp != null ? matchedProp : columnName));</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">          resultMapping.setPropertyName(matchedProp != null ? matchedProp : columnName);</span>
 <span class="fc" id="L129">          resultMapping.setColumnName(columnName);</span>
 <span class="fc" id="L130">          resultMapping.setColumnIndex(i + 1);</span>
-<span class="fc" id="L131">          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type)); // map</span>
-                                                                                                    // SQL
-                                                                                                    // to
-                                                                                                    // JDBC
-                                                                                                    // type
-<span class="fc" id="L136">          resultMappingList.add(resultMapping);</span>
+          // map SQL to JDBC type
+<span class="fc" id="L132">          resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(type));</span>
+<span class="fc" id="L133">          resultMappingList.add(resultMapping);</span>
         }
       }
-<span class="fc" id="L139">      setResultMappingList(resultMappingList);</span>
+<span class="fc" id="L136">      setResultMappingList(resultMappingList);</span>
 
-<span class="nc" id="L141">    } catch (SQLException e) {</span>
-<span class="nc" id="L142">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
-<span class="fc" id="L143">    }</span>
+<span class="nc" id="L138">    } catch (SQLException e) {</span>
+<span class="nc" id="L139">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
+<span class="fc" id="L140">    }</span>
 
-<span class="fc" id="L145">  }</span>
+<span class="fc" id="L142">  }</span>
 
   /**
    * Initialize xml results.
@@ -152,22 +149,22 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeXmlResults(ResultSet rs) {
     try {
-<span class="fc" id="L155">      List resultMappingList = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L156">      ResultSetMetaData rsmd = rs.getMetaData();</span>
-<span class="fc bfc" id="L157" title="All 2 branches covered.">      for (int i = 0, n = rsmd.getColumnCount(); i &lt; n; i++) {</span>
-<span class="fc" id="L158">        String columnName = getColumnIdentifier(rsmd, i + 1);</span>
-<span class="fc" id="L159">        ResultMapping resultMapping = new ResultMapping();</span>
-<span class="fc" id="L160">        resultMapping.setPropertyName(columnName);</span>
-<span class="fc" id="L161">        resultMapping.setColumnName(columnName);</span>
-<span class="fc" id="L162">        resultMapping.setColumnIndex(i + 1);</span>
-<span class="fc" id="L163">        resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(String.class));</span>
-<span class="fc" id="L164">        resultMappingList.add(resultMapping);</span>
+<span class="fc" id="L152">      List resultMappingList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L153">      ResultSetMetaData rsmd = rs.getMetaData();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">      for (int i = 0, n = rsmd.getColumnCount(); i &lt; n; i++) {</span>
+<span class="fc" id="L155">        String columnName = getColumnIdentifier(rsmd, i + 1);</span>
+<span class="fc" id="L156">        ResultMapping resultMapping = new ResultMapping();</span>
+<span class="fc" id="L157">        resultMapping.setPropertyName(columnName);</span>
+<span class="fc" id="L158">        resultMapping.setColumnName(columnName);</span>
+<span class="fc" id="L159">        resultMapping.setColumnIndex(i + 1);</span>
+<span class="fc" id="L160">        resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(String.class));</span>
+<span class="fc" id="L161">        resultMappingList.add(resultMapping);</span>
       }
-<span class="fc" id="L166">      setResultMappingList(resultMappingList);</span>
-<span class="nc" id="L167">    } catch (SQLException e) {</span>
-<span class="nc" id="L168">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
-<span class="fc" id="L169">    }</span>
-<span class="fc" id="L170">  }</span>
+<span class="fc" id="L163">      setResultMappingList(resultMappingList);</span>
+<span class="nc" id="L164">    } catch (SQLException e) {</span>
+<span class="nc" id="L165">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
+<span class="fc" id="L166">    }</span>
+<span class="fc" id="L167">  }</span>
 
   /**
    * Initialize map results.
@@ -177,24 +174,24 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializeMapResults(ResultSet rs) {
     try {
-<span class="fc" id="L180">      List resultMappingList = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L181">      ResultSetMetaData rsmd = rs.getMetaData();</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">      for (int i = 0, n = rsmd.getColumnCount(); i &lt; n; i++) {</span>
-<span class="fc" id="L183">        String columnName = getColumnIdentifier(rsmd, i + 1);</span>
-<span class="fc" id="L184">        ResultMapping resultMapping = new ResultMapping();</span>
-<span class="fc" id="L185">        resultMapping.setPropertyName(columnName);</span>
-<span class="fc" id="L186">        resultMapping.setColumnName(columnName);</span>
-<span class="fc" id="L187">        resultMapping.setColumnIndex(i + 1);</span>
-<span class="fc" id="L188">        resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(Object.class));</span>
-<span class="fc" id="L189">        resultMappingList.add(resultMapping);</span>
+<span class="fc" id="L177">      List resultMappingList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L178">      ResultSetMetaData rsmd = rs.getMetaData();</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">      for (int i = 0, n = rsmd.getColumnCount(); i &lt; n; i++) {</span>
+<span class="fc" id="L180">        String columnName = getColumnIdentifier(rsmd, i + 1);</span>
+<span class="fc" id="L181">        ResultMapping resultMapping = new ResultMapping();</span>
+<span class="fc" id="L182">        resultMapping.setPropertyName(columnName);</span>
+<span class="fc" id="L183">        resultMapping.setColumnName(columnName);</span>
+<span class="fc" id="L184">        resultMapping.setColumnIndex(i + 1);</span>
+<span class="fc" id="L185">        resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(Object.class));</span>
+<span class="fc" id="L186">        resultMappingList.add(resultMapping);</span>
       }
 
-<span class="fc" id="L192">      setResultMappingList(resultMappingList);</span>
+<span class="fc" id="L189">      setResultMappingList(resultMappingList);</span>
 
-<span class="nc" id="L194">    } catch (SQLException e) {</span>
-<span class="nc" id="L195">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
-<span class="fc" id="L196">    }</span>
-<span class="fc" id="L197">  }</span>
+<span class="nc" id="L191">    } catch (SQLException e) {</span>
+<span class="nc" id="L192">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
+<span class="fc" id="L193">    }</span>
+<span class="fc" id="L194">  }</span>
 
   /**
    * Initialize primitive results.
@@ -204,23 +201,23 @@ public class AutoResultMap extends ResultMap {
    */
   private void initializePrimitiveResults(ResultSet rs) {
     try {
-<span class="fc" id="L207">      ResultSetMetaData rsmd = rs.getMetaData();</span>
-<span class="fc" id="L208">      String columnName = getColumnIdentifier(rsmd, 1);</span>
-<span class="fc" id="L209">      ResultMapping resultMapping = new ResultMapping();</span>
-<span class="fc" id="L210">      resultMapping.setPropertyName(columnName);</span>
-<span class="fc" id="L211">      resultMapping.setColumnName(columnName);</span>
-<span class="fc" id="L212">      resultMapping.setColumnIndex(1);</span>
-<span class="fc" id="L213">      resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()));</span>
+<span class="fc" id="L204">      ResultSetMetaData rsmd = rs.getMetaData();</span>
+<span class="fc" id="L205">      String columnName = getColumnIdentifier(rsmd, 1);</span>
+<span class="fc" id="L206">      ResultMapping resultMapping = new ResultMapping();</span>
+<span class="fc" id="L207">      resultMapping.setPropertyName(columnName);</span>
+<span class="fc" id="L208">      resultMapping.setColumnName(columnName);</span>
+<span class="fc" id="L209">      resultMapping.setColumnIndex(1);</span>
+<span class="fc" id="L210">      resultMapping.setTypeHandler(getDelegate().getTypeHandlerFactory().getTypeHandler(getResultClass()));</span>
 
-<span class="fc" id="L215">      List resultMappingList = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L216">      resultMappingList.add(resultMapping);</span>
+<span class="fc" id="L212">      List resultMappingList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L213">      resultMappingList.add(resultMapping);</span>
 
-<span class="fc" id="L218">      setResultMappingList(resultMappingList);</span>
+<span class="fc" id="L215">      setResultMappingList(resultMappingList);</span>
 
-<span class="nc" id="L220">    } catch (SQLException e) {</span>
-<span class="nc" id="L221">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
-<span class="fc" id="L222">    }</span>
-<span class="fc" id="L223">  }</span>
+<span class="nc" id="L217">    } catch (SQLException e) {</span>
+<span class="nc" id="L218">      throw new RuntimeException(&quot;Error automapping columns. Cause: &quot; + e);</span>
+<span class="fc" id="L219">    }</span>
+<span class="fc" id="L220">  }</span>
 
   /**
    * Gets the column identifier.
@@ -236,10 +233,10 @@ public class AutoResultMap extends ResultMap {
    *           the SQL exception
    */
   private String getColumnIdentifier(ResultSetMetaData rsmd, int i) throws SQLException {
-<span class="pc bpc" id="L239" title="1 of 2 branches missed.">    if (delegate.isUseColumnLabel()) {</span>
-<span class="fc" id="L240">      return rsmd.getColumnLabel(i);</span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">    if (delegate.isUseColumnLabel()) {</span>
+<span class="fc" id="L237">      return rsmd.getColumnLabel(i);</span>
     }
-<span class="nc" id="L242">    return rsmd.getColumnName(i);</span>
+<span class="nc" id="L239">    return rsmd.getColumnName(i);</span>
   }
 
 }

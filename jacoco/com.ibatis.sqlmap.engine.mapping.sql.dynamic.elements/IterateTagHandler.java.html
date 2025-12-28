@@ -65,67 +65,62 @@ import com.ibatis.common.beans.ProbeFactory;
 
 <span class="pc bpc" id="L66" title="1 of 2 branches missed.">    if (iterate.hasNext()) {</span>
 <span class="fc" id="L67">      return INCLUDE_BODY;</span>
-    } else {
-<span class="nc" id="L69">      return SKIP_BODY;</span>
     }
+<span class="nc" id="L69">    return SKIP_BODY;</span>
   }
 
   @Override
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
-<span class="fc" id="L75">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
+<span class="fc" id="L74">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
 
-<span class="pc bpc" id="L77" title="1 of 4 branches missed.">    if (iterate.hasNext() || iterate.isFinal()) {</span>
-
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">      if (iterate.isAllowNext()) {</span>
-<span class="nc" id="L80">        iterate.next();</span>
-      }
-
-<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (!bodyContent.toString().trim().isEmpty()) {</span>
-        // the sub element produced a result. If it is the first one
-        // to produce a result, then we need to add the open
-        // text. If it is not the first to produce a result then
-        // we need to add the conjunction text
-<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (iterate.someSubElementsHaveContent()) {</span>
-<span class="fc bfc" id="L89" title="All 2 branches covered.">          if (tag.isConjunctionAvailable()) {</span>
-<span class="fc" id="L90">            bodyContent.insert(0, tag.getConjunctionAttr());</span>
-          }
-        } else {
-          // we need to specify that this is the first content
-          // producing element so that the doPrepend method will
-          // add the prepend
-<span class="fc" id="L96">          iterate.setPrependEnabled(true);</span>
-
-<span class="fc bfc" id="L98" title="All 2 branches covered.">          if (tag.isOpenAvailable()) {</span>
-<span class="fc" id="L99">            bodyContent.insert(0, tag.getOpenAttr());</span>
-          }
-        }
-<span class="fc" id="L102">        iterate.setSomeSubElementsHaveContent(true);</span>
-      }
-
-<span class="fc bfc" id="L105" title="All 6 branches covered.">      if (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent() &amp;&amp; tag.isCloseAvailable()) {</span>
-<span class="fc" id="L106">        bodyContent.append(tag.getCloseAttr());</span>
-      }
-
-<span class="fc" id="L109">      iterate.setAllowNext(true);</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">      if (iterate.isFinal()) {</span>
-<span class="fc" id="L111">        return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
-      } else {
-<span class="fc" id="L113">        return REPEAT_BODY;</span>
-      }
-
-    } else {
-<span class="nc" id="L117">      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
+<span class="pc bpc" id="L76" title="1 of 4 branches missed.">    if (!iterate.hasNext() &amp;&amp; !iterate.isFinal()) {</span>
+<span class="nc" id="L77">      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
     }
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    if (iterate.isAllowNext()) {</span>
+<span class="nc" id="L80">      iterate.next();</span>
+    }
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (!bodyContent.toString().trim().isEmpty()) {</span>
+      // the sub element produced a result. If it is the first one
+      // to produce a result, then we need to add the open
+      // text. If it is not the first to produce a result then
+      // we need to add the conjunction text
+<span class="fc bfc" id="L88" title="All 2 branches covered.">      if (iterate.someSubElementsHaveContent()) {</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (tag.isConjunctionAvailable()) {</span>
+<span class="fc" id="L90">          bodyContent.insert(0, tag.getConjunctionAttr());</span>
+        }
+      } else {
+        // we need to specify that this is the first content
+        // producing element so that the doPrepend method will
+        // add the prepend
+<span class="fc" id="L96">        iterate.setPrependEnabled(true);</span>
+
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (tag.isOpenAvailable()) {</span>
+<span class="fc" id="L99">          bodyContent.insert(0, tag.getOpenAttr());</span>
+        }
+      }
+<span class="fc" id="L102">      iterate.setSomeSubElementsHaveContent(true);</span>
+    }
+
+<span class="fc bfc" id="L105" title="All 6 branches covered.">    if (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent() &amp;&amp; tag.isCloseAvailable()) {</span>
+<span class="fc" id="L106">      bodyContent.append(tag.getCloseAttr());</span>
+    }
+
+<span class="fc" id="L109">    iterate.setAllowNext(true);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">    if (iterate.isFinal()) {</span>
+<span class="fc" id="L111">      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
+    }
+<span class="fc" id="L113">    return REPEAT_BODY;</span>
   }
 
   @Override
   public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
-<span class="fc" id="L123">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">    if (iterate.isPrependEnabled()) {</span>
-<span class="fc" id="L125">      super.doPrepend(ctx, tag, parameterObject, bodyContent);</span>
-<span class="fc" id="L126">      iterate.setPrependEnabled(false); // only do the prepend one time</span>
+<span class="fc" id="L118">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">    if (iterate.isPrependEnabled()) {</span>
+<span class="fc" id="L120">      super.doPrepend(ctx, tag, parameterObject, bodyContent);</span>
+<span class="fc" id="L121">      iterate.setPrependEnabled(false); // only do the prepend one time</span>
     }
-<span class="fc" id="L128">  }</span>
+<span class="fc" id="L123">  }</span>
 
   /**
    * Checks if is post parse required.
@@ -133,7 +128,7 @@ import com.ibatis.common.beans.ProbeFactory;
    * @return true, if is post parse required
    */
   public boolean isPostParseRequired() {
-<span class="nc" id="L136">    return true;</span>
+<span class="nc" id="L131">    return true;</span>
   }
 
 }

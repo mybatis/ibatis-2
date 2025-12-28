@@ -351,19 +351,22 @@ public class SessionScope {
 
   @Override
   public boolean equals(Object parameterObject) {
-<span class="nc bnc" id="L354" title="All 2 branches missed.">    if (this == parameterObject)</span>
+<span class="nc bnc" id="L354" title="All 2 branches missed.">    if (this == parameterObject) {</span>
 <span class="nc" id="L355">      return true;</span>
-<span class="nc bnc" id="L356" title="All 2 branches missed.">    if (!(parameterObject instanceof SessionScope))</span>
-<span class="nc" id="L357">      return false;</span>
-<span class="nc" id="L358">    final SessionScope sessionScope = (SessionScope) parameterObject;</span>
-<span class="nc bnc" id="L359" title="All 2 branches missed.">    if (id != sessionScope.id)</span>
-<span class="nc" id="L360">      return false;</span>
-<span class="nc" id="L361">    return true;</span>
+    }
+<span class="nc bnc" id="L357" title="All 2 branches missed.">    if (!(parameterObject instanceof SessionScope)) {</span>
+<span class="nc" id="L358">      return false;</span>
+    }
+<span class="nc" id="L360">    final SessionScope sessionScope = (SessionScope) parameterObject;</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">    if (id != sessionScope.id) {</span>
+<span class="nc" id="L362">      return false;</span>
+    }
+<span class="nc" id="L364">    return true;</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L366">    return (int) (id ^ (id &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L369">    return (int) (id ^ (id &gt;&gt;&gt; 32));</span>
   }
 
   /**
@@ -372,22 +375,22 @@ public class SessionScope {
    * @return - the new ID
    */
   public synchronized static long getNextId() {
-<span class="fc" id="L375">    return nextId++;</span>
+<span class="fc" id="L378">    return nextId++;</span>
   }
 
   /**
    * Saves the current transaction state.
    */
   public void saveTransactionState() {
-<span class="fc" id="L382">    savedTransactionState = transactionState;</span>
-<span class="fc" id="L383">  }</span>
+<span class="fc" id="L385">    savedTransactionState = transactionState;</span>
+<span class="fc" id="L386">  }</span>
 
   /**
    * Restores the previously saved transaction state.
    */
   public void recallTransactionState() {
-<span class="nc" id="L389">    transactionState = savedTransactionState;</span>
-<span class="nc" id="L390">  }</span>
+<span class="nc" id="L392">    transactionState = savedTransactionState;</span>
+<span class="nc" id="L393">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

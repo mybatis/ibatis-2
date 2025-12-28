@@ -34,10 +34,10 @@ import net.sf.cglib.proxy.NoOp;
 public class EnhancedLazyResultLoader {
 
   /** The Constant SET_INTERFACES. */
-<span class="fc" id="L37">  private static final Class[] SET_INTERFACES = new Class[] { Set.class };</span>
+<span class="fc" id="L37">  private static final Class[] SET_INTERFACES = { Set.class };</span>
 
   /** The Constant LIST_INTERFACES. */
-<span class="fc" id="L40">  private static final Class[] LIST_INTERFACES = new Class[] { List.class };</span>
+<span class="fc" id="L40">  private static final Class[] LIST_INTERFACES = { List.class };</span>
 
   /** The loader. */
   private Object loader;
@@ -119,17 +119,17 @@ public class EnhancedLazyResultLoader {
     public Object loadResult() throws SQLException {
 <span class="pc bpc" id="L120" title="1 of 2 branches missed.">      if (DomTypeMarker.class.isAssignableFrom(targetType)) {</span>
 <span class="nc" id="L121">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
-<span class="pc bpc" id="L122" title="1 of 2 branches missed.">      } else if (Collection.class.isAssignableFrom(targetType)) {</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (Set.class.isAssignableFrom(targetType)) {</span>
-<span class="nc" id="L124">          return Enhancer.create(Object.class, SET_INTERFACES, this);</span>
-        } else {
-<span class="nc" id="L126">          return Enhancer.create(Object.class, LIST_INTERFACES, this);</span>
-        }
-<span class="pc bpc" id="L128" title="2 of 4 branches missed.">      } else if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {</span>
-<span class="nc" id="L129">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
-      } else {
-<span class="fc" id="L131">        return Enhancer.create(targetType, this);</span>
       }
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if (Collection.class.isAssignableFrom(targetType)) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (Set.class.isAssignableFrom(targetType)) {</span>
+<span class="nc" id="L125">          return Enhancer.create(Object.class, SET_INTERFACES, this);</span>
+        }
+<span class="nc" id="L127">        return Enhancer.create(Object.class, LIST_INTERFACES, this);</span>
+      }
+<span class="pc bpc" id="L129" title="2 of 4 branches missed.">      if (targetType.isArray() || ClassInfo.isKnownType(targetType)) {</span>
+<span class="nc" id="L130">        return ResultLoader.getResult(client, statementName, parameterObject, targetType);</span>
+      }
+<span class="fc" id="L132">      return Enhancer.create(targetType, this);</span>
     }
 
     @Override

@@ -121,8 +121,8 @@ public class MappedStatementConfig {
 <span class="fc bfc" id="L121" title="All 2 branches covered.">    if (resultMapName != null) {</span>
 <span class="fc" id="L122">      statement.setResultMap(client.getDelegate().getResultMap(resultMapName));</span>
 <span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if (additionalResultMapNames != null) {</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (int i = 0; i &lt; additionalResultMapNames.length; i++) {</span>
-<span class="fc" id="L125">          statement.addResultMap(client.getDelegate().getResultMap(additionalResultMapNames[i]));</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (String additionalResultMapName : additionalResultMapNames) {</span>
+<span class="fc" id="L125">          statement.addResultMap(client.getDelegate().getResultMap(additionalResultMapName));</span>
         }
       }
     }
@@ -166,34 +166,33 @@ public class MappedStatementConfig {
 <span class="fc" id="L166">      resultMap = buildAutoResultMap(allowRemapping, statement, resultClass, xmlResultName);</span>
 <span class="fc" id="L167">      statement.setResultMap(resultMap);</span>
 <span class="pc bpc" id="L168" title="1 of 2 branches missed.">      if (additionalResultClasses != null) {</span>
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (int i = 0; i &lt; additionalResultClasses.length; i++) {</span>
-<span class="fc" id="L170">          statement</span>
-<span class="fc" id="L171">              .addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClasses[i], xmlResultName));</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (Class additionalResultClass : additionalResultClasses) {</span>
+<span class="fc" id="L170">          statement.addResultMap(buildAutoResultMap(allowRemapping, statement, additionalResultClass, xmlResultName));</span>
         }
       }
 
     }
-<span class="fc" id="L176">    statement.setTimeout(defaultStatementTimeout);</span>
-<span class="pc bpc" id="L177" title="1 of 2 branches missed.">    if (timeout != null) {</span>
+<span class="fc" id="L175">    statement.setTimeout(defaultStatementTimeout);</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">    if (timeout != null) {</span>
       try {
-<span class="nc" id="L179">        statement.setTimeout(timeout);</span>
-<span class="nc" id="L180">      } catch (NumberFormatException e) {</span>
-<span class="nc" id="L181">        throw new SqlMapException(</span>
-<span class="nc" id="L182">            &quot;Specified timeout value for statement &quot; + statement.getId() + &quot; is not a valid integer&quot;);</span>
-<span class="nc" id="L183">      }</span>
+<span class="nc" id="L178">        statement.setTimeout(timeout);</span>
+<span class="nc" id="L179">      } catch (NumberFormatException e) {</span>
+<span class="nc" id="L180">        throw new SqlMapException(</span>
+<span class="nc" id="L181">            &quot;Specified timeout value for statement &quot; + statement.getId() + &quot; is not a valid integer&quot;);</span>
+<span class="nc" id="L182">      }</span>
     }
-<span class="fc" id="L185">    errorContext.setMoreInfo(null);</span>
-<span class="fc" id="L186">    errorContext.setObjectId(null);</span>
-<span class="fc" id="L187">    statement.setSqlMapClient(client);</span>
-<span class="pc bpc" id="L188" title="2 of 6 branches missed.">    if (cacheModelName != null &amp;&amp; !cacheModelName.isEmpty() &amp;&amp; client.getDelegate().isCacheModelsEnabled()) {</span>
-<span class="fc" id="L189">      CacheModel cacheModel = client.getDelegate().getCacheModel(cacheModelName);</span>
-<span class="fc" id="L190">      mappedStatement = new CachingStatement(statement, cacheModel);</span>
-<span class="fc" id="L191">    } else {</span>
-<span class="fc" id="L192">      mappedStatement = statement;</span>
+<span class="fc" id="L184">    errorContext.setMoreInfo(null);</span>
+<span class="fc" id="L185">    errorContext.setObjectId(null);</span>
+<span class="fc" id="L186">    statement.setSqlMapClient(client);</span>
+<span class="pc bpc" id="L187" title="2 of 6 branches missed.">    if (cacheModelName != null &amp;&amp; !cacheModelName.isEmpty() &amp;&amp; client.getDelegate().isCacheModelsEnabled()) {</span>
+<span class="fc" id="L188">      CacheModel cacheModel = client.getDelegate().getCacheModel(cacheModelName);</span>
+<span class="fc" id="L189">      mappedStatement = new CachingStatement(statement, cacheModel);</span>
+<span class="fc" id="L190">    } else {</span>
+<span class="fc" id="L191">      mappedStatement = statement;</span>
     }
-<span class="fc" id="L194">    rootStatement = statement;</span>
-<span class="fc" id="L195">    delegate.addMappedStatement(mappedStatement);</span>
-<span class="fc" id="L196">  }</span>
+<span class="fc" id="L193">    rootStatement = statement;</span>
+<span class="fc" id="L194">    delegate.addMappedStatement(mappedStatement);</span>
+<span class="fc" id="L195">  }</span>
 
   /**
    * Sets the select key statement.
@@ -211,57 +210,57 @@ public class MappedStatementConfig {
    */
   public void setSelectKeyStatement(SqlSource processor, String resultClassName, String keyPropName,
       boolean runAfterSQL, String type) {
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">    if (rootStatement instanceof InsertStatement) {</span>
-<span class="fc" id="L215">      InsertStatement insertStatement = ((InsertStatement) rootStatement);</span>
-<span class="fc" id="L216">      Class parameterClass = insertStatement.getParameterClass();</span>
-<span class="fc" id="L217">      errorContext.setActivity(&quot;parsing a select key&quot;);</span>
-<span class="fc" id="L218">      SelectKeyStatement selectKeyStatement = new SelectKeyStatement();</span>
-<span class="fc" id="L219">      resultClassName = typeHandlerFactory.resolveAlias(resultClassName);</span>
-<span class="fc" id="L220">      Class resultClass = null;</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">    if (rootStatement instanceof InsertStatement) {</span>
+<span class="fc" id="L214">      InsertStatement insertStatement = ((InsertStatement) rootStatement);</span>
+<span class="fc" id="L215">      Class parameterClass = insertStatement.getParameterClass();</span>
+<span class="fc" id="L216">      errorContext.setActivity(&quot;parsing a select key&quot;);</span>
+<span class="fc" id="L217">      SelectKeyStatement selectKeyStatement = new SelectKeyStatement();</span>
+<span class="fc" id="L218">      resultClassName = typeHandlerFactory.resolveAlias(resultClassName);</span>
+<span class="fc" id="L219">      Class resultClass = null;</span>
 
       // get parameter and result maps
-<span class="fc" id="L223">      selectKeyStatement.setSqlMapClient(client);</span>
-<span class="fc" id="L224">      selectKeyStatement.setId(insertStatement.getId() + &quot;-SelectKey&quot;);</span>
-<span class="fc" id="L225">      selectKeyStatement.setResource(errorContext.getResource());</span>
-<span class="fc" id="L226">      selectKeyStatement.setKeyProperty(keyPropName);</span>
-<span class="fc" id="L227">      selectKeyStatement.setRunAfterSQL(runAfterSQL);</span>
+<span class="fc" id="L222">      selectKeyStatement.setSqlMapClient(client);</span>
+<span class="fc" id="L223">      selectKeyStatement.setId(insertStatement.getId() + &quot;-SelectKey&quot;);</span>
+<span class="fc" id="L224">      selectKeyStatement.setResource(errorContext.getResource());</span>
+<span class="fc" id="L225">      selectKeyStatement.setKeyProperty(keyPropName);</span>
+<span class="fc" id="L226">      selectKeyStatement.setRunAfterSQL(runAfterSQL);</span>
       // process the type (pre or post) attribute
-<span class="fc bfc" id="L229" title="All 2 branches covered.">      if (type != null) {</span>
-<span class="fc" id="L230">        selectKeyStatement.setRunAfterSQL(&quot;post&quot;.equals(type));</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">      if (type != null) {</span>
+<span class="fc" id="L229">        selectKeyStatement.setRunAfterSQL(&quot;post&quot;.equals(type));</span>
       }
       try {
-<span class="pc bpc" id="L233" title="1 of 2 branches missed.">        if (resultClassName != null) {</span>
-<span class="fc" id="L234">          errorContext.setMoreInfo(&quot;Check the select key result class.&quot;);</span>
-<span class="fc" id="L235">          resultClass = Resources.classForName(resultClassName);</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">        if (resultClassName != null) {</span>
+<span class="fc" id="L233">          errorContext.setMoreInfo(&quot;Check the select key result class.&quot;);</span>
+<span class="fc" id="L234">          resultClass = Resources.classForName(resultClassName);</span>
         } else {
-<span class="nc bnc" id="L237" title="All 4 branches missed.">          if (keyPropName != null &amp;&amp; parameterClass != null) {</span>
-<span class="nc" id="L238">            resultClass = PROBE.getPropertyTypeForSetter(parameterClass, selectKeyStatement.getKeyProperty());</span>
+<span class="nc bnc" id="L236" title="All 4 branches missed.">          if (keyPropName != null &amp;&amp; parameterClass != null) {</span>
+<span class="nc" id="L237">            resultClass = PROBE.getPropertyTypeForSetter(parameterClass, selectKeyStatement.getKeyProperty());</span>
           }
         }
-<span class="nc" id="L241">      } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L242">        throw new SqlMapException(&quot;Error.  Could not set result class.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L243">      }</span>
-<span class="pc bpc" id="L244" title="1 of 2 branches missed.">      if (resultClass == null) {</span>
-<span class="nc" id="L245">        resultClass = Object.class;</span>
+<span class="nc" id="L240">      } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L241">        throw new SqlMapException(&quot;Error.  Could not set result class.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L242">      }</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">      if (resultClass == null) {</span>
+<span class="nc" id="L244">        resultClass = Object.class;</span>
       }
 
       // process SQL statement, including inline parameter maps
-<span class="fc" id="L249">      errorContext.setMoreInfo(&quot;Check the select key SQL statement.&quot;);</span>
-<span class="fc" id="L250">      Sql sql = processor.getSql();</span>
-<span class="fc" id="L251">      setSqlForStatement(selectKeyStatement, sql);</span>
+<span class="fc" id="L248">      errorContext.setMoreInfo(&quot;Check the select key SQL statement.&quot;);</span>
+<span class="fc" id="L249">      Sql sql = processor.getSql();</span>
+<span class="fc" id="L250">      setSqlForStatement(selectKeyStatement, sql);</span>
       ResultMap resultMap;
-<span class="fc" id="L253">      resultMap = new AutoResultMap(client.getDelegate(), false);</span>
-<span class="fc" id="L254">      resultMap.setId(selectKeyStatement.getId() + &quot;-AutoResultMap&quot;);</span>
-<span class="fc" id="L255">      resultMap.setResultClass(resultClass);</span>
-<span class="fc" id="L256">      resultMap.setResource(selectKeyStatement.getResource());</span>
-<span class="fc" id="L257">      selectKeyStatement.setResultMap(resultMap);</span>
-<span class="fc" id="L258">      errorContext.setMoreInfo(null);</span>
-<span class="fc" id="L259">      insertStatement.setSelectKeyStatement(selectKeyStatement);</span>
-<span class="fc" id="L260">    } else {</span>
-<span class="nc" id="L261">      throw new SqlMapException(&quot;You cant set a select key statement on statement named &quot; + rootStatement.getId()</span>
+<span class="fc" id="L252">      resultMap = new AutoResultMap(client.getDelegate(), false);</span>
+<span class="fc" id="L253">      resultMap.setId(selectKeyStatement.getId() + &quot;-AutoResultMap&quot;);</span>
+<span class="fc" id="L254">      resultMap.setResultClass(resultClass);</span>
+<span class="fc" id="L255">      resultMap.setResource(selectKeyStatement.getResource());</span>
+<span class="fc" id="L256">      selectKeyStatement.setResultMap(resultMap);</span>
+<span class="fc" id="L257">      errorContext.setMoreInfo(null);</span>
+<span class="fc" id="L258">      insertStatement.setSelectKeyStatement(selectKeyStatement);</span>
+<span class="fc" id="L259">    } else {</span>
+<span class="nc" id="L260">      throw new SqlMapException(&quot;You cant set a select key statement on statement named &quot; + rootStatement.getId()</span>
           + &quot; because it is not an InsertStatement.&quot;);
     }
-<span class="fc" id="L264">  }</span>
+<span class="fc" id="L263">  }</span>
 
   /**
    * Sets the sql for statement.
@@ -272,12 +271,12 @@ public class MappedStatementConfig {
    *          the sql
    */
   private void setSqlForStatement(MappedStatement statement, Sql sql) {
-<span class="fc bfc" id="L275" title="All 2 branches covered.">    if (sql instanceof DynamicSql) {</span>
-<span class="fc" id="L276">      statement.setSql(sql);</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">    if (sql instanceof DynamicSql) {</span>
+<span class="fc" id="L275">      statement.setSql(sql);</span>
     } else {
-<span class="fc" id="L278">      applyInlineParameterMap(statement, sql.getSql(null, null));</span>
+<span class="fc" id="L277">      applyInlineParameterMap(statement, sql.getSql(null, null));</span>
     }
-<span class="fc" id="L280">  }</span>
+<span class="fc" id="L279">  }</span>
 
   /**
    * Apply inline parameter map.
@@ -288,32 +287,32 @@ public class MappedStatementConfig {
    *          the sql statement
    */
   private void applyInlineParameterMap(MappedStatement statement, String sqlStatement) {
-<span class="fc" id="L291">    String newSql = sqlStatement;</span>
-<span class="fc" id="L292">    errorContext.setActivity(&quot;building an inline parameter map&quot;);</span>
-<span class="fc" id="L293">    ParameterMap parameterMap = statement.getParameterMap();</span>
-<span class="fc" id="L294">    errorContext.setMoreInfo(&quot;Check the inline parameters.&quot;);</span>
-<span class="fc bfc" id="L295" title="All 2 branches covered.">    if (parameterMap == null) {</span>
+<span class="fc" id="L290">    String newSql = sqlStatement;</span>
+<span class="fc" id="L291">    errorContext.setActivity(&quot;building an inline parameter map&quot;);</span>
+<span class="fc" id="L292">    ParameterMap parameterMap = statement.getParameterMap();</span>
+<span class="fc" id="L293">    errorContext.setMoreInfo(&quot;Check the inline parameters.&quot;);</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">    if (parameterMap == null) {</span>
       ParameterMap map;
-<span class="fc" id="L297">      map = new ParameterMap(client.getDelegate());</span>
-<span class="fc" id="L298">      map.setId(statement.getId() + &quot;-InlineParameterMap&quot;);</span>
-<span class="fc" id="L299">      map.setParameterClass(statement.getParameterClass());</span>
-<span class="fc" id="L300">      map.setResource(statement.getResource());</span>
-<span class="fc" id="L301">      statement.setParameterMap(map);</span>
-<span class="fc" id="L302">      SqlText sqlText = PARAM_PARSER.parseInlineParameterMap(client.getDelegate().getTypeHandlerFactory(), newSql,</span>
-<span class="fc" id="L303">          statement.getParameterClass());</span>
-<span class="fc" id="L304">      newSql = sqlText.getText();</span>
-<span class="fc" id="L305">      List mappingList = Arrays.asList(sqlText.getParameterMappings());</span>
-<span class="fc" id="L306">      map.setParameterMappingList(mappingList);</span>
+<span class="fc" id="L296">      map = new ParameterMap(client.getDelegate());</span>
+<span class="fc" id="L297">      map.setId(statement.getId() + &quot;-InlineParameterMap&quot;);</span>
+<span class="fc" id="L298">      map.setParameterClass(statement.getParameterClass());</span>
+<span class="fc" id="L299">      map.setResource(statement.getResource());</span>
+<span class="fc" id="L300">      statement.setParameterMap(map);</span>
+<span class="fc" id="L301">      SqlText sqlText = PARAM_PARSER.parseInlineParameterMap(client.getDelegate().getTypeHandlerFactory(), newSql,</span>
+<span class="fc" id="L302">          statement.getParameterClass());</span>
+<span class="fc" id="L303">      newSql = sqlText.getText();</span>
+<span class="fc" id="L304">      List mappingList = Arrays.asList(sqlText.getParameterMappings());</span>
+<span class="fc" id="L305">      map.setParameterMappingList(mappingList);</span>
     }
     Sql sql;
-<span class="fc bfc" id="L309" title="All 2 branches covered.">    if (SimpleDynamicSql.isSimpleDynamicSql(newSql)) {</span>
-<span class="fc" id="L310">      sql = new SimpleDynamicSql(client.getDelegate(), newSql);</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">    if (SimpleDynamicSql.isSimpleDynamicSql(newSql)) {</span>
+<span class="fc" id="L309">      sql = new SimpleDynamicSql(client.getDelegate(), newSql);</span>
     } else {
-<span class="fc" id="L312">      sql = new StaticSql(newSql);</span>
+<span class="fc" id="L311">      sql = new StaticSql(newSql);</span>
     }
-<span class="fc" id="L314">    statement.setSql(sql);</span>
+<span class="fc" id="L313">    statement.setSql(sql);</span>
 
-<span class="fc" id="L316">  }</span>
+<span class="fc" id="L315">  }</span>
 
   /**
    * Builds the auto result map.
@@ -331,13 +330,12 @@ public class MappedStatementConfig {
    */
   private ResultMap buildAutoResultMap(boolean allowRemapping, MappedStatement statement, Class firstResultClass,
       String xmlResultName) {
-    ResultMap resultMap;
-<span class="fc" id="L335">    resultMap = new AutoResultMap(client.getDelegate(), allowRemapping);</span>
-<span class="fc" id="L336">    resultMap.setId(statement.getId() + &quot;-AutoResultMap&quot;);</span>
-<span class="fc" id="L337">    resultMap.setResultClass(firstResultClass);</span>
-<span class="fc" id="L338">    resultMap.setXmlName(xmlResultName);</span>
-<span class="fc" id="L339">    resultMap.setResource(statement.getResource());</span>
-<span class="fc" id="L340">    return resultMap;</span>
+<span class="fc" id="L333">    ResultMap resultMap = new AutoResultMap(client.getDelegate(), allowRemapping);</span>
+<span class="fc" id="L334">    resultMap.setId(statement.getId() + &quot;-AutoResultMap&quot;);</span>
+<span class="fc" id="L335">    resultMap.setResultClass(firstResultClass);</span>
+<span class="fc" id="L336">    resultMap.setXmlName(xmlResultName);</span>
+<span class="fc" id="L337">    resultMap.setResource(statement.getResource());</span>
+<span class="fc" id="L338">    return resultMap;</span>
   }
 
   /**
@@ -346,7 +344,7 @@ public class MappedStatementConfig {
    * @return the mapped statement
    */
   public MappedStatement getMappedStatement() {
-<span class="nc" id="L349">    return mappedStatement;</span>
+<span class="nc" id="L347">    return mappedStatement;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

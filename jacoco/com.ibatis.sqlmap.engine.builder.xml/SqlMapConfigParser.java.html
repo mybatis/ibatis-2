@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapConfigParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">SqlMapConfigParser.java</span></div><h1>SqlMapConfigParser.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -76,9 +76,10 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(Reader reader, Properties props) {
-<span class="fc bfc" id="L79" title="All 2 branches covered.">    if (props != null)</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">    if (props != null) {</span>
 <span class="fc" id="L80">      state.setGlobalProps(props);</span>
-<span class="fc" id="L81">    return parse(reader);</span>
+    }
+<span class="fc" id="L82">    return parse(reader);</span>
   }
 
   /**
@@ -91,12 +92,12 @@ public class SqlMapConfigParser {
    */
   public SqlMapClient parse(Reader reader) {
     try {
-<span class="fc" id="L94">      usingStreams = false;</span>
+<span class="fc" id="L95">      usingStreams = false;</span>
 
-<span class="fc" id="L96">      parser.parse(reader);</span>
-<span class="fc" id="L97">      return state.getConfig().getClient();</span>
-<span class="nc" id="L98">    } catch (Exception e) {</span>
-<span class="nc" id="L99">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L97">      parser.parse(reader);</span>
+<span class="fc" id="L98">      return state.getConfig().getClient();</span>
+<span class="nc" id="L99">    } catch (Exception e) {</span>
+<span class="nc" id="L100">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
     }
   }
 
@@ -111,9 +112,10 @@ public class SqlMapConfigParser {
    * @return the sql map client
    */
   public SqlMapClient parse(InputStream inputStream, Properties props) {
-<span class="nc bnc" id="L114" title="All 2 branches missed.">    if (props != null)</span>
-<span class="nc" id="L115">      state.setGlobalProps(props);</span>
-<span class="nc" id="L116">    return parse(inputStream);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">    if (props != null) {</span>
+<span class="nc" id="L116">      state.setGlobalProps(props);</span>
+    }
+<span class="nc" id="L118">    return parse(inputStream);</span>
   }
 
   /**
@@ -126,12 +128,12 @@ public class SqlMapConfigParser {
    */
   public SqlMapClient parse(InputStream inputStream) {
     try {
-<span class="fc" id="L129">      usingStreams = true;</span>
+<span class="fc" id="L131">      usingStreams = true;</span>
 
-<span class="fc" id="L131">      parser.parse(inputStream);</span>
-<span class="fc" id="L132">      return state.getConfig().getClient();</span>
-<span class="nc" id="L133">    } catch (Exception e) {</span>
-<span class="nc" id="L134">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L133">      parser.parse(inputStream);</span>
+<span class="fc" id="L134">      return state.getConfig().getClient();</span>
+<span class="nc" id="L135">    } catch (Exception e) {</span>
+<span class="nc" id="L136">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
     }
   }
 
@@ -139,261 +141,261 @@ public class SqlMapConfigParser {
    * Adds the sql map config nodelets.
    */
   private void addSqlMapConfigNodelets() {
-<span class="fc" id="L142">    parser.addNodelet(&quot;/sqlMapConfig/end()&quot;, new Nodelet() {</span>
+<span class="fc" id="L144">    parser.addNodelet(&quot;/sqlMapConfig/end()&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L144">        state.getConfig().finalizeSqlMapConfig();</span>
-<span class="fc" id="L145">      }</span>
+<span class="fc" id="L146">        state.getConfig().finalizeSqlMapConfig();</span>
+<span class="fc" id="L147">      }</span>
     });
-<span class="fc" id="L147">  }</span>
+<span class="fc" id="L149">  }</span>
 
   /**
    * Adds the global prop nodelets.
    */
   private void addGlobalPropNodelets() {
-<span class="fc" id="L153">    parser.addNodelet(&quot;/sqlMapConfig/properties&quot;, new Nodelet() {</span>
+<span class="fc" id="L155">    parser.addNodelet(&quot;/sqlMapConfig/properties&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L155">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L156">        String resource = attributes.getProperty(&quot;resource&quot;);</span>
-<span class="fc" id="L157">        String url = attributes.getProperty(&quot;url&quot;);</span>
-<span class="fc" id="L158">        state.setGlobalProperties(resource, url);</span>
-<span class="fc" id="L159">      }</span>
+<span class="fc" id="L157">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L158">        String resource = attributes.getProperty(&quot;resource&quot;);</span>
+<span class="fc" id="L159">        String url = attributes.getProperty(&quot;url&quot;);</span>
+<span class="fc" id="L160">        state.setGlobalProperties(resource, url);</span>
+<span class="fc" id="L161">      }</span>
     });
-<span class="fc" id="L161">  }</span>
+<span class="fc" id="L163">  }</span>
 
   /**
    * Adds the settings nodelets.
    */
   private void addSettingsNodelets() {
-<span class="fc" id="L167">    parser.addNodelet(&quot;/sqlMapConfig/settings&quot;, new Nodelet() {</span>
+<span class="fc" id="L169">    parser.addNodelet(&quot;/sqlMapConfig/settings&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L169">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L170">        SqlMapConfiguration config = state.getConfig();</span>
+<span class="fc" id="L171">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L172">        SqlMapConfiguration config = state.getConfig();</span>
 
-<span class="fc" id="L172">        String classInfoCacheEnabledAttr = attributes.getProperty(&quot;classInfoCacheEnabled&quot;);</span>
-<span class="pc bpc" id="L173" title="3 of 4 branches missed.">        boolean classInfoCacheEnabled = (classInfoCacheEnabledAttr == null || &quot;true&quot;.equals(classInfoCacheEnabledAttr));</span>
-<span class="fc" id="L174">        config.setClassInfoCacheEnabled(classInfoCacheEnabled);</span>
+<span class="fc" id="L174">        String classInfoCacheEnabledAttr = attributes.getProperty(&quot;classInfoCacheEnabled&quot;);</span>
+<span class="pc bpc" id="L175" title="3 of 4 branches missed.">        boolean classInfoCacheEnabled = (classInfoCacheEnabledAttr == null || &quot;true&quot;.equals(classInfoCacheEnabledAttr));</span>
+<span class="fc" id="L176">        config.setClassInfoCacheEnabled(classInfoCacheEnabled);</span>
 
-<span class="fc" id="L176">        String lazyLoadingEnabledAttr = attributes.getProperty(&quot;lazyLoadingEnabled&quot;);</span>
-<span class="pc bpc" id="L177" title="2 of 4 branches missed.">        boolean lazyLoadingEnabled = (lazyLoadingEnabledAttr == null || &quot;true&quot;.equals(lazyLoadingEnabledAttr));</span>
-<span class="fc" id="L178">        config.setLazyLoadingEnabled(lazyLoadingEnabled);</span>
+<span class="fc" id="L178">        String lazyLoadingEnabledAttr = attributes.getProperty(&quot;lazyLoadingEnabled&quot;);</span>
+<span class="pc bpc" id="L179" title="2 of 4 branches missed.">        boolean lazyLoadingEnabled = (lazyLoadingEnabledAttr == null || &quot;true&quot;.equals(lazyLoadingEnabledAttr));</span>
+<span class="fc" id="L180">        config.setLazyLoadingEnabled(lazyLoadingEnabled);</span>
 
-<span class="fc" id="L180">        String statementCachingEnabledAttr = attributes.getProperty(&quot;statementCachingEnabled&quot;);</span>
-<span class="fc bfc" id="L181" title="All 2 branches covered.">        boolean statementCachingEnabled = (statementCachingEnabledAttr == null</span>
-<span class="pc bpc" id="L182" title="1 of 2 branches missed.">            || &quot;true&quot;.equals(statementCachingEnabledAttr));</span>
-<span class="fc" id="L183">        config.setStatementCachingEnabled(statementCachingEnabled);</span>
+<span class="fc" id="L182">        String statementCachingEnabledAttr = attributes.getProperty(&quot;statementCachingEnabled&quot;);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        boolean statementCachingEnabled = (statementCachingEnabledAttr == null</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">            || &quot;true&quot;.equals(statementCachingEnabledAttr));</span>
+<span class="fc" id="L185">        config.setStatementCachingEnabled(statementCachingEnabled);</span>
 
-<span class="fc" id="L185">        String cacheModelsEnabledAttr = attributes.getProperty(&quot;cacheModelsEnabled&quot;);</span>
-<span class="pc bpc" id="L186" title="2 of 4 branches missed.">        boolean cacheModelsEnabled = (cacheModelsEnabledAttr == null || &quot;true&quot;.equals(cacheModelsEnabledAttr));</span>
-<span class="fc" id="L187">        config.setCacheModelsEnabled(cacheModelsEnabled);</span>
+<span class="fc" id="L187">        String cacheModelsEnabledAttr = attributes.getProperty(&quot;cacheModelsEnabled&quot;);</span>
+<span class="pc bpc" id="L188" title="2 of 4 branches missed.">        boolean cacheModelsEnabled = (cacheModelsEnabledAttr == null || &quot;true&quot;.equals(cacheModelsEnabledAttr));</span>
+<span class="fc" id="L189">        config.setCacheModelsEnabled(cacheModelsEnabled);</span>
 
-<span class="fc" id="L189">        String enhancementEnabledAttr = attributes.getProperty(&quot;enhancementEnabled&quot;);</span>
-<span class="pc bpc" id="L190" title="2 of 4 branches missed.">        boolean enhancementEnabled = (enhancementEnabledAttr == null || &quot;true&quot;.equals(enhancementEnabledAttr));</span>
-<span class="fc" id="L191">        config.setEnhancementEnabled(enhancementEnabled);</span>
+<span class="fc" id="L191">        String enhancementEnabledAttr = attributes.getProperty(&quot;enhancementEnabled&quot;);</span>
+<span class="pc bpc" id="L192" title="2 of 4 branches missed.">        boolean enhancementEnabled = (enhancementEnabledAttr == null || &quot;true&quot;.equals(enhancementEnabledAttr));</span>
+<span class="fc" id="L193">        config.setEnhancementEnabled(enhancementEnabled);</span>
 
-<span class="fc" id="L193">        String useColumnLabelAttr = attributes.getProperty(&quot;useColumnLabel&quot;);</span>
-<span class="pc bpc" id="L194" title="3 of 4 branches missed.">        boolean useColumnLabel = (useColumnLabelAttr == null || &quot;true&quot;.equals(useColumnLabelAttr));</span>
-<span class="fc" id="L195">        config.setUseColumnLabel(useColumnLabel);</span>
+<span class="fc" id="L195">        String useColumnLabelAttr = attributes.getProperty(&quot;useColumnLabel&quot;);</span>
+<span class="pc bpc" id="L196" title="3 of 4 branches missed.">        boolean useColumnLabel = (useColumnLabelAttr == null || &quot;true&quot;.equals(useColumnLabelAttr));</span>
+<span class="fc" id="L197">        config.setUseColumnLabel(useColumnLabel);</span>
 
-<span class="fc" id="L197">        String forceMultipleResultSetSupportAttr = attributes.getProperty(&quot;forceMultipleResultSetSupport&quot;);</span>
-<span class="fc" id="L198">        boolean forceMultipleResultSetSupport = &quot;true&quot;.equals(forceMultipleResultSetSupportAttr);</span>
-<span class="fc" id="L199">        config.setForceMultipleResultSetSupport(forceMultipleResultSetSupport);</span>
+<span class="fc" id="L199">        String forceMultipleResultSetSupportAttr = attributes.getProperty(&quot;forceMultipleResultSetSupport&quot;);</span>
+<span class="fc" id="L200">        boolean forceMultipleResultSetSupport = &quot;true&quot;.equals(forceMultipleResultSetSupportAttr);</span>
+<span class="fc" id="L201">        config.setForceMultipleResultSetSupport(forceMultipleResultSetSupport);</span>
 
-<span class="fc" id="L201">        String defaultTimeoutAttr = attributes.getProperty(&quot;defaultStatementTimeout&quot;);</span>
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        Integer defaultTimeout = defaultTimeoutAttr == null ? null : Integer.valueOf(defaultTimeoutAttr);</span>
-<span class="fc" id="L203">        config.setDefaultStatementTimeout(defaultTimeout);</span>
+<span class="fc" id="L203">        String defaultTimeoutAttr = attributes.getProperty(&quot;defaultStatementTimeout&quot;);</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">        Integer defaultTimeout = defaultTimeoutAttr == null ? null : Integer.valueOf(defaultTimeoutAttr);</span>
+<span class="fc" id="L205">        config.setDefaultStatementTimeout(defaultTimeout);</span>
 
-<span class="fc" id="L205">        String useStatementNamespacesAttr = attributes.getProperty(&quot;useStatementNamespaces&quot;);</span>
-<span class="fc" id="L206">        boolean useStatementNamespaces = &quot;true&quot;.equals(useStatementNamespacesAttr);</span>
-<span class="fc" id="L207">        state.setUseStatementNamespaces(useStatementNamespaces);</span>
-<span class="fc" id="L208">      }</span>
+<span class="fc" id="L207">        String useStatementNamespacesAttr = attributes.getProperty(&quot;useStatementNamespaces&quot;);</span>
+<span class="fc" id="L208">        boolean useStatementNamespaces = &quot;true&quot;.equals(useStatementNamespacesAttr);</span>
+<span class="fc" id="L209">        state.setUseStatementNamespaces(useStatementNamespaces);</span>
+<span class="fc" id="L210">      }</span>
     });
-<span class="fc" id="L210">  }</span>
+<span class="fc" id="L212">  }</span>
 
   /**
    * Adds the type alias nodelets.
    */
   private void addTypeAliasNodelets() {
-<span class="fc" id="L216">    parser.addNodelet(&quot;/sqlMapConfig/typeAlias&quot;, new Nodelet() {</span>
+<span class="fc" id="L218">    parser.addNodelet(&quot;/sqlMapConfig/typeAlias&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L218">        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L219">        String alias = prop.getProperty(&quot;alias&quot;);</span>
-<span class="fc" id="L220">        String type = prop.getProperty(&quot;type&quot;);</span>
-<span class="fc" id="L221">        state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);</span>
-<span class="fc" id="L222">      }</span>
+<span class="fc" id="L220">        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L221">        String alias = prop.getProperty(&quot;alias&quot;);</span>
+<span class="fc" id="L222">        String type = prop.getProperty(&quot;type&quot;);</span>
+<span class="fc" id="L223">        state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);</span>
+<span class="fc" id="L224">      }</span>
     });
-<span class="fc" id="L224">  }</span>
+<span class="fc" id="L226">  }</span>
 
   /**
    * Adds the type handler nodelets.
    */
   private void addTypeHandlerNodelets() {
-<span class="fc" id="L230">    parser.addNodelet(&quot;/sqlMapConfig/typeHandler&quot;, new Nodelet() {</span>
+<span class="fc" id="L232">    parser.addNodelet(&quot;/sqlMapConfig/typeHandler&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L232">        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L233">        String jdbcType = prop.getProperty(&quot;jdbcType&quot;);</span>
-<span class="fc" id="L234">        String javaType = prop.getProperty(&quot;javaType&quot;);</span>
-<span class="fc" id="L235">        String callback = prop.getProperty(&quot;callback&quot;);</span>
+<span class="fc" id="L234">        Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L235">        String jdbcType = prop.getProperty(&quot;jdbcType&quot;);</span>
+<span class="fc" id="L236">        String javaType = prop.getProperty(&quot;javaType&quot;);</span>
+<span class="fc" id="L237">        String callback = prop.getProperty(&quot;callback&quot;);</span>
 
-<span class="fc" id="L237">        javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);</span>
-<span class="fc" id="L238">        callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);</span>
+<span class="fc" id="L239">        javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);</span>
+<span class="fc" id="L240">        callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);</span>
 
-<span class="fc" id="L240">        state.getConfig().newTypeHandler(Resources.classForName(javaType), jdbcType, Resources.instantiate(callback));</span>
-<span class="fc" id="L241">      }</span>
+<span class="fc" id="L242">        state.getConfig().newTypeHandler(Resources.classForName(javaType), jdbcType, Resources.instantiate(callback));</span>
+<span class="fc" id="L243">      }</span>
     });
-<span class="fc" id="L243">  }</span>
+<span class="fc" id="L245">  }</span>
 
   /**
    * Adds the transaction manager nodelets.
    */
   private void addTransactionManagerNodelets() {
-<span class="fc" id="L249">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/property&quot;, new Nodelet() {</span>
+<span class="fc" id="L251">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/property&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="nc" id="L251">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="nc" id="L252">        String name = attributes.getProperty(&quot;name&quot;);</span>
-<span class="nc" id="L253">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
-<span class="nc" id="L254">        state.getTxProps().setProperty(name, value);</span>
-<span class="nc" id="L255">      }</span>
+<span class="nc" id="L253">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="nc" id="L254">        String name = attributes.getProperty(&quot;name&quot;);</span>
+<span class="nc" id="L255">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
+<span class="nc" id="L256">        state.getTxProps().setProperty(name, value);</span>
+<span class="nc" id="L257">      }</span>
     });
-<span class="fc" id="L257">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/end()&quot;, new Nodelet() {</span>
+<span class="fc" id="L259">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/end()&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L259">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L260">        String type = attributes.getProperty(&quot;type&quot;);</span>
-<span class="fc" id="L261">        boolean commitRequired = &quot;true&quot;.equals(attributes.getProperty(&quot;commitRequired&quot;));</span>
+<span class="fc" id="L261">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L262">        String type = attributes.getProperty(&quot;type&quot;);</span>
+<span class="fc" id="L263">        boolean commitRequired = &quot;true&quot;.equals(attributes.getProperty(&quot;commitRequired&quot;));</span>
 
-<span class="fc" id="L263">        state.getConfig().getErrorContext().setActivity(&quot;configuring the transaction manager&quot;);</span>
-<span class="fc" id="L264">        type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);</span>
+<span class="fc" id="L265">        state.getConfig().getErrorContext().setActivity(&quot;configuring the transaction manager&quot;);</span>
+<span class="fc" id="L266">        type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);</span>
         TransactionManager txManager;
         try {
-<span class="fc" id="L267">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the transaction manager type or class.&quot;);</span>
-<span class="fc" id="L268">          TransactionConfig config = (TransactionConfig) Resources.instantiate(type);</span>
-<span class="fc" id="L269">          config.setDataSource(state.getDataSource());</span>
-<span class="fc" id="L270">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the transaction manager properties or configuration.&quot;);</span>
-<span class="fc" id="L271">          config.setProperties(state.getTxProps());</span>
-<span class="fc" id="L272">          config.setForceCommit(commitRequired);</span>
-<span class="fc" id="L273">          config.setDataSource(state.getDataSource());</span>
-<span class="fc" id="L274">          state.getConfig().getErrorContext().setMoreInfo(null);</span>
-<span class="fc" id="L275">          txManager = new TransactionManager(config);</span>
-<span class="nc" id="L276">        } catch (Exception e) {</span>
-<span class="nc bnc" id="L277" title="All 2 branches missed.">          if (e instanceof SqlMapException) {</span>
-<span class="nc" id="L278">            throw (SqlMapException) e;</span>
+<span class="fc" id="L269">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the transaction manager type or class.&quot;);</span>
+<span class="fc" id="L270">          TransactionConfig config = (TransactionConfig) Resources.instantiate(type);</span>
+<span class="fc" id="L271">          config.setDataSource(state.getDataSource());</span>
+<span class="fc" id="L272">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the transaction manager properties or configuration.&quot;);</span>
+<span class="fc" id="L273">          config.setProperties(state.getTxProps());</span>
+<span class="fc" id="L274">          config.setForceCommit(commitRequired);</span>
+<span class="fc" id="L275">          config.setDataSource(state.getDataSource());</span>
+<span class="fc" id="L276">          state.getConfig().getErrorContext().setMoreInfo(null);</span>
+<span class="fc" id="L277">          txManager = new TransactionManager(config);</span>
+<span class="nc" id="L278">        } catch (Exception e) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">          if (e instanceof SqlMapException) {</span>
+<span class="nc" id="L280">            throw (SqlMapException) e;</span>
           } else {
-<span class="nc" id="L280">            throw new SqlMapException(</span>
+<span class="nc" id="L282">            throw new SqlMapException(</span>
                 &quot;Error initializing TransactionManager.  Could not instantiate TransactionConfig.  Cause: &quot; + e, e);
           }
-<span class="fc" id="L283">        }</span>
-<span class="fc" id="L284">        state.getConfig().setTransactionManager(txManager);</span>
-<span class="fc" id="L285">      }</span>
+<span class="fc" id="L285">        }</span>
+<span class="fc" id="L286">        state.getConfig().setTransactionManager(txManager);</span>
+<span class="fc" id="L287">      }</span>
     });
-<span class="fc" id="L287">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/dataSource/property&quot;, new Nodelet() {</span>
+<span class="fc" id="L289">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/dataSource/property&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L289">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L290">        String name = attributes.getProperty(&quot;name&quot;);</span>
-<span class="fc" id="L291">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
-<span class="fc" id="L292">        state.getDsProps().setProperty(name, value);</span>
-<span class="fc" id="L293">      }</span>
+<span class="fc" id="L291">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L292">        String name = attributes.getProperty(&quot;name&quot;);</span>
+<span class="fc" id="L293">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
+<span class="fc" id="L294">        state.getDsProps().setProperty(name, value);</span>
+<span class="fc" id="L295">      }</span>
     });
-<span class="fc" id="L295">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/dataSource/end()&quot;, new Nodelet() {</span>
+<span class="fc" id="L297">    parser.addNodelet(&quot;/sqlMapConfig/transactionManager/dataSource/end()&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L297">        state.getConfig().getErrorContext().setActivity(&quot;configuring the data source&quot;);</span>
+<span class="fc" id="L299">        state.getConfig().getErrorContext().setActivity(&quot;configuring the data source&quot;);</span>
 
-<span class="fc" id="L299">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L301">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
 
-<span class="fc" id="L301">        String type = attributes.getProperty(&quot;type&quot;);</span>
-<span class="fc" id="L302">        Properties props = state.getDsProps();</span>
+<span class="fc" id="L303">        String type = attributes.getProperty(&quot;type&quot;);</span>
+<span class="fc" id="L304">        Properties props = state.getDsProps();</span>
 
-<span class="fc" id="L304">        type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);</span>
+<span class="fc" id="L306">        type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);</span>
         try {
-<span class="fc" id="L306">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the data source type or class.&quot;);</span>
-<span class="fc" id="L307">          DataSourceFactory dsFactory = (DataSourceFactory) Resources.instantiate(type);</span>
-<span class="fc" id="L308">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the data source properties or configuration.&quot;);</span>
-<span class="fc" id="L309">          dsFactory.initialize(props);</span>
-<span class="fc" id="L310">          state.setDataSource(dsFactory.getDataSource());</span>
-<span class="fc" id="L311">          state.getConfig().getErrorContext().setMoreInfo(null);</span>
-<span class="nc" id="L312">        } catch (Exception e) {</span>
-<span class="nc bnc" id="L313" title="All 2 branches missed.">          if (e instanceof SqlMapException) {</span>
-<span class="nc" id="L314">            throw (SqlMapException) e;</span>
+<span class="fc" id="L308">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the data source type or class.&quot;);</span>
+<span class="fc" id="L309">          DataSourceFactory dsFactory = (DataSourceFactory) Resources.instantiate(type);</span>
+<span class="fc" id="L310">          state.getConfig().getErrorContext().setMoreInfo(&quot;Check the data source properties or configuration.&quot;);</span>
+<span class="fc" id="L311">          dsFactory.initialize(props);</span>
+<span class="fc" id="L312">          state.setDataSource(dsFactory.getDataSource());</span>
+<span class="fc" id="L313">          state.getConfig().getErrorContext().setMoreInfo(null);</span>
+<span class="nc" id="L314">        } catch (Exception e) {</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">          if (e instanceof SqlMapException) {</span>
+<span class="nc" id="L316">            throw (SqlMapException) e;</span>
           } else {
-<span class="nc" id="L316">            throw new SqlMapException(</span>
+<span class="nc" id="L318">            throw new SqlMapException(</span>
                 &quot;Error initializing DataSource.  Could not instantiate DataSourceFactory.  Cause: &quot; + e, e);
           }
-<span class="fc" id="L319">        }</span>
-<span class="fc" id="L320">      }</span>
+<span class="fc" id="L321">        }</span>
+<span class="fc" id="L322">      }</span>
     });
-<span class="fc" id="L322">  }</span>
+<span class="fc" id="L324">  }</span>
 
   /**
    * Adds the sql map nodelets.
    */
   protected void addSqlMapNodelets() {
-<span class="fc" id="L328">    parser.addNodelet(&quot;/sqlMapConfig/sqlMap&quot;, new Nodelet() {</span>
+<span class="fc" id="L330">    parser.addNodelet(&quot;/sqlMapConfig/sqlMap&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L330">        state.getConfig().getErrorContext().setActivity(&quot;loading the SQL Map resource&quot;);</span>
+<span class="fc" id="L332">        state.getConfig().getErrorContext().setActivity(&quot;loading the SQL Map resource&quot;);</span>
 
-<span class="fc" id="L332">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L334">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
 
-<span class="fc" id="L334">        String resource = attributes.getProperty(&quot;resource&quot;);</span>
-<span class="fc" id="L335">        String url = attributes.getProperty(&quot;url&quot;);</span>
+<span class="fc" id="L336">        String resource = attributes.getProperty(&quot;resource&quot;);</span>
+<span class="fc" id="L337">        String url = attributes.getProperty(&quot;url&quot;);</span>
 
-<span class="fc bfc" id="L337" title="All 2 branches covered.">        if (usingStreams) {</span>
-<span class="fc" id="L338">          InputStream inputStream = null;</span>
-<span class="pc bpc" id="L339" title="1 of 2 branches missed.">          if (resource != null) {</span>
-<span class="fc" id="L340">            state.getConfig().getErrorContext().setResource(resource);</span>
-<span class="fc" id="L341">            inputStream = Resources.getResourceAsStream(resource);</span>
-<span class="nc bnc" id="L342" title="All 2 branches missed.">          } else if (url != null) {</span>
-<span class="nc" id="L343">            state.getConfig().getErrorContext().setResource(url);</span>
-<span class="nc" id="L344">            inputStream = Resources.getUrlAsStream(url);</span>
+<span class="fc bfc" id="L339" title="All 2 branches covered.">        if (usingStreams) {</span>
+<span class="fc" id="L340">          InputStream inputStream = null;</span>
+<span class="pc bpc" id="L341" title="1 of 2 branches missed.">          if (resource != null) {</span>
+<span class="fc" id="L342">            state.getConfig().getErrorContext().setResource(resource);</span>
+<span class="fc" id="L343">            inputStream = Resources.getResourceAsStream(resource);</span>
+<span class="nc bnc" id="L344" title="All 2 branches missed.">          } else if (url != null) {</span>
+<span class="nc" id="L345">            state.getConfig().getErrorContext().setResource(url);</span>
+<span class="nc" id="L346">            inputStream = Resources.getUrlAsStream(url);</span>
           } else {
-<span class="nc" id="L346">            throw new SqlMapException(&quot;The &lt;sqlMap&gt; element requires either a resource or a url attribute.&quot;);</span>
+<span class="nc" id="L348">            throw new SqlMapException(&quot;The &lt;sqlMap&gt; element requires either a resource or a url attribute.&quot;);</span>
           }
 
-<span class="fc" id="L349">          new SqlMapParser(state).parse(inputStream);</span>
-<span class="fc" id="L350">        } else {</span>
-<span class="fc" id="L351">          Reader reader = null;</span>
-<span class="pc bpc" id="L352" title="1 of 2 branches missed.">          if (resource != null) {</span>
-<span class="fc" id="L353">            state.getConfig().getErrorContext().setResource(resource);</span>
-<span class="fc" id="L354">            reader = Resources.getResourceAsReader(resource);</span>
-<span class="nc bnc" id="L355" title="All 2 branches missed.">          } else if (url != null) {</span>
-<span class="nc" id="L356">            state.getConfig().getErrorContext().setResource(url);</span>
-<span class="nc" id="L357">            reader = Resources.getUrlAsReader(url);</span>
+<span class="fc" id="L351">          new SqlMapParser(state).parse(inputStream);</span>
+<span class="fc" id="L352">        } else {</span>
+<span class="fc" id="L353">          Reader reader = null;</span>
+<span class="pc bpc" id="L354" title="1 of 2 branches missed.">          if (resource != null) {</span>
+<span class="fc" id="L355">            state.getConfig().getErrorContext().setResource(resource);</span>
+<span class="fc" id="L356">            reader = Resources.getResourceAsReader(resource);</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">          } else if (url != null) {</span>
+<span class="nc" id="L358">            state.getConfig().getErrorContext().setResource(url);</span>
+<span class="nc" id="L359">            reader = Resources.getUrlAsReader(url);</span>
           } else {
-<span class="nc" id="L359">            throw new SqlMapException(&quot;The &lt;sqlMap&gt; element requires either a resource or a url attribute.&quot;);</span>
+<span class="nc" id="L361">            throw new SqlMapException(&quot;The &lt;sqlMap&gt; element requires either a resource or a url attribute.&quot;);</span>
           }
 
-<span class="fc" id="L362">          new SqlMapParser(state).parse(reader);</span>
+<span class="fc" id="L364">          new SqlMapParser(state).parse(reader);</span>
         }
-<span class="fc" id="L364">      }</span>
+<span class="fc" id="L366">      }</span>
     });
-<span class="fc" id="L366">  }</span>
+<span class="fc" id="L368">  }</span>
 
   /**
    * Adds the result object factory nodelets.
    */
   private void addResultObjectFactoryNodelets() {
-<span class="fc" id="L372">    parser.addNodelet(&quot;/sqlMapConfig/resultObjectFactory&quot;, new Nodelet() {</span>
+<span class="fc" id="L374">    parser.addNodelet(&quot;/sqlMapConfig/resultObjectFactory&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L374">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L375">        String type = attributes.getProperty(&quot;type&quot;);</span>
+<span class="fc" id="L376">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L377">        String type = attributes.getProperty(&quot;type&quot;);</span>
 
-<span class="fc" id="L377">        state.getConfig().getErrorContext().setActivity(&quot;configuring the Result Object Factory&quot;);</span>
+<span class="fc" id="L379">        state.getConfig().getErrorContext().setActivity(&quot;configuring the Result Object Factory&quot;);</span>
         ResultObjectFactory rof;
         try {
-<span class="fc" id="L380">          rof = (ResultObjectFactory) Resources.instantiate(type);</span>
-<span class="fc" id="L381">          state.getConfig().setResultObjectFactory(rof);</span>
-<span class="nc" id="L382">        } catch (Exception e) {</span>
-<span class="nc" id="L383">          throw new SqlMapException(&quot;Error instantiating resultObjectFactory: &quot; + type, e);</span>
-<span class="fc" id="L384">        }</span>
+<span class="fc" id="L382">          rof = (ResultObjectFactory) Resources.instantiate(type);</span>
+<span class="fc" id="L383">          state.getConfig().setResultObjectFactory(rof);</span>
+<span class="nc" id="L384">        } catch (Exception e) {</span>
+<span class="nc" id="L385">          throw new SqlMapException(&quot;Error instantiating resultObjectFactory: &quot; + type, e);</span>
+<span class="fc" id="L386">        }</span>
 
-<span class="fc" id="L386">      }</span>
+<span class="fc" id="L388">      }</span>
     });
-<span class="fc" id="L388">    parser.addNodelet(&quot;/sqlMapConfig/resultObjectFactory/property&quot;, new Nodelet() {</span>
+<span class="fc" id="L390">    parser.addNodelet(&quot;/sqlMapConfig/resultObjectFactory/property&quot;, new Nodelet() {</span>
       public void process(Node node) throws Exception {
-<span class="fc" id="L390">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
-<span class="fc" id="L391">        String name = attributes.getProperty(&quot;name&quot;);</span>
-<span class="fc" id="L392">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
-<span class="fc" id="L393">        state.getConfig().getDelegate().getResultObjectFactory().setProperty(name, value);</span>
-<span class="fc" id="L394">      }</span>
+<span class="fc" id="L392">        Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());</span>
+<span class="fc" id="L393">        String name = attributes.getProperty(&quot;name&quot;);</span>
+<span class="fc" id="L394">        String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(&quot;value&quot;), state.getGlobalProps());</span>
+<span class="fc" id="L395">        state.getConfig().getDelegate().getResultObjectFactory().setProperty(name, value);</span>
+<span class="fc" id="L396">      }</span>
     });
-<span class="fc" id="L396">  }</span>
+<span class="fc" id="L398">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

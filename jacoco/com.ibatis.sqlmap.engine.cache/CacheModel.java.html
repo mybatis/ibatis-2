@@ -297,7 +297,7 @@ public class CacheModel implements ExecuteListener {
       }
 
 <span class="fc" id="L299">      value = controller.getObject(this, key);</span>
-<span class="pc bpc" id="L300" title="2 of 8 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp; (value != NULL_OBJECT &amp;&amp; value != null)) {</span>
+<span class="pc bpc" id="L300" title="2 of 8 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp; value != NULL_OBJECT &amp;&amp; value != null) {</span>
         try {
 <span class="fc" id="L302">          ByteArrayInputStream bis = new ByteArrayInputStream((byte[]) value);</span>
 <span class="fc" id="L303">          ObjectInputStream ois = new ObjectInputStream(bis);</span>
@@ -332,27 +332,28 @@ public class CacheModel implements ExecuteListener {
    *          The object to be cached
    */
   public void putObject(CacheKey key, Object value) {
-<span class="pc bpc" id="L335" title="1 of 2 branches missed.">    if (null == value)</span>
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">    if (null == value) {</span>
 <span class="nc" id="L336">      value = NULL_OBJECT;</span>
-<span class="fc" id="L337">    synchronized (this) {</span>
-<span class="pc bpc" id="L338" title="2 of 6 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp; value != NULL_OBJECT) {</span>
+    }
+<span class="fc" id="L338">    synchronized (this) {</span>
+<span class="pc bpc" id="L339" title="2 of 6 branches missed.">      if (serialize &amp;&amp; !readOnly &amp;&amp; value != NULL_OBJECT) {</span>
         try {
-<span class="fc" id="L340">          ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
-<span class="fc" id="L341">          ObjectOutputStream oos = new ObjectOutputStream(bos);</span>
-<span class="fc" id="L342">          oos.writeObject(value);</span>
-<span class="fc" id="L343">          oos.flush();</span>
-<span class="fc" id="L344">          oos.close();</span>
-<span class="fc" id="L345">          value = bos.toByteArray();</span>
-<span class="nc" id="L346">        } catch (IOException e) {</span>
-<span class="nc" id="L347">          throw new RuntimeException(&quot;Error caching serializable object.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L348">        }</span>
+<span class="fc" id="L341">          ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="fc" id="L342">          ObjectOutputStream oos = new ObjectOutputStream(bos);</span>
+<span class="fc" id="L343">          oos.writeObject(value);</span>
+<span class="fc" id="L344">          oos.flush();</span>
+<span class="fc" id="L345">          oos.close();</span>
+<span class="fc" id="L346">          value = bos.toByteArray();</span>
+<span class="nc" id="L347">        } catch (IOException e) {</span>
+<span class="nc" id="L348">          throw new RuntimeException(&quot;Error caching serializable object.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L349">        }</span>
       }
-<span class="fc" id="L350">      controller.putObject(this, key, value);</span>
-<span class="pc bpc" id="L351" title="1 of 2 branches missed.">      if (log.isDebugEnabled()) {</span>
-<span class="nc" id="L352">        log(&quot;stored object&quot;, true, value);</span>
+<span class="fc" id="L351">      controller.putObject(this, key, value);</span>
+<span class="pc bpc" id="L352" title="1 of 2 branches missed.">      if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L353">        log(&quot;stored object&quot;, true, value);</span>
       }
-<span class="fc" id="L354">    }</span>
-<span class="fc" id="L355">  }</span>
+<span class="fc" id="L355">    }</span>
+<span class="fc" id="L356">  }</span>
 
   /**
    * Get the maximum size of an object in the log output.
@@ -360,7 +361,7 @@ public class CacheModel implements ExecuteListener {
    * @return Maximum size of a logged object in the output
    */
   protected int getMaxObjectLogSize() {
-<span class="nc" id="L363">    return MAX_OBJECT_LOG_SIZE;</span>
+<span class="nc" id="L364">    return MAX_OBJECT_LOG_SIZE;</span>
   }
 
   /**
@@ -375,23 +376,23 @@ public class CacheModel implements ExecuteListener {
    *          The value being logged
    */
   protected void log(String action, boolean addValue, Object cacheValue) {
-<span class="nc" id="L378">    StringBuilder output = new StringBuilder(&quot;Cache '&quot;);</span>
-<span class="nc" id="L379">    output.append(getId());</span>
-<span class="nc" id="L380">    output.append(&quot;': &quot;);</span>
-<span class="nc" id="L381">    output.append(action);</span>
-<span class="nc bnc" id="L382" title="All 2 branches missed.">    if (addValue) {</span>
-<span class="nc bnc" id="L383" title="All 2 branches missed.">      String cacheObjectStr = (cacheValue == null ? &quot;null&quot; : cacheValue.toString());</span>
-<span class="nc" id="L384">      output.append(&quot; '&quot;);</span>
-<span class="nc bnc" id="L385" title="All 2 branches missed.">      if (cacheObjectStr.length() &lt; getMaxObjectLogSize()) {</span>
-<span class="nc" id="L386">        output.append(cacheObjectStr);</span>
+<span class="nc" id="L379">    StringBuilder output = new StringBuilder(&quot;Cache '&quot;);</span>
+<span class="nc" id="L380">    output.append(getId());</span>
+<span class="nc" id="L381">    output.append(&quot;': &quot;);</span>
+<span class="nc" id="L382">    output.append(action);</span>
+<span class="nc bnc" id="L383" title="All 2 branches missed.">    if (addValue) {</span>
+<span class="nc bnc" id="L384" title="All 2 branches missed.">      String cacheObjectStr = cacheValue == null ? &quot;null&quot; : cacheValue.toString();</span>
+<span class="nc" id="L385">      output.append(&quot; '&quot;);</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">      if (cacheObjectStr.length() &lt; getMaxObjectLogSize()) {</span>
+<span class="nc" id="L387">        output.append(cacheObjectStr);</span>
       } else {
-<span class="nc" id="L388">        output.append(cacheObjectStr.substring(1, getMaxObjectLogSize()));</span>
-<span class="nc" id="L389">        output.append(&quot;...&quot;);</span>
+<span class="nc" id="L389">        output.append(cacheObjectStr.substring(1, getMaxObjectLogSize()));</span>
+<span class="nc" id="L390">        output.append(&quot;...&quot;);</span>
       }
-<span class="nc" id="L391">      output.append(&quot;'&quot;);</span>
+<span class="nc" id="L392">      output.append(&quot;'&quot;);</span>
     }
-<span class="nc" id="L393">    log.debug(output.toString());</span>
-<span class="nc" id="L394">  }</span>
+<span class="nc" id="L394">    log.debug(output.toString());</span>
+<span class="nc" id="L395">  }</span>
 
   /**
    * Sets the controller properties.
@@ -400,7 +401,7 @@ public class CacheModel implements ExecuteListener {
    *          the new controller properties
    */
   public void setControllerProperties(Properties cacheProps) {
-<span class="fc" id="L403">    controller.setProperties(cacheProps);</span>
-<span class="fc" id="L404">  }</span>
+<span class="fc" id="L404">    controller.setProperties(cacheProps);</span>
+<span class="fc" id="L405">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

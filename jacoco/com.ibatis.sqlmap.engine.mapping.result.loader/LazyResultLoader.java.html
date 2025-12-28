@@ -33,10 +33,10 @@ import java.util.Set;
 public class LazyResultLoader implements InvocationHandler {
 
   /** The Constant SET_INTERFACES. */
-<span class="fc" id="L36">  private static final Class[] SET_INTERFACES = new Class[] { Set.class };</span>
+<span class="fc" id="L36">  private static final Class[] SET_INTERFACES = { Set.class };</span>
 
   /** The Constant LIST_INTERFACES. */
-<span class="fc" id="L39">  private static final Class[] LIST_INTERFACES = new Class[] { List.class };</span>
+<span class="fc" id="L39">  private static final Class[] LIST_INTERFACES = { List.class };</span>
 
   /** The client. */
   protected SqlMapClientImpl client;

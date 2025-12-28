@@ -125,11 +125,10 @@ public class SqlStatementParser {
     try {
 <span class="fc bfc" id="L126" title="All 2 branches covered.">      if (resultClassName != null) {</span>
 <span class="fc" id="L127">        return Resources.classForName(state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName));</span>
-      } else {
-<span class="fc" id="L129">        return null;</span>
       }
-<span class="nc" id="L131">    } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L132">      throw new SqlMapException(&quot;Error.  Could not initialize class.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L129">      return null;</span>
+<span class="nc" id="L130">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L131">      throw new SqlMapException(&quot;Error.  Could not initialize class.  Cause: &quot; + e, e);</span>
     }
   }
 
@@ -142,28 +141,28 @@ public class SqlStatementParser {
    *          the config
    */
   private void findAndParseSelectKey(Node node, MappedStatementConfig config) {
-<span class="fc" id="L145">    state.getConfig().getErrorContext().setActivity(&quot;parsing select key tags&quot;);</span>
-<span class="fc" id="L146">    boolean foundSQLFirst = false;</span>
-<span class="fc" id="L147">    NodeList children = node.getChildNodes();</span>
-<span class="fc bfc" id="L148" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L149">      Node child = children.item(i);</span>
-<span class="fc bfc" id="L150" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
-<span class="fc" id="L151">        String data = ((CharacterData) child).getData();</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (!data.trim().isEmpty()) {</span>
-<span class="fc" id="L153">          foundSQLFirst = true;</span>
+<span class="fc" id="L144">    state.getConfig().getErrorContext().setActivity(&quot;parsing select key tags&quot;);</span>
+<span class="fc" id="L145">    boolean foundSQLFirst = false;</span>
+<span class="fc" id="L146">    NodeList children = node.getChildNodes();</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">    for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L148">      Node child = children.item(i);</span>
+<span class="fc bfc" id="L149" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
+<span class="fc" id="L150">        String data = ((CharacterData) child).getData();</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (!data.trim().isEmpty()) {</span>
+<span class="fc" id="L152">          foundSQLFirst = true;</span>
         }
-<span class="pc bpc" id="L155" title="1 of 4 branches missed.">      } else if (child.getNodeType() == Node.ELEMENT_NODE &amp;&amp; &quot;selectKey&quot;.equals(child.getNodeName())) {</span>
-<span class="fc" id="L156">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
-<span class="fc" id="L157">        String keyPropName = attributes.getProperty(&quot;keyProperty&quot;);</span>
-<span class="fc" id="L158">        String resultClassName = attributes.getProperty(&quot;resultClass&quot;);</span>
-<span class="fc" id="L159">        String type = attributes.getProperty(&quot;type&quot;);</span>
-<span class="fc" id="L160">        config.setSelectKeyStatement(new XMLSqlSource(state, child), resultClassName, keyPropName, foundSQLFirst, type);</span>
-<span class="fc" id="L161">        break;</span>
+<span class="pc bpc" id="L154" title="1 of 4 branches missed.">      } else if (child.getNodeType() == Node.ELEMENT_NODE &amp;&amp; &quot;selectKey&quot;.equals(child.getNodeName())) {</span>
+<span class="fc" id="L155">        Properties attributes = NodeletUtils.parseAttributes(child, state.getGlobalProps());</span>
+<span class="fc" id="L156">        String keyPropName = attributes.getProperty(&quot;keyProperty&quot;);</span>
+<span class="fc" id="L157">        String resultClassName = attributes.getProperty(&quot;resultClass&quot;);</span>
+<span class="fc" id="L158">        String type = attributes.getProperty(&quot;type&quot;);</span>
+<span class="fc" id="L159">        config.setSelectKeyStatement(new XMLSqlSource(state, child), resultClassName, keyPropName, foundSQLFirst, type);</span>
+<span class="fc" id="L160">        break;</span>
       }
     }
-<span class="fc" id="L164">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
+<span class="fc" id="L163">    state.getConfig().getErrorContext().setMoreInfo(null);</span>
 
-<span class="fc" id="L166">  }</span>
+<span class="fc" id="L165">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

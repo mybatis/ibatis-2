@@ -273,12 +273,12 @@
 <a class="jxr_linenumber" name="L265" href="#L265">265</a> 
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>   @Override
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isMiddlePage() {
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">return</strong> !(isFirstPage() || isLastPage());
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">return</strong> !isFirstPage() &amp;&amp; !isLastPage();
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>   }
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> 
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>   @Override
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isLastPage() {
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">return</strong> list.size() - ((index + 1) * pageSize) &lt; 1;
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">return</strong> list.size() - (index + 1) * pageSize &lt; 1;
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>   }
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> 
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>   @Override

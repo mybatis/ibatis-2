@@ -107,7 +107,7 @@ public class DynamicSql implements Sql, DynamicParent {
 
 <span class="fc" id="L108">    ParameterMap map = new ParameterMap(delegate);</span>
 <span class="fc" id="L109">    map.setId(statementScope.getStatement().getId() + &quot;-InlineParameterMap&quot;);</span>
-<span class="fc" id="L110">    map.setParameterClass((statementScope.getStatement()).getParameterClass());</span>
+<span class="fc" id="L110">    map.setParameterClass(statementScope.getStatement().getParameterClass());</span>
 <span class="fc" id="L111">    map.setParameterMappingList(ctx.getParameterMappings());</span>
 
 <span class="fc" id="L113">    String dynSql = ctx.getBodyText();</span>
@@ -169,8 +169,8 @@ public class DynamicSql implements Sql, DynamicParent {
 
 <span class="fc" id="L170">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
 <span class="pc bpc" id="L171" title="1 of 2 branches missed.">          if (mappings != null) {</span>
-<span class="fc bfc" id="L172" title="All 2 branches covered.">            for (int i = 0, n = mappings.length; i &lt; n; i++) {</span>
-<span class="fc" id="L173">              ctx.addParameterMapping(mappings[i]);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            for (ParameterMapping mapping : mappings) {</span>
+<span class="fc" id="L173">              ctx.addParameterMapping(mapping);</span>
             }
           }
 <span class="fc" id="L176">        } else {</span>
@@ -196,8 +196,8 @@ public class DynamicSql implements Sql, DynamicParent {
 <span class="fc" id="L196">          ParameterMapping[] mappings = sqlText.getParameterMappings();</span>
 <span class="fc" id="L197">          out.print(sqlText.getText());</span>
 <span class="pc bpc" id="L198" title="1 of 2 branches missed.">          if (mappings != null) {</span>
-<span class="fc bfc" id="L199" title="All 2 branches covered.">            for (int i = 0, n = mappings.length; i &lt; n; i++) {</span>
-<span class="fc" id="L200">              ctx.addParameterMapping(mappings[i]);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">            for (ParameterMapping mapping : mappings) {</span>
+<span class="fc" id="L200">              ctx.addParameterMapping(mapping);</span>
             }
           }
         }
@@ -247,13 +247,13 @@ public class DynamicSql implements Sql, DynamicParent {
    */
   protected void iteratePropertyReplace(StringBuilder bodyContent, IterateContext iterate) {
 <span class="pc bpc" id="L249" title="1 of 2 branches missed.">    if (iterate != null) {</span>
-<span class="fc" id="L250">      String[] mappings = new String[] { &quot;#&quot;, &quot;$&quot; };</span>
-<span class="fc bfc" id="L251" title="All 2 branches covered.">      for (int i = 0; i &lt; mappings.length; i++) {</span>
+<span class="fc" id="L250">      String[] mappings = { &quot;#&quot;, &quot;$&quot; };</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">      for (String mapping : mappings) {</span>
 <span class="fc" id="L252">        int startIndex = 0;</span>
 <span class="fc" id="L253">        int endIndex = -1;</span>
 <span class="pc bpc" id="L254" title="1 of 4 branches missed.">        while (startIndex &gt; -1 &amp;&amp; startIndex &lt; bodyContent.length()) {</span>
-<span class="fc" id="L255">          startIndex = bodyContent.indexOf(mappings[i], endIndex + 1);</span>
-<span class="fc" id="L256">          endIndex = bodyContent.indexOf(mappings[i], startIndex + 1);</span>
+<span class="fc" id="L255">          startIndex = bodyContent.indexOf(mapping, endIndex + 1);</span>
+<span class="fc" id="L256">          endIndex = bodyContent.indexOf(mapping, startIndex + 1);</span>
 <span class="fc bfc" id="L257" title="All 4 branches covered.">          if (startIndex &gt; -1 &amp;&amp; endIndex &gt; -1) {</span>
 <span class="fc" id="L258">            bodyContent.replace(startIndex + 1, endIndex,</span>
 <span class="fc" id="L259">                iterate.addIndexToTagProperty(bodyContent.substring(startIndex + 1, endIndex)));</span>

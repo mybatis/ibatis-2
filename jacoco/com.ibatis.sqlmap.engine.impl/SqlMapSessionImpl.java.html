@@ -80,79 +80,83 @@ public class SqlMapSessionImpl implements SqlMapSession {
 
   @Override
   public void close() {
-<span class="pc bpc" id="L83" title="2 of 4 branches missed.">    if (delegate != null &amp;&amp; sessionScope != null)</span>
+<span class="pc bpc" id="L83" title="2 of 4 branches missed.">    if (delegate != null &amp;&amp; sessionScope != null) {</span>
 <span class="fc" id="L84">      delegate.endSessionScope(sessionScope);</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">    if (sessionScope != null)</span>
-<span class="fc" id="L86">      sessionScope = null;</span>
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">    if (delegate != null)</span>
-<span class="fc" id="L88">      delegate = null;</span>
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (!closed)</span>
-<span class="fc" id="L90">      closed = true;</span>
-<span class="fc" id="L91">  }</span>
+    }
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    if (sessionScope != null) {</span>
+<span class="fc" id="L87">      sessionScope = null;</span>
+    }
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (delegate != null) {</span>
+<span class="fc" id="L90">      delegate = null;</span>
+    }
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">    if (!closed) {</span>
+<span class="fc" id="L93">      closed = true;</span>
+    }
+<span class="fc" id="L95">  }</span>
 
   @Override
   public Object insert(String id, Object param) throws SQLException {
-<span class="fc" id="L95">    return delegate.insert(sessionScope, id, param);</span>
+<span class="fc" id="L99">    return delegate.insert(sessionScope, id, param);</span>
   }
 
   @Override
   public Object insert(String id) throws SQLException {
-<span class="nc" id="L100">    return insert(id, null);</span>
+<span class="nc" id="L104">    return insert(id, null);</span>
   }
 
   @Override
   public int update(String id, Object param) throws SQLException {
-<span class="fc" id="L105">    return delegate.update(sessionScope, id, param);</span>
+<span class="fc" id="L109">    return delegate.update(sessionScope, id, param);</span>
   }
 
   @Override
   public int update(String id) throws SQLException {
-<span class="fc" id="L110">    return update(id, null);</span>
+<span class="fc" id="L114">    return update(id, null);</span>
   }
 
   @Override
   public int delete(String id, Object param) throws SQLException {
-<span class="nc" id="L115">    return delegate.delete(sessionScope, id, param);</span>
+<span class="nc" id="L119">    return delegate.delete(sessionScope, id, param);</span>
   }
 
   @Override
   public int delete(String id) throws SQLException {
-<span class="nc" id="L120">    return delete(id, null);</span>
+<span class="nc" id="L124">    return delete(id, null);</span>
   }
 
   @Override
   public Object queryForObject(String id, Object paramObject) throws SQLException {
-<span class="fc" id="L125">    return delegate.queryForObject(sessionScope, id, paramObject);</span>
+<span class="fc" id="L129">    return delegate.queryForObject(sessionScope, id, paramObject);</span>
   }
 
   @Override
   public Object queryForObject(String id) throws SQLException {
-<span class="fc" id="L130">    return queryForObject(id, null);</span>
+<span class="fc" id="L134">    return queryForObject(id, null);</span>
   }
 
   @Override
   public Object queryForObject(String id, Object paramObject, Object resultObject) throws SQLException {
-<span class="fc" id="L135">    return delegate.queryForObject(sessionScope, id, paramObject, resultObject);</span>
+<span class="fc" id="L139">    return delegate.queryForObject(sessionScope, id, paramObject, resultObject);</span>
   }
 
   @Override
   public List queryForList(String id, Object paramObject) throws SQLException {
-<span class="fc" id="L140">    return delegate.queryForList(sessionScope, id, paramObject);</span>
+<span class="fc" id="L144">    return delegate.queryForList(sessionScope, id, paramObject);</span>
   }
 
   @Override
   public List queryForList(String id) throws SQLException {
-<span class="fc" id="L145">    return queryForList(id, null);</span>
+<span class="fc" id="L149">    return queryForList(id, null);</span>
   }
 
   @Override
   public List queryForList(String id, Object paramObject, int skip, int max) throws SQLException {
-<span class="fc" id="L150">    return delegate.queryForList(sessionScope, id, paramObject, skip, max);</span>
+<span class="fc" id="L154">    return delegate.queryForList(sessionScope, id, paramObject, skip, max);</span>
   }
 
   @Override
   public List queryForList(String id, int skip, int max) throws SQLException {
-<span class="nc" id="L155">    return queryForList(id, null, skip, max);</span>
+<span class="nc" id="L159">    return queryForList(id, null, skip, max);</span>
   }
 
   /**
@@ -161,7 +165,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   @Override
   @Deprecated
   public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
-<span class="fc" id="L164">    return delegate.queryForPaginatedList(sessionScope, id, paramObject, pageSize);</span>
+<span class="fc" id="L168">    return delegate.queryForPaginatedList(sessionScope, id, paramObject, pageSize);</span>
   }
 
   /**
@@ -170,68 +174,68 @@ public class SqlMapSessionImpl implements SqlMapSession {
   @Override
   @Deprecated
   public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
-<span class="fc" id="L173">    return queryForPaginatedList(id, null, pageSize);</span>
+<span class="fc" id="L177">    return queryForPaginatedList(id, null, pageSize);</span>
   }
 
   @Override
   public Map queryForMap(String id, Object paramObject, String keyProp) throws SQLException {
-<span class="fc" id="L178">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp);</span>
+<span class="fc" id="L182">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp);</span>
   }
 
   @Override
   public Map queryForMap(String id, Object paramObject, String keyProp, String valueProp) throws SQLException {
-<span class="fc" id="L183">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp, valueProp);</span>
+<span class="fc" id="L187">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp, valueProp);</span>
   }
 
   @Override
   public void queryWithRowHandler(String id, Object paramObject, RowHandler rowHandler) throws SQLException {
-<span class="fc" id="L188">    delegate.queryWithRowHandler(sessionScope, id, paramObject, rowHandler);</span>
-<span class="fc" id="L189">  }</span>
+<span class="fc" id="L192">    delegate.queryWithRowHandler(sessionScope, id, paramObject, rowHandler);</span>
+<span class="fc" id="L193">  }</span>
 
   @Override
   public void queryWithRowHandler(String id, RowHandler rowHandler) throws SQLException {
-<span class="fc" id="L193">    queryWithRowHandler(id, null, rowHandler);</span>
-<span class="fc" id="L194">  }</span>
+<span class="fc" id="L197">    queryWithRowHandler(id, null, rowHandler);</span>
+<span class="fc" id="L198">  }</span>
 
   @Override
   public void startTransaction() throws SQLException {
-<span class="fc" id="L198">    delegate.startTransaction(sessionScope);</span>
-<span class="fc" id="L199">  }</span>
+<span class="fc" id="L202">    delegate.startTransaction(sessionScope);</span>
+<span class="fc" id="L203">  }</span>
 
   @Override
   public void startTransaction(int transactionIsolation) throws SQLException {
-<span class="nc" id="L203">    delegate.startTransaction(sessionScope, transactionIsolation);</span>
-<span class="nc" id="L204">  }</span>
+<span class="nc" id="L207">    delegate.startTransaction(sessionScope, transactionIsolation);</span>
+<span class="nc" id="L208">  }</span>
 
   @Override
   public void commitTransaction() throws SQLException {
-<span class="fc" id="L208">    delegate.commitTransaction(sessionScope);</span>
-<span class="fc" id="L209">  }</span>
+<span class="fc" id="L212">    delegate.commitTransaction(sessionScope);</span>
+<span class="fc" id="L213">  }</span>
 
   @Override
   public void endTransaction() throws SQLException {
-<span class="fc" id="L213">    delegate.endTransaction(sessionScope);</span>
-<span class="fc" id="L214">  }</span>
+<span class="fc" id="L217">    delegate.endTransaction(sessionScope);</span>
+<span class="fc" id="L218">  }</span>
 
   @Override
   public void startBatch() throws SQLException {
-<span class="fc" id="L218">    delegate.startBatch(sessionScope);</span>
-<span class="fc" id="L219">  }</span>
+<span class="fc" id="L222">    delegate.startBatch(sessionScope);</span>
+<span class="fc" id="L223">  }</span>
 
   @Override
   public int executeBatch() throws SQLException {
-<span class="fc" id="L223">    return delegate.executeBatch(sessionScope);</span>
+<span class="fc" id="L227">    return delegate.executeBatch(sessionScope);</span>
   }
 
   @Override
   public List executeBatchDetailed() throws SQLException, BatchException {
-<span class="fc" id="L228">    return delegate.executeBatchDetailed(sessionScope);</span>
+<span class="fc" id="L232">    return delegate.executeBatchDetailed(sessionScope);</span>
   }
 
   @Override
   public void setUserConnection(Connection connection) throws SQLException {
-<span class="fc" id="L233">    delegate.setUserProvidedTransaction(sessionScope, connection);</span>
-<span class="fc" id="L234">  }</span>
+<span class="fc" id="L237">    delegate.setUserProvidedTransaction(sessionScope, connection);</span>
+<span class="fc" id="L238">  }</span>
 
   /**
    * Get User connection.
@@ -246,26 +250,26 @@ public class SqlMapSessionImpl implements SqlMapSession {
   @Override
   @Deprecated
   public Connection getUserConnection() throws SQLException {
-<span class="nc" id="L249">    return getCurrentConnection();</span>
+<span class="nc" id="L253">    return getCurrentConnection();</span>
   }
 
   @Override
   public Connection getCurrentConnection() throws SQLException {
     try {
-<span class="fc" id="L255">      Connection conn = null;</span>
-<span class="fc" id="L256">      Transaction trans = delegate.getTransaction(sessionScope);</span>
-<span class="pc bpc" id="L257" title="1 of 2 branches missed.">      if (trans != null) {</span>
-<span class="fc" id="L258">        conn = trans.getConnection();</span>
+<span class="fc" id="L259">      Connection conn = null;</span>
+<span class="fc" id="L260">      Transaction trans = delegate.getTransaction(sessionScope);</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">      if (trans != null) {</span>
+<span class="fc" id="L262">        conn = trans.getConnection();</span>
       }
-<span class="fc" id="L260">      return conn;</span>
-<span class="nc" id="L261">    } catch (TransactionException e) {</span>
-<span class="nc" id="L262">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L264">      return conn;</span>
+<span class="nc" id="L265">    } catch (TransactionException e) {</span>
+<span class="nc" id="L266">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
     }
   }
 
   @Override
   public DataSource getDataSource() {
-<span class="nc" id="L268">    return delegate.getDataSource();</span>
+<span class="nc" id="L272">    return delegate.getDataSource();</span>
   }
 
   /**
@@ -277,7 +281,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
    * @return - the mapped statement
    */
   public MappedStatement getMappedStatement(String id) {
-<span class="nc" id="L280">    return delegate.getMappedStatement(id);</span>
+<span class="nc" id="L284">    return delegate.getMappedStatement(id);</span>
   }
 
   /**
@@ -286,7 +290,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
    * @return - the status
    */
   public boolean isLazyLoadingEnabled() {
-<span class="nc" id="L289">    return delegate.isLazyLoadingEnabled();</span>
+<span class="nc" id="L293">    return delegate.isLazyLoadingEnabled();</span>
   }
 
   /**
@@ -295,7 +299,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
    * @return - the status
    */
   public boolean isEnhancementEnabled() {
-<span class="nc" id="L298">    return delegate.isEnhancementEnabled();</span>
+<span class="nc" id="L302">    return delegate.isEnhancementEnabled();</span>
   }
 
   /**
@@ -304,7 +308,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
    * @return - the executor
    */
   public SqlExecutor getSqlExecutor() {
-<span class="nc" id="L307">    return delegate.getSqlExecutor();</span>
+<span class="nc" id="L311">    return delegate.getSqlExecutor();</span>
   }
 
   /**
@@ -313,7 +317,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
    * @return - the delegate
    */
   public SqlMapExecutorDelegate getDelegate() {
-<span class="nc" id="L316">    return delegate;</span>
+<span class="nc" id="L320">    return delegate;</span>
   }
 
 }

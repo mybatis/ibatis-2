@@ -201,17 +201,17 @@
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">   *           the SQL exception</em>
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>   <strong class="jxr_keyword">private</strong> List getList(<strong class="jxr_keyword">int</strong> idx, <strong class="jxr_keyword">int</strong> localPageSize) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">return</strong> sqlMapExecutor.queryForList(statementName, parameterObject, (idx) * pageSize, localPageSize);
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">return</strong> sqlMapExecutor.queryForList(statementName, parameterObject, idx * pageSize, localPageSize);
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>   }
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> 
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> nextPage() {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">if</strong> (isNextPageAvailable()) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>       index++;
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>       pageForward();
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>       <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>     }
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>   @Override
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> nextPage() {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>     <strong class="jxr_keyword">if</strong> (isNextPageAvailable()) {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>       index++;
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>       pageForward();
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     }
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>     <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>   }
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>   @Override
@@ -220,167 +220,166 @@
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>       index--;
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>       pageBack();
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>       <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>   }
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> 
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>   @Override
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> gotoPage(<strong class="jxr_keyword">int</strong> pageNumber) {
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>     safePageTo(pageNumber);
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>   }
-<a class="jxr_linenumber" name="L224" href="#L224">224</a> 
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>   @Override
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPageSize() {
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>     <strong class="jxr_keyword">return</strong> pageSize;
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>   }
-<a class="jxr_linenumber" name="L229" href="#L229">229</a> 
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>   @Override
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isFirstPage() {
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <strong class="jxr_keyword">return</strong> index == 0;
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>   }
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>   @Override
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isMiddlePage() {
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>     <strong class="jxr_keyword">return</strong> !(isFirstPage() || isLastPage());
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>   }
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> 
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>   @Override
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isLastPage() {
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">return</strong> nextPageList.size() &lt; 1;
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>   }
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>   @Override
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isNextPageAvailable() {
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>     <strong class="jxr_keyword">return</strong> nextPageList.size() &gt; 0;
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>   }
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> 
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>   @Override
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPreviousPageAvailable() {
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>     <strong class="jxr_keyword">return</strong> prevPageList.size() &gt; 0;
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>   }
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>   @Override
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> size() {
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>     <strong class="jxr_keyword">return</strong> currentPageList.size();
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>   }
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>   @Override
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isEmpty() {
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>     <strong class="jxr_keyword">return</strong> currentPageList.isEmpty();
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>   }
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>   @Override
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> contains(Object o) {
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">return</strong> currentPageList.contains(o);
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>   }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>   @Override
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>   <strong class="jxr_keyword">public</strong> Iterator iterator() {
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>     <strong class="jxr_keyword">return</strong> currentPageList.iterator();
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>   }
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>   @Override
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>   <strong class="jxr_keyword">public</strong> Object[] toArray() {
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">return</strong> currentPageList.toArray();
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>   }
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> 
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>   @Override
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>   <strong class="jxr_keyword">public</strong> Object[] toArray(Object a[]) {
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">return</strong> currentPageList.toArray(a);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>   }
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>   @Override
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> containsAll(Collection c) {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>     <strong class="jxr_keyword">return</strong> currentPageList.containsAll(c);
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>   }
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> 
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>   @Override
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>   <strong class="jxr_keyword">public</strong> Object get(<strong class="jxr_keyword">int</strong> index) {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>     <strong class="jxr_keyword">return</strong> currentPageList.get(index);
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>   }
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>   @Override
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> indexOf(Object o) {
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <strong class="jxr_keyword">return</strong> currentPageList.indexOf(o);
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>   }
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>   @Override
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> lastIndexOf(Object o) {
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">return</strong> currentPageList.lastIndexOf(o);
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>   }
-<a class="jxr_linenumber" name="L304" href="#L304">304</a> 
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>   @Override
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>   <strong class="jxr_keyword">public</strong> ListIterator listIterator() {
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>     <strong class="jxr_keyword">return</strong> currentPageList.listIterator();
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>   }
-<a class="jxr_linenumber" name="L309" href="#L309">309</a> 
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>   @Override
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>   <strong class="jxr_keyword">public</strong> ListIterator listIterator(<strong class="jxr_keyword">int</strong> index) {
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>     <strong class="jxr_keyword">return</strong> currentPageList.listIterator(index);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>   }
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> 
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>   @Override
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>   <strong class="jxr_keyword">public</strong> List subList(<strong class="jxr_keyword">int</strong> fromIndex, <strong class="jxr_keyword">int</strong> toIndex) {
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <strong class="jxr_keyword">return</strong> currentPageList.subList(fromIndex, toIndex);
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>   }
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>   @Override
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> add(Object o) {
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>     <strong class="jxr_keyword">return</strong> currentPageList.add(o);
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>   }
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>   @Override
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> remove(Object o) {
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>     <strong class="jxr_keyword">return</strong> currentPageList.remove(o);
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>   }
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> 
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>   @Override
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addAll(Collection c) {
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">return</strong> currentPageList.addAll(c);
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>   }
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> 
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>   @Override
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addAll(<strong class="jxr_keyword">int</strong> index, Collection c) {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>     <strong class="jxr_keyword">return</strong> currentPageList.addAll(index, c);
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>   }
-<a class="jxr_linenumber" name="L339" href="#L339">339</a> 
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>   @Override
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeAll(Collection c) {
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>     <strong class="jxr_keyword">return</strong> currentPageList.removeAll(c);
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>   }
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>   @Override
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> retainAll(Collection c) {
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>     <strong class="jxr_keyword">return</strong> currentPageList.retainAll(c);
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>   }
-<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>   @Override
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clear() {
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>     currentPageList.clear();
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>   }
-<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>   @Override
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>   <strong class="jxr_keyword">public</strong> Object set(<strong class="jxr_keyword">int</strong> index, Object element) {
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">return</strong> currentPageList.set(index, element);
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>   }
-<a class="jxr_linenumber" name="L359" href="#L359">359</a> 
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>   @Override
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> add(<strong class="jxr_keyword">int</strong> index, Object element) {
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>     currentPageList.add(index, element);
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>   }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a> 
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>   @Override
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>   <strong class="jxr_keyword">public</strong> Object remove(<strong class="jxr_keyword">int</strong> index) {
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>     <strong class="jxr_keyword">return</strong> currentPageList.remove(index);
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>   }
-<a class="jxr_linenumber" name="L369" href="#L369">369</a> 
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>   @Override
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPageIndex() {
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>     <strong class="jxr_keyword">return</strong> index;
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>   }
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> 
-<a class="jxr_linenumber" name="L375" href="#L375">375</a> }
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>     <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>   }
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>   @Override
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> gotoPage(<strong class="jxr_keyword">int</strong> pageNumber) {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     safePageTo(pageNumber);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>   }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>   @Override
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPageSize() {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     <strong class="jxr_keyword">return</strong> pageSize;
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>   }
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>   @Override
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isFirstPage() {
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>     <strong class="jxr_keyword">return</strong> index == 0;
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>   }
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>   @Override
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isMiddlePage() {
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">return</strong> !isFirstPage() &amp;&amp; !isLastPage();
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>   }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>   @Override
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isLastPage() {
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">return</strong> nextPageList.size() &lt; 1;
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>   }
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>   @Override
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isNextPageAvailable() {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>     <strong class="jxr_keyword">return</strong> nextPageList.size() &gt; 0;
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>   }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>   @Override
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPreviousPageAvailable() {
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">return</strong> prevPageList.size() &gt; 0;
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>   }
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> 
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>   @Override
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> size() {
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>     <strong class="jxr_keyword">return</strong> currentPageList.size();
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>   }
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>   @Override
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isEmpty() {
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <strong class="jxr_keyword">return</strong> currentPageList.isEmpty();
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>   }
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> 
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>   @Override
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> contains(Object o) {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>     <strong class="jxr_keyword">return</strong> currentPageList.contains(o);
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>   }
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>   @Override
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>   <strong class="jxr_keyword">public</strong> Iterator iterator() {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>     <strong class="jxr_keyword">return</strong> currentPageList.iterator();
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>   }
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>   @Override
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>   <strong class="jxr_keyword">public</strong> Object[] toArray() {
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     <strong class="jxr_keyword">return</strong> currentPageList.toArray();
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>   }
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>   @Override
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>   <strong class="jxr_keyword">public</strong> Object[] toArray(Object a[]) {
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     <strong class="jxr_keyword">return</strong> currentPageList.toArray(a);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>   }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>   @Override
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> containsAll(Collection c) {
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>     <strong class="jxr_keyword">return</strong> currentPageList.containsAll(c);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>   }
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> 
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>   @Override
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>   <strong class="jxr_keyword">public</strong> Object get(<strong class="jxr_keyword">int</strong> index) {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">return</strong> currentPageList.get(index);
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>   }
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>   @Override
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> indexOf(Object o) {
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>     <strong class="jxr_keyword">return</strong> currentPageList.indexOf(o);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>   }
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>   @Override
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> lastIndexOf(Object o) {
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     <strong class="jxr_keyword">return</strong> currentPageList.lastIndexOf(o);
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>   }
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>   @Override
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>   <strong class="jxr_keyword">public</strong> ListIterator listIterator() {
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>     <strong class="jxr_keyword">return</strong> currentPageList.listIterator();
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>   }
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>   @Override
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>   <strong class="jxr_keyword">public</strong> ListIterator listIterator(<strong class="jxr_keyword">int</strong> index) {
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>     <strong class="jxr_keyword">return</strong> currentPageList.listIterator(index);
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>   }
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>   @Override
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>   <strong class="jxr_keyword">public</strong> List subList(<strong class="jxr_keyword">int</strong> fromIndex, <strong class="jxr_keyword">int</strong> toIndex) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">return</strong> currentPageList.subList(fromIndex, toIndex);
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>   }
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> 
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>   @Override
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> add(Object o) {
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <strong class="jxr_keyword">return</strong> currentPageList.add(o);
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>   }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>   @Override
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> remove(Object o) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>     <strong class="jxr_keyword">return</strong> currentPageList.remove(o);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>   }
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> 
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>   @Override
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addAll(Collection c) {
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     <strong class="jxr_keyword">return</strong> currentPageList.addAll(c);
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>   }
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>   @Override
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> addAll(<strong class="jxr_keyword">int</strong> index, Collection c) {
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>     <strong class="jxr_keyword">return</strong> currentPageList.addAll(index, c);
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>   }
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> 
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>   @Override
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> removeAll(Collection c) {
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>     <strong class="jxr_keyword">return</strong> currentPageList.removeAll(c);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>   }
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>   @Override
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> retainAll(Collection c) {
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>     <strong class="jxr_keyword">return</strong> currentPageList.retainAll(c);
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>   }
+<a class="jxr_linenumber" name="L348" href="#L348">348</a> 
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>   @Override
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> clear() {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>     currentPageList.clear();
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>   }
+<a class="jxr_linenumber" name="L353" href="#L353">353</a> 
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>   @Override
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>   <strong class="jxr_keyword">public</strong> Object set(<strong class="jxr_keyword">int</strong> index, Object element) {
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <strong class="jxr_keyword">return</strong> currentPageList.set(index, element);
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>   }
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> 
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>   @Override
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> add(<strong class="jxr_keyword">int</strong> index, Object element) {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     currentPageList.add(index, element);
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>   }
+<a class="jxr_linenumber" name="L363" href="#L363">363</a> 
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>   @Override
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>   <strong class="jxr_keyword">public</strong> Object remove(<strong class="jxr_keyword">int</strong> index) {
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>     <strong class="jxr_keyword">return</strong> currentPageList.remove(index);
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>   }
+<a class="jxr_linenumber" name="L368" href="#L368">368</a> 
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>   @Override
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPageIndex() {
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>     <strong class="jxr_keyword">return</strong> index;
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>   }
+<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
+<a class="jxr_linenumber" name="L374" href="#L374">374</a> }
 </pre>
 <hr/>
 <div id="footer">© 2004–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>

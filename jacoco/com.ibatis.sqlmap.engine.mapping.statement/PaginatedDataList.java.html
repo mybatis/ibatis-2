@@ -193,17 +193,17 @@ public class PaginatedDataList implements PaginatedList {
    *           the SQL exception
    */
   private List getList(int idx, int localPageSize) throws SQLException {
-<span class="fc" id="L196">    return sqlMapExecutor.queryForList(statementName, parameterObject, (idx) * pageSize, localPageSize);</span>
+<span class="fc" id="L196">    return sqlMapExecutor.queryForList(statementName, parameterObject, idx * pageSize, localPageSize);</span>
   }
 
+  @Override
   public boolean nextPage() {
-<span class="fc bfc" id="L200" title="All 2 branches covered.">    if (isNextPageAvailable()) {</span>
-<span class="fc" id="L201">      index++;</span>
-<span class="fc" id="L202">      pageForward();</span>
-<span class="fc" id="L203">      return true;</span>
-    } else {
-<span class="fc" id="L205">      return false;</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">    if (isNextPageAvailable()) {</span>
+<span class="fc" id="L202">      index++;</span>
+<span class="fc" id="L203">      pageForward();</span>
+<span class="fc" id="L204">      return true;</span>
     }
+<span class="fc" id="L206">    return false;</span>
   }
 
   @Override
@@ -212,164 +212,163 @@ public class PaginatedDataList implements PaginatedList {
 <span class="fc" id="L212">      index--;</span>
 <span class="fc" id="L213">      pageBack();</span>
 <span class="fc" id="L214">      return true;</span>
-    } else {
-<span class="fc" id="L216">      return false;</span>
     }
+<span class="fc" id="L216">    return false;</span>
   }
 
   @Override
   public void gotoPage(int pageNumber) {
-<span class="fc" id="L222">    safePageTo(pageNumber);</span>
-<span class="fc" id="L223">  }</span>
+<span class="fc" id="L221">    safePageTo(pageNumber);</span>
+<span class="fc" id="L222">  }</span>
 
   @Override
   public int getPageSize() {
-<span class="nc" id="L227">    return pageSize;</span>
+<span class="nc" id="L226">    return pageSize;</span>
   }
 
   @Override
   public boolean isFirstPage() {
-<span class="nc bnc" id="L232" title="All 2 branches missed.">    return index == 0;</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">    return index == 0;</span>
   }
 
   @Override
   public boolean isMiddlePage() {
-<span class="nc bnc" id="L237" title="All 4 branches missed.">    return !(isFirstPage() || isLastPage());</span>
+<span class="nc bnc" id="L236" title="All 4 branches missed.">    return !isFirstPage() &amp;&amp; !isLastPage();</span>
   }
 
   @Override
   public boolean isLastPage() {
-<span class="nc bnc" id="L242" title="All 2 branches missed.">    return nextPageList.size() &lt; 1;</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">    return nextPageList.size() &lt; 1;</span>
   }
 
   @Override
   public boolean isNextPageAvailable() {
-<span class="fc bfc" id="L247" title="All 2 branches covered.">    return nextPageList.size() &gt; 0;</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">    return nextPageList.size() &gt; 0;</span>
   }
 
   @Override
   public boolean isPreviousPageAvailable() {
-<span class="fc bfc" id="L252" title="All 2 branches covered.">    return prevPageList.size() &gt; 0;</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">    return prevPageList.size() &gt; 0;</span>
   }
 
   @Override
   public int size() {
-<span class="fc" id="L257">    return currentPageList.size();</span>
+<span class="fc" id="L256">    return currentPageList.size();</span>
   }
 
   @Override
   public boolean isEmpty() {
-<span class="nc" id="L262">    return currentPageList.isEmpty();</span>
+<span class="nc" id="L261">    return currentPageList.isEmpty();</span>
   }
 
   @Override
   public boolean contains(Object o) {
-<span class="nc" id="L267">    return currentPageList.contains(o);</span>
+<span class="nc" id="L266">    return currentPageList.contains(o);</span>
   }
 
   @Override
   public Iterator iterator() {
-<span class="nc" id="L272">    return currentPageList.iterator();</span>
+<span class="nc" id="L271">    return currentPageList.iterator();</span>
   }
 
   @Override
   public Object[] toArray() {
-<span class="nc" id="L277">    return currentPageList.toArray();</span>
+<span class="nc" id="L276">    return currentPageList.toArray();</span>
   }
 
   @Override
   public Object[] toArray(Object a[]) {
-<span class="nc" id="L282">    return currentPageList.toArray(a);</span>
+<span class="nc" id="L281">    return currentPageList.toArray(a);</span>
   }
 
   @Override
   public boolean containsAll(Collection c) {
-<span class="nc" id="L287">    return currentPageList.containsAll(c);</span>
+<span class="nc" id="L286">    return currentPageList.containsAll(c);</span>
   }
 
   @Override
   public Object get(int index) {
-<span class="fc" id="L292">    return currentPageList.get(index);</span>
+<span class="fc" id="L291">    return currentPageList.get(index);</span>
   }
 
   @Override
   public int indexOf(Object o) {
-<span class="nc" id="L297">    return currentPageList.indexOf(o);</span>
+<span class="nc" id="L296">    return currentPageList.indexOf(o);</span>
   }
 
   @Override
   public int lastIndexOf(Object o) {
-<span class="nc" id="L302">    return currentPageList.lastIndexOf(o);</span>
+<span class="nc" id="L301">    return currentPageList.lastIndexOf(o);</span>
   }
 
   @Override
   public ListIterator listIterator() {
-<span class="nc" id="L307">    return currentPageList.listIterator();</span>
+<span class="nc" id="L306">    return currentPageList.listIterator();</span>
   }
 
   @Override
   public ListIterator listIterator(int index) {
-<span class="nc" id="L312">    return currentPageList.listIterator(index);</span>
+<span class="nc" id="L311">    return currentPageList.listIterator(index);</span>
   }
 
   @Override
   public List subList(int fromIndex, int toIndex) {
-<span class="nc" id="L317">    return currentPageList.subList(fromIndex, toIndex);</span>
+<span class="nc" id="L316">    return currentPageList.subList(fromIndex, toIndex);</span>
   }
 
   @Override
   public boolean add(Object o) {
-<span class="nc" id="L322">    return currentPageList.add(o);</span>
+<span class="nc" id="L321">    return currentPageList.add(o);</span>
   }
 
   @Override
   public boolean remove(Object o) {
-<span class="nc" id="L327">    return currentPageList.remove(o);</span>
+<span class="nc" id="L326">    return currentPageList.remove(o);</span>
   }
 
   @Override
   public boolean addAll(Collection c) {
-<span class="nc" id="L332">    return currentPageList.addAll(c);</span>
+<span class="nc" id="L331">    return currentPageList.addAll(c);</span>
   }
 
   @Override
   public boolean addAll(int index, Collection c) {
-<span class="nc" id="L337">    return currentPageList.addAll(index, c);</span>
+<span class="nc" id="L336">    return currentPageList.addAll(index, c);</span>
   }
 
   @Override
   public boolean removeAll(Collection c) {
-<span class="nc" id="L342">    return currentPageList.removeAll(c);</span>
+<span class="nc" id="L341">    return currentPageList.removeAll(c);</span>
   }
 
   @Override
   public boolean retainAll(Collection c) {
-<span class="nc" id="L347">    return currentPageList.retainAll(c);</span>
+<span class="nc" id="L346">    return currentPageList.retainAll(c);</span>
   }
 
   @Override
   public void clear() {
-<span class="nc" id="L352">    currentPageList.clear();</span>
-<span class="nc" id="L353">  }</span>
+<span class="nc" id="L351">    currentPageList.clear();</span>
+<span class="nc" id="L352">  }</span>
 
   @Override
   public Object set(int index, Object element) {
-<span class="nc" id="L357">    return currentPageList.set(index, element);</span>
+<span class="nc" id="L356">    return currentPageList.set(index, element);</span>
   }
 
   @Override
   public void add(int index, Object element) {
-<span class="nc" id="L362">    currentPageList.add(index, element);</span>
-<span class="nc" id="L363">  }</span>
+<span class="nc" id="L361">    currentPageList.add(index, element);</span>
+<span class="nc" id="L362">  }</span>
 
   @Override
   public Object remove(int index) {
-<span class="nc" id="L367">    return currentPageList.remove(index);</span>
+<span class="nc" id="L366">    return currentPageList.remove(index);</span>
   }
 
   @Override
   public int getPageIndex() {
-<span class="nc" id="L372">    return index;</span>
+<span class="nc" id="L371">    return index;</span>
   }
 
 }
