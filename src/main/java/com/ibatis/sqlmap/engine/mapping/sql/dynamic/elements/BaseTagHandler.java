@@ -28,10 +28,9 @@ public abstract class BaseTagHandler implements SqlTagHandler {
 
   @Override
   public int doEndFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
-    if (tag.isCloseAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {
-      if (bodyContent.toString().trim().length() > 0) {
-        bodyContent.append(tag.getCloseAttr());
-      }
+    if (tag.isCloseAvailable() && !(tag.getHandler() instanceof IterateTagHandler)
+        && bodyContent.toString().trim().length() > 0) {
+      bodyContent.append(tag.getCloseAttr());
     }
     return SqlTagHandler.INCLUDE_BODY;
   }
@@ -39,19 +38,16 @@ public abstract class BaseTagHandler implements SqlTagHandler {
   @Override
   public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
 
-    if (tag.isOpenAvailable() && !(tag.getHandler() instanceof IterateTagHandler)) {
-      if (bodyContent.toString().trim().length() > 0) {
-        bodyContent.insert(0, tag.getOpenAttr());
-      }
+    if (tag.isOpenAvailable() && !(tag.getHandler() instanceof IterateTagHandler)
+        && bodyContent.toString().trim().length() > 0) {
+      bodyContent.insert(0, tag.getOpenAttr());
     }
 
-    if (tag.isPrependAvailable()) {
-      if (bodyContent.toString().trim().length() > 0) {
-        if (tag.getParent() != null && ctx.peekRemoveFirstPrependMarker(tag)) {
-          ctx.disableRemoveFirstPrependMarker();
-        } else {
-          bodyContent.insert(0, tag.getPrependAttr());
-        }
+    if (tag.isPrependAvailable() && bodyContent.toString().trim().length() > 0) {
+      if (tag.getParent() != null && ctx.peekRemoveFirstPrependMarker(tag)) {
+        ctx.disableRemoveFirstPrependMarker();
+      } else {
+        bodyContent.insert(0, tag.getPrependAttr());
       }
     }
 

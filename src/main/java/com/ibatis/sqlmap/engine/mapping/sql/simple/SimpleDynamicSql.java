@@ -130,10 +130,8 @@ public class SimpleDynamicSql implements Sql {
           }
           token = null;
         }
-      } else {
-        if (!ELEMENT_TOKEN.equals(token)) {
-          newSql.append(token);
-        }
+      } else if (!ELEMENT_TOKEN.equals(token)) {
+        newSql.append(token);
       }
 
       lastToken = token;
