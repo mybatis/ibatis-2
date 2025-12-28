@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -201,7 +201,7 @@ class CacheStatementTest extends BaseSqlMap {
   @Test
   void testMappedStatementQueryWithThreadedCache() throws SQLException {
 
-    Map<String, Object> results = new HashMap<String, Object>();
+    Map<String, Object> results = new HashMap<>();
 
     TestCacheThread.startThread(sqlMap, results, "getCachedAccountsViaResultMap");
     Integer firstId = (Integer) results.get("id");
@@ -228,7 +228,7 @@ class CacheStatementTest extends BaseSqlMap {
   @Test
   void testMappedStatementQueryWithThreadedReadWriteCache() throws SQLException {
 
-    Map<String, Object> results = new HashMap<String, Object>();
+    Map<String, Object> results = new HashMap<>();
 
     TestCacheThread.startThread(sqlMap, results, "getRWCachedAccountsViaResultMap");
     Integer firstId = (Integer) results.get("id");
@@ -295,9 +295,9 @@ class CacheStatementTest extends BaseSqlMap {
       try {
         SqlMapSession session = sqlMap.openSession();
         List<?> list = session.queryForList(statementName, null);
-        int firstId = System.identityHashCode(list);
+        System.identityHashCode(list);
         list = session.queryForList(statementName, null);
-        int secondId = System.identityHashCode(list);
+        System.identityHashCode(list);
         // assertEquals(firstId, secondId);
         results.put("id", Integer.valueOf(System.identityHashCode(list)));
         results.put("list", list);

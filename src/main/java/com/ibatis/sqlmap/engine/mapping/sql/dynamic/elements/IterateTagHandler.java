@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class IterateTagHandler extends BaseTagHandler {
       ctx.reEnableRemoveFirstPrependMarker();
     }
 
-    if (iterate != null && iterate.hasNext()) {
+    if (iterate.hasNext()) {
       return INCLUDE_BODY;
     } else {
       return SKIP_BODY;
@@ -80,7 +80,7 @@ public class IterateTagHandler extends BaseTagHandler {
         iterate.next();
       }
 
-      if (bodyContent.toString().trim().length() > 0) {
+      if (!bodyContent.toString().trim().isEmpty()) {
         // the sub element produced a result. If it is the first one
         // to produce a result, then we need to add the open
         // text. If it is not the first to produce a result then
@@ -102,10 +102,8 @@ public class IterateTagHandler extends BaseTagHandler {
         iterate.setSomeSubElementsHaveContent(true);
       }
 
-      if (iterate.isLast() && iterate.someSubElementsHaveContent()) {
-        if (tag.isCloseAvailable()) {
-          bodyContent.append(tag.getCloseAttr());
-        }
+      if (iterate.isLast() && iterate.someSubElementsHaveContent() && tag.isCloseAvailable()) {
+        bodyContent.append(tag.getCloseAttr());
       }
 
       iterate.setAllowNext(true);

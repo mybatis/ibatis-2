@@ -15,7 +15,11 @@
  */
 package com.ibatis.common.util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Implementation of PaginatedList backed by an ArrayList.
@@ -112,112 +116,135 @@ public class PaginatedArrayList implements PaginatedList {
 
   /* List accessors (uses page) */
 
+  @Override
   public int size() {
     return page.size();
   }
 
+  @Override
   public boolean isEmpty() {
     return page.isEmpty();
   }
 
+  @Override
   public boolean contains(Object o) {
     return page.contains(o);
   }
 
+  @Override
   public Iterator iterator() {
     return page.iterator();
   }
 
+  @Override
   public Object[] toArray() {
     return page.toArray();
   }
 
+  @Override
   public Object[] toArray(Object a[]) {
     return page.toArray(a);
   }
 
+  @Override
   public boolean containsAll(Collection c) {
     return page.containsAll(c);
   }
 
+  @Override
   public Object get(int index) {
     return page.get(index);
   }
 
+  @Override
   public int indexOf(Object o) {
     return page.indexOf(o);
   }
 
+  @Override
   public int lastIndexOf(Object o) {
     return page.lastIndexOf(o);
   }
 
+  @Override
   public ListIterator listIterator() {
     return page.listIterator();
   }
 
+  @Override
   public ListIterator listIterator(int index) {
     return page.listIterator(index);
   }
 
+  @Override
   public List subList(int fromIndex, int toIndex) {
     return page.subList(fromIndex, toIndex);
   }
 
   /* List mutators (uses master list) */
 
+  @Override
   public boolean add(Object o) {
     boolean b = list.add(o);
     repaginate();
     return b;
   }
 
+  @Override
   public boolean remove(Object o) {
     boolean b = list.remove(o);
     repaginate();
     return b;
   }
 
+  @Override
   public boolean addAll(Collection c) {
     boolean b = list.addAll(c);
     repaginate();
     return b;
   }
 
+  @Override
   public boolean addAll(int index, Collection c) {
     boolean b = list.addAll(index, c);
     repaginate();
     return b;
   }
 
+  @Override
   public boolean removeAll(Collection c) {
     boolean b = list.removeAll(c);
     repaginate();
     return b;
   }
 
+  @Override
   public boolean retainAll(Collection c) {
     boolean b = list.retainAll(c);
     repaginate();
     return b;
   }
 
+  @Override
   public void clear() {
     list.clear();
     repaginate();
   }
 
+  @Override
   public Object set(int index, Object element) {
     Object o = list.set(index, element);
     repaginate();
     return o;
   }
 
+  @Override
   public void add(int index, Object element) {
     list.add(index, element);
     repaginate();
   }
 
+  @Override
   public Object remove(int index) {
     Object o = list.remove(index);
     repaginate();
@@ -226,55 +253,63 @@ public class PaginatedArrayList implements PaginatedList {
 
   /* Paginated List methods */
 
+  @Override
   public int getPageSize() {
     return pageSize;
   }
 
+  @Override
   public boolean isFirstPage() {
     return index == 0;
   }
 
+  @Override
   public boolean isMiddlePage() {
     return !(isFirstPage() || isLastPage());
   }
 
+  @Override
   public boolean isLastPage() {
     return list.size() - ((index + 1) * pageSize) < 1;
   }
 
+  @Override
   public boolean isNextPageAvailable() {
     return !isLastPage();
   }
 
+  @Override
   public boolean isPreviousPageAvailable() {
     return !isFirstPage();
   }
 
+  @Override
   public boolean nextPage() {
     if (isNextPageAvailable()) {
       index++;
       repaginate();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
+  @Override
   public boolean previousPage() {
     if (isPreviousPageAvailable()) {
       index--;
       repaginate();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
+  @Override
   public void gotoPage(int pageNumber) {
     index = pageNumber;
     repaginate();
   }
 
+  @Override
   public int getPageIndex() {
     return index;
   }

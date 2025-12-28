@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ public class DynamicTagHandler extends BaseTagHandler {
   @Override
   public int doStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) {
     ctx.pushRemoveFirstPrependMarker(tag);
-    return BaseTagHandler.INCLUDE_BODY;
+    return SqlTagHandler.INCLUDE_BODY;
   }
 
 }

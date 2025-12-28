@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,10 +96,8 @@ public class ExternalTransaction implements Transaction {
     // Isolation Level
     isolationLevel.applyIsolationLevel(connection);
     // AutoCommit
-    if (setAutoCommitAllowed) {
-      if (connection.getAutoCommit() != defaultAutoCommit) {
-        connection.setAutoCommit(defaultAutoCommit);
-      }
+    if (setAutoCommitAllowed && (connection.getAutoCommit() != defaultAutoCommit)) {
+      connection.setAutoCommit(defaultAutoCommit);
     }
     // Debug
     if (connectionLog.isDebugEnabled()) {
@@ -107,12 +105,15 @@ public class ExternalTransaction implements Transaction {
     }
   }
 
+  @Override
   public void commit() throws SQLException, TransactionException {
   }
 
+  @Override
   public void rollback() throws SQLException, TransactionException {
   }
 
+  @Override
   public void close() throws SQLException, TransactionException {
     if (connection != null) {
       try {
@@ -124,6 +125,7 @@ public class ExternalTransaction implements Transaction {
     }
   }
 
+  @Override
   public Connection getConnection() throws SQLException, TransactionException {
     if (connection == null) {
       init();

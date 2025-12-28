@@ -479,8 +479,9 @@ public class SqlMapExecutorDelegate {
         // uh-oh, the insert failed, so if we set the reset flag earlier, we'll put the old
         // value
         // back...
-        if (resetKeyValueOnFailure)
+        if (resetKeyValueOnFailure) {
           PROBE.setObject(param, keyProperty, oldKeyValue);
+        }
         // ...and still throw the exception.
         throw e;
       } finally {
@@ -832,8 +833,7 @@ public class SqlMapExecutorDelegate {
 
     List list = queryForList(sessionScope, id, paramObject);
 
-    for (int i = 0, n = list.size(); i < n; i++) {
-      Object object = list.get(i);
+    for (Object object : list) {
       Object key = PROBE.getObject(object, keyProp);
       Object value = null;
       if (valueProp == null) {

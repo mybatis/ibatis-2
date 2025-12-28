@@ -23,9 +23,12 @@ import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
 import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.sql.SqlChild;
 import com.ibatis.sqlmap.engine.mapping.sql.SqlText;
-import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.*;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.DynamicParent;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.IterateContext;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTag;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTagContext;
+import com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements.SqlTagHandler;
 import com.ibatis.sqlmap.engine.mapping.sql.simple.SimpleDynamicSql;
-import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 import java.io.PrintWriter;
@@ -58,6 +61,7 @@ public class DynamicSql implements Sql, DynamicParent {
     this.delegate = delegate;
   }
 
+  @Override
   public String getSql(StatementScope statementScope, Object parameterObject) {
     String sql = statementScope.getDynamicSql();
     if (sql == null) {
@@ -67,6 +71,7 @@ public class DynamicSql implements Sql, DynamicParent {
     return sql;
   }
 
+  @Override
   public ParameterMap getParameterMap(StatementScope statementScope, Object parameterObject) {
     ParameterMap map = statementScope.getDynamicParameterMap();
     if (map == null) {
@@ -76,10 +81,12 @@ public class DynamicSql implements Sql, DynamicParent {
     return map;
   }
 
+  @Override
   public ResultMap getResultMap(StatementScope statementScope, Object parameterObject) {
     return statementScope.getResultMap();
   }
 
+  @Override
   public void cleanup(StatementScope statementScope) {
     statementScope.setDynamicSql(null);
     statementScope.setDynamicParameterMap(null);
@@ -100,7 +107,7 @@ public class DynamicSql implements Sql, DynamicParent {
 
     ParameterMap map = new ParameterMap(delegate);
     map.setId(statementScope.getStatement().getId() + "-InlineParameterMap");
-    map.setParameterClass(((MappedStatement) statementScope.getStatement()).getParameterClass());
+    map.setParameterClass((statementScope.getStatement()).getParameterClass());
     map.setParameterMappingList(ctx.getParameterMappings());
 
     String dynSql = ctx.getBodyText();
@@ -212,10 +219,8 @@ public class DynamicSql implements Sql, DynamicParent {
             response = handler.doEndFragment(ctx, tag, parameterObject, body);
             handler.doPrepend(ctx, tag, parameterObject, body);
 
-            if (response != SqlTagHandler.SKIP_BODY) {
-              if (body.length() > 0) {
-                out.print(body.toString());
-              }
+            if (response != SqlTagHandler.SKIP_BODY && body.length() > 0) {
+              out.print(body.toString());
             }
 
           }
@@ -277,6 +282,7 @@ public class DynamicSql implements Sql, DynamicParent {
     }
   }
 
+  @Override
   public void addChild(SqlChild child) {
     children.add(child);
   }

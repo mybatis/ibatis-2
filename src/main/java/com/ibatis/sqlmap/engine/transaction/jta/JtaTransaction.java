@@ -118,6 +118,7 @@ public class JtaTransaction implements Transaction {
     }
   }
 
+  @Override
   public void commit() throws SQLException, TransactionException {
     if (connection != null) {
       if (commmitted) {
@@ -135,24 +136,24 @@ public class JtaTransaction implements Transaction {
     }
   }
 
+  @Override
   public void rollback() throws SQLException, TransactionException {
-    if (connection != null) {
-      if (!commmitted) {
-        try {
-          if (userTransaction != null) {
-            if (newTransaction) {
-              userTransaction.rollback();
-            } else {
-              userTransaction.setRollbackOnly();
-            }
+    if (connection != null && !commmitted) {
+      try {
+        if (userTransaction != null) {
+          if (newTransaction) {
+            userTransaction.rollback();
+          } else {
+            userTransaction.setRollbackOnly();
           }
-        } catch (Exception e) {
-          throw new TransactionException("JtaTransaction could not rollback.  Cause: ", e);
         }
+      } catch (Exception e) {
+        throw new TransactionException("JtaTransaction could not rollback.  Cause: ", e);
       }
     }
   }
 
+  @Override
   public void close() throws SQLException, TransactionException {
     if (connection != null) {
       try {
@@ -164,6 +165,7 @@ public class JtaTransaction implements Transaction {
     }
   }
 
+  @Override
   public Connection getConnection() throws SQLException, TransactionException {
     if (connection == null) {
       init();

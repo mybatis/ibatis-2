@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,7 @@ class ResultMapTest extends BaseSqlMap {
   @Test
   void testGetSomeLineItemProps() throws SQLException {
     try {
-      List<?> list = sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
+      sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
 
       fail("Expected exception because column was missing.");
     } catch (NestedSQLException e) {

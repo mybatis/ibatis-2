@@ -77,6 +77,7 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @return The type of the property
    */
+  @Override
   public Class getPropertyTypeForSetter(Object object, String name) {
     Class type = object.getClass();
 
@@ -115,6 +116,7 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @return The type of the property
    */
+  @Override
   public Class getPropertyTypeForGetter(Object object, String name) {
     Class type = object.getClass();
 
@@ -203,6 +205,7 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @return The property value (as an Object)
    */
+  @Override
   public Object getObject(Object object, String name) {
     if (name.indexOf('.') > -1) {
       StringTokenizer parser = new StringTokenizer(name, ".");
@@ -231,6 +234,7 @@ public class ComplexBeanProbe extends BaseProbe {
    * @param value
    *          The new value to set
    */
+  @Override
   public void setObject(Object object, String name, Object value) {
     if (name.indexOf('.') > -1) {
       StringTokenizer parser = new StringTokenizer(name, ".");
@@ -272,6 +276,7 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @return True if the property exists and is writable
    */
+  @Override
   public boolean hasWritableProperty(Object object, String propertyName) {
     boolean hasProperty = false;
     if (object instanceof Map) {
@@ -302,6 +307,7 @@ public class ComplexBeanProbe extends BaseProbe {
    *
    * @return True if the property exists and is readable
    */
+  @Override
   public boolean hasReadableProperty(Object object, String propertyName) {
     boolean hasProperty = false;
     if (object instanceof Map) {

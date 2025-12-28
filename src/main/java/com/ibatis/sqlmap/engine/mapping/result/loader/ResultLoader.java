@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,11 @@ import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class to load results into objects.
@@ -93,7 +97,7 @@ public class ResultLoader {
     if (DomCollectionTypeMarker.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (Set.class.isAssignableFrom(targetType)) {
-      value = new HashSet(client.queryForList(statementName, parameterObject));
+      value = new HashSet<>(client.queryForList(statementName, parameterObject));
     } else if (Collection.class.isAssignableFrom(targetType)) {
       value = client.queryForList(statementName, parameterObject);
     } else if (targetType.isArray()) {
@@ -121,7 +125,8 @@ public class ResultLoader {
       Iterator iter = list.iterator();
       int index = 0;
       while (iter.hasNext()) {
-        Array.set(array, index++, iter.next());
+        Array.set(array, index, iter.next());
+        index++;
       }
     } else {
       array = list.toArray((Object[]) array);

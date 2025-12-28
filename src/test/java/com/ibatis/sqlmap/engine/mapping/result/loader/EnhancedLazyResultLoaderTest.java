@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,24 +65,29 @@ class EnhancedLazyResultLoaderTest {
    */
   private SqlMapClientImpl setupMockSqlMapClientImpl() {
     SqlMapExecutorDelegate delegate = new SqlMapExecutorDelegate();
-    SqlMapClientImpl client = new SqlMapClientImpl(delegate) {
+    return new SqlMapClientImpl(delegate) {
       @Override
       public Object queryForObject(String id, Object paramObject) throws SQLException {
-        if ("bean1".equals(id)) {
-          return new Bean1();
-        } else if ("bean2".equals(id)) {
-          Bean2 bean = new Bean2();
-          EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(this, "bean1", null, Bean1.class);
-          bean.setBean1((Bean1) loader.loadResult());
-          return bean;
-        } else if ("bean3".equals(id)) {
-          return null;
+        if (id != null) {
+          switch (id) {
+            case "bean1":
+              return new Bean1();
+            case "bean2": {
+              Bean2 bean = new Bean2();
+              EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(this, "bean1", null, Bean1.class);
+              bean.setBean1((Bean1) loader.loadResult());
+              return bean;
+            }
+            case "bean3":
+              return null;
+            default:
+              break;
+          }
         }
         fail();
         return null;
       }
     };
-    return client;
   }
 
   public static class TestBean3 {

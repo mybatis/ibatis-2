@@ -38,37 +38,39 @@ public class EnumTypeHandler extends BaseTypeHandler implements TypeHandler {
     this.type = type;
   }
 
+  @Override
   public void setParameter(PreparedStatement ps, int i, Object parameter, String jdbcType) throws SQLException {
     ps.setString(i, parameter.toString());
   }
 
+  @Override
   public Object getResult(ResultSet rs, String columnName) throws SQLException {
     String s = rs.getString(columnName);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return Enum.valueOf(type, s);
     }
+    return Enum.valueOf(type, s);
   }
 
+  @Override
   public Object getResult(ResultSet rs, int columnIndex) throws SQLException {
     String s = rs.getString(columnIndex);
     if (rs.wasNull()) {
       return null;
-    } else {
-      return Enum.valueOf(type, s);
     }
+    return Enum.valueOf(type, s);
   }
 
+  @Override
   public Object getResult(CallableStatement cs, int columnIndex) throws SQLException {
     String s = cs.getString(columnIndex);
     if (cs.wasNull()) {
       return null;
-    } else {
-      return Enum.valueOf(type, s);
     }
+    return Enum.valueOf(type, s);
   }
 
+  @Override
   public Object valueOf(String s) {
     return Enum.valueOf(type, s);
   }

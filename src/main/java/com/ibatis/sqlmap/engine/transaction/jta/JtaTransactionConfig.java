@@ -35,6 +35,7 @@ public class JtaTransactionConfig extends BaseTransactionConfig {
   /** The user transaction. */
   private UserTransaction userTransaction;
 
+  @Override
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
     return new JtaTransaction(userTransaction, dataSource, transactionIsolation);
   }
@@ -58,6 +59,7 @@ public class JtaTransactionConfig extends BaseTransactionConfig {
     this.userTransaction = userTransaction;
   }
 
+  @Override
   public void setProperties(Properties props) throws SQLException, TransactionException {
     String utxName = null;
     try {

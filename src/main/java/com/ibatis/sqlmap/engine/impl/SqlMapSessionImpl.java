@@ -78,6 +78,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
     return closed;
   }
 
+  @Override
   public void close() {
     if (delegate != null && sessionScope != null)
       delegate.endSessionScope(sessionScope);
@@ -89,54 +90,67 @@ public class SqlMapSessionImpl implements SqlMapSession {
       closed = true;
   }
 
+  @Override
   public Object insert(String id, Object param) throws SQLException {
     return delegate.insert(sessionScope, id, param);
   }
 
+  @Override
   public Object insert(String id) throws SQLException {
     return insert(id, null);
   }
 
+  @Override
   public int update(String id, Object param) throws SQLException {
     return delegate.update(sessionScope, id, param);
   }
 
+  @Override
   public int update(String id) throws SQLException {
     return update(id, null);
   }
 
+  @Override
   public int delete(String id, Object param) throws SQLException {
     return delegate.delete(sessionScope, id, param);
   }
 
+  @Override
   public int delete(String id) throws SQLException {
     return delete(id, null);
   }
 
+  @Override
   public Object queryForObject(String id, Object paramObject) throws SQLException {
     return delegate.queryForObject(sessionScope, id, paramObject);
   }
 
+  @Override
   public Object queryForObject(String id) throws SQLException {
     return queryForObject(id, null);
   }
 
+  @Override
   public Object queryForObject(String id, Object paramObject, Object resultObject) throws SQLException {
     return delegate.queryForObject(sessionScope, id, paramObject, resultObject);
   }
 
+  @Override
   public List queryForList(String id, Object paramObject) throws SQLException {
     return delegate.queryForList(sessionScope, id, paramObject);
   }
 
+  @Override
   public List queryForList(String id) throws SQLException {
     return queryForList(id, null);
   }
 
+  @Override
   public List queryForList(String id, Object paramObject, int skip, int max) throws SQLException {
     return delegate.queryForList(sessionScope, id, paramObject, skip, max);
   }
 
+  @Override
   public List queryForList(String id, int skip, int max) throws SQLException {
     return queryForList(id, null, skip, max);
   }
@@ -144,6 +158,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Override
   @Deprecated
   public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
     return delegate.queryForPaginatedList(sessionScope, id, paramObject, pageSize);
@@ -152,55 +167,68 @@ public class SqlMapSessionImpl implements SqlMapSession {
   /**
    * @deprecated All paginated list features have been deprecated
    */
+  @Override
   @Deprecated
   public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
     return queryForPaginatedList(id, null, pageSize);
   }
 
+  @Override
   public Map queryForMap(String id, Object paramObject, String keyProp) throws SQLException {
     return delegate.queryForMap(sessionScope, id, paramObject, keyProp);
   }
 
+  @Override
   public Map queryForMap(String id, Object paramObject, String keyProp, String valueProp) throws SQLException {
     return delegate.queryForMap(sessionScope, id, paramObject, keyProp, valueProp);
   }
 
+  @Override
   public void queryWithRowHandler(String id, Object paramObject, RowHandler rowHandler) throws SQLException {
     delegate.queryWithRowHandler(sessionScope, id, paramObject, rowHandler);
   }
 
+  @Override
   public void queryWithRowHandler(String id, RowHandler rowHandler) throws SQLException {
     queryWithRowHandler(id, null, rowHandler);
   }
 
+  @Override
   public void startTransaction() throws SQLException {
     delegate.startTransaction(sessionScope);
   }
 
+  @Override
   public void startTransaction(int transactionIsolation) throws SQLException {
     delegate.startTransaction(sessionScope, transactionIsolation);
   }
 
+  @Override
   public void commitTransaction() throws SQLException {
     delegate.commitTransaction(sessionScope);
   }
 
+  @Override
   public void endTransaction() throws SQLException {
     delegate.endTransaction(sessionScope);
   }
 
+  @Override
   public void startBatch() throws SQLException {
     delegate.startBatch(sessionScope);
   }
 
+  @Override
   public int executeBatch() throws SQLException {
     return delegate.executeBatch(sessionScope);
   }
 
+  @Override
   public List executeBatchDetailed() throws SQLException, BatchException {
     return delegate.executeBatchDetailed(sessionScope);
   }
 
+  @Override
   public void setUserConnection(Connection connection) throws SQLException {
     delegate.setUserProvidedTransaction(sessionScope, connection);
   }
@@ -215,11 +243,13 @@ public class SqlMapSessionImpl implements SqlMapSession {
    *
    * @deprecated Use {@link #getCurrentConnection()} instead.
    */
+  @Override
   @Deprecated
   public Connection getUserConnection() throws SQLException {
     return getCurrentConnection();
   }
 
+  @Override
   public Connection getCurrentConnection() throws SQLException {
     try {
       Connection conn = null;
@@ -233,6 +263,7 @@ public class SqlMapSessionImpl implements SqlMapSession {
     }
   }
 
+  @Override
   public DataSource getDataSource() {
     return delegate.getDataSource();
   }

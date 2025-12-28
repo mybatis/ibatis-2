@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,20 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import badbeans.*;
+import badbeans.BeanWithDifferentTypeGetterSetter;
+import badbeans.BeanWithDifferentTypeOverloadedSetter;
+import badbeans.BeanWithNoGetterOverloadedSetters;
+import badbeans.BeanWithOverloadedSetter;
+import badbeans.GoodBean;
 
 class BadBeanTest {
 
   private static final String PROPNAME = "value";
   private static final Object STRING_VALUE = "1";
   private static final Object INT_VALUE = Integer.valueOf(1);
-  private static final Object[] NO_VALUE = new Object[] {};
-  private static final Object[] STRING_PARAMS = new Object[] { STRING_VALUE };
-  private static final Object[] INT_PARAMS = new Object[] { INT_VALUE };
+  private static final Object[] NO_VALUE = {};
+  private static final Object[] STRING_PARAMS = { STRING_VALUE };
+  private static final Object[] INT_PARAMS = { INT_VALUE };
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {

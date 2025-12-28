@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,6 @@ public class TransactionManager {
    *           the transaction exception
    */
   public void begin(SessionScope sessionScope, int transactionIsolation) throws SQLException, TransactionException {
-    Transaction trans = sessionScope.getTransaction();
     TransactionState state = sessionScope.getTransactionState();
     if (state == TransactionState.STATE_STARTED) {
       throw new TransactionException(
@@ -77,7 +76,7 @@ public class TransactionManager {
           + "The calling .setUserConnection (null) will clear the user provided transaction.");
     }
 
-    trans = config.newTransaction(transactionIsolation);
+    Transaction trans = config.newTransaction(transactionIsolation);
     sessionScope.setCommitRequired(false);
 
     sessionScope.setTransaction(trans);
@@ -138,11 +137,10 @@ public class TransactionManager {
     try {
       if (trans != null) {
         try {
-          if (state != TransactionState.STATE_COMMITTED) {
-            if (sessionScope.isCommitRequired() || config.isForceCommit()) {
-              trans.rollback();
-              sessionScope.setCommitRequired(false);
-            }
+          if (state != TransactionState.STATE_COMMITTED
+              && (sessionScope.isCommitRequired() || config.isForceCommit())) {
+            trans.rollback();
+            sessionScope.setCommitRequired(false);
           }
         } finally {
           sessionScope.closePreparedStatements();

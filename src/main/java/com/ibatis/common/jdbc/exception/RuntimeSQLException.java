@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ import java.sql.SQLException;
  * Unchecked exception to allow passing an Exception with the original SQLException.
  */
 public class RuntimeSQLException extends RuntimeException {
+
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
   /**
    * Default constructor.
@@ -69,9 +72,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getSQLState();
-    } else {
-      return null;
     }
+    return null;
 
   }
 
@@ -84,9 +86,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getErrorCode();
-    } else {
-      return -1;
     }
+    return -1;
   }
 
   /**
@@ -98,9 +99,8 @@ public class RuntimeSQLException extends RuntimeException {
     Throwable cause = getCause();
     if (cause instanceof SQLException) {
       return ((SQLException) cause).getNextException();
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**

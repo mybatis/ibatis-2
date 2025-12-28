@@ -684,9 +684,7 @@ public class ResultMap {
         }
       }
       return result;
-    } catch (InstantiationException e) {
-      throw new NestedSQLException("Error setting nested bean property.  Cause: " + e, e);
-    } catch (IllegalAccessException e) {
+    } catch (InstantiationException | IllegalAccessException e) {
       throw new NestedSQLException("Error setting nested bean property.  Cause: " + e, e);
     }
 

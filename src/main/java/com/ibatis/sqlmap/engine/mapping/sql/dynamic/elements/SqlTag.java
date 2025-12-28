@@ -275,6 +275,7 @@ public class SqlTag implements SqlChild, DynamicParent {
     this.conjunctionAttr = conjunctionAttr;
   }
 
+  @Override
   public void addChild(SqlChild child) {
     if (child instanceof SqlTag) {
       ((SqlTag) child).parent = this;

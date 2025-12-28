@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
 
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
 
-    String name = ((ResultMap) resultMap).getXmlName();
+    String name = resultMap.getXmlName();
     if (name == null) {
       name = "result";
     }
@@ -99,10 +99,8 @@ public class DomDataExchange extends BaseDataExchange implements DataExchange {
     ParameterMapping[] mappings = parameterMap.getParameterMappings();
 
     for (int i = 0; i < mappings.length; i++) {
-      if (values[i] != null) {
-        if (mappings[i].isOutputAllowed()) {
-          probe.setObject(parameterObject, mappings[i].getPropertyName(), values[i]);
-        }
+      if (values[i] != null && mappings[i].isOutputAllowed()) {
+        probe.setObject(parameterObject, mappings[i].getPropertyName(), values[i]);
       }
     }
 

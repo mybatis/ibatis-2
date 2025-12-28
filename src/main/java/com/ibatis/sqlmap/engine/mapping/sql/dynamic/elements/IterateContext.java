@@ -103,15 +103,18 @@ public class IterateContext implements Iterator {
     }
   }
 
+  @Override
   public boolean hasNext() {
     return iterator != null && iterator.hasNext();
   }
 
+  @Override
   public Object next() {
     index++;
     return iterator.next();
   }
 
+  @Override
   public void remove() {
     iterator.remove();
   }
@@ -283,9 +286,8 @@ public class IterateContext implements Iterator {
       Map parentResult = parent.processTagProperty(tagProperty);
       return this.addIndex((String) parentResult.get(PROCESS_STRING),
           ((Integer) parentResult.get(PROCESS_INDEX)).intValue());
-    } else {
-      return this.addIndex(tagProperty, 0);
     }
+    return this.addIndex(tagProperty, 0);
   }
 
   /**
