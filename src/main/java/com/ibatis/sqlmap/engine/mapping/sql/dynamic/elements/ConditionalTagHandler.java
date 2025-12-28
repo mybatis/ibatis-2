@@ -120,9 +120,8 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     }
     if (compareValue != null) {
       return compareValues(type, value1, compareValue);
-    } else {
-      throw new RuntimeException("Error comparing in conditional fragment.  Uknown 'compare to' values.");
     }
+    throw new RuntimeException("Error comparing in conditional fragment.  Uknown 'compare to' values.");
   }
 
   /**
@@ -175,29 +174,38 @@ public abstract class ConditionalTagHandler extends BaseTagHandler {
     }
     if (type == Byte.class || type == byte.class) {
       return Byte.valueOf(value);
-    } else if (type == Short.class || type == short.class) {
-      return Short.valueOf(value);
-    } else if (type == Character.class || type == char.class) {
-      return Character.valueOf(value.charAt(0));
-    } else if (type == Integer.class || type == int.class) {
-      return Integer.valueOf(value);
-    } else if (type == Long.class || type == long.class) {
-      return Long.valueOf(value);
-    } else if (type == Float.class || type == float.class) {
-      return Float.valueOf(value);
-    } else if (type == Double.class || type == double.class) {
-      return Double.valueOf(value);
-    } else if (type == Boolean.class || type == boolean.class) {
-      return Boolean.valueOf(value);
-    } else if (type == Date.class) {
-      return SimpleDateFormatter.format(DATE_MASK, value);
-    } else if (type == BigInteger.class) {
-      return new BigInteger(value);
-    } else if (type == BigDecimal.class) {
-      return new BigDecimal(value);
-    } else {
-      return value;
     }
+    if (type == Short.class || type == short.class) {
+      return Short.valueOf(value);
+    }
+    if (type == Character.class || type == char.class) {
+      return Character.valueOf(value.charAt(0));
+    }
+    if (type == Integer.class || type == int.class) {
+      return Integer.valueOf(value);
+    }
+    if (type == Long.class || type == long.class) {
+      return Long.valueOf(value);
+    }
+    if (type == Float.class || type == float.class) {
+      return Float.valueOf(value);
+    }
+    if (type == Double.class || type == double.class) {
+      return Double.valueOf(value);
+    }
+    if (type == Boolean.class || type == boolean.class) {
+      return Boolean.valueOf(value);
+    }
+    if (type == Date.class) {
+      return SimpleDateFormatter.format(DATE_MASK, value);
+    }
+    if (type == BigInteger.class) {
+      return new BigInteger(value);
+    }
+    if (type == BigDecimal.class) {
+      return new BigDecimal(value);
+    }
+    return value;
 
   }
 
