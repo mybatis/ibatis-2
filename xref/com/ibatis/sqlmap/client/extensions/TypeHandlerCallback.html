@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/client/extensions/TypeHandlerCallback.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -47,9 +47,9 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *   public Object getResult(ResultGetter getter) throws SQLException {</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *     String s = getter.getString();</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *     if (YES.equalsIgnoreCase(s)) {</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *       return new Boolean(true);</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *       return Boolean.valueOf(true);</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *     } else if (NO.equalsIgnoreCase(s)) {</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *       return new Boolean(false);</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *       return Boolean.valueOf(false);</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> *     } else {</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> *       throw new SQLException("Unexpected value " + s + " found where " + YES + " or " + NO + " was expected.");</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *     }</em>
@@ -66,9 +66,9 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> *   public Object valueOf(String s) {</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> *     if (YES.equalsIgnoreCase(s)) {</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> *       return new Boolean(true);</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> *       return Boolean.valueOf(true);</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> *     } else if (NO.equalsIgnoreCase(s)) {</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> *       return new Boolean(false);</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> *       return Boolean.valueOf(false);</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> *     } else {</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment"> *       throw new SQLException("Unexpected value " + s + " found where " + YES + " or " + NO + " was expected.");</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> *     }</em>
@@ -90,7 +90,7 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   *           If any error occurs.</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameter(<a name="ParameterSetter" href="../../../../../com/ibatis/sqlmap/client/extensions/ParameterSetter.html#ParameterSetter">ParameterSetter</a> setter, Object parameter) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>    <strong class="jxr_keyword">void</strong> setParameter(<a name="ParameterSetter" href="../../../../../com/ibatis/sqlmap/client/extensions/ParameterSetter.html#ParameterSetter">ParameterSetter</a> setter, Object parameter) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">   * Performs processing on a value before after it has been retrieved from a ResultSet.</em>
@@ -103,7 +103,7 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">   *           If any error occurs.</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>    <strong class="jxr_keyword">public</strong> Object getResult(<a name="ResultGetter" href="../../../../../com/ibatis/sqlmap/client/extensions/ResultGetter.html#ResultGetter">ResultGetter</a> getter) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>    Object getResult(<a name="ResultGetter" href="../../../../../com/ibatis/sqlmap/client/extensions/ResultGetter.html#ResultGetter">ResultGetter</a> getter) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   * Casts the string representation of a value into a type recognized by this type handler. This method is used to</em>
@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">   *         &lt;li&gt;null, only if null was passed in.&lt;/li&gt;</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">   *         &lt;/ol&gt;</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>   <strong class="jxr_keyword">public</strong> Object valueOf(String s);
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>   Object valueOf(String s);
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> }
 </pre>

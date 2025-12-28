@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterSetterImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">ParameterSetterImpl.java</span></div><h1>ParameterSetterImpl.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,15 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Ref;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -43,133 +51,164 @@ public class ParameterSetterImpl implements ParameterSetter {
    * @param columnIndex
    *          - the column index
    */
-<span class="fc" id="L46">  public ParameterSetterImpl(PreparedStatement statement, int columnIndex) {</span>
-<span class="fc" id="L47">    this.ps = statement;</span>
-<span class="fc" id="L48">    this.index = columnIndex;</span>
-<span class="fc" id="L49">  }</span>
+<span class="fc" id="L54">  public ParameterSetterImpl(PreparedStatement statement, int columnIndex) {</span>
+<span class="fc" id="L55">    this.ps = statement;</span>
+<span class="fc" id="L56">    this.index = columnIndex;</span>
+<span class="fc" id="L57">  }</span>
 
+  @Override
   public void setArray(Array x) throws SQLException {
-<span class="nc" id="L52">    ps.setArray(index, x);</span>
-<span class="nc" id="L53">  }</span>
+<span class="nc" id="L61">    ps.setArray(index, x);</span>
+<span class="nc" id="L62">  }</span>
 
+  @Override
   public void setAsciiStream(InputStream x, int length) throws SQLException {
-<span class="nc" id="L56">    ps.setAsciiStream(index, x, length);</span>
-<span class="nc" id="L57">  }</span>
+<span class="nc" id="L66">    ps.setAsciiStream(index, x, length);</span>
+<span class="nc" id="L67">  }</span>
 
+  @Override
   public void setBigDecimal(BigDecimal x) throws SQLException {
-<span class="nc" id="L60">    ps.setBigDecimal(index, x);</span>
-<span class="nc" id="L61">  }</span>
+<span class="nc" id="L71">    ps.setBigDecimal(index, x);</span>
+<span class="nc" id="L72">  }</span>
 
+  @Override
   public void setBinaryStream(InputStream x, int length) throws SQLException {
-<span class="nc" id="L64">    ps.setBinaryStream(index, x, length);</span>
-<span class="nc" id="L65">  }</span>
-
-  public void setBlob(Blob x) throws SQLException {
-<span class="nc" id="L68">    ps.setBlob(index, x);</span>
-<span class="nc" id="L69">  }</span>
-
-  public void setBoolean(boolean x) throws SQLException {
-<span class="nc" id="L72">    ps.setBoolean(index, x);</span>
-<span class="nc" id="L73">  }</span>
-
-  public void setByte(byte x) throws SQLException {
-<span class="nc" id="L76">    ps.setByte(index, x);</span>
+<span class="nc" id="L76">    ps.setBinaryStream(index, x, length);</span>
 <span class="nc" id="L77">  }</span>
 
+  @Override
+  public void setBlob(Blob x) throws SQLException {
+<span class="nc" id="L81">    ps.setBlob(index, x);</span>
+<span class="nc" id="L82">  }</span>
+
+  @Override
+  public void setBoolean(boolean x) throws SQLException {
+<span class="nc" id="L86">    ps.setBoolean(index, x);</span>
+<span class="nc" id="L87">  }</span>
+
+  @Override
+  public void setByte(byte x) throws SQLException {
+<span class="nc" id="L91">    ps.setByte(index, x);</span>
+<span class="nc" id="L92">  }</span>
+
+  @Override
   public void setBytes(byte x[]) throws SQLException {
-<span class="nc" id="L80">    ps.setBytes(index, x);</span>
-<span class="nc" id="L81">  }</span>
-
-  public void setCharacterStream(Reader reader, int length) throws SQLException {
-<span class="nc" id="L84">    ps.setCharacterStream(index, reader, length);</span>
-<span class="nc" id="L85">  }</span>
-
-  public void setClob(Clob x) throws SQLException {
-<span class="nc" id="L88">    ps.setClob(index, x);</span>
-<span class="nc" id="L89">  }</span>
-
-  public void setDate(Date x) throws SQLException {
-<span class="nc" id="L92">    ps.setDate(index, x);</span>
-<span class="nc" id="L93">  }</span>
-
-  public void setDate(Date x, Calendar cal) throws SQLException {
-<span class="nc" id="L96">    ps.setDate(index, x, cal);</span>
+<span class="nc" id="L96">    ps.setBytes(index, x);</span>
 <span class="nc" id="L97">  }</span>
 
-  public void setDouble(double x) throws SQLException {
-<span class="nc" id="L100">    ps.setDouble(index, x);</span>
-<span class="nc" id="L101">  }</span>
+  @Override
+  public void setCharacterStream(Reader reader, int length) throws SQLException {
+<span class="nc" id="L101">    ps.setCharacterStream(index, reader, length);</span>
+<span class="nc" id="L102">  }</span>
 
-  public void setFloat(float x) throws SQLException {
-<span class="nc" id="L104">    ps.setFloat(index, x);</span>
-<span class="nc" id="L105">  }</span>
+  @Override
+  public void setClob(Clob x) throws SQLException {
+<span class="nc" id="L106">    ps.setClob(index, x);</span>
+<span class="nc" id="L107">  }</span>
 
-  public void setInt(int x) throws SQLException {
-<span class="fc" id="L108">    ps.setInt(index, x);</span>
-<span class="fc" id="L109">  }</span>
+  @Override
+  public void setDate(Date x) throws SQLException {
+<span class="nc" id="L111">    ps.setDate(index, x);</span>
+<span class="nc" id="L112">  }</span>
 
-  public void setLong(long x) throws SQLException {
-<span class="nc" id="L112">    ps.setLong(index, x);</span>
-<span class="nc" id="L113">  }</span>
-
-  public void setNull(int sqlType) throws SQLException {
-<span class="nc" id="L116">    ps.setNull(index, sqlType);</span>
+  @Override
+  public void setDate(Date x, Calendar cal) throws SQLException {
+<span class="nc" id="L116">    ps.setDate(index, x, cal);</span>
 <span class="nc" id="L117">  }</span>
 
-  public void setNull(int sqlType, String typeName) throws SQLException {
-<span class="nc" id="L120">    ps.setNull(index, sqlType, typeName);</span>
-<span class="nc" id="L121">  }</span>
+  @Override
+  public void setDouble(double x) throws SQLException {
+<span class="nc" id="L121">    ps.setDouble(index, x);</span>
+<span class="nc" id="L122">  }</span>
 
-  public void setObject(Object x) throws SQLException {
-<span class="nc" id="L124">    ps.setObject(index, x);</span>
-<span class="nc" id="L125">  }</span>
+  @Override
+  public void setFloat(float x) throws SQLException {
+<span class="nc" id="L126">    ps.setFloat(index, x);</span>
+<span class="nc" id="L127">  }</span>
 
-  public void setObject(Object x, int targetSqlType) throws SQLException {
-<span class="nc" id="L128">    ps.setObject(index, x, targetSqlType);</span>
-<span class="nc" id="L129">  }</span>
+  @Override
+  public void setInt(int x) throws SQLException {
+<span class="fc" id="L131">    ps.setInt(index, x);</span>
+<span class="fc" id="L132">  }</span>
 
-  public void setObject(Object x, int targetSqlType, int scale) throws SQLException {
-<span class="nc" id="L132">    ps.setObject(index, x, scale);</span>
-<span class="nc" id="L133">  }</span>
-
-  public void setRef(Ref x) throws SQLException {
-<span class="nc" id="L136">    ps.setRef(index, x);</span>
+  @Override
+  public void setLong(long x) throws SQLException {
+<span class="nc" id="L136">    ps.setLong(index, x);</span>
 <span class="nc" id="L137">  }</span>
 
-  public void setShort(short x) throws SQLException {
-<span class="nc" id="L140">    ps.setShort(index, x);</span>
-<span class="nc" id="L141">  }</span>
+  @Override
+  public void setNull(int sqlType) throws SQLException {
+<span class="nc" id="L141">    ps.setNull(index, sqlType);</span>
+<span class="nc" id="L142">  }</span>
 
-  public void setString(String x) throws SQLException {
-<span class="fc" id="L144">    ps.setString(index, x);</span>
-<span class="fc" id="L145">  }</span>
+  @Override
+  public void setNull(int sqlType, String typeName) throws SQLException {
+<span class="nc" id="L146">    ps.setNull(index, sqlType, typeName);</span>
+<span class="nc" id="L147">  }</span>
 
-  public void setTime(Time x) throws SQLException {
-<span class="nc" id="L148">    ps.setTime(index, x);</span>
-<span class="nc" id="L149">  }</span>
+  @Override
+  public void setObject(Object x) throws SQLException {
+<span class="nc" id="L151">    ps.setObject(index, x);</span>
+<span class="nc" id="L152">  }</span>
 
-  public void setTime(Time x, Calendar cal) throws SQLException {
-<span class="nc" id="L152">    ps.setTime(index, x, cal);</span>
-<span class="nc" id="L153">  }</span>
-
-  public void setTimestamp(Timestamp x) throws SQLException {
-<span class="nc" id="L156">    ps.setTimestamp(index, x);</span>
+  @Override
+  public void setObject(Object x, int targetSqlType) throws SQLException {
+<span class="nc" id="L156">    ps.setObject(index, x, targetSqlType);</span>
 <span class="nc" id="L157">  }</span>
 
+  @Override
+  public void setObject(Object x, int targetSqlType, int scale) throws SQLException {
+<span class="nc" id="L161">    ps.setObject(index, x, scale);</span>
+<span class="nc" id="L162">  }</span>
+
+  @Override
+  public void setRef(Ref x) throws SQLException {
+<span class="nc" id="L166">    ps.setRef(index, x);</span>
+<span class="nc" id="L167">  }</span>
+
+  @Override
+  public void setShort(short x) throws SQLException {
+<span class="nc" id="L171">    ps.setShort(index, x);</span>
+<span class="nc" id="L172">  }</span>
+
+  @Override
+  public void setString(String x) throws SQLException {
+<span class="fc" id="L176">    ps.setString(index, x);</span>
+<span class="fc" id="L177">  }</span>
+
+  @Override
+  public void setTime(Time x) throws SQLException {
+<span class="nc" id="L181">    ps.setTime(index, x);</span>
+<span class="nc" id="L182">  }</span>
+
+  @Override
+  public void setTime(Time x, Calendar cal) throws SQLException {
+<span class="nc" id="L186">    ps.setTime(index, x, cal);</span>
+<span class="nc" id="L187">  }</span>
+
+  @Override
+  public void setTimestamp(Timestamp x) throws SQLException {
+<span class="nc" id="L191">    ps.setTimestamp(index, x);</span>
+<span class="nc" id="L192">  }</span>
+
+  @Override
   public void setTimestamp(Timestamp x, Calendar cal) throws SQLException {
-<span class="nc" id="L160">    ps.setTimestamp(index, x, cal);</span>
-<span class="nc" id="L161">  }</span>
+<span class="nc" id="L196">    ps.setTimestamp(index, x, cal);</span>
+<span class="nc" id="L197">  }</span>
 
+  @Override
   public void setURL(URL x) throws SQLException {
-<span class="nc" id="L164">    ps.setURL(index, x);</span>
-<span class="nc" id="L165">  }</span>
+<span class="nc" id="L201">    ps.setURL(index, x);</span>
+<span class="nc" id="L202">  }</span>
 
+  @Override
   public PreparedStatement getPreparedStatement() {
-<span class="nc" id="L168">    return ps;</span>
+<span class="nc" id="L206">    return ps;</span>
   }
 
+  @Override
   public int getParameterIndex() {
-<span class="nc" id="L172">    return index;</span>
+<span class="nc" id="L211">    return index;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

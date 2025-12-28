@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/type/TypeHandler.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   *           if setting the parameter fails</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameter(PreparedStatement ps, <strong class="jxr_keyword">int</strong> i, Object parameter, String jdbcType) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">void</strong> setParameter(PreparedStatement ps, <strong class="jxr_keyword">int</strong> i, Object parameter, String jdbcType) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">   * Gets a column from a result set.</em>
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   *           if getting the value fails</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>    <strong class="jxr_keyword">public</strong> Object getResult(ResultSet rs, String columnName) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>    Object getResult(ResultSet rs, String columnName) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">   * Gets a column from a result set.</em>
@@ -78,7 +78,7 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">   *           if getting the value fails</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>    <strong class="jxr_keyword">public</strong> Object getResult(ResultSet rs, <strong class="jxr_keyword">int</strong> columnIndex) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>    Object getResult(ResultSet rs, <strong class="jxr_keyword">int</strong> columnIndex) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">   * Gets a column from a callable statement.</em>
@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   * @throws SQLException</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">   *           if getting the value fails</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>    <strong class="jxr_keyword">public</strong> Object getResult(CallableStatement cs, <strong class="jxr_keyword">int</strong> columnIndex) <strong class="jxr_keyword">throws</strong> SQLException;
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>    Object getResult(CallableStatement cs, <strong class="jxr_keyword">int</strong> columnIndex) <strong class="jxr_keyword">throws</strong> SQLException;
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>    <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">   * Converts the String to the type that this handler deals with.</em>
@@ -103,7 +103,7 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">   * @return - the converted value</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>    <strong class="jxr_keyword">public</strong> Object valueOf(String s);
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>    Object valueOf(String s);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   * Compares two values (that this handler deals with) for equality.</em>
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">   * @return - true if they are equal</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object object, String string);
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>   <strong class="jxr_keyword">boolean</strong> equals(Object object, String string);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> }
 </pre>

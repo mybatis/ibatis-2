@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcTypeRegistry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.type</a> &gt; <span class="el_source">JdbcTypeRegistry.java</span></div><h1>JdbcTypeRegistry.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -28,17 +28,17 @@ public class JdbcTypeRegistry {
   public static final int UNKNOWN_TYPE = -99999999;
 
   /** The Constant TYPE_MAP. */
-<span class="fc" id="L31">  private static final Map TYPE_MAP = new HashMap();</span>
+<span class="fc" id="L31">  private static final Map&lt;String, Integer&gt; TYPE_MAP = new HashMap&lt;&gt;();</span>
 
   /**
    * Value for a JDBC 3.o datalink type
    */
-  public final static int JDBC_30_DATALINK = 70;
+  public static final int JDBC_30_DATALINK = 70;
 
   /**
    * Value for a JDBC 3.o boolean type
    */
-  public final static int JDBC_30_BOOLEAN = 16;
+  public static final int JDBC_30_BOOLEAN = 16;
 
   static {
 <span class="fc" id="L44">    initializeTypes();</span>
@@ -71,14 +71,14 @@ public class JdbcTypeRegistry {
    * @return - the int value (from java.sql.Types)
    */
   public static int getType(String name) {
-<span class="fc bfc" id="L74" title="All 2 branches covered.">    if (name == null)</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">    if (name == null) {</span>
 <span class="fc" id="L75">      return UNKNOWN_TYPE;</span>
-<span class="fc" id="L76">    Integer i = (Integer) TYPE_MAP.get(name);</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (i != null) {</span>
-<span class="fc" id="L78">      return i.intValue();</span>
-    } else {
-<span class="fc" id="L80">      return UNKNOWN_TYPE;</span>
     }
+<span class="fc" id="L77">    Integer i = TYPE_MAP.get(name);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">    if (i != null) {</span>
+<span class="fc" id="L79">      return i.intValue();</span>
+    }
+<span class="fc" id="L81">    return UNKNOWN_TYPE;</span>
   }
 
   /**

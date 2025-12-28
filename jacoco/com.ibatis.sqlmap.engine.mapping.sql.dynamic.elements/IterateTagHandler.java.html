@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IterateTagHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IterateTagHandler.java</span></div><h1>IterateTagHandler.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ import com.ibatis.common.beans.ProbeFactory;
 <span class="fc" id="L63">      ctx.reEnableRemoveFirstPrependMarker();</span>
     }
 
-<span class="pc bpc" id="L66" title="2 of 4 branches missed.">    if (iterate != null &amp;&amp; iterate.hasNext()) {</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">    if (iterate.hasNext()) {</span>
 <span class="fc" id="L67">      return INCLUDE_BODY;</span>
     } else {
 <span class="nc" id="L69">      return SKIP_BODY;</span>
@@ -80,7 +80,7 @@ import com.ibatis.common.beans.ProbeFactory;
 <span class="nc" id="L80">        iterate.next();</span>
       }
 
-<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (bodyContent.toString().trim().length() &gt; 0) {</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (!bodyContent.toString().trim().isEmpty()) {</span>
         // the sub element produced a result. If it is the first one
         // to produce a result, then we need to add the open
         // text. If it is not the first to produce a result then
@@ -102,32 +102,30 @@ import com.ibatis.common.beans.ProbeFactory;
 <span class="fc" id="L102">        iterate.setSomeSubElementsHaveContent(true);</span>
       }
 
-<span class="fc bfc" id="L105" title="All 4 branches covered.">      if (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent()) {</span>
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (tag.isCloseAvailable()) {</span>
-<span class="fc" id="L107">          bodyContent.append(tag.getCloseAttr());</span>
-        }
+<span class="fc bfc" id="L105" title="All 6 branches covered.">      if (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent() &amp;&amp; tag.isCloseAvailable()) {</span>
+<span class="fc" id="L106">        bodyContent.append(tag.getCloseAttr());</span>
       }
 
-<span class="fc" id="L111">      iterate.setAllowNext(true);</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">      if (iterate.isFinal()) {</span>
-<span class="fc" id="L113">        return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
+<span class="fc" id="L109">      iterate.setAllowNext(true);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">      if (iterate.isFinal()) {</span>
+<span class="fc" id="L111">        return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
       } else {
-<span class="fc" id="L115">        return REPEAT_BODY;</span>
+<span class="fc" id="L113">        return REPEAT_BODY;</span>
       }
 
     } else {
-<span class="nc" id="L119">      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
+<span class="nc" id="L117">      return super.doEndFragment(ctx, tag, parameterObject, bodyContent);</span>
     }
   }
 
   @Override
   public void doPrepend(SqlTagContext ctx, SqlTag tag, Object parameterObject, StringBuilder bodyContent) {
-<span class="fc" id="L125">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">    if (iterate.isPrependEnabled()) {</span>
-<span class="fc" id="L127">      super.doPrepend(ctx, tag, parameterObject, bodyContent);</span>
-<span class="fc" id="L128">      iterate.setPrependEnabled(false); // only do the prepend one time</span>
+<span class="fc" id="L123">    IterateContext iterate = (IterateContext) ctx.getAttribute(tag);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">    if (iterate.isPrependEnabled()) {</span>
+<span class="fc" id="L125">      super.doPrepend(ctx, tag, parameterObject, bodyContent);</span>
+<span class="fc" id="L126">      iterate.setPrependEnabled(false); // only do the prepend one time</span>
     }
-<span class="fc" id="L130">  }</span>
+<span class="fc" id="L128">  }</span>
 
   /**
    * Checks if is post parse required.
@@ -135,7 +133,7 @@ import com.ibatis.common.beans.ProbeFactory;
    * @return true, if is post parse required
    */
   public boolean isPostParseRequired() {
-<span class="nc" id="L138">    return true;</span>
+<span class="nc" id="L136">    return true;</span>
   }
 
 }

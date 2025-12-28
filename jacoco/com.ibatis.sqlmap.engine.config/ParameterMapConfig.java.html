@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMapConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">ParameterMapConfig.java</span></div><h1>ParameterMapConfig.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ public class ParameterMapConfig {
 <span class="fc" id="L76">    errorContext.setObjectId(id + &quot; parameter map&quot;);</span>
 <span class="fc" id="L77">    parameterMap.setParameterClass(parameterClass);</span>
 <span class="fc" id="L78">    errorContext.setMoreInfo(&quot;Check the parameter mappings.&quot;);</span>
-<span class="fc" id="L79">    this.parameterMappingList = new ArrayList();</span>
+<span class="fc" id="L79">    this.parameterMappingList = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L80">    client.getDelegate().addParameterMap(parameterMap);</span>
 <span class="fc" id="L81">  }</span>
 
@@ -128,7 +128,7 @@ public class ParameterMapConfig {
 <span class="fc" id="L128">    mapping.setTypeName(outParamType);</span>
 <span class="fc" id="L129">    mapping.setResultMapName(resultMap);</span>
 <span class="fc" id="L130">    mapping.setNullValue(nullValue);</span>
-<span class="pc bpc" id="L131" title="1 of 4 branches missed.">    if (mode != null &amp;&amp; mode.length() &gt; 0) {</span>
+<span class="pc bpc" id="L131" title="1 of 4 branches missed.">    if (mode != null &amp;&amp; !mode.isEmpty()) {</span>
 <span class="fc" id="L132">      mapping.setMode(mode);</span>
     }
 <span class="fc" id="L134">    mapping.setTypeHandler(handler);</span>

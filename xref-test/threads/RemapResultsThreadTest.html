@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../testapidocs/threads/RemapResultsThreadTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2023 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">int</strong> count = 2;
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      List&lt;MyThread&gt; threads = <strong class="jxr_keyword">new</strong> LinkedList&lt;MyThread&gt;();
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      List&lt;MyThread&gt; threads = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;();
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; count; i++) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        <a name="MyThread" href="../threads/MyThread.html#MyThread">MyThread</a> thread = <strong class="jxr_keyword">new</strong> <a name="MyThread" href="../threads/MyThread.html#MyThread">MyThread</a>(sqlMap, statementToRun);

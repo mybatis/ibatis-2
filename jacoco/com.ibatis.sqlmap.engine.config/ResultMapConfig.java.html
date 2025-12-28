@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultMapConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">ResultMapConfig.java</span></div><h1>ResultMapConfig.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -87,13 +87,13 @@ public class ResultMapConfig {
 <span class="fc" id="L87">    this.delegate = config.getDelegate();</span>
 <span class="fc" id="L88">    this.typeHandlerFactory = config.getTypeHandlerFactory();</span>
 <span class="fc" id="L89">    this.resultMap = new ResultMap(client.getDelegate());</span>
-<span class="fc" id="L90">    this.resultMappingList = new ArrayList();</span>
+<span class="fc" id="L90">    this.resultMappingList = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L91">    errorContext.setActivity(&quot;building a result map&quot;);</span>
 <span class="fc" id="L92">    errorContext.setObjectId(id + &quot; result map&quot;);</span>
 <span class="fc" id="L93">    resultMap.setId(id);</span>
 <span class="fc" id="L94">    resultMap.setXmlName(xmlName);</span>
 <span class="fc" id="L95">    resultMap.setResource(errorContext.getResource());</span>
-<span class="pc bpc" id="L96" title="1 of 4 branches missed.">    if (groupBy != null &amp;&amp; groupBy.length() &gt; 0) {</span>
+<span class="pc bpc" id="L96" title="1 of 4 branches missed.">    if (groupBy != null &amp;&amp; !groupBy.isEmpty()) {</span>
 <span class="fc" id="L97">      StringTokenizer parser = new StringTokenizer(groupBy, &quot;, &quot;, false);</span>
 <span class="fc bfc" id="L98" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
 <span class="fc" id="L99">        resultMap.addGroupByProperty(parser.nextToken());</span>
@@ -114,7 +114,7 @@ public class ResultMapConfig {
 <span class="fc" id="L114">          resultMap.addNestedResultMappings((ResultMapping) iter.next());</span>
         }
       }
-<span class="pc bpc" id="L117" title="1 of 4 branches missed.">      if (groupBy == null || groupBy.length() == 0) {</span>
+<span class="pc bpc" id="L117" title="1 of 4 branches missed.">      if (groupBy == null || groupBy.isEmpty()) {</span>
 <span class="fc bfc" id="L118" title="All 2 branches covered.">        if (extendedResultMap.hasGroupBy()) {</span>
 <span class="fc" id="L119">          Iterator i = extendedResultMap.groupByProps();</span>
 <span class="fc bfc" id="L120" title="All 2 branches covered.">          while (i.hasNext()) {</span>

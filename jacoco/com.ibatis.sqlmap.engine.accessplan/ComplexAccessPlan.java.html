@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComplexAccessPlan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">ComplexAccessPlan.java</span></div><h1>ComplexAccessPlan.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -38,18 +38,20 @@ public class ComplexAccessPlan extends BaseAccessPlan {
 <span class="fc" id="L38">    super(clazz, propertyNames);</span>
 <span class="fc" id="L39">  }</span>
 
+  @Override
   public void setProperties(Object object, Object[] values) {
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="fc" id="L43">      PROBE.setObject(object, propertyNames[i], values[i]);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc" id="L44">      PROBE.setObject(object, propertyNames[i], values[i]);</span>
     }
-<span class="fc" id="L45">  }</span>
+<span class="fc" id="L46">  }</span>
 
+  @Override
   public Object[] getProperties(Object object) {
-<span class="fc" id="L48">    Object[] values = new Object[propertyNames.length];</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="fc" id="L50">      values[i] = PROBE.getObject(object, propertyNames[i]);</span>
+<span class="fc" id="L50">    Object[] values = new Object[propertyNames.length];</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="fc" id="L52">      values[i] = PROBE.getObject(object, propertyNames[i]);</span>
     }
-<span class="fc" id="L52">    return values;</span>
+<span class="fc" id="L54">    return values;</span>
   }
 
 }

@@ -35,8 +35,9 @@ import javax.transaction.UserTransaction;
   /** The user transaction. */
   private UserTransaction userTransaction;
 
+  @Override
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
-<span class="nc" id="L39">    return new JtaTransaction(userTransaction, dataSource, transactionIsolation);</span>
+<span class="nc" id="L40">    return new JtaTransaction(userTransaction, dataSource, transactionIsolation);</span>
   }
 
   /**
@@ -45,7 +46,7 @@ import javax.transaction.UserTransaction;
    * @return the user transaction
    */
   public UserTransaction getUserTransaction() {
-<span class="nc" id="L48">    return userTransaction;</span>
+<span class="nc" id="L49">    return userTransaction;</span>
   }
 
   /**
@@ -55,20 +56,21 @@ import javax.transaction.UserTransaction;
    *          the new user transaction
    */
   public void setUserTransaction(UserTransaction userTransaction) {
-<span class="nc" id="L58">    this.userTransaction = userTransaction;</span>
-<span class="nc" id="L59">  }</span>
+<span class="nc" id="L59">    this.userTransaction = userTransaction;</span>
+<span class="nc" id="L60">  }</span>
 
+  @Override
   public void setProperties(Properties props) throws SQLException, TransactionException {
-<span class="nc" id="L62">    String utxName = null;</span>
+<span class="nc" id="L64">    String utxName = null;</span>
     try {
-<span class="nc" id="L64">      utxName = (String) props.get(&quot;UserTransaction&quot;);</span>
-<span class="nc" id="L65">      InitialContext initCtx = new InitialContext();</span>
-<span class="nc" id="L66">      userTransaction = (UserTransaction) initCtx.lookup(utxName);</span>
-<span class="nc" id="L67">    } catch (NamingException e) {</span>
-<span class="nc" id="L68">      throw new SqlMapException(</span>
+<span class="nc" id="L66">      utxName = (String) props.get(&quot;UserTransaction&quot;);</span>
+<span class="nc" id="L67">      InitialContext initCtx = new InitialContext();</span>
+<span class="nc" id="L68">      userTransaction = (UserTransaction) initCtx.lookup(utxName);</span>
+<span class="nc" id="L69">    } catch (NamingException e) {</span>
+<span class="nc" id="L70">      throw new SqlMapException(</span>
           &quot;Error initializing JtaTransactionConfig while looking up UserTransaction (&quot; + utxName + &quot;).  Cause: &quot; + e);
-<span class="nc" id="L70">    }</span>
-<span class="nc" id="L71">  }</span>
+<span class="nc" id="L72">    }</span>
+<span class="nc" id="L73">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

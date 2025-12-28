@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultSetLogProxy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc.logging</a> &gt; <span class="el_source">ResultSetLogProxy.java</span></div><h1>ResultSetLogProxy.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -52,35 +52,36 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
     }
 <span class="nc" id="L53">  }</span>
 
+  @Override
   public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
     try {
-<span class="nc" id="L57">      Object o = method.invoke(rs, params);</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">      if (GET_METHODS.contains(method.getName())) {</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (params[0] instanceof String) {</span>
-<span class="nc bnc" id="L60" title="All 2 branches missed.">          if (rs.wasNull()) {</span>
-<span class="nc" id="L61">            setColumn(params[0], null);</span>
+<span class="nc" id="L58">      Object o = method.invoke(rs, params);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">      if (GET_METHODS.contains(method.getName())) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (params[0] instanceof String) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">          if (rs.wasNull()) {</span>
+<span class="nc" id="L62">            setColumn(params[0], null);</span>
           } else {
-<span class="nc" id="L63">            setColumn(params[0], o);</span>
+<span class="nc" id="L64">            setColumn(params[0], o);</span>
           }
         }
-<span class="nc bnc" id="L66" title="All 4 branches missed.">      } else if (&quot;next&quot;.equals(method.getName()) || &quot;close&quot;.equals(method.getName())) {</span>
-<span class="nc" id="L67">        String s = getValueString();</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (!&quot;[]&quot;.equals(s)) {</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">          if (first) {</span>
-<span class="nc" id="L70">            first = false;</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
-<span class="nc" id="L72">              log.debug(&quot;{rset-&quot; + id + &quot;} Header: &quot; + getColumnString());</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">      } else if (&quot;next&quot;.equals(method.getName()) || &quot;close&quot;.equals(method.getName())) {</span>
+<span class="nc" id="L68">        String s = getValueString();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (!&quot;[]&quot;.equals(s)) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">          if (first) {</span>
+<span class="nc" id="L71">            first = false;</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L73">              log.debug(&quot;{rset-&quot; + id + &quot;} Header: &quot; + getColumnString());</span>
             }
           }
-<span class="nc bnc" id="L75" title="All 2 branches missed.">          if (log.isDebugEnabled()) {</span>
-<span class="nc" id="L76">            log.debug(&quot;{rset-&quot; + id + &quot;} Result: &quot; + s);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">          if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L77">            log.debug(&quot;{rset-&quot; + id + &quot;} Result: &quot; + s);</span>
           }
         }
-<span class="nc" id="L79">        clearColumnInfo();</span>
+<span class="nc" id="L80">        clearColumnInfo();</span>
       }
-<span class="nc" id="L81">      return o;</span>
-<span class="nc" id="L82">    } catch (Throwable t) {</span>
-<span class="nc" id="L83">      throw ClassInfo.unwrapThrowable(t);</span>
+<span class="nc" id="L82">      return o;</span>
+<span class="nc" id="L83">    } catch (Throwable t) {</span>
+<span class="nc" id="L84">      throw ClassInfo.unwrapThrowable(t);</span>
     }
   }
 
@@ -93,9 +94,9 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
    * @return - the ResultSet with logging
    */
   public static ResultSet newInstance(ResultSet rs) {
-<span class="nc" id="L96">    InvocationHandler handler = new ResultSetLogProxy(rs);</span>
-<span class="nc" id="L97">    ClassLoader cl = ResultSet.class.getClassLoader();</span>
-<span class="nc" id="L98">    return (ResultSet) Proxy.newProxyInstance(cl, new Class[] { ResultSet.class }, handler);</span>
+<span class="nc" id="L97">    InvocationHandler handler = new ResultSetLogProxy(rs);</span>
+<span class="nc" id="L98">    ClassLoader cl = ResultSet.class.getClassLoader();</span>
+<span class="nc" id="L99">    return (ResultSet) Proxy.newProxyInstance(cl, new Class[] { ResultSet.class }, handler);</span>
   }
 
   /**
@@ -104,7 +105,7 @@ public class ResultSetLogProxy extends BaseLogProxy implements InvocationHandler
    * @return the resultSet
    */
   public ResultSet getRs() {
-<span class="nc" id="L107">    return rs;</span>
+<span class="nc" id="L108">    return rs;</span>
   }
 
 }

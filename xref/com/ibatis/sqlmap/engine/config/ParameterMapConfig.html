@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/config/ParameterMapConfig.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2023 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -84,7 +84,7 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      errorContext.setObjectId(id + <span class="jxr_string">" parameter map"</span>);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      parameterMap.setParameterClass(parameterClass);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      errorContext.setMoreInfo(<span class="jxr_string">"Check the parameter mappings."</span>);
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">this</strong>.parameterMappingList = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">this</strong>.parameterMappingList = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      client.getDelegate().addParameterMap(parameterMap);
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>    }
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     mapping.setTypeName(outParamType);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     mapping.setResultMapName(resultMap);
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     mapping.setNullValue(nullValue);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">if</strong> (mode != <strong class="jxr_keyword">null</strong> &amp;&amp; mode.length() &gt; 0) {
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">if</strong> (mode != <strong class="jxr_keyword">null</strong> &amp;&amp; !mode.isEmpty()) {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>       mapping.setMode(mode);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     mapping.setTypeHandler(handler);

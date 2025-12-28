@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemoryCacheController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.cache.memory</a> &gt; <span class="el_source">MemoryCacheController.java</span></div><h1>MemoryCacheController.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import java.util.Properties;
 <span class="fc" id="L34">  private MemoryCacheLevel referenceType = MemoryCacheLevel.WEAK;</span>
 
   /** The cache. */
-<span class="fc" id="L37">  private Map cache = Collections.synchronizedMap(new HashMap());</span>
+<span class="fc" id="L37">  private Map cache = Collections.synchronizedMap(new HashMap&lt;&gt;());</span>
 
   /**
    * Configures the cache
@@ -42,15 +42,16 @@ import java.util.Properties;
    * @param props
    *          Optionally can contain properties [reference-type=WEAK|SOFT|STRONG]
    */
+  @Override
   public void setProperties(Properties props) {
-<span class="fc" id="L46">    String refType = props.getProperty(&quot;reference-type&quot;);</span>
-<span class="pc bpc" id="L47" title="1 of 2 branches missed.">    if (refType == null) {</span>
-<span class="fc" id="L48">      refType = props.getProperty(&quot;referenceType&quot;);</span>
+<span class="fc" id="L47">    String refType = props.getProperty(&quot;reference-type&quot;);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">    if (refType == null) {</span>
+<span class="fc" id="L49">      refType = props.getProperty(&quot;referenceType&quot;);</span>
     }
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">    if (refType != null) {</span>
-<span class="nc" id="L51">      referenceType = MemoryCacheLevel.getByReferenceType(refType);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">    if (refType != null) {</span>
+<span class="nc" id="L52">      referenceType = MemoryCacheLevel.getByReferenceType(refType);</span>
     }
-<span class="fc" id="L53">  }</span>
+<span class="fc" id="L54">  }</span>
 
   /**
    * Gets the reference type.
@@ -58,7 +59,7 @@ import java.util.Properties;
    * @return the reference type
    */
   public MemoryCacheLevel getReferenceType() {
-<span class="nc" id="L61">    return referenceType;</span>
+<span class="nc" id="L62">    return referenceType;</span>
   }
 
   /**
@@ -68,8 +69,8 @@ import java.util.Properties;
    *          the new reference type
    */
   public void setReferenceType(MemoryCacheLevel referenceType) {
-<span class="nc" id="L71">    this.referenceType = referenceType;</span>
-<span class="nc" id="L72">  }</span>
+<span class="nc" id="L72">    this.referenceType = referenceType;</span>
+<span class="nc" id="L73">  }</span>
 
   /**
    * Add an object to the cache
@@ -81,17 +82,18 @@ import java.util.Properties;
    * @param value
    *          The object to be cached
    */
+  @Override
   public void putObject(CacheModel cacheModel, Object key, Object value) {
-<span class="fc" id="L85">    Object reference = null;</span>
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    if (referenceType.equals(MemoryCacheLevel.WEAK)) {</span>
-<span class="fc" id="L87">      reference = new WeakReference(value);</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">    } else if (referenceType.equals(MemoryCacheLevel.SOFT)) {</span>
-<span class="nc" id="L89">      reference = new SoftReference(value);</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">    } else if (referenceType.equals(MemoryCacheLevel.STRONG)) {</span>
-<span class="nc" id="L91">      reference = new StrongReference(value);</span>
+<span class="fc" id="L87">    Object reference = null;</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">    if (referenceType.equals(MemoryCacheLevel.WEAK)) {</span>
+<span class="fc" id="L89">      reference = new WeakReference(value);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    } else if (referenceType.equals(MemoryCacheLevel.SOFT)) {</span>
+<span class="nc" id="L91">      reference = new SoftReference(value);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">    } else if (referenceType.equals(MemoryCacheLevel.STRONG)) {</span>
+<span class="nc" id="L93">      reference = new StrongReference(value);</span>
     }
-<span class="fc" id="L93">    cache.put(key, reference);</span>
-<span class="fc" id="L94">  }</span>
+<span class="fc" id="L95">    cache.put(key, reference);</span>
+<span class="fc" id="L96">  }</span>
 
   /**
    * Get an object out of the cache.
@@ -103,34 +105,36 @@ import java.util.Properties;
    *
    * @return The cached object (or null)
    */
+  @Override
   public Object getObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L107">    Object value = null;</span>
-<span class="fc" id="L108">    Object ref = cache.get(key);</span>
-<span class="fc bfc" id="L109" title="All 2 branches covered.">    if (ref != null) {</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
-<span class="nc" id="L111">        value = ((StrongReference) ref).get();</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
-<span class="nc" id="L113">        value = ((SoftReference) ref).get();</span>
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
-<span class="fc" id="L115">        value = ((WeakReference) ref).get();</span>
+<span class="fc" id="L110">    Object value = null;</span>
+<span class="fc" id="L111">    Object ref = cache.get(key);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">    if (ref != null) {</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
+<span class="nc" id="L114">        value = ((StrongReference) ref).get();</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
+<span class="nc" id="L116">        value = ((SoftReference) ref).get();</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
+<span class="fc" id="L118">        value = ((WeakReference) ref).get();</span>
       }
     }
-<span class="fc" id="L118">    return value;</span>
+<span class="fc" id="L121">    return value;</span>
   }
 
+  @Override
   public Object removeObject(CacheModel cacheModel, Object key) {
-<span class="fc" id="L122">    Object value = null;</span>
-<span class="fc" id="L123">    Object ref = cache.remove(key);</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">    if (ref != null) {</span>
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
-<span class="nc" id="L126">        value = ((StrongReference) ref).get();</span>
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
-<span class="nc" id="L128">        value = ((SoftReference) ref).get();</span>
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
-<span class="fc" id="L130">        value = ((WeakReference) ref).get();</span>
+<span class="fc" id="L126">    Object value = null;</span>
+<span class="fc" id="L127">    Object ref = cache.remove(key);</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">    if (ref != null) {</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">      if (ref instanceof StrongReference) {</span>
+<span class="nc" id="L130">        value = ((StrongReference) ref).get();</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">      } else if (ref instanceof SoftReference) {</span>
+<span class="nc" id="L132">        value = ((SoftReference) ref).get();</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">      } else if (ref instanceof WeakReference) {</span>
+<span class="fc" id="L134">        value = ((WeakReference) ref).get();</span>
       }
     }
-<span class="fc" id="L133">    return value;</span>
+<span class="fc" id="L137">    return value;</span>
   }
 
   /**
@@ -139,9 +143,10 @@ import java.util.Properties;
    * @param cacheModel
    *          The cache model
    */
+  @Override
   public void flush(CacheModel cacheModel) {
-<span class="fc" id="L143">    cache.clear();</span>
-<span class="fc" id="L144">  }</span>
+<span class="fc" id="L148">    cache.clear();</span>
+<span class="fc" id="L149">  }</span>
 
   /**
    * Class to implement a strong (permanent) reference.
@@ -157,9 +162,9 @@ import java.util.Properties;
      * @param object
      *          - the Object to store
      */
-<span class="nc" id="L160">    public StrongReference(Object object) {</span>
-<span class="nc" id="L161">      this.object = object;</span>
-<span class="nc" id="L162">    }</span>
+<span class="nc" id="L165">    public StrongReference(Object object) {</span>
+<span class="nc" id="L166">      this.object = object;</span>
+<span class="nc" id="L167">    }</span>
 
     /**
      * Getter to get the object stored in the StrongReference.
@@ -167,7 +172,7 @@ import java.util.Properties;
      * @return - the stored Object
      */
     public Object get() {
-<span class="nc" id="L170">      return object;</span>
+<span class="nc" id="L175">      return object;</span>
     }
   }
 

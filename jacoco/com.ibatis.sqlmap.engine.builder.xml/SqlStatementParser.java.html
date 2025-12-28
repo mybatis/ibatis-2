@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlStatementParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.builder.xml</a> &gt; <span class="el_source">SqlStatementParser.java</span></div><h1>SqlStatementParser.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -149,7 +149,7 @@ public class SqlStatementParser {
 <span class="fc" id="L149">      Node child = children.item(i);</span>
 <span class="fc bfc" id="L150" title="All 4 branches covered.">      if (child.getNodeType() == Node.CDATA_SECTION_NODE || child.getNodeType() == Node.TEXT_NODE) {</span>
 <span class="fc" id="L151">        String data = ((CharacterData) child).getData();</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (data.trim().length() &gt; 0) {</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (!data.trim().isEmpty()) {</span>
 <span class="fc" id="L153">          foundSQLFirst = true;</span>
         }
 <span class="pc bpc" id="L155" title="1 of 4 branches missed.">      } else if (child.getNodeType() == Node.ELEMENT_NODE &amp;&amp; &quot;selectKey&quot;.equals(child.getNodeName())) {</span>

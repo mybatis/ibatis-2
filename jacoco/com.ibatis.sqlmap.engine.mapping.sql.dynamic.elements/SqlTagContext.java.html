@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlTagContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">SqlTagContext.java</span></div><h1>SqlTagContext.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class SqlTagContext {
   private LinkedList iterateContextStack;
 
   /** The parameter mappings. */
-<span class="fc" id="L48">  private ArrayList parameterMappings = new ArrayList();</span>
+<span class="fc" id="L48">  private ArrayList parameterMappings = new ArrayList&lt;&gt;();</span>
 
   /**
    * Instantiates a new sql tag context.
@@ -53,7 +53,7 @@ public class SqlTagContext {
 <span class="fc" id="L53">  public SqlTagContext() {</span>
 <span class="fc" id="L54">    sw = new StringWriter();</span>
 <span class="fc" id="L55">    out = new PrintWriter(sw);</span>
-<span class="fc" id="L56">    attributes = new HashMap();</span>
+<span class="fc" id="L56">    attributes = new HashMap&lt;&gt;();</span>
 <span class="fc" id="L57">    removeFirstPrependStack = new LinkedList();</span>
 <span class="fc" id="L58">    iterateContextStack = new LinkedList();</span>
 <span class="fc" id="L59">  }</span>

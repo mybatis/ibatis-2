@@ -118,57 +118,59 @@ public class JtaTransaction implements Transaction {
     }
 <span class="nc" id="L119">  }</span>
 
+  @Override
   public void commit() throws SQLException, TransactionException {
-<span class="nc bnc" id="L122" title="All 2 branches missed.">    if (connection != null) {</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">      if (commmitted) {</span>
-<span class="nc" id="L124">        throw new TransactionException(</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">      if (commmitted) {</span>
+<span class="nc" id="L125">        throw new TransactionException(</span>
             &quot;JtaTransaction could not commit because this transaction has already been committed.&quot;);
       }
       try {
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (newTransaction) {</span>
-<span class="nc" id="L129">          userTransaction.commit();</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (newTransaction) {</span>
+<span class="nc" id="L130">          userTransaction.commit();</span>
         }
-<span class="nc" id="L131">      } catch (Exception e) {</span>
-<span class="nc" id="L132">        throw new TransactionException(&quot;JtaTransaction could not commit.  Cause: &quot;, e);</span>
-<span class="nc" id="L133">      }</span>
-<span class="nc" id="L134">      commmitted = true;</span>
+<span class="nc" id="L132">      } catch (Exception e) {</span>
+<span class="nc" id="L133">        throw new TransactionException(&quot;JtaTransaction could not commit.  Cause: &quot;, e);</span>
+<span class="nc" id="L134">      }</span>
+<span class="nc" id="L135">      commmitted = true;</span>
     }
-<span class="nc" id="L136">  }</span>
+<span class="nc" id="L137">  }</span>
 
+  @Override
   public void rollback() throws SQLException, TransactionException {
-<span class="nc bnc" id="L139" title="All 2 branches missed.">    if (connection != null) {</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">      if (!commmitted) {</span>
-        try {
-<span class="nc bnc" id="L142" title="All 2 branches missed.">          if (userTransaction != null) {</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (newTransaction) {</span>
-<span class="nc" id="L144">              userTransaction.rollback();</span>
-            } else {
-<span class="nc" id="L146">              userTransaction.setRollbackOnly();</span>
-            }
+<span class="nc bnc" id="L141" title="All 4 branches missed.">    if (connection != null &amp;&amp; !commmitted) {</span>
+      try {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (userTransaction != null) {</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">          if (newTransaction) {</span>
+<span class="nc" id="L145">            userTransaction.rollback();</span>
+          } else {
+<span class="nc" id="L147">            userTransaction.setRollbackOnly();</span>
           }
-<span class="nc" id="L149">        } catch (Exception e) {</span>
-<span class="nc" id="L150">          throw new TransactionException(&quot;JtaTransaction could not rollback.  Cause: &quot;, e);</span>
-<span class="nc" id="L151">        }</span>
-      }
+        }
+<span class="nc" id="L150">      } catch (Exception e) {</span>
+<span class="nc" id="L151">        throw new TransactionException(&quot;JtaTransaction could not rollback.  Cause: &quot;, e);</span>
+<span class="nc" id="L152">      }</span>
     }
 <span class="nc" id="L154">  }</span>
 
+  @Override
   public void close() throws SQLException, TransactionException {
-<span class="nc bnc" id="L157" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">    if (connection != null) {</span>
       try {
-<span class="nc" id="L159">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="nc" id="L160">        isolationLevel.restoreIsolationLevel(connection);</span>
       } finally {
-<span class="nc" id="L161">        connection.close();</span>
-<span class="nc" id="L162">        connection = null;</span>
+<span class="nc" id="L162">        connection.close();</span>
+<span class="nc" id="L163">        connection = null;</span>
       }
     }
-<span class="nc" id="L165">  }</span>
+<span class="nc" id="L166">  }</span>
 
+  @Override
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="nc bnc" id="L168" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L169">      init();</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L171">      init();</span>
     }
-<span class="nc" id="L171">    return connection;</span>
+<span class="nc" id="L173">    return connection;</span>
   }
 
 }

@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../../../apidocs/com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>    <strong class="jxr_keyword">private</strong> <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a> parent;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>    <em class="jxr_javadoccomment">/** The children. */</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>    <strong class="jxr_keyword">private</strong> List children = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>    <strong class="jxr_keyword">private</strong> List children = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>    <em class="jxr_javadoccomment">/** The post parse required. */</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> postParseRequired = false;
@@ -120,7 +120,7 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">   * @return true, if is prepend available</em>
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPrependAvailable() {
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">return</strong> prependAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; prependAttr.length() &gt; 0;
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">return</strong> prependAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; !prependAttr.isEmpty();
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>   }
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>   <em class="jxr_javadoccomment">/**</em>
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">   * @return true, if is close available</em>
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isCloseAvailable() {
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">return</strong> closeAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; closeAttr.length() &gt; 0;
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">return</strong> closeAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; !closeAttr.isEmpty();
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>   }
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> 
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>   <em class="jxr_javadoccomment">/**</em>
@@ -138,7 +138,7 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">   * @return true, if is open available</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isOpenAvailable() {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>     <strong class="jxr_keyword">return</strong> openAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; openAttr.length() &gt; 0;
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     <strong class="jxr_keyword">return</strong> openAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; !openAttr.isEmpty();
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>   }
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>   <em class="jxr_javadoccomment">/**</em>
@@ -147,7 +147,7 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">   * @return true, if is conjunction available</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isConjunctionAvailable() {
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">return</strong> conjunctionAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; conjunctionAttr.length() &gt; 0;
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">return</strong> conjunctionAttr != <strong class="jxr_keyword">null</strong> &amp;&amp; !conjunctionAttr.isEmpty();
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>   }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>   <em class="jxr_javadoccomment">/**</em>
@@ -283,69 +283,70 @@
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">this</strong>.conjunctionAttr = conjunctionAttr;
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>   }
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addChild(<a name="SqlChild" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html#SqlChild">SqlChild</a> child) {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <strong class="jxr_keyword">if</strong> (child instanceof <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a>) {
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>       ((<a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a>) child).parent = <strong class="jxr_keyword">this</strong>;
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>     }
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     children.add(child);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>   }
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">   * Gets the children.</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">   * @return the children</em>
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>   <strong class="jxr_keyword">public</strong> Iterator getChildren() {
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">return</strong> children.iterator();
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>   }
-<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">   * Gets the parent.</em>
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">   * @return the parent</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>   <strong class="jxr_keyword">public</strong> <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a> getParent() {
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>     <strong class="jxr_keyword">return</strong> parent;
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>   }
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L304" href="#L304">304</a> <em class="jxr_javadoccomment">   * Gets the removes the first prepend.</em>
-<a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">   * @return the removes the first prepend</em>
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>   <strong class="jxr_keyword">public</strong> String getRemoveFirstPrepend() {
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>     <strong class="jxr_keyword">return</strong> removeFirstPrepend;
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>   }
-<a class="jxr_linenumber" name="L311" href="#L311">311</a> 
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">   * Sets the removes the first prepend.</em>
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">   * @param removeFirstPrepend</em>
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> <em class="jxr_javadoccomment">   *          the new removes the first prepend</em>
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setRemoveFirstPrepend(String removeFirstPrepend) {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>     <strong class="jxr_keyword">this</strong>.removeFirstPrepend = removeFirstPrepend;
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>   }
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> 
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> <em class="jxr_javadoccomment">   * Checks if is post parse required.</em>
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> <em class="jxr_javadoccomment">   * @return Returns the postParseRequired.</em>
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPostParseRequired() {
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>     <strong class="jxr_keyword">return</strong> postParseRequired;
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>   }
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">   * Sets the post parse required.</em>
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">   * @param iterateAncestor</em>
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">   *          The postParseRequired to set.</em>
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPostParseRequired(<strong class="jxr_keyword">boolean</strong> iterateAncestor) {
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>     <strong class="jxr_keyword">this</strong>.postParseRequired = iterateAncestor;
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>   }
-<a class="jxr_linenumber" name="L340" href="#L340">340</a> }
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>   @Override
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addChild(<a name="SqlChild" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/SqlChild.html#SqlChild">SqlChild</a> child) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">if</strong> (child instanceof <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a>) {
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>       ((<a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a>) child).parent = <strong class="jxr_keyword">this</strong>;
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>     children.add(child);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>   }
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">   * Gets the children.</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">   * @return the children</em>
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>   <strong class="jxr_keyword">public</strong> Iterator getChildren() {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>     <strong class="jxr_keyword">return</strong> children.iterator();
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>   }
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">   * Gets the parent.</em>
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">   * @return the parent</em>
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>   <strong class="jxr_keyword">public</strong> <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a> getParent() {
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     <strong class="jxr_keyword">return</strong> parent;
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>   }
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">   * Gets the removes the first prepend.</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">   * @return the removes the first prepend</em>
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>   <strong class="jxr_keyword">public</strong> String getRemoveFirstPrepend() {
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>     <strong class="jxr_keyword">return</strong> removeFirstPrepend;
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>   }
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">   * Sets the removes the first prepend.</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> <em class="jxr_javadoccomment">   * @param removeFirstPrepend</em>
+<a class="jxr_linenumber" name="L317" href="#L317">317</a> <em class="jxr_javadoccomment">   *          the new removes the first prepend</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setRemoveFirstPrepend(String removeFirstPrepend) {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>     <strong class="jxr_keyword">this</strong>.removeFirstPrepend = removeFirstPrepend;
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>   }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> 
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> <em class="jxr_javadoccomment">   * Checks if is post parse required.</em>
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">   * @return Returns the postParseRequired.</em>
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPostParseRequired() {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">return</strong> postParseRequired;
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>   }
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">   * Sets the post parse required.</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">   * @param iterateAncestor</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">   *          The postParseRequired to set.</em>
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPostParseRequired(<strong class="jxr_keyword">boolean</strong> iterateAncestor) {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">this</strong>.postParseRequired = iterateAncestor;
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>   }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> }
 </pre>
 <hr/>
 <div id="footer">© 2004–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MapAccessPlan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.accessplan</a> &gt; <span class="el_source">MapAccessPlan.java</span></div><h1>MapAccessPlan.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -34,20 +34,22 @@ public class MapAccessPlan extends BaseAccessPlan {
 <span class="nc" id="L34">    super(clazz, propertyNames);</span>
 <span class="nc" id="L35">  }</span>
 
+  @Override
   public void setProperties(Object object, Object[] values) {
-<span class="nc" id="L38">    Map map = (Map) object;</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="nc" id="L40">      map.put(propertyNames[i], values[i]);</span>
+<span class="nc" id="L39">    Map map = (Map) object;</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L41">      map.put(propertyNames[i], values[i]);</span>
     }
-<span class="nc" id="L42">  }</span>
+<span class="nc" id="L43">  }</span>
 
+  @Override
   public Object[] getProperties(Object object) {
-<span class="nc" id="L45">    Object[] values = new Object[propertyNames.length];</span>
-<span class="nc" id="L46">    Map map = (Map) object;</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
-<span class="nc" id="L48">      values[i] = map.get(propertyNames[i]);</span>
+<span class="nc" id="L47">    Object[] values = new Object[propertyNames.length];</span>
+<span class="nc" id="L48">    Map map = (Map) object;</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">    for (int i = 0; i &lt; propertyNames.length; i++) {</span>
+<span class="nc" id="L50">      values[i] = map.get(propertyNames[i]);</span>
     }
-<span class="nc" id="L50">    return values;</span>
+<span class="nc" id="L52">    return values;</span>
   }
 
 }

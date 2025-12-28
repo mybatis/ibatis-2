@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/config/MappedStatementConfig.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2023 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     setSqlForStatement(statement, sql);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     <em class="jxr_comment">// set up either null result map or automatic result mapping</em>
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = (<a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a>) statement.getResultMap();
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <a name="ResultMap" href="../../../../../com/ibatis/sqlmap/engine/mapping/result/ResultMap.html#ResultMap">ResultMap</a> resultMap = statement.getResultMap();
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">if</strong> (resultMap == <strong class="jxr_keyword">null</strong> &amp;&amp; resultClass == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>       statement.setResultMap(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>     } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (resultMap == <strong class="jxr_keyword">null</strong>) {
@@ -193,7 +193,7 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>     errorContext.setMoreInfo(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>     errorContext.setObjectId(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>     statement.setSqlMapClient(client);
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     <strong class="jxr_keyword">if</strong> (cacheModelName != <strong class="jxr_keyword">null</strong> &amp;&amp; cacheModelName.length() &gt; 0 &amp;&amp; client.getDelegate().isCacheModelsEnabled()) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>     <strong class="jxr_keyword">if</strong> (cacheModelName != <strong class="jxr_keyword">null</strong> &amp;&amp; !cacheModelName.isEmpty() &amp;&amp; client.getDelegate().isCacheModelsEnabled()) {
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>       <a name="CacheModel" href="../../../../../com/ibatis/sqlmap/engine/cache/CacheModel.html#CacheModel">CacheModel</a> cacheModel = client.getDelegate().getCacheModel(cacheModelName);
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>       mappedStatement = <strong class="jxr_keyword">new</strong> <a name="CachingStatement" href="../../../../../com/ibatis/sqlmap/engine/mapping/statement/CachingStatement.html#CachingStatement">CachingStatement</a>(statement, cacheModel);
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>     } <strong class="jxr_keyword">else</strong> {

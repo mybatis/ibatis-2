@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IterateContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">IterateContext.java</span></div><h1>IterateContext.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -103,18 +103,21 @@ public class IterateContext implements Iterator {
     }
 <span class="fc" id="L104">  }</span>
 
+  @Override
   public boolean hasNext() {
-<span class="pc bpc" id="L107" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; iterator.hasNext();</span>
+<span class="pc bpc" id="L108" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; iterator.hasNext();</span>
   }
 
+  @Override
   public Object next() {
-<span class="fc" id="L111">    index++;</span>
-<span class="fc" id="L112">    return iterator.next();</span>
+<span class="fc" id="L113">    index++;</span>
+<span class="fc" id="L114">    return iterator.next();</span>
   }
 
+  @Override
   public void remove() {
-<span class="nc" id="L116">    iterator.remove();</span>
-<span class="nc" id="L117">  }</span>
+<span class="nc" id="L119">    iterator.remove();</span>
+<span class="nc" id="L120">  }</span>
 
   /**
    * Gets the index.
@@ -122,7 +125,7 @@ public class IterateContext implements Iterator {
    * @return the index
    */
   public int getIndex() {
-<span class="fc" id="L125">    return index;</span>
+<span class="fc" id="L128">    return index;</span>
   }
 
   /**
@@ -133,8 +136,9 @@ public class IterateContext implements Iterator {
    * @deprecated This method should not be used to decide whether or not to add prepend and open text to the generated
    *             statement. Rather, use the methods isPrependEnabled() and someSubElementsHaveContent().
    */
+  @Deprecated
   public boolean isFirst() {
-<span class="nc bnc" id="L137" title="All 2 branches missed.">    return index == 0;</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">    return index == 0;</span>
   }
 
   /**
@@ -143,7 +147,7 @@ public class IterateContext implements Iterator {
    * @return true, if is last
    */
   public boolean isLast() {
-<span class="pc bpc" id="L146" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; !iterator.hasNext();</span>
+<span class="pc bpc" id="L150" title="1 of 4 branches missed.">    return iterator != null &amp;&amp; !iterator.hasNext();</span>
   }
 
   /**
@@ -155,16 +159,16 @@ public class IterateContext implements Iterator {
    * @return the list
    */
   private List arrayToList(Object array) {
-<span class="fc" id="L158">    List list = null;</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">    if (array instanceof Object[]) {</span>
-<span class="fc" id="L160">      list = Arrays.asList((Object[]) array);</span>
+<span class="fc" id="L162">    List list = null;</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">    if (array instanceof Object[]) {</span>
+<span class="fc" id="L164">      list = Arrays.asList((Object[]) array);</span>
     } else {
-<span class="fc" id="L162">      list = new ArrayList();</span>
-<span class="fc bfc" id="L163" title="All 2 branches covered.">      for (int i = 0, n = Array.getLength(array); i &lt; n; i++) {</span>
-<span class="fc" id="L164">        list.add(Array.get(array, i));</span>
+<span class="fc" id="L166">      list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">      for (int i = 0, n = Array.getLength(array); i &lt; n; i++) {</span>
+<span class="fc" id="L168">        list.add(Array.get(array, i));</span>
       }
     }
-<span class="fc" id="L167">    return list;</span>
+<span class="fc" id="L171">    return list;</span>
   }
 
   /**
@@ -173,7 +177,7 @@ public class IterateContext implements Iterator {
    * @return Returns the property.
    */
   public String getProperty() {
-<span class="fc" id="L176">    return property;</span>
+<span class="fc" id="L180">    return property;</span>
   }
 
   /**
@@ -185,8 +189,8 @@ public class IterateContext implements Iterator {
    *          The property to set.
    */
   public void setProperty(String property) {
-<span class="fc" id="L188">    this.property = property;</span>
-<span class="fc" id="L189">  }</span>
+<span class="fc" id="L192">    this.property = property;</span>
+<span class="fc" id="L193">  }</span>
 
   /**
    * Checks if is allow next.
@@ -194,7 +198,7 @@ public class IterateContext implements Iterator {
    * @return Returns the allowNext.
    */
   public boolean isAllowNext() {
-<span class="fc" id="L197">    return allowNext;</span>
+<span class="fc" id="L201">    return allowNext;</span>
   }
 
   /**
@@ -204,8 +208,8 @@ public class IterateContext implements Iterator {
    *          The allowNext to set.
    */
   public void setAllowNext(boolean performIterate) {
-<span class="fc" id="L207">    this.allowNext = performIterate;</span>
-<span class="fc" id="L208">  }</span>
+<span class="fc" id="L211">    this.allowNext = performIterate;</span>
+<span class="fc" id="L212">  }</span>
 
   /**
    * Gets the tag.
@@ -213,7 +217,7 @@ public class IterateContext implements Iterator {
    * @return Returns the tag.
    */
   public SqlTag getTag() {
-<span class="fc" id="L216">    return tag;</span>
+<span class="fc" id="L220">    return tag;</span>
   }
 
   /**
@@ -223,8 +227,8 @@ public class IterateContext implements Iterator {
    *          The tag to set.
    */
   public void setTag(SqlTag tag) {
-<span class="nc" id="L226">    this.tag = tag;</span>
-<span class="nc" id="L227">  }</span>
+<span class="nc" id="L230">    this.tag = tag;</span>
+<span class="nc" id="L231">  }</span>
 
   /**
    * Checks if is final.
@@ -232,7 +236,7 @@ public class IterateContext implements Iterator {
    * @return true, if is final
    */
   public boolean isFinal() {
-<span class="fc" id="L235">    return isFinal;</span>
+<span class="fc" id="L239">    return isFinal;</span>
   }
 
   /**
@@ -244,8 +248,8 @@ public class IterateContext implements Iterator {
    *          the new final
    */
   public void setFinal(boolean aFinal) {
-<span class="fc" id="L247">    isFinal = aFinal;</span>
-<span class="fc" id="L248">  }</span>
+<span class="fc" id="L251">    isFinal = aFinal;</span>
+<span class="fc" id="L252">  }</span>
 
   /**
    * Returns the last property of any bean specified in this IterateContext.
@@ -253,18 +257,18 @@ public class IterateContext implements Iterator {
    * @return The last property of any bean specified in this IterateContext.
    */
   public String getEndProperty() {
-<span class="fc bfc" id="L256" title="All 2 branches covered.">    if (parent != null) {</span>
-<span class="fc" id="L257">      int parentPropertyIndex = property.indexOf(parent.getProperty());</span>
-<span class="fc bfc" id="L258" title="All 2 branches covered.">      if (parentPropertyIndex &gt; -1) {</span>
-<span class="fc" id="L259">        int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);</span>
-<span class="fc" id="L260">        int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);</span>
-<span class="fc" id="L261">        return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1,</span>
-<span class="fc" id="L262">            property.length());</span>
+<span class="fc bfc" id="L260" title="All 2 branches covered.">    if (parent != null) {</span>
+<span class="fc" id="L261">      int parentPropertyIndex = property.indexOf(parent.getProperty());</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">      if (parentPropertyIndex &gt; -1) {</span>
+<span class="fc" id="L263">        int endPropertyIndex1 = property.indexOf(']', parentPropertyIndex);</span>
+<span class="fc" id="L264">        int endPropertyIndex2 = property.indexOf('.', parentPropertyIndex);</span>
+<span class="fc" id="L265">        return property.substring(parentPropertyIndex + Math.max(endPropertyIndex1, endPropertyIndex2) + 1,</span>
+<span class="fc" id="L266">            property.length());</span>
       } else {
-<span class="fc" id="L264">        return property;</span>
+<span class="fc" id="L268">        return property;</span>
       }
     } else {
-<span class="fc" id="L267">      return property;</span>
+<span class="fc" id="L271">      return property;</span>
     }
   }
 
@@ -278,13 +282,12 @@ public class IterateContext implements Iterator {
    *         occured in PROCESS_INDEX key.
    */
   protected Map processTagProperty(String tagProperty) {
-<span class="fc bfc" id="L281" title="All 2 branches covered.">    if (parent != null) {</span>
-<span class="fc" id="L282">      Map parentResult = parent.processTagProperty(tagProperty);</span>
-<span class="fc" id="L283">      return this.addIndex((String) parentResult.get(PROCESS_STRING),</span>
-<span class="fc" id="L284">          ((Integer) parentResult.get(PROCESS_INDEX)).intValue());</span>
-    } else {
-<span class="fc" id="L286">      return this.addIndex(tagProperty, 0);</span>
+<span class="fc bfc" id="L285" title="All 2 branches covered.">    if (parent != null) {</span>
+<span class="fc" id="L286">      Map parentResult = parent.processTagProperty(tagProperty);</span>
+<span class="fc" id="L287">      return this.addIndex((String) parentResult.get(PROCESS_STRING),</span>
+<span class="fc" id="L288">          ((Integer) parentResult.get(PROCESS_INDEX)).intValue());</span>
     }
+<span class="fc" id="L290">    return this.addIndex(tagProperty, 0);</span>
   }
 
   /**
@@ -296,8 +299,8 @@ public class IterateContext implements Iterator {
    * @return The tag property with all &quot;[]&quot; replaced with the correct iteration value.
    */
   public String addIndexToTagProperty(String tagProperty) {
-<span class="fc" id="L299">    Map map = this.processTagProperty(tagProperty);</span>
-<span class="fc" id="L300">    return (String) map.get(PROCESS_STRING);</span>
+<span class="fc" id="L302">    Map map = this.processTagProperty(tagProperty);</span>
+<span class="fc" id="L303">    return (String) map.get(PROCESS_STRING);</span>
   }
 
   /**
@@ -312,23 +315,23 @@ public class IterateContext implements Iterator {
    *         occured in PROCESS_INDEX key.
    */
   protected Map addIndex(String input, int startIndex) {
-<span class="fc" id="L315">    String endProperty = getEndProperty() + &quot;[&quot;;</span>
-<span class="fc" id="L316">    int propertyIndex = input.indexOf(endProperty, startIndex);</span>
-<span class="fc" id="L317">    int modificationIndex = 0;</span>
+<span class="fc" id="L318">    String endProperty = getEndProperty() + &quot;[&quot;;</span>
+<span class="fc" id="L319">    int propertyIndex = input.indexOf(endProperty, startIndex);</span>
+<span class="fc" id="L320">    int modificationIndex = 0;</span>
     // Is the iterate property in the tag property at all?
-<span class="fc bfc" id="L319" title="All 2 branches covered.">    if (propertyIndex &gt; -1) {</span>
+<span class="fc bfc" id="L322" title="All 2 branches covered.">    if (propertyIndex &gt; -1) {</span>
       // Make sure the tag property does not already have a number.
-<span class="fc bfc" id="L321" title="All 2 branches covered.">      if (input.charAt(propertyIndex + endProperty.length()) == ']') {</span>
+<span class="fc bfc" id="L324" title="All 2 branches covered.">      if (input.charAt(propertyIndex + endProperty.length()) == ']') {</span>
         // Add iteration number to property.
-<span class="fc" id="L323">        input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()</span>
-<span class="fc" id="L324">            + input.substring(propertyIndex + endProperty.length());</span>
-<span class="fc" id="L325">        modificationIndex = propertyIndex + endProperty.length();</span>
+<span class="fc" id="L326">        input = input.substring(0, propertyIndex + endProperty.length()) + this.getIndex()</span>
+<span class="fc" id="L327">            + input.substring(propertyIndex + endProperty.length());</span>
+<span class="fc" id="L328">        modificationIndex = propertyIndex + endProperty.length();</span>
       }
     }
-<span class="fc" id="L328">    Map ret = new HashMap();</span>
-<span class="fc" id="L329">    ret.put(PROCESS_INDEX, Integer.valueOf(modificationIndex));</span>
-<span class="fc" id="L330">    ret.put(PROCESS_STRING, input);</span>
-<span class="fc" id="L331">    return ret;</span>
+<span class="fc" id="L331">    Map ret = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L332">    ret.put(PROCESS_INDEX, Integer.valueOf(modificationIndex));</span>
+<span class="fc" id="L333">    ret.put(PROCESS_STRING, input);</span>
+<span class="fc" id="L334">    return ret;</span>
   }
 
   /**
@@ -337,7 +340,7 @@ public class IterateContext implements Iterator {
    * @return the parent
    */
   public IterateContext getParent() {
-<span class="nc" id="L340">    return parent;</span>
+<span class="nc" id="L343">    return parent;</span>
   }
 
   /**
@@ -347,8 +350,8 @@ public class IterateContext implements Iterator {
    *          the new parent
    */
   public void setParent(IterateContext parent) {
-<span class="nc" id="L350">    this.parent = parent;</span>
-<span class="nc" id="L351">  }</span>
+<span class="nc" id="L353">    this.parent = parent;</span>
+<span class="nc" id="L354">  }</span>
 
   /**
    * Some sub elements have content.
@@ -356,7 +359,7 @@ public class IterateContext implements Iterator {
    * @return true, if successful
    */
   public boolean someSubElementsHaveContent() {
-<span class="fc" id="L359">    return someSubElementsHaveContent;</span>
+<span class="fc" id="L362">    return someSubElementsHaveContent;</span>
   }
 
   /**
@@ -366,8 +369,8 @@ public class IterateContext implements Iterator {
    *          the new some sub elements have content
    */
   public void setSomeSubElementsHaveContent(boolean someSubElementsHaveContent) {
-<span class="fc" id="L369">    this.someSubElementsHaveContent = someSubElementsHaveContent;</span>
-<span class="fc" id="L370">  }</span>
+<span class="fc" id="L372">    this.someSubElementsHaveContent = someSubElementsHaveContent;</span>
+<span class="fc" id="L373">  }</span>
 
   /**
    * Checks if is prepend enabled.
@@ -375,7 +378,7 @@ public class IterateContext implements Iterator {
    * @return true, if is prepend enabled
    */
   public boolean isPrependEnabled() {
-<span class="fc" id="L378">    return isPrependEnabled;</span>
+<span class="fc" id="L381">    return isPrependEnabled;</span>
   }
 
   /**
@@ -385,7 +388,7 @@ public class IterateContext implements Iterator {
    *          the new prepend enabled
    */
   public void setPrependEnabled(boolean isPrependEnabled) {
-<span class="fc" id="L388">    this.isPrependEnabled = isPrependEnabled;</span>
-<span class="fc" id="L389">  }</span>
+<span class="fc" id="L391">    this.isPrependEnabled = isPrependEnabled;</span>
+<span class="fc" id="L392">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

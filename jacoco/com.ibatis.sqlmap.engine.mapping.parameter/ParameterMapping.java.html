@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParameterMapping.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.parameter</a> &gt; <span class="el_source">ParameterMapping.java</span></div><h1>ParameterMapping.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -178,9 +178,8 @@ public class ParameterMapping {
   public String getJavaTypeName() {
 <span class="fc bfc" id="L179" title="All 2 branches covered.">    if (javaType == null) {</span>
 <span class="fc" id="L180">      return null;</span>
-    } else {
-<span class="fc" id="L182">      return javaType.getName();</span>
     }
+<span class="fc" id="L182">    return javaType.getName();</span>
   }
 
   /**
@@ -191,15 +190,15 @@ public class ParameterMapping {
    */
   public void setJavaTypeName(String javaTypeName) {
     try {
-<span class="pc bpc" id="L194" title="1 of 2 branches missed.">      if (javaTypeName == null) {</span>
-<span class="nc" id="L195">        this.javaType = null;</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">      if (javaTypeName == null) {</span>
+<span class="nc" id="L194">        this.javaType = null;</span>
       } else {
-<span class="fc" id="L197">        this.javaType = Resources.classForName(javaTypeName);</span>
+<span class="fc" id="L196">        this.javaType = Resources.classForName(javaTypeName);</span>
       }
-<span class="nc" id="L199">    } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L200">      throw new SqlMapException(&quot;Error setting javaType property of ParameterMap.  Cause: &quot; + e, e);</span>
-<span class="fc" id="L201">    }</span>
-<span class="fc" id="L202">  }</span>
+<span class="nc" id="L198">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L199">      throw new SqlMapException(&quot;Error setting javaType property of ParameterMap.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L200">    }</span>
+<span class="fc" id="L201">  }</span>
 
   /**
    * Gets the jdbc type.
@@ -207,7 +206,7 @@ public class ParameterMapping {
    * @return the jdbc type
    */
   public int getJdbcType() {
-<span class="fc" id="L210">    return jdbcType;</span>
+<span class="fc" id="L209">    return jdbcType;</span>
   }
 
   /**
@@ -216,7 +215,7 @@ public class ParameterMapping {
    * @return the jdbc type name
    */
   public String getJdbcTypeName() {
-<span class="fc" id="L219">    return jdbcTypeName;</span>
+<span class="fc" id="L218">    return jdbcTypeName;</span>
   }
 
   /**
@@ -226,9 +225,9 @@ public class ParameterMapping {
    *          the new jdbc type name
    */
   public void setJdbcTypeName(String jdbcTypeName) {
-<span class="fc" id="L229">    this.jdbcTypeName = jdbcTypeName;</span>
-<span class="fc" id="L230">    this.jdbcType = JdbcTypeRegistry.getType(jdbcTypeName);</span>
-<span class="fc" id="L231">  }</span>
+<span class="fc" id="L228">    this.jdbcTypeName = jdbcTypeName;</span>
+<span class="fc" id="L229">    this.jdbcType = JdbcTypeRegistry.getType(jdbcTypeName);</span>
+<span class="fc" id="L230">  }</span>
 
   /**
    * Gets the mode.
@@ -236,7 +235,7 @@ public class ParameterMapping {
    * @return the mode
    */
   public String getMode() {
-<span class="nc" id="L239">    return mode;</span>
+<span class="nc" id="L238">    return mode;</span>
   }
 
   /**
@@ -246,10 +245,10 @@ public class ParameterMapping {
    *          the new mode
    */
   public void setMode(String mode) {
-<span class="fc" id="L249">    this.mode = mode;</span>
-<span class="pc bpc" id="L250" title="1 of 4 branches missed.">    inputAllowed = MODE_IN.equals(mode) || MODE_INOUT.equals(mode);</span>
-<span class="pc bpc" id="L251" title="1 of 4 branches missed.">    outputAllowed = MODE_OUT.equals(mode) || MODE_INOUT.equals(mode);</span>
-<span class="fc" id="L252">  }</span>
+<span class="fc" id="L248">    this.mode = mode;</span>
+<span class="pc bpc" id="L249" title="1 of 4 branches missed.">    inputAllowed = MODE_IN.equals(mode) || MODE_INOUT.equals(mode);</span>
+<span class="pc bpc" id="L250" title="1 of 4 branches missed.">    outputAllowed = MODE_OUT.equals(mode) || MODE_INOUT.equals(mode);</span>
+<span class="fc" id="L251">  }</span>
 
   /**
    * Checks if is input allowed.
@@ -257,7 +256,7 @@ public class ParameterMapping {
    * @return true, if is input allowed
    */
   public boolean isInputAllowed() {
-<span class="fc" id="L260">    return inputAllowed;</span>
+<span class="fc" id="L259">    return inputAllowed;</span>
   }
 
   /**
@@ -266,7 +265,7 @@ public class ParameterMapping {
    * @return true, if is output allowed
    */
   public boolean isOutputAllowed() {
-<span class="fc" id="L269">    return outputAllowed;</span>
+<span class="fc" id="L268">    return outputAllowed;</span>
   }
 
   /**
@@ -275,7 +274,7 @@ public class ParameterMapping {
    * @return typeName
    */
   public String getTypeName() {
-<span class="nc" id="L278">    return typeName;</span>
+<span class="nc" id="L277">    return typeName;</span>
   }
 
   /**
@@ -285,8 +284,8 @@ public class ParameterMapping {
    *          the new type name
    */
   public void setTypeName(String typeName) {
-<span class="fc" id="L288">    this.typeName = typeName;</span>
-<span class="fc" id="L289">  }</span>
+<span class="fc" id="L287">    this.typeName = typeName;</span>
+<span class="fc" id="L288">  }</span>
 
   /**
    * Gets the result map name.
@@ -294,7 +293,7 @@ public class ParameterMapping {
    * @return the result map name
    */
   public String getResultMapName() {
-<span class="nc" id="L297">    return resultMapName;</span>
+<span class="nc" id="L296">    return resultMapName;</span>
   }
 
   /**
@@ -304,8 +303,8 @@ public class ParameterMapping {
    *          the new result map name
    */
   public void setResultMapName(String resultMapName) {
-<span class="fc" id="L307">    this.resultMapName = resultMapName;</span>
-<span class="fc" id="L308">  }</span>
+<span class="fc" id="L306">    this.resultMapName = resultMapName;</span>
+<span class="fc" id="L307">  }</span>
 
   /**
    * Gets the numeric scale.
@@ -313,7 +312,7 @@ public class ParameterMapping {
    * @return the numeric scale
    */
   public Integer getNumericScale() {
-<span class="nc" id="L316">    return numericScale;</span>
+<span class="nc" id="L315">    return numericScale;</span>
   }
 
   /**
@@ -323,12 +322,12 @@ public class ParameterMapping {
    *          the new numeric scale
    */
   public void setNumericScale(Integer numericScale) {
-<span class="pc bpc" id="L326" title="3 of 4 branches missed.">    if (numericScale != null &amp;&amp; numericScale.intValue() &lt; 0) {</span>
-<span class="nc" id="L327">      throw new RuntimeException(</span>
+<span class="pc bpc" id="L325" title="3 of 4 branches missed.">    if (numericScale != null &amp;&amp; numericScale.intValue() &lt; 0) {</span>
+<span class="nc" id="L326">      throw new RuntimeException(</span>
           &quot;Error setting numericScale on parameter mapping.  Cause: scale must be greater than or equal to zero&quot;);
     }
-<span class="fc" id="L330">    this.numericScale = numericScale;</span>
-<span class="fc" id="L331">  }</span>
+<span class="fc" id="L329">    this.numericScale = numericScale;</span>
+<span class="fc" id="L330">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

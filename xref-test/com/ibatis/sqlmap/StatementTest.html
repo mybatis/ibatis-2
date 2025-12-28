@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/com/ibatis/sqlmap/StatementTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -730,7 +730,7 @@
 <a class="jxr_linenumber" name="L722" href="#L722">722</a>     assertEquals(Integer.valueOf(99), key);
 <a class="jxr_linenumber" name="L723" href="#L723">723</a>     assertEquals(99, item.getId());
 <a class="jxr_linenumber" name="L724" href="#L724">724</a> 
-<a class="jxr_linenumber" name="L725" href="#L725">725</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Integer&gt;();
+<a class="jxr_linenumber" name="L725" href="#L725">725</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L726" href="#L726">726</a>     param.put(<span class="jxr_string">"orderId"</span>, Integer.valueOf(333));
 <a class="jxr_linenumber" name="L727" href="#L727">727</a>     param.put(<span class="jxr_string">"lineId"</span>, Integer.valueOf(10));
 <a class="jxr_linenumber" name="L728" href="#L728">728</a>     <a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a> testItem = (<a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a>) sqlMap.queryForObject(<span class="jxr_string">"getSpecificLineItem"</span>, param);
@@ -776,7 +776,7 @@
 <a class="jxr_linenumber" name="L768" href="#L768">768</a>     assertEquals(Integer.valueOf(99), key);
 <a class="jxr_linenumber" name="L769" href="#L769">769</a>     assertEquals(99, item.getId());
 <a class="jxr_linenumber" name="L770" href="#L770">770</a> 
-<a class="jxr_linenumber" name="L771" href="#L771">771</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Integer&gt;();
+<a class="jxr_linenumber" name="L771" href="#L771">771</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L772" href="#L772">772</a>     param.put(<span class="jxr_string">"orderId"</span>, Integer.valueOf(333));
 <a class="jxr_linenumber" name="L773" href="#L773">773</a>     param.put(<span class="jxr_string">"lineId"</span>, Integer.valueOf(99));
 <a class="jxr_linenumber" name="L774" href="#L774">774</a>     <a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a> testItem = (<a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a>) sqlMap.queryForObject(<span class="jxr_string">"getSpecificLineItem"</span>, param);
@@ -800,7 +800,7 @@
 <a class="jxr_linenumber" name="L792" href="#L792">792</a>     assertNull(key);
 <a class="jxr_linenumber" name="L793" href="#L793">793</a>     assertEquals(100, item.getId());
 <a class="jxr_linenumber" name="L794" href="#L794">794</a> 
-<a class="jxr_linenumber" name="L795" href="#L795">795</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Integer&gt;();
+<a class="jxr_linenumber" name="L795" href="#L795">795</a>     Map&lt;String, Integer&gt; param = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L796" href="#L796">796</a>     param.put(<span class="jxr_string">"orderId"</span>, Integer.valueOf(333));
 <a class="jxr_linenumber" name="L797" href="#L797">797</a>     param.put(<span class="jxr_string">"lineId"</span>, Integer.valueOf(100));
 <a class="jxr_linenumber" name="L798" href="#L798">798</a>     <a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a> testItem = (<a name="LineItem" href="../../../testdomain/LineItem.html#LineItem">LineItem</a>) sqlMap.queryForObject(<span class="jxr_string">"getSpecificLineItem"</span>, param);
@@ -897,7 +897,7 @@
 <a class="jxr_linenumber" name="L889" href="#L889">889</a>   <strong class="jxr_keyword">class</strong> TestRowHandler <strong class="jxr_keyword">implements</strong> RowHandler {
 <a class="jxr_linenumber" name="L890" href="#L890">890</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> index = 0;
 <a class="jxr_linenumber" name="L891" href="#L891">891</a> 
-<a class="jxr_linenumber" name="L892" href="#L892">892</a>     <strong class="jxr_keyword">private</strong> List&lt;Object&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;Object&gt;();
+<a class="jxr_linenumber" name="L892" href="#L892">892</a>     <strong class="jxr_keyword">private</strong> List&lt;Object&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L893" href="#L893">893</a> 
 <a class="jxr_linenumber" name="L894" href="#L894">894</a>     @Override
 <a class="jxr_linenumber" name="L895" href="#L895">895</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleRow(Object object) {

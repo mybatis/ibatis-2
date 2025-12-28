@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../../../apidocs/com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateTagHandler.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>        ctx.reEnableRemoveFirstPrependMarker();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">if</strong> (iterate != <strong class="jxr_keyword">null</strong> &amp;&amp; iterate.hasNext()) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">if</strong> (iterate.hasNext()) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>        <strong class="jxr_keyword">return</strong> INCLUDE_BODY;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>        <strong class="jxr_keyword">return</strong> SKIP_BODY;
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          iterate.next();
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>        }
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>        <strong class="jxr_keyword">if</strong> (bodyContent.toString().trim().length() &gt; 0) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>        <strong class="jxr_keyword">if</strong> (!bodyContent.toString().trim().isEmpty()) {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <em class="jxr_comment">// the sub element produced a result. If it is the first one</em>
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <em class="jxr_comment">// to produce a result, then we need to add the open</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          <em class="jxr_comment">// text. If it is not the first to produce a result then</em>
@@ -110,43 +110,41 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         iterate.setSomeSubElementsHaveContent(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>       }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>       <strong class="jxr_keyword">if</strong> (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent()) {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">if</strong> (tag.isCloseAvailable()) {
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>           bodyContent.append(tag.getCloseAttr());
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         }
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>       }
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>       iterate.setAllowNext(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>       <strong class="jxr_keyword">if</strong> (iterate.isFinal()) {
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.doEndFragment(ctx, tag, parameterObject, bodyContent);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>       } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">return</strong> REPEAT_BODY;
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>       }
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.doEndFragment(ctx, tag, parameterObject, bodyContent);
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>   }
-<a class="jxr_linenumber" name="L122" href="#L122">122</a> 
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>   @Override
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> doPrepend(<a name="SqlTagContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html#SqlTagContext">SqlTagContext</a> ctx, <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a> tag, Object parameterObject, StringBuilder bodyContent) {
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <a name="IterateContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html#IterateContext">IterateContext</a> iterate = (<a name="IterateContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html#IterateContext">IterateContext</a>) ctx.getAttribute(tag);
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">if</strong> (iterate.isPrependEnabled()) {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>       <strong class="jxr_keyword">super</strong>.doPrepend(ctx, tag, parameterObject, bodyContent);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>       iterate.setPrependEnabled(false); <em class="jxr_comment">// only do the prepend one time</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>     }
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>   }
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">   * Checks if is post parse required.</em>
-<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">   * @return true, if is post parse required</em>
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPostParseRequired() {
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>   }
-<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> }
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>       <strong class="jxr_keyword">if</strong> (iterate.isLast() &amp;&amp; iterate.someSubElementsHaveContent() &amp;&amp; tag.isCloseAvailable()) {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         bodyContent.append(tag.getCloseAttr());
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>       }
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> 
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>       iterate.setAllowNext(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>       <strong class="jxr_keyword">if</strong> (iterate.isFinal()) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.doEndFragment(ctx, tag, parameterObject, bodyContent);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>       } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">return</strong> REPEAT_BODY;
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>       }
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> 
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">super</strong>.doEndFragment(ctx, tag, parameterObject, bodyContent);
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>     }
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>   }
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> 
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>   @Override
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> doPrepend(<a name="SqlTagContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTagContext.html#SqlTagContext">SqlTagContext</a> ctx, <a name="SqlTag" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/SqlTag.html#SqlTag">SqlTag</a> tag, Object parameterObject, StringBuilder bodyContent) {
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <a name="IterateContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html#IterateContext">IterateContext</a> iterate = (<a name="IterateContext" href="../../../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateContext.html#IterateContext">IterateContext</a>) ctx.getAttribute(tag);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">if</strong> (iterate.isPrependEnabled()) {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>       <strong class="jxr_keyword">super</strong>.doPrepend(ctx, tag, parameterObject, bodyContent);
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>       iterate.setPrependEnabled(false); <em class="jxr_comment">// only do the prepend one time</em>
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     }
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>   }
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">   * Checks if is post parse required.</em>
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">   * @return true, if is post parse required</em>
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPostParseRequired() {
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>   }
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> 
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> }
 </pre>
 <hr/>
 <div id="footer">© 2004–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>

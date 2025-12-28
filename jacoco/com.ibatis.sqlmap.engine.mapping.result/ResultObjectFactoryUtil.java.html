@@ -17,7 +17,13 @@ package com.ibatis.sqlmap.engine.mapping.result;
 
 import com.ibatis.common.resources.Resources;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class is used to create instances of result objects. It will use the configured ResultObjectFactory if there is
@@ -38,7 +44,7 @@ public class ResultObjectFactoryUtil {
    * over the place, and it has no measurable impact on performance (I did a test with 100000 result rows and found no
    * impact - Jeff Butler).
    */
-<span class="fc" id="L41">  private static ThreadLocal&lt;Deque&lt;FactorySettings&gt;&gt; factorySettings = new ThreadLocal&lt;&gt;();</span>
+<span class="fc" id="L47">  private static ThreadLocal&lt;Deque&lt;FactorySettings&gt;&gt; factorySettings = new ThreadLocal&lt;&gt;();</span>
 
   /**
    * Utility class - no instances.
@@ -71,19 +77,19 @@ public class ResultObjectFactoryUtil {
    */
   public static Object createObjectThroughFactory(Class clazz) throws InstantiationException, IllegalAccessException {
 
-<span class="fc" id="L74">    FactorySettings fs = getCurrentFactorySettings();</span>
+<span class="fc" id="L80">    FactorySettings fs = getCurrentFactorySettings();</span>
 
     Object obj;
-<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (fs.getResultObjectFactory() == null) {</span>
-<span class="fc" id="L78">      obj = createObjectInternally(clazz);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (fs.getResultObjectFactory() == null) {</span>
+<span class="fc" id="L84">      obj = createObjectInternally(clazz);</span>
     } else {
-<span class="fc" id="L80">      obj = fs.getResultObjectFactory().createInstance(fs.getStatementId(), clazz);</span>
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">      if (obj == null) {</span>
-<span class="nc" id="L82">        obj = createObjectInternally(clazz);</span>
+<span class="fc" id="L86">      obj = fs.getResultObjectFactory().createInstance(fs.getStatementId(), clazz);</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">      if (obj == null) {</span>
+<span class="nc" id="L88">        obj = createObjectInternally(clazz);</span>
       }
     }
 
-<span class="fc" id="L86">    return obj;</span>
+<span class="fc" id="L92">    return obj;</span>
   }
 
   /**
@@ -103,15 +109,15 @@ public class ResultObjectFactoryUtil {
    */
   private static Object createObjectInternally(Class clazz) throws InstantiationException, IllegalAccessException {
     Class classToCreate;
-<span class="fc bfc" id="L106" title="All 4 branches covered.">    if (clazz == List.class || clazz == Collection.class) {</span>
-<span class="fc" id="L107">      classToCreate = ArrayList.class;</span>
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">    } else if (clazz == Set.class) {</span>
-<span class="nc" id="L109">      classToCreate = HashSet.class;</span>
+<span class="fc bfc" id="L112" title="All 4 branches covered.">    if (clazz == List.class || clazz == Collection.class) {</span>
+<span class="fc" id="L113">      classToCreate = ArrayList.class;</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">    } else if (clazz == Set.class) {</span>
+<span class="nc" id="L115">      classToCreate = HashSet.class;</span>
     } else {
-<span class="fc" id="L111">      classToCreate = clazz;</span>
+<span class="fc" id="L117">      classToCreate = clazz;</span>
     }
 
-<span class="fc" id="L114">    return Resources.instantiate(classToCreate);</span>
+<span class="fc" id="L120">    return Resources.instantiate(classToCreate);</span>
   }
 
   /**
@@ -125,32 +131,32 @@ public class ResultObjectFactoryUtil {
    *          the statement id
    */
   public static void setupResultObjectFactory(ResultObjectFactory resultObjectFactory, String statementId) {
-<span class="fc" id="L128">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">    if (fss == null) {</span>
-<span class="fc" id="L130">      fss = new ArrayDeque&lt;&gt;();</span>
-<span class="fc" id="L131">      factorySettings.set(fss);</span>
+<span class="fc" id="L134">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">    if (fss == null) {</span>
+<span class="fc" id="L136">      fss = new ArrayDeque&lt;&gt;();</span>
+<span class="fc" id="L137">      factorySettings.set(fss);</span>
     }
 
-<span class="fc" id="L134">    FactorySettings fs = new FactorySettings();</span>
-<span class="fc" id="L135">    fs.setResultObjectFactory(resultObjectFactory);</span>
-<span class="fc" id="L136">    fs.setStatementId(statementId);</span>
-<span class="fc" id="L137">    fss.push(fs);</span>
-<span class="fc" id="L138">  }</span>
+<span class="fc" id="L140">    FactorySettings fs = new FactorySettings();</span>
+<span class="fc" id="L141">    fs.setResultObjectFactory(resultObjectFactory);</span>
+<span class="fc" id="L142">    fs.setStatementId(statementId);</span>
+<span class="fc" id="L143">    fss.push(fs);</span>
+<span class="fc" id="L144">  }</span>
 
   /**
    * Removes the FactorySettings bound to the current thread to avoid classloader leak issues. This method pops the top
    * item off the stack, and kills the stack if there are no items left.
    */
   public static void cleanupResultObjectFactory() {
-<span class="fc" id="L145">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">    if (!fss.isEmpty()) {</span>
-<span class="fc" id="L147">      fss.pop();</span>
+<span class="fc" id="L151">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">    if (!fss.isEmpty()) {</span>
+<span class="fc" id="L153">      fss.pop();</span>
     }
 
-<span class="fc bfc" id="L150" title="All 2 branches covered.">    if (fss.isEmpty()) {</span>
-<span class="fc" id="L151">      factorySettings.remove();</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (fss.isEmpty()) {</span>
+<span class="fc" id="L157">      factorySettings.remove();</span>
     }
-<span class="fc" id="L153">  }</span>
+<span class="fc" id="L159">  }</span>
 
   /**
    * Gets the current factory settings.
@@ -158,16 +164,16 @@ public class ResultObjectFactoryUtil {
    * @return the current factory settings
    */
   private static FactorySettings getCurrentFactorySettings() {
-<span class="fc" id="L161">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
+<span class="fc" id="L167">    Deque&lt;FactorySettings&gt; fss = factorySettings.get();</span>
     FactorySettings fs;
-<span class="pc bpc" id="L163" title="1 of 4 branches missed.">    if (fss == null || fss.isEmpty()) {</span>
+<span class="pc bpc" id="L169" title="1 of 4 branches missed.">    if (fss == null || fss.isEmpty()) {</span>
       // this shouldn't happen if the SqlExecuter is behaving correctly
-<span class="fc" id="L165">      fs = new FactorySettings();</span>
+<span class="fc" id="L171">      fs = new FactorySettings();</span>
     } else {
-<span class="fc" id="L167">      fs = fss.peek();</span>
+<span class="fc" id="L173">      fs = fss.peek();</span>
     }
 
-<span class="fc" id="L170">    return fs;</span>
+<span class="fc" id="L176">    return fs;</span>
   }
 
   /**
@@ -187,7 +193,7 @@ public class ResultObjectFactoryUtil {
      * @return the result object factory
      */
     public ResultObjectFactory getResultObjectFactory() {
-<span class="fc" id="L190">      return resultObjectFactory;</span>
+<span class="fc" id="L196">      return resultObjectFactory;</span>
     }
 
     /**
@@ -197,8 +203,8 @@ public class ResultObjectFactoryUtil {
      *          the new result object factory
      */
     public void setResultObjectFactory(ResultObjectFactory resultObjectFactory) {
-<span class="fc" id="L200">      this.resultObjectFactory = resultObjectFactory;</span>
-<span class="fc" id="L201">    }</span>
+<span class="fc" id="L206">      this.resultObjectFactory = resultObjectFactory;</span>
+<span class="fc" id="L207">    }</span>
 
     /**
      * Gets the statement id.
@@ -206,7 +212,7 @@ public class ResultObjectFactoryUtil {
      * @return the statement id
      */
     public String getStatementId() {
-<span class="fc" id="L209">      return statementId;</span>
+<span class="fc" id="L215">      return statementId;</span>
     }
 
     /**
@@ -216,8 +222,8 @@ public class ResultObjectFactoryUtil {
      *          the new statement id
      */
     public void setStatementId(String statementId) {
-<span class="fc" id="L219">      this.statementId = statementId;</span>
-<span class="fc" id="L220">    }</span>
+<span class="fc" id="L225">      this.statementId = statementId;</span>
+<span class="fc" id="L226">    }</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

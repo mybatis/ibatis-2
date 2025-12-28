@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResultMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">ResultMap.java</span></div><h1>ResultMap.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -270,7 +270,7 @@ public class ResultMap {
    */
   public void addGroupByProperty(String name) {
 <span class="pc bpc" id="L272" title="1 of 2 branches missed.">    if (groupByProps == null) {</span>
-<span class="fc" id="L273">      groupByProps = new HashSet();</span>
+<span class="fc" id="L273">      groupByProps = new HashSet&lt;&gt;();</span>
     }
 <span class="fc" id="L275">    groupByProps.add(name);</span>
 <span class="fc" id="L276">  }</span>
@@ -301,7 +301,7 @@ public class ResultMap {
    */
   public void addNestedResultMappings(ResultMapping mapping) {
 <span class="fc bfc" id="L303" title="All 2 branches covered.">    if (nestedResultMappings == null) {</span>
-<span class="fc" id="L304">      nestedResultMappings = new ArrayList();</span>
+<span class="fc" id="L304">      nestedResultMappings = new ArrayList&lt;&gt;();</span>
     }
 <span class="fc" id="L306">    nestedResultMappings.add(mapping);</span>
 <span class="fc" id="L307">  }</span>
@@ -395,7 +395,7 @@ public class ResultMap {
 <span class="fc" id="L395">      this.resultMappings = (ResultMapping[]) resultMappingList.toArray(new ResultMapping[resultMappingList.size()]);</span>
     }
 
-<span class="fc" id="L398">    Map props = new HashMap();</span>
+<span class="fc" id="L398">    Map props = new HashMap&lt;&gt;();</span>
 <span class="fc" id="L399">    props.put(&quot;map&quot;, this);</span>
 <span class="fc" id="L400">    dataExchange = getDelegate().getDataExchangeFactory().getDataExchangeForClass(resultClass);</span>
 <span class="fc" id="L401">    dataExchange.initialize(props);</span>
@@ -502,7 +502,7 @@ public class ResultMap {
       // Lazy init key set, only if we're grouped by something (i.e. ukey != null)
 <span class="fc bfc" id="L503" title="All 2 branches covered.">      if (ukey != null) {</span>
 <span class="fc bfc" id="L504" title="All 2 branches covered.">        if (uniqueKeys == null) {</span>
-<span class="fc" id="L505">          uniqueKeys = new HashMap();</span>
+<span class="fc" id="L505">          uniqueKeys = new HashMap&lt;&gt;();</span>
 <span class="fc" id="L506">          statementScope.setUniqueKeys(this, uniqueKeys);</span>
         }
 <span class="fc" id="L508">        uniqueKeys.put(ukey, resultObject);</span>
@@ -684,10 +684,8 @@ public class ResultMap {
         }
       }
 <span class="fc" id="L686">      return result;</span>
-<span class="nc" id="L687">    } catch (InstantiationException e) {</span>
+<span class="nc" id="L687">    } catch (InstantiationException | IllegalAccessException e) {</span>
 <span class="nc" id="L688">      throw new NestedSQLException(&quot;Error setting nested bean property.  Cause: &quot; + e, e);</span>
-<span class="nc" id="L689">    } catch (IllegalAccessException e) {</span>
-<span class="nc" id="L690">      throw new NestedSQLException(&quot;Error setting nested bean property.  Cause: &quot; + e, e);</span>
     }
 
   }
@@ -710,10 +708,10 @@ public class ResultMap {
   private Object preparePrimitiveParameterObject(ResultSet rs, ResultMapping mapping, Class parameterType)
       throws SQLException {
     Object parameterObject;
-<span class="fc" id="L713">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
-<span class="fc" id="L714">    TypeHandler th = typeHandlerFactory.getTypeHandler(parameterType);</span>
-<span class="fc" id="L715">    parameterObject = th.getResult(rs, mapping.getColumnName());</span>
-<span class="fc" id="L716">    return parameterObject;</span>
+<span class="fc" id="L711">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
+<span class="fc" id="L712">    TypeHandler th = typeHandlerFactory.getTypeHandler(parameterType);</span>
+<span class="fc" id="L713">    parameterObject = th.getResult(rs, mapping.getColumnName());</span>
+<span class="fc" id="L714">    return parameterObject;</span>
   }
 
   /**
@@ -726,11 +724,11 @@ public class ResultMap {
    */
   private Document newDocument(String root) {
     try {
-<span class="fc" id="L729">      Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();</span>
-<span class="fc" id="L730">      doc.appendChild(doc.createElement(root));</span>
-<span class="fc" id="L731">      return doc;</span>
-<span class="nc" id="L732">    } catch (ParserConfigurationException e) {</span>
-<span class="nc" id="L733">      throw new RuntimeException(&quot;Error creating XML document.  Cause: &quot; + e);</span>
+<span class="fc" id="L727">      Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();</span>
+<span class="fc" id="L728">      doc.appendChild(doc.createElement(root));</span>
+<span class="fc" id="L729">      return doc;</span>
+<span class="nc" id="L730">    } catch (ParserConfigurationException e) {</span>
+<span class="nc" id="L731">      throw new RuntimeException(&quot;Error creating XML document.  Cause: &quot; + e);</span>
     }
   }
 
@@ -748,30 +746,30 @@ public class ResultMap {
    *           the SQL exception
    */
   private Object prepareDomParameterObject(ResultSet rs, ResultMapping mapping) throws SQLException {
-<span class="fc" id="L751">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
+<span class="fc" id="L749">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
 
-<span class="fc" id="L753">    Document doc = newDocument(&quot;parameter&quot;);</span>
-<span class="fc" id="L754">    Probe probe = ProbeFactory.getProbe(doc);</span>
+<span class="fc" id="L751">    Document doc = newDocument(&quot;parameter&quot;);</span>
+<span class="fc" id="L752">    Probe probe = ProbeFactory.getProbe(doc);</span>
 
-<span class="fc" id="L756">    String complexName = mapping.getColumnName();</span>
+<span class="fc" id="L754">    String complexName = mapping.getColumnName();</span>
 
-<span class="fc" id="L758">    TypeHandler stringTypeHandler = typeHandlerFactory.getTypeHandler(String.class);</span>
-<span class="pc bpc" id="L759" title="1 of 2 branches missed.">    if (complexName.indexOf('=') &gt; -1) {</span>
+<span class="fc" id="L756">    TypeHandler stringTypeHandler = typeHandlerFactory.getTypeHandler(String.class);</span>
+<span class="pc bpc" id="L757" title="1 of 2 branches missed.">    if (complexName.indexOf('=') &gt; -1) {</span>
       // old 1.x style multiple params
-<span class="fc" id="L761">      StringTokenizer parser = new StringTokenizer(complexName, &quot;{}=, &quot;, false);</span>
-<span class="fc bfc" id="L762" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L763">        String propName = parser.nextToken();</span>
-<span class="fc" id="L764">        String colName = parser.nextToken();</span>
-<span class="fc" id="L765">        Object propValue = stringTypeHandler.getResult(rs, colName);</span>
-<span class="fc" id="L766">        probe.setObject(doc, propName, propValue.toString());</span>
-<span class="fc" id="L767">      }</span>
-<span class="fc" id="L768">    } else {</span>
+<span class="fc" id="L759">      StringTokenizer parser = new StringTokenizer(complexName, &quot;{}=, &quot;, false);</span>
+<span class="fc bfc" id="L760" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L761">        String propName = parser.nextToken();</span>
+<span class="fc" id="L762">        String colName = parser.nextToken();</span>
+<span class="fc" id="L763">        Object propValue = stringTypeHandler.getResult(rs, colName);</span>
+<span class="fc" id="L764">        probe.setObject(doc, propName, propValue.toString());</span>
+<span class="fc" id="L765">      }</span>
+<span class="fc" id="L766">    } else {</span>
       // single param
-<span class="nc" id="L770">      Object propValue = stringTypeHandler.getResult(rs, complexName);</span>
-<span class="nc" id="L771">      probe.setObject(doc, &quot;value&quot;, propValue.toString());</span>
+<span class="nc" id="L768">      Object propValue = stringTypeHandler.getResult(rs, complexName);</span>
+<span class="nc" id="L769">      probe.setObject(doc, &quot;value&quot;, propValue.toString());</span>
     }
 
-<span class="fc" id="L774">    return doc;</span>
+<span class="fc" id="L772">    return doc;</span>
   }
 
   /**
@@ -797,36 +795,36 @@ public class ResultMap {
    */
   private Object prepareBeanParameterObject(StatementScope statementScope, ResultSet rs, ResultMapping mapping,
       Class parameterType) throws InstantiationException, IllegalAccessException, SQLException {
-<span class="fc" id="L800">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
+<span class="fc" id="L798">    TypeHandlerFactory typeHandlerFactory = getDelegate().getTypeHandlerFactory();</span>
 
     Object parameterObject;
-<span class="pc bpc" id="L803" title="1 of 2 branches missed.">    if (parameterType == null) {</span>
-<span class="nc" id="L804">      parameterObject = new HashMap();</span>
+<span class="pc bpc" id="L801" title="1 of 2 branches missed.">    if (parameterType == null) {</span>
+<span class="nc" id="L802">      parameterObject = new HashMap&lt;&gt;();</span>
     } else {
-<span class="fc" id="L806">      parameterObject = ResultObjectFactoryUtil.createObjectThroughFactory(parameterType);</span>
+<span class="fc" id="L804">      parameterObject = ResultObjectFactoryUtil.createObjectThroughFactory(parameterType);</span>
     }
-<span class="fc" id="L808">    String complexName = mapping.getColumnName();</span>
+<span class="fc" id="L806">    String complexName = mapping.getColumnName();</span>
 
-<span class="pc bpc" id="L810" title="3 of 4 branches missed.">    if (complexName.indexOf('=') &gt; -1 || complexName.indexOf(',') &gt; -1) {</span>
-<span class="fc" id="L811">      StringTokenizer parser = new StringTokenizer(complexName, &quot;{}=, &quot;, false);</span>
-<span class="fc bfc" id="L812" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L813">        String propName = parser.nextToken();</span>
-<span class="fc" id="L814">        String colName = parser.nextToken();</span>
-<span class="fc" id="L815">        Class propType = PROBE.getPropertyTypeForSetter(parameterObject, propName);</span>
-<span class="fc" id="L816">        TypeHandler propTypeHandler = typeHandlerFactory.getTypeHandler(propType);</span>
-<span class="fc" id="L817">        Object propValue = propTypeHandler.getResult(rs, colName);</span>
-<span class="fc" id="L818">        PROBE.setObject(parameterObject, propName, propValue);</span>
-<span class="fc" id="L819">      }</span>
-<span class="fc" id="L820">    } else {</span>
+<span class="pc bpc" id="L808" title="3 of 4 branches missed.">    if (complexName.indexOf('=') &gt; -1 || complexName.indexOf(',') &gt; -1) {</span>
+<span class="fc" id="L809">      StringTokenizer parser = new StringTokenizer(complexName, &quot;{}=, &quot;, false);</span>
+<span class="fc bfc" id="L810" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L811">        String propName = parser.nextToken();</span>
+<span class="fc" id="L812">        String colName = parser.nextToken();</span>
+<span class="fc" id="L813">        Class propType = PROBE.getPropertyTypeForSetter(parameterObject, propName);</span>
+<span class="fc" id="L814">        TypeHandler propTypeHandler = typeHandlerFactory.getTypeHandler(propType);</span>
+<span class="fc" id="L815">        Object propValue = propTypeHandler.getResult(rs, colName);</span>
+<span class="fc" id="L816">        PROBE.setObject(parameterObject, propName, propValue);</span>
+<span class="fc" id="L817">      }</span>
+<span class="fc" id="L818">    } else {</span>
       // single param
-<span class="nc" id="L822">      TypeHandler propTypeHandler = typeHandlerFactory.getTypeHandler(parameterType);</span>
-<span class="nc bnc" id="L823" title="All 2 branches missed.">      if (propTypeHandler == null) {</span>
-<span class="nc" id="L824">        propTypeHandler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="nc" id="L820">      TypeHandler propTypeHandler = typeHandlerFactory.getTypeHandler(parameterType);</span>
+<span class="nc bnc" id="L821" title="All 2 branches missed.">      if (propTypeHandler == null) {</span>
+<span class="nc" id="L822">        propTypeHandler = typeHandlerFactory.getUnkownTypeHandler();</span>
       }
-<span class="nc" id="L826">      parameterObject = propTypeHandler.getResult(rs, complexName);</span>
+<span class="nc" id="L824">      parameterObject = propTypeHandler.getResult(rs, complexName);</span>
     }
 
-<span class="fc" id="L829">    return parameterObject;</span>
+<span class="fc" id="L827">    return parameterObject;</span>
   }
 
   /**
@@ -843,22 +841,22 @@ public class ResultMap {
    *           the SQL exception
    */
   protected Object getPrimitiveResultMappingValue(ResultSet rs, ResultMapping mapping) throws SQLException {
-<span class="fc" id="L846">    Object value = null;</span>
-<span class="fc" id="L847">    TypeHandler typeHandler = mapping.getTypeHandler();</span>
-<span class="pc bpc" id="L848" title="1 of 2 branches missed.">    if (typeHandler != null) {</span>
-<span class="fc" id="L849">      String columnName = mapping.getColumnName();</span>
-<span class="fc" id="L850">      int columnIndex = mapping.getColumnIndex();</span>
-<span class="pc bpc" id="L851" title="1 of 2 branches missed.">      if (columnName == null) {</span>
-<span class="nc" id="L852">        value = typeHandler.getResult(rs, columnIndex);</span>
+<span class="fc" id="L844">    Object value = null;</span>
+<span class="fc" id="L845">    TypeHandler typeHandler = mapping.getTypeHandler();</span>
+<span class="pc bpc" id="L846" title="1 of 2 branches missed.">    if (typeHandler != null) {</span>
+<span class="fc" id="L847">      String columnName = mapping.getColumnName();</span>
+<span class="fc" id="L848">      int columnIndex = mapping.getColumnIndex();</span>
+<span class="pc bpc" id="L849" title="1 of 2 branches missed.">      if (columnName == null) {</span>
+<span class="nc" id="L850">        value = typeHandler.getResult(rs, columnIndex);</span>
       } else {
-<span class="fc" id="L854">        value = typeHandler.getResult(rs, columnName);</span>
+<span class="fc" id="L852">        value = typeHandler.getResult(rs, columnName);</span>
       }
-<span class="fc" id="L856">    } else {</span>
-<span class="nc" id="L857">      throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()</span>
-<span class="nc" id="L858">          + &quot;' to the column '&quot; + mapping.getColumnName()</span>
+<span class="fc" id="L854">    } else {</span>
+<span class="nc" id="L855">      throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()</span>
+<span class="nc" id="L856">          + &quot;' to the column '&quot; + mapping.getColumnName()</span>
           + &quot;'.  One or both of the types, or the combination of types is not supported.&quot;);
     }
-<span class="fc" id="L861">    return value;</span>
+<span class="fc" id="L859">    return value;</span>
   }
 
   /**
@@ -875,20 +873,20 @@ public class ResultMap {
    *           the sql map exception
    */
   protected Object doNullMapping(Object value, ResultMapping mapping) throws SqlMapException {
-<span class="pc bpc" id="L878" title="1 of 2 branches missed.">    if (value == null) {</span>
-<span class="fc" id="L879">      TypeHandler typeHandler = mapping.getTypeHandler();</span>
-<span class="pc bpc" id="L880" title="1 of 2 branches missed.">      if (typeHandler != null) {</span>
-<span class="fc" id="L881">        String nullValue = mapping.getNullValue();</span>
-<span class="fc bfc" id="L882" title="All 2 branches covered.">        if (nullValue != null)</span>
-<span class="fc" id="L883">          value = typeHandler.valueOf(nullValue);</span>
-<span class="fc" id="L884">        return value;</span>
+<span class="pc bpc" id="L876" title="1 of 2 branches missed.">    if (value == null) {</span>
+<span class="fc" id="L877">      TypeHandler typeHandler = mapping.getTypeHandler();</span>
+<span class="pc bpc" id="L878" title="1 of 2 branches missed.">      if (typeHandler != null) {</span>
+<span class="fc" id="L879">        String nullValue = mapping.getNullValue();</span>
+<span class="fc bfc" id="L880" title="All 2 branches covered.">        if (nullValue != null)</span>
+<span class="fc" id="L881">          value = typeHandler.valueOf(nullValue);</span>
+<span class="fc" id="L882">        return value;</span>
       } else {
-<span class="nc" id="L886">        throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()</span>
-<span class="nc" id="L887">            + &quot;' to the column '&quot; + mapping.getColumnName()</span>
+<span class="nc" id="L884">        throw new SqlMapException(&quot;No type handler could be found to map the property '&quot; + mapping.getPropertyName()</span>
+<span class="nc" id="L885">            + &quot;' to the column '&quot; + mapping.getColumnName()</span>
             + &quot;'.  One or both of the types, or the combination of types is not supported.&quot;);
       }
     } else {
-<span class="nc" id="L891">      return value;</span>
+<span class="nc" id="L889">      return value;</span>
     }
   }
 }

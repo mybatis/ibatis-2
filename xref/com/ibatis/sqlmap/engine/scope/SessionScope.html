@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/com/ibatis/sqlmap/engine/scope/SessionScope.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -90,7 +90,7 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   * Default constructor.</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>    <strong class="jxr_keyword">public</strong> <a name="SessionScope" href="../../../../../com/ibatis/sqlmap/engine/scope/SessionScope.html#SessionScope">SessionScope</a>() {
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">this</strong>.preparedStatements = <strong class="jxr_keyword">new</strong> HashMap();
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">this</strong>.preparedStatements = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">this</strong>.inBatch = false;
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">this</strong>.requestStackDepth = 0;
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">this</strong>.id = getNextId();
@@ -307,10 +307,10 @@
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">   *           the SQL exception</em>
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>   <strong class="jxr_keyword">public</strong> PreparedStatement getPreparedStatement(String sql) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">if</strong> (!hasPreparedStatementFor(sql))
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">if</strong> (!hasPreparedStatementFor(sql)) {
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Could not get prepared statement.  This is likely a bug."</span>);
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>     PreparedStatement ps = (PreparedStatement) preparedStatements.get(sql);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>     <strong class="jxr_keyword">return</strong> ps;
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>     }
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>     <strong class="jxr_keyword">return</strong> (PreparedStatement) preparedStatements.get(sql);
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>   }
 <a class="jxr_linenumber" name="L307" href="#L307">307</a> 
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>   <em class="jxr_javadoccomment">/**</em>

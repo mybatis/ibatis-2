@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
   private static final String SQL_MAP_DTD = &quot;com/ibatis/sqlmap/engine/builder/xml/sql-map-2.dtd&quot;;
 
   /** The Constant doctypeMap. */
-<span class="fc" id="L42">  private static final Map doctypeMap = new HashMap();</span>
+<span class="fc" id="L42">  private static final Map doctypeMap = new HashMap&lt;&gt;();</span>
 
   static {
 <span class="fc" id="L45">    doctypeMap.put(&quot;https://ibatis.apache.org/dtd/sql-map-config-2.dtd&quot;.toUpperCase(Locale.ROOT), SQL_MAP_CONFIG_DTD);</span>
@@ -62,25 +62,26 @@ import org.xml.sax.SAXException;
    * @throws SAXException
    *           If anything goes wrong
    */
+  @Override
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
 
-<span class="fc bfc" id="L67" title="All 2 branches covered.">    if (publicId != null)</span>
-<span class="fc" id="L68">      publicId = publicId.toUpperCase(Locale.ROOT);</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">    if (systemId != null)</span>
-<span class="fc" id="L70">      systemId = systemId.toUpperCase(Locale.ROOT);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    if (publicId != null)</span>
+<span class="fc" id="L69">      publicId = publicId.toUpperCase(Locale.ROOT);</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">    if (systemId != null)</span>
+<span class="fc" id="L71">      systemId = systemId.toUpperCase(Locale.ROOT);</span>
 
-<span class="fc" id="L72">    InputSource source = null;</span>
+<span class="fc" id="L73">    InputSource source = null;</span>
     try {
-<span class="fc" id="L74">      String path = (String) doctypeMap.get(publicId);</span>
-<span class="fc" id="L75">      source = getInputSource(path, source);</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">      if (source == null) {</span>
-<span class="fc" id="L77">        path = (String) doctypeMap.get(systemId);</span>
-<span class="fc" id="L78">        source = getInputSource(path, source);</span>
+<span class="fc" id="L75">      String path = (String) doctypeMap.get(publicId);</span>
+<span class="fc" id="L76">      source = getInputSource(path, source);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">      if (source == null) {</span>
+<span class="fc" id="L78">        path = (String) doctypeMap.get(systemId);</span>
+<span class="fc" id="L79">        source = getInputSource(path, source);</span>
       }
-<span class="nc" id="L80">    } catch (Exception e) {</span>
-<span class="nc" id="L81">      throw new SAXException(e.toString());</span>
-<span class="fc" id="L82">    }</span>
-<span class="fc" id="L83">    return source;</span>
+<span class="nc" id="L81">    } catch (Exception e) {</span>
+<span class="nc" id="L82">      throw new SAXException(e.toString());</span>
+<span class="fc" id="L83">    }</span>
+<span class="fc" id="L84">    return source;</span>
   }
 
   /**
@@ -94,16 +95,16 @@ import org.xml.sax.SAXException;
    * @return the input source
    */
   private InputSource getInputSource(String path, InputSource source) {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">    if (path != null) {</span>
-<span class="fc" id="L98">      InputStream in = null;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">    if (path != null) {</span>
+<span class="fc" id="L99">      InputStream in = null;</span>
       try {
-<span class="fc" id="L100">        in = Resources.getResourceAsStream(path);</span>
-<span class="fc" id="L101">        source = new InputSource(in);</span>
-<span class="nc" id="L102">      } catch (IOException e) {</span>
+<span class="fc" id="L101">        in = Resources.getResourceAsStream(path);</span>
+<span class="fc" id="L102">        source = new InputSource(in);</span>
+<span class="nc" id="L103">      } catch (IOException e) {</span>
         // ignore, null is ok
-<span class="fc" id="L104">      }</span>
+<span class="fc" id="L105">      }</span>
     }
-<span class="fc" id="L106">    return source;</span>
+<span class="fc" id="L107">    return source;</span>
   }
 
 }

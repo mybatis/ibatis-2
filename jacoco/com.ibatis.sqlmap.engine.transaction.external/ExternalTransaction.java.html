@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExternalTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.external</a> &gt; <span class="el_source">ExternalTransaction.java</span></div><h1>ExternalTransaction.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -96,39 +96,41 @@ public class ExternalTransaction implements Transaction {
     // Isolation Level
 <span class="nc" id="L97">    isolationLevel.applyIsolationLevel(connection);</span>
     // AutoCommit
-<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (setAutoCommitAllowed) {</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">      if (connection.getAutoCommit() != defaultAutoCommit) {</span>
-<span class="nc" id="L101">        connection.setAutoCommit(defaultAutoCommit);</span>
-      }
+<span class="nc bnc" id="L99" title="All 4 branches missed.">    if (setAutoCommitAllowed &amp;&amp; (connection.getAutoCommit() != defaultAutoCommit)) {</span>
+<span class="nc" id="L100">      connection.setAutoCommit(defaultAutoCommit);</span>
     }
     // Debug
-<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
-<span class="nc" id="L106">      connection = ConnectionLogProxy.newInstance(connection);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L104">      connection = ConnectionLogProxy.newInstance(connection);</span>
     }
-<span class="nc" id="L108">  }</span>
+<span class="nc" id="L106">  }</span>
 
+  @Override
   public void commit() throws SQLException, TransactionException {
-<span class="nc" id="L111">  }</span>
+<span class="nc" id="L110">  }</span>
 
+  @Override
   public void rollback() throws SQLException, TransactionException {
 <span class="nc" id="L114">  }</span>
 
+  @Override
   public void close() throws SQLException, TransactionException {
-<span class="nc bnc" id="L117" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">    if (connection != null) {</span>
       try {
-<span class="nc" id="L119">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="nc" id="L120">        isolationLevel.restoreIsolationLevel(connection);</span>
       } finally {
-<span class="nc" id="L121">        connection.close();</span>
-<span class="nc" id="L122">        connection = null;</span>
+<span class="nc" id="L122">        connection.close();</span>
+<span class="nc" id="L123">        connection = null;</span>
       }
     }
-<span class="nc" id="L125">  }</span>
+<span class="nc" id="L126">  }</span>
 
+  @Override
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="nc bnc" id="L128" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L129">      init();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L131">      init();</span>
     }
-<span class="nc" id="L131">    return connection;</span>
+<span class="nc" id="L133">    return connection;</span>
   }
 
 }

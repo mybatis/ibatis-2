@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/com/ibatis/sqlmap/DynamicPrependTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>    @Test
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">void</strong> testIterateWithPrepend1() <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      List&lt;Integer&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      List&lt;Integer&gt; params = Arrays.asList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      List&lt;?&gt; list = sqlMap.queryForList(<span class="jxr_string">"dynamicIterateWithPrepend1"</span>, params);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      assertAccount1((<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(0));
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      assertEquals(3, list.size());
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>    @Test
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">void</strong> testIterateWithPrepend2() <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      List&lt;Integer&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      List&lt;Integer&gt; params = Arrays.asList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      List&lt;?&gt; list = sqlMap.queryForList(<span class="jxr_string">"dynamicIterateWithPrepend2"</span>, params);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      assertAccount1((<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(0));
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      assertEquals(3, list.size());
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      account3 = <strong class="jxr_keyword">new</strong> <a name="Account" href="../../../testdomain/Account.html#Account">Account</a>();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      account3.setId(3);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      List&lt;Account&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> <a name="Account" href="../../../testdomain/Account.html#Account">Account</a>[] { account1, account2, account3 });
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      List&lt;Account&gt; params = Arrays.asList(account1, account2, account3);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      List&lt;?&gt; list = sqlMap.queryForList(<span class="jxr_string">"dynamicIterateWithPrepend2b"</span>, params);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      assertAccount1((<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(0));
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      assertEquals(3, list.size());
@@ -94,7 +94,7 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      account3 = <strong class="jxr_keyword">new</strong> <a name="Account" href="../../../testdomain/Account.html#Account">Account</a>();
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      account3.setId(3);
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      List&lt;?&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> <a name="Account" href="../../../testdomain/Account.html#Account">Account</a>[] { account1, account2, account3 });
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      List&lt;?&gt; params = Arrays.asList(account1, account2, account3);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a> x = <strong class="jxr_keyword">new</strong> <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a>();
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      x.setMyList(params);
@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>   @Test
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>   <strong class="jxr_keyword">void</strong> testIterateWithPrepend2d() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     List&lt;?&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     List&lt;?&gt; params = Arrays.asList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a> x = <strong class="jxr_keyword">new</strong> <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a>();
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     x.setMyList(params);
@@ -126,7 +126,7 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>   @Test
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>   <strong class="jxr_keyword">void</strong> testIterateWithPrepend2e() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>     Object[] params = <strong class="jxr_keyword">new</strong> Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>     Object[] params = { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> 
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a> x = <strong class="jxr_keyword">new</strong> <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a>();
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     x.setMyArray(params);
@@ -142,7 +142,7 @@
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>   @Test
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>   <strong class="jxr_keyword">void</strong> testIterateWithPrepend2f() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">int</strong>[] params = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[] { 1, 2, 3 };
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">int</strong>[] params = { 1, 2, 3 };
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a> x = <strong class="jxr_keyword">new</strong> <a name="MyBean" href="../../../testdomain/MyBean.html#MyBean">MyBean</a>();
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     x.setIntArray(params);
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>   @Test
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>   <strong class="jxr_keyword">void</strong> testIterateWithPrepend3() <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>     List&lt;Integer&gt; params = Arrays.asList(<strong class="jxr_keyword">new</strong> Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) });
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     List&lt;Integer&gt; params = Arrays.asList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     List&lt;?&gt; list = sqlMap.queryForList(<span class="jxr_string">"dynamicIterateWithPrepend3"</span>, params);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     assertAccount1((<a name="Account" href="../../../testdomain/Account.html#Account">Account</a>) list.get(0));
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     assertEquals(3, list.size());
