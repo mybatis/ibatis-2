@@ -150,30 +150,28 @@ public class PaginatedDataList implements PaginatedList {
       prevPageList = new ArrayList<>(0);
       currentPageList = new ArrayList<>(0);
       nextPageList = new ArrayList<>(0);
-    } else {
-      if (idx < 1) {
-        prevPageList = new ArrayList<>(0);
-        if (list.size() <= pageSize) {
-          currentPageList = list.subList(0, list.size());
-          nextPageList = new ArrayList<>(0);
-        } else {
-          currentPageList = list.subList(0, pageSize);
-          nextPageList = list.subList(pageSize, list.size());
-        }
+    } else if (idx < 1) {
+      prevPageList = new ArrayList<>(0);
+      if (list.size() <= pageSize) {
+        currentPageList = list.subList(0, list.size());
+        nextPageList = new ArrayList<>(0);
       } else {
-        if (list.size() <= pageSize) {
-          prevPageList = list.subList(0, list.size());
-          currentPageList = new ArrayList<>(0);
-          nextPageList = new ArrayList<>(0);
-        } else if (list.size() <= pageSize * 2) {
-          prevPageList = list.subList(0, pageSize);
-          currentPageList = list.subList(pageSize, list.size());
-          nextPageList = new ArrayList<>(0);
-        } else {
-          prevPageList = list.subList(0, pageSize);
-          currentPageList = list.subList(pageSize, pageSize * 2);
-          nextPageList = list.subList(pageSize * 2, list.size());
-        }
+        currentPageList = list.subList(0, pageSize);
+        nextPageList = list.subList(pageSize, list.size());
+      }
+    } else {
+      if (list.size() <= pageSize) {
+        prevPageList = list.subList(0, list.size());
+        currentPageList = new ArrayList<>(0);
+        nextPageList = new ArrayList<>(0);
+      } else if (list.size() <= pageSize * 2) {
+        prevPageList = list.subList(0, pageSize);
+        currentPageList = list.subList(pageSize, list.size());
+        nextPageList = new ArrayList<>(0);
+      } else {
+        prevPageList = list.subList(0, pageSize);
+        currentPageList = list.subList(pageSize, pageSize * 2);
+        nextPageList = list.subList(pageSize * 2, list.size());
       }
     }
 

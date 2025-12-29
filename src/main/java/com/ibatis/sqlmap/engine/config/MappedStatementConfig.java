@@ -133,12 +133,20 @@ public class MappedStatementConfig {
     statement.setId(id);
     statement.setResource(errorContext.getResource());
     if (resultSetType != null) {
-      if ("FORWARD_ONLY".equals(resultSetType)) {
-        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
-      } else if ("SCROLL_INSENSITIVE".equals(resultSetType)) {
-        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_INSENSITIVE));
-      } else if ("SCROLL_SENSITIVE".equals(resultSetType)) {
-        statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_SENSITIVE));
+      if (resultSetType != null) {
+        switch (resultSetType) {
+          case "FORWARD_ONLY":
+            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
+            break;
+          case "SCROLL_INSENSITIVE":
+            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_INSENSITIVE));
+            break;
+          case "SCROLL_SENSITIVE":
+            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_SENSITIVE));
+            break;
+          default:
+            break;
+        }
       }
     }
     if (fetchSize != null) {
@@ -210,56 +218,52 @@ public class MappedStatementConfig {
    */
   public void setSelectKeyStatement(SqlSource processor, String resultClassName, String keyPropName,
       boolean runAfterSQL, String type) {
-    if (rootStatement instanceof InsertStatement) {
-      InsertStatement insertStatement = ((InsertStatement) rootStatement);
-      Class parameterClass = insertStatement.getParameterClass();
-      errorContext.setActivity("parsing a select key");
-      SelectKeyStatement selectKeyStatement = new SelectKeyStatement();
-      resultClassName = typeHandlerFactory.resolveAlias(resultClassName);
-      Class resultClass = null;
-
-      // get parameter and result maps
-      selectKeyStatement.setSqlMapClient(client);
-      selectKeyStatement.setId(insertStatement.getId() + "-SelectKey");
-      selectKeyStatement.setResource(errorContext.getResource());
-      selectKeyStatement.setKeyProperty(keyPropName);
-      selectKeyStatement.setRunAfterSQL(runAfterSQL);
-      // process the type (pre or post) attribute
-      if (type != null) {
-        selectKeyStatement.setRunAfterSQL("post".equals(type));
-      }
-      try {
-        if (resultClassName != null) {
-          errorContext.setMoreInfo("Check the select key result class.");
-          resultClass = Resources.classForName(resultClassName);
-        } else {
-          if (keyPropName != null && parameterClass != null) {
-            resultClass = PROBE.getPropertyTypeForSetter(parameterClass, selectKeyStatement.getKeyProperty());
-          }
-        }
-      } catch (ClassNotFoundException e) {
-        throw new SqlMapException("Error.  Could not set result class.  Cause: " + e, e);
-      }
-      if (resultClass == null) {
-        resultClass = Object.class;
-      }
-
-      // process SQL statement, including inline parameter maps
-      errorContext.setMoreInfo("Check the select key SQL statement.");
-      Sql sql = processor.getSql();
-      setSqlForStatement(selectKeyStatement, sql);
-      ResultMap resultMap;
-      resultMap = new AutoResultMap(client.getDelegate(), false);
-      resultMap.setId(selectKeyStatement.getId() + "-AutoResultMap");
-      resultMap.setResultClass(resultClass);
-      resultMap.setResource(selectKeyStatement.getResource());
-      selectKeyStatement.setResultMap(resultMap);
-      errorContext.setMoreInfo(null);
-      insertStatement.setSelectKeyStatement(selectKeyStatement);
-    } else {
+    if (!(rootStatement instanceof InsertStatement)) {
       throw new SqlMapException("You cant set a select key statement on statement named " + rootStatement.getId()
           + " because it is not an InsertStatement.");
     }
+    InsertStatement insertStatement = ((InsertStatement) rootStatement);
+    Class parameterClass = insertStatement.getParameterClass();
+    errorContext.setActivity("parsing a select key");
+    SelectKeyStatement selectKeyStatement = new SelectKeyStatement();
+    resultClassName = typeHandlerFactory.resolveAlias(resultClassName);
+    Class resultClass = null;
+
+    // get parameter and result maps
+    selectKeyStatement.setSqlMapClient(client);
+    selectKeyStatement.setId(insertStatement.getId() + "-SelectKey");
+    selectKeyStatement.setResource(errorContext.getResource());
+    selectKeyStatement.setKeyProperty(keyPropName);
+    selectKeyStatement.setRunAfterSQL(runAfterSQL);
+    // process the type (pre or post) attribute
+    if (type != null) {
+      selectKeyStatement.setRunAfterSQL("post".equals(type));
+    }
+    try {
+      if (resultClassName != null) {
+        errorContext.setMoreInfo("Check the select key result class.");
+        resultClass = Resources.classForName(resultClassName);
+      } else if (keyPropName != null && parameterClass != null) {
+        resultClass = PROBE.getPropertyTypeForSetter(parameterClass, selectKeyStatement.getKeyProperty());
+      }
+    } catch (ClassNotFoundException e) {
+      throw new SqlMapException("Error.  Could not set result class.  Cause: " + e, e);
+    }
+    if (resultClass == null) {
+      resultClass = Object.class;
+    }
+
+    // process SQL statement, including inline parameter maps
+    errorContext.setMoreInfo("Check the select key SQL statement.");
+    Sql sql = processor.getSql();
+    setSqlForStatement(selectKeyStatement, sql);
+    ResultMap resultMap = new AutoResultMap(client.getDelegate(), false);
+    resultMap.setId(selectKeyStatement.getId() + "-AutoResultMap");
+    resultMap.setResultClass(resultClass);
+    resultMap.setResource(selectKeyStatement.getResource());
+    selectKeyStatement.setResultMap(resultMap);
+    errorContext.setMoreInfo(null);
+    insertStatement.setSelectKeyStatement(selectKeyStatement);
   }
 
   /**

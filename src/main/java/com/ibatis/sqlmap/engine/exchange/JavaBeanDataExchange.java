@@ -109,46 +109,44 @@ public class JavaBeanDataExchange extends BaseDataExchange implements DataExchan
 
   @Override
   public Object setData(StatementScope statementScope, ResultMap resultMap, Object resultObject, Object[] values) {
-    if (resultPlan != null) {
-      Object object = resultObject;
-
-      ErrorContext errorContext = statementScope.getErrorContext();
-
-      if (object == null) {
-        errorContext.setMoreInfo("The error occured while instantiating the result object");
-        try {
-          object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());
-        } catch (Exception e) {
-          throw new RuntimeException("JavaBeansDataExchange could not instantiate result class.  Cause: " + e, e);
-        }
-      }
-      errorContext.setMoreInfo("The error happened while setting a property on the result object.");
-      resultPlan.setProperties(object, values);
-      return object;
-    } else {
+    if (resultPlan == null) {
       return null;
     }
+    Object object = resultObject;
+
+    ErrorContext errorContext = statementScope.getErrorContext();
+
+    if (object == null) {
+      errorContext.setMoreInfo("The error occured while instantiating the result object");
+      try {
+        object = ResultObjectFactoryUtil.createObjectThroughFactory(resultMap.getResultClass());
+      } catch (Exception e) {
+        throw new RuntimeException("JavaBeansDataExchange could not instantiate result class.  Cause: " + e, e);
+      }
+    }
+    errorContext.setMoreInfo("The error happened while setting a property on the result object.");
+    resultPlan.setProperties(object, values);
+    return object;
   }
 
   // Bug ibatis-12
   @Override
   public Object setData(StatementScope statementScope, ParameterMap parameterMap, Object parameterObject,
       Object[] values) {
-    if (outParamPlan != null) {
-      Object object = parameterObject;
-      if (object == null) {
-        try {
-          object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());
-        } catch (Exception e) {
-          throw new RuntimeException("JavaBeansDataExchange could not instantiate parameter class. Cause: " + e, e);
-        }
-      }
-      values = getOutputParamValues(parameterMap.getParameterMappings(), values);
-      outParamPlan.setProperties(object, values);
-      return object;
-    } else {
+    if (outParamPlan == null) {
       return null;
     }
+    Object object = parameterObject;
+    if (object == null) {
+      try {
+        object = ResultObjectFactoryUtil.createObjectThroughFactory(parameterMap.getParameterClass());
+      } catch (Exception e) {
+        throw new RuntimeException("JavaBeansDataExchange could not instantiate parameter class. Cause: " + e, e);
+      }
+    }
+    values = getOutputParamValues(parameterMap.getParameterMappings(), values);
+    outParamPlan.setProperties(object, values);
+    return object;
   }
 
   /**

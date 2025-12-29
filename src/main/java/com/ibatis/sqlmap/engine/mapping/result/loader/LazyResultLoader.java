@@ -84,16 +84,15 @@ public class LazyResultLoader implements InvocationHandler {
    *           if there is a problem
    */
   public Object loadResult() throws SQLException {
-    if (Collection.class.isAssignableFrom(targetType)) {
-      InvocationHandler handler = new LazyResultLoader(client, statementName, parameterObject, targetType);
-      ClassLoader cl = targetType.getClassLoader();
-      if (Set.class.isAssignableFrom(targetType)) {
-        return Proxy.newProxyInstance(cl, SET_INTERFACES, handler);
-      } else {
-        return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);
-      }
-    } else {
+    if (!Collection.class.isAssignableFrom(targetType)) {
       return ResultLoader.getResult(client, statementName, parameterObject, targetType);
+    }
+    InvocationHandler handler = new LazyResultLoader(client, statementName, parameterObject, targetType);
+    ClassLoader cl = targetType.getClassLoader();
+    if (Set.class.isAssignableFrom(targetType)) {
+      return Proxy.newProxyInstance(cl, SET_INTERFACES, handler);
+    } else {
+      return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);
     }
   }
 
@@ -101,17 +100,16 @@ public class LazyResultLoader implements InvocationHandler {
   public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
     if ("finalize".hashCode() == method.getName().hashCode() && "finalize".equals(method.getName())) {
       return null;
-    } else {
-      loadObject();
-      if (resultObject != null) {
-        try {
-          return method.invoke(resultObject, objects);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-          throw ClassInfo.unwrapThrowable(e);
-        }
-      } else {
-        return null;
+    }
+    loadObject();
+    if (resultObject != null) {
+      try {
+        return method.invoke(resultObject, objects);
+      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        throw ClassInfo.unwrapThrowable(e);
       }
+    } else {
+      return null;
     }
   }
 

@@ -158,27 +158,29 @@ public class ResultMap {
    * @return the unique key
    */
   public Object getUniqueKey(String keyPrefix, Object[] values) {
-    if (groupByProps != null) {
-      StringBuilder keyBuffer;
-      if (keyPrefix != null)
-        keyBuffer = new StringBuilder(keyPrefix);
-      else
-        keyBuffer = new StringBuilder();
-      for (int i = 0; i < getResultMappings().length; i++) {
-        String propertyName = getResultMappings()[i].getPropertyName();
-        if (groupByProps.contains(propertyName)) {
-          keyBuffer.append(values[i]);
-          keyBuffer.append('-');
-        }
-      }
-      if (keyBuffer.length() < 1) {
-        return null;
-      }
-      // seperator value not likely to appear in a database
-      keyBuffer.append(KEY_SEPARATOR);
-      return keyBuffer.toString();
+    if (groupByProps == null) {
+      return null;
     }
-    return null;
+
+    StringBuilder keyBuffer;
+    if (keyPrefix != null) {
+      keyBuffer = new StringBuilder(keyPrefix);
+    } else {
+      keyBuffer = new StringBuilder();
+    }
+    for (int i = 0; i < getResultMappings().length; i++) {
+      String propertyName = getResultMappings()[i].getPropertyName();
+      if (groupByProps.contains(propertyName)) {
+        keyBuffer.append(values[i]);
+        keyBuffer.append('-');
+      }
+    }
+    if (keyBuffer.length() < 1) {
+      return null;
+    }
+    // seperator value not likely to appear in a database
+    keyBuffer.append(KEY_SEPARATOR);
+    return keyBuffer.toString();
   }
 
   /**
@@ -525,12 +527,10 @@ public class ResultMap {
    *          the values
    */
   private void applyNestedResultMap(StatementScope statementScope, Object resultObject, Object[] values) {
-    if (resultObject != null && resultObject != NO_VALUE) {
-      if (nestedResultMappings != null) {
-        for (int i = 0, n = nestedResultMappings.size(); i < n; i++) {
-          ResultMapping resultMapping = (ResultMapping) nestedResultMappings.get(i);
-          setNestedResultMappingValue(resultMapping, statementScope, resultObject, values);
-        }
+    if (resultObject != null && resultObject != NO_VALUE && nestedResultMappings != null) {
+      for (Object nestedResultMapping : nestedResultMappings) {
+        ResultMapping resultMapping = (ResultMapping) nestedResultMapping;
+        setNestedResultMappingValue(resultMapping, statementScope, resultObject, values);
       }
     }
   }
@@ -590,17 +590,16 @@ public class ResultMap {
       // JIRA 375
       // "Provide a way for not creating items from nested ResultMaps when the items contain only null values"
       boolean subResultObjectAbsent = false;
-      if (mapping.getNotNullColumn() != null) {
-        if (statementScope.getResultSet().getObject(mapping.getNotNullColumn()) == null) {
-          subResultObjectAbsent = true;
-        }
+      if (mapping.getNotNullColumn() != null
+          && statementScope.getResultSet().getObject(mapping.getNotNullColumn()) == null) {
+        subResultObjectAbsent = true;
       }
       if (!subResultObjectAbsent) {
         values = resultMap.getResults(statementScope, statementScope.getResultSet());
         if (statementScope.isRowDataFound()) {
           Object o = resultMap.setResultObjectValues(statementScope, null, values);
           if (o != NO_VALUE) {
-            if (obj != null && obj instanceof Collection) {
+            if (obj instanceof Collection) {
               ((Collection) obj).add(o);
             } else {
               PROBE.setObject(resultObject, propertyName, o);
@@ -645,14 +644,12 @@ public class ResultMap {
 
       if (parameterType == null) {
         parameterObject = prepareBeanParameterObject(statementScope, rs, mapping, parameterType);
+      } else if (typeHandlerFactory.hasTypeHandler(parameterType)) {
+        parameterObject = preparePrimitiveParameterObject(rs, mapping, parameterType);
+      } else if (DomTypeMarker.class.isAssignableFrom(parameterType)) {
+        parameterObject = prepareDomParameterObject(rs, mapping);
       } else {
-        if (typeHandlerFactory.hasTypeHandler(parameterType)) {
-          parameterObject = preparePrimitiveParameterObject(rs, mapping, parameterType);
-        } else if (DomTypeMarker.class.isAssignableFrom(parameterType)) {
-          parameterObject = prepareDomParameterObject(rs, mapping);
-        } else {
-          parameterObject = prepareBeanParameterObject(statementScope, rs, mapping, parameterType);
-        }
+        parameterObject = prepareBeanParameterObject(statementScope, rs, mapping, parameterType);
       }
 
       Object result = null;
@@ -838,18 +835,17 @@ public class ResultMap {
   protected Object getPrimitiveResultMappingValue(ResultSet rs, ResultMapping mapping) throws SQLException {
     Object value = null;
     TypeHandler typeHandler = mapping.getTypeHandler();
-    if (typeHandler != null) {
-      String columnName = mapping.getColumnName();
-      int columnIndex = mapping.getColumnIndex();
-      if (columnName == null) {
-        value = typeHandler.getResult(rs, columnIndex);
-      } else {
-        value = typeHandler.getResult(rs, columnName);
-      }
-    } else {
+    if (typeHandler == null) {
       throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
           + "' to the column '" + mapping.getColumnName()
           + "'.  One or both of the types, or the combination of types is not supported.");
+    }
+    String columnName = mapping.getColumnName();
+    int columnIndex = mapping.getColumnIndex();
+    if (columnName == null) {
+      value = typeHandler.getResult(rs, columnIndex);
+    } else {
+      value = typeHandler.getResult(rs, columnName);
     }
     return value;
   }
@@ -868,18 +864,20 @@ public class ResultMap {
    *           the sql map exception
    */
   protected Object doNullMapping(Object value, ResultMapping mapping) throws SqlMapException {
-    if (value == null) {
-      TypeHandler typeHandler = mapping.getTypeHandler();
-      if (typeHandler != null) {
-        String nullValue = mapping.getNullValue();
-        if (nullValue != null)
-          value = typeHandler.valueOf(nullValue);
-        return value;
-      }
-      throw new SqlMapException("No type handler could be found to map the property '" + mapping.getPropertyName()
-          + "' to the column '" + mapping.getColumnName()
-          + "'.  One or both of the types, or the combination of types is not supported.");
+    if (value != null) {
+      return value;
     }
-    return value;
+
+    TypeHandler typeHandler = mapping.getTypeHandler();
+    if (typeHandler != null) {
+      String nullValue = mapping.getNullValue();
+      if (nullValue != null) {
+        value = typeHandler.valueOf(nullValue);
+      }
+      return value;
+    }
+    throw new SqlMapException(
+        "No type handler could be found to map the property '" + mapping.getPropertyName() + "' to the column '"
+            + mapping.getColumnName() + "'.  One or both of the types, or the combination of types is not supported.");
   }
 }
