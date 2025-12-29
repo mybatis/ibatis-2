@@ -108,10 +108,8 @@ public class InlineParameterMapParser {
           }
           token = null;
         }
-      } else {
-        if (!PARAMETER_TOKEN.equals(token)) {
-          newSqlBuffer.append(token);
-        }
+      } else if (!PARAMETER_TOKEN.equals(token)) {
+        newSqlBuffer.append(token);
       }
 
       lastToken = token;
@@ -150,48 +148,58 @@ public class InlineParameterMapParser {
 
     while (paramParser.hasMoreTokens()) {
       String field = paramParser.nextToken();
-      if (paramParser.hasMoreTokens()) {
-        String value = paramParser.nextToken();
-        if ("javaType".equals(field)) {
-          value = typeHandlerFactory.resolveAlias(value);
-          mapping.setJavaTypeName(value);
-        } else if ("jdbcType".equals(field)) {
-          mapping.setJdbcTypeName(value);
-        } else if ("mode".equals(field)) {
-          mapping.setMode(value);
-        } else if ("nullValue".equals(field)) {
-          mapping.setNullValue(value);
-        } else if ("handler".equals(field)) {
-          try {
+      if (!paramParser.hasMoreTokens()) {
+        throw new SqlMapException("Incorrect inline parameter map format (missmatched name=value pairs): " + token);
+      }
+      String value = paramParser.nextToken();
+      if (field != null) {
+        switch (field) {
+          case "javaType":
             value = typeHandlerFactory.resolveAlias(value);
-            Object impl = Resources.instantiate(value);
-            if (impl instanceof TypeHandlerCallback) {
-              mapping.setTypeHandler(new CustomTypeHandler((TypeHandlerCallback) impl));
-            } else if (impl instanceof TypeHandler) {
-              mapping.setTypeHandler((TypeHandler) impl);
-            } else {
-              throw new SqlMapException(
-                  "The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
+            mapping.setJavaTypeName(value);
+            break;
+          case "jdbcType":
+            mapping.setJdbcTypeName(value);
+            break;
+          case "mode":
+            mapping.setMode(value);
+            break;
+          case "nullValue":
+            mapping.setNullValue(value);
+            break;
+          case "handler":
+            try {
+              value = typeHandlerFactory.resolveAlias(value);
+              Object impl = Resources.instantiate(value);
+              if (impl instanceof TypeHandlerCallback) {
+                mapping.setTypeHandler(new CustomTypeHandler((TypeHandlerCallback) impl));
+              } else if (impl instanceof TypeHandler) {
+                mapping.setTypeHandler((TypeHandler) impl);
+              } else {
+                throw new SqlMapException(
+                    "The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
+              }
+            } catch (Exception e) {
+              throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
+                  e);
             }
-          } catch (Exception e) {
-            throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
-                e);
-          }
-        } else if ("numericScale".equals(field)) {
-          try {
-            Integer numericScale = Integer.valueOf(value);
-            if (numericScale.intValue() < 0) {
-              throw new SqlMapException("Value specified for numericScale must be greater than or equal to zero");
+            break;
+          case "numericScale":
+            try {
+              Integer numericScale = Integer.valueOf(value);
+              if (numericScale.intValue() < 0) {
+                throw new SqlMapException("Value specified for numericScale must be greater than or equal to zero");
+              }
+              mapping.setNumericScale(numericScale);
+            } catch (NumberFormatException e) {
+              throw new SqlMapException("Value specified for numericScale is not a valid Integer");
             }
-            mapping.setNumericScale(numericScale);
-          } catch (NumberFormatException e) {
-            throw new SqlMapException("Value specified for numericScale is not a valid Integer");
-          }
-        } else {
-          throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
+            break;
+          default:
+            throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
         }
       } else {
-        throw new SqlMapException("Incorrect inline parameter map format (missmatched name=value pairs): " + token);
+        throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
       }
     }
 
@@ -223,47 +231,7 @@ public class InlineParameterMapParser {
    */
   private ParameterMapping oldParseMapping(String token, Class parameterClass, TypeHandlerFactory typeHandlerFactory) {
     ParameterMapping mapping = new ParameterMapping();
-    if (token.indexOf(PARAM_DELIM) > -1) {
-      StringTokenizer paramParser = new StringTokenizer(token, PARAM_DELIM, true);
-      int n1 = paramParser.countTokens();
-      if (n1 == 3) {
-        String name = paramParser.nextToken();
-        paramParser.nextToken(); // ignore ":"
-        String type = paramParser.nextToken();
-        mapping.setPropertyName(name);
-        mapping.setJdbcTypeName(type);
-        TypeHandler handler;
-        if (parameterClass == null) {
-          handler = typeHandlerFactory.getUnkownTypeHandler();
-        } else {
-          handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
-        }
-        mapping.setTypeHandler(handler);
-        return mapping;
-      } else if (n1 >= 5) {
-        String name = paramParser.nextToken();
-        paramParser.nextToken(); // ignore ":"
-        String type = paramParser.nextToken();
-        paramParser.nextToken(); // ignore ":"
-        String nullValue = paramParser.nextToken();
-        while (paramParser.hasMoreTokens()) {
-          nullValue = nullValue + paramParser.nextToken();
-        }
-        mapping.setPropertyName(name);
-        mapping.setJdbcTypeName(type);
-        mapping.setNullValue(nullValue);
-        TypeHandler handler;
-        if (parameterClass == null) {
-          handler = typeHandlerFactory.getUnkownTypeHandler();
-        } else {
-          handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
-        }
-        mapping.setTypeHandler(handler);
-        return mapping;
-      } else {
-        throw new SqlMapException("Incorrect inline parameter map format: " + token);
-      }
-    } else {
+    if (token.indexOf(PARAM_DELIM) <= -1) {
       mapping.setPropertyName(token);
       TypeHandler handler;
       if (parameterClass == null) {
@@ -273,6 +241,45 @@ public class InlineParameterMapParser {
       }
       mapping.setTypeHandler(handler);
       return mapping;
+    }
+    StringTokenizer paramParser = new StringTokenizer(token, PARAM_DELIM, true);
+    int n1 = paramParser.countTokens();
+    if (n1 == 3) {
+      String name = paramParser.nextToken();
+      paramParser.nextToken(); // ignore ":"
+      String type = paramParser.nextToken();
+      mapping.setPropertyName(name);
+      mapping.setJdbcTypeName(type);
+      TypeHandler handler;
+      if (parameterClass == null) {
+        handler = typeHandlerFactory.getUnkownTypeHandler();
+      } else {
+        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
+      }
+      mapping.setTypeHandler(handler);
+      return mapping;
+    } else if (n1 >= 5) {
+      String name = paramParser.nextToken();
+      paramParser.nextToken(); // ignore ":"
+      String type = paramParser.nextToken();
+      paramParser.nextToken(); // ignore ":"
+      StringBuilder nullValue = new StringBuilder().append(paramParser.nextToken());
+      while (paramParser.hasMoreTokens()) {
+        nullValue.append(paramParser.nextToken());
+      }
+      mapping.setPropertyName(name);
+      mapping.setJdbcTypeName(type);
+      mapping.setNullValue(nullValue.toString());
+      TypeHandler handler;
+      if (parameterClass == null) {
+        handler = typeHandlerFactory.getUnkownTypeHandler();
+      } else {
+        handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
+      }
+      mapping.setTypeHandler(handler);
+      return mapping;
+    } else {
+      throw new SqlMapException("Incorrect inline parameter map format: " + token);
     }
   }
 

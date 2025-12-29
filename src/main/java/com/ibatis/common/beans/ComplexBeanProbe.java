@@ -91,16 +91,14 @@ public class ComplexBeanProbe extends BaseProbe {
       } else {
         type = value.getClass();
       }
-    } else {
-      if (name.indexOf('.') > -1) {
-        StringTokenizer parser = new StringTokenizer(name, ".");
-        while (parser.hasMoreTokens()) {
-          name = parser.nextToken();
-          type = ClassInfo.getInstance(type).getSetterType(name);
-        }
-      } else {
+    } else if (name.indexOf('.') > -1) {
+      StringTokenizer parser = new StringTokenizer(name, ".");
+      while (parser.hasMoreTokens()) {
+        name = parser.nextToken();
         type = ClassInfo.getInstance(type).getSetterType(name);
       }
+    } else {
+      type = ClassInfo.getInstance(type).getSetterType(name);
     }
 
     return type;
@@ -130,16 +128,14 @@ public class ComplexBeanProbe extends BaseProbe {
       } else {
         type = value.getClass();
       }
-    } else {
-      if (name.indexOf('.') > -1) {
-        StringTokenizer parser = new StringTokenizer(name, ".");
-        while (parser.hasMoreTokens()) {
-          name = parser.nextToken();
-          type = ClassInfo.getInstance(type).getGetterType(name);
-        }
-      } else {
+    } else if (name.indexOf('.') > -1) {
+      StringTokenizer parser = new StringTokenizer(name, ".");
+      while (parser.hasMoreTokens()) {
+        name = parser.nextToken();
         type = ClassInfo.getInstance(type).getGetterType(name);
       }
+    } else {
+      type = ClassInfo.getInstance(type).getGetterType(name);
     }
 
     return type;
@@ -207,21 +203,20 @@ public class ComplexBeanProbe extends BaseProbe {
    */
   @Override
   public Object getObject(Object object, String name) {
-    if (name.indexOf('.') > -1) {
-      StringTokenizer parser = new StringTokenizer(name, ".");
-      Object value = object;
-      while (parser.hasMoreTokens()) {
-        value = getProperty(value, parser.nextToken());
-
-        if (value == null) {
-          break;
-        }
-
-      }
-      return value;
-    } else {
+    if (name.indexOf('.') <= -1) {
       return getProperty(object, name);
     }
+    StringTokenizer parser = new StringTokenizer(name, ".");
+    Object value = object;
+    while (parser.hasMoreTokens()) {
+      value = getProperty(value, parser.nextToken());
+
+      if (value == null) {
+        break;
+      }
+
+    }
+    return value;
   }
 
   /**
@@ -247,15 +242,14 @@ public class ComplexBeanProbe extends BaseProbe {
         if (child == null) {
           if (value == null) {
             return; // don't instantiate child path if value is null
-          } else {
-            try {
-              child = ResultObjectFactoryUtil.createObjectThroughFactory(type);
-              setObject(parent, property, child);
-            } catch (Exception e) {
-              throw new ProbeException("Cannot set value of property '" + name + "' because '" + property
-                  + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:" + e.toString(),
-                  e);
-            }
+          }
+          try {
+            child = ResultObjectFactoryUtil.createObjectThroughFactory(type);
+            setObject(parent, property, child);
+          } catch (Exception e) {
+            throw new ProbeException("Cannot set value of property '" + name + "' because '" + property
+                + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:" + e.toString(),
+                e);
           }
         }
         property = parser.nextToken();
@@ -281,18 +275,16 @@ public class ComplexBeanProbe extends BaseProbe {
     boolean hasProperty = false;
     if (object instanceof Map) {
       hasProperty = true;// ((Map) object).containsKey(propertyName);
-    } else {
-      if (propertyName.indexOf('.') > -1) {
-        StringTokenizer parser = new StringTokenizer(propertyName, ".");
-        Class type = object.getClass();
-        while (parser.hasMoreTokens()) {
-          propertyName = parser.nextToken();
-          type = ClassInfo.getInstance(type).getGetterType(propertyName);
-          hasProperty = ClassInfo.getInstance(type).hasWritableProperty(propertyName);
-        }
-      } else {
-        hasProperty = ClassInfo.getInstance(object.getClass()).hasWritableProperty(propertyName);
+    } else if (propertyName.indexOf('.') > -1) {
+      StringTokenizer parser = new StringTokenizer(propertyName, ".");
+      Class type = object.getClass();
+      while (parser.hasMoreTokens()) {
+        propertyName = parser.nextToken();
+        type = ClassInfo.getInstance(type).getGetterType(propertyName);
+        hasProperty = ClassInfo.getInstance(type).hasWritableProperty(propertyName);
       }
+    } else {
+      hasProperty = ClassInfo.getInstance(object.getClass()).hasWritableProperty(propertyName);
     }
     return hasProperty;
   }
@@ -312,18 +304,16 @@ public class ComplexBeanProbe extends BaseProbe {
     boolean hasProperty = false;
     if (object instanceof Map) {
       hasProperty = true;// ((Map) object).containsKey(propertyName);
-    } else {
-      if (propertyName.indexOf('.') > -1) {
-        StringTokenizer parser = new StringTokenizer(propertyName, ".");
-        Class type = object.getClass();
-        while (parser.hasMoreTokens()) {
-          propertyName = parser.nextToken();
-          type = ClassInfo.getInstance(type).getGetterType(propertyName);
-          hasProperty = ClassInfo.getInstance(type).hasReadableProperty(propertyName);
-        }
-      } else {
-        hasProperty = ClassInfo.getInstance(object.getClass()).hasReadableProperty(propertyName);
+    } else if (propertyName.indexOf('.') > -1) {
+      StringTokenizer parser = new StringTokenizer(propertyName, ".");
+      Class type = object.getClass();
+      while (parser.hasMoreTokens()) {
+        propertyName = parser.nextToken();
+        type = ClassInfo.getInstance(type).getGetterType(propertyName);
+        hasProperty = ClassInfo.getInstance(type).hasReadableProperty(propertyName);
       }
+    } else {
+      hasProperty = ClassInfo.getInstance(object.getClass()).hasReadableProperty(propertyName);
     }
     return hasProperty;
   }
@@ -334,36 +324,34 @@ public class ComplexBeanProbe extends BaseProbe {
       Object value = null;
       if (name.indexOf('[') > -1) {
         value = getIndexedProperty(object, name);
-      } else {
-        if (object instanceof Map) {
-          int index = name.indexOf('.');
-          if (index > -1) {
-            String mapId = name.substring(0, index);
-            value = getProperty(((Map) object).get(mapId), name.substring(index + 1));
-          } else {
-            value = ((Map) object).get(name);
-          }
-
+      } else if (object instanceof Map) {
+        int index = name.indexOf('.');
+        if (index > -1) {
+          String mapId = name.substring(0, index);
+          value = getProperty(((Map) object).get(mapId), name.substring(index + 1));
         } else {
-          int index = name.indexOf('.');
-          if (index > -1) {
-            String newName = name.substring(0, index);
-            value = getProperty(getObject(object, newName), name.substring(index + 1));
-          } else {
-            ClassInfo classCache = ClassInfo.getInstance(object.getClass());
-            Invoker method = classCache.getGetInvoker(name);
-            if (method == null) {
-              throw new NoSuchMethodException(
-                  "No GET method for property " + name + " on instance of " + object.getClass().getName());
-            }
-            try {
-              value = method.invoke(object, NO_ARGUMENTS);
-            } catch (Throwable t) {
-              throw ClassInfo.unwrapThrowable(t);
-            }
-          }
-
+          value = ((Map) object).get(name);
         }
+
+      } else {
+        int index = name.indexOf('.');
+        if (index > -1) {
+          String newName = name.substring(0, index);
+          value = getProperty(getObject(object, newName), name.substring(index + 1));
+        } else {
+          ClassInfo classCache = ClassInfo.getInstance(object.getClass());
+          Invoker method = classCache.getGetInvoker(name);
+          if (method == null) {
+            throw new NoSuchMethodException(
+                "No GET method for property " + name + " on instance of " + object.getClass().getName());
+          }
+          try {
+            value = method.invoke(object, NO_ARGUMENTS);
+          } catch (Throwable t) {
+            throw ClassInfo.unwrapThrowable(t);
+          }
+        }
+
       }
       return value;
     } catch (ProbeException e) {
@@ -372,11 +360,9 @@ public class ComplexBeanProbe extends BaseProbe {
       if (object == null) {
         throw new ProbeException("Could not get property '" + name + "' from null reference.  Cause: " + t.toString(),
             t);
-      } else {
-        throw new ProbeException(
-            "Could not get property '" + name + "' from " + object.getClass().getName() + ".  Cause: " + t.toString(),
-            t);
       }
+      throw new ProbeException(
+          "Could not get property '" + name + "' from " + object.getClass().getName() + ".  Cause: " + t.toString(), t);
     }
   }
 
@@ -386,22 +372,20 @@ public class ComplexBeanProbe extends BaseProbe {
     try {
       if (name.indexOf('[') > -1) {
         setIndexedProperty(object, name, value);
+      } else if (object instanceof Map) {
+        ((Map) object).put(name, value);
       } else {
-        if (object instanceof Map) {
-          ((Map) object).put(name, value);
-        } else {
-          Invoker method = classCache.getSetInvoker(name);
-          if (method == null) {
-            throw new NoSuchMethodException(
-                "No SET method for property " + name + " on instance of " + object.getClass().getName());
-          }
-          Object[] params = new Object[1];
-          params[0] = value;
-          try {
-            method.invoke(object, params);
-          } catch (Throwable t) {
-            throw ClassInfo.unwrapThrowable(t);
-          }
+        Invoker method = classCache.getSetInvoker(name);
+        if (method == null) {
+          throw new NoSuchMethodException(
+              "No SET method for property " + name + " on instance of " + object.getClass().getName());
+        }
+        Object[] params = new Object[1];
+        params[0] = value;
+        try {
+          method.invoke(object, params);
+        } catch (Throwable t) {
+          throw ClassInfo.unwrapThrowable(t);
         }
       }
     } catch (ProbeException e) {
