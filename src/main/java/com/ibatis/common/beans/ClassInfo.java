@@ -163,7 +163,7 @@ public class ClassInfo {
     Method[] methods = getClassMethods(cls);
     for (Method method : methods) {
       String name = method.getName();
-      if ((name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2)) {
+      if (name.startsWith("get") && name.length() > 3 || name.startsWith("is") && name.length() > 2) {
         if (method.getParameterTypes().length == 0) {
           name = dropCase(name);
           addGetMethod(name, method);
@@ -435,7 +435,7 @@ public class ClassInfo {
       throw new ProbeException("Error parsing property name '" + name + "'.  Didn't start with 'is', 'get' or 'set'.");
     }
 
-    if (name.length() == 1 || (name.length() > 1 && !Character.isUpperCase(name.charAt(1)))) {
+    if (name.length() == 1 || name.length() > 1 && !Character.isUpperCase(name.charAt(1))) {
       name = name.substring(0, 1).toLowerCase(Locale.US) + name.substring(1);
     }
 
@@ -474,14 +474,13 @@ public class ClassInfo {
    * @return the object
    */
   public Object instantiateClass() {
-    if (defaultConstructor != null) {
-      try {
-        return defaultConstructor.newInstance();
-      } catch (Exception e) {
-        throw new RuntimeException("Error instantiating class. Cause: " + e, e);
-      }
-    } else {
+    if (defaultConstructor == null) {
       throw new RuntimeException("Error instantiating class.  There is no default constructor for class " + className);
+    }
+    try {
+      return defaultConstructor.newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException("Error instantiating class. Cause: " + e, e);
     }
   }
 
@@ -646,21 +645,9 @@ public class ClassInfo {
    * @return True if the class is known
    */
   public static boolean isKnownType(Class clazz) {
-    if (SIMPLE_TYPE_SET.contains(clazz)) {
-      return true;
-    } else if (Collection.class.isAssignableFrom(clazz)) {
-      return true;
-    } else if (Map.class.isAssignableFrom(clazz)) {
-      return true;
-    } else if (List.class.isAssignableFrom(clazz)) {
-      return true;
-    } else if (Set.class.isAssignableFrom(clazz)) {
-      return true;
-    } else if (Iterator.class.isAssignableFrom(clazz)) {
-      return true;
-    } else {
-      return false;
-    }
+    return SIMPLE_TYPE_SET.contains(clazz) || Collection.class.isAssignableFrom(clazz)
+        || Map.class.isAssignableFrom(clazz) || List.class.isAssignableFrom(clazz) || Set.class.isAssignableFrom(clazz)
+        || Iterator.class.isAssignableFrom(clazz);
   }
 
   /**
@@ -672,16 +659,15 @@ public class ClassInfo {
    * @return The method cache for the class
    */
   public static ClassInfo getInstance(Class clazz) {
-    if (cacheEnabled) {
-      ClassInfo cached = (ClassInfo) CLASS_INFO_MAP.get(clazz);
-      if (cached == null) {
-        cached = new ClassInfo(clazz);
-        CLASS_INFO_MAP.put(clazz, cached);
-      }
-      return cached;
-    } else {
+    if (!cacheEnabled) {
       return new ClassInfo(clazz);
     }
+    ClassInfo cached = CLASS_INFO_MAP.get(clazz);
+    if (cached == null) {
+      cached = new ClassInfo(clazz);
+      CLASS_INFO_MAP.put(clazz, cached);
+    }
+    return cached;
   }
 
   /**

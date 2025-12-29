@@ -381,7 +381,7 @@ public class DefaultSqlExecutor implements SqlExecutor {
     // Multiple ResultSet handling
     if (callback.getRowHandler() instanceof DefaultRowHandler) {
       MappedStatement statement = statementScope.getStatement();
-      DefaultRowHandler defaultRowHandler = ((DefaultRowHandler) callback.getRowHandler());
+      DefaultRowHandler defaultRowHandler = (DefaultRowHandler) callback.getRowHandler();
       if (statement.hasMultipleResultMaps()) {
         List multipleResults = new ArrayList<>();
         multipleResults.add(defaultRowHandler.getList());
@@ -456,11 +456,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
     boolean movedToNextResultsSafely = moveToNextResultsSafely(scope, stmt);
     int updateCount = stmt.getUpdateCount();
 
-    moreResults = !(!movedToNextResultsSafely && (updateCount == -1));
+    moreResults = movedToNextResultsSafely || updateCount != -1;
 
     // ibatis-384: workaround for mysql not returning -1 for stmt.getUpdateCount()
-    if (moreResults == true) {
-      moreResults = !(!movedToNextResultsSafely && !isMultipleResultSetSupportPresent(scope, stmt));
+    if (moreResults) {
+      moreResults = movedToNextResultsSafely || isMultipleResultSetSupportPresent(scope, stmt);
     }
 
     return moreResults;
@@ -626,13 +626,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
       if (mapping.isOutputAllowed()) {
         if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { // @added
           cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
+        } else if (mapping.getNumericScale() != null
+            && (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {
+          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getNumericScale().intValue());
         } else {
-          if (mapping.getNumericScale() != null
-              && (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {
-            cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getNumericScale().intValue());
-          } else {
-            cs.registerOutParameter(i + 1, mapping.getJdbcType());
-          }
+          cs.registerOutParameter(i + 1, mapping.getJdbcType());
         }
       }
     }
@@ -709,12 +707,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
-      return sessionScope.getPreparedStatement((sql));
-    } else {
-      PreparedStatement ps = conn.prepareStatement(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);
-      sessionScope.putPreparedStatement(delegate, sql, ps);
-      return ps;
+      return sessionScope.getPreparedStatement(sql);
     }
+    PreparedStatement ps = conn.prepareStatement(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);
+    sessionScope.putPreparedStatement(delegate, sql, ps);
+    return ps;
   }
 
   /**
@@ -738,12 +735,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
-      return (CallableStatement) sessionScope.getPreparedStatement((sql));
-    } else {
-      CallableStatement cs = conn.prepareCall(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);
-      sessionScope.putPreparedStatement(delegate, sql, cs);
-      return cs;
+      return (CallableStatement) sessionScope.getPreparedStatement(sql);
     }
+    CallableStatement cs = conn.prepareCall(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);
+    sessionScope.putPreparedStatement(delegate, sql, cs);
+    return cs;
   }
 
   /**
@@ -765,12 +761,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
       throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
-      return sessionScope.getPreparedStatement((sql));
-    } else {
-      PreparedStatement ps = conn.prepareStatement(sql);
-      sessionScope.putPreparedStatement(delegate, sql, ps);
-      return ps;
+      return sessionScope.getPreparedStatement(sql);
     }
+    PreparedStatement ps = conn.prepareStatement(sql);
+    sessionScope.putPreparedStatement(delegate, sql, ps);
+    return ps;
   }
 
   /**
@@ -791,12 +786,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
   private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql) throws SQLException {
     SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();
     if (sessionScope.hasPreparedStatementFor(sql)) {
-      return (CallableStatement) sessionScope.getPreparedStatement((sql));
-    } else {
-      CallableStatement cs = conn.prepareCall(sql);
-      sessionScope.putPreparedStatement(delegate, sql, cs);
-      return cs;
+      return (CallableStatement) sessionScope.getPreparedStatement(sql);
     }
+    CallableStatement cs = conn.prepareCall(sql);
+    sessionScope.putPreparedStatement(delegate, sql, cs);
+    return cs;
   }
 
   /**
@@ -808,13 +802,11 @@ public class DefaultSqlExecutor implements SqlExecutor {
    *          the ps
    */
   private static void closeStatement(SessionScope sessionScope, PreparedStatement ps) {
-    if (ps != null) {
-      if (!sessionScope.hasPreparedStatement(ps)) {
-        try {
-          ps.close();
-        } catch (SQLException e) {
-          // ignore
-        }
+    if (ps != null && !sessionScope.hasPreparedStatement(ps)) {
+      try {
+        ps.close();
+      } catch (SQLException e) {
+        // ignore
       }
     }
   }
