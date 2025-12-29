@@ -125,8 +125,8 @@ public class ClassInfo {
     addGetMethods(clazz);
     addSetMethods(clazz);
     addFields(clazz);
-    readablePropertyNames = (String[]) getMethods.keySet().toArray(new String[getMethods.keySet().size()]);
-    writeablePropertyNames = (String[]) setMethods.keySet().toArray(new String[setMethods.keySet().size()]);
+    readablePropertyNames = (String[]) getMethods.keySet().toArray(new String[getMethods.size()]);
+    writeablePropertyNames = (String[]) setMethods.keySet().toArray(new String[setMethods.size()]);
   }
 
   /**
@@ -622,7 +622,7 @@ public class ClassInfo {
    * @return True if the object has a writeable property by the name
    */
   public boolean hasWritableProperty(String propertyName) {
-    return setMethods.keySet().contains(propertyName);
+    return setMethods.containsKey(propertyName);
   }
 
   /**
@@ -634,7 +634,7 @@ public class ClassInfo {
    * @return True if the object has a readable property by the name
    */
   public boolean hasReadableProperty(String propertyName) {
-    return getMethods.keySet().contains(propertyName);
+    return getMethods.containsKey(propertyName);
   }
 
   /**
