@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.transaction.jdbc</a> &gt; <span class="el_source">JdbcTransaction.java</span></div><h1>JdbcTransaction.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.transaction.jdbc;
+
+import com.ibatis.common.jdbc.logging.ConnectionLogProxy;
+import com.ibatis.common.logging.Log;
+import com.ibatis.common.logging.LogFactory;
+import com.ibatis.sqlmap.engine.transaction.IsolationLevel;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionException;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+/**
+ * The Class JdbcTransaction.
+ */
+public class JdbcTransaction implements Transaction {
+
+  /** The Constant connectionLog. */
+<span class="fc" id="L36">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+
+  /** The data source. */
+  private DataSource dataSource;
+
+  /** The connection. */
+  private Connection connection;
+
+  /** The isolation level. */
+<span class="fc" id="L45">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+
+  /**
+   * Instantiates a new jdbc transaction.
+   *
+   * @param ds
+   *          the ds
+   * @param isolationLevel
+   *          the isolation level
+   *
+   * @throws TransactionException
+   *           the transaction exception
+   */
+<span class="fc" id="L58">  public JdbcTransaction(DataSource ds, int isolationLevel) throws TransactionException {</span>
+    // Check Parameters
+<span class="fc" id="L60">    dataSource = ds;</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">    if (dataSource == null) {</span>
+<span class="nc" id="L62">      throw new TransactionException(&quot;JdbcTransaction initialization failed.  DataSource was null.&quot;);</span>
+    }
+<span class="fc" id="L64">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="fc" id="L65">  }</span>
+
+  /**
+   * Inits the.
+   *
+   * @throws SQLException
+   *           the SQL exception
+   * @throws TransactionException
+   *           the transaction exception
+   */
+  private void init() throws SQLException, TransactionException {
+    // Open JDBC Transaction
+<span class="fc" id="L77">    connection = dataSource.getConnection();</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">    if (connection == null) {</span>
+<span class="nc" id="L79">      throw new TransactionException(</span>
+          &quot;JdbcTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
+    }
+    // Isolation Level
+<span class="fc" id="L83">    isolationLevel.applyIsolationLevel(connection);</span>
+    // AutoCommit
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    if (connection.getAutoCommit()) {</span>
+<span class="fc" id="L86">      connection.setAutoCommit(false);</span>
+    }
+    // Debug
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="nc" id="L90">      connection = ConnectionLogProxy.newInstance(connection);</span>
+    }
+<span class="fc" id="L92">  }</span>
+
+  @Override
+  public void commit() throws SQLException, TransactionException {
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">    if (connection != null) {</span>
+<span class="fc" id="L97">      connection.commit();</span>
+    }
+<span class="fc" id="L99">  }</span>
+
+  @Override
+  public void rollback() throws SQLException, TransactionException {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">    if (connection != null) {</span>
+<span class="fc" id="L104">      connection.rollback();</span>
+    }
+<span class="fc" id="L106">  }</span>
+
+  @Override
+  public void close() throws SQLException, TransactionException {
+<span class="fc bfc" id="L110" title="All 2 branches covered.">    if (connection != null) {</span>
+      try {
+<span class="fc" id="L112">        isolationLevel.restoreIsolationLevel(connection);</span>
+      } finally {
+<span class="fc" id="L114">        connection.close();</span>
+<span class="fc" id="L115">        connection = null;</span>
+      }
+    }
+<span class="fc" id="L118">  }</span>
+
+  @Override
+  public Connection getConnection() throws SQLException, TransactionException {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    if (connection == null) {</span>
+<span class="fc" id="L123">      init();</span>
+    }
+<span class="fc" id="L125">    return connection;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

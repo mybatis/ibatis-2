@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Discriminator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.result</a> &gt; <span class="el_source">Discriminator.java</span></div><h1>Discriminator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.result;
+
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA. User: cbegin Date: May 13, 2005 Time: 11:11:05 PM To change this template use File |
+ * Settings | File Templates.
+ */
+public class Discriminator {
+
+  /** The delegate. */
+  private SqlMapExecutorDelegate delegate;
+
+  /** The result mapping. */
+  private ResultMapping resultMapping;
+
+  /** The sub maps. */
+  private Map subMaps;
+
+  /**
+   * Instantiates a new discriminator.
+   *
+   * @param delegate
+   *          the delegate
+   * @param resultMapping
+   *          the result mapping
+   */
+<span class="fc" id="L47">  public Discriminator(SqlMapExecutorDelegate delegate, ResultMapping resultMapping) {</span>
+<span class="fc" id="L48">    this.delegate = delegate;</span>
+<span class="fc" id="L49">    this.resultMapping = resultMapping;</span>
+<span class="fc" id="L50">  }</span>
+
+  /**
+   * Sets the result mapping.
+   *
+   * @param resultMapping
+   *          the new result mapping
+   */
+  public void setResultMapping(ResultMapping resultMapping) {
+<span class="nc" id="L59">    this.resultMapping = resultMapping;</span>
+<span class="nc" id="L60">  }</span>
+
+  /**
+   * Gets the result mapping.
+   *
+   * @return the result mapping
+   */
+  public ResultMapping getResultMapping() {
+<span class="fc" id="L68">    return resultMapping;</span>
+  }
+
+  /**
+   * Adds the sub map.
+   *
+   * @param discriminatorValue
+   *          the discriminator value
+   * @param resultMapName
+   *          the result map name
+   */
+  public void addSubMap(String discriminatorValue, String resultMapName) {
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    if (subMaps == null) {</span>
+<span class="fc" id="L81">      subMaps = new HashMap&lt;&gt;();</span>
+    }
+<span class="fc" id="L83">    subMaps.put(discriminatorValue, resultMapName);</span>
+<span class="fc" id="L84">  }</span>
+
+  /**
+   * Gets the sub map.
+   *
+   * @param s
+   *          the s
+   *
+   * @return the sub map
+   */
+  public ResultMap getSubMap(String s) {
+<span class="fc" id="L95">    return (ResultMap) subMaps.get(s);</span>
+  }
+
+  /**
+   * Bind sub maps.
+   */
+  public void bindSubMaps() {
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">    if (subMaps != null) {</span>
+<span class="fc" id="L103">      Iterator keys = subMaps.keySet().iterator();</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">      while (keys.hasNext()) {</span>
+<span class="fc" id="L105">        Object key = keys.next();</span>
+<span class="fc" id="L106">        Object id = subMaps.get(key);</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (id instanceof String) {</span>
+<span class="fc" id="L108">          subMaps.put(key, delegate.getResultMap((String) id));</span>
+        }
+<span class="fc" id="L110">      }</span>
+    }
+<span class="fc" id="L112">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapSessionImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.impl</a> &gt; <span class="el_source">SqlMapSessionImpl.java</span></div><h1>SqlMapSessionImpl.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.impl;
+
+import com.ibatis.common.jdbc.exception.NestedSQLException;
+import com.ibatis.common.util.PaginatedList;
+import com.ibatis.sqlmap.client.SqlMapSession;
+import com.ibatis.sqlmap.client.event.RowHandler;
+import com.ibatis.sqlmap.engine.execution.BatchException;
+import com.ibatis.sqlmap.engine.execution.SqlExecutor;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+import com.ibatis.sqlmap.engine.scope.SessionScope;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
+import com.ibatis.sqlmap.engine.transaction.TransactionException;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+/**
+ * Implementation of SqlMapSession.
+ */
+public class SqlMapSessionImpl implements SqlMapSession {
+
+  /** The delegate. */
+  protected SqlMapExecutorDelegate delegate;
+
+  /** The session scope. */
+  protected SessionScope sessionScope;
+
+  /** The closed. */
+  protected boolean closed;
+
+  /**
+   * Constructor.
+   *
+   * @param client
+   *          - the client that will use the session
+   */
+<span class="fc" id="L56">  public SqlMapSessionImpl(SqlMapClientImpl client) {</span>
+<span class="fc" id="L57">    this.delegate = client.getDelegate();</span>
+<span class="fc" id="L58">    this.sessionScope = this.delegate.beginSessionScope();</span>
+<span class="fc" id="L59">    this.sessionScope.setSqlMapClient(client);</span>
+<span class="fc" id="L60">    this.sessionScope.setSqlMapExecutor(client);</span>
+<span class="fc" id="L61">    this.sessionScope.setSqlMapTxMgr(client);</span>
+<span class="fc" id="L62">    this.closed = false;</span>
+<span class="fc" id="L63">  }</span>
+
+  /**
+   * Start the session.
+   */
+  public void open() {
+<span class="fc" id="L69">    sessionScope.setSqlMapTxMgr(this);</span>
+<span class="fc" id="L70">  }</span>
+
+  /**
+   * Getter to tell if the session is still open.
+   *
+   * @return - the status of the session
+   */
+  public boolean isClosed() {
+<span class="fc" id="L78">    return closed;</span>
+  }
+
+  @Override
+  public void close() {
+<span class="pc bpc" id="L83" title="2 of 4 branches missed.">    if (delegate != null &amp;&amp; sessionScope != null) {</span>
+<span class="fc" id="L84">      delegate.endSessionScope(sessionScope);</span>
+    }
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    if (sessionScope != null) {</span>
+<span class="fc" id="L87">      sessionScope = null;</span>
+    }
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (delegate != null) {</span>
+<span class="fc" id="L90">      delegate = null;</span>
+    }
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">    if (!closed) {</span>
+<span class="fc" id="L93">      closed = true;</span>
+    }
+<span class="fc" id="L95">  }</span>
+
+  @Override
+  public Object insert(String id, Object param) throws SQLException {
+<span class="fc" id="L99">    return delegate.insert(sessionScope, id, param);</span>
+  }
+
+  @Override
+  public Object insert(String id) throws SQLException {
+<span class="nc" id="L104">    return insert(id, null);</span>
+  }
+
+  @Override
+  public int update(String id, Object param) throws SQLException {
+<span class="fc" id="L109">    return delegate.update(sessionScope, id, param);</span>
+  }
+
+  @Override
+  public int update(String id) throws SQLException {
+<span class="fc" id="L114">    return update(id, null);</span>
+  }
+
+  @Override
+  public int delete(String id, Object param) throws SQLException {
+<span class="nc" id="L119">    return delegate.delete(sessionScope, id, param);</span>
+  }
+
+  @Override
+  public int delete(String id) throws SQLException {
+<span class="nc" id="L124">    return delete(id, null);</span>
+  }
+
+  @Override
+  public Object queryForObject(String id, Object paramObject) throws SQLException {
+<span class="fc" id="L129">    return delegate.queryForObject(sessionScope, id, paramObject);</span>
+  }
+
+  @Override
+  public Object queryForObject(String id) throws SQLException {
+<span class="fc" id="L134">    return queryForObject(id, null);</span>
+  }
+
+  @Override
+  public Object queryForObject(String id, Object paramObject, Object resultObject) throws SQLException {
+<span class="fc" id="L139">    return delegate.queryForObject(sessionScope, id, paramObject, resultObject);</span>
+  }
+
+  @Override
+  public List queryForList(String id, Object paramObject) throws SQLException {
+<span class="fc" id="L144">    return delegate.queryForList(sessionScope, id, paramObject);</span>
+  }
+
+  @Override
+  public List queryForList(String id) throws SQLException {
+<span class="fc" id="L149">    return queryForList(id, null);</span>
+  }
+
+  @Override
+  public List queryForList(String id, Object paramObject, int skip, int max) throws SQLException {
+<span class="fc" id="L154">    return delegate.queryForList(sessionScope, id, paramObject, skip, max);</span>
+  }
+
+  @Override
+  public List queryForList(String id, int skip, int max) throws SQLException {
+<span class="nc" id="L159">    return queryForList(id, null, skip, max);</span>
+  }
+
+  /**
+   * @deprecated All paginated list features have been deprecated
+   */
+  @Override
+  @Deprecated
+  public PaginatedList queryForPaginatedList(String id, Object paramObject, int pageSize) throws SQLException {
+<span class="fc" id="L168">    return delegate.queryForPaginatedList(sessionScope, id, paramObject, pageSize);</span>
+  }
+
+  /**
+   * @deprecated All paginated list features have been deprecated
+   */
+  @Override
+  @Deprecated
+  public PaginatedList queryForPaginatedList(String id, int pageSize) throws SQLException {
+<span class="fc" id="L177">    return queryForPaginatedList(id, null, pageSize);</span>
+  }
+
+  @Override
+  public Map queryForMap(String id, Object paramObject, String keyProp) throws SQLException {
+<span class="fc" id="L182">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp);</span>
+  }
+
+  @Override
+  public Map queryForMap(String id, Object paramObject, String keyProp, String valueProp) throws SQLException {
+<span class="fc" id="L187">    return delegate.queryForMap(sessionScope, id, paramObject, keyProp, valueProp);</span>
+  }
+
+  @Override
+  public void queryWithRowHandler(String id, Object paramObject, RowHandler rowHandler) throws SQLException {
+<span class="fc" id="L192">    delegate.queryWithRowHandler(sessionScope, id, paramObject, rowHandler);</span>
+<span class="fc" id="L193">  }</span>
+
+  @Override
+  public void queryWithRowHandler(String id, RowHandler rowHandler) throws SQLException {
+<span class="fc" id="L197">    queryWithRowHandler(id, null, rowHandler);</span>
+<span class="fc" id="L198">  }</span>
+
+  @Override
+  public void startTransaction() throws SQLException {
+<span class="fc" id="L202">    delegate.startTransaction(sessionScope);</span>
+<span class="fc" id="L203">  }</span>
+
+  @Override
+  public void startTransaction(int transactionIsolation) throws SQLException {
+<span class="nc" id="L207">    delegate.startTransaction(sessionScope, transactionIsolation);</span>
+<span class="nc" id="L208">  }</span>
+
+  @Override
+  public void commitTransaction() throws SQLException {
+<span class="fc" id="L212">    delegate.commitTransaction(sessionScope);</span>
+<span class="fc" id="L213">  }</span>
+
+  @Override
+  public void endTransaction() throws SQLException {
+<span class="fc" id="L217">    delegate.endTransaction(sessionScope);</span>
+<span class="fc" id="L218">  }</span>
+
+  @Override
+  public void startBatch() throws SQLException {
+<span class="fc" id="L222">    delegate.startBatch(sessionScope);</span>
+<span class="fc" id="L223">  }</span>
+
+  @Override
+  public int executeBatch() throws SQLException {
+<span class="fc" id="L227">    return delegate.executeBatch(sessionScope);</span>
+  }
+
+  @Override
+  public List executeBatchDetailed() throws SQLException, BatchException {
+<span class="fc" id="L232">    return delegate.executeBatchDetailed(sessionScope);</span>
+  }
+
+  @Override
+  public void setUserConnection(Connection connection) throws SQLException {
+<span class="fc" id="L237">    delegate.setUserProvidedTransaction(sessionScope, connection);</span>
+<span class="fc" id="L238">  }</span>
+
+  /**
+   * Get User connection.
+   *
+   * @return Current connection
+   *
+   * @throws SQLException
+   *           the SQL exception
+   *
+   * @deprecated Use {@link #getCurrentConnection()} instead.
+   */
+  @Override
+  @Deprecated
+  public Connection getUserConnection() throws SQLException {
+<span class="nc" id="L253">    return getCurrentConnection();</span>
+  }
+
+  @Override
+  public Connection getCurrentConnection() throws SQLException {
+    try {
+<span class="fc" id="L259">      Connection conn = null;</span>
+<span class="fc" id="L260">      Transaction trans = delegate.getTransaction(sessionScope);</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">      if (trans != null) {</span>
+<span class="fc" id="L262">        conn = trans.getConnection();</span>
+      }
+<span class="fc" id="L264">      return conn;</span>
+<span class="nc" id="L265">    } catch (TransactionException e) {</span>
+<span class="nc" id="L266">      throw new NestedSQLException(&quot;Error getting Connection from Transaction.  Cause: &quot; + e, e);</span>
+    }
+  }
+
+  @Override
+  public DataSource getDataSource() {
+<span class="nc" id="L272">    return delegate.getDataSource();</span>
+  }
+
+  /**
+   * Gets a mapped statement by ID.
+   *
+   * @param id
+   *          - the ID
+   *
+   * @return - the mapped statement
+   */
+  public MappedStatement getMappedStatement(String id) {
+<span class="nc" id="L284">    return delegate.getMappedStatement(id);</span>
+  }
+
+  /**
+   * Get the status of lazy loading.
+   *
+   * @return - the status
+   */
+  public boolean isLazyLoadingEnabled() {
+<span class="nc" id="L293">    return delegate.isLazyLoadingEnabled();</span>
+  }
+
+  /**
+   * Get the status of CGLib enhancements.
+   *
+   * @return - the status
+   */
+  public boolean isEnhancementEnabled() {
+<span class="nc" id="L302">    return delegate.isEnhancementEnabled();</span>
+  }
+
+  /**
+   * Get the SQL executor.
+   *
+   * @return - the executor
+   */
+  public SqlExecutor getSqlExecutor() {
+<span class="nc" id="L311">    return delegate.getSqlExecutor();</span>
+  }
+
+  /**
+   * Get the delegate.
+   *
+   * @return - the delegate
+   */
+  public SqlMapExecutorDelegate getDelegate() {
+<span class="nc" id="L320">    return delegate;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

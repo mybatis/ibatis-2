@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements</a> &gt; <span class="el_source">SqlTag.java</span></div><h1>SqlTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements;
+
+import com.ibatis.sqlmap.engine.mapping.sql.SqlChild;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * The Class SqlTag.
+ */
+<span class="fc" id="L27">public class SqlTag implements SqlChild, DynamicParent {</span>
+
+  /** The name. */
+  private String name;
+
+  /** The handler. */
+  private SqlTagHandler handler;
+
+  /** The prepend attr. */
+  // general attributes
+  private String prependAttr;
+
+  /** The property attr. */
+  private String propertyAttr;
+
+  /** The remove first prepend. */
+  private String removeFirstPrepend;
+
+  /** The compare property attr. */
+  // conditional attributes
+  private String comparePropertyAttr;
+
+  /** The compare value attr. */
+  private String compareValueAttr;
+
+  /** The open attr. */
+  // iterate attributes
+  private String openAttr;
+
+  /** The close attr. */
+  private String closeAttr;
+
+  /** The conjunction attr. */
+  private String conjunctionAttr;
+
+  /** The parent. */
+  private SqlTag parent;
+
+  /** The children. */
+<span class="fc" id="L66">  private List children = new ArrayList&lt;&gt;();</span>
+
+  /** The post parse required. */
+<span class="fc" id="L69">  private boolean postParseRequired = false;</span>
+
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
+  public String getName() {
+<span class="nc" id="L77">    return name;</span>
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name
+   *          the new name
+   */
+  public void setName(String name) {
+<span class="fc" id="L87">    this.name = name;</span>
+<span class="fc" id="L88">  }</span>
+
+  /**
+   * Gets the handler.
+   *
+   * @return the handler
+   */
+  public SqlTagHandler getHandler() {
+<span class="fc" id="L96">    return handler;</span>
+  }
+
+  /**
+   * Sets the handler.
+   *
+   * @param handler
+   *          the new handler
+   */
+  public void setHandler(SqlTagHandler handler) {
+<span class="fc" id="L106">    this.handler = handler;</span>
+<span class="fc" id="L107">  }</span>
+
+  /**
+   * Checks if is prepend available.
+   *
+   * @return true, if is prepend available
+   */
+  public boolean isPrependAvailable() {
+<span class="fc bfc" id="L115" title="All 4 branches covered.">    return prependAttr != null &amp;&amp; !prependAttr.isEmpty();</span>
+  }
+
+  /**
+   * Checks if is close available.
+   *
+   * @return true, if is close available
+   */
+  public boolean isCloseAvailable() {
+<span class="pc bpc" id="L124" title="1 of 4 branches missed.">    return closeAttr != null &amp;&amp; !closeAttr.isEmpty();</span>
+  }
+
+  /**
+   * Checks if is open available.
+   *
+   * @return true, if is open available
+   */
+  public boolean isOpenAvailable() {
+<span class="pc bpc" id="L133" title="1 of 4 branches missed.">    return openAttr != null &amp;&amp; !openAttr.isEmpty();</span>
+  }
+
+  /**
+   * Checks if is conjunction available.
+   *
+   * @return true, if is conjunction available
+   */
+  public boolean isConjunctionAvailable() {
+<span class="pc bpc" id="L142" title="1 of 4 branches missed.">    return conjunctionAttr != null &amp;&amp; !conjunctionAttr.isEmpty();</span>
+  }
+
+  /**
+   * Gets the prepend attr.
+   *
+   * @return the prepend attr
+   */
+  public String getPrependAttr() {
+<span class="fc" id="L151">    return prependAttr;</span>
+  }
+
+  /**
+   * Sets the prepend attr.
+   *
+   * @param prependAttr
+   *          the new prepend attr
+   */
+  public void setPrependAttr(String prependAttr) {
+<span class="fc" id="L161">    this.prependAttr = prependAttr;</span>
+<span class="fc" id="L162">  }</span>
+
+  /**
+   * Gets the property attr.
+   *
+   * @return the property attr
+   */
+  public String getPropertyAttr() {
+<span class="fc" id="L170">    return propertyAttr;</span>
+  }
+
+  /**
+   * Sets the property attr.
+   *
+   * @param propertyAttr
+   *          the new property attr
+   */
+  public void setPropertyAttr(String propertyAttr) {
+<span class="fc" id="L180">    this.propertyAttr = propertyAttr;</span>
+<span class="fc" id="L181">  }</span>
+
+  /**
+   * Gets the compare property attr.
+   *
+   * @return the compare property attr
+   */
+  public String getComparePropertyAttr() {
+<span class="fc" id="L189">    return comparePropertyAttr;</span>
+  }
+
+  /**
+   * Sets the compare property attr.
+   *
+   * @param comparePropertyAttr
+   *          the new compare property attr
+   */
+  public void setComparePropertyAttr(String comparePropertyAttr) {
+<span class="fc" id="L199">    this.comparePropertyAttr = comparePropertyAttr;</span>
+<span class="fc" id="L200">  }</span>
+
+  /**
+   * Gets the compare value attr.
+   *
+   * @return the compare value attr
+   */
+  public String getCompareValueAttr() {
+<span class="fc" id="L208">    return compareValueAttr;</span>
+  }
+
+  /**
+   * Sets the compare value attr.
+   *
+   * @param compareValueAttr
+   *          the new compare value attr
+   */
+  public void setCompareValueAttr(String compareValueAttr) {
+<span class="fc" id="L218">    this.compareValueAttr = compareValueAttr;</span>
+<span class="fc" id="L219">  }</span>
+
+  /**
+   * Gets the open attr.
+   *
+   * @return the open attr
+   */
+  public String getOpenAttr() {
+<span class="fc" id="L227">    return openAttr;</span>
+  }
+
+  /**
+   * Sets the open attr.
+   *
+   * @param openAttr
+   *          the new open attr
+   */
+  public void setOpenAttr(String openAttr) {
+<span class="fc" id="L237">    this.openAttr = openAttr;</span>
+<span class="fc" id="L238">  }</span>
+
+  /**
+   * Gets the close attr.
+   *
+   * @return the close attr
+   */
+  public String getCloseAttr() {
+<span class="fc" id="L246">    return closeAttr;</span>
+  }
+
+  /**
+   * Sets the close attr.
+   *
+   * @param closeAttr
+   *          the new close attr
+   */
+  public void setCloseAttr(String closeAttr) {
+<span class="fc" id="L256">    this.closeAttr = closeAttr;</span>
+<span class="fc" id="L257">  }</span>
+
+  /**
+   * Gets the conjunction attr.
+   *
+   * @return the conjunction attr
+   */
+  public String getConjunctionAttr() {
+<span class="fc" id="L265">    return conjunctionAttr;</span>
+  }
+
+  /**
+   * Sets the conjunction attr.
+   *
+   * @param conjunctionAttr
+   *          the new conjunction attr
+   */
+  public void setConjunctionAttr(String conjunctionAttr) {
+<span class="fc" id="L275">    this.conjunctionAttr = conjunctionAttr;</span>
+<span class="fc" id="L276">  }</span>
+
+  @Override
+  public void addChild(SqlChild child) {
+<span class="fc bfc" id="L280" title="All 2 branches covered.">    if (child instanceof SqlTag) {</span>
+<span class="fc" id="L281">      ((SqlTag) child).parent = this;</span>
+    }
+<span class="fc" id="L283">    children.add(child);</span>
+<span class="fc" id="L284">  }</span>
+
+  /**
+   * Gets the children.
+   *
+   * @return the children
+   */
+  public Iterator getChildren() {
+<span class="fc" id="L292">    return children.iterator();</span>
+  }
+
+  /**
+   * Gets the parent.
+   *
+   * @return the parent
+   */
+  public SqlTag getParent() {
+<span class="fc" id="L301">    return parent;</span>
+  }
+
+  /**
+   * Gets the removes the first prepend.
+   *
+   * @return the removes the first prepend
+   */
+  public String getRemoveFirstPrepend() {
+<span class="fc" id="L310">    return removeFirstPrepend;</span>
+  }
+
+  /**
+   * Sets the removes the first prepend.
+   *
+   * @param removeFirstPrepend
+   *          the new removes the first prepend
+   */
+  public void setRemoveFirstPrepend(String removeFirstPrepend) {
+<span class="fc" id="L320">    this.removeFirstPrepend = removeFirstPrepend;</span>
+<span class="fc" id="L321">  }</span>
+
+  /**
+   * Checks if is post parse required.
+   *
+   * @return Returns the postParseRequired.
+   */
+  public boolean isPostParseRequired() {
+<span class="fc" id="L329">    return postParseRequired;</span>
+  }
+
+  /**
+   * Sets the post parse required.
+   *
+   * @param iterateAncestor
+   *          The postParseRequired to set.
+   */
+  public void setPostParseRequired(boolean iterateAncestor) {
+<span class="fc" id="L339">    this.postParseRequired = iterateAncestor;</span>
+<span class="fc" id="L340">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

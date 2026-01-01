@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SqlMapConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.config</a> &gt; <span class="el_source">SqlMapConfiguration.java</span></div><h1>SqlMapConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2004-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ibatis.sqlmap.engine.config;
+
+import com.ibatis.common.beans.ClassInfo;
+import com.ibatis.common.beans.Probe;
+import com.ibatis.common.beans.ProbeFactory;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapException;
+import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
+import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
+import com.ibatis.sqlmap.engine.cache.CacheController;
+import com.ibatis.sqlmap.engine.cache.CacheModel;
+import com.ibatis.sqlmap.engine.cache.fifo.FifoCacheController;
+import com.ibatis.sqlmap.engine.cache.lru.LruCacheController;
+import com.ibatis.sqlmap.engine.cache.memory.MemoryCacheController;
+import com.ibatis.sqlmap.engine.datasource.DbcpDataSourceFactory;
+import com.ibatis.sqlmap.engine.datasource.JndiDataSourceFactory;
+import com.ibatis.sqlmap.engine.datasource.SimpleDataSourceFactory;
+import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
+import com.ibatis.sqlmap.engine.mapping.result.Discriminator;
+import com.ibatis.sqlmap.engine.mapping.result.ResultMap;
+import com.ibatis.sqlmap.engine.mapping.result.ResultObjectFactory;
+import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+import com.ibatis.sqlmap.engine.scope.ErrorContext;
+import com.ibatis.sqlmap.engine.transaction.TransactionManager;
+import com.ibatis.sqlmap.engine.transaction.external.ExternalTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jdbc.JdbcTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig;
+import com.ibatis.sqlmap.engine.type.CustomTypeHandler;
+import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
+import com.ibatis.sqlmap.engine.type.DomTypeMarker;
+import com.ibatis.sqlmap.engine.type.TypeHandler;
+import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
+import com.ibatis.sqlmap.engine.type.XmlCollectionTypeMarker;
+import com.ibatis.sqlmap.engine.type.XmlTypeMarker;
+
+import java.util.Iterator;
+
+/**
+ * The Class SqlMapConfiguration.
+ */
+public class SqlMapConfiguration {
+
+  /** The Constant PROBE. */
+<span class="fc" id="L60">  private static final Probe PROBE = ProbeFactory.getProbe();</span>
+
+  /** The error context. */
+  private ErrorContext errorContext;
+
+  /** The delegate. */
+  private SqlMapExecutorDelegate delegate;
+
+  /** The type handler factory. */
+  private TypeHandlerFactory typeHandlerFactory;
+
+  /** The client. */
+  private SqlMapClientImpl client;
+
+  /** The default statement timeout. */
+  private Integer defaultStatementTimeout;
+
+  /**
+   * Instantiates a new sql map configuration.
+   */
+<span class="fc" id="L80">  public SqlMapConfiguration() {</span>
+<span class="fc" id="L81">    errorContext = new ErrorContext();</span>
+<span class="fc" id="L82">    delegate = new SqlMapExecutorDelegate();</span>
+<span class="fc" id="L83">    typeHandlerFactory = delegate.getTypeHandlerFactory();</span>
+<span class="fc" id="L84">    client = new SqlMapClientImpl(delegate);</span>
+<span class="fc" id="L85">    registerDefaultTypeAliases();</span>
+<span class="fc" id="L86">  }</span>
+
+  /**
+   * Gets the type handler factory.
+   *
+   * @return the type handler factory
+   */
+  public TypeHandlerFactory getTypeHandlerFactory() {
+<span class="fc" id="L94">    return typeHandlerFactory;</span>
+  }
+
+  /**
+   * Gets the error context.
+   *
+   * @return the error context
+   */
+  public ErrorContext getErrorContext() {
+<span class="fc" id="L103">    return errorContext;</span>
+  }
+
+  /**
+   * Gets the client.
+   *
+   * @return the client
+   */
+  public SqlMapClientImpl getClient() {
+<span class="fc" id="L112">    return client;</span>
+  }
+
+  /**
+   * Gets the delegate.
+   *
+   * @return the delegate
+   */
+  public SqlMapExecutorDelegate getDelegate() {
+<span class="fc" id="L121">    return delegate;</span>
+  }
+
+  /**
+   * Sets the class info cache enabled.
+   *
+   * @param classInfoCacheEnabled
+   *          the new class info cache enabled
+   */
+  public void setClassInfoCacheEnabled(boolean classInfoCacheEnabled) {
+<span class="fc" id="L131">    errorContext.setActivity(&quot;setting class info cache enabled/disabled&quot;);</span>
+<span class="fc" id="L132">    ClassInfo.setCacheEnabled(classInfoCacheEnabled);</span>
+<span class="fc" id="L133">  }</span>
+
+  /**
+   * Sets the lazy loading enabled.
+   *
+   * @param lazyLoadingEnabled
+   *          the new lazy loading enabled
+   */
+  public void setLazyLoadingEnabled(boolean lazyLoadingEnabled) {
+<span class="fc" id="L142">    errorContext.setActivity(&quot;setting lazy loading enabled/disabled&quot;);</span>
+<span class="fc" id="L143">    client.getDelegate().setLazyLoadingEnabled(lazyLoadingEnabled);</span>
+<span class="fc" id="L144">  }</span>
+
+  /**
+   * Sets the statement caching enabled.
+   *
+   * @param statementCachingEnabled
+   *          the new statement caching enabled
+   */
+  public void setStatementCachingEnabled(boolean statementCachingEnabled) {
+<span class="fc" id="L153">    errorContext.setActivity(&quot;setting statement caching enabled/disabled&quot;);</span>
+<span class="fc" id="L154">    client.getDelegate().setStatementCacheEnabled(statementCachingEnabled);</span>
+<span class="fc" id="L155">  }</span>
+
+  /**
+   * Sets the cache models enabled.
+   *
+   * @param cacheModelsEnabled
+   *          the new cache models enabled
+   */
+  public void setCacheModelsEnabled(boolean cacheModelsEnabled) {
+<span class="fc" id="L164">    errorContext.setActivity(&quot;setting cache models enabled/disabled&quot;);</span>
+<span class="fc" id="L165">    client.getDelegate().setCacheModelsEnabled(cacheModelsEnabled);</span>
+<span class="fc" id="L166">  }</span>
+
+  /**
+   * Sets the enhancement enabled.
+   *
+   * @param enhancementEnabled
+   *          the new enhancement enabled
+   */
+  public void setEnhancementEnabled(boolean enhancementEnabled) {
+<span class="fc" id="L175">    errorContext.setActivity(&quot;setting enhancement enabled/disabled&quot;);</span>
+    try {
+<span class="pc bpc" id="L177" title="3 of 4 branches missed.">      enhancementEnabled = enhancementEnabled &amp;&amp; Resources.classForName(&quot;net.sf.cglib.proxy.InvocationHandler&quot;) != null;</span>
+<span class="nc" id="L178">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L179">      enhancementEnabled = false;</span>
+<span class="fc" id="L180">    }</span>
+<span class="fc" id="L181">    client.getDelegate().setEnhancementEnabled(enhancementEnabled);</span>
+<span class="fc" id="L182">    AccessPlanFactory.setBytecodeEnhancementEnabled(enhancementEnabled);</span>
+<span class="fc" id="L183">  }</span>
+
+  /**
+   * Sets the use column label.
+   *
+   * @param useColumnLabel
+   *          the new use column label
+   */
+  public void setUseColumnLabel(boolean useColumnLabel) {
+<span class="fc" id="L192">    client.getDelegate().setUseColumnLabel(useColumnLabel);</span>
+<span class="fc" id="L193">  }</span>
+
+  /**
+   * Sets the force multiple result set support.
+   *
+   * @param forceMultipleResultSetSupport
+   *          the new force multiple result set support
+   */
+  public void setForceMultipleResultSetSupport(boolean forceMultipleResultSetSupport) {
+<span class="fc" id="L202">    client.getDelegate().setForceMultipleResultSetSupport(forceMultipleResultSetSupport);</span>
+<span class="fc" id="L203">  }</span>
+
+  /**
+   * Sets the default statement timeout.
+   *
+   * @param defaultTimeout
+   *          the new default statement timeout
+   */
+  public void setDefaultStatementTimeout(Integer defaultTimeout) {
+<span class="fc" id="L212">    errorContext.setActivity(&quot;setting default timeout&quot;);</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">    if (defaultTimeout != null) {</span>
+      try {
+<span class="nc" id="L215">        defaultStatementTimeout = defaultTimeout;</span>
+<span class="nc" id="L216">      } catch (NumberFormatException e) {</span>
+<span class="nc" id="L217">        throw new SqlMapException(&quot;Specified defaultStatementTimeout is not a valid integer&quot;);</span>
+<span class="nc" id="L218">      }</span>
+    }
+<span class="fc" id="L220">  }</span>
+
+  /**
+   * Sets the transaction manager.
+   *
+   * @param txManager
+   *          the new transaction manager
+   */
+  public void setTransactionManager(TransactionManager txManager) {
+<span class="fc" id="L229">    delegate.setTxManager(txManager);</span>
+<span class="fc" id="L230">  }</span>
+
+  /**
+   * Sets the result object factory.
+   *
+   * @param rof
+   *          the new result object factory
+   */
+  public void setResultObjectFactory(ResultObjectFactory rof) {
+<span class="fc" id="L239">    delegate.setResultObjectFactory(rof);</span>
+<span class="fc" id="L240">  }</span>
+
+  /**
+   * New type handler.
+   *
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @param callback
+   *          the callback
+   */
+  public void newTypeHandler(Class javaType, String jdbcType, Object callback) {
+    try {
+<span class="fc" id="L254">      errorContext.setActivity(&quot;building a building custom type handler&quot;);</span>
+<span class="fc" id="L255">      TypeHandlerFactory typeHandlerFactory = client.getDelegate().getTypeHandlerFactory();</span>
+      TypeHandler typeHandler;
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">      if (callback instanceof TypeHandlerCallback) {</span>
+<span class="fc" id="L258">        typeHandler = new CustomTypeHandler((TypeHandlerCallback) callback);</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">      } else if (callback instanceof TypeHandler) {</span>
+<span class="nc" id="L260">        typeHandler = (TypeHandler) callback;</span>
+      } else {
+<span class="nc" id="L262">        throw new RuntimeException(</span>
+            &quot;The object '&quot; + callback + &quot;' is not a valid implementation of TypeHandler or TypeHandlerCallback&quot;);
+      }
+<span class="fc" id="L265">      errorContext.setMoreInfo(&quot;Check the javaType attribute '&quot; + javaType + &quot;' (must be a classname) or the jdbcType '&quot;</span>
+          + jdbcType + &quot;' (must be a JDBC type name).&quot;);
+<span class="pc bpc" id="L267" title="2 of 4 branches missed.">      if (jdbcType != null &amp;&amp; jdbcType.length() &gt; 0) {</span>
+<span class="fc" id="L268">        typeHandlerFactory.register(javaType, jdbcType, typeHandler);</span>
+      } else {
+<span class="nc" id="L270">        typeHandlerFactory.register(javaType, typeHandler);</span>
+      }
+<span class="nc" id="L272">    } catch (Exception e) {</span>
+<span class="nc" id="L273">      throw new SqlMapException(&quot;Error registering occurred.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L274">    }</span>
+<span class="fc" id="L275">    errorContext.setMoreInfo(null);</span>
+<span class="fc" id="L276">    errorContext.setObjectId(null);</span>
+<span class="fc" id="L277">  }</span>
+
+  /**
+   * New cache model config.
+   *
+   * @param id
+   *          the id
+   * @param controller
+   *          the controller
+   * @param readOnly
+   *          the read only
+   * @param serialize
+   *          the serialize
+   *
+   * @return the cache model config
+   */
+  public CacheModelConfig newCacheModelConfig(String id, CacheController controller, boolean readOnly,
+      boolean serialize) {
+<span class="fc" id="L295">    return new CacheModelConfig(this, id, controller, readOnly, serialize);</span>
+  }
+
+  /**
+   * New parameter map config.
+   *
+   * @param id
+   *          the id
+   * @param parameterClass
+   *          the parameter class
+   *
+   * @return the parameter map config
+   */
+  public ParameterMapConfig newParameterMapConfig(String id, Class parameterClass) {
+<span class="fc" id="L309">    return new ParameterMapConfig(this, id, parameterClass);</span>
+  }
+
+  /**
+   * New result map config.
+   *
+   * @param id
+   *          the id
+   * @param resultClass
+   *          the result class
+   * @param groupBy
+   *          the group by
+   * @param extended
+   *          the extended
+   * @param xmlName
+   *          the xml name
+   *
+   * @return the result map config
+   */
+  public ResultMapConfig newResultMapConfig(String id, Class resultClass, String groupBy, String extended,
+      String xmlName) {
+<span class="fc" id="L330">    return new ResultMapConfig(this, id, resultClass, groupBy, extended, xmlName);</span>
+  }
+
+  /**
+   * New mapped statement config.
+   *
+   * @param id
+   *          the id
+   * @param statement
+   *          the statement
+   * @param processor
+   *          the processor
+   * @param parameterMapName
+   *          the parameter map name
+   * @param parameterClass
+   *          the parameter class
+   * @param resultMapName
+   *          the result map name
+   * @param additionalResultMapNames
+   *          the additional result map names
+   * @param resultClass
+   *          the result class
+   * @param additionalResultClasses
+   *          the additional result classes
+   * @param resultSetType
+   *          the result set type
+   * @param fetchSize
+   *          the fetch size
+   * @param allowRemapping
+   *          the allow remapping
+   * @param timeout
+   *          the timeout
+   * @param cacheModelName
+   *          the cache model name
+   * @param xmlResultName
+   *          the xml result name
+   *
+   * @return the mapped statement config
+   */
+  public MappedStatementConfig newMappedStatementConfig(String id, MappedStatement statement, SqlSource processor,
+      String parameterMapName, Class parameterClass, String resultMapName, String[] additionalResultMapNames,
+      Class resultClass, Class[] additionalResultClasses, String resultSetType, Integer fetchSize,
+      boolean allowRemapping, Integer timeout, String cacheModelName, String xmlResultName) {
+<span class="fc" id="L373">    return new MappedStatementConfig(this, id, statement, processor, parameterMapName, parameterClass, resultMapName,</span>
+        additionalResultMapNames, resultClass, additionalResultClasses, cacheModelName, resultSetType, fetchSize,
+        allowRemapping, timeout, defaultStatementTimeout, xmlResultName);
+  }
+
+  /**
+   * Finalize sql map config.
+   */
+  public void finalizeSqlMapConfig() {
+<span class="fc" id="L382">    wireUpCacheModels();</span>
+<span class="fc" id="L383">    bindResultMapDiscriminators();</span>
+<span class="fc" id="L384">  }</span>
+
+  /**
+   * Resolve type handler.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param clazz
+   *          the clazz
+   * @param propertyName
+   *          the property name
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   *
+   * @return the type handler
+   */
+  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
+      Class javaType, String jdbcType) {
+<span class="fc" id="L404">    return resolveTypeHandler(typeHandlerFactory, clazz, propertyName, javaType, jdbcType, false);</span>
+  }
+
+  /**
+   * Resolve type handler.
+   *
+   * @param typeHandlerFactory
+   *          the type handler factory
+   * @param clazz
+   *          the clazz
+   * @param propertyName
+   *          the property name
+   * @param javaType
+   *          the java type
+   * @param jdbcType
+   *          the jdbc type
+   * @param useSetterToResolve
+   *          the use setter to resolve
+   *
+   * @return the type handler
+   */
+  TypeHandler resolveTypeHandler(TypeHandlerFactory typeHandlerFactory, Class clazz, String propertyName,
+      Class javaType, String jdbcType, boolean useSetterToResolve) {
+    TypeHandler handler;
+<span class="pc bpc" id="L428" title="1 of 2 branches missed.">    if (clazz == null) {</span>
+      // Unknown
+<span class="nc" id="L430">      handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+<span class="fc bfc" id="L431" title="All 2 branches covered.">    } else if (DomTypeMarker.class.isAssignableFrom(clazz)) {</span>
+      // DOM
+<span class="fc" id="L433">      handler = typeHandlerFactory.getTypeHandler(String.class, jdbcType);</span>
+<span class="fc bfc" id="L434" title="All 2 branches covered.">    } else if (java.util.Map.class.isAssignableFrom(clazz)) {</span>
+      // Map
+<span class="fc bfc" id="L436" title="All 2 branches covered.">      if (javaType == null) {</span>
+<span class="fc" id="L437">        handler = typeHandlerFactory.getUnkownTypeHandler();</span>
+        // BUG 1012591 - typeHandlerFactory.getTypeHandler(java.lang.Object.class, jdbcType);
+      } else {
+<span class="fc" id="L440">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
+      }
+<span class="fc bfc" id="L442" title="All 2 branches covered.">    } else if (typeHandlerFactory.getTypeHandler(clazz, jdbcType) != null) {</span>
+      // Primitive
+<span class="fc" id="L444">      handler = typeHandlerFactory.getTypeHandler(clazz, jdbcType);</span>
+    } else {
+      // JavaBean
+<span class="fc bfc" id="L447" title="All 2 branches covered.">      if (javaType == null) {</span>
+<span class="fc bfc" id="L448" title="All 2 branches covered.">        if (useSetterToResolve) {</span>
+<span class="fc" id="L449">          Class type = PROBE.getPropertyTypeForSetter(clazz, propertyName);</span>
+<span class="fc" id="L450">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
+<span class="fc" id="L451">        } else {</span>
+<span class="fc" id="L452">          Class type = PROBE.getPropertyTypeForGetter(clazz, propertyName);</span>
+<span class="fc" id="L453">          handler = typeHandlerFactory.getTypeHandler(type, jdbcType);</span>
+<span class="fc" id="L454">        }</span>
+      } else {
+<span class="fc" id="L456">        handler = typeHandlerFactory.getTypeHandler(javaType, jdbcType);</span>
+      }
+    }
+<span class="fc" id="L459">    return handler;</span>
+  }
+
+  /**
+   * Register default type aliases.
+   */
+  private void registerDefaultTypeAliases() {
+    // TRANSACTION ALIASES
+<span class="fc" id="L467">    typeHandlerFactory.putTypeAlias(&quot;JDBC&quot;, JdbcTransactionConfig.class.getName());</span>
+<span class="fc" id="L468">    typeHandlerFactory.putTypeAlias(&quot;JTA&quot;, JtaTransactionConfig.class.getName());</span>
+<span class="fc" id="L469">    typeHandlerFactory.putTypeAlias(&quot;EXTERNAL&quot;, ExternalTransactionConfig.class.getName());</span>
+
+    // DATA SOURCE ALIASES
+<span class="fc" id="L472">    typeHandlerFactory.putTypeAlias(&quot;SIMPLE&quot;, SimpleDataSourceFactory.class.getName());</span>
+<span class="fc" id="L473">    typeHandlerFactory.putTypeAlias(&quot;DBCP&quot;, DbcpDataSourceFactory.class.getName());</span>
+<span class="fc" id="L474">    typeHandlerFactory.putTypeAlias(&quot;JNDI&quot;, JndiDataSourceFactory.class.getName());</span>
+
+    // CACHE ALIASES
+<span class="fc" id="L477">    typeHandlerFactory.putTypeAlias(&quot;FIFO&quot;, FifoCacheController.class.getName());</span>
+<span class="fc" id="L478">    typeHandlerFactory.putTypeAlias(&quot;LRU&quot;, LruCacheController.class.getName());</span>
+<span class="fc" id="L479">    typeHandlerFactory.putTypeAlias(&quot;MEMORY&quot;, MemoryCacheController.class.getName());</span>
+
+    // TYPE ALIASEs
+<span class="fc" id="L482">    typeHandlerFactory.putTypeAlias(&quot;dom&quot;, DomTypeMarker.class.getName());</span>
+<span class="fc" id="L483">    typeHandlerFactory.putTypeAlias(&quot;domCollection&quot;, DomCollectionTypeMarker.class.getName());</span>
+<span class="fc" id="L484">    typeHandlerFactory.putTypeAlias(&quot;xml&quot;, XmlTypeMarker.class.getName());</span>
+<span class="fc" id="L485">    typeHandlerFactory.putTypeAlias(&quot;xmlCollection&quot;, XmlCollectionTypeMarker.class.getName());</span>
+<span class="fc" id="L486">  }</span>
+
+  /**
+   * Wire up cache models.
+   */
+  private void wireUpCacheModels() {
+    // Wire Up Cache Models
+<span class="fc" id="L493">    Iterator cacheNames = client.getDelegate().getCacheModelNames();</span>
+<span class="fc bfc" id="L494" title="All 2 branches covered.">    while (cacheNames.hasNext()) {</span>
+<span class="fc" id="L495">      String cacheName = (String) cacheNames.next();</span>
+<span class="fc" id="L496">      CacheModel cacheModel = client.getDelegate().getCacheModel(cacheName);</span>
+<span class="fc" id="L497">      Iterator statementNames = cacheModel.getFlushTriggerStatementNames();</span>
+<span class="fc bfc" id="L498" title="All 2 branches covered.">      while (statementNames.hasNext()) {</span>
+<span class="fc" id="L499">        String statementName = (String) statementNames.next();</span>
+<span class="fc" id="L500">        MappedStatement statement = client.getDelegate().getMappedStatement(statementName);</span>
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">        if (statement == null) {</span>
+<span class="nc" id="L502">          throw new RuntimeException(&quot;Could not find statement named '&quot; + statementName</span>
+              + &quot;' for use as a flush trigger for the cache model named '&quot; + cacheName + &quot;'.&quot;);
+        }
+<span class="fc" id="L505">        statement.addExecuteListener(cacheModel);</span>
+<span class="fc" id="L506">      }</span>
+<span class="fc" id="L507">    }</span>
+<span class="fc" id="L508">  }</span>
+
+  /**
+   * Bind result map discriminators.
+   */
+  private void bindResultMapDiscriminators() {
+    // Bind discriminators
+<span class="fc" id="L515">    Iterator names = delegate.getResultMapNames();</span>
+<span class="fc bfc" id="L516" title="All 2 branches covered.">    while (names.hasNext()) {</span>
+<span class="fc" id="L517">      String name = (String) names.next();</span>
+<span class="fc" id="L518">      ResultMap rm = delegate.getResultMap(name);</span>
+<span class="fc" id="L519">      Discriminator disc = rm.getDiscriminator();</span>
+<span class="fc bfc" id="L520" title="All 2 branches covered.">      if (disc != null) {</span>
+<span class="fc" id="L521">        disc.bindSubMaps();</span>
+      }
+<span class="fc" id="L523">    }</span>
+<span class="fc" id="L524">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

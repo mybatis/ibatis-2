@@ -138,21 +138,19 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>           }
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>           token = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         }
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>       } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>           newSql.append(token);
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         }
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>       }
-<a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>       lastToken = token;
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>     }
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">return</strong> newSql.toString();
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>   }
-<a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a> }
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>         newSql.append(token);
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>       }
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>       lastToken = token;
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> 
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">return</strong> newSql.toString();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>   }
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> 
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> }
 </pre>
 <hr/>
-<div id="footer">© 2004–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>
+<div id="footer">© 2004–2026 <a href="https://www.mybatis.org/">MyBatis.org</a></div>
 </body>
 </html>
