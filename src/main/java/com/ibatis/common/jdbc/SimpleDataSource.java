@@ -1116,12 +1116,12 @@ public class SimpleDataSource implements DataSource {
     @Override
     public boolean equals(Object obj) {
       if (obj instanceof SimplePooledConnection) {
-        return realConnection.hashCode() == (((SimplePooledConnection) obj).realConnection.hashCode());
-      } else if (obj instanceof Connection) {
-        return hashCode == obj.hashCode();
-      } else {
-        return false;
+        return realConnection.hashCode() == ((SimplePooledConnection) obj).realConnection.hashCode();
       }
+      if (obj instanceof Connection) {
+        return hashCode == obj.hashCode();
+      }
+      return false;
     }
 
     // **********************************
@@ -1146,12 +1146,11 @@ public class SimpleDataSource implements DataSource {
       if (CLOSE.hashCode() == methodName.hashCode() && CLOSE.equals(methodName)) {
         dataSource.pushConnection(this);
         return null;
-      } else {
-        try {
-          return method.invoke(getValidConnection(), args);
-        } catch (Throwable t) {
-          throw ClassInfo.unwrapThrowable(t);
-        }
+      }
+      try {
+        return method.invoke(getValidConnection(), args);
+      } catch (Throwable t) {
+        throw ClassInfo.unwrapThrowable(t);
       }
     }
 
