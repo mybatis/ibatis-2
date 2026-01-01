@@ -196,14 +196,12 @@ public class ClassInfo {
     Method[] methods = getClassMethods(cls);
     for (Method method : methods) {
       String name = method.getName();
-      if (name.startsWith("set") && name.length() > 3) {
-        if (method.getParameterTypes().length == 1) {
-          name = dropCase(name);
-          // /------------
-          addSetterConflict(conflictingSetters, name, method);
-          // addSetMethod(name, method);
-          // /------------
-        }
+      if (name.startsWith("set") && name.length() > 3 && method.getParameterTypes().length == 1) {
+        name = dropCase(name);
+        // /------------
+        addSetterConflict(conflictingSetters, name, method);
+        // addSetMethod(name, method);
+        // /------------
       }
     }
     resolveSetterConflicts(conflictingSetters);
@@ -247,23 +245,22 @@ public class ClassInfo {
           throw new RuntimeException("Illegal overloaded setter method with ambiguous type for property " + propName
               + " in class " + firstMethod.getDeclaringClass() + ".  This breaks the JavaBeans "
               + "specification and can cause unpredicatble results.");
-        } else {
-          Iterator methods = setters.iterator();
-          Method setter = null;
-          while (methods.hasNext()) {
-            Method method = (Method) methods.next();
-            if (method.getParameterTypes().length == 1 && expectedType.equals(method.getParameterTypes()[0])) {
-              setter = method;
-              break;
-            }
-          }
-          if (setter == null) {
-            throw new RuntimeException("Illegal overloaded setter method with ambiguous type for property " + propName
-                + " in class " + firstMethod.getDeclaringClass() + ".  This breaks the JavaBeans "
-                + "specification and can cause unpredicatble results.");
-          }
-          addSetMethod(propName, setter);
         }
+        Iterator methods = setters.iterator();
+        Method setter = null;
+        while (methods.hasNext()) {
+          Method method = (Method) methods.next();
+          if (method.getParameterTypes().length == 1 && expectedType.equals(method.getParameterTypes()[0])) {
+            setter = method;
+            break;
+          }
+        }
+        if (setter == null) {
+          throw new RuntimeException("Illegal overloaded setter method with ambiguous type for property " + propName
+              + " in class " + firstMethod.getDeclaringClass() + ".  This breaks the JavaBeans "
+              + "specification and can cause unpredicatble results.");
+        }
+        addSetMethod(propName, setter);
       }
     }
   }
