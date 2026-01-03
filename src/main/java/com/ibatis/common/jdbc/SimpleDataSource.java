@@ -215,66 +215,63 @@ public class SimpleDataSource implements DataSource {
         throw new RuntimeException("SimpleDataSource: The properties map passed to the initializer was null.");
       }
 
-      if (!(props.containsKey(PROP_JDBC_DRIVER) && props.containsKey(PROP_JDBC_URL)
-          && props.containsKey(PROP_JDBC_USERNAME) && props.containsKey(PROP_JDBC_PASSWORD))) {
+      if ((!props.containsKey(PROP_JDBC_DRIVER) || !props.containsKey(PROP_JDBC_URL)
+          || !props.containsKey(PROP_JDBC_USERNAME) || !props.containsKey(PROP_JDBC_PASSWORD))) {
         throw new RuntimeException("SimpleDataSource: Some properties were not set.");
-      } else {
+      }
+      jdbcDriver = (String) props.get(PROP_JDBC_DRIVER);
+      jdbcUrl = (String) props.get(PROP_JDBC_URL);
+      jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);
+      jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
 
-        jdbcDriver = (String) props.get(PROP_JDBC_DRIVER);
-        jdbcUrl = (String) props.get(PROP_JDBC_URL);
-        jdbcUsername = (String) props.get(PROP_JDBC_USERNAME);
-        jdbcPassword = (String) props.get(PROP_JDBC_PASSWORD);
+      poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
+          ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
 
-        poolMaximumActiveConnections = props.containsKey(PROP_POOL_MAX_ACTIVE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_ACTIVE_CONN)) : 10;
+      poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN)
+          ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN)) : 5;
 
-        poolMaximumIdleConnections = props.containsKey(PROP_POOL_MAX_IDLE_CONN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_IDLE_CONN)) : 5;
+      poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
+          ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
 
-        poolMaximumCheckoutTime = props.containsKey(PROP_POOL_MAX_CHECKOUT_TIME)
-            ? Integer.parseInt((String) props.get(PROP_POOL_MAX_CHECKOUT_TIME)) : 20000;
+      poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT)
+          ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
 
-        poolTimeToWait = props.containsKey(PROP_POOL_TIME_TO_WAIT)
-            ? Integer.parseInt((String) props.get(PROP_POOL_TIME_TO_WAIT)) : 20000;
+      poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
+          && Boolean.parseBoolean((String) props.get(PROP_POOL_PING_ENABLED));
 
-        poolPingEnabled = props.containsKey(PROP_POOL_PING_ENABLED)
-            && Boolean.parseBoolean((String) props.get(PROP_POOL_PING_ENABLED));
+      prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);
+      poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
 
-        prop_pool_ping_query = (String) props.get(PROP_POOL_PING_QUERY);
-        poolPingQuery = props.containsKey(PROP_POOL_PING_QUERY) ? prop_pool_ping_query : "NO PING QUERY SET";
+      poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
+          ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
 
-        poolPingConnectionsOlderThan = props.containsKey(PROP_POOL_PING_CONN_OLDER_THAN)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_OLDER_THAN)) : 0;
+      poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
+          ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
 
-        poolPingConnectionsNotUsedFor = props.containsKey(PROP_POOL_PING_CONN_NOT_USED_FOR)
-            ? Integer.parseInt((String) props.get(PROP_POOL_PING_CONN_NOT_USED_FOR)) : 0;
+      jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
+          && Boolean.parseBoolean((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT));
 
-        jdbcDefaultAutoCommit = props.containsKey(PROP_JDBC_DEFAULT_AUTOCOMMIT)
-            && Boolean.parseBoolean((String) props.get(PROP_JDBC_DEFAULT_AUTOCOMMIT));
-
-        useDriverProps = false;
-        Iterator propIter = props.keySet().iterator();
-        driverProps = new Properties();
-        driverProps.put("user", jdbcUsername);
-        driverProps.put("password", jdbcPassword);
-        while (propIter.hasNext()) {
-          String name = (String) propIter.next();
-          String value = (String) props.get(name);
-          if (name.startsWith(ADD_DRIVER_PROPS_PREFIX)) {
-            driverProps.put(name.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);
-            useDriverProps = true;
-          }
+      useDriverProps = false;
+      Iterator propIter = props.keySet().iterator();
+      driverProps = new Properties();
+      driverProps.put("user", jdbcUsername);
+      driverProps.put("password", jdbcPassword);
+      while (propIter.hasNext()) {
+        String name = (String) propIter.next();
+        String value = (String) props.get(name);
+        if (name.startsWith(ADD_DRIVER_PROPS_PREFIX)) {
+          driverProps.put(name.substring(ADD_DRIVER_PROPS_PREFIX_LENGTH), value);
+          useDriverProps = true;
         }
+      }
 
-        expectedConnectionTypeCode = assembleConnectionTypeCode(jdbcUrl, jdbcUsername, jdbcPassword);
+      expectedConnectionTypeCode = assembleConnectionTypeCode(jdbcUrl, jdbcUsername, jdbcPassword);
 
-        Resources.instantiate(jdbcDriver);
+      Resources.instantiate(jdbcDriver);
 
-        if (poolPingEnabled
-            && (!props.containsKey(PROP_POOL_PING_QUERY) || prop_pool_ping_query.trim().length() == 0)) {
-          throw new RuntimeException("SimpleDataSource: property '" + PROP_POOL_PING_ENABLED
-              + "' is true, but property '" + PROP_POOL_PING_QUERY + "' is not set correctly.");
-        }
+      if (poolPingEnabled && (!props.containsKey(PROP_POOL_PING_QUERY) || prop_pool_ping_query.trim().length() == 0)) {
+        throw new RuntimeException("SimpleDataSource: property '" + PROP_POOL_PING_ENABLED + "' is true, but property '"
+            + PROP_POOL_PING_QUERY + "' is not set correctly.");
       }
 
     } catch (Exception e) {
@@ -821,39 +818,36 @@ public class SimpleDataSource implements DataSource {
       result = false;
     }
 
-    if (result) {
-      if (poolPingEnabled) {
-        if ((poolPingConnectionsOlderThan > 0 && conn.getAge() > poolPingConnectionsOlderThan)
-            || (poolPingConnectionsNotUsedFor > 0
-                && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor)) {
+    if (result && poolPingEnabled) {
+      if (poolPingConnectionsOlderThan > 0 && conn.getAge() > poolPingConnectionsOlderThan
+          || poolPingConnectionsNotUsedFor > 0 && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor) {
 
+        try {
+          if (log.isDebugEnabled()) {
+            log.debug("Testing connection " + conn.getRealHashCode() + " ...");
+          }
+          Connection realConn = conn.getRealConnection();
+          Statement statement = realConn.createStatement();
+          ResultSet rs = statement.executeQuery(poolPingQuery);
+          rs.close();
+          statement.close();
+          if (!realConn.getAutoCommit()) {
+            realConn.rollback();
+          }
+          result = true;
+          if (log.isDebugEnabled()) {
+            log.debug("Connection " + conn.getRealHashCode() + " is GOOD!");
+          }
+        } catch (Exception e) {
+          log.warn("Execution of ping query '" + poolPingQuery + "' failed: " + e.getMessage());
           try {
-            if (log.isDebugEnabled()) {
-              log.debug("Testing connection " + conn.getRealHashCode() + " ...");
-            }
-            Connection realConn = conn.getRealConnection();
-            Statement statement = realConn.createStatement();
-            ResultSet rs = statement.executeQuery(poolPingQuery);
-            rs.close();
-            statement.close();
-            if (!realConn.getAutoCommit()) {
-              realConn.rollback();
-            }
-            result = true;
-            if (log.isDebugEnabled()) {
-              log.debug("Connection " + conn.getRealHashCode() + " is GOOD!");
-            }
-          } catch (Exception e) {
-            log.warn("Execution of ping query '" + poolPingQuery + "' failed: " + e.getMessage());
-            try {
-              conn.getRealConnection().close();
-            } catch (Exception e2) {
-              // ignore
-            }
-            result = false;
-            if (log.isDebugEnabled()) {
-              log.debug("Connection " + conn.getRealHashCode() + " is BAD: " + e.getMessage());
-            }
+            conn.getRealConnection().close();
+          } catch (Exception e2) {
+            // ignore
+          }
+          result = false;
+          if (log.isDebugEnabled()) {
+            log.debug("Connection " + conn.getRealHashCode() + " is BAD: " + e.getMessage());
           }
         }
       }
