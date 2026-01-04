@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,8 +73,6 @@ public class InlineParameterMapParser {
   public SqlText parseInlineParameterMap(TypeHandlerFactory typeHandlerFactory, String sqlStatement,
       Class parameterClass) {
 
-    String newSql = sqlStatement;
-
     List mappingList = new ArrayList<>();
 
     StringTokenizer parser = new StringTokenizer(sqlStatement, PARAMETER_TOKEN, true);
@@ -115,7 +113,7 @@ public class InlineParameterMapParser {
       lastToken = token;
     }
 
-    newSql = newSqlBuffer.toString();
+    String newSql = newSqlBuffer.toString();
 
     ParameterMapping[] mappingArray = (ParameterMapping[]) mappingList
         .toArray(new ParameterMapping[mappingList.size()]);
