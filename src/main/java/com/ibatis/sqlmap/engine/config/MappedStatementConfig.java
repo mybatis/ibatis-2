@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,21 +132,19 @@ public class MappedStatementConfig {
     }
     statement.setId(id);
     statement.setResource(errorContext.getResource());
-    if (resultSetType != null) {
-      if (resultSetType != null) {
-        switch (resultSetType) {
-          case "FORWARD_ONLY":
-            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
-            break;
-          case "SCROLL_INSENSITIVE":
-            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_INSENSITIVE));
-            break;
-          case "SCROLL_SENSITIVE":
-            statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_SENSITIVE));
-            break;
-          default:
-            break;
-        }
+    if ((resultSetType != null) && (resultSetType != null)) {
+      switch (resultSetType) {
+        case "FORWARD_ONLY":
+          statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
+          break;
+        case "SCROLL_INSENSITIVE":
+          statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_INSENSITIVE));
+          break;
+        case "SCROLL_SENSITIVE":
+          statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_SCROLL_SENSITIVE));
+          break;
+        default:
+          break;
       }
     }
     if (fetchSize != null) {
@@ -222,7 +220,7 @@ public class MappedStatementConfig {
       throw new SqlMapException("You cant set a select key statement on statement named " + rootStatement.getId()
           + " because it is not an InsertStatement.");
     }
-    InsertStatement insertStatement = ((InsertStatement) rootStatement);
+    InsertStatement insertStatement = (InsertStatement) rootStatement;
     Class parameterClass = insertStatement.getParameterClass();
     errorContext.setActivity("parsing a select key");
     SelectKeyStatement selectKeyStatement = new SelectKeyStatement();

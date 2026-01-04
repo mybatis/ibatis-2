@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,20 +159,18 @@ public class PaginatedDataList implements PaginatedList {
         currentPageList = list.subList(0, pageSize);
         nextPageList = list.subList(pageSize, list.size());
       }
+    } else if (list.size() <= pageSize) {
+      prevPageList = list.subList(0, list.size());
+      currentPageList = new ArrayList<>(0);
+      nextPageList = new ArrayList<>(0);
+    } else if (list.size() <= pageSize * 2) {
+      prevPageList = list.subList(0, pageSize);
+      currentPageList = list.subList(pageSize, list.size());
+      nextPageList = new ArrayList<>(0);
     } else {
-      if (list.size() <= pageSize) {
-        prevPageList = list.subList(0, list.size());
-        currentPageList = new ArrayList<>(0);
-        nextPageList = new ArrayList<>(0);
-      } else if (list.size() <= pageSize * 2) {
-        prevPageList = list.subList(0, pageSize);
-        currentPageList = list.subList(pageSize, list.size());
-        nextPageList = new ArrayList<>(0);
-      } else {
-        prevPageList = list.subList(0, pageSize);
-        currentPageList = list.subList(pageSize, pageSize * 2);
-        nextPageList = list.subList(pageSize * 2, list.size());
-      }
+      prevPageList = list.subList(0, pageSize);
+      currentPageList = list.subList(pageSize, pageSize * 2);
+      nextPageList = list.subList(pageSize * 2, list.size());
     }
 
   }

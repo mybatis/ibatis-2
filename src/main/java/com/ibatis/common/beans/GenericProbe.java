@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,26 +61,9 @@ public class GenericProbe extends BaseProbe {
     if (object instanceof org.w3c.dom.Document) {
       return DOM_PROBE.getObject(object, name);
     }
-    if ((object instanceof List) || (object instanceof Object[]) || (object instanceof char[])
-        || (object instanceof boolean[])) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof byte[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof double[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof float[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof int[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof long[]) {
-      return BEAN_PROBE.getIndexedProperty(object, name);
-    }
-    if (object instanceof short[]) {
+    if (object instanceof List || object instanceof Object[] || object instanceof char[] || object instanceof boolean[]
+        || object instanceof byte[] || object instanceof double[] || object instanceof float[]
+        || object instanceof int[] || object instanceof long[] || object instanceof short[]) {
       return BEAN_PROBE.getIndexedProperty(object, name);
     }
     return BEAN_PROBE.getObject(object, name);
