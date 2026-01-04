@@ -149,54 +149,53 @@ public class InlineParameterMapParser {
         throw new SqlMapException("Incorrect inline parameter map format (missmatched name=value pairs): " + token);
       }
       String value = paramParser.nextToken();
-      if (field != null) {
-        switch (field) {
-          case "javaType":
-            value = typeHandlerFactory.resolveAlias(value);
-            mapping.setJavaTypeName(value);
-            break;
-          case "jdbcType":
-            mapping.setJdbcTypeName(value);
-            break;
-          case "mode":
-            mapping.setMode(value);
-            break;
-          case "nullValue":
-            mapping.setNullValue(value);
-            break;
-          case "handler":
-            try {
-              value = typeHandlerFactory.resolveAlias(value);
-              Object impl = Resources.instantiate(value);
-              if (impl instanceof TypeHandlerCallback) {
-                mapping.setTypeHandler(new CustomTypeHandler((TypeHandlerCallback) impl));
-              } else if (impl instanceof TypeHandler) {
-                mapping.setTypeHandler((TypeHandler) impl);
-              } else {
-                throw new SqlMapException(
-                    "The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
-              }
-            } catch (Exception e) {
-              throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
-                  e);
-            }
-            break;
-          case "numericScale":
-            try {
-              Integer numericScale = Integer.valueOf(value);
-              if (numericScale.intValue() < 0) {
-                throw new SqlMapException("Value specified for numericScale must be greater than or equal to zero");
-              }
-              mapping.setNumericScale(numericScale);
-            } catch (NumberFormatException e) {
-              throw new SqlMapException("Value specified for numericScale is not a valid Integer");
-            }
-            break;
-          default:
-            throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
-        }
-      } else {
+      if (field == null) {
         throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
+      }
+      switch (field) {
+        case "javaType":
+          value = typeHandlerFactory.resolveAlias(value);
+          mapping.setJavaTypeName(value);
+          break;
+        case "jdbcType":
+          mapping.setJdbcTypeName(value);
+          break;
+        case "mode":
+          mapping.setMode(value);
+          break;
+        case "nullValue":
+          mapping.setNullValue(value);
+          break;
+        case "handler":
+          try {
+            value = typeHandlerFactory.resolveAlias(value);
+            Object impl = Resources.instantiate(value);
+            if (impl instanceof TypeHandlerCallback) {
+              mapping.setTypeHandler(new CustomTypeHandler((TypeHandlerCallback) impl));
+            } else if (impl instanceof TypeHandler) {
+              mapping.setTypeHandler((TypeHandler) impl);
+            } else {
+              throw new SqlMapException(
+                  "The class " + value + " is not a valid implementation of TypeHandler or TypeHandlerCallback");
+            }
+          } catch (Exception e) {
+            throw new SqlMapException("Error loading class specified by handler field in " + token + ".  Cause: " + e,
+                e);
+          }
+          break;
+        case "numericScale":
+          try {
+            Integer numericScale = Integer.valueOf(value);
+            if (numericScale.intValue() < 0) {
+              throw new SqlMapException("Value specified for numericScale must be greater than or equal to zero");
+            }
+            mapping.setNumericScale(numericScale);
+          } catch (NumberFormatException e) {
+            throw new SqlMapException("Value specified for numericScale is not a valid Integer");
+          }
+          break;
+        default:
+          throw new SqlMapException("Unrecognized parameter mapping field: '" + field + "' in " + token);
       }
     }
 
@@ -254,8 +253,10 @@ public class InlineParameterMapParser {
         handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
       }
       mapping.setTypeHandler(handler);
-      return mapping;
-    } else if (n1 >= 5) {
+    } else {
+      if (n1 < 5) {
+        throw new SqlMapException("Incorrect inline parameter map format: " + token);
+      }
       String name = paramParser.nextToken();
       paramParser.nextToken(); // ignore ":"
       String type = paramParser.nextToken();
@@ -274,10 +275,9 @@ public class InlineParameterMapParser {
         handler = resolveTypeHandler(typeHandlerFactory, parameterClass, name, null, type);
       }
       mapping.setTypeHandler(handler);
-      return mapping;
-    } else {
-      throw new SqlMapException("Incorrect inline parameter map format: " + token);
     }
+    return mapping;
+
   }
 
   /**
