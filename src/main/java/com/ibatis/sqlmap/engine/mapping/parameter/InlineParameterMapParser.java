@@ -85,7 +85,6 @@ public class InlineParameterMapParser {
       if (PARAMETER_TOKEN.equals(lastToken)) {
         if (PARAMETER_TOKEN.equals(token)) {
           newSqlBuffer.append(PARAMETER_TOKEN);
-          token = null;
         } else {
           ParameterMapping mapping = null;
           if (token.indexOf(PARAM_DELIM) > -1) {
@@ -104,8 +103,8 @@ public class InlineParameterMapParser {
             throw new SqlMapException(
                 "Unterminated inline parameter in mapped statement near '" + newSqlBuffer.toString() + "'");
           }
-          token = null;
         }
+        token = null;
       } else if (!PARAMETER_TOKEN.equals(token)) {
         newSqlBuffer.append(token);
       }
