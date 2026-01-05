@@ -72,6 +72,7 @@ public class PaginatedDataList implements PaginatedList {
    * @throws SQLException
    *           the SQL exception
    */
+  @Deprecated
   public PaginatedDataList(SqlMapExecutor sqlMapExecutor, String statementName, Object parameterObject, int pageSize)
       throws SQLException {
     this.sqlMapExecutor = sqlMapExecutor;
@@ -135,6 +136,7 @@ public class PaginatedDataList implements PaginatedList {
    * @throws SQLException
    *           the SQL exception
    */
+  @Deprecated
   public void pageTo(int idx) throws SQLException {
     index = idx;
 
@@ -192,6 +194,7 @@ public class PaginatedDataList implements PaginatedList {
     return sqlMapExecutor.queryForList(statementName, parameterObject, idx * pageSize, localPageSize);
   }
 
+  @Deprecated
   @Override
   public boolean nextPage() {
     if (isNextPageAvailable()) {
@@ -202,6 +205,7 @@ public class PaginatedDataList implements PaginatedList {
     return false;
   }
 
+  @Deprecated
   @Override
   public boolean previousPage() {
     if (isPreviousPageAvailable()) {
@@ -212,156 +216,187 @@ public class PaginatedDataList implements PaginatedList {
     return false;
   }
 
+  @Deprecated
   @Override
   public void gotoPage(int pageNumber) {
     safePageTo(pageNumber);
   }
 
+  @Deprecated
   @Override
   public int getPageSize() {
     return pageSize;
   }
 
+  @Deprecated
   @Override
   public boolean isFirstPage() {
     return index == 0;
   }
 
+  @Deprecated
   @Override
   public boolean isMiddlePage() {
     return !isFirstPage() && !isLastPage();
   }
 
+  @Deprecated
   @Override
   public boolean isLastPage() {
     return nextPageList.size() < 1;
   }
 
+  @Deprecated
   @Override
   public boolean isNextPageAvailable() {
     return nextPageList.size() > 0;
   }
 
+  @Deprecated
   @Override
   public boolean isPreviousPageAvailable() {
     return prevPageList.size() > 0;
   }
 
+  @Deprecated
   @Override
   public int size() {
     return currentPageList.size();
   }
 
+  @Deprecated
   @Override
   public boolean isEmpty() {
     return currentPageList.isEmpty();
   }
 
+  @Deprecated
   @Override
   public boolean contains(Object o) {
     return currentPageList.contains(o);
   }
 
+  @Deprecated
   @Override
   public Iterator iterator() {
     return currentPageList.iterator();
   }
 
+  @Deprecated
   @Override
   public Object[] toArray() {
     return currentPageList.toArray();
   }
 
+  @Deprecated
   @Override
   public Object[] toArray(Object a[]) {
     return currentPageList.toArray(a);
   }
 
+  @Deprecated
   @Override
   public boolean containsAll(Collection c) {
     return currentPageList.containsAll(c);
   }
 
+  @Deprecated
   @Override
   public Object get(int index) {
     return currentPageList.get(index);
   }
 
+  @Deprecated
   @Override
   public int indexOf(Object o) {
     return currentPageList.indexOf(o);
   }
 
+  @Deprecated
   @Override
   public int lastIndexOf(Object o) {
     return currentPageList.lastIndexOf(o);
   }
 
+  @Deprecated
   @Override
   public ListIterator listIterator() {
     return currentPageList.listIterator();
   }
 
+  @Deprecated
   @Override
   public ListIterator listIterator(int index) {
     return currentPageList.listIterator(index);
   }
 
+  @Deprecated
   @Override
   public List subList(int fromIndex, int toIndex) {
     return currentPageList.subList(fromIndex, toIndex);
   }
 
+  @Deprecated
   @Override
   public boolean add(Object o) {
     return currentPageList.add(o);
   }
 
+  @Deprecated
   @Override
   public boolean remove(Object o) {
     return currentPageList.remove(o);
   }
 
+  @Deprecated
   @Override
   public boolean addAll(Collection c) {
     return currentPageList.addAll(c);
   }
 
+  @Deprecated
   @Override
   public boolean addAll(int index, Collection c) {
     return currentPageList.addAll(index, c);
   }
 
+  @Deprecated
   @Override
   public boolean removeAll(Collection c) {
     return currentPageList.removeAll(c);
   }
 
+  @Deprecated
   @Override
   public boolean retainAll(Collection c) {
     return currentPageList.retainAll(c);
   }
 
+  @Deprecated
   @Override
   public void clear() {
     currentPageList.clear();
   }
 
+  @Deprecated
   @Override
   public Object set(int index, Object element) {
     return currentPageList.set(index, element);
   }
 
+  @Deprecated
   @Override
   public void add(int index, Object element) {
     currentPageList.add(index, element);
   }
 
+  @Deprecated
   @Override
   public Object remove(int index) {
     return currentPageList.remove(index);
   }
 
+  @Deprecated
   @Override
   public int getPageIndex() {
     return index;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ public class PaginatedArrayList implements PaginatedList {
    * @param pageSize
    *          the page size
    */
+  @Deprecated
   public PaginatedArrayList(int pageSize) {
     this.pageSize = pageSize;
     this.index = 0;
@@ -65,6 +66,7 @@ public class PaginatedArrayList implements PaginatedList {
    * @param pageSize
    *          - the page size
    */
+  @Deprecated
   public PaginatedArrayList(int initialCapacity, int pageSize) {
     this.pageSize = pageSize;
     this.index = 0;
@@ -80,6 +82,7 @@ public class PaginatedArrayList implements PaginatedList {
    * @param pageSize
    *          - the page size
    */
+  @Deprecated
   public PaginatedArrayList(Collection c, int pageSize) {
     this.pageSize = pageSize;
     this.index = 0;
@@ -116,66 +119,79 @@ public class PaginatedArrayList implements PaginatedList {
 
   /* List accessors (uses page) */
 
+  @Deprecated
   @Override
   public int size() {
     return page.size();
   }
 
+  @Deprecated
   @Override
   public boolean isEmpty() {
     return page.isEmpty();
   }
 
+  @Deprecated
   @Override
   public boolean contains(Object o) {
     return page.contains(o);
   }
 
+  @Deprecated
   @Override
   public Iterator iterator() {
     return page.iterator();
   }
 
+  @Deprecated
   @Override
   public Object[] toArray() {
     return page.toArray();
   }
 
+  @Deprecated
   @Override
   public Object[] toArray(Object a[]) {
     return page.toArray(a);
   }
 
+  @Deprecated
   @Override
   public boolean containsAll(Collection c) {
     return page.containsAll(c);
   }
 
+  @Deprecated
   @Override
   public Object get(int index) {
     return page.get(index);
   }
 
+  @Deprecated
   @Override
   public int indexOf(Object o) {
     return page.indexOf(o);
   }
 
+  @Deprecated
   @Override
   public int lastIndexOf(Object o) {
     return page.lastIndexOf(o);
   }
 
+  @Deprecated
   @Override
   public ListIterator listIterator() {
     return page.listIterator();
   }
 
+  @Deprecated
   @Override
   public ListIterator listIterator(int index) {
     return page.listIterator(index);
   }
 
+  @Deprecated
   @Override
   public List subList(int fromIndex, int toIndex) {
     return page.subList(fromIndex, toIndex);
@@ -183,6 +199,7 @@ public class PaginatedArrayList implements PaginatedList {
 
   /* List mutators (uses master list) */
 
+  @Deprecated
   @Override
   public boolean add(Object o) {
     boolean b = list.add(o);
@@ -190,6 +207,7 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public boolean remove(Object o) {
     boolean b = list.remove(o);
@@ -197,6 +215,7 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public boolean addAll(Collection c) {
     boolean b = list.addAll(c);
@@ -204,6 +223,7 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public boolean addAll(int index, Collection c) {
     boolean b = list.addAll(index, c);
@@ -211,6 +231,7 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public boolean removeAll(Collection c) {
     boolean b = list.removeAll(c);
@@ -218,6 +239,7 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public boolean retainAll(Collection c) {
     boolean b = list.retainAll(c);
@@ -225,12 +247,14 @@ public class PaginatedArrayList implements PaginatedList {
     return b;
   }
 
+  @Deprecated
   @Override
   public void clear() {
     list.clear();
     repaginate();
   }
 
+  @Deprecated
   @Override
   public Object set(int index, Object element) {
     Object o = list.set(index, element);
@@ -238,12 +262,14 @@ public class PaginatedArrayList implements PaginatedList {
     return o;
   }
 
+  @Deprecated
   @Override
   public void add(int index, Object element) {
     list.add(index, element);
     repaginate();
   }
 
+  @Deprecated
   @Override
   public Object remove(int index) {
     Object o = list.remove(index);
@@ -253,36 +279,43 @@ public class PaginatedArrayList implements PaginatedList {
 
   /* Paginated List methods */
 
+  @Deprecated
   @Override
   public int getPageSize() {
     return pageSize;
   }
 
+  @Deprecated
   @Override
   public boolean isFirstPage() {
     return index == 0;
   }
 
+  @Deprecated
   @Override
   public boolean isMiddlePage() {
     return !isFirstPage() && !isLastPage();
   }
 
+  @Deprecated
   @Override
   public boolean isLastPage() {
     return list.size() - (index + 1) * pageSize < 1;
   }
 
+  @Deprecated
   @Override
   public boolean isNextPageAvailable() {
     return !isLastPage();
   }
 
+  @Deprecated
   @Override
   public boolean isPreviousPageAvailable() {
     return !isFirstPage();
   }
 
+  @Deprecated
   @Override
   public boolean nextPage() {
     if (isNextPageAvailable()) {
@@ -293,6 +326,7 @@ public class PaginatedArrayList implements PaginatedList {
     return false;
   }
 
+  @Deprecated
   @Override
   public boolean previousPage() {
     if (isPreviousPageAvailable()) {
@@ -303,12 +337,14 @@ public class PaginatedArrayList implements PaginatedList {
     return false;
   }
 
+  @Deprecated
   @Override
   public void gotoPage(int pageNumber) {
     index = pageNumber;
     repaginate();
   }
 
+  @Deprecated
   @Override
   public int getPageIndex() {
     return index;

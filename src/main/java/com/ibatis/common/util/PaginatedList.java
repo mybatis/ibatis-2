@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ public interface PaginatedList extends List {
    *
    * @return The maximum number of items per page.
    */
+  @Deprecated
   int getPageSize();
 
   /**
@@ -37,6 +38,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the current page is the first page or if only a single page exists.
    */
+  @Deprecated
   boolean isFirstPage();
 
   /**
@@ -45,6 +47,7 @@ public interface PaginatedList extends List {
    * @return True if the current page is not the first or last page, and more than one page exists (always returns false
    *         if only a single page exists).
    */
+  @Deprecated
   boolean isMiddlePage();
 
   /**
@@ -52,6 +55,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the current page is the last page or if only a single page exists.
    */
+  @Deprecated
   boolean isLastPage();
 
   /**
@@ -59,6 +63,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the next page is available
    */
+  @Deprecated
   boolean isNextPageAvailable();
 
   /**
@@ -66,6 +71,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the previous page is available
    */
+  @Deprecated
   boolean isPreviousPageAvailable();
 
   /**
@@ -73,6 +79,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the page changed
    */
+  @Deprecated
   boolean nextPage();
 
   /**
@@ -80,6 +87,7 @@ public interface PaginatedList extends List {
    *
    * @return True if the page changed
    */
+  @Deprecated
   boolean previousPage();
 
   /**
@@ -89,6 +97,7 @@ public interface PaginatedList extends List {
    * @param pageNumber
    *          The page to go to
    */
+  @Deprecated
   void gotoPage(int pageNumber);
 
   /**
@@ -97,6 +106,7 @@ public interface PaginatedList extends List {
    *
    * @return The current page
    */
+  @Deprecated
   int getPageIndex();
 
 }
