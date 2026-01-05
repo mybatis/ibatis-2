@@ -28,34 +28,34 @@ class SqlMapClasspathEntityResolverTest {
   @Test
   void testOrgConfigSystemId() {
     final String id = "https://ibatis.apache.org/dtd/sql-map-config-2.dtd";
-    assertSystemIdCanBeResolved(id);
+    this.assertSystemIdCanBeResolved(id);
   }
 
   @Test
   void testOrgConfigPublicId() {
     final String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
-    assertPublicIdCanBeResolved(id);
+    this.assertPublicIdCanBeResolved(id);
   }
 
   @Test
   void testOrgMapSystemId() {
     final String id = "https://ibatis.apache.org/dtd/sql-map-2.dtd";
-    assertSystemIdCanBeResolved(id);
+    this.assertSystemIdCanBeResolved(id);
   }
 
   @Test
   void testOrgMapPublicId() {
     final String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
-    assertPublicIdCanBeResolved(id);
+    this.assertPublicIdCanBeResolved(id);
   }
 
   @Test
   void testOddCase() {
     final String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
-    assertPublicIdCanBeResolved(id);
+    this.assertPublicIdCanBeResolved(id);
   }
 
-  private void assertSystemIdCanBeResolved(String id) {
+  private void assertSystemIdCanBeResolved(final String id) {
     final SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
     try {
       final InputSource source = resolver.resolveEntity(null, id);
@@ -67,7 +67,7 @@ class SqlMapClasspathEntityResolverTest {
     }
   }
 
-  private void assertPublicIdCanBeResolved(String id) {
+  private void assertPublicIdCanBeResolved(final String id) {
     final SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
     try {
       final InputSource source = resolver.resolveEntity(id, null);

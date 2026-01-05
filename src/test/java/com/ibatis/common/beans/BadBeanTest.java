@@ -15,13 +15,10 @@
  */
 package com.ibatis.common.beans;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import badbeans.BeanWithDifferentTypeGetterSetter;
@@ -36,37 +33,40 @@ class BadBeanTest {
   private static final Object STRING_VALUE = "1";
   private static final Object INT_VALUE = Integer.valueOf(1);
   private static final Object[] NO_VALUE = {};
-  private static final Object[] STRING_PARAMS = { STRING_VALUE };
-  private static final Object[] INT_PARAMS = { INT_VALUE };
+  private static final Object[] STRING_PARAMS = { BadBeanTest.STRING_VALUE };
+  private static final Object[] INT_PARAMS = { BadBeanTest.INT_VALUE };
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
     final GoodBean bean = new GoodBean();
     final ClassInfo info = ClassInfo.getInstance(GoodBean.class);
-    info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
-    assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
-    assertEquals(String.class, info.getSetterType(PROPNAME));
-    assertEquals(String.class, info.getGetterType(PROPNAME));
+    info.getSetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.STRING_PARAMS);
+    Assertions.assertEquals(BadBeanTest.STRING_VALUE,
+        info.getGetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.NO_VALUE));
+    Assertions.assertEquals(String.class, info.getSetterType(BadBeanTest.PROPNAME));
+    Assertions.assertEquals(String.class, info.getGetterType(BadBeanTest.PROPNAME));
   }
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
     final BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
     final ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
-    info.getSetter(PROPNAME).invoke(bean, INT_PARAMS);
-    assertEquals(INT_VALUE.toString(), info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
-    assertEquals(Integer.class, info.getSetterType(PROPNAME));
-    assertEquals(String.class, info.getGetterType(PROPNAME));
+    info.getSetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.INT_PARAMS);
+    Assertions.assertEquals(BadBeanTest.INT_VALUE.toString(),
+        info.getGetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.NO_VALUE));
+    Assertions.assertEquals(Integer.class, info.getSetterType(BadBeanTest.PROPNAME));
+    Assertions.assertEquals(String.class, info.getGetterType(BadBeanTest.PROPNAME));
   }
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
     final BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
     final ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
-    info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
-    assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
-    assertEquals(String.class, info.getSetterType(PROPNAME));
-    assertEquals(String.class, info.getGetterType(PROPNAME));
+    info.getSetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.STRING_PARAMS);
+    Assertions.assertEquals(BadBeanTest.STRING_VALUE,
+        info.getGetter(BadBeanTest.PROPNAME).invoke(bean, BadBeanTest.NO_VALUE));
+    Assertions.assertEquals(String.class, info.getSetterType(BadBeanTest.PROPNAME));
+    Assertions.assertEquals(String.class, info.getGetterType(BadBeanTest.PROPNAME));
   }
 
   @Test
@@ -75,10 +75,11 @@ class BadBeanTest {
       try {
         ClassInfo.getInstance(BeanWithNoGetterOverloadedSetters.class);
       } catch (final Exception e) {
-        assertTrue(e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
+        Assertions.assertTrue(
+            e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
         throw e;
       }
-      fail("Expected exception.");
+      Assertions.fail("Expected exception.");
     } catch (final Exception e) {
       // ignore
     }
@@ -90,10 +91,11 @@ class BadBeanTest {
       try {
         ClassInfo.getInstance(BeanWithDifferentTypeOverloadedSetter.class);
       } catch (final Exception e) {
-        assertTrue(e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
+        Assertions.assertTrue(
+            e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
         throw e;
       }
-      fail("Expected exception.");
+      Assertions.fail("Expected exception.");
     } catch (final Exception e) {
       // ignore
     }
@@ -103,7 +105,7 @@ class BadBeanTest {
   void testUnwrapThrowable() {
     final SQLException cause = new SQLException("test");
     final UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
-    assertEquals(cause, ClassInfo.unwrapThrowable(e));
+    Assertions.assertEquals(cause, ClassInfo.unwrapThrowable(e));
   }
 
 }

@@ -15,12 +15,10 @@
  */
 package com.ibatis.sqlmap.engine.mapping.parameter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import com.ibatis.sqlmap.engine.mapping.sql.SqlText;
 import com.ibatis.sqlmap.engine.type.TypeHandlerFactory;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class InlineParameterMapParserTest {
@@ -30,49 +28,53 @@ class InlineParameterMapParserTest {
     final InlineParameterMapParser parser = new InlineParameterMapParser();
     SqlText parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (1)");
-    assertEquals("insert into foo (myColumn) values (1)", parseInlineParameterMap.getText());
+    Assertions.assertEquals("insert into foo (myColumn) values (1)", parseInlineParameterMap.getText());
 
     parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (#myVar#)");
-    assertEquals("insert into foo (myColumn) values (?)", parseInlineParameterMap.getText());
+    Assertions.assertEquals("insert into foo (myColumn) values (?)", parseInlineParameterMap.getText());
 
     parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (#myVar:javaType=int#)");
-    assertEquals("insert into foo (myColumn) values (?)", parseInlineParameterMap.getText());
+    Assertions.assertEquals("insert into foo (myColumn) values (?)", parseInlineParameterMap.getText());
 
     try {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar)");
-      fail();
+      Assertions.fail();
     } catch (final Exception e) {
-      assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
+      Assertions.assertEquals(
+          "Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
           e.getMessage());
     }
 
     try {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar:javaType=int)");
-      fail();
+      Assertions.fail();
     } catch (final Exception e) {
-      assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
+      Assertions.assertEquals(
+          "Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
           e.getMessage());
     }
 
     try {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (myVar#)");
-      fail();
+      Assertions.fail();
     } catch (final Exception e) {
-      assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (myVar?'",
+      Assertions.assertEquals(
+          "Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (myVar?'",
           e.getMessage());
     }
 
     try {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar##)");
-      fail();
+      Assertions.fail();
     } catch (final Exception e) {
-      assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (??'",
+      Assertions.assertEquals(
+          "Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (??'",
           e.getMessage());
     }
   }

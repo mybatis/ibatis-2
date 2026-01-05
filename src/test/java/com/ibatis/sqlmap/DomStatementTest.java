@@ -15,9 +15,6 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
 
@@ -26,6 +23,7 @@ import java.sql.SQLException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
@@ -36,73 +34,74 @@ class DomStatementTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
-    initScript("scripts/order-init.sql");
-    initScript("scripts/line_item-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
+    BaseSqlMap.initScript("scripts/order-init.sql");
+    BaseSqlMap.initScript("scripts/line_item-init.sql");
   }
 
   @Test
   void testExecuteQueryForDom() throws SQLException {
-    final Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("1"));
-    assertNotNull(account);
+    final Document account = (Document) BaseSqlMap.sqlMap.queryForObject("getAccountDom", this.newParameter("1"));
+    Assertions.assertNotNull(account);
 
     final Probe dom = ProbeFactory.getProbe(account);
 
-    assertEquals("1", dom.getObject(account, "ID"));
-    assertEquals("Clinton", dom.getObject(account, "FIRSTNAME"));
-    assertEquals("Begin", dom.getObject(account, "LASTNAME"));
-    assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "EMAILADDRESS"));
+    Assertions.assertEquals("1", dom.getObject(account, "ID"));
+    Assertions.assertEquals("Clinton", dom.getObject(account, "FIRSTNAME"));
+    Assertions.assertEquals("Begin", dom.getObject(account, "LASTNAME"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "EMAILADDRESS"));
   }
 
   @Test
   void testExecuteQueryForDomSpecialChars() throws SQLException {
-    final Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("5"));
-    assertNotNull(account);
+    final Document account = (Document) BaseSqlMap.sqlMap.queryForObject("getAccountDom", this.newParameter("5"));
+    Assertions.assertNotNull(account);
 
     final Probe dom = ProbeFactory.getProbe(account);
 
-    assertEquals("5", dom.getObject(account, "ID"));
-    assertEquals("&manda", dom.getObject(account, "FIRSTNAME"));
+    Assertions.assertEquals("5", dom.getObject(account, "ID"));
+    Assertions.assertEquals("&manda", dom.getObject(account, "FIRSTNAME"));
   }
 
   @Test
   void testExecuteQueryForDomExternalMaps() throws SQLException {
-    final Document account = (Document) sqlMap.queryForObject("getAccountDomExternalMaps", newParameter("1"));
-    assertNotNull(account);
+    final Document account = (Document) BaseSqlMap.sqlMap.queryForObject("getAccountDomExternalMaps",
+        this.newParameter("1"));
+    Assertions.assertNotNull(account);
 
     final Probe dom = ProbeFactory.getProbe(account);
 
-    assertEquals("1", dom.getObject(account, "id"));
-    assertEquals("Clinton", dom.getObject(account, "firstName"));
-    assertEquals("Begin", dom.getObject(account, "lastName"));
-    assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "emailAddress"));
-    assertEquals("1", dom.getObject(account, "account.ID"));
-    assertEquals("Clinton", dom.getObject(account, "account.FIRSTNAME"));
-    assertEquals("Begin", dom.getObject(account, "account.LASTNAME"));
-    assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "account.EMAILADDRESS"));
+    Assertions.assertEquals("1", dom.getObject(account, "id"));
+    Assertions.assertEquals("Clinton", dom.getObject(account, "firstName"));
+    Assertions.assertEquals("Begin", dom.getObject(account, "lastName"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "emailAddress"));
+    Assertions.assertEquals("1", dom.getObject(account, "account.ID"));
+    Assertions.assertEquals("Clinton", dom.getObject(account, "account.FIRSTNAME"));
+    Assertions.assertEquals("Begin", dom.getObject(account, "account.LASTNAME"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getObject(account, "account.EMAILADDRESS"));
   }
 
   @Test
   void testExecuteQueryForOrderDom() throws SQLException {
 
-    final Document order = (Document) sqlMap.queryForObject("getOrderDom", newParameter("1"));
-    assertNotNull(order);
+    final Document order = (Document) BaseSqlMap.sqlMap.queryForObject("getOrderDom", this.newParameter("1"));
+    Assertions.assertNotNull(order);
 
     final Probe dom = ProbeFactory.getProbe(order);
 
-    assertEquals("1", dom.getObject(order, "id"));
-    assertEquals("2", dom.getObject(order, "lineItems.lineItem[1].ID"));
+    Assertions.assertEquals("1", dom.getObject(order, "id"));
+    Assertions.assertEquals("2", dom.getObject(order, "lineItems.lineItem[1].ID"));
   }
 
-  private Document newParameter(String val) {
-    final Document param = newDocument("parameter");
+  private Document newParameter(final String val) {
+    final Document param = this.newDocument("parameter");
     final Probe dom = ProbeFactory.getProbe(param);
     dom.setObject(param, "id", val);
     return param;
   }
 
-  private Document newDocument(String root) {
+  private Document newDocument(final String root) {
     try {
       final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
       doc.appendChild(doc.createElement(root));

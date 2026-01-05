@@ -15,11 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,36 +28,36 @@ class RepeatingGroupMappingTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/jpetstore-hsqldb-schema.sql");
-    initScript("scripts/jpetstore-hsqldb-dataload.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/jpetstore-hsqldb-schema.sql");
+    BaseSqlMap.initScript("scripts/jpetstore-hsqldb-dataload.sql");
   }
 
   @Test
   void testGroupBy() throws Exception {
-    final List<?> list = sqlMap.queryForList("getAllCategories", null);
-    assertEquals(5, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllCategories", null);
+    Assertions.assertEquals(5, list.size());
   }
 
   @Test
   void testGroupByExtended() throws Exception {
-    final List<?> list = sqlMap.queryForList("getAllCategoriesExtended", null);
-    assertEquals(5, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllCategoriesExtended", null);
+    Assertions.assertEquals(5, list.size());
   }
 
   @Test
   void testNestedProperties() throws Exception {
-    final List<?> list = sqlMap.queryForList("getFish", null);
-    assertEquals(1, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getFish", null);
+    Assertions.assertEquals(1, list.size());
 
     final Category cat = (Category) list.get(0);
-    assertEquals("FISH", cat.getCategoryId());
-    assertEquals("Fish", cat.getName());
-    assertNotNull(cat.getProductList(), "Expected product list.");
-    assertEquals(4, cat.getProductList().size());
+    Assertions.assertEquals("FISH", cat.getCategoryId());
+    Assertions.assertEquals("Fish", cat.getName());
+    Assertions.assertNotNull(cat.getProductList(), "Expected product list.");
+    Assertions.assertEquals(4, cat.getProductList().size());
 
     final Product product = (Product) cat.getProductList().get(0);
-    assertEquals(2, product.getItemList().size());
+    Assertions.assertEquals(2, product.getItemList().size());
   }
 
   /**
@@ -79,8 +77,8 @@ class RepeatingGroupMappingTest extends BaseSqlMap {
    */
   @Test
   void testGroupByJIRA250() throws Exception {
-    final List<?> list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
     final Category cat = (Category) list.get(0);
-    assertEquals(0, cat.getProductList().size());
+    Assertions.assertEquals(0, cat.getProductList().size());
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,34 +25,34 @@ public class Document {
   private List<?> attributes;
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(final int id) {
     this.id = id;
   }
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(final String title) {
     this.title = title;
   }
 
   public DocType getType() {
-    return type;
+    return this.type;
   }
 
-  public void setType(DocType type) {
+  public void setType(final DocType type) {
     this.type = type;
   }
 
   public List<?> getAttributes() {
-    return attributes;
+    return this.attributes;
   }
 
-  public void setAttributes(List<?> attributes) {
+  public void setAttributes(final List<?> attributes) {
     this.attributes = attributes;
   }
 

@@ -25,7 +25,7 @@ import java.sql.SQLException;
 public class PirateTypeHandlerCallback implements TypeHandlerCallback {
 
   @Override
-  public Object getResult(ResultGetter getter) throws SQLException {
+  public Object getResult(final ResultGetter getter) throws SQLException {
     final String s = getter.getString();
     if ("Aye".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
@@ -37,7 +37,7 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
   }
 
   @Override
-  public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
+  public void setParameter(final ParameterSetter setter, final Object parameter) throws SQLException {
     final boolean b = ((Boolean) parameter).booleanValue();
     if (b) {
       setter.setString("Aye");
@@ -47,7 +47,7 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
   }
 
   @Override
-  public Object valueOf(String s) {
+  public Object valueOf(final String s) {
     if ("Aye".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
     }

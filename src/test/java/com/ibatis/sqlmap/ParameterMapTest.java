@@ -15,12 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,96 +29,96 @@ class ParameterMapTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   // PARAMETER MAP FEATURE TESTS
 
   @Test
   void testNullValueReplacementMap() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
-    sqlMap.update("insertAccountViaParameterMap", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
-    assertAccount6(account);
+    this.assertAccount6(account);
   }
 
   @Test
   void testNullValueReplacementInline() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
-    sqlMap.update("insertAccountViaInlineParameters", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaInlineParameters", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
-    assertAccount6(account);
+    this.assertAccount6(account);
   }
 
   @Test
   void testNullValueReplacementInlineWithDynamic() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
     account.setId(0);
 
     Exception expected = null;
     try {
-      sqlMap.update("insertAccountViaInlineParametersWithDynamic", account);
+      BaseSqlMap.sqlMap.update("insertAccountViaInlineParametersWithDynamic", account);
     } catch (final SQLException e) {
       expected = e;
     }
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(0));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(0));
 
-    assertNotNull(expected);
-    assertMessageIsNullValueNotAllowed(expected.getMessage());
-    assertNull(account);
+    Assertions.assertNotNull(expected);
+    this.assertMessageIsNullValueNotAllowed(expected.getMessage());
+    Assertions.assertNull(account);
   }
 
-  protected void assertMessageIsNullValueNotAllowed(String message) {
-    assertTrue(message.indexOf("integrity constraint violation: NOT NULL check constraint") > -1
+  protected void assertMessageIsNullValueNotAllowed(final String message) {
+    Assertions.assertTrue(message.indexOf("integrity constraint violation: NOT NULL check constraint") > -1
         && message.indexOf("ACCOUNT column: ACC_ID") > -1, "Invalid exception message");
   }
 
   @Test
   void testSpecifiedType() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
     account.setEmailAddress(null);
 
-    sqlMap.update("insertAccountNullableEmail", account);
+    BaseSqlMap.sqlMap.update("insertAccountNullableEmail", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
-    assertAccount6(account);
+    this.assertAccount6(account);
   }
 
   @Test
   void testUnknownParameterClass() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
     account.setEmailAddress(null);
 
-    sqlMap.update("insertAccountUknownParameterClass", account);
+    BaseSqlMap.sqlMap.update("insertAccountUknownParameterClass", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
-    assertAccount6(account);
+    this.assertAccount6(account);
   }
 
   @Test
   void testNullParameter() throws SQLException {
 
-    final Account account = (Account) sqlMap.queryForObject("getAccountNullParameter", null);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullParameter", null);
 
-    assertNull(account);
+    Assertions.assertNull(account);
   }
 
   @Test
   void testNullParameter2() throws SQLException {
 
-    final Account account = (Account) sqlMap.queryForObject("getAccountNullParameter");
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullParameter");
 
-    assertNull(account);
+    Assertions.assertNull(account);
   }
 }

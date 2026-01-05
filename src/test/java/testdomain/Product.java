@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,42 +29,42 @@ public class Product implements Serializable {
   private List<?> itemList;
 
   public String getProductId() {
-    return productId;
+    return this.productId;
   }
 
-  public void setProductId(String productId) {
+  public void setProductId(final String productId) {
     this.productId = productId;
   }
 
   public String getCategoryId() {
-    return categoryId;
+    return this.categoryId;
   }
 
-  public void setCategoryId(String categoryId) {
+  public void setCategoryId(final String categoryId) {
     this.categoryId = categoryId;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
   public List<?> getItemList() {
-    return itemList;
+    return this.itemList;
   }
 
-  public void setItemList(List<?> itemList) {
+  public void setItemList(final List<?> itemList) {
     this.itemList = itemList;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,26 +24,26 @@ import java.util.List;
 public class MyBean {
 
   public List<?> getMyList() {
-    return myList;
+    return this.myList;
   }
 
-  public void setMyList(List<?> myList) {
+  public void setMyList(final List<?> myList) {
     this.myList = myList;
   }
 
   public Object[] getMyArray() {
-    return myArray;
+    return this.myArray;
   }
 
-  public void setMyArray(Object[] myArray) {
+  public void setMyArray(final Object[] myArray) {
     this.myArray = myArray;
   }
 
   public int[] getIntArray() {
-    return intArray;
+    return this.intArray;
   }
 
-  public void setIntArray(int[] intArray) {
+  public void setIntArray(final int[] intArray) {
     this.intArray = intArray;
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,42 +27,42 @@ public class FieldAccount implements Serializable {
   private FieldAccount account;
 
   public int id() {
-    return id;
+    return this.id;
   }
 
-  public void id(int id) {
+  public void id(final int id) {
     this.id = id;
   }
 
   public String firstName() {
-    return firstName;
+    return this.firstName;
   }
 
-  public void firstName(String firstName) {
+  public void firstName(final String firstName) {
     this.firstName = firstName;
   }
 
   public String lastName() {
-    return lastName;
+    return this.lastName;
   }
 
-  public void lastName(String lastName) {
+  public void lastName(final String lastName) {
     this.lastName = lastName;
   }
 
   public String emailAddress() {
-    return emailAddress;
+    return this.emailAddress;
   }
 
-  public void emailAddress(String emailAddress) {
+  public void emailAddress(final String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
   public FieldAccount account() {
-    return account;
+    return this.account;
   }
 
-  public void account(FieldAccount account) {
+  public void account(final FieldAccount account) {
     this.account = account;
   }
 }

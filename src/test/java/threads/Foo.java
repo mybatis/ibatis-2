@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class Foo {
     return this.column1;
   }
 
-  public void setColumn1(String column1) {
+  public void setColumn1(final String column1) {
     this.column1 = column1;
   }
 
@@ -35,7 +35,7 @@ public class Foo {
     return this.column2;
   }
 
-  public void setColumn2(String column2) {
+  public void setColumn2(final String column2) {
     this.column2 = column2;
   }
 
@@ -43,7 +43,7 @@ public class Foo {
     return this.column3;
   }
 
-  public void setColumn3(String column3) {
+  public void setColumn3(final String column3) {
     this.column3 = column3;
   }
 

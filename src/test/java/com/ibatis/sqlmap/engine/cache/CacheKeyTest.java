@@ -15,8 +15,7 @@
  */
 package com.ibatis.sqlmap.engine.cache;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,8 +43,8 @@ class CacheKeyTest {
 
     key4.update("B7");
 
-    assertTrue(!key3.equals(key4));
-    assertTrue(!key3.toString().equals(key4.toString()));
+    Assertions.assertTrue(!key3.equals(key4));
+    Assertions.assertTrue(!key3.toString().equals(key4.toString()));
 
   }
 

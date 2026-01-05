@@ -22,7 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DerbyProcs {
-  public static void selectRows(int p1, int p2, int p3, int p4, ResultSet[] rs1, ResultSet[] rs2) throws SQLException {
+  public static void selectRows(final int p1, final int p2, final int p3, final int p4, final ResultSet[] rs1,
+      final ResultSet[] rs2) throws SQLException {
     final Connection conn = DriverManager.getConnection("jdbc:default:connection");
     final PreparedStatement ps1 = conn.prepareStatement("select * from account where acc_id in (?,?)");
     ps1.setInt(1, p1);

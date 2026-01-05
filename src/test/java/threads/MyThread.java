@@ -27,7 +27,7 @@ class MyThread extends Thread {
   private final SqlMapClient sqlMap;
   private final String remap;
 
-  public MyThread(SqlMapClient sqlMap, String remap) {
+  public MyThread(final SqlMapClient sqlMap, final String remap) {
     this.remap = remap;
     this.sqlMap = sqlMap;
   }
@@ -37,16 +37,16 @@ class MyThread extends Thread {
   public void run() {
     while (true) {
       try {
-        final List<Foo> list = sqlMap.queryForList("selectFoo" + remap, null);
+        final List<Foo> list = this.sqlMap.queryForList("selectFoo" + this.remap, null);
         Assertions.assertEquals(300, list.size());
-        check(list);
+        MyThread.check(list);
       } catch (final SQLException e) {
         throw new RuntimeException(e);
       }
     }
   }
 
-  private static void check(List<Foo> list) {
+  private static void check(final List<Foo> list) {
     for (final Foo foo : list) {
       if (foo == null) {
         Assertions.fail("list contained a null element");

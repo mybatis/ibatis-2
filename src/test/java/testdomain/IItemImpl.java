@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,111 +43,111 @@ public class IItemImpl implements IItem {
 
   @Override
   public String getAttribute1() {
-    return attribute1;
+    return this.attribute1;
   }
 
   @Override
-  public void setAttribute1(String attribute1) {
+  public void setAttribute1(final String attribute1) {
     this.attribute1 = attribute1;
   }
 
   @Override
   public String getAttribute2() {
-    return attribute2;
+    return this.attribute2;
   }
 
   @Override
-  public void setAttribute2(String attribute2) {
+  public void setAttribute2(final String attribute2) {
     this.attribute2 = attribute2;
   }
 
   @Override
   public String getAttribute3() {
-    return attribute3;
+    return this.attribute3;
   }
 
   @Override
-  public void setAttribute3(String attribute3) {
+  public void setAttribute3(final String attribute3) {
     this.attribute3 = attribute3;
   }
 
   @Override
   public String getAttribute4() {
-    return attribute4;
+    return this.attribute4;
   }
 
   @Override
-  public void setAttribute4(String attribute4) {
+  public void setAttribute4(final String attribute4) {
     this.attribute4 = attribute4;
   }
 
   @Override
   public String getAttribute5() {
-    return attribute5;
+    return this.attribute5;
   }
 
   @Override
-  public void setAttribute5(String attribute5) {
+  public void setAttribute5(final String attribute5) {
     this.attribute5 = attribute5;
   }
 
   @Override
   public String getItemId() {
-    return itemId;
+    return this.itemId;
   }
 
   @Override
-  public void setItemId(String itemId) {
+  public void setItemId(final String itemId) {
     this.itemId = itemId;
   }
 
   @Override
   public BigDecimal getListPrice() {
-    return listPrice;
+    return this.listPrice;
   }
 
   @Override
-  public void setListPrice(BigDecimal listPrice) {
+  public void setListPrice(final BigDecimal listPrice) {
     this.listPrice = listPrice;
   }
 
   @Override
   public String getProductId() {
-    return productId;
+    return this.productId;
   }
 
   @Override
-  public void setProductId(String productId) {
+  public void setProductId(final String productId) {
     this.productId = productId;
   }
 
   @Override
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
   @Override
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 
   @Override
   public ISupplier getSupplier() {
-    return supplier;
+    return this.supplier;
   }
 
   @Override
-  public void setSupplier(ISupplier supplier) {
+  public void setSupplier(final ISupplier supplier) {
     this.supplier = supplier;
   }
 
   @Override
   public BigDecimal getUnitCost() {
-    return unitCost;
+    return this.unitCost;
   }
 
   @Override
-  public void setUnitCost(BigDecimal unitCost) {
+  public void setUnitCost(final BigDecimal unitCost) {
     this.unitCost = unitCost;
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,14 +33,14 @@ public class ArticleIndexDenorm implements Serializable {
    * @return Returns the categoryTitle.
    */
   public String getCategoryTitle() {
-    return categoryTitle;
+    return this.categoryTitle;
   }
 
   /**
    * @param categoryTitle
    *          The categoryTitle to set.
    */
-  public void setCategoryTitle(String categoryTitle) {
+  public void setCategoryTitle(final String categoryTitle) {
     this.categoryTitle = categoryTitle;
   }
 
@@ -48,14 +48,14 @@ public class ArticleIndexDenorm implements Serializable {
    * @return Returns the description.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
    * @param description
    *          The description to set.
    */
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
@@ -63,14 +63,14 @@ public class ArticleIndexDenorm implements Serializable {
    * @return Returns the topicTitle.
    */
   public String getTopicTitle() {
-    return topicTitle;
+    return this.topicTitle;
   }
 
   /**
    * @param topicTitle
    *          The topicTitle to set.
    */
-  public void setTopicTitle(String topicTitle) {
+  public void setTopicTitle(final String topicTitle) {
     this.topicTitle = topicTitle;
   }
 }

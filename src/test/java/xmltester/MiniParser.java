@@ -35,30 +35,30 @@ public class MiniParser extends DefaultHandler {
   private MiniDom dom;
   private MiniElement currentElement;
 
-  public MiniParser(String string) {
+  public MiniParser(final String string) {
     try {
       final StringReader reader = new StringReader(string);
-      parse(reader);
+      this.parse(reader);
     } catch (final Exception e) {
       throw new RuntimeException("XmlDataExchange error parsing XML.  Cause: " + e, e);
     }
   }
 
-  public MiniParser(Reader reader) {
+  public MiniParser(final Reader reader) {
     try {
-      parse(reader);
+      this.parse(reader);
     } catch (final Exception e) {
       throw new RuntimeException("XmlDataExchange error parsing XML.  Cause: " + e, e);
     }
   }
 
   public MiniDom getDom() {
-    return dom;
+    return this.dom;
   }
 
   @Override
   public void startDocument() {
-    dom = new MiniDom();
+    this.dom = new MiniDom();
   }
 
   @Override
@@ -66,49 +66,50 @@ public class MiniParser extends DefaultHandler {
   }
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+  public void startElement(final String uri, final String localName, final String qName, final Attributes attributes)
+      throws SAXException {
     final MiniElement element = new MiniElement(qName);
     if (attributes != null) {
       for (int i = 0, n = attributes.getLength(); i < n; i++) {
         element.addAttribute(new MiniAttribute(attributes.getQName(i), attributes.getValue(i)));
       }
     }
-    if (currentElement == null && dom.getRootElement() == null) {
-      dom.setRootElement(element);
+    if (this.currentElement == null && this.dom.getRootElement() == null) {
+      this.dom.setRootElement(element);
     } else {
-      currentElement.addElement(element);
+      this.currentElement.addElement(element);
     }
-    currentElement = element;
+    this.currentElement = element;
   }
 
   @Override
-  public void endElement(String uri, String localName, String qName) throws SAXException {
-    if (currentElement != null && currentElement != dom.getRootElement()) {
-      currentElement = currentElement.getParent();
+  public void endElement(final String uri, final String localName, final String qName) throws SAXException {
+    if (this.currentElement != null && this.currentElement != this.dom.getRootElement()) {
+      this.currentElement = this.currentElement.getParent();
     }
   }
 
   @Override
-  public void characters(char ch[], int start, int length) {
-    if (currentElement != null) {
+  public void characters(final char ch[], final int start, final int length) {
+    if (this.currentElement != null) {
       StringBuilder builder;
-      final String current = currentElement.getBodyContent();
+      final String current = this.currentElement.getBodyContent();
       if (current == null) {
         builder = new StringBuilder();
       } else {
         builder = new StringBuilder(current);
       }
       builder.append(ch, start, length);
-      currentElement.setBodyContent(builder.toString());
+      this.currentElement.setBodyContent(builder.toString());
     }
   }
 
   @Override
-  public void fatalError(SAXParseException e) throws SAXException {
+  public void fatalError(final SAXParseException e) throws SAXException {
     throw new RuntimeException("MiniXmlParser error parsing XML.  Cause: " + e, e);
   }
 
-  private void parse(Reader reader) throws ParserConfigurationException, SAXException, IOException {
+  private void parse(final Reader reader) throws ParserConfigurationException, SAXException, IOException {
     final SAXParserFactory factory = SAXParserFactory.newInstance();
     factory.setValidating(false);
     factory.setNamespaceAware(false);

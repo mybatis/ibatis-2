@@ -15,9 +15,6 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import com.ibatis.sqlmap.engine.execution.BatchException;
 import com.ibatis.sqlmap.engine.execution.BatchResult;
 
@@ -26,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,8 +36,8 @@ class BatchTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   @Test
@@ -110,12 +108,12 @@ class BatchTest extends BaseSqlMap {
     accountList2.add(account);
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.startBatch();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.startBatch();
 
       // insert 5 accounts
       for (final Account element : accountList1) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -125,34 +123,34 @@ class BatchTest extends BaseSqlMap {
       account.setLastName("rubble");
       account.setEmailAddress("barney.rubble@gmail.com");
 
-      sqlMap.update("updateAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
       for (final Account element : accountList2) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
-      final List<?> results = sqlMap.executeBatchDetailed();
-      sqlMap.commitTransaction();
+      final List<?> results = BaseSqlMap.sqlMap.executeBatchDetailed();
+      BaseSqlMap.sqlMap.commitTransaction();
 
-      assertEquals(3, results.size());
+      Assertions.assertEquals(3, results.size());
 
       BatchResult br = (BatchResult) results.get(0);
-      assertEquals(5, br.getUpdateCounts().length);
+      Assertions.assertEquals(5, br.getUpdateCounts().length);
 
       br = (BatchResult) results.get(1);
-      assertEquals(1, br.getUpdateCounts().length);
+      Assertions.assertEquals(1, br.getUpdateCounts().length);
 
       br = (BatchResult) results.get(2);
-      assertEquals(4, br.getUpdateCounts().length);
+      Assertions.assertEquals(4, br.getUpdateCounts().length);
 
     } catch (BatchException | SQLException e) {
-      fail(e.getMessage());
+      Assertions.fail(e.getMessage());
     } finally {
       try {
-        sqlMap.endTransaction();
+        BaseSqlMap.sqlMap.endTransaction();
       } catch (final SQLException e) {
-        fail(e.getMessage());
+        Assertions.fail(e.getMessage());
       }
     }
   }
@@ -225,12 +223,12 @@ class BatchTest extends BaseSqlMap {
     accountList2.add(account);
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.startBatch();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.startBatch();
 
       // insert 5 accounts
       for (final Account element : accountList1) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -240,7 +238,7 @@ class BatchTest extends BaseSqlMap {
       account.setLastName("rubble");
       account.setEmailAddress("barney.rubble@gmail.com");
 
-      sqlMap.update("updateAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert another account
       account = new Account();
@@ -248,12 +246,12 @@ class BatchTest extends BaseSqlMap {
       account.setFirstName("fred");
       account.setLastName("flintstone");
       account.setEmailAddress("fred.flintstone@gmail.com");
-      sqlMap.insert("insertAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", account);
 
       // insert 1 account with all null values (this should cause an error when the batch is
       // executed)
       account = new Account();
-      sqlMap.insert("insertAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", account);
 
       // update 1 account
       account = new Account();
@@ -262,33 +260,33 @@ class BatchTest extends BaseSqlMap {
       account.setLastName("rubble");
       account.setEmailAddress("barney.rubble@gmail.com");
 
-      sqlMap.update("updateAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
       for (final Account element : accountList2) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
-      sqlMap.executeBatchDetailed();
-      fail("This statement should not get executed - we expect an SQLException");
+      BaseSqlMap.sqlMap.executeBatchDetailed();
+      Assertions.fail("This statement should not get executed - we expect an SQLException");
     } catch (final BatchException e) {
       // the first statement of the failing batch should have executed OK
       final BatchUpdateException bue = e.getBatchUpdateException();
-      assertEquals(1, bue.getUpdateCounts().length);
+      Assertions.assertEquals(1, bue.getUpdateCounts().length);
 
       final List<?> results = e.getSuccessfulBatchResults();
-      assertEquals(2, results.size());
+      Assertions.assertEquals(2, results.size());
       BatchResult br = (BatchResult) results.get(0);
-      assertEquals(5, br.getUpdateCounts().length);
+      Assertions.assertEquals(5, br.getUpdateCounts().length);
       br = (BatchResult) results.get(1);
-      assertEquals(1, br.getUpdateCounts().length);
+      Assertions.assertEquals(1, br.getUpdateCounts().length);
     } catch (final SQLException e) {
-      fail(e.getMessage());
+      Assertions.fail(e.getMessage());
     } finally {
       try {
-        sqlMap.endTransaction();
+        BaseSqlMap.sqlMap.endTransaction();
       } catch (final SQLException e) {
-        fail(e.getMessage());
+        Assertions.fail(e.getMessage());
       }
     }
   }
@@ -361,12 +359,12 @@ class BatchTest extends BaseSqlMap {
     accountList2.add(account);
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.startBatch();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.startBatch();
 
       // insert 5 accounts
       for (final Account element : accountList1) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
       // update 1 account
@@ -376,24 +374,24 @@ class BatchTest extends BaseSqlMap {
       account.setLastName("rubble");
       account.setEmailAddress("barney.rubble@gmail.com");
 
-      sqlMap.update("updateAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
       // insert 4 accounts
       for (final Account element : accountList2) {
-        sqlMap.insert("insertAccountViaInlineParameters", element);
+        BaseSqlMap.sqlMap.insert("insertAccountViaInlineParameters", element);
       }
 
-      final int results = sqlMap.executeBatch();
-      sqlMap.commitTransaction();
+      final int results = BaseSqlMap.sqlMap.executeBatch();
+      BaseSqlMap.sqlMap.commitTransaction();
 
-      assertEquals(10, results);
+      Assertions.assertEquals(10, results);
     } catch (final SQLException e) {
-      fail(e.getMessage());
+      Assertions.fail(e.getMessage());
     } finally {
       try {
-        sqlMap.endTransaction();
+        BaseSqlMap.sqlMap.endTransaction();
       } catch (final SQLException e) {
-        fail(e.getMessage());
+        Assertions.fail(e.getMessage());
       }
     }
   }

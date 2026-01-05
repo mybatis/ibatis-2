@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,26 +31,26 @@ public class PersonDocument {
   }
 
   public Document getFavoriteDocument() {
-    return favoriteDocument;
+    return this.favoriteDocument;
   }
 
-  public void setFavoriteDocument(Document favoriteDocument) {
+  public void setFavoriteDocument(final Document favoriteDocument) {
     this.favoriteDocument = favoriteDocument;
   }
 
   public Integer getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(Integer id) {
+  public void setId(final Integer id) {
     this.id = id;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 

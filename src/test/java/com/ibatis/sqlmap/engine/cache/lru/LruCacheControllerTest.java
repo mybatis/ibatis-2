@@ -15,13 +15,11 @@
  */
 package com.ibatis.sqlmap.engine.cache.lru;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import com.ibatis.sqlmap.engine.cache.CacheController;
 
 import java.util.Properties;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class LruCacheControllerTest {
@@ -32,66 +30,66 @@ public class LruCacheControllerTest {
 
   @Test
   public void testSizeOne() {
-    final CacheController cc = getController();
+    final CacheController cc = this.getController();
     final String testKey = "testKey";
     final String testVal = "testVal";
     final Properties props = new Properties();
     props.setProperty("cache-size", "1");
     cc.setProperties(props);
     cc.putObject(null, testKey, testVal);
-    assertEquals(testVal, cc.getObject(null, testKey));
+    Assertions.assertEquals(testVal, cc.getObject(null, testKey));
     final String testKey2 = "testKey2";
     final String testVal2 = "testVal2";
     cc.putObject(null, testKey2, testVal2);
-    assertEquals(testVal2, cc.getObject(null, testKey2));
-    assertNull(cc.getObject(null, testKey));
+    Assertions.assertEquals(testVal2, cc.getObject(null, testKey2));
+    Assertions.assertNull(cc.getObject(null, testKey));
 
   }
 
   @Test
   public void testGetAndPutObject() {
-    final CacheController cc = getController();
+    final CacheController cc = this.getController();
     final String testKey = "testKey";
     final String testVal = "testVal";
 
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
 
     cc.putObject(null, testKey, testVal);
-    assertEquals(cc.getObject(null, testKey), testVal);
+    Assertions.assertEquals(cc.getObject(null, testKey), testVal);
 
     cc.putObject(null, testKey, null);
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
 
   }
 
   @Test
   public void testRemoveObject() {
-    final CacheController cc = getController();
+    final CacheController cc = this.getController();
     final String testKey = "testKey";
     final String testVal = "testVal";
 
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
 
     cc.putObject(null, testKey, testVal);
-    assertEquals(cc.getObject(null, testKey), testVal);
+    Assertions.assertEquals(cc.getObject(null, testKey), testVal);
 
     cc.removeObject(null, testKey);
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
   }
 
   @Test
   public void testFlush() {
-    final CacheController cc = getController();
+    final CacheController cc = this.getController();
     final String testKey = "testKey";
     final String testVal = "testVal";
 
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
 
     cc.putObject(null, testKey, testVal);
-    assertEquals(cc.getObject(null, testKey), testVal);
+    Assertions.assertEquals(cc.getObject(null, testKey), testVal);
 
     cc.flush(null);
-    assertEquals(cc.getObject(null, testKey), null);
+    Assertions.assertEquals(cc.getObject(null, testKey), null);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,42 +28,42 @@ public class LineItem implements Serializable {
   private BigDecimal price;
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(final int id) {
     this.id = id;
   }
 
   public int getOrderId() {
-    return orderId;
+    return this.orderId;
   }
 
-  public void setOrderId(int orderId) {
+  public void setOrderId(final int orderId) {
     this.orderId = orderId;
   }
 
   public String getItemCode() {
-    return itemCode;
+    return this.itemCode;
   }
 
-  public void setItemCode(String itemCode) {
+  public void setItemCode(final String itemCode) {
     this.itemCode = itemCode;
   }
 
   public int getQuantity() {
-    return quantity;
+    return this.quantity;
   }
 
-  public void setQuantity(int quantity) {
+  public void setQuantity(final int quantity) {
     this.quantity = quantity;
   }
 
   public BigDecimal getPrice() {
-    return price;
+    return this.price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(final BigDecimal price) {
     this.price = price;
   }
 

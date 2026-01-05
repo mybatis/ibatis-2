@@ -15,9 +15,6 @@
  */
 package com.ibatis.sqlmap.engine.mapping.result.loader;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
 import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
 import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean1;
@@ -25,6 +22,7 @@ import com.ibatis.sqlmap.engine.mapping.result.loader.test.Bean2;
 
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class EnhancedLazyResultLoaderTest {
@@ -37,7 +35,7 @@ class EnhancedLazyResultLoaderTest {
    */
   @Test
   void testProxyMethodAccess() throws SQLException {
-    final SqlMapClientImpl client = setupMockSqlMapClientImpl();
+    final SqlMapClientImpl client = this.setupMockSqlMapClientImpl();
 
     final EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean2", null, Bean2.class);
     final Bean2 bean2 = (Bean2) loader.loadResult();
@@ -51,12 +49,12 @@ class EnhancedLazyResultLoaderTest {
    */
   @Test
   void testNullProxy() throws SQLException {
-    final SqlMapClientImpl client = setupMockSqlMapClientImpl();
+    final SqlMapClientImpl client = this.setupMockSqlMapClientImpl();
 
     final EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean3", null, TestBean3.class);
     final TestBean3 bean = (TestBean3) loader.loadResult();
 
-    assertEquals("foobar", bean.getText());
+    Assertions.assertEquals("foobar", bean.getText());
   }
 
   /**
@@ -67,7 +65,7 @@ class EnhancedLazyResultLoaderTest {
     final SqlMapExecutorDelegate delegate = new SqlMapExecutorDelegate();
     return new SqlMapClientImpl(delegate) {
       @Override
-      public Object queryForObject(String id, Object paramObject) throws SQLException {
+      public Object queryForObject(final String id, final Object paramObject) throws SQLException {
         if (id != null) {
           switch (id) {
             case "bean1":
@@ -84,7 +82,7 @@ class EnhancedLazyResultLoaderTest {
               break;
           }
         }
-        fail();
+        Assertions.fail();
         return null;
       }
     };

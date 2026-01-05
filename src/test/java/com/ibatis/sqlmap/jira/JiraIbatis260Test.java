@@ -48,8 +48,8 @@ class JiraIbatis260Test extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/jira.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/jira.sql");
   }
 
   /**
@@ -63,7 +63,7 @@ class JiraIbatis260Test extends BaseSqlMap {
    */
   @Test
   void testIbatis260Error1() throws Exception {
-    final List<?> groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
+    final List<?> groupedResult = BaseSqlMap.sqlMap.queryForList("getJira260GroupedResult", null);
 
     final HashMap<String, Object> test = new HashMap<>();
     final Iterator<?> indexIterator = groupedResult.iterator();
@@ -87,7 +87,7 @@ class JiraIbatis260Test extends BaseSqlMap {
     // the test case fails. If at the end the hashMap is not empty
     // the test case also fails.
     String key = null;
-    final List<?> flatResult = sqlMap.queryForList("getJira260FlatResult", null);
+    final List<?> flatResult = BaseSqlMap.sqlMap.queryForList("getJira260FlatResult", null);
     final Iterator<?> iterator = flatResult.iterator();
     while (iterator.hasNext()) {
       final ArticleIndexDenorm articleIndex = (ArticleIndexDenorm) iterator.next();

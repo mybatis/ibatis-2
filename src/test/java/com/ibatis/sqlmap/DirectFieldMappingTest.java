@@ -27,32 +27,32 @@ class DirectFieldMappingTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   @Test
   void testInsertAndSelectDirectToFields() throws SQLException {
-    FieldAccount account = newFieldAccount6();
+    FieldAccount account = this.newFieldAccount6();
 
-    sqlMap.insert("insertAccountFromFields", account);
+    BaseSqlMap.sqlMap.insert("insertAccountFromFields", account);
 
-    account = (FieldAccount) sqlMap.queryForObject("getAccountToFields", Integer.valueOf(6));
+    account = (FieldAccount) BaseSqlMap.sqlMap.queryForObject("getAccountToFields", Integer.valueOf(6));
 
-    assertFieldAccount6(account);
-    assertFieldAccount6(account.account());
+    this.assertFieldAccount6(account);
+    this.assertFieldAccount6(account.account());
   }
 
   @Test
   void testGetAccountWithPrivateConstructor() throws SQLException {
-    final FieldAccount account = newFieldAccount6();
+    final FieldAccount account = this.newFieldAccount6();
 
-    sqlMap.insert("insertAccountFromFields", account);
+    BaseSqlMap.sqlMap.insert("insertAccountFromFields", account);
 
-    final PrivateAccount pvt = (PrivateAccount) sqlMap.queryForObject("getAccountWithPrivateConstructor",
+    final PrivateAccount pvt = (PrivateAccount) BaseSqlMap.sqlMap.queryForObject("getAccountWithPrivateConstructor",
         Integer.valueOf(6));
 
-    assertPrivateAccount6(pvt);
+    this.assertPrivateAccount6(pvt);
   }
 
 }

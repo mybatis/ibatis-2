@@ -17,30 +17,30 @@ package xmltester;
 
 public class MiniCodec {
 
-  public static String encodeReservedXMLChars(String s) {
+  public static String encodeReservedXMLChars(final String s) {
     String s2 = s;
     if (s2 != null) {
       // Do ampersand FIRST to avoid replacing other tokens.
-      s2 = replaceAll("&", "&amp;", s2);
+      s2 = MiniCodec.replaceAll("&", "&amp;", s2);
 
-      s2 = replaceAll(">", "&gt;", s2);
-      s2 = replaceAll("<", "&lt;", s2);
-      s2 = replaceAll("'", "&apos;", s2);
-      s2 = replaceAll("\"", "&quot;", s2);
-      s2 = replaceAll("%", "&#37;", s2);
+      s2 = MiniCodec.replaceAll(">", "&gt;", s2);
+      s2 = MiniCodec.replaceAll("<", "&lt;", s2);
+      s2 = MiniCodec.replaceAll("'", "&apos;", s2);
+      s2 = MiniCodec.replaceAll("\"", "&quot;", s2);
+      s2 = MiniCodec.replaceAll("%", "&#37;", s2);
     }
     return s2;
   }
 
-  public static String decodeReservedXMLChars(String s) {
+  public static String decodeReservedXMLChars(final String s) {
     String s2 = s;
     if (s2 != null) {
-      s2 = replaceAll("&amp;", "&", s2);
-      s2 = replaceAll("&gt;", ">", s2);
-      s2 = replaceAll("&lt;", "<", s2);
-      s2 = replaceAll("&apos;", "'", s2);
-      s2 = replaceAll("&quot;", "\"", s2);
-      s2 = replaceAll("&#37;", "%", s2);
+      s2 = MiniCodec.replaceAll("&amp;", "&", s2);
+      s2 = MiniCodec.replaceAll("&gt;", ">", s2);
+      s2 = MiniCodec.replaceAll("&lt;", "<", s2);
+      s2 = MiniCodec.replaceAll("&apos;", "'", s2);
+      s2 = MiniCodec.replaceAll("&quot;", "\"", s2);
+      s2 = MiniCodec.replaceAll("&#37;", "%", s2);
     }
     return s2;
   }
@@ -60,7 +60,7 @@ public class MiniCodec {
    *
    * @return The new string with patterns replaced.
    */
-  private static String replaceAll(String pattern, String newPattern, String string) {
+  private static String replaceAll(final String pattern, final String newPattern, final String string) {
     try {
       final StringBuilder stringBuilder = new StringBuilder(string);
       int index = string.length();

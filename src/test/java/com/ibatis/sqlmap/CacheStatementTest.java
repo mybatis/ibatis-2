@@ -15,10 +15,6 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapSession;
 import com.ibatis.sqlmap.engine.cache.CacheKey;
@@ -28,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,163 +36,163 @@ class CacheStatementTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   @Test
   void testMappedStatementQueryWithCache() throws SQLException {
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
     final int firstId = System.identityHashCode(list);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
     final int secondId = System.identityHashCode(list);
 
-    assertEquals(firstId, secondId);
+    Assertions.assertEquals(firstId, secondId);
 
     final Account account = (Account) list.get(1);
     account.setEmailAddress("new.clinton@ibatis.com");
-    sqlMap.update("updateAccountViaInlineParameters", account);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
     final int thirdId = System.identityHashCode(list);
 
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
 
   }
 
   @Test
   void testMappedStatementQueryWithCache2() throws SQLException {
     // tests the new methods that don't require a parameter object
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
 
     final int firstId = System.identityHashCode(list);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
 
     final int secondId = System.identityHashCode(list);
 
-    assertEquals(firstId, secondId);
+    Assertions.assertEquals(firstId, secondId);
 
     final Account account = (Account) list.get(1);
     account.setEmailAddress("new.clinton@ibatis.com");
-    sqlMap.update("updateAccountViaInlineParameters", account);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
 
     final int thirdId = System.identityHashCode(list);
 
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
 
   }
 
   @Test
   void testFlushDataCache() throws SQLException {
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.flushDataCache();
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.flushDataCache();
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCache2() throws SQLException {
     // tests the new methods that don't require a parameter object
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.flushDataCache();
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.flushDataCache();
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCacheOnExecute() throws SQLException {
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.update("updateAccountViaInlineParameters", list.get(0));
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", list.get(0));
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCacheOnExecute2() throws SQLException {
     // tests the new methods that don't require a parameter object
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.update("updateAccountViaInlineParameters", list.get(0));
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", list.get(0));
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCacheOnExecuteInBatch() throws SQLException {
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.startBatch();
-    sqlMap.update("updateAccountViaInlineParameters", list.get(0));
-    sqlMap.executeBatch();
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.startBatch();
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", list.get(0));
+    BaseSqlMap.sqlMap.executeBatch();
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCacheOnExecuteInBatch2() throws SQLException {
     // tests the new methods that don't require a parameter object
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
-    sqlMap.startBatch();
-    sqlMap.update("updateAccountViaInlineParameters", list.get(0));
-    sqlMap.executeBatch();
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap");
+    Assertions.assertEquals(firstId, secondId);
+    BaseSqlMap.sqlMap.startBatch();
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", list.get(0));
+    BaseSqlMap.sqlMap.executeBatch();
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap");
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
   void testFlushDataCacheOnExecuteInBatchWithTx() throws SQLException {
-    List<?> list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int firstId = System.identityHashCode(list);
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int secondId = System.identityHashCode(list);
-    assertEquals(firstId, secondId);
+    Assertions.assertEquals(firstId, secondId);
     try {
-      sqlMap.startTransaction();
-      sqlMap.startBatch();
-      sqlMap.update("updateAccountViaInlineParameters", list.get(0));
-      sqlMap.executeBatch();
-      sqlMap.commitTransaction();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.startBatch();
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", list.get(0));
+      BaseSqlMap.sqlMap.executeBatch();
+      BaseSqlMap.sqlMap.commitTransaction();
     } finally {
-      sqlMap.endTransaction();
+      BaseSqlMap.sqlMap.endTransaction();
     }
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
     final int thirdId = System.identityHashCode(list);
-    assertTrue(firstId != thirdId);
+    Assertions.assertTrue(firstId != thirdId);
   }
 
   @Test
@@ -203,25 +200,25 @@ class CacheStatementTest extends BaseSqlMap {
 
     final Map<String, Object> results = new HashMap<>();
 
-    TestCacheThread.startThread(sqlMap, results, "getCachedAccountsViaResultMap");
+    TestCacheThread.startThread(BaseSqlMap.sqlMap, results, "getCachedAccountsViaResultMap");
     final Integer firstId = (Integer) results.get("id");
 
-    TestCacheThread.startThread(sqlMap, results, "getCachedAccountsViaResultMap");
+    TestCacheThread.startThread(BaseSqlMap.sqlMap, results, "getCachedAccountsViaResultMap");
     final Integer secondId = (Integer) results.get("id");
 
-    assertTrue(firstId.equals(secondId));
+    Assertions.assertTrue(firstId.equals(secondId));
 
     List<?> list = (List<?>) results.get("list");
 
     final Account account = (Account) list.get(1);
     account.setEmailAddress("new.clinton@ibatis.com");
-    sqlMap.update("updateAccountViaInlineParameters", account);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
     final int thirdId = System.identityHashCode(list);
 
-    assertTrue(firstId.intValue() != thirdId);
+    Assertions.assertTrue(firstId.intValue() != thirdId);
 
   }
 
@@ -230,25 +227,25 @@ class CacheStatementTest extends BaseSqlMap {
 
     final Map<String, Object> results = new HashMap<>();
 
-    TestCacheThread.startThread(sqlMap, results, "getRWCachedAccountsViaResultMap");
+    TestCacheThread.startThread(BaseSqlMap.sqlMap, results, "getRWCachedAccountsViaResultMap");
     final Integer firstId = (Integer) results.get("id");
 
-    TestCacheThread.startThread(sqlMap, results, "getRWCachedAccountsViaResultMap");
+    TestCacheThread.startThread(BaseSqlMap.sqlMap, results, "getRWCachedAccountsViaResultMap");
     final Integer secondId = (Integer) results.get("id");
 
-    assertFalse(firstId.equals(secondId));
+    Assertions.assertFalse(firstId.equals(secondId));
 
     List<?> list = (List<?>) results.get("list");
 
     final Account account = (Account) list.get(1);
     account.setEmailAddress("new.clinton@ibatis.com");
-    sqlMap.update("updateAccountViaInlineParameters", account);
+    BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
 
-    list = sqlMap.queryForList("getCachedAccountsViaResultMap", null);
+    list = BaseSqlMap.sqlMap.queryForList("getCachedAccountsViaResultMap", null);
 
     final int thirdId = System.identityHashCode(list);
 
-    assertTrue(firstId.intValue() != thirdId);
+    Assertions.assertTrue(firstId.intValue() != thirdId);
 
   }
 
@@ -260,8 +257,8 @@ class CacheStatementTest extends BaseSqlMap {
     key1.update("HS1CS001");
     key2.update("HS1D4001");
 
-    assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
-    assertFalse(key1.equals(key2), "Expect not equal");
+    Assertions.assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
+    Assertions.assertFalse(key1.equals(key2), "Expect not equal");
   }
 
   @Test
@@ -275,8 +272,8 @@ class CacheStatementTest extends BaseSqlMap {
     key2.update("HS1D4001");
     key2.update("HS1CS001");
 
-    assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
-    assertFalse(key1.equals(key2), "Expect not equal");
+    Assertions.assertEquals(key1.hashCode(), key2.hashCode(), "Expect same hashcode.");
+    Assertions.assertFalse(key1.equals(key2), "Expect not equal");
   }
 
   private static class TestCacheThread extends Thread {
@@ -284,7 +281,7 @@ class CacheStatementTest extends BaseSqlMap {
     private final Map<String, Object> results;
     private final String statementName;
 
-    public TestCacheThread(SqlMapClient sqlMap, Map<String, Object> results, String statementName) {
+    public TestCacheThread(final SqlMapClient sqlMap, final Map<String, Object> results, final String statementName) {
       this.sqlMap = sqlMap;
       this.results = results;
       this.statementName = statementName;
@@ -293,21 +290,22 @@ class CacheStatementTest extends BaseSqlMap {
     @Override
     public void run() {
       try {
-        final SqlMapSession session = sqlMap.openSession();
-        List<?> list = session.queryForList(statementName, null);
+        final SqlMapSession session = this.sqlMap.openSession();
+        List<?> list = session.queryForList(this.statementName, null);
         System.identityHashCode(list);
-        list = session.queryForList(statementName, null);
+        list = session.queryForList(this.statementName, null);
         System.identityHashCode(list);
         // assertEquals(firstId, secondId);
-        results.put("id", Integer.valueOf(System.identityHashCode(list)));
-        results.put("list", list);
+        this.results.put("id", Integer.valueOf(System.identityHashCode(list)));
+        this.results.put("list", list);
         session.close();
       } catch (final SQLException e) {
         throw new RuntimeException("Error.  Cause: " + e);
       }
     }
 
-    public static void startThread(SqlMapClient sqlMap, Map<String, Object> results, String statementName) {
+    public static void startThread(final SqlMapClient sqlMap, final Map<String, Object> results,
+        final String statementName) {
       final Thread t = new TestCacheThread(sqlMap, results, statementName);
       t.start();
       try {

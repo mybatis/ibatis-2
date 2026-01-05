@@ -23,26 +23,26 @@ public class Person {
   private String lastName;
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
   public Integer getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(Integer id) {
+  public void setId(final Integer id) {
     this.id = id;
   }
 
   public String getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
-  public void setLastName(String lastName) {
+  public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
@@ -50,11 +50,11 @@ public class Person {
   public String toString() {
     final StringBuilder sb = new StringBuilder();
     sb.append("id: ");
-    sb.append(id);
+    sb.append(this.id);
     sb.append(", firstName: ");
-    sb.append(firstName);
+    sb.append(this.firstName);
     sb.append(", lastName: ");
-    sb.append(lastName);
+    sb.append(this.lastName);
 
     return sb.toString();
   }

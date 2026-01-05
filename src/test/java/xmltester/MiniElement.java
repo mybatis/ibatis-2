@@ -34,75 +34,75 @@ public class MiniElement {
   public MiniElement() {
   }
 
-  public MiniElement(String name) {
+  public MiniElement(final String name) {
     this.name = name;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   public String getBodyContent() {
-    return bodyContent;
+    return this.bodyContent;
   }
 
-  public void setBodyContent(String bodyContent) {
+  public void setBodyContent(final String bodyContent) {
     this.bodyContent = bodyContent;
   }
 
   public MiniElement getParent() {
-    return parent;
+    return this.parent;
   }
 
-  public void setParent(MiniElement parent) {
+  public void setParent(final MiniElement parent) {
     this.parent = parent;
   }
 
-  public void addAttribute(MiniAttribute attribute) {
-    attributeList.add(attribute);
-    attributeMap.put(attribute.getName(), attribute);
+  public void addAttribute(final MiniAttribute attribute) {
+    this.attributeList.add(attribute);
+    this.attributeMap.put(attribute.getName(), attribute);
   }
 
-  public MiniAttribute getAttribute(int i) {
-    return attributeList.get(i);
+  public MiniAttribute getAttribute(final int i) {
+    return this.attributeList.get(i);
   }
 
-  public MiniAttribute getAttribute(String name) {
-    return attributeMap.get(name);
+  public MiniAttribute getAttribute(final String name) {
+    return this.attributeMap.get(name);
   }
 
-  public MiniAttribute removeAttribute(int i) {
-    return attributeList.remove(i);
+  public MiniAttribute removeAttribute(final int i) {
+    return this.attributeList.remove(i);
   }
 
   public int getAttributeCount() {
-    return attributeList.size();
+    return this.attributeList.size();
   }
 
-  public void addElement(MiniElement element) {
-    elementList.add(element);
+  public void addElement(final MiniElement element) {
+    this.elementList.add(element);
     element.setParent(this);
-    elementMap.put(element.getName(), element);
+    this.elementMap.put(element.getName(), element);
   }
 
-  public MiniElement getElement(int i) {
-    return elementList.get(i);
+  public MiniElement getElement(final int i) {
+    return this.elementList.get(i);
   }
 
-  public MiniElement getElement(String name) {
-    return elementMap.get(name);
+  public MiniElement getElement(final String name) {
+    return this.elementMap.get(name);
   }
 
-  public MiniElement removeElement(int i) {
-    return elementList.remove(i);
+  public MiniElement removeElement(final int i) {
+    return this.elementList.remove(i);
   }
 
   public int getElementCount() {
-    return elementList.size();
+    return this.elementList.size();
   }
 
 }

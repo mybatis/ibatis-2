@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ public class ArticleIndex implements Serializable {
    * @return Returns the categoryTitle.
    */
   public String getCategoryTitle() {
-    return categoryTitle;
+    return this.categoryTitle;
   }
 
   /**
    * @param categoryTitle
    *          The categoryTitle to set.
    */
-  public void setCategoryTitle(String categoryTitle) {
+  public void setCategoryTitle(final String categoryTitle) {
     this.categoryTitle = categoryTitle;
   }
 
@@ -43,14 +43,14 @@ public class ArticleIndex implements Serializable {
    * @return Returns the topics.
    */
   public List<?> getTopics() {
-    return topics;
+    return this.topics;
   }
 
   /**
    * @param topics
    *          The topics to set.
    */
-  public void setTopics(List<?> topics) {
+  public void setTopics(final List<?> topics) {
     this.topics = topics;
   }
 }

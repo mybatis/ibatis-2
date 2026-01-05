@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,114 +38,114 @@ public class Order implements Serializable {
   private LineItem favouriteLineItem;
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(final int id) {
     this.id = id;
   }
 
   public Account getAccount() {
-    return account;
+    return this.account;
   }
 
-  public void setAccount(Account account) {
+  public void setAccount(final Account account) {
     this.account = account;
   }
 
   public Date getDate() {
-    return date;
+    return this.date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(final Date date) {
     this.date = date;
   }
 
   public String getCardType() {
-    return cardType;
+    return this.cardType;
   }
 
-  public void setCardType(String cardType) {
+  public void setCardType(final String cardType) {
     this.cardType = cardType;
   }
 
   public String getCardNumber() {
-    return cardNumber;
+    return this.cardNumber;
   }
 
-  public void setCardNumber(String cardNumber) {
+  public void setCardNumber(final String cardNumber) {
     this.cardNumber = cardNumber;
   }
 
   public String getCardExpiry() {
-    return cardExpiry;
+    return this.cardExpiry;
   }
 
-  public void setCardExpiry(String cardExpiry) {
+  public void setCardExpiry(final String cardExpiry) {
     this.cardExpiry = cardExpiry;
   }
 
   public String getStreet() {
-    return street;
+    return this.street;
   }
 
-  public void setStreet(String street) {
+  public void setStreet(final String street) {
     this.street = street;
   }
 
   public String getCity() {
-    return city;
+    return this.city;
   }
 
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 
   public String getProvince() {
-    return province;
+    return this.province;
   }
 
-  public void setProvince(String province) {
+  public void setProvince(final String province) {
     this.province = province;
   }
 
   public String getPostalCode() {
-    return postalCode;
+    return this.postalCode;
   }
 
-  public void setPostalCode(String postalCode) {
+  public void setPostalCode(final String postalCode) {
     this.postalCode = postalCode;
   }
 
   public List<?> getLineItemsList() {
-    return (List<?>) lineItems;
+    return (List<?>) this.lineItems;
   }
 
-  public void setLineItemsList(List<?> lineItems) {
+  public void setLineItemsList(final List<?> lineItems) {
     this.lineItems = lineItems;
   }
 
   public Collection<?> getLineItems() {
-    return lineItems;
+    return this.lineItems;
   }
 
-  public void setLineItems(Collection<?> lineItems) {
+  public void setLineItems(final Collection<?> lineItems) {
     this.lineItems = lineItems;
   }
 
   public LineItem getFavouriteLineItem() {
-    return favouriteLineItem;
+    return this.favouriteLineItem;
   }
 
-  public void setFavouriteLineItem(LineItem favouriteLineItem) {
+  public void setFavouriteLineItem(final LineItem favouriteLineItem) {
     this.favouriteLineItem = favouriteLineItem;
   }
 
   public LineItem[] getLineItemArray() {
-    return lineItemArray;
+    return this.lineItemArray;
   }
 
-  public void setLineItemArray(LineItem[] lineItemArray) {
+  public void setLineItemArray(final LineItem[] lineItemArray) {
     this.lineItemArray = lineItemArray;
   }
 

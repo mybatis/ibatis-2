@@ -15,8 +15,6 @@
  */
 package threads;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -28,21 +26,22 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class RemapResultsThreadTest {
 
   @Test
   void testWithRemap() throws Exception {
-    runTest("WithRemap");
+    this.runTest("WithRemap");
   }
 
   @Test
   void testWithoutRemap() throws Exception {
-    runTest("WithoutRemap");
+    this.runTest("WithoutRemap");
   }
 
-  private void runTest(String statementToRun) throws IOException, SQLException {
+  private void runTest(final String statementToRun) throws IOException, SQLException {
     final String resource = "threads/sql-map-config.xml";
     final Reader reader = Resources.getResourceAsReader(resource);
     final SqlMapClient sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -71,7 +70,7 @@ class RemapResultsThreadTest {
     // let's do the test for 10 seconds - for me it failed quite early
     while (new Date().before(d1)) {
       for (final MyThread myThread : threads) {
-        assertTrue(myThread.isAlive());
+        Assertions.assertTrue(myThread.isAlive());
       }
     }
   }

@@ -15,10 +15,7 @@
  */
 package com.ibatis.common.beans;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ComplexBeanProbeTest {
@@ -28,20 +25,20 @@ class ComplexBeanProbeTest {
     final SimpleClass mySimpleClass = new SimpleClass();
     final Probe probe = ProbeFactory.getProbe(mySimpleClass);
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(1));
-    assertEquals(1, mySimpleClass.getMyInt());
+    Assertions.assertEquals(1, mySimpleClass.getMyInt());
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(2));
-    assertEquals(2, mySimpleClass.getMyInt());
+    Assertions.assertEquals(2, mySimpleClass.getMyInt());
     try {
       probe.setObject(mySimpleClass, "myInt", null);
-      fail();
+      Assertions.fail();
     } catch (final RuntimeException e) {
-      assertTrue(e.getMessage().contains("'myInt' to value 'null'"));
+      Assertions.assertTrue(e.getMessage().contains("'myInt' to value 'null'"));
     }
     try {
       probe.setObject(mySimpleClass, "myInt", Float.valueOf(1.2f));
-      fail();
+      Assertions.fail();
     } catch (final RuntimeException e) {
-      assertTrue(e.getMessage().contains("'myInt' to value '1.2'"));
+      Assertions.assertTrue(e.getMessage().contains("'myInt' to value '1.2'"));
     }
   }
 
@@ -50,10 +47,10 @@ class ComplexBeanProbeTest {
     int myInt;
 
     public int getMyInt() {
-      return myInt;
+      return this.myInt;
     }
 
-    public void setMyInt(int myInt) {
+    public void setMyInt(final int myInt) {
       this.myInt = myInt;
     }
   }
