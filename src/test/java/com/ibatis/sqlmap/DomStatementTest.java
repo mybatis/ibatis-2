@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,10 +44,10 @@ class DomStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForDom() throws SQLException {
-    Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("1"));
+    final Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("1"));
     assertNotNull(account);
 
-    Probe dom = ProbeFactory.getProbe(account);
+    final Probe dom = ProbeFactory.getProbe(account);
 
     assertEquals("1", dom.getObject(account, "ID"));
     assertEquals("Clinton", dom.getObject(account, "FIRSTNAME"));
@@ -57,10 +57,10 @@ class DomStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForDomSpecialChars() throws SQLException {
-    Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("5"));
+    final Document account = (Document) sqlMap.queryForObject("getAccountDom", newParameter("5"));
     assertNotNull(account);
 
-    Probe dom = ProbeFactory.getProbe(account);
+    final Probe dom = ProbeFactory.getProbe(account);
 
     assertEquals("5", dom.getObject(account, "ID"));
     assertEquals("&manda", dom.getObject(account, "FIRSTNAME"));
@@ -68,10 +68,10 @@ class DomStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForDomExternalMaps() throws SQLException {
-    Document account = (Document) sqlMap.queryForObject("getAccountDomExternalMaps", newParameter("1"));
+    final Document account = (Document) sqlMap.queryForObject("getAccountDomExternalMaps", newParameter("1"));
     assertNotNull(account);
 
-    Probe dom = ProbeFactory.getProbe(account);
+    final Probe dom = ProbeFactory.getProbe(account);
 
     assertEquals("1", dom.getObject(account, "id"));
     assertEquals("Clinton", dom.getObject(account, "firstName"));
@@ -86,28 +86,28 @@ class DomStatementTest extends BaseSqlMap {
   @Test
   void testExecuteQueryForOrderDom() throws SQLException {
 
-    Document order = (Document) sqlMap.queryForObject("getOrderDom", newParameter("1"));
+    final Document order = (Document) sqlMap.queryForObject("getOrderDom", newParameter("1"));
     assertNotNull(order);
 
-    Probe dom = ProbeFactory.getProbe(order);
+    final Probe dom = ProbeFactory.getProbe(order);
 
     assertEquals("1", dom.getObject(order, "id"));
     assertEquals("2", dom.getObject(order, "lineItems.lineItem[1].ID"));
   }
 
   private Document newParameter(String val) {
-    Document param = newDocument("parameter");
-    Probe dom = ProbeFactory.getProbe(param);
+    final Document param = newDocument("parameter");
+    final Probe dom = ProbeFactory.getProbe(param);
     dom.setObject(param, "id", val);
     return param;
   }
 
   private Document newDocument(String root) {
     try {
-      Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+      final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
       doc.appendChild(doc.createElement(root));
       return doc;
-    } catch (ParserConfigurationException e) {
+    } catch (final ParserConfigurationException e) {
       throw new RuntimeException("Error creating XML document.  Cause: " + e);
     }
   }

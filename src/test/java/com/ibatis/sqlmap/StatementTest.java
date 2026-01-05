@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,17 +61,17 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForObjectViaColumnName() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testUserConnection() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
+    final DataSource ds = sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
     ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
     sqlMap.setUserConnection(conn);
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     conn.close();
     assertAccount1(account);
     ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
@@ -79,11 +79,11 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testSessionUserConnection() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
+    final DataSource ds = sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
     ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
-    SqlMapSession session = sqlMap.openSession(conn);
-    Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final SqlMapSession session = sqlMap.openSession(conn);
+    final Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     session.close();
     conn.close();
     assertAccount1(account);
@@ -92,35 +92,35 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testSessionUserConnectionFailures() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
+    final DataSource ds = sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
     ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
-    SqlMapSession session = sqlMap.openSession(conn);
+    final SqlMapSession session = sqlMap.openSession(conn);
 
     Exception expected = null;
     try {
       session.startTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
     assertNotNull(expected, "Expected exception from startTransaction() was not detected.");
     expected = null;
     try {
       session.commitTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
     assertNotNull(expected, "Expected exception from commitTransaction() was not detected.");
     expected = null;
     try {
       session.endTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
     assertNotNull(expected, "Expected exception from endTransaction() was not detected.");
     expected = null;
 
-    Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     session.close();
     conn.close();
     assertAccount1(account);
@@ -129,57 +129,58 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForObjectViaColumnIndex() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnIndex", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaColumnIndex", Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClass() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaResultClass", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaResultClass", Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClassIgnoreCaseTypeAliasCase() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaResultClassIgnoreCaseTypeAlias",
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaResultClassIgnoreCaseTypeAlias",
         Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClassPlusOne() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
     assertList(list);
   }
 
   @Test
   void testExecuteQueryForObjectAsHashMap() throws SQLException {
-    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMap", Integer.valueOf(1));
+    final Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMap", Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectAsHashMapResultClass() throws SQLException {
-    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMapResultClass", Integer.valueOf(1));
+    final Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMapResultClass",
+        Integer.valueOf(1));
     assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectWithSimpleResultClass() throws SQLException {
-    String email = (String) sqlMap.queryForObject("getEmailAddressViaResultClass", Integer.valueOf(1));
+    final String email = (String) sqlMap.queryForObject("getEmailAddressViaResultClass", Integer.valueOf(1));
     assertEquals("clinton.begin@ibatis.com", email);
   }
 
   @Test
   void testExecuteQueryForObjectWithSimpleResultMap() throws SQLException {
-    String email = (String) sqlMap.queryForObject("getEmailAddressViaResultMap", Integer.valueOf(1));
+    final String email = (String) sqlMap.queryForObject("getEmailAddressViaResultMap", Integer.valueOf(1));
     assertEquals("clinton.begin@ibatis.com", email);
   }
 
   @Test
   void testExecuteQueryForObjectWithResultObject() throws SQLException {
-    Account account = new Account();
-    Account testAccount = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1), account);
+    final Account account = new Account();
+    final Account testAccount = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1), account);
     assertAccount1(account);
     assertTrue(account == testAccount);
   }
@@ -196,7 +197,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null);
+    final List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -210,7 +211,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryWithCustomTypeHandler() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
+    final List<?> list = sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -380,7 +381,7 @@ class StatementTest extends BaseSqlMap {
     // Test Even - Two Pages
     try {
       initScript("scripts/more-account-records.sql");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.toString());
     }
 
@@ -534,7 +535,7 @@ class StatementTest extends BaseSqlMap {
     // Test Even - Two Pages
     try {
       initScript("scripts/more-account-records.sql");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.toString());
     }
 
@@ -570,7 +571,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultClass", null);
+    final List<?> list = sqlMap.queryForList("getAllAccountsViaResultClass", null);
 
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
@@ -583,7 +584,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithHashMapResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
+    final List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
 
     assertAccount1((Map<?, ?>) list.get(0));
     assertEquals(5, list.size());
@@ -596,7 +597,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithHashMapResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
+    final List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
 
     assertAccount1((Map<?, ?>) list.get(0));
     assertEquals(5, list.size());
@@ -609,7 +610,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithSimpleResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
+    final List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
 
     assertEquals("clinton.begin@ibatis.com", list.get(0));
     assertEquals(5, list.size());
@@ -617,7 +618,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithSimpleResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
+    final List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
 
     assertEquals("clinton.begin@ibatis.com", list.get(0));
     assertEquals(5, list.size());
@@ -625,7 +626,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithSkipAndMax() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
+    final List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
 
     assertEquals(2, list.size());
     assertEquals(3, ((Account) list.get(0)).getId());
@@ -634,9 +635,9 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForListWithRowHandler() throws SQLException {
-    TestRowHandler handler = new TestRowHandler();
+    final TestRowHandler handler = new TestRowHandler();
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
-    List<Object> list = handler.getList();
+    final List<Object> list = handler.getList();
     assertEquals(5, handler.getIndex());
     assertEquals(5, list.size());
     assertAccount1((Account) list.get(0));
@@ -651,9 +652,9 @@ class StatementTest extends BaseSqlMap {
   @Test
   void testExecuteQueryForListWithRowHandler2() throws SQLException {
     // tests method that does not require a parameter object
-    TestRowHandler handler = new TestRowHandler();
+    final TestRowHandler handler = new TestRowHandler();
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", handler);
-    List<Object> list = handler.getList();
+    final List<Object> list = handler.getList();
     assertEquals(5, handler.getIndex());
     assertEquals(5, list.size());
     assertAccount1((Account) list.get(0));
@@ -667,7 +668,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testLegacyExecuteQueryForListWithRowHandler() throws SQLException {
-    TestRowHandler handler = new TestRowHandler();
+    final TestRowHandler handler = new TestRowHandler();
     sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
     assertEquals(5, handler.getIndex());
     /*
@@ -682,7 +683,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForMap() throws SQLException {
-    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
+    final Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
 
     assertAccount1((Account) map.get("Begin"));
     assertEquals(5, map.size());
@@ -695,7 +696,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForMapWithValueProperty() throws SQLException {
-    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
+    final Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
 
     assertEquals(5, map.size());
     assertEquals("Clinton", map.get("Begin"));
@@ -709,7 +710,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testInsertGeneratedKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(10);
     item.setItemCode("blah");
@@ -717,22 +718,22 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItem", item);
+    final Object key = sqlMap.insert("insertLineItem", item);
 
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(10));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
+    final LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
     assertNotNull(testItem);
     assertEquals(10, testItem.getId());
   }
 
   @Test
   void testInsertGeneratedKeyFailure() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(0);
     item.setItemCode("blah");
@@ -744,7 +745,7 @@ class StatementTest extends BaseSqlMap {
 
     try {
       key = sqlMap.insert("insertLineItemOrDie", item);
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       // this is expected
     }
 
@@ -755,7 +756,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testInsertPreKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(10);
     item.setItemCode("blah");
@@ -763,15 +764,15 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItemPreKey", item);
+    final Object key = sqlMap.insert("insertLineItemPreKey", item);
 
     assertEquals(Integer.valueOf(99), key);
     assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(99));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
+    final LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
     assertNotNull(testItem);
     assertEquals(99, testItem.getId());
 
@@ -779,7 +780,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testInsertNoKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(100);
     item.setItemCode("blah");
@@ -787,15 +788,15 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItemNoKey", item);
+    final Object key = sqlMap.insert("insertLineItemNoKey", item);
 
     assertNull(key);
     assertEquals(100, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(100));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
+    final LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
     assertNotNull(testItem);
     assertEquals(100, testItem.getId());
 
@@ -845,7 +846,7 @@ class StatementTest extends BaseSqlMap {
     boolean checkForInvalidTypeFailedAppropriately = false;
     try {
       sqlMap.update("deleteAccount", new Object());
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       checkForInvalidTypeFailedAppropriately = true;
     }
 
@@ -889,7 +890,7 @@ class StatementTest extends BaseSqlMap {
   class TestRowHandler implements RowHandler {
     private int index = 0;
 
-    private List<Object> list = new ArrayList<>();
+    private final List<Object> list = new ArrayList<>();
 
     @Override
     public void handleRow(Object object) {
@@ -916,7 +917,7 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testNestedResultMaps() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
+    final List<?> list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
 
     assertEquals(10, list.size());
 

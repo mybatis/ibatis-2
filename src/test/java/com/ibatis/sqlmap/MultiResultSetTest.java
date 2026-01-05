@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,12 +45,12 @@ class MultiResultSetTest extends BaseSqlMap {
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
-    Map<String, Integer> persons = new HashMap<>();
+    final Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List<?> results = sqlMap.queryForList("getMultiListsRm", persons);
+    final List<?> results = sqlMap.queryForList("getMultiListsRm", persons);
     assertEquals(2, results.size());
     assertEquals(2, ((List<?>) results.get(0)).size());
     assertEquals(2, ((List<?>) results.get(1)).size());
@@ -58,12 +58,12 @@ class MultiResultSetTest extends BaseSqlMap {
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
-    Map<String, Integer> persons = new HashMap<>();
+    final Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List<?> results = sqlMap.queryForList("getMultiListsRc", persons);
+    final List<?> results = sqlMap.queryForList("getMultiListsRc", persons);
     assertEquals(2, results.size());
     assertEquals(2, ((List<?>) results.get(0)).size());
     assertEquals(2, ((List<?>) results.get(1)).size());
@@ -72,14 +72,14 @@ class MultiResultSetTest extends BaseSqlMap {
   @Test
   void testCallableStatementShouldReturnTwoResultSets() throws Exception {
     sqlMap.startTransaction();
-    Connection conn = sqlMap.getCurrentConnection();
-    CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");
+    final Connection conn = sqlMap.getCurrentConnection();
+    final CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");
     cs.setInt(1, 1);
     cs.setInt(2, 2);
     cs.setInt(3, 3);
     cs.setInt(4, 4);
     cs.execute();
-    ResultSet rs = cs.getResultSet();
+    final ResultSet rs = cs.getResultSet();
     assertNotNull(rs);
     int found = 1;
     while (cs.getMoreResults()) {

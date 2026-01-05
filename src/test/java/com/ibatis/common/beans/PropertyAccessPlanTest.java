@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,14 +38,14 @@ class PropertyAccessPlanTest {
   @Test
   void testSetAndGetProperties() {
 
-    AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);
+    final AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);
 
     Order order = new Order();
 
     plan.setProperties(order, values);
     assertOrder(order);
 
-    Object[] newValues = plan.getProperties(order);
+    final Object[] newValues = plan.getProperties(order);
 
     order = new Order();
     plan.setProperties(order, newValues);

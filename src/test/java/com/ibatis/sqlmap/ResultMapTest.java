@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,44 +47,44 @@ class ResultMapTest extends BaseSqlMap {
 
   @Test
   void testColumnsByName() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testExtendedResultMap() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnName", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testColumnsByIndex() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnIndex", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderLiteByColumnIndex", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testNullValueReplacement() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(5));
+    final Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(5));
     assertEquals("no_email@provided.com", account.getEmailAddress());
   }
 
   @Test
   void testTypeSpecified() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithTypes", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderWithTypes", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testComplexObjectMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithAccount", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderWithAccount", Integer.valueOf(1));
     assertOrder1(order);
     assertAccount1(order.getAccount());
   }
 
   @Test
   void testCollectionMappingAndExtends() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemsCollection", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemsCollection", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItems());
@@ -93,7 +93,7 @@ class ResultMapTest extends BaseSqlMap {
 
   @Test
   void testListMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItems", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderWithLineItems", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItemsList());
@@ -102,7 +102,7 @@ class ResultMapTest extends BaseSqlMap {
 
   @Test
   void testGetAllLineItemProps() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllLineItemProps", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("getAllLineItemProps", Integer.valueOf(1));
 
     assertNotNull(list);
     assertEquals(2, list.size());
@@ -114,14 +114,14 @@ class ResultMapTest extends BaseSqlMap {
       sqlMap.queryForList("getSomeLineItemProps", Integer.valueOf(1));
 
       fail("Expected exception because column was missing.");
-    } catch (NestedSQLException e) {
+    } catch (final NestedSQLException e) {
       // expected
     }
   }
 
   @Test
   void testArrayMapping() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemArray", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderWithLineItemArray", Integer.valueOf(1));
 
     assertOrder1(order);
     assertNotNull(order.getLineItemArray());
@@ -130,19 +130,19 @@ class ResultMapTest extends BaseSqlMap {
 
   @Test
   void testHashMapMapping() throws SQLException {
-    Map<?, ?> order = (Map<?, ?>) sqlMap.queryForObject("getOrderAsMap", Integer.valueOf(1));
+    final Map<?, ?> order = (Map<?, ?>) sqlMap.queryForObject("getOrderAsMap", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testNestedObjects() throws SQLException {
-    Order order = (Order) sqlMap.queryForObject("getOrderJoinedFavourite", Integer.valueOf(1));
+    final Order order = (Order) sqlMap.queryForObject("getOrderJoinedFavourite", Integer.valueOf(1));
     assertOrder1(order);
   }
 
   @Test
   void testSimpleTypeMapping() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllCreditCardNumbersFromOrders", null);
+    final List<?> list = sqlMap.queryForList("getAllCreditCardNumbersFromOrders", null);
 
     assertEquals(5, list.size());
     assertEquals("555555555555", list.get(0));
@@ -151,8 +151,8 @@ class ResultMapTest extends BaseSqlMap {
   @Test
   void testCompositeKeyMapping() throws SQLException {
 
-    Order order1 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(1));
-    Order order2 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(2));
+    final Order order1 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(1));
+    final Order order2 = (Order) sqlMap.queryForObject("getOrderWithFavouriteLineItem", Integer.valueOf(2));
 
     assertNotNull(order1);
     assertNotNull(order1.getFavouriteLineItem());
@@ -169,7 +169,7 @@ class ResultMapTest extends BaseSqlMap {
   @Test
   void testDynCompositeKeyMapping() throws SQLException {
 
-    Order order1 = (Order) sqlMap.queryForObject("getOrderWithDynFavouriteLineItem", Integer.valueOf(1));
+    final Order order1 = (Order) sqlMap.queryForObject("getOrderWithDynFavouriteLineItem", Integer.valueOf(1));
 
     assertNotNull(order1);
     assertNotNull(order1.getFavouriteLineItem());
@@ -180,7 +180,7 @@ class ResultMapTest extends BaseSqlMap {
 
   @Test
   void testGetDoubleNestedResult() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getNestedAccountViaColumnName", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getNestedAccountViaColumnName", Integer.valueOf(1));
     assertAccount1(account);
   }
 

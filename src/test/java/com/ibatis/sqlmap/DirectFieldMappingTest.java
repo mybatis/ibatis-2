@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,11 +45,12 @@ class DirectFieldMappingTest extends BaseSqlMap {
 
   @Test
   void testGetAccountWithPrivateConstructor() throws SQLException {
-    FieldAccount account = newFieldAccount6();
+    final FieldAccount account = newFieldAccount6();
 
     sqlMap.insert("insertAccountFromFields", account);
 
-    PrivateAccount pvt = (PrivateAccount) sqlMap.queryForObject("getAccountWithPrivateConstructor", Integer.valueOf(6));
+    final PrivateAccount pvt = (PrivateAccount) sqlMap.queryForObject("getAccountWithPrivateConstructor",
+        Integer.valueOf(6));
 
     assertPrivateAccount6(pvt);
   }

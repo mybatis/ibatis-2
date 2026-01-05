@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@ class EnhancedLazyResultLoaderTest {
    */
   @Test
   void testProxyMethodAccess() throws SQLException {
-    SqlMapClientImpl client = setupMockSqlMapClientImpl();
+    final SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
-    EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean2", null, Bean2.class);
-    Bean2 bean2 = (Bean2) loader.loadResult();
+    final EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean2", null, Bean2.class);
+    final Bean2 bean2 = (Bean2) loader.loadResult();
 
     // cglib might throw an IllegalAccessException
     bean2.testDefaultAccess();
@@ -51,10 +51,10 @@ class EnhancedLazyResultLoaderTest {
    */
   @Test
   void testNullProxy() throws SQLException {
-    SqlMapClientImpl client = setupMockSqlMapClientImpl();
+    final SqlMapClientImpl client = setupMockSqlMapClientImpl();
 
-    EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean3", null, TestBean3.class);
-    TestBean3 bean = (TestBean3) loader.loadResult();
+    final EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(client, "bean3", null, TestBean3.class);
+    final TestBean3 bean = (TestBean3) loader.loadResult();
 
     assertEquals("foobar", bean.getText());
   }
@@ -64,7 +64,7 @@ class EnhancedLazyResultLoaderTest {
    * id <code>bean2</code>.
    */
   private SqlMapClientImpl setupMockSqlMapClientImpl() {
-    SqlMapExecutorDelegate delegate = new SqlMapExecutorDelegate();
+    final SqlMapExecutorDelegate delegate = new SqlMapExecutorDelegate();
     return new SqlMapClientImpl(delegate) {
       @Override
       public Object queryForObject(String id, Object paramObject) throws SQLException {
@@ -73,8 +73,8 @@ class EnhancedLazyResultLoaderTest {
             case "bean1":
               return new Bean1();
             case "bean2": {
-              Bean2 bean = new Bean2();
-              EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(this, "bean1", null, Bean1.class);
+              final Bean2 bean = new Bean2();
+              final EnhancedLazyResultLoader loader = new EnhancedLazyResultLoader(this, "bean1", null, Bean1.class);
               bean.setBean1((Bean1) loader.loadResult());
               return bean;
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
 
   @Override
   public Object getResult(ResultGetter getter) throws SQLException {
-    String s = getter.getString();
+    final String s = getter.getString();
     if ("Aye".equalsIgnoreCase(s)) {
       return Boolean.valueOf(true);
     }
@@ -38,7 +38,7 @@ public class PirateTypeHandlerCallback implements TypeHandlerCallback {
 
   @Override
   public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
-    boolean b = ((Boolean) parameter).booleanValue();
+    final boolean b = ((Boolean) parameter).booleanValue();
     if (b) {
       setter.setString("Aye");
     } else {

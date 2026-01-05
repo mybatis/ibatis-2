@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
 class SqlMapConfigParserTest {
   @Test
   void parseStream() throws IOException {
-    SqlMapConfigParser parser = new SqlMapConfigParser();
-    var stream = Resources.getResourceAsStream("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
+    final SqlMapConfigParser parser = new SqlMapConfigParser();
+    final var stream = Resources.getResourceAsStream("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
     final var sqlMapClient = parser.parse(stream); // fails
 
     Assertions.assertNotNull(sqlMapClient);
@@ -35,9 +35,9 @@ class SqlMapConfigParserTest {
 
   @Test
   void parseStreamToReader() throws IOException {
-    SqlMapConfigParser parser = new SqlMapConfigParser();
-    var stream = Resources.getResourceAsStream("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
-    var reader = new InputStreamReader(stream);
+    final SqlMapConfigParser parser = new SqlMapConfigParser();
+    final var stream = Resources.getResourceAsStream("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
+    final var reader = new InputStreamReader(stream);
     final var sqlMapClient = parser.parse(reader);
 
     Assertions.assertNotNull(sqlMapClient);
@@ -45,8 +45,8 @@ class SqlMapConfigParserTest {
 
   @Test
   void parseReader() throws IOException {
-    SqlMapConfigParser parser = new SqlMapConfigParser();
-    var reader = Resources.getResourceAsReader("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
+    final SqlMapConfigParser parser = new SqlMapConfigParser();
+    final var reader = Resources.getResourceAsReader("com/ibatis/sqlmap/maps/SqlMapConfig.xml");
     final var sqlMapClient = parser.parse(reader);
 
     Assertions.assertNotNull(sqlMapClient);

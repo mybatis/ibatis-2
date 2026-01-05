@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,19 +48,19 @@ public class MiniDom {
   }
 
   public String getAttribute(String name) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
+    final StringTokenizer parser = new StringTokenizer(name, ".");
     MiniElement element = rootElement;
     String token = name;
     while (parser.countTokens() > 1) {
       token = parser.nextToken();
-      MiniElement child = element.getElement(token);
+      final MiniElement child = element.getElement(token);
       if (child == null) {
         return null;
       }
       element = child;
     }
     token = parser.nextToken();
-    MiniAttribute attribute = element.getAttribute(token);
+    final MiniAttribute attribute = element.getAttribute(token);
     if (attribute == null) {
       return null;
     }
@@ -68,7 +68,7 @@ public class MiniDom {
   }
 
   public void setAttribute(String name, String value) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
+    final StringTokenizer parser = new StringTokenizer(name, ".");
     MiniElement element = rootElement;
     String token = name;
     while (parser.countTokens() > 1) {
@@ -91,12 +91,12 @@ public class MiniDom {
   }
 
   public String getValue(String name) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
+    final StringTokenizer parser = new StringTokenizer(name, ".");
     MiniElement element = rootElement;
     String token = name;
     while (parser.countTokens() > 0) {
       token = parser.nextToken();
-      MiniElement child = element.getElement(token);
+      final MiniElement child = element.getElement(token);
       if (child == null) {
         return null;
       }
@@ -106,7 +106,7 @@ public class MiniDom {
   }
 
   public void setValue(String name, String value) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
+    final StringTokenizer parser = new StringTokenizer(name, ".");
     MiniElement element = rootElement;
     String token = name;
     while (parser.countTokens() > 0) {
@@ -123,7 +123,7 @@ public class MiniDom {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     printElement(builder, rootElement, 0, true);
     return builder.toString();
   }
@@ -166,7 +166,7 @@ public class MiniDom {
   }
 
   private void printElementBody(StringBuilder builder, MiniElement element) {
-    String bodyContent = element.getBodyContent();
+    final String bodyContent = element.getBodyContent();
     if (bodyContent != null) {
       builder.append(bodyContent);
     }

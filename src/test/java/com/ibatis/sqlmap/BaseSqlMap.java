@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,19 +44,19 @@ public class BaseSqlMap {
   protected static SqlMapClient sqlMap;
 
   protected static void initSqlMap(String configFile, Properties props) throws Exception {
-    Reader reader = Resources.getResourceAsReader(configFile);
+    final Reader reader = Resources.getResourceAsReader(configFile);
     sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader, props);
     reader.close();
   }
 
   protected static void initScript(String script) throws Exception {
-    DataSource ds = sqlMap.getDataSource();
+    final DataSource ds = sqlMap.getDataSource();
 
-    Connection conn = ds.getConnection();
+    final Connection conn = ds.getConnection();
 
-    Reader reader = Resources.getResourceAsReader(script);
+    final Reader reader = Resources.getResourceAsReader(script);
 
-    ScriptRunner runner = new ScriptRunner(conn, false, false);
+    final ScriptRunner runner = new ScriptRunner(conn, false, false);
     runner.setLogWriter(null);
     runner.setErrorLogWriter(null);
 
@@ -67,7 +67,7 @@ public class BaseSqlMap {
   }
 
   protected Account newAccount6() {
-    Account account = new Account();
+    final Account account = new Account();
     account.setId(6);
     account.setFirstName("Jennifer");
     account.setLastName("Begin");
@@ -78,7 +78,7 @@ public class BaseSqlMap {
   }
 
   protected FieldAccount newFieldAccount6() {
-    FieldAccount account = new FieldAccount();
+    final FieldAccount account = new FieldAccount();
     account.id(6);
     account.firstName("Jennifer");
     account.lastName("Begin");
@@ -145,7 +145,7 @@ public class BaseSqlMap {
   }
 
   protected void assertOrder1(Order order) {
-    Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
+    final Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
 
     assertEquals(1, order.getId());
     assertEquals(cal.getTime().getTime(), order.getDate().getTime());
@@ -159,7 +159,7 @@ public class BaseSqlMap {
   }
 
   protected void assertOrder1(Map<?, ?> order) {
-    Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
+    final Calendar cal = new GregorianCalendar(2003, 1, 15, 8, 15, 00);
 
     assertEquals(Integer.valueOf(1), order.get("id"));
     assertEquals(cal.getTime().getTime(), ((Date) order.get("date")).getTime());

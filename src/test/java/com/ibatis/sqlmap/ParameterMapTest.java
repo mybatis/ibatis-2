@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ class ParameterMapTest extends BaseSqlMap {
     Exception expected = null;
     try {
       sqlMap.update("insertAccountViaInlineParametersWithDynamic", account);
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       expected = e;
     }
 
@@ -112,7 +112,7 @@ class ParameterMapTest extends BaseSqlMap {
   @Test
   void testNullParameter() throws SQLException {
 
-    Account account = (Account) sqlMap.queryForObject("getAccountNullParameter", null);
+    final Account account = (Account) sqlMap.queryForObject("getAccountNullParameter", null);
 
     assertNull(account);
   }
@@ -120,7 +120,7 @@ class ParameterMapTest extends BaseSqlMap {
   @Test
   void testNullParameter2() throws SQLException {
 
-    Account account = (Account) sqlMap.queryForObject("getAccountNullParameter");
+    final Account account = (Account) sqlMap.queryForObject("getAccountNullParameter");
 
     assertNull(account);
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ class InlineParameterMapParserTest {
 
   @Test
   void testParseInlineParameterMapTypeHandlerFactoryString() {
-    InlineParameterMapParser parser = new InlineParameterMapParser();
+    final InlineParameterMapParser parser = new InlineParameterMapParser();
     SqlText parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
         "insert into foo (myColumn) values (1)");
     assertEquals("insert into foo (myColumn) values (1)", parseInlineParameterMap.getText());
@@ -44,7 +44,7 @@ class InlineParameterMapParserTest {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar)");
       fail();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
           e.getMessage());
     }
@@ -53,7 +53,7 @@ class InlineParameterMapParserTest {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar:javaType=int)");
       fail();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (?'",
           e.getMessage());
     }
@@ -62,7 +62,7 @@ class InlineParameterMapParserTest {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (myVar#)");
       fail();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (myVar?'",
           e.getMessage());
     }
@@ -71,7 +71,7 @@ class InlineParameterMapParserTest {
       parseInlineParameterMap = parser.parseInlineParameterMap(new TypeHandlerFactory(),
           "insert into foo (myColumn) values (#myVar##)");
       fail();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       assertEquals("Unterminated inline parameter in mapped statement near 'insert into foo (myColumn) values (??'",
           e.getMessage());
     }

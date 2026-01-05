@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,16 +32,16 @@ public class LruCacheControllerTest {
 
   @Test
   public void testSizeOne() {
-    CacheController cc = getController();
-    String testKey = "testKey";
-    String testVal = "testVal";
-    Properties props = new Properties();
+    final CacheController cc = getController();
+    final String testKey = "testKey";
+    final String testVal = "testVal";
+    final Properties props = new Properties();
     props.setProperty("cache-size", "1");
     cc.setProperties(props);
     cc.putObject(null, testKey, testVal);
     assertEquals(testVal, cc.getObject(null, testKey));
-    String testKey2 = "testKey2";
-    String testVal2 = "testVal2";
+    final String testKey2 = "testKey2";
+    final String testVal2 = "testVal2";
     cc.putObject(null, testKey2, testVal2);
     assertEquals(testVal2, cc.getObject(null, testKey2));
     assertNull(cc.getObject(null, testKey));
@@ -50,9 +50,9 @@ public class LruCacheControllerTest {
 
   @Test
   public void testGetAndPutObject() {
-    CacheController cc = getController();
-    String testKey = "testKey";
-    String testVal = "testVal";
+    final CacheController cc = getController();
+    final String testKey = "testKey";
+    final String testVal = "testVal";
 
     assertEquals(cc.getObject(null, testKey), null);
 
@@ -66,9 +66,9 @@ public class LruCacheControllerTest {
 
   @Test
   public void testRemoveObject() {
-    CacheController cc = getController();
-    String testKey = "testKey";
-    String testVal = "testVal";
+    final CacheController cc = getController();
+    final String testKey = "testKey";
+    final String testVal = "testVal";
 
     assertEquals(cc.getObject(null, testKey), null);
 
@@ -81,9 +81,9 @@ public class LruCacheControllerTest {
 
   @Test
   public void testFlush() {
-    CacheController cc = getController();
-    String testKey = "testKey";
-    String testVal = "testVal";
+    final CacheController cc = getController();
+    final String testKey = "testKey";
+    final String testVal = "testVal";
 
     assertEquals(cc.getObject(null, testKey), null);
 

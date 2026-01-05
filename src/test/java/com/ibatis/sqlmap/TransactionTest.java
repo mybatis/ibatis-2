@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ class TransactionTest extends BaseSqlMap {
 
       try {
         sqlMap.startTransaction(); // transaction already started
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         exceptionThrownAsExpected = true;
       }
 
@@ -88,7 +88,7 @@ class TransactionTest extends BaseSqlMap {
     boolean exceptionThrownAsExpected = false;
     try {
       sqlMap.commitTransaction(); // No transaction started
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
@@ -105,7 +105,7 @@ class TransactionTest extends BaseSqlMap {
     boolean exceptionThrownAsExpected = false;
     try {
       sqlMap.update("insertAccountViaParameterMap", null);
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
@@ -125,7 +125,7 @@ class TransactionTest extends BaseSqlMap {
     boolean exceptionThrownAsExpected = false;
     try {
       sqlMap.update("insertAccountViaParameterMap");
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
@@ -166,7 +166,7 @@ class TransactionTest extends BaseSqlMap {
 
   @Test
   void testAutoCommitQuery() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
+    final Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
     assertAccount1(account);
   }
 

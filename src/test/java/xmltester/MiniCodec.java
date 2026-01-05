@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,14 +62,14 @@ public class MiniCodec {
    */
   private static String replaceAll(String pattern, String newPattern, String string) {
     try {
-      StringBuilder stringBuilder = new StringBuilder(string);
+      final StringBuilder stringBuilder = new StringBuilder(string);
       int index = string.length();
-      int offset = pattern.length();
+      final int offset = pattern.length();
       while ((index = string.lastIndexOf(pattern, index - 1)) > -1) {
         stringBuilder.replace(index, index + offset, newPattern);
       }
       return stringBuilder.toString();
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       return string;
     }
   }

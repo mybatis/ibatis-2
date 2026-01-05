@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ class XmlStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForXml() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>1</id></parameter>");
+    final String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>1</id></parameter>");
     assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
+    final MiniDom dom = new MiniParser(account).getDom();
     assertEquals("1", dom.getValue("ID"));
     assertEquals("Clinton", dom.getValue("FIRSTNAME"));
     assertEquals("Begin", dom.getValue("LASTNAME"));
@@ -51,9 +51,10 @@ class XmlStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForXmlExternalMaps() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXmlExternalMaps", "<parameter><id>1</id></parameter>");
+    final String account = (String) sqlMap.queryForObject("getAccountXmlExternalMaps",
+        "<parameter><id>1</id></parameter>");
     assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
+    final MiniDom dom = new MiniParser(account).getDom();
     assertEquals("1", dom.getValue("id"));
     assertEquals("Clinton", dom.getValue("firstName"));
     assertEquals("Begin", dom.getValue("lastName"));
@@ -66,18 +67,18 @@ class XmlStatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForOrderXml() throws SQLException {
-    String order = (String) sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
+    final String order = (String) sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
     assertNotNull(order);
-    MiniDom dom = new MiniParser(order).getDom();
+    final MiniDom dom = new MiniParser(order).getDom();
     assertEquals("1", dom.getValue("id"));
     assertEquals("2", dom.getValue("lineItems.lineItem.ID"));
   }
 
   @Test
   void testExecuteQueryForXmlSpecialChars() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>5</id></parameter>");
+    final String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>5</id></parameter>");
     assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
+    final MiniDom dom = new MiniParser(account).getDom();
     assertEquals("5", dom.getValue("ID"));
     assertEquals("&manda", dom.getValue("FIRSTNAME"));
   }

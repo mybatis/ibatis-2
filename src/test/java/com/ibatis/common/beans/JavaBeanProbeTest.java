@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,46 +25,46 @@ class JavaBeanProbeTest {
 
   @Test
   void testGetPropertyTypeForSetterObjectString() {
-    TestBean b = getBean();
-    Probe p = getProbe(b);
+    final TestBean b = getBean();
+    final Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForSetter(b, "testBean").equals(TestBean.class));
     assertTrue(p.getPropertyTypeForSetter(b, "testBean.testBean").equals(TestBean.class));
   }
 
   @Test
   void testGetPropertyTypeForGetterObjectString() {
-    TestBean b = getBean();
-    Probe p = getProbe(b);
+    final TestBean b = getBean();
+    final Probe p = getProbe(b);
     assertTrue(p.getPropertyTypeForGetter(b, "testBean").equals(TestBean.class));
     assertTrue(p.getPropertyTypeForGetter(b, "testBean.testBean").equals(TestBean.class));
   }
 
   @Test
   void testHasWritableProperty() {
-    TestBean b = getBean();
-    Probe p = getProbe(b);
+    final TestBean b = getBean();
+    final Probe p = getProbe(b);
     assertTrue(p.hasWritableProperty(b, "testBean"));
     assertTrue(p.hasWritableProperty(b, "testBean.testBean"));
   }
 
   @Test
   void testHasReadableProperty() {
-    TestBean b = getBean();
-    Probe p = getProbe(b);
+    final TestBean b = getBean();
+    final Probe p = getProbe(b);
     assertTrue(p.hasReadableProperty(b, "testBean"));
     assertTrue(p.hasReadableProperty(b, "testBean.testBean"));
   }
 
   @Test
   void testSetAndGetObject() {
-    TestBean b = getBean();
-    Probe p = getProbe(b);
-    float f[] = new float[3];
+    final TestBean b = getBean();
+    final Probe p = getProbe(b);
+    final float f[] = new float[3];
     f[0] = 1.0f;
     f[0] = 2.1f;
     f[0] = 3.2f;
     p.setObject(b, "floatArray", f);
-    float g[] = (float[]) p.getObject(b, "floatArray");
+    final float g[] = (float[]) p.getObject(b, "floatArray");
     assertTrue(p.getObject(b, "floatArray").equals(f));
     assertEquals(g[0], f[0], .01);
     assertEquals(g[1], f[1], .01);

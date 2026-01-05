@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ class BadBeanTest {
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnGoodBean() throws Exception {
-    GoodBean bean = new GoodBean();
-    ClassInfo info = ClassInfo.getInstance(GoodBean.class);
+    final GoodBean bean = new GoodBean();
+    final ClassInfo info = ClassInfo.getInstance(GoodBean.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
     assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
     assertEquals(String.class, info.getSetterType(PROPNAME));
@@ -51,8 +51,8 @@ class BadBeanTest {
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnBeanWithDifferentTypeGetterSetter() throws Exception {
-    BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
-    ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
+    final BeanWithDifferentTypeGetterSetter bean = new BeanWithDifferentTypeGetterSetter();
+    final ClassInfo info = ClassInfo.getInstance(BeanWithDifferentTypeGetterSetter.class);
     info.getSetter(PROPNAME).invoke(bean, INT_PARAMS);
     assertEquals(INT_VALUE.toString(), info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
     assertEquals(Integer.class, info.getSetterType(PROPNAME));
@@ -61,8 +61,8 @@ class BadBeanTest {
 
   @Test
   void testShouldSuccessfullyGetAndSetValueOnBeanWithOverloadedSetter() throws Exception {
-    BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
-    ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
+    final BeanWithOverloadedSetter bean = new BeanWithOverloadedSetter();
+    final ClassInfo info = ClassInfo.getInstance(BeanWithOverloadedSetter.class);
     info.getSetter(PROPNAME).invoke(bean, STRING_PARAMS);
     assertEquals(STRING_VALUE, info.getGetter(PROPNAME).invoke(bean, NO_VALUE));
     assertEquals(String.class, info.getSetterType(PROPNAME));
@@ -74,12 +74,12 @@ class BadBeanTest {
     try {
       try {
         ClassInfo.getInstance(BeanWithNoGetterOverloadedSetters.class);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         assertTrue(e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
         throw e;
       }
       fail("Expected exception.");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // ignore
     }
   }
@@ -89,20 +89,20 @@ class BadBeanTest {
     try {
       try {
         ClassInfo.getInstance(BeanWithDifferentTypeOverloadedSetter.class);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         assertTrue(e.getMessage().indexOf("Illegal overloaded setter method with ambiguous type for property") == 0);
         throw e;
       }
       fail("Expected exception.");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // ignore
     }
   }
 
   @Test
   void testUnwrapThrowable() {
-    SQLException cause = new SQLException("test");
-    UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
+    final SQLException cause = new SQLException("test");
+    final UndeclaredThrowableException e = new UndeclaredThrowableException(cause);
     assertEquals(cause, ClassInfo.unwrapThrowable(e));
   }
 

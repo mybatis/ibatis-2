@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@ public class MiniParser extends DefaultHandler {
 
   public MiniParser(String string) {
     try {
-      StringReader reader = new StringReader(string);
+      final StringReader reader = new StringReader(string);
       parse(reader);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("XmlDataExchange error parsing XML.  Cause: " + e, e);
     }
   }
@@ -47,7 +47,7 @@ public class MiniParser extends DefaultHandler {
   public MiniParser(Reader reader) {
     try {
       parse(reader);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("XmlDataExchange error parsing XML.  Cause: " + e, e);
     }
   }
@@ -67,7 +67,7 @@ public class MiniParser extends DefaultHandler {
 
   @Override
   public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-    MiniElement element = new MiniElement(qName);
+    final MiniElement element = new MiniElement(qName);
     if (attributes != null) {
       for (int i = 0, n = attributes.getLength(); i < n; i++) {
         element.addAttribute(new MiniAttribute(attributes.getQName(i), attributes.getValue(i)));
@@ -92,7 +92,7 @@ public class MiniParser extends DefaultHandler {
   public void characters(char ch[], int start, int length) {
     if (currentElement != null) {
       StringBuilder builder;
-      String current = currentElement.getBodyContent();
+      final String current = currentElement.getBodyContent();
       if (current == null) {
         builder = new StringBuilder();
       } else {
@@ -109,10 +109,10 @@ public class MiniParser extends DefaultHandler {
   }
 
   private void parse(Reader reader) throws ParserConfigurationException, SAXException, IOException {
-    SAXParserFactory factory = SAXParserFactory.newInstance();
+    final SAXParserFactory factory = SAXParserFactory.newInstance();
     factory.setValidating(false);
     factory.setNamespaceAware(false);
-    SAXParser parser = factory.newSAXParser();
+    final SAXParser parser = factory.newSAXParser();
     parser.parse(new ReaderInputStream(reader), this);
   }
 

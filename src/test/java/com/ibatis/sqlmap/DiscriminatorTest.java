@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ class DiscriminatorTest extends BaseSqlMap {
   @Test
   void testDiscriminator() throws Exception {
 
-    List<?> list = sqlMap.queryForList("getDocuments", null);
+    final List<?> list = sqlMap.queryForList("getDocuments", null);
     assertEquals(6, list.size());
 
     assertTrue(list.get(0) instanceof Book);
@@ -64,7 +64,7 @@ class DiscriminatorTest extends BaseSqlMap {
 
   @Test
   void testDiscriminatorInNestedResultMap() throws Exception {
-    List<?> list = sqlMap.queryForList("getPersonDocuments");
+    final List<?> list = sqlMap.queryForList("getPersonDocuments");
     assertEquals(3, list.size());
 
     assertTrue(((PersonDocument) list.get(0)).getFavoriteDocument() instanceof Magazine);
@@ -75,7 +75,7 @@ class DiscriminatorTest extends BaseSqlMap {
 
   @Test
   void testDiscriminatorWithNestedResultMap() throws Exception {
-    List<?> list = sqlMap.queryForList("getDocumentsWithAttributes");
+    final List<?> list = sqlMap.queryForList("getDocumentsWithAttributes");
     assertEquals(6, list.size());
 
     assertTrue(list.get(0) instanceof Book);
@@ -83,7 +83,7 @@ class DiscriminatorTest extends BaseSqlMap {
     assertEquals(2, b.getAttributes().size());
 
     assertTrue(list.get(1) instanceof Magazine);
-    Magazine m = (Magazine) list.get(1);
+    final Magazine m = (Magazine) list.get(1);
     assertEquals(1, m.getAttributes().size());
 
     assertTrue(list.get(2) instanceof Book);

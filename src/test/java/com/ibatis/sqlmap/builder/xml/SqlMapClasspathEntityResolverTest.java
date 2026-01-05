@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,54 +27,54 @@ class SqlMapClasspathEntityResolverTest {
 
   @Test
   void testOrgConfigSystemId() {
-    String id = "https://ibatis.apache.org/dtd/sql-map-config-2.dtd";
+    final String id = "https://ibatis.apache.org/dtd/sql-map-config-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
   void testOrgConfigPublicId() {
-    String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
+    final String id = "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
   void testOrgMapSystemId() {
-    String id = "https://ibatis.apache.org/dtd/sql-map-2.dtd";
+    final String id = "https://ibatis.apache.org/dtd/sql-map-2.dtd";
     assertSystemIdCanBeResolved(id);
   }
 
   @Test
   void testOrgMapPublicId() {
-    String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
+    final String id = "-//ibatis.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   @Test
   void testOddCase() {
-    String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
+    final String id = "-//iBATIS.apache.org//DTD SQL Map 2.0//EN";
     assertPublicIdCanBeResolved(id);
   }
 
   private void assertSystemIdCanBeResolved(String id) {
-    SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
+    final SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
     try {
-      InputSource source = resolver.resolveEntity(null, id);
+      final InputSource source = resolver.resolveEntity(null, id);
       if (source == null) {
         throw new RuntimeException("Could not resolve System ID  " + id);
       }
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       throw new RuntimeException("Error.  Cause: " + e, e);
     }
   }
 
   private void assertPublicIdCanBeResolved(String id) {
-    SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
+    final SqlMapClasspathEntityResolver resolver = new SqlMapClasspathEntityResolver();
     try {
-      InputSource source = resolver.resolveEntity(id, null);
+      final InputSource source = resolver.resolveEntity(id, null);
       if (source == null) {
         throw new RuntimeException("Could not resolve System ID  " + id);
       }
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       throw new RuntimeException("Error.  Cause: " + e, e);
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,28 +37,28 @@ class RepeatingGroupMappingTest extends BaseSqlMap {
 
   @Test
   void testGroupBy() throws Exception {
-    List<?> list = sqlMap.queryForList("getAllCategories", null);
+    final List<?> list = sqlMap.queryForList("getAllCategories", null);
     assertEquals(5, list.size());
   }
 
   @Test
   void testGroupByExtended() throws Exception {
-    List<?> list = sqlMap.queryForList("getAllCategoriesExtended", null);
+    final List<?> list = sqlMap.queryForList("getAllCategoriesExtended", null);
     assertEquals(5, list.size());
   }
 
   @Test
   void testNestedProperties() throws Exception {
-    List<?> list = sqlMap.queryForList("getFish", null);
+    final List<?> list = sqlMap.queryForList("getFish", null);
     assertEquals(1, list.size());
 
-    Category cat = (Category) list.get(0);
+    final Category cat = (Category) list.get(0);
     assertEquals("FISH", cat.getCategoryId());
     assertEquals("Fish", cat.getName());
     assertNotNull(cat.getProductList(), "Expected product list.");
     assertEquals(4, cat.getProductList().size());
 
-    Product product = (Product) cat.getProductList().get(0);
+    final Product product = (Product) cat.getProductList().get(0);
     assertEquals(2, product.getItemList().size());
   }
 
@@ -79,8 +79,8 @@ class RepeatingGroupMappingTest extends BaseSqlMap {
    */
   @Test
   void testGroupByJIRA250() throws Exception {
-    List<?> list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
-    Category cat = (Category) list.get(0);
+    final List<?> list = sqlMap.queryForList("getAllProductCategoriesJIRA250", null);
+    final Category cat = (Category) list.get(0);
     assertEquals(0, cat.getProductList().size());
   }
 }

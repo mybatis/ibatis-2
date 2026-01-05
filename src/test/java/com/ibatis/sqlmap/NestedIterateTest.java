@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void testShouldReturn9Rows() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -59,7 +59,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest1", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest1", po);
       assertEquals(9, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -70,7 +70,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(6)).getId().intValue());
       assertEquals(8, ((Person) results.get(7)).getId().intValue());
       assertEquals(9, ((Person) results.get(8)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -80,7 +80,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test02() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -91,10 +91,10 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest2", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest2", po);
       assertEquals(1, results.size());
       assertEquals(4, ((Person) results.get(0)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -104,7 +104,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test03() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(4)); // put first to make the test fail
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -115,7 +115,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest3", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest3", po);
       assertEquals(8, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -125,7 +125,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(5)).getId().intValue());
       assertEquals(8, ((Person) results.get(6)).getId().intValue());
       assertEquals(9, ((Person) results.get(7)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -135,7 +135,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test04() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -146,14 +146,14 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest4", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest4", po);
       assertEquals(5, results.size());
       assertEquals(5, ((Person) results.get(0)).getId().intValue());
       assertEquals(6, ((Person) results.get(1)).getId().intValue());
       assertEquals(7, ((Person) results.get(2)).getId().intValue());
       assertEquals(8, ((Person) results.get(3)).getId().intValue());
       assertEquals(9, ((Person) results.get(4)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -163,7 +163,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test05() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -174,7 +174,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest5", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest5", po);
       assertEquals(6, results.size());
       assertEquals(4, ((Person) results.get(0)).getId().intValue());
       assertEquals(5, ((Person) results.get(1)).getId().intValue());
@@ -182,7 +182,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(3)).getId().intValue());
       assertEquals(8, ((Person) results.get(4)).getId().intValue());
       assertEquals(9, ((Person) results.get(5)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -192,7 +192,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test06() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
     po.addId(Integer.valueOf(8));
@@ -204,12 +204,12 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(1));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest6", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest6", po);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -219,7 +219,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test07() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
     po.addId(Integer.valueOf(8));
@@ -231,13 +231,13 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(1));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest7", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest7", po);
       assertEquals(4, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
       assertEquals(4, ((Person) results.get(3)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -247,20 +247,20 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test08() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addFirstName("Jeff");
     po.addFirstName("Matt");
     po.addLastName("Jones");
     po.addLastName("Smith");
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest8", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest8", po);
       assertEquals(4, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(7, ((Person) results.get(2)).getId().intValue());
       assertEquals(8, ((Person) results.get(3)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -272,7 +272,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test09() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(true));
@@ -285,18 +285,18 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest9", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest9", po);
       assertEquals(2, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
 
   @Test
   void test09a() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(true));
@@ -309,11 +309,11 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest9a", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest9a", po);
       assertEquals(2, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -323,7 +323,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test10() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -334,10 +334,10 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest10", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest10", po);
       assertEquals(1, results.size());
       assertEquals(4, ((Person) results.get(0)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -347,7 +347,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test11() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(4)); // put first to make the test fail
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
@@ -358,7 +358,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest11", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest11", po);
       assertEquals(8, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -368,7 +368,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(5)).getId().intValue());
       assertEquals(8, ((Person) results.get(6)).getId().intValue());
       assertEquals(9, ((Person) results.get(7)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -378,7 +378,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test12() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -389,14 +389,14 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest12", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest12", po);
       assertEquals(5, results.size());
       assertEquals(5, ((Person) results.get(0)).getId().intValue());
       assertEquals(6, ((Person) results.get(1)).getId().intValue());
       assertEquals(7, ((Person) results.get(2)).getId().intValue());
       assertEquals(8, ((Person) results.get(3)).getId().intValue());
       assertEquals(9, ((Person) results.get(4)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -406,7 +406,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test13() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -417,7 +417,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest13", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest13", po);
       assertEquals(6, results.size());
       assertEquals(4, ((Person) results.get(0)).getId().intValue());
       assertEquals(5, ((Person) results.get(1)).getId().intValue());
@@ -425,7 +425,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(3)).getId().intValue());
       assertEquals(8, ((Person) results.get(4)).getId().intValue());
       assertEquals(9, ((Person) results.get(5)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -435,7 +435,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test14() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
     po.addId(Integer.valueOf(8));
@@ -447,12 +447,12 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(1));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest14", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest14", po);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -462,7 +462,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test15() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     // go backwards to make the test fail
     po.addId(Integer.valueOf(9));
     po.addId(Integer.valueOf(8));
@@ -474,13 +474,13 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(1));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest15", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest15", po);
       assertEquals(4, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
       assertEquals(4, ((Person) results.get(3)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -492,7 +492,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test16() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
@@ -505,7 +505,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest16", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest16", po);
       assertEquals(6, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -513,7 +513,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(4, ((Person) results.get(3)).getId().intValue());
       assertEquals(5, ((Person) results.get(4)).getId().intValue());
       assertEquals(6, ((Person) results.get(5)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -525,7 +525,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test17() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
@@ -538,7 +538,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest17", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest17", po);
       assertEquals(6, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -546,7 +546,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(4, ((Person) results.get(3)).getId().intValue());
       assertEquals(5, ((Person) results.get(4)).getId().intValue());
       assertEquals(6, ((Person) results.get(5)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -558,7 +558,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test18() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
@@ -571,11 +571,11 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest18", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest18", po);
       assertEquals(2, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -587,7 +587,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test19() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
@@ -600,11 +600,11 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest19", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest19", po);
       assertEquals(2, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -616,7 +616,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test20() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
 
     NestedIterateParameterObject.AndCondition andCondition = new NestedIterateParameterObject.AndCondition();
     andCondition.addCondition("first_name =", "Jeff", Boolean.valueOf(false));
@@ -629,11 +629,11 @@ class NestedIterateTest extends BaseSqlMap {
     po.addOrCondition(andCondition);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest20", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest20", po);
       assertEquals(2, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -646,7 +646,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test21() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -657,7 +657,7 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest21", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest21", po);
       assertEquals(9, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
@@ -668,7 +668,7 @@ class NestedIterateTest extends BaseSqlMap {
       assertEquals(7, ((Person) results.get(6)).getId().intValue());
       assertEquals(8, ((Person) results.get(7)).getId().intValue());
       assertEquals(9, ((Person) results.get(8)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -680,7 +680,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test22() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -691,10 +691,10 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest22", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest22", po);
       assertEquals(1, results.size());
       assertEquals(4, ((Person) results.get(0)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -704,7 +704,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test23() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -715,10 +715,10 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest23", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest23", po);
       assertEquals(1, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -728,7 +728,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test24() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -739,10 +739,10 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest24", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest24", po);
       assertEquals(1, results.size());
       assertEquals(9, ((Person) results.get(0)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -752,7 +752,7 @@ class NestedIterateTest extends BaseSqlMap {
    */
   @Test
   void test25() {
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -763,12 +763,12 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest25", po);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest25", po);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -779,7 +779,7 @@ class NestedIterateTest extends BaseSqlMap {
   @Test
   void test26() {
 
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -790,16 +790,16 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
 
-    Map<String, NestedIterateParameterObject> params = new HashMap<>();
+    final Map<String, NestedIterateParameterObject> params = new HashMap<>();
     params.put("po", po);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest26", params);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest26", params);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
 
@@ -811,13 +811,13 @@ class NestedIterateTest extends BaseSqlMap {
   @Test
   void test27() {
 
-    Map<String, List<Map<String, NestedIterateParameterObject>>> firstMap = new HashMap<>();
+    final Map<String, List<Map<String, NestedIterateParameterObject>>> firstMap = new HashMap<>();
 
-    List<Map<String, NestedIterateParameterObject>> firstList = new ArrayList<>();
+    final List<Map<String, NestedIterateParameterObject>> firstList = new ArrayList<>();
 
-    Map<String, NestedIterateParameterObject> params = new HashMap<>();
+    final Map<String, NestedIterateParameterObject> params = new HashMap<>();
 
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -835,12 +835,12 @@ class NestedIterateTest extends BaseSqlMap {
     firstMap.put("firstList", firstList);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest27", firstMap);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest27", firstMap);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
 
@@ -852,7 +852,7 @@ class NestedIterateTest extends BaseSqlMap {
   @Test
   void test28() {
 
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -863,17 +863,17 @@ class NestedIterateTest extends BaseSqlMap {
     po.addId(Integer.valueOf(8));
     po.addId(Integer.valueOf(9));
 
-    SimpleNestedParameterObject simpleNestedParameterObject = new SimpleNestedParameterObject();
+    final SimpleNestedParameterObject simpleNestedParameterObject = new SimpleNestedParameterObject();
 
     simpleNestedParameterObject.setNestedIterateParameterObject(po);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest28", simpleNestedParameterObject);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest28", simpleNestedParameterObject);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
 
@@ -885,13 +885,13 @@ class NestedIterateTest extends BaseSqlMap {
   @Test
   void test29() {
 
-    SimpleNestedParameterObject firstParameterObject = new SimpleNestedParameterObject();
+    final SimpleNestedParameterObject firstParameterObject = new SimpleNestedParameterObject();
 
-    SimpleNestedParameterObject secondParameterObject = new SimpleNestedParameterObject();
+    final SimpleNestedParameterObject secondParameterObject = new SimpleNestedParameterObject();
 
-    List<SimpleNestedParameterObject> parameterObjectList = new ArrayList<>();
+    final List<SimpleNestedParameterObject> parameterObjectList = new ArrayList<>();
 
-    NestedIterateParameterObject po = new NestedIterateParameterObject();
+    final NestedIterateParameterObject po = new NestedIterateParameterObject();
     po.addId(Integer.valueOf(1));
     po.addId(Integer.valueOf(2));
     po.addId(Integer.valueOf(3));
@@ -909,12 +909,12 @@ class NestedIterateTest extends BaseSqlMap {
     firstParameterObject.setNestedList(parameterObjectList);
 
     try {
-      List<?> results = sqlMap.queryForList("NestedIterateTest29", firstParameterObject);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest29", firstParameterObject);
       assertEquals(3, results.size());
       assertEquals(1, ((Person) results.get(0)).getId().intValue());
       assertEquals(2, ((Person) results.get(1)).getId().intValue());
       assertEquals(3, ((Person) results.get(2)).getId().intValue());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }
@@ -929,35 +929,35 @@ class NestedIterateTest extends BaseSqlMap {
     try {
 
       // prepare item list
-      Item item1 = new Item();
+      final Item item1 = new Item();
       item1.setItemId("EST-1");
       item1.setProductId("FI-SW-01");
 
-      List<Item> itemList = new ArrayList<>();
+      final List<Item> itemList = new ArrayList<>();
       itemList.add(item1);
 
       // prepare product list
-      Product product1 = new Product();
+      final Product product1 = new Product();
       product1.setProductId("FI-SW-01");
       product1.setCategoryId("DOGS");
       product1.setItemList(itemList);
 
-      List<Product> productList = new ArrayList<>();
+      final List<Product> productList = new ArrayList<>();
       productList.add(product1);
 
       // prepare parent category
-      Category parentCategory = new Category();
+      final Category parentCategory = new Category();
       parentCategory.setCategoryId("DOGS");
       parentCategory.setProductList(productList);
 
       // setup Category
-      Category category = new Category();
+      final Category category = new Category();
       category.setCategoryId("FISH");
       category.setParentCategory(parentCategory);
 
-      List<?> results = sqlMap.queryForList("NestedIterateTest30", category);
+      final List<?> results = sqlMap.queryForList("NestedIterateTest30", category);
       assertEquals(1, results.size());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       fail(e.getMessage());
     }
   }

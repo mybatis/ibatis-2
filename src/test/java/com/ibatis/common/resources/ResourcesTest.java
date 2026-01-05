@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,8 @@ class ResourcesTest {
 
   @Test
   void testSetDefaultClassLoader() {
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
-    ClassLoader tmp = Resources.getDefaultClassLoader();
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader tmp = Resources.getDefaultClassLoader();
     Resources.setDefaultClassLoader(classLoader);
     assertEquals(classLoader, Resources.getDefaultClassLoader());
     Resources.setDefaultClassLoader(tmp);
@@ -66,7 +66,7 @@ class ResourcesTest {
       url = Resources.getResourceURL(resourceName);
       assertNotNull(url);
       url = null;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not load resource " + resourceName);
     }
 
@@ -75,7 +75,7 @@ class ResourcesTest {
     try {
       Resources.getResourceURL(resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // This is expected...
       assertNull(url);
     }
@@ -88,7 +88,7 @@ class ResourcesTest {
   void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "java/lang/String.class";
     url = null;
@@ -99,7 +99,7 @@ class ResourcesTest {
       assertNotNull(url);
       assertTrue(isUsingPrivateClassloader);
       url = null;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not load resource " + resourceName);
     }
 
@@ -110,7 +110,7 @@ class ResourcesTest {
       assertFalse(isUsingPrivateClassloader);
       Resources.getResourceURL(classLoader, resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // This is expected...
       assertNull(url);
       assertTrue(isUsingPrivateClassloader);
@@ -129,7 +129,7 @@ class ResourcesTest {
     try {
       inputStream = Resources.getResourceAsStream(resourceName);
       assertNotNull(inputStream);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not load resource " + resourceName);
     }
 
@@ -138,7 +138,7 @@ class ResourcesTest {
     try {
       Resources.getResourceURL(resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // This is expected...
       assertNull(inputStream);
     }
@@ -151,7 +151,7 @@ class ResourcesTest {
   void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "java/lang/String.class";
     inputStream = null;
@@ -161,7 +161,7 @@ class ResourcesTest {
       inputStream = Resources.getResourceAsStream(classLoader, resourceName);
       assertNotNull(inputStream);
       assertTrue(isUsingPrivateClassloader);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not load resource " + resourceName);
     }
 
@@ -172,7 +172,7 @@ class ResourcesTest {
       assertFalse(isUsingPrivateClassloader);
       Resources.getResourceURL(classLoader, resourceName);
       fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // This is expected...
       assertNull(inputStream);
       assertTrue(isUsingPrivateClassloader);
@@ -185,10 +185,10 @@ class ResourcesTest {
   @Test
   void testGetResourceAsPropertiesString() {
     String resourceName;
-    String testProp = "name";
-    String testPropValue = "value";
-    String testProp2 = "name2";
-    String testPropValue2 = "value2";
+    final String testProp = "name";
+    final String testPropValue = "value";
+    final String testProp2 = "name2";
+    final String testPropValue2 = "value2";
     Properties properties;
 
     resourceName = "com/ibatis/common/resources/resourcestest.properties";
@@ -198,7 +198,7 @@ class ResourcesTest {
       assertNotNull(properties);
       assertEquals(properties.get(testProp), testPropValue);
       assertEquals(properties.get(testProp2), testPropValue2);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not read test properties file: " + resourceName);
     }
 
@@ -208,7 +208,7 @@ class ResourcesTest {
     try {
       properties = Resources.getResourceAsProperties(resourceName);
       fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       assertNull(properties);
     }
   }
@@ -219,12 +219,12 @@ class ResourcesTest {
   @Test
   void testGetResourceAsPropertiesClassLoaderString() {
     String resourceName;
-    String testProp = "name";
-    String testPropValue = "value";
-    String testProp2 = "name2";
-    String testPropValue2 = "value2";
+    final String testProp = "name";
+    final String testPropValue = "value";
+    final String testProp2 = "name2";
+    final String testPropValue2 = "value2";
     Properties properties;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "com/ibatis/common/resources/resourcestest.properties";
     properties = null;
@@ -237,7 +237,7 @@ class ResourcesTest {
       assertTrue(isUsingPrivateClassloader);
       assertEquals(properties.get(testProp), testPropValue);
       assertEquals(properties.get(testProp2), testPropValue2);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       fail("Could not read test properties file: " + resourceName);
     }
 
@@ -248,7 +248,7 @@ class ResourcesTest {
       assertFalse(isUsingPrivateClassloader);
       properties = Resources.getResourceAsProperties(classLoader, resourceName);
       fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       assertNull(properties);
       assertTrue(isUsingPrivateClassloader);
     }

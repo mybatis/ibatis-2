@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class NodeletUtilsTest {
   @Test
   void testGetBooleanAttribute() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("boolean1", "true");
     props.setProperty("boolean2", "false");
     props.setProperty("boolean3", "TRUE");
@@ -51,7 +51,7 @@ class NodeletUtilsTest {
   @Test
   void testGetIntAttribute() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("int1", "0");
     props.setProperty("int2", "1000");
     props.setProperty("int3", "-200");
@@ -65,13 +65,13 @@ class NodeletUtilsTest {
     try {
       assertEquals(-10000, NodeletUtils.getIntAttribute(props, "int4", -10000));
       fail("testGetIntAttribute() should have thrown an exception");
-    } catch (NumberFormatException ex) {
+    } catch (final NumberFormatException ex) {
     }
 
     try {
       NodeletUtils.getIntAttribute(props, "int5", -10000);
       fail("testGetIntAttribute() should have thrown an exception");
-    } catch (NumberFormatException ex) {
+    } catch (final NumberFormatException ex) {
     }
   }
 
@@ -81,7 +81,7 @@ class NodeletUtilsTest {
   @Test
   void testParsePropertyTokens() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("key1", "0");
     props.setProperty("key2", "1000");
     props.setProperty("key3", "abcd");

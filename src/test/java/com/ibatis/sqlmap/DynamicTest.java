@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,14 +39,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsParameterPresentTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsParameterPresent", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("dynamicIsParameterPresent", Integer.valueOf(1));
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsParameterPresentFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsParameterPresent", null);
+    final List<?> list = sqlMap.queryForList("dynamicIsParameterPresent", null);
     assertEquals(5, list.size());
   }
 
@@ -54,14 +54,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsNotEmptyTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsNotEmpty", "Clinton");
+    final List<?> list = sqlMap.queryForList("dynamicIsNotEmpty", "Clinton");
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsNotEmptyFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsNotEmpty", "");
+    final List<?> list = sqlMap.queryForList("dynamicIsNotEmpty", "");
     assertEquals(5, list.size());
   }
 
@@ -69,14 +69,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsEqualTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsEqual", "Clinton");
+    final List<?> list = sqlMap.queryForList("dynamicIsEqual", "Clinton");
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsEqualFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsEqual", "BLAH!");
+    final List<?> list = sqlMap.queryForList("dynamicIsEqual", "BLAH!");
     assertEquals(5, list.size());
   }
 
@@ -84,14 +84,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsGreaterTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsGreater", Integer.valueOf(5));
+    final List<?> list = sqlMap.queryForList("dynamicIsGreater", Integer.valueOf(5));
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsGreaterFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsGreater", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("dynamicIsGreater", Integer.valueOf(1));
     assertEquals(5, list.size());
   }
 
@@ -99,14 +99,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsGreaterEqualTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsGreaterEqual", Integer.valueOf(3));
+    final List<?> list = sqlMap.queryForList("dynamicIsGreaterEqual", Integer.valueOf(3));
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsGreaterEqualFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsGreaterEqual", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("dynamicIsGreaterEqual", Integer.valueOf(1));
     assertEquals(5, list.size());
   }
 
@@ -114,14 +114,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsLessTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsLess", Integer.valueOf(1));
+    final List<?> list = sqlMap.queryForList("dynamicIsLess", Integer.valueOf(1));
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsLessFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsLess", Integer.valueOf(5));
+    final List<?> list = sqlMap.queryForList("dynamicIsLess", Integer.valueOf(5));
     assertEquals(5, list.size());
   }
 
@@ -129,14 +129,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsLessEqualTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsLessEqual", Integer.valueOf(3));
+    final List<?> list = sqlMap.queryForList("dynamicIsLessEqual", Integer.valueOf(3));
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsLessEqualFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsLessEqual", Integer.valueOf(5));
+    final List<?> list = sqlMap.queryForList("dynamicIsLessEqual", Integer.valueOf(5));
     assertEquals(5, list.size());
   }
 
@@ -144,14 +144,14 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsNotNullTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsNotNull", "");
+    final List<?> list = sqlMap.queryForList("dynamicIsNotNull", "");
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testIsNotNullFalse() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsNotNull", null);
+    final List<?> list = sqlMap.queryForList("dynamicIsNotNull", null);
     assertEquals(5, list.size());
   }
 
@@ -159,40 +159,40 @@ class DynamicTest extends BaseSqlMap {
 
   @Test
   void testIsPropertyAvailableTrue() throws SQLException {
-    List<?> list = sqlMap.queryForList("dynamicIsPropertyAvailable", "1");
+    final List<?> list = sqlMap.queryForList("dynamicIsPropertyAvailable", "1");
     assertAccount1((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testEmptyParameterObject() throws SQLException {
-    Account account = new Account();
+    final Account account = new Account();
     account.setId(-1);
-    List<?> list = sqlMap.queryForList("dynamicQueryByExample", account);
+    final List<?> list = sqlMap.queryForList("dynamicQueryByExample", account);
     assertAccount1((Account) list.get(0));
     assertEquals(5, list.size());
   }
 
   @Test
   void testComplexDynamicQuery() throws SQLException {
-    Account account = new Account();
+    final Account account = new Account();
     account.setId(2);
     account.setFirstName("Jim");
     account.setLastName("Smith");
     account.setEmailAddress("jim.smith@somewhere.com");
-    List<?> list = sqlMap.queryForList("complexDynamicQueryByExample", account);
+    final List<?> list = sqlMap.queryForList("complexDynamicQueryByExample", account);
     assertAccount2((Account) list.get(0));
     assertEquals(1, list.size());
   }
 
   @Test
   void testComplexDynamicQueryLiteral() throws SQLException {
-    Account account = new Account();
+    final Account account = new Account();
     account.setId(2);
     account.setFirstName("Jim");
     account.setLastName("Smith");
     account.setEmailAddress("jim.smith@somewhere.com");
-    List<?> list = sqlMap.queryForList("complexDynamicQueryByExampleLiteral", account);
+    final List<?> list = sqlMap.queryForList("complexDynamicQueryByExampleLiteral", account);
     assertAccount2((Account) list.get(0));
     assertEquals(1, list.size());
   }
