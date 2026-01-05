@@ -215,8 +215,8 @@ public class SimpleDataSource implements DataSource {
         throw new RuntimeException("SimpleDataSource: The properties map passed to the initializer was null.");
       }
 
-      if ((!props.containsKey(PROP_JDBC_DRIVER) || !props.containsKey(PROP_JDBC_URL)
-          || !props.containsKey(PROP_JDBC_USERNAME) || !props.containsKey(PROP_JDBC_PASSWORD))) {
+      if (!props.containsKey(PROP_JDBC_DRIVER) || !props.containsKey(PROP_JDBC_URL)
+          || !props.containsKey(PROP_JDBC_USERNAME) || !props.containsKey(PROP_JDBC_PASSWORD)) {
         throw new RuntimeException("SimpleDataSource: Some properties were not set.");
       }
       jdbcDriver = (String) props.get(PROP_JDBC_DRIVER);
