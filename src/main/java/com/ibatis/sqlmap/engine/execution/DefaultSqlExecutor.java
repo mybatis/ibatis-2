@@ -624,7 +624,8 @@ public class DefaultSqlExecutor implements SqlExecutor {
     for (int i = 0; i < mappings.length; i++) {
       ParameterMapping mapping = mappings[i];
       if (mapping.isOutputAllowed()) {
-        if (null != mapping.getTypeName() && !mapping.getTypeName().equals("")) { // @added
+        if (null != mapping.getTypeName() && !mapping.getTypeName().isEmpty()) {
+          // @added
           cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());
         } else if (mapping.getNumericScale() != null
             && (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {

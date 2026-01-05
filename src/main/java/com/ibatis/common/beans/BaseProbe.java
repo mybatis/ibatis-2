@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@ public abstract class BaseProbe implements Probe {
       String name = indexedName.substring(0, indexedName.indexOf('['));
       int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
       Object list = null;
-      if ("".equals(name)) {
+      if (name.isEmpty()) {
         list = object;
       } else {
         list = getProperty(object, name);
@@ -142,7 +142,7 @@ public abstract class BaseProbe implements Probe {
       String name = indexedName.substring(0, indexedName.indexOf('['));
       int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
       Object list = null;
-      if (!"".equals(name)) {
+      if (!name.isEmpty()) {
         list = getProperty(object, name);
       } else {
         list = object;
