@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import javax.transaction.UserTransaction;
 /**
  * The Class JtaTransaction.
  */
-public class JtaTransaction implements Transaction {
+public class JavaxTransaction implements Transaction {
 
   /** The Constant connectionLog. */
   private static final Log connectionLog = LogFactory.getLog(Connection.class);
@@ -68,7 +68,7 @@ public class JtaTransaction implements Transaction {
    * @throws TransactionException
    *           the transaction exception
    */
-  public JtaTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {
+  public JavaxTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {
     // Check parameters
     userTransaction = utx;
     dataSource = ds;

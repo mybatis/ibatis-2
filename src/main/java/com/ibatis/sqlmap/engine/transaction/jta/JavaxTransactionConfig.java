@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,14 +30,14 @@ import javax.transaction.UserTransaction;
 /**
  * The Class JtaTransactionConfig.
  */
-public class JtaTransactionConfig extends BaseTransactionConfig {
+public class JavaxTransactionConfig extends BaseTransactionConfig {
 
   /** The user transaction. */
   private UserTransaction userTransaction;
 
   @Override
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
-    return new JtaTransaction(userTransaction, dataSource, transactionIsolation);
+    return new JavaxTransaction(userTransaction, dataSource, transactionIsolation);
   }
 
   /**
