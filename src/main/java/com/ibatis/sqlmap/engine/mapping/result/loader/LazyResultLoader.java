@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,9 +91,8 @@ public class LazyResultLoader implements InvocationHandler {
     ClassLoader cl = targetType.getClassLoader();
     if (Set.class.isAssignableFrom(targetType)) {
       return Proxy.newProxyInstance(cl, SET_INTERFACES, handler);
-    } else {
-      return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);
     }
+    return Proxy.newProxyInstance(cl, LIST_INTERFACES, handler);
   }
 
   @Override
@@ -102,14 +101,13 @@ public class LazyResultLoader implements InvocationHandler {
       return null;
     }
     loadObject();
-    if (resultObject != null) {
-      try {
-        return method.invoke(resultObject, objects);
-      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-        throw ClassInfo.unwrapThrowable(e);
-      }
-    } else {
+    if (resultObject == null) {
       return null;
+    }
+    try {
+      return method.invoke(resultObject, objects);
+    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+      throw ClassInfo.unwrapThrowable(e);
     }
   }
 

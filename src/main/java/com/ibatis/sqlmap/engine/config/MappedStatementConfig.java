@@ -132,7 +132,7 @@ public class MappedStatementConfig {
     }
     statement.setId(id);
     statement.setResource(errorContext.getResource());
-    if ((resultSetType != null) && (resultSetType != null)) {
+    if (resultSetType != null && resultSetType != null) {
       switch (resultSetType) {
         case "FORWARD_ONLY":
           statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));
