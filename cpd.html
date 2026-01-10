@@ -29,7 +29,7 @@
           <ul class="breadcrumb">
         <li id="publishDate">Last Published: 10 Jan 2026<span class="divider">|</span>
 </li>
-          <li id="projectVersion">Version: 2.7.6</li>
+          <li id="projectVersion">Version: 2.8.0</li>
           </ul>
         </div>
       </header>
@@ -73,6 +73,124 @@
 <h1>CPD Results</h1>
 <p>The following document contains the results of PMD's  <a class="externalLink" href="https://pmd.github.io/latest/pmd_userdocs_cpd.html">CPD</a> 7.14.0.</p><section><a id="Duplications"></a>
 <h2>Duplications</h2>
+<table class="table table-striped">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>com\ibatis\sqlmap\engine\transaction\jta\JakartaTransaction.java</td>
+<td><a href="./xref/com/ibatis/sqlmap/engine/transaction/jta/JakartaTransaction.html#L72">72</a></td></tr>
+<tr class="a">
+<td>com\ibatis\sqlmap\engine\transaction\jta\JavaxTransaction.java</td>
+<td><a href="./xref/com/ibatis/sqlmap/engine/transaction/jta/JavaxTransaction.html#L71">71</a></td></tr>
+<tr class="b">
+<td colspan="2">
+<pre>public JakartaTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {
+    // Check parameters
+    userTransaction = utx;
+    dataSource = ds;
+    if (userTransaction == null) {
+      throw new TransactionException(&quot;JtaTransaction initialization failed.  UserTransaction was null.&quot;);
+    }
+    if (dataSource == null) {
+      throw new TransactionException(&quot;JtaTransaction initialization failed.  DataSource was null.&quot;);
+    }
+    this.isolationLevel.setIsolationLevel(isolationLevel);
+  }
+
+  /**
+   * Inits the.
+   *
+   * @throws TransactionException
+   *           the transaction exception
+   * @throws SQLException
+   *           the SQL exception
+   */
+  private void init() throws TransactionException, SQLException {
+    // Start JTA Transaction
+    try {
+      newTransaction = userTransaction.getStatus() == Status.STATUS_NO_TRANSACTION;
+      if (newTransaction) {
+        userTransaction.begin();
+      }
+    } catch (Exception e) {
+      throw new TransactionException(&quot;JtaTransaction could not start transaction.  Cause: &quot;, e);
+    }
+
+    // Open JDBC Connection
+    connection = dataSource.getConnection();
+    if (connection == null) {
+      throw new TransactionException(
+          &quot;JtaTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
+    }
+    // Isolation Level
+    isolationLevel.applyIsolationLevel(connection);
+    // AutoCommit
+    if (connection.getAutoCommit()) {
+      connection.setAutoCommit(false);
+    }
+    // Debug
+    if (connectionLog.isDebugEnabled()) {
+      connection = ConnectionLogProxy.newInstance(connection);
+    }
+  }
+
+  @Override
+  public void commit() throws SQLException, TransactionException {
+    if (connection != null) {
+      if (commmitted) {
+        throw new TransactionException(
+            &quot;JtaTransaction could not commit because this transaction has already been committed.&quot;);
+      }
+      try {
+        if (newTransaction) {
+          userTransaction.commit();
+        }
+      } catch (Exception e) {
+        throw new TransactionException(&quot;JtaTransaction could not commit.  Cause: &quot;, e);
+      }
+      commmitted = true;
+    }
+  }
+
+  @Override
+  public void rollback() throws SQLException, TransactionException {
+    if (connection != null &amp;&amp; !commmitted) {
+      try {
+        if (userTransaction != null) {
+          if (newTransaction) {
+            userTransaction.rollback();
+          } else {
+            userTransaction.setRollbackOnly();
+          }
+        }
+      } catch (Exception e) {
+        throw new TransactionException(&quot;JtaTransaction could not rollback.  Cause: &quot;, e);
+      }
+    }
+  }
+
+  @Override
+  public void close() throws SQLException, TransactionException {
+    if (connection != null) {
+      try {
+        isolationLevel.restoreIsolationLevel(connection);
+      } finally {
+        connection.close();
+        connection = null;
+      }
+    }
+  }
+
+  @Override
+  public Connection getConnection() throws SQLException, TransactionException {
+    if (connection == null) {
+      init();
+    }
+    return connection;
+  }
+
+}</pre></td></tr></table>
 <table class="table table-striped">
 <tr class="a">
 <th>File</th>
@@ -399,7 +517,55 @@
       StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);
       while (parser.hasMoreTokens()) {
         name = parser.nextToken();
-        type = ClassInfo.getInstance(type).getSetterType(name);</pre></td></tr></table></section></section>        </main>
+        type = ClassInfo.getInstance(type).getSetterType(name);</pre></td></tr></table>
+<table class="table table-striped">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>com\ibatis\sqlmap\engine\transaction\jta\JakartaTransactionConfig.java</td>
+<td><a href="./xref/com/ibatis/sqlmap/engine/transaction/jta/JakartaTransactionConfig.html#L41">41</a></td></tr>
+<tr class="a">
+<td>com\ibatis\sqlmap\engine\transaction\jta\JavaxTransactionConfig.java</td>
+<td><a href="./xref/com/ibatis/sqlmap/engine/transaction/jta/JavaxTransactionConfig.html#L40">40</a></td></tr>
+<tr class="b">
+<td colspan="2">
+<pre>return new JakartaTransaction(userTransaction, dataSource, transactionIsolation);
+  }
+
+  /**
+   * Gets the user transaction.
+   *
+   * @return the user transaction
+   */
+  public UserTransaction getUserTransaction() {
+    return userTransaction;
+  }
+
+  /**
+   * Sets the user transaction.
+   *
+   * @param userTransaction
+   *          the new user transaction
+   */
+  public void setUserTransaction(UserTransaction userTransaction) {
+    this.userTransaction = userTransaction;
+  }
+
+  @Override
+  public void setProperties(Properties props) throws SQLException, TransactionException {
+    String utxName = null;
+    try {
+      utxName = (String) props.get(&quot;UserTransaction&quot;);
+      InitialContext initCtx = new InitialContext();
+      userTransaction = (UserTransaction) initCtx.lookup(utxName);
+    } catch (NamingException e) {
+      throw new SqlMapException(
+          &quot;Error initializing JtaTransactionConfig while looking up UserTransaction (&quot; + utxName + &quot;).  Cause: &quot; + e);
+    }
+  }
+
+}</pre></td></tr></table></section></section>        </main>
       </div>
     </div>
     <hr/>

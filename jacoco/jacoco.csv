@@ -59,8 +59,11 @@ mybatis2,com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements,ConditionalTagHan
 mybatis2,com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements,IterateTagHandler,14,188,4,40,4,47,5,23,1,5
 mybatis2,com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements,IsLessThanTagHandler,0,21,1,3,0,3,1,3,0,2
 mybatis2,com.ibatis.sqlmap.engine.mapping.sql.dynamic.elements,IsGreaterThanTagHandler,0,21,1,3,0,3,1,3,0,2
-mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JtaTransactionConfig,47,0,0,0,13,0,5,0,5,0
-mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JtaTransaction,183,0,32,0,55,0,23,0,7,0
+mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JavaxTransaction,183,0,32,0,55,0,23,0,7,0
+mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JakartaTransactionConfig,47,0,0,0,13,0,5,0,5,0
+mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JakartaTransaction,183,0,32,0,55,0,23,0,7,0
+mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JTANamespace,3,15,0,0,2,6,0,2,0,2
+mybatis2,com.ibatis.sqlmap.engine.transaction.jta,JavaxTransactionConfig,47,0,0,0,13,0,5,0,5,0
 mybatis2,com.ibatis.sqlmap.engine.mapping.sql.dynamic,DynamicSql,33,417,12,46,8,100,12,29,1,11
 mybatis2,com.ibatis.common.jdbc.exception,RuntimeSQLException,63,0,8,0,24,0,12,0,8,0
 mybatis2,com.ibatis.common.jdbc.exception,NestedSQLException,31,18,0,0,12,6,5,2,5,2
@@ -111,7 +114,7 @@ mybatis2,com.ibatis.common.jdbc.logging,PreparedStatementLogProxy,190,0,24,0,41,
 mybatis2,com.ibatis.common.jdbc.logging,ResultSetLogProxy,127,0,20,0,30,0,15,0,5,0
 mybatis2,com.ibatis.sqlmap.engine.transaction.user,UserProvidedTransaction,17,16,1,1,7,6,4,3,3,3
 mybatis2,com.ibatis.common.logging.nologging,NoLoggingImpl,9,0,0,0,7,0,6,0,6,0
-mybatis2,com.ibatis.sqlmap.engine.config,SqlMapConfiguration,56,452,11,27,14,115,9,37,0,27
+mybatis2,com.ibatis.sqlmap.engine.config,SqlMapConfiguration,59,454,12,28,14,116,10,37,0,27
 mybatis2,com.ibatis.sqlmap.engine.config,ResultMapConfig,45,328,13,29,10,76,10,15,0,4
 mybatis2,com.ibatis.sqlmap.engine.config,CacheModelConfig,17,129,2,2,4,33,3,4,1,4
 mybatis2,com.ibatis.sqlmap.engine.config,MappedStatementConfig,70,449,18,36,20,111,16,19,1,6
