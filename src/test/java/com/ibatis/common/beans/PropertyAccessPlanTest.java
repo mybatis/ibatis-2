@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,12 @@
  */
 package com.ibatis.common.beans;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.ibatis.sqlmap.engine.accessplan.AccessPlan;
 import com.ibatis.sqlmap.engine.accessplan.AccessPlanFactory;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import testdomain.Order;
@@ -38,34 +37,35 @@ class PropertyAccessPlanTest {
   @Test
   void testSetAndGetProperties() {
 
-    AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, properties);
+    final AccessPlan plan = AccessPlanFactory.getAccessPlan(Order.class, PropertyAccessPlanTest.properties);
 
     Order order = new Order();
 
-    plan.setProperties(order, values);
-    assertOrder(order);
+    plan.setProperties(order, PropertyAccessPlanTest.values);
+    this.assertOrder(order);
 
-    Object[] newValues = plan.getProperties(order);
+    final Object[] newValues = plan.getProperties(order);
 
     order = new Order();
     plan.setProperties(order, newValues);
 
-    assertOrder(order);
+    this.assertOrder(order);
 
   }
 
-  private void assertOrder(Order order) {
-    assertEquals(values[0], Integer.valueOf(order.getId()));
-    assertEquals(values[1], Integer.valueOf(order.getId()));
-    assertEquals(values[2], order.getAccount().getFirstName());
-    assertEquals(values[3], order.getAccount().getLastName());
-    assertEquals(values[4], order.getAccount().getEmailAddress());
-    assertEquals(values[5], order.getCardType());
-    assertEquals(values[6], order.getCardNumber());
-    assertEquals(values[7], order.getCardExpiry());
-    assertEquals(values[8], order.getFavouriteLineItem().getItemCode());
-    assertEquals(values[9], Integer.valueOf(order.getFavouriteLineItem().getQuantity()));
-    assertEquals(values[10], order.getFavouriteLineItem().getPrice());
+  private void assertOrder(final Order order) {
+    Assertions.assertEquals(PropertyAccessPlanTest.values[0], Integer.valueOf(order.getId()));
+    Assertions.assertEquals(PropertyAccessPlanTest.values[1], Integer.valueOf(order.getId()));
+    Assertions.assertEquals(PropertyAccessPlanTest.values[2], order.getAccount().getFirstName());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[3], order.getAccount().getLastName());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[4], order.getAccount().getEmailAddress());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[5], order.getCardType());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[6], order.getCardNumber());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[7], order.getCardExpiry());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[8], order.getFavouriteLineItem().getItemCode());
+    Assertions.assertEquals(PropertyAccessPlanTest.values[9],
+        Integer.valueOf(order.getFavouriteLineItem().getQuantity()));
+    Assertions.assertEquals(PropertyAccessPlanTest.values[10], order.getFavouriteLineItem().getPrice());
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,145 +27,145 @@ class TransactionTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   // TRANSACTION TESTS
 
   @Test
   void testStartCommitTransaction() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.update("insertAccountViaParameterMap", account);
-      sqlMap.commitTransaction();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
+      BaseSqlMap.sqlMap.commitTransaction();
     } finally {
-      sqlMap.endTransaction();
+      BaseSqlMap.sqlMap.endTransaction();
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
 
-    assertAccount6(account);
+    this.assertAccount6(account);
   }
 
   @Test
   void testTransactionAlreadyStarted() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
     boolean exceptionThrownAsExpected = false;
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.update("insertAccountViaParameterMap", account);
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
       try {
-        sqlMap.startTransaction(); // transaction already started
-      } catch (SQLException e) {
+        BaseSqlMap.sqlMap.startTransaction(); // transaction already started
+      } catch (final SQLException e) {
         exceptionThrownAsExpected = true;
       }
 
-      sqlMap.commitTransaction();
+      BaseSqlMap.sqlMap.commitTransaction();
     } finally {
-      sqlMap.endTransaction();
+      BaseSqlMap.sqlMap.endTransaction();
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertAccount6(account);
-    assertTrue(exceptionThrownAsExpected);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    this.assertAccount6(account);
+    Assertions.assertTrue(exceptionThrownAsExpected);
   }
 
   @Test
   void testNoTransactionStarted() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
-    sqlMap.update("insertAccountViaParameterMap", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
     boolean exceptionThrownAsExpected = false;
     try {
-      sqlMap.commitTransaction(); // No transaction started
-    } catch (SQLException e) {
+      BaseSqlMap.sqlMap.commitTransaction(); // No transaction started
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
     // This will use autocommit...
-    assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertAccount6(account);
+    Assertions.assertTrue(exceptionThrownAsExpected);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    this.assertAccount6(account);
   }
 
   @Test
   void testTransactionFailed() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
     boolean exceptionThrownAsExpected = false;
     try {
-      sqlMap.update("insertAccountViaParameterMap", null);
-    } catch (SQLException e) {
+      BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", null);
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
-    sqlMap.update("insertAccountViaParameterMap", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
     // This will use autocommit...
-    assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertAccount6(account);
+    Assertions.assertTrue(exceptionThrownAsExpected);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    this.assertAccount6(account);
   }
 
   @Test
   void testTransactionFailed2() throws SQLException {
     // testes method that does not require a parameter object
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
     boolean exceptionThrownAsExpected = false;
     try {
-      sqlMap.update("insertAccountViaParameterMap");
-    } catch (SQLException e) {
+      BaseSqlMap.sqlMap.update("insertAccountViaParameterMap");
+    } catch (final SQLException e) {
       exceptionThrownAsExpected = true;
     }
 
-    sqlMap.update("insertAccountViaParameterMap", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
     // This will use autocommit...
-    assertTrue(exceptionThrownAsExpected);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertAccount6(account);
+    Assertions.assertTrue(exceptionThrownAsExpected);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    this.assertAccount6(account);
   }
 
   @Test
   void testStartRollbackTransaction() throws SQLException {
-    Account account = newAccount6();
+    Account account = this.newAccount6();
 
     try {
-      sqlMap.startTransaction();
-      sqlMap.update("insertAccountViaParameterMap", account);
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
       // sqlMap.commitTransaction();
     } finally {
-      sqlMap.endTransaction();
+      BaseSqlMap.sqlMap.endTransaction();
     }
 
     // This will use autocommit...
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertNull(account);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    Assertions.assertNull(account);
   }
 
   // AUTOCOMMIT TESTS
 
   @Test
   void testAutoCommitUpdate() throws SQLException {
-    Account account = newAccount6();
-    sqlMap.update("insertAccountViaParameterMap", account);
-    account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
-    assertAccount6(account);
+    Account account = this.newAccount6();
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(6));
+    this.assertAccount6(account);
   }
 
   @Test
   void testAutoCommitQuery() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
-    assertAccount1(account);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountNullableEmail", Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,9 @@
  */
 package com.ibatis.common.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.Iterator;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,247 +29,247 @@ class PaginatedArrayListTest {
 
   @BeforeEach
   void setUp() {
-    smallPageList = new PaginatedArrayList(5);
-    smallPageList.add(Integer.valueOf(0));
-    smallPageList.add(Integer.valueOf(1));
-    smallPageList.add(Integer.valueOf(2));
+    this.smallPageList = new PaginatedArrayList(5);
+    this.smallPageList.add(Integer.valueOf(0));
+    this.smallPageList.add(Integer.valueOf(1));
+    this.smallPageList.add(Integer.valueOf(2));
 
-    oddPageList = new PaginatedArrayList(5);
-    oddPageList.add(Integer.valueOf(0));
-    oddPageList.add(Integer.valueOf(1));
-    oddPageList.add(Integer.valueOf(2));
-    oddPageList.add(Integer.valueOf(3));
-    oddPageList.add(Integer.valueOf(4));
-    oddPageList.add(Integer.valueOf(5));
-    oddPageList.add(Integer.valueOf(6));
-    oddPageList.add(Integer.valueOf(7));
-    oddPageList.add(Integer.valueOf(8));
-    oddPageList.add(Integer.valueOf(9));
-    oddPageList.add(Integer.valueOf(10));
-    oddPageList.add(Integer.valueOf(11));
-    oddPageList.add(Integer.valueOf(12));
-    oddPageList.add(Integer.valueOf(13));
-    oddPageList.add(Integer.valueOf(14));
-    oddPageList.add(Integer.valueOf(15));
-    oddPageList.add(Integer.valueOf(16));
-    oddPageList.add(Integer.valueOf(17));
+    this.oddPageList = new PaginatedArrayList(5);
+    this.oddPageList.add(Integer.valueOf(0));
+    this.oddPageList.add(Integer.valueOf(1));
+    this.oddPageList.add(Integer.valueOf(2));
+    this.oddPageList.add(Integer.valueOf(3));
+    this.oddPageList.add(Integer.valueOf(4));
+    this.oddPageList.add(Integer.valueOf(5));
+    this.oddPageList.add(Integer.valueOf(6));
+    this.oddPageList.add(Integer.valueOf(7));
+    this.oddPageList.add(Integer.valueOf(8));
+    this.oddPageList.add(Integer.valueOf(9));
+    this.oddPageList.add(Integer.valueOf(10));
+    this.oddPageList.add(Integer.valueOf(11));
+    this.oddPageList.add(Integer.valueOf(12));
+    this.oddPageList.add(Integer.valueOf(13));
+    this.oddPageList.add(Integer.valueOf(14));
+    this.oddPageList.add(Integer.valueOf(15));
+    this.oddPageList.add(Integer.valueOf(16));
+    this.oddPageList.add(Integer.valueOf(17));
 
-    evenPageList = new PaginatedArrayList(5);
-    evenPageList.add(Integer.valueOf(0));
-    evenPageList.add(Integer.valueOf(1));
-    evenPageList.add(Integer.valueOf(2));
-    evenPageList.add(Integer.valueOf(3));
-    evenPageList.add(Integer.valueOf(4));
-    evenPageList.add(Integer.valueOf(5));
-    evenPageList.add(Integer.valueOf(6));
-    evenPageList.add(Integer.valueOf(7));
-    evenPageList.add(Integer.valueOf(8));
-    evenPageList.add(Integer.valueOf(9));
-    evenPageList.add(Integer.valueOf(10));
-    evenPageList.add(Integer.valueOf(11));
-    evenPageList.add(Integer.valueOf(12));
-    evenPageList.add(Integer.valueOf(13));
-    evenPageList.add(Integer.valueOf(14));
+    this.evenPageList = new PaginatedArrayList(5);
+    this.evenPageList.add(Integer.valueOf(0));
+    this.evenPageList.add(Integer.valueOf(1));
+    this.evenPageList.add(Integer.valueOf(2));
+    this.evenPageList.add(Integer.valueOf(3));
+    this.evenPageList.add(Integer.valueOf(4));
+    this.evenPageList.add(Integer.valueOf(5));
+    this.evenPageList.add(Integer.valueOf(6));
+    this.evenPageList.add(Integer.valueOf(7));
+    this.evenPageList.add(Integer.valueOf(8));
+    this.evenPageList.add(Integer.valueOf(9));
+    this.evenPageList.add(Integer.valueOf(10));
+    this.evenPageList.add(Integer.valueOf(11));
+    this.evenPageList.add(Integer.valueOf(12));
+    this.evenPageList.add(Integer.valueOf(13));
+    this.evenPageList.add(Integer.valueOf(14));
 
   }
 
   @Test
   void testOddPaginatedIterator() {
 
-    assertEquals(true, oddPageList.isFirstPage());
-    assertEquals(false, oddPageList.isPreviousPageAvailable());
+    Assertions.assertEquals(true, this.oddPageList.isFirstPage());
+    Assertions.assertEquals(false, this.oddPageList.isPreviousPageAvailable());
 
     int count = 0;
-    Iterator<?> i = oddPageList.iterator();
+    Iterator<?> i = this.oddPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    oddPageList.nextPage();
+    this.oddPageList.nextPage();
 
     count = 0;
-    i = oddPageList.iterator();
+    i = this.oddPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    oddPageList.nextPage();
+    this.oddPageList.nextPage();
 
-    assertEquals(true, oddPageList.isMiddlePage());
+    Assertions.assertEquals(true, this.oddPageList.isMiddlePage());
 
     count = 0;
-    i = oddPageList.iterator();
+    i = this.oddPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    oddPageList.nextPage();
+    this.oddPageList.nextPage();
 
     count = 0;
-    i = oddPageList.iterator();
+    i = this.oddPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(3, count);
+    Assertions.assertEquals(3, count);
 
-    assertEquals(true, oddPageList.isLastPage());
-    assertEquals(false, oddPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.oddPageList.isLastPage());
+    Assertions.assertEquals(false, this.oddPageList.isNextPageAvailable());
 
-    oddPageList.nextPage();
+    this.oddPageList.nextPage();
 
-    assertEquals(true, oddPageList.isLastPage());
-    assertEquals(false, oddPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.oddPageList.isLastPage());
+    Assertions.assertEquals(false, this.oddPageList.isNextPageAvailable());
 
-    oddPageList.previousPage();
+    this.oddPageList.previousPage();
 
-    assertEquals(Integer.valueOf(10), oddPageList.get(0));
-    assertEquals(Integer.valueOf(12), oddPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(10), this.oddPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(12), this.oddPageList.get(2));
 
-    oddPageList.gotoPage(500);
+    this.oddPageList.gotoPage(500);
 
-    assertEquals(Integer.valueOf(0), oddPageList.get(0));
-    assertEquals(Integer.valueOf(4), oddPageList.get(4));
+    Assertions.assertEquals(Integer.valueOf(0), this.oddPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(4), this.oddPageList.get(4));
 
-    oddPageList.gotoPage(-500);
+    this.oddPageList.gotoPage(-500);
 
-    assertEquals(Integer.valueOf(15), oddPageList.get(0));
-    assertEquals(Integer.valueOf(17), oddPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(15), this.oddPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(17), this.oddPageList.get(2));
   }
 
   @Test
   void testEvenPaginatedIterator() {
 
-    assertEquals(true, evenPageList.isFirstPage());
-    assertEquals(false, evenPageList.isPreviousPageAvailable());
+    Assertions.assertEquals(true, this.evenPageList.isFirstPage());
+    Assertions.assertEquals(false, this.evenPageList.isPreviousPageAvailable());
 
     int count = 0;
-    Iterator<?> i = evenPageList.iterator();
+    Iterator<?> i = this.evenPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    evenPageList.nextPage();
+    this.evenPageList.nextPage();
 
-    assertEquals(true, evenPageList.isMiddlePage());
+    Assertions.assertEquals(true, this.evenPageList.isMiddlePage());
 
     count = 0;
-    i = evenPageList.iterator();
+    i = this.evenPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    evenPageList.nextPage();
+    this.evenPageList.nextPage();
 
     count = 0;
-    i = evenPageList.iterator();
+    i = this.evenPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(5, count);
+    Assertions.assertEquals(5, count);
 
-    assertEquals(true, evenPageList.isLastPage());
-    assertEquals(false, evenPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.evenPageList.isLastPage());
+    Assertions.assertEquals(false, this.evenPageList.isNextPageAvailable());
 
-    evenPageList.nextPage();
+    this.evenPageList.nextPage();
 
-    assertEquals(Integer.valueOf(10), evenPageList.get(0));
-    assertEquals(Integer.valueOf(14), evenPageList.get(4));
+    Assertions.assertEquals(Integer.valueOf(10), this.evenPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(14), this.evenPageList.get(4));
 
-    evenPageList.previousPage();
+    this.evenPageList.previousPage();
 
-    assertEquals(Integer.valueOf(5), evenPageList.get(0));
-    assertEquals(Integer.valueOf(9), evenPageList.get(4));
+    Assertions.assertEquals(Integer.valueOf(5), this.evenPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(9), this.evenPageList.get(4));
 
-    evenPageList.gotoPage(500);
+    this.evenPageList.gotoPage(500);
 
-    assertEquals(Integer.valueOf(0), evenPageList.get(0));
-    assertEquals(Integer.valueOf(4), evenPageList.get(4));
+    Assertions.assertEquals(Integer.valueOf(0), this.evenPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(4), this.evenPageList.get(4));
 
-    evenPageList.gotoPage(-500);
+    this.evenPageList.gotoPage(-500);
 
-    assertEquals(Integer.valueOf(10), evenPageList.get(0));
-    assertEquals(Integer.valueOf(14), evenPageList.get(4));
+    Assertions.assertEquals(Integer.valueOf(10), this.evenPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(14), this.evenPageList.get(4));
   }
 
   @Test
   void testSmallPaginatedIterator() {
 
-    assertEquals(true, smallPageList.isFirstPage());
-    assertEquals(true, smallPageList.isLastPage());
-    assertEquals(false, smallPageList.isMiddlePage());
-    assertEquals(false, smallPageList.isPreviousPageAvailable());
-    assertEquals(false, smallPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.smallPageList.isFirstPage());
+    Assertions.assertEquals(true, this.smallPageList.isLastPage());
+    Assertions.assertEquals(false, this.smallPageList.isMiddlePage());
+    Assertions.assertEquals(false, this.smallPageList.isPreviousPageAvailable());
+    Assertions.assertEquals(false, this.smallPageList.isNextPageAvailable());
 
     int count = 0;
-    Iterator<?> i = smallPageList.iterator();
+    Iterator<?> i = this.smallPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(3, count);
+    Assertions.assertEquals(3, count);
 
-    smallPageList.nextPage();
+    this.smallPageList.nextPage();
 
     count = 0;
-    i = smallPageList.iterator();
+    i = this.smallPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(3, count);
+    Assertions.assertEquals(3, count);
 
-    assertEquals(true, smallPageList.isFirstPage());
-    assertEquals(true, smallPageList.isLastPage());
-    assertEquals(false, smallPageList.isMiddlePage());
-    assertEquals(false, smallPageList.isPreviousPageAvailable());
-    assertEquals(false, smallPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.smallPageList.isFirstPage());
+    Assertions.assertEquals(true, this.smallPageList.isLastPage());
+    Assertions.assertEquals(false, this.smallPageList.isMiddlePage());
+    Assertions.assertEquals(false, this.smallPageList.isPreviousPageAvailable());
+    Assertions.assertEquals(false, this.smallPageList.isNextPageAvailable());
 
-    smallPageList.nextPage();
+    this.smallPageList.nextPage();
 
     count = 0;
-    i = smallPageList.iterator();
+    i = this.smallPageList.iterator();
     while (i.hasNext()) {
       i.next();
       count++;
     }
-    assertEquals(3, count);
+    Assertions.assertEquals(3, count);
 
-    smallPageList.nextPage();
+    this.smallPageList.nextPage();
 
-    assertEquals(Integer.valueOf(0), smallPageList.get(0));
-    assertEquals(Integer.valueOf(2), smallPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(0), this.smallPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(2), this.smallPageList.get(2));
 
-    smallPageList.previousPage();
+    this.smallPageList.previousPage();
 
-    assertEquals(Integer.valueOf(0), smallPageList.get(0));
-    assertEquals(Integer.valueOf(2), smallPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(0), this.smallPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(2), this.smallPageList.get(2));
 
-    smallPageList.gotoPage(500);
+    this.smallPageList.gotoPage(500);
 
-    assertEquals(Integer.valueOf(0), smallPageList.get(0));
-    assertEquals(Integer.valueOf(2), smallPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(0), this.smallPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(2), this.smallPageList.get(2));
 
-    smallPageList.gotoPage(-500);
+    this.smallPageList.gotoPage(-500);
 
-    assertEquals(Integer.valueOf(0), smallPageList.get(0));
-    assertEquals(Integer.valueOf(2), smallPageList.get(2));
+    Assertions.assertEquals(Integer.valueOf(0), this.smallPageList.get(0));
+    Assertions.assertEquals(Integer.valueOf(2), this.smallPageList.get(2));
 
-    assertEquals(true, smallPageList.isFirstPage());
-    assertEquals(true, smallPageList.isLastPage());
-    assertEquals(false, smallPageList.isMiddlePage());
-    assertEquals(false, smallPageList.isPreviousPageAvailable());
-    assertEquals(false, smallPageList.isNextPageAvailable());
+    Assertions.assertEquals(true, this.smallPageList.isFirstPage());
+    Assertions.assertEquals(true, this.smallPageList.isLastPage());
+    Assertions.assertEquals(false, this.smallPageList.isMiddlePage());
+    Assertions.assertEquals(false, this.smallPageList.isPreviousPageAvailable());
+    Assertions.assertEquals(false, this.smallPageList.isNextPageAvailable());
   }
 }

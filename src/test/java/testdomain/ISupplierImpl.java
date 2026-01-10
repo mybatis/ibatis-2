@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,81 +38,81 @@ public class ISupplierImpl extends ISupplierKeyImpl implements ISupplier {
 
   @Override
   public String getAddressLine1() {
-    return addressLine1;
+    return this.addressLine1;
   }
 
   @Override
-  public void setAddressLine1(String addressLine1) {
+  public void setAddressLine1(final String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
   @Override
   public String getAddressLine2() {
-    return addressLine2;
+    return this.addressLine2;
   }
 
   @Override
-  public void setAddressLine2(String addressLine2) {
+  public void setAddressLine2(final String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
   @Override
   public String getCity() {
-    return city;
+    return this.city;
   }
 
   @Override
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 
   @Override
   public String getName() {
-    return name;
+    return this.name;
   }
 
   @Override
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   @Override
   public String getPhone() {
-    return phone;
+    return this.phone;
   }
 
   @Override
-  public void setPhone(String phone) {
+  public void setPhone(final String phone) {
     this.phone = phone;
   }
 
   @Override
   public String getState() {
-    return state;
+    return this.state;
   }
 
   @Override
-  public void setState(String state) {
+  public void setState(final String state) {
     this.state = state;
   }
 
   @Override
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
   @Override
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 
   @Override
   public String getZip() {
-    return zip;
+    return this.zip;
   }
 
   @Override
-  public void setZip(String zip) {
+  public void setZip(final String zip) {
     this.zip = zip;
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,13 @@
  */
 package com.ibatis.common.resources;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,12 +37,12 @@ class ResourcesTest {
 
   @Test
   void testSetDefaultClassLoader() {
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
-    ClassLoader tmp = Resources.getDefaultClassLoader();
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader tmp = Resources.getDefaultClassLoader();
     Resources.setDefaultClassLoader(classLoader);
-    assertEquals(classLoader, Resources.getDefaultClassLoader());
+    Assertions.assertEquals(classLoader, Resources.getDefaultClassLoader());
     Resources.setDefaultClassLoader(tmp);
-    assertNotSame(classLoader, Resources.getDefaultClassLoader());
+    Assertions.assertNotSame(classLoader, Resources.getDefaultClassLoader());
   }
 
   /*
@@ -64,20 +57,20 @@ class ResourcesTest {
     url = null;
     try {
       url = Resources.getResourceURL(resourceName);
-      assertNotNull(url);
+      Assertions.assertNotNull(url);
       url = null;
-    } catch (IOException e) {
-      fail("Could not load resource " + resourceName);
+    } catch (final IOException e) {
+      Assertions.fail("Could not load resource " + resourceName);
     }
 
     resourceName = "java.lang.YouAreAMonkeyCoderIfYouHaveThisClass";
     url = null;
     try {
       Resources.getResourceURL(resourceName);
-      fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+      Assertions.fail("You are a monkey coder, and the Resources class loaded a bogus class.");
+    } catch (final IOException e) {
       // This is expected...
-      assertNull(url);
+      Assertions.assertNull(url);
     }
   }
 
@@ -88,32 +81,32 @@ class ResourcesTest {
   void testGetResourceURLClassLoaderString() {
     String resourceName;
     URL url;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "java/lang/String.class";
     url = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       url = Resources.getResourceURL(classLoader, resourceName);
-      assertNotNull(url);
-      assertTrue(isUsingPrivateClassloader);
+      Assertions.assertNotNull(url);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
       url = null;
-    } catch (IOException e) {
-      fail("Could not load resource " + resourceName);
+    } catch (final IOException e) {
+      Assertions.fail("Could not load resource " + resourceName);
     }
 
     resourceName = "java.lang.YouAreAMonkeyCoderIfYouHaveThisClass";
     url = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       Resources.getResourceURL(classLoader, resourceName);
-      fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+      Assertions.fail("You are a monkey coder, and the Resources class loaded a bogus class.");
+    } catch (final IOException e) {
       // This is expected...
-      assertNull(url);
-      assertTrue(isUsingPrivateClassloader);
+      Assertions.assertNull(url);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
     }
   }
 
@@ -128,19 +121,19 @@ class ResourcesTest {
     inputStream = null;
     try {
       inputStream = Resources.getResourceAsStream(resourceName);
-      assertNotNull(inputStream);
-    } catch (IOException e) {
-      fail("Could not load resource " + resourceName);
+      Assertions.assertNotNull(inputStream);
+    } catch (final IOException e) {
+      Assertions.fail("Could not load resource " + resourceName);
     }
 
     resourceName = "java.lang.YouAreAMonkeyCoderIfYouHaveThisClass";
     inputStream = null;
     try {
       Resources.getResourceURL(resourceName);
-      fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+      Assertions.fail("You are a monkey coder, and the Resources class loaded a bogus class.");
+    } catch (final IOException e) {
       // This is expected...
-      assertNull(inputStream);
+      Assertions.assertNull(inputStream);
     }
   }
 
@@ -151,31 +144,31 @@ class ResourcesTest {
   void testGetResourceAsStreamClassLoaderString() {
     InputStream inputStream;
     String resourceName;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "java/lang/String.class";
     inputStream = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       inputStream = Resources.getResourceAsStream(classLoader, resourceName);
-      assertNotNull(inputStream);
-      assertTrue(isUsingPrivateClassloader);
-    } catch (IOException e) {
-      fail("Could not load resource " + resourceName);
+      Assertions.assertNotNull(inputStream);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
+    } catch (final IOException e) {
+      Assertions.fail("Could not load resource " + resourceName);
     }
 
     resourceName = "java.lang.YouAreAMonkeyCoderIfYouHaveThisClass";
     inputStream = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       Resources.getResourceURL(classLoader, resourceName);
-      fail("You are a monkey coder, and the Resources class loaded a bogus class.");
-    } catch (IOException e) {
+      Assertions.fail("You are a monkey coder, and the Resources class loaded a bogus class.");
+    } catch (final IOException e) {
       // This is expected...
-      assertNull(inputStream);
-      assertTrue(isUsingPrivateClassloader);
+      Assertions.assertNull(inputStream);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
     }
   }
 
@@ -185,21 +178,21 @@ class ResourcesTest {
   @Test
   void testGetResourceAsPropertiesString() {
     String resourceName;
-    String testProp = "name";
-    String testPropValue = "value";
-    String testProp2 = "name2";
-    String testPropValue2 = "value2";
+    final String testProp = "name";
+    final String testPropValue = "value";
+    final String testProp2 = "name2";
+    final String testPropValue2 = "value2";
     Properties properties;
 
     resourceName = "com/ibatis/common/resources/resourcestest.properties";
     properties = null;
     try {
       properties = Resources.getResourceAsProperties(resourceName);
-      assertNotNull(properties);
-      assertEquals(properties.get(testProp), testPropValue);
-      assertEquals(properties.get(testProp2), testPropValue2);
-    } catch (IOException e) {
-      fail("Could not read test properties file: " + resourceName);
+      Assertions.assertNotNull(properties);
+      Assertions.assertEquals(properties.get(testProp), testPropValue);
+      Assertions.assertEquals(properties.get(testProp2), testPropValue2);
+    } catch (final IOException e) {
+      Assertions.fail("Could not read test properties file: " + resourceName);
     }
 
     resourceName = "com/ibatis/common/resources/dont-create-this-file-or-the-test-will-fail.properties";
@@ -207,9 +200,10 @@ class ResourcesTest {
 
     try {
       properties = Resources.getResourceAsProperties(resourceName);
-      fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
-    } catch (IOException e) {
-      assertNull(properties);
+      Assertions
+          .fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
+    } catch (final IOException e) {
+      Assertions.assertNull(properties);
     }
   }
 
@@ -219,38 +213,39 @@ class ResourcesTest {
   @Test
   void testGetResourceAsPropertiesClassLoaderString() {
     String resourceName;
-    String testProp = "name";
-    String testPropValue = "value";
-    String testProp2 = "name2";
-    String testPropValue2 = "value2";
+    final String testProp = "name";
+    final String testPropValue = "value";
+    final String testProp2 = "name2";
+    final String testPropValue2 = "value2";
     Properties properties;
-    ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
+    final ClassLoader classLoader = new TestCL(this.getClass().getClassLoader());
 
     resourceName = "com/ibatis/common/resources/resourcestest.properties";
     properties = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertNull(properties);
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertNull(properties);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       properties = Resources.getResourceAsProperties(classLoader, resourceName);
-      assertNotNull(properties);
-      assertTrue(isUsingPrivateClassloader);
-      assertEquals(properties.get(testProp), testPropValue);
-      assertEquals(properties.get(testProp2), testPropValue2);
-    } catch (IOException e) {
-      fail("Could not read test properties file: " + resourceName);
+      Assertions.assertNotNull(properties);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
+      Assertions.assertEquals(properties.get(testProp), testPropValue);
+      Assertions.assertEquals(properties.get(testProp2), testPropValue2);
+    } catch (final IOException e) {
+      Assertions.fail("Could not read test properties file: " + resourceName);
     }
 
     resourceName = "com/ibatis/common/resources/dont-create-this-file-or-the-test-will-fail.properties";
     properties = null;
-    isUsingPrivateClassloader = false;
+    this.isUsingPrivateClassloader = false;
     try {
-      assertFalse(isUsingPrivateClassloader);
+      Assertions.assertFalse(this.isUsingPrivateClassloader);
       properties = Resources.getResourceAsProperties(classLoader, resourceName);
-      fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
-    } catch (IOException e) {
-      assertNull(properties);
-      assertTrue(isUsingPrivateClassloader);
+      Assertions
+          .fail("Are you TRYING to break this test? If not, Resources loaded a bad properties file: " + resourceName);
+    } catch (final IOException e) {
+      Assertions.assertNull(properties);
+      Assertions.assertTrue(this.isUsingPrivateClassloader);
     }
   }
 
@@ -317,99 +312,100 @@ class ResourcesTest {
    */
   private class TestCL extends ClassLoader {
 
-    public TestCL(ClassLoader parent) {
+    public TestCL(final ClassLoader parent) {
       super(parent);
     }
 
     @Override
     public synchronized void clearAssertionStatus() {
-      isUsingPrivateClassloader = true;
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       super.clearAssertionStatus();
     }
 
     @Override
-    protected Package definePackage(String name, String specTitle, String specVersion, String specVendor,
-        String implTitle, String implVersion, String implVendor, URL sealBase) throws IllegalArgumentException {
-      isUsingPrivateClassloader = true;
+    protected Package definePackage(final String name, final String specTitle, final String specVersion,
+        final String specVendor, final String implTitle, final String implVersion, final String implVendor,
+        final URL sealBase) throws IllegalArgumentException {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.definePackage(name, specTitle, specVersion, specVendor, implTitle, implVersion, implVendor,
           sealBase);
     }
 
     @Override
-    protected Class findClass(String name) throws ClassNotFoundException {
-      isUsingPrivateClassloader = true;
+    protected Class findClass(final String name) throws ClassNotFoundException {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.findClass(name);
     }
 
     @Override
-    protected String findLibrary(String libname) {
-      isUsingPrivateClassloader = true;
+    protected String findLibrary(final String libname) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.findLibrary(libname);
     }
 
     @Override
-    protected URL findResource(String name) {
-      isUsingPrivateClassloader = true;
+    protected URL findResource(final String name) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.findResource(name);
     }
 
     @Override
-    protected Enumeration findResources(String name) throws IOException {
-      isUsingPrivateClassloader = true;
+    protected Enumeration findResources(final String name) throws IOException {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.findResources(name);
     }
 
     @Override
-    protected Package getPackage(String name) {
-      isUsingPrivateClassloader = true;
+    protected Package getPackage(final String name) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.getPackage(name);
     }
 
     @Override
     protected Package[] getPackages() {
-      isUsingPrivateClassloader = true;
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.getPackages();
     }
 
     @Override
-    public URL getResource(String name) {
-      isUsingPrivateClassloader = true;
+    public URL getResource(final String name) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.getResource(name);
     }
 
     @Override
-    public InputStream getResourceAsStream(String name) {
-      isUsingPrivateClassloader = true;
+    public InputStream getResourceAsStream(final String name) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.getResourceAsStream(name);
     }
 
     @Override
-    protected synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
-      isUsingPrivateClassloader = true;
+    protected synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.loadClass(name, resolve);
     }
 
     @Override
-    public Class loadClass(String name) throws ClassNotFoundException {
-      isUsingPrivateClassloader = true;
+    public Class loadClass(final String name) throws ClassNotFoundException {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       return super.loadClass(name);
     }
 
     @Override
-    public synchronized void setClassAssertionStatus(String className, boolean enabled) {
-      isUsingPrivateClassloader = true;
+    public synchronized void setClassAssertionStatus(final String className, final boolean enabled) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       super.setClassAssertionStatus(className, enabled);
     }
 
     @Override
-    public synchronized void setDefaultAssertionStatus(boolean enabled) {
-      isUsingPrivateClassloader = true;
+    public synchronized void setDefaultAssertionStatus(final boolean enabled) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       super.setDefaultAssertionStatus(enabled);
     }
 
     @Override
-    public synchronized void setPackageAssertionStatus(String packageName, boolean enabled) {
-      isUsingPrivateClassloader = true;
+    public synchronized void setPackageAssertionStatus(final String packageName, final boolean enabled) {
+      ResourcesTest.this.isUsingPrivateClassloader = true;
       super.setPackageAssertionStatus(packageName, enabled);
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ public class Topic implements Serializable {
    * @return Returns the descriptionList.
    */
   public List<?> getDescriptionList() {
-    return descriptionList;
+    return this.descriptionList;
   }
 
   /**
    * @param descriptionList
    *          The descriptionList to set.
    */
-  public void setDescriptionList(List<?> description) {
+  public void setDescriptionList(final List<?> description) {
     this.descriptionList = description;
   }
 
@@ -44,14 +44,14 @@ public class Topic implements Serializable {
    * @return Returns the topicTitle.
    */
   public String getTopicTitle() {
-    return topicTitle;
+    return this.topicTitle;
   }
 
   /**
    * @param topicTitle
    *          The topicTitle to set.
    */
-  public void setTopicTitle(String topicTitle) {
+  public void setTopicTitle(final String topicTitle) {
     this.topicTitle = topicTitle;
   }
 }

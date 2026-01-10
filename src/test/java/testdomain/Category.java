@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,42 +28,42 @@ public class Category implements Serializable {
   private List<?> productList;
 
   public String getCategoryId() {
-    return categoryId;
+    return this.categoryId;
   }
 
-  public void setCategoryId(String categoryId) {
+  public void setCategoryId(final String categoryId) {
     this.categoryId = categoryId;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
   public List<?> getProductList() {
-    return productList;
+    return this.productList;
   }
 
-  public void setProductList(List<?> productList) {
+  public void setProductList(final List<?> productList) {
     this.productList = productList;
   }
 
   public Category getParentCategory() {
-    return parentCategory;
+    return this.parentCategory;
   }
 
-  public void setParentCategory(Category parentCategory) {
+  public void setParentCategory(final Category parentCategory) {
     this.parentCategory = parentCategory;
   }
 }

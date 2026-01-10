@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,66 +31,66 @@ public class Item implements Serializable {
   private int quantity;
 
   public String getItemId() {
-    return itemId;
+    return this.itemId;
   }
 
-  public void setItemId(String itemId) {
+  public void setItemId(final String itemId) {
     this.itemId = itemId;
   }
 
   public String getProductId() {
-    return productId;
+    return this.productId;
   }
 
-  public void setProductId(String productId) {
+  public void setProductId(final String productId) {
     this.productId = productId;
   }
 
   public BigDecimal getListPrice() {
-    return listPrice;
+    return this.listPrice;
   }
 
-  public void setListPrice(BigDecimal listPrice) {
+  public void setListPrice(final BigDecimal listPrice) {
     this.listPrice = listPrice;
   }
 
   public BigDecimal getUnitCost() {
-    return unitCost;
+    return this.unitCost;
   }
 
-  public void setUnitCost(BigDecimal unitCost) {
+  public void setUnitCost(final BigDecimal unitCost) {
     this.unitCost = unitCost;
   }
 
   public int getSupplierId() {
-    return supplierId;
+    return this.supplierId;
   }
 
-  public void setSupplierId(int supplierId) {
+  public void setSupplierId(final int supplierId) {
     this.supplierId = supplierId;
   }
 
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 
   public String getAttribute1() {
-    return attribute1;
+    return this.attribute1;
   }
 
-  public void setAttribute1(String attribute1) {
+  public void setAttribute1(final String attribute1) {
     this.attribute1 = attribute1;
   }
 
   public int getQuantity() {
-    return quantity;
+    return this.quantity;
   }
 
-  public void setQuantity(int quantity) {
+  public void setQuantity(final int quantity) {
     this.quantity = quantity;
   }
 }

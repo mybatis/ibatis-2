@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ public class Bean2 {
 
   private Bean1 bean1;
 
-  public void setBean1(Bean1 bean1) {
+  public void setBean1(final Bean1 bean1) {
     this.bean1 = bean1;
   }
 
   public void testDefaultAccess() {
-    bean1.defaultMethod();
+    this.bean1.defaultMethod();
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,18 @@ public class SimpleNestedParameterObject {
   private List<?> nestedList;
 
   public List<?> getNestedList() {
-    return nestedList;
+    return this.nestedList;
   }
 
-  public void setNestedList(List<?> nestedList) {
+  public void setNestedList(final List<?> nestedList) {
     this.nestedList = nestedList;
   }
 
   public NestedIterateParameterObject getNestedIterateParameterObject() {
-    return nestedIterateParameterObject;
+    return this.nestedIterateParameterObject;
   }
 
-  public void setNestedIterateParameterObject(NestedIterateParameterObject nestedIterateParameterObject) {
+  public void setNestedIterateParameterObject(final NestedIterateParameterObject nestedIterateParameterObject) {
     this.nestedIterateParameterObject = nestedIterateParameterObject;
   }
 

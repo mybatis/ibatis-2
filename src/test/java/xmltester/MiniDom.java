@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,49 +27,49 @@ public class MiniDom {
   public MiniDom() {
   }
 
-  public MiniDom(String name) {
-    rootElement = new MiniElement(name);
+  public MiniDom(final String name) {
+    this.rootElement = new MiniElement(name);
   }
 
   public MiniElement getRootElement() {
-    return rootElement;
+    return this.rootElement;
   }
 
-  public void setRootElement(MiniElement rootElement) {
+  public void setRootElement(final MiniElement rootElement) {
     this.rootElement = rootElement;
   }
 
   public boolean isIgnoreRoot() {
-    return ignoreRoot;
+    return this.ignoreRoot;
   }
 
-  public void setIgnoreRoot(boolean ignoreRoot) {
+  public void setIgnoreRoot(final boolean ignoreRoot) {
     this.ignoreRoot = ignoreRoot;
   }
 
-  public String getAttribute(String name) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
-    MiniElement element = rootElement;
+  public String getAttribute(final String name) {
+    final StringTokenizer parser = new StringTokenizer(name, ".");
+    MiniElement element = this.rootElement;
     String token = name;
     while (parser.countTokens() > 1) {
       token = parser.nextToken();
-      MiniElement child = element.getElement(token);
+      final MiniElement child = element.getElement(token);
       if (child == null) {
         return null;
       }
       element = child;
     }
     token = parser.nextToken();
-    MiniAttribute attribute = element.getAttribute(token);
+    final MiniAttribute attribute = element.getAttribute(token);
     if (attribute == null) {
       return null;
     }
     return attribute.getValue();
   }
 
-  public void setAttribute(String name, String value) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
-    MiniElement element = rootElement;
+  public void setAttribute(final String name, final String value) {
+    final StringTokenizer parser = new StringTokenizer(name, ".");
+    MiniElement element = this.rootElement;
     String token = name;
     while (parser.countTokens() > 1) {
       token = parser.nextToken();
@@ -90,13 +90,13 @@ public class MiniDom {
     }
   }
 
-  public String getValue(String name) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
-    MiniElement element = rootElement;
+  public String getValue(final String name) {
+    final StringTokenizer parser = new StringTokenizer(name, ".");
+    MiniElement element = this.rootElement;
     String token = name;
     while (parser.countTokens() > 0) {
       token = parser.nextToken();
-      MiniElement child = element.getElement(token);
+      final MiniElement child = element.getElement(token);
       if (child == null) {
         return null;
       }
@@ -105,9 +105,9 @@ public class MiniDom {
     return element.getBodyContent();
   }
 
-  public void setValue(String name, String value) {
-    StringTokenizer parser = new StringTokenizer(name, ".");
-    MiniElement element = rootElement;
+  public void setValue(final String name, final String value) {
+    final StringTokenizer parser = new StringTokenizer(name, ".");
+    MiniElement element = this.rootElement;
     String token = name;
     while (parser.countTokens() > 0) {
       token = parser.nextToken();
@@ -123,62 +123,63 @@ public class MiniDom {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    printElement(builder, rootElement, 0, true);
+    final StringBuilder builder = new StringBuilder();
+    this.printElement(builder, this.rootElement, 0, true);
     return builder.toString();
   }
 
-  private void printElement(StringBuilder builder, MiniElement element, int tabLevel, boolean isRoot) {
-    if (!isRoot || isRoot && !ignoreRoot) {
-      printTabs(builder, tabLevel);
-      printElementOpen(builder, element);
+  private void printElement(final StringBuilder builder, final MiniElement element, final int tabLevel,
+      final boolean isRoot) {
+    if (!isRoot || isRoot && !this.ignoreRoot) {
+      this.printTabs(builder, tabLevel);
+      this.printElementOpen(builder, element);
     }
-    printElementBody(builder, element);
+    this.printElementBody(builder, element);
     boolean hasElements = false;
     for (int i = 0, n = element.getElementCount(); i < n; i++) {
       hasElements = true;
       builder.append("\r\n");
-      printElement(builder, element.getElement(i), tabLevel + 1, false);
+      this.printElement(builder, element.getElement(i), tabLevel + 1, false);
     }
     if (hasElements) {
       builder.append("\r\n");
-      printTabs(builder, tabLevel);
+      this.printTabs(builder, tabLevel);
     }
-    if (!isRoot || isRoot && !ignoreRoot) {
-      printElementClose(builder, element);
+    if (!isRoot || isRoot && !this.ignoreRoot) {
+      this.printElementClose(builder, element);
     }
   }
 
-  private void printTabs(StringBuilder builder, int tabLevel) {
+  private void printTabs(final StringBuilder builder, final int tabLevel) {
     for (int i = 0; i < tabLevel; i++) {
-      builder.append(TAB);
+      builder.append(MiniDom.TAB);
     }
   }
 
-  private void printElementOpen(StringBuilder builder, MiniElement element) {
+  private void printElementOpen(final StringBuilder builder, final MiniElement element) {
     builder.append("<");
     builder.append(element.getName());
     for (int i = 0, n = element.getAttributeCount(); i < n; i++) {
       builder.append(" ");
-      printAttribute(builder, element.getAttribute(i));
+      this.printAttribute(builder, element.getAttribute(i));
     }
     builder.append(">");
   }
 
-  private void printElementBody(StringBuilder builder, MiniElement element) {
-    String bodyContent = element.getBodyContent();
+  private void printElementBody(final StringBuilder builder, final MiniElement element) {
+    final String bodyContent = element.getBodyContent();
     if (bodyContent != null) {
       builder.append(bodyContent);
     }
   }
 
-  private void printElementClose(StringBuilder builder, MiniElement element) {
+  private void printElementClose(final StringBuilder builder, final MiniElement element) {
     builder.append("</");
     builder.append(element.getName());
     builder.append(">");
   }
 
-  private void printAttribute(StringBuilder builder, MiniAttribute attribute) {
+  private void printAttribute(final StringBuilder builder, final MiniAttribute attribute) {
     builder.append(attribute.getName());
     builder.append("=\"");
     builder.append(attribute.getValue());

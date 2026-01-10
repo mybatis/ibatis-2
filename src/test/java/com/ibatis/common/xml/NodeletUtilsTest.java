@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package com.ibatis.common.xml;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.Properties;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class NodeletUtilsTest {
@@ -30,19 +28,19 @@ class NodeletUtilsTest {
   @Test
   void testGetBooleanAttribute() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("boolean1", "true");
     props.setProperty("boolean2", "false");
     props.setProperty("boolean3", "TRUE");
     props.setProperty("boolean4", "def");
     props.setProperty("boolean5", "");
 
-    assertEquals(true, NodeletUtils.getBooleanAttribute(props, "boolean1", false));
-    assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean2", true));
-    assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean3", false));
-    assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean4", true));
-    assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean5", true));
-    assertEquals(true, NodeletUtils.getBooleanAttribute(props, "undef", true));
+    Assertions.assertEquals(true, NodeletUtils.getBooleanAttribute(props, "boolean1", false));
+    Assertions.assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean2", true));
+    Assertions.assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean3", false));
+    Assertions.assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean4", true));
+    Assertions.assertEquals(false, NodeletUtils.getBooleanAttribute(props, "boolean5", true));
+    Assertions.assertEquals(true, NodeletUtils.getBooleanAttribute(props, "undef", true));
   }
 
   /**
@@ -51,27 +49,27 @@ class NodeletUtilsTest {
   @Test
   void testGetIntAttribute() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("int1", "0");
     props.setProperty("int2", "1000");
     props.setProperty("int3", "-200");
     props.setProperty("int4", "undef");
     props.setProperty("int5", "");
 
-    assertEquals(0, NodeletUtils.getIntAttribute(props, "int1", -10000));
-    assertEquals(1000, NodeletUtils.getIntAttribute(props, "int2", -10000));
-    assertEquals(-200, NodeletUtils.getIntAttribute(props, "int3", -10000));
+    Assertions.assertEquals(0, NodeletUtils.getIntAttribute(props, "int1", -10000));
+    Assertions.assertEquals(1000, NodeletUtils.getIntAttribute(props, "int2", -10000));
+    Assertions.assertEquals(-200, NodeletUtils.getIntAttribute(props, "int3", -10000));
 
     try {
-      assertEquals(-10000, NodeletUtils.getIntAttribute(props, "int4", -10000));
-      fail("testGetIntAttribute() should have thrown an exception");
-    } catch (NumberFormatException ex) {
+      Assertions.assertEquals(-10000, NodeletUtils.getIntAttribute(props, "int4", -10000));
+      Assertions.fail("testGetIntAttribute() should have thrown an exception");
+    } catch (final NumberFormatException ex) {
     }
 
     try {
       NodeletUtils.getIntAttribute(props, "int5", -10000);
-      fail("testGetIntAttribute() should have thrown an exception");
-    } catch (NumberFormatException ex) {
+      Assertions.fail("testGetIntAttribute() should have thrown an exception");
+    } catch (final NumberFormatException ex) {
     }
   }
 
@@ -81,15 +79,15 @@ class NodeletUtilsTest {
   @Test
   void testParsePropertyTokens() {
 
-    Properties props = new Properties();
+    final Properties props = new Properties();
     props.setProperty("key1", "0");
     props.setProperty("key2", "1000");
     props.setProperty("key3", "abcd");
     props.setProperty("key4", "");
 
-    assertEquals(":1000:", NodeletUtils.parsePropertyTokens(":${key2}:", props));
-    assertEquals(":1000abcd:", NodeletUtils.parsePropertyTokens(":${key2}${key3}:", props));
-    assertEquals("::abcd::", NodeletUtils.parsePropertyTokens("::${key4}${key3}::", props));
-    assertEquals("::undef::", NodeletUtils.parsePropertyTokens("::${undef}::", props));
+    Assertions.assertEquals(":1000:", NodeletUtils.parsePropertyTokens(":${key2}:", props));
+    Assertions.assertEquals(":1000abcd:", NodeletUtils.parsePropertyTokens(":${key2}${key3}:", props));
+    Assertions.assertEquals("::abcd::", NodeletUtils.parsePropertyTokens("::${key4}${key3}::", props));
+    Assertions.assertEquals("::undef::", NodeletUtils.parsePropertyTokens("::${undef}::", props));
   }
 }

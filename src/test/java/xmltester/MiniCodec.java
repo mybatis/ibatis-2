@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,30 +17,30 @@ package xmltester;
 
 public class MiniCodec {
 
-  public static String encodeReservedXMLChars(String s) {
+  public static String encodeReservedXMLChars(final String s) {
     String s2 = s;
     if (s2 != null) {
       // Do ampersand FIRST to avoid replacing other tokens.
-      s2 = replaceAll("&", "&amp;", s2);
+      s2 = MiniCodec.replaceAll("&", "&amp;", s2);
 
-      s2 = replaceAll(">", "&gt;", s2);
-      s2 = replaceAll("<", "&lt;", s2);
-      s2 = replaceAll("'", "&apos;", s2);
-      s2 = replaceAll("\"", "&quot;", s2);
-      s2 = replaceAll("%", "&#37;", s2);
+      s2 = MiniCodec.replaceAll(">", "&gt;", s2);
+      s2 = MiniCodec.replaceAll("<", "&lt;", s2);
+      s2 = MiniCodec.replaceAll("'", "&apos;", s2);
+      s2 = MiniCodec.replaceAll("\"", "&quot;", s2);
+      s2 = MiniCodec.replaceAll("%", "&#37;", s2);
     }
     return s2;
   }
 
-  public static String decodeReservedXMLChars(String s) {
+  public static String decodeReservedXMLChars(final String s) {
     String s2 = s;
     if (s2 != null) {
-      s2 = replaceAll("&amp;", "&", s2);
-      s2 = replaceAll("&gt;", ">", s2);
-      s2 = replaceAll("&lt;", "<", s2);
-      s2 = replaceAll("&apos;", "'", s2);
-      s2 = replaceAll("&quot;", "\"", s2);
-      s2 = replaceAll("&#37;", "%", s2);
+      s2 = MiniCodec.replaceAll("&amp;", "&", s2);
+      s2 = MiniCodec.replaceAll("&gt;", ">", s2);
+      s2 = MiniCodec.replaceAll("&lt;", "<", s2);
+      s2 = MiniCodec.replaceAll("&apos;", "'", s2);
+      s2 = MiniCodec.replaceAll("&quot;", "\"", s2);
+      s2 = MiniCodec.replaceAll("&#37;", "%", s2);
     }
     return s2;
   }
@@ -60,16 +60,16 @@ public class MiniCodec {
    *
    * @return The new string with patterns replaced.
    */
-  private static String replaceAll(String pattern, String newPattern, String string) {
+  private static String replaceAll(final String pattern, final String newPattern, final String string) {
     try {
-      StringBuilder stringBuilder = new StringBuilder(string);
+      final StringBuilder stringBuilder = new StringBuilder(string);
       int index = string.length();
-      int offset = pattern.length();
+      final int offset = pattern.length();
       while ((index = string.lastIndexOf(pattern, index - 1)) > -1) {
         stringBuilder.replace(index, index + offset, newPattern);
       }
       return stringBuilder.toString();
-    } catch (StringIndexOutOfBoundsException e) {
+    } catch (final StringIndexOutOfBoundsException e) {
       return string;
     }
   }

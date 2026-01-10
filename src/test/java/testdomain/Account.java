@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,23 +37,23 @@ public class Account implements Serializable {
   public Account() {
   }
 
-  public Account(int id) {
+  public Account(final int id) {
     this.id = id;
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(final int id) {
     this.id = id;
   }
 
   public int[] getIds() {
-    return ids;
+    return this.ids;
   }
 
-  public void setIds(int[] ids) {
+  public void setIds(final int[] ids) {
     this.ids = ids;
   }
 
@@ -61,14 +61,14 @@ public class Account implements Serializable {
    * @return Returns the age.
    */
   public int getAge() {
-    return age;
+    return this.age;
   }
 
   /**
    * @param age
    *          The age to set.
    */
-  public void setAge(int age) {
+  public void setAge(final int age) {
     this.age = age;
   }
 
@@ -76,70 +76,70 @@ public class Account implements Serializable {
    * @return Returns the dateAdded.
    */
   public Date getDateAdded() {
-    return dateAdded;
+    return this.dateAdded;
   }
 
   /**
    * @param dateAdded
    *          The dateAdded to set.
    */
-  public void setDateAdded(Date dateAdded) {
+  public void setDateAdded(final Date dateAdded) {
     this.dateAdded = dateAdded;
   }
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
   public String getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
-  public void setLastName(String lastName) {
+  public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
   public String getEmailAddress() {
-    return emailAddress;
+    return this.emailAddress;
   }
 
-  public void setEmailAddress(String emailAddress) {
+  public void setEmailAddress(final String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
   public Account getAccount() {
-    return account;
+    return this.account;
   }
 
-  public void setAccount(Account account) {
+  public void setAccount(final Account account) {
     this.account = account;
   }
 
   public List<Account> getAccountList() {
-    return accountList;
+    return this.accountList;
   }
 
-  public void setAccountList(List<Account> accountList) {
+  public void setAccountList(final List<Account> accountList) {
     this.accountList = accountList;
   }
 
   public boolean isBannerOption() {
-    return bannerOption;
+    return this.bannerOption;
   }
 
-  public void setBannerOption(boolean bannerOption) {
+  public void setBannerOption(final boolean bannerOption) {
     this.bannerOption = bannerOption;
   }
 
   public boolean isCartOption() {
-    return cartOption;
+    return this.cartOption;
   }
 
-  public void setCartOption(boolean cartOption) {
+  public void setCartOption(final boolean cartOption) {
     this.cartOption = cartOption;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 package threads;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -28,24 +26,25 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class RemapResultsThreadTest {
 
   @Test
   void testWithRemap() throws Exception {
-    runTest("WithRemap");
+    this.runTest("WithRemap");
   }
 
   @Test
   void testWithoutRemap() throws Exception {
-    runTest("WithoutRemap");
+    this.runTest("WithoutRemap");
   }
 
-  private void runTest(String statementToRun) throws IOException, SQLException {
-    String resource = "threads/sql-map-config.xml";
-    Reader reader = Resources.getResourceAsReader(resource);
-    SqlMapClient sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+  private void runTest(final String statementToRun) throws IOException, SQLException {
+    final String resource = "threads/sql-map-config.xml";
+    final Reader reader = Resources.getResourceAsReader(resource);
+    final SqlMapClient sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
 
     sqlMap.update("drop");
     sqlMap.update("create");
@@ -56,22 +55,22 @@ class RemapResultsThreadTest {
       sqlMap.update("insertc");
     }
 
-    int count = 2;
+    final int count = 2;
 
-    List<MyThread> threads = new LinkedList<>();
+    final List<MyThread> threads = new LinkedList<>();
 
     for (int i = 0; i < count; i++) {
-      MyThread thread = new MyThread(sqlMap, statementToRun);
+      final MyThread thread = new MyThread(sqlMap, statementToRun);
       thread.start();
       threads.add(thread);
     }
 
-    Date d1 = new Date(new Date().getTime() + 10000);
+    final Date d1 = new Date(new Date().getTime() + 10000);
 
     // let's do the test for 10 seconds - for me it failed quite early
     while (new Date().before(d1)) {
-      for (MyThread myThread : threads) {
-        assertTrue(myThread.isAlive());
+      for (final MyThread myThread : threads) {
+        Assertions.assertTrue(myThread.isAlive());
       }
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,15 +25,15 @@ class PrivateMethodAccessTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/docs-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/docs-init.sql");
   }
 
   @Test
   void testShouldSetPrivateProperties() throws Exception {
-    List<?> list = sqlMap.queryForList("getPrivateBooks");
-    assertNotNull(list);
-    assertEquals(2, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getPrivateBooks");
+    Assertions.assertNotNull(list);
+    Assertions.assertEquals(2, list.size());
   }
 
 }

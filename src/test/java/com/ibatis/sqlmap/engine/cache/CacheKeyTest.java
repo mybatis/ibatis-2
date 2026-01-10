@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  */
 package com.ibatis.sqlmap.engine.cache;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,16 +35,16 @@ class CacheKeyTest {
 
   @Test
   void testUpdate() {
-    CacheKey key3 = new CacheKey();
+    final CacheKey key3 = new CacheKey();
 
-    CacheKey key4 = new CacheKey();
+    final CacheKey key4 = new CacheKey();
 
     key3.update("AV");
 
     key4.update("B7");
 
-    assertTrue(!key3.equals(key4));
-    assertTrue(!key3.toString().equals(key4.toString()));
+    Assertions.assertTrue(!key3.equals(key4));
+    Assertions.assertTrue(!key3.toString().equals(key4.toString()));
 
   }
 

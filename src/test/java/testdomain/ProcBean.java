@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,26 +26,26 @@ public class ProcBean implements Serializable {
   private String status;
 
   public String getEmail1() {
-    return email1;
+    return this.email1;
   }
 
-  public void setEmail1(String email1) {
+  public void setEmail1(final String email1) {
     this.email1 = email1;
   }
 
   public String getEmail2() {
-    return email2;
+    return this.email2;
   }
 
-  public void setEmail2(String email2) {
+  public void setEmail2(final String email2) {
     this.email2 = email2;
   }
 
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 

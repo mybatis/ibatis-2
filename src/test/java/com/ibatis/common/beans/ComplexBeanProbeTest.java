@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,33 +15,30 @@
  */
 package com.ibatis.common.beans;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ComplexBeanProbeTest {
 
   @Test
   void testSetObject() {
-    SimpleClass mySimpleClass = new SimpleClass();
-    Probe probe = ProbeFactory.getProbe(mySimpleClass);
+    final SimpleClass mySimpleClass = new SimpleClass();
+    final Probe probe = ProbeFactory.getProbe(mySimpleClass);
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(1));
-    assertEquals(1, mySimpleClass.getMyInt());
+    Assertions.assertEquals(1, mySimpleClass.getMyInt());
     probe.setObject(mySimpleClass, "myInt", Integer.valueOf(2));
-    assertEquals(2, mySimpleClass.getMyInt());
+    Assertions.assertEquals(2, mySimpleClass.getMyInt());
     try {
       probe.setObject(mySimpleClass, "myInt", null);
-      fail();
-    } catch (RuntimeException e) {
-      assertTrue(e.getMessage().contains("'myInt' to value 'null'"));
+      Assertions.fail();
+    } catch (final RuntimeException e) {
+      Assertions.assertTrue(e.getMessage().contains("'myInt' to value 'null'"));
     }
     try {
       probe.setObject(mySimpleClass, "myInt", Float.valueOf(1.2f));
-      fail();
-    } catch (RuntimeException e) {
-      assertTrue(e.getMessage().contains("'myInt' to value '1.2'"));
+      Assertions.fail();
+    } catch (final RuntimeException e) {
+      Assertions.assertTrue(e.getMessage().contains("'myInt' to value '1.2'"));
     }
   }
 
@@ -50,10 +47,10 @@ class ComplexBeanProbeTest {
     int myInt;
 
     public int getMyInt() {
-      return myInt;
+      return this.myInt;
     }
 
-    public void setMyInt(int myInt) {
+    public void setMyInt(final int myInt) {
       this.myInt = myInt;
     }
   }

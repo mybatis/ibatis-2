@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,8 +48,8 @@ class JiraIbatis260Test extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/jira.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/jira.sql");
   }
 
   /**
@@ -63,18 +63,18 @@ class JiraIbatis260Test extends BaseSqlMap {
    */
   @Test
   void testIbatis260Error1() throws Exception {
-    List<?> groupedResult = sqlMap.queryForList("getJira260GroupedResult", null);
+    final List<?> groupedResult = BaseSqlMap.sqlMap.queryForList("getJira260GroupedResult", null);
 
-    HashMap<String, Object> test = new HashMap<>();
-    Iterator<?> indexIterator = groupedResult.iterator();
+    final HashMap<String, Object> test = new HashMap<>();
+    final Iterator<?> indexIterator = groupedResult.iterator();
     while (indexIterator.hasNext()) {
-      ArticleIndex articleIndex = (ArticleIndex) indexIterator.next();
-      Iterator<?> topicIterator = articleIndex.getTopics().iterator();
+      final ArticleIndex articleIndex = (ArticleIndex) indexIterator.next();
+      final Iterator<?> topicIterator = articleIndex.getTopics().iterator();
       while (topicIterator.hasNext()) {
-        Topic topic = (Topic) topicIterator.next();
-        Iterator<?> descriptionIterator = topic.getDescriptionList().iterator();
+        final Topic topic = (Topic) topicIterator.next();
+        final Iterator<?> descriptionIterator = topic.getDescriptionList().iterator();
         while (descriptionIterator.hasNext()) {
-          TopicDescription desc = (TopicDescription) descriptionIterator.next();
+          final TopicDescription desc = (TopicDescription) descriptionIterator.next();
 
           // Put a flattened key in the hashMap
           test.put(articleIndex.getCategoryTitle() + "||" + topic.getTopicTitle() + "||" + desc.getDescription(), null);
@@ -87,10 +87,10 @@ class JiraIbatis260Test extends BaseSqlMap {
     // the test case fails. If at the end the hashMap is not empty
     // the test case also fails.
     String key = null;
-    List<?> flatResult = sqlMap.queryForList("getJira260FlatResult", null);
-    Iterator<?> iterator = flatResult.iterator();
+    final List<?> flatResult = BaseSqlMap.sqlMap.queryForList("getJira260FlatResult", null);
+    final Iterator<?> iterator = flatResult.iterator();
     while (iterator.hasNext()) {
-      ArticleIndexDenorm articleIndex = (ArticleIndexDenorm) iterator.next();
+      final ArticleIndexDenorm articleIndex = (ArticleIndexDenorm) iterator.next();
       key = articleIndex.getCategoryTitle() + "||" + articleIndex.getTopicTitle() + "||"
           + articleIndex.getDescription();
       if (!test.containsKey(key)) {

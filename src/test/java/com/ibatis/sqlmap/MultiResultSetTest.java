@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.ibatis.common.resources.Resources;
 
 import java.sql.CallableStatement;
@@ -27,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,59 +34,59 @@ class MultiResultSetTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml",
         Resources.getResourceAsProperties("com/ibatis/sqlmap/maps/DerbySqlMapConfig.properties"));
-    initScript("scripts/account-init.sql");
-    initScript("scripts/derby-proc-init.sql");
+    BaseSqlMap.initScript("scripts/account-init.sql");
+    BaseSqlMap.initScript("scripts/derby-proc-init.sql");
 
   }
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultMaps() throws Exception {
-    Map<String, Integer> persons = new HashMap<>();
+    final Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List<?> results = sqlMap.queryForList("getMultiListsRm", persons);
-    assertEquals(2, results.size());
-    assertEquals(2, ((List<?>) results.get(0)).size());
-    assertEquals(2, ((List<?>) results.get(1)).size());
+    final List<?> results = BaseSqlMap.sqlMap.queryForList("getMultiListsRm", persons);
+    Assertions.assertEquals(2, results.size());
+    Assertions.assertEquals(2, ((List<?>) results.get(0)).size());
+    Assertions.assertEquals(2, ((List<?>) results.get(1)).size());
   }
 
   @Test
   void testShouldRetrieveTwoSetsOfTwoAccountsFromMultipleResultClasses() throws Exception {
-    Map<String, Integer> persons = new HashMap<>();
+    final Map<String, Integer> persons = new HashMap<>();
     persons.put("1", Integer.valueOf(1));
     persons.put("2", Integer.valueOf(2));
     persons.put("3", Integer.valueOf(3));
     persons.put("4", Integer.valueOf(4));
-    List<?> results = sqlMap.queryForList("getMultiListsRc", persons);
-    assertEquals(2, results.size());
-    assertEquals(2, ((List<?>) results.get(0)).size());
-    assertEquals(2, ((List<?>) results.get(1)).size());
+    final List<?> results = BaseSqlMap.sqlMap.queryForList("getMultiListsRc", persons);
+    Assertions.assertEquals(2, results.size());
+    Assertions.assertEquals(2, ((List<?>) results.get(0)).size());
+    Assertions.assertEquals(2, ((List<?>) results.get(1)).size());
   }
 
   @Test
   void testCallableStatementShouldReturnTwoResultSets() throws Exception {
-    sqlMap.startTransaction();
-    Connection conn = sqlMap.getCurrentConnection();
-    CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");
+    BaseSqlMap.sqlMap.startTransaction();
+    final Connection conn = BaseSqlMap.sqlMap.getCurrentConnection();
+    final CallableStatement cs = conn.prepareCall("{call MRESULTSET(?,?,?,?)}");
     cs.setInt(1, 1);
     cs.setInt(2, 2);
     cs.setInt(3, 3);
     cs.setInt(4, 4);
     cs.execute();
-    ResultSet rs = cs.getResultSet();
-    assertNotNull(rs);
+    final ResultSet rs = cs.getResultSet();
+    Assertions.assertNotNull(rs);
     int found = 1;
     while (cs.getMoreResults()) {
-      assertNotNull(cs.getResultSet());
+      Assertions.assertNotNull(cs.getResultSet());
       found++;
     }
     rs.close();
     cs.close();
-    assertEquals(2, found, "Didn't find second result set.");
+    Assertions.assertEquals(2, found, "Didn't find second result set.");
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,54 +30,57 @@ class XmlStatementTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
-    initScript("scripts/order-init.sql");
-    initScript("scripts/line_item-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
+    BaseSqlMap.initScript("scripts/order-init.sql");
+    BaseSqlMap.initScript("scripts/line_item-init.sql");
   }
 
   @Test
   void testExecuteQueryForXml() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>1</id></parameter>");
-    assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
-    assertEquals("1", dom.getValue("ID"));
-    assertEquals("Clinton", dom.getValue("FIRSTNAME"));
-    assertEquals("Begin", dom.getValue("LASTNAME"));
-    assertEquals("clinton.begin@ibatis.com", dom.getValue("EMAILADDRESS"));
+    final String account = (String) BaseSqlMap.sqlMap.queryForObject("getAccountXml",
+        "<parameter><id>1</id></parameter>");
+    Assertions.assertNotNull(account);
+    final MiniDom dom = new MiniParser(account).getDom();
+    Assertions.assertEquals("1", dom.getValue("ID"));
+    Assertions.assertEquals("Clinton", dom.getValue("FIRSTNAME"));
+    Assertions.assertEquals("Begin", dom.getValue("LASTNAME"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getValue("EMAILADDRESS"));
   }
 
   @Test
   void testExecuteQueryForXmlExternalMaps() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXmlExternalMaps", "<parameter><id>1</id></parameter>");
-    assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
-    assertEquals("1", dom.getValue("id"));
-    assertEquals("Clinton", dom.getValue("firstName"));
-    assertEquals("Begin", dom.getValue("lastName"));
-    assertEquals("clinton.begin@ibatis.com", dom.getValue("emailAddress"));
-    assertEquals("1", dom.getValue("account.ID"));
-    assertEquals("Clinton", dom.getValue("account.FIRSTNAME"));
-    assertEquals("Begin", dom.getValue("account.LASTNAME"));
-    assertEquals("clinton.begin@ibatis.com", dom.getValue("account.EMAILADDRESS"));
+    final String account = (String) BaseSqlMap.sqlMap.queryForObject("getAccountXmlExternalMaps",
+        "<parameter><id>1</id></parameter>");
+    Assertions.assertNotNull(account);
+    final MiniDom dom = new MiniParser(account).getDom();
+    Assertions.assertEquals("1", dom.getValue("id"));
+    Assertions.assertEquals("Clinton", dom.getValue("firstName"));
+    Assertions.assertEquals("Begin", dom.getValue("lastName"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getValue("emailAddress"));
+    Assertions.assertEquals("1", dom.getValue("account.ID"));
+    Assertions.assertEquals("Clinton", dom.getValue("account.FIRSTNAME"));
+    Assertions.assertEquals("Begin", dom.getValue("account.LASTNAME"));
+    Assertions.assertEquals("clinton.begin@ibatis.com", dom.getValue("account.EMAILADDRESS"));
   }
 
   @Test
   void testExecuteQueryForOrderXml() throws SQLException {
-    String order = (String) sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
-    assertNotNull(order);
-    MiniDom dom = new MiniParser(order).getDom();
-    assertEquals("1", dom.getValue("id"));
-    assertEquals("2", dom.getValue("lineItems.lineItem.ID"));
+    final String order = (String) BaseSqlMap.sqlMap.queryForObject("getOrderXml", "<parameter><id>1</id></parameter>");
+    Assertions.assertNotNull(order);
+    final MiniDom dom = new MiniParser(order).getDom();
+    Assertions.assertEquals("1", dom.getValue("id"));
+    Assertions.assertEquals("2", dom.getValue("lineItems.lineItem.ID"));
   }
 
   @Test
   void testExecuteQueryForXmlSpecialChars() throws SQLException {
-    String account = (String) sqlMap.queryForObject("getAccountXml", "<parameter><id>5</id></parameter>");
-    assertNotNull(account);
-    MiniDom dom = new MiniParser(account).getDom();
-    assertEquals("5", dom.getValue("ID"));
-    assertEquals("&manda", dom.getValue("FIRSTNAME"));
+    final String account = (String) BaseSqlMap.sqlMap.queryForObject("getAccountXml",
+        "<parameter><id>5</id></parameter>");
+    Assertions.assertNotNull(account);
+    final MiniDom dom = new MiniParser(account).getDom();
+    Assertions.assertEquals("5", dom.getValue("ID"));
+    Assertions.assertEquals("&manda", dom.getValue("FIRSTNAME"));
   }
 
 }

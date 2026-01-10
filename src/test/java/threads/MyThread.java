@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Assertions;
 
 class MyThread extends Thread {
 
-  private SqlMapClient sqlMap;
-  private String remap;
+  private final SqlMapClient sqlMap;
+  private final String remap;
 
-  public MyThread(SqlMapClient sqlMap, String remap) {
+  public MyThread(final SqlMapClient sqlMap, final String remap) {
     this.remap = remap;
     this.sqlMap = sqlMap;
   }
@@ -37,17 +37,17 @@ class MyThread extends Thread {
   public void run() {
     while (true) {
       try {
-        List<Foo> list = sqlMap.queryForList("selectFoo" + remap, null);
+        final List<Foo> list = this.sqlMap.queryForList("selectFoo" + this.remap, null);
         Assertions.assertEquals(300, list.size());
-        check(list);
-      } catch (SQLException e) {
+        MyThread.check(list);
+      } catch (final SQLException e) {
         throw new RuntimeException(e);
       }
     }
   }
 
-  private static void check(List<Foo> list) {
-    for (Foo foo : list) {
+  private static void check(final List<Foo> list) {
+    for (final Foo foo : list) {
       if (foo == null) {
         Assertions.fail("list contained a null element");
       }

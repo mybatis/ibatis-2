@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,23 +30,23 @@ class ComplexTypeTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
-    initScript("scripts/order-init.sql");
-    initScript("scripts/line_item-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
+    BaseSqlMap.initScript("scripts/order-init.sql");
+    BaseSqlMap.initScript("scripts/line_item-init.sql");
   }
 
   @Test
   void testMapBeanMap() throws Exception {
-    Map<String, ComplexBean> map = new HashMap<>();
-    ComplexBean bean = new ComplexBean();
+    final Map<String, ComplexBean> map = new HashMap<>();
+    final ComplexBean bean = new ComplexBean();
     bean.setMap(new HashMap<>());
     bean.getMap().put("id", Integer.valueOf(1));
     map.put("bean", bean);
 
-    Integer id = (Integer) sqlMap.queryForObject("mapBeanMap", map);
+    final Integer id = (Integer) BaseSqlMap.sqlMap.queryForObject("mapBeanMap", map);
 
-    assertEquals(id, bean.getMap().get("id"));
+    Assertions.assertEquals(id, bean.getMap().get("id"));
   }
 
 }

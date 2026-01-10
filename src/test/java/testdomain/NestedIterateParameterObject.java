@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,67 +22,67 @@ import java.util.Map;
 
 public class NestedIterateParameterObject {
 
-  private List<Integer> idList;
-  private List<String> lastNames;
-  private List<String> firstNames;
-  private List<AndCondition> orConditions;
+  private final List<Integer> idList;
+  private final List<String> lastNames;
+  private final List<String> firstNames;
+  private final List<AndCondition> orConditions;
 
   public NestedIterateParameterObject() {
-    idList = new ArrayList<>();
-    orConditions = new ArrayList<>();
-    lastNames = new ArrayList<>();
-    firstNames = new ArrayList<>();
+    this.idList = new ArrayList<>();
+    this.orConditions = new ArrayList<>();
+    this.lastNames = new ArrayList<>();
+    this.firstNames = new ArrayList<>();
   }
 
   public List<Integer> getIdList() {
-    return idList;
+    return this.idList;
   }
 
-  public void addId(Integer id) {
-    idList.add(id);
+  public void addId(final Integer id) {
+    this.idList.add(id);
   }
 
   public List<AndCondition> getOrConditions() {
-    return orConditions;
+    return this.orConditions;
   }
 
-  public void addOrCondition(AndCondition andCondition) {
-    orConditions.add(andCondition);
+  public void addOrCondition(final AndCondition andCondition) {
+    this.orConditions.add(andCondition);
   }
 
   public static class AndCondition {
-    private List<Map<String, Object>> conditions;
+    private final List<Map<String, Object>> conditions;
 
     public AndCondition() {
-      conditions = new ArrayList<>();
+      this.conditions = new ArrayList<>();
     }
 
     public List<Map<String, Object>> getConditions() {
-      return conditions;
+      return this.conditions;
     }
 
-    public void addCondition(String condition, Object value, Boolean include) {
-      Map<String, Object> map = new HashMap<>();
+    public void addCondition(final String condition, final Object value, final Boolean include) {
+      final Map<String, Object> map = new HashMap<>();
       map.put("condition", condition);
       map.put("value", value);
       map.put("include", include);
-      conditions.add(map);
+      this.conditions.add(map);
     }
   }
 
   public List<String> getFirstNames() {
-    return firstNames;
+    return this.firstNames;
   }
 
-  public void addFirstName(String firstName) {
-    firstNames.add(firstName);
+  public void addFirstName(final String firstName) {
+    this.firstNames.add(firstName);
   }
 
   public List<String> getLastNames() {
-    return lastNames;
+    return this.lastNames;
   }
 
-  public void addLastName(String lastName) {
-    lastNames.add(lastName);
+  public void addLastName(final String lastName) {
+    this.lastNames.add(lastName);
   }
 }

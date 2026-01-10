@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
@@ -29,14 +28,15 @@ class DerbyParameterMapTest extends ParameterMapTest {
   @Override
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/DerbySqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
   }
 
   // PARAMETER MAP FEATURE TESTS
 
   @Override
-  protected void assertMessageIsNullValueNotAllowed(String message) {
-    assertTrue(message.indexOf("Column 'ACC_ID'  cannot accept a NULL value.") > -1, "Invalid exception message");
+  protected void assertMessageIsNullValueNotAllowed(final String message) {
+    Assertions.assertTrue(message.indexOf("Column 'ACC_ID'  cannot accept a NULL value.") > -1,
+        "Invalid exception message");
   }
 }

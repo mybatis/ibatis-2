@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2022 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ public class ComplexBean implements Serializable {
   private Map<String, Integer> map;
 
   public Map<String, Integer> getMap() {
-    return map;
+    return this.map;
   }
 
-  public void setMap(Map<String, Integer> map) {
+  public void setMap(final Map<String, Integer> map) {
     this.map = map;
   }
 

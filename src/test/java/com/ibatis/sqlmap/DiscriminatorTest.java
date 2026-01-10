@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,71 +30,71 @@ class DiscriminatorTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/docs-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/docs-init.sql");
   }
 
   @Test
   void testDiscriminator() throws Exception {
 
-    List<?> list = sqlMap.queryForList("getDocuments", null);
-    assertEquals(6, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getDocuments", null);
+    Assertions.assertEquals(6, list.size());
 
-    assertTrue(list.get(0) instanceof Book);
-    assertTrue(list.get(1) instanceof Magazine);
-    assertTrue(list.get(2) instanceof Book);
-    assertTrue(list.get(3) instanceof Magazine);
-    assertTrue(list.get(4) instanceof Document);
-    assertTrue(list.get(5) instanceof Document);
+    Assertions.assertTrue(list.get(0) instanceof Book);
+    Assertions.assertTrue(list.get(1) instanceof Magazine);
+    Assertions.assertTrue(list.get(2) instanceof Book);
+    Assertions.assertTrue(list.get(3) instanceof Magazine);
+    Assertions.assertTrue(list.get(4) instanceof Document);
+    Assertions.assertTrue(list.get(5) instanceof Document);
 
-    assertEquals(1, ((Document) list.get(0)).getId());
-    assertEquals(2, ((Document) list.get(1)).getId());
-    assertEquals(3, ((Document) list.get(2)).getId());
-    assertEquals(4, ((Document) list.get(3)).getId());
-    assertEquals(5, ((Document) list.get(4)).getId());
-    assertEquals(6, ((Document) list.get(5)).getId());
+    Assertions.assertEquals(1, ((Document) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Document) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Document) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Document) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Document) list.get(4)).getId());
+    Assertions.assertEquals(6, ((Document) list.get(5)).getId());
 
-    assertEquals(Integer.valueOf(55), ((Book) list.get(0)).getPages());
-    assertEquals("Lyon", ((Magazine) list.get(1)).getCity());
-    assertEquals(Integer.valueOf(3587), ((Book) list.get(2)).getPages());
-    assertEquals("Paris", ((Magazine) list.get(3)).getCity());
+    Assertions.assertEquals(Integer.valueOf(55), ((Book) list.get(0)).getPages());
+    Assertions.assertEquals("Lyon", ((Magazine) list.get(1)).getCity());
+    Assertions.assertEquals(Integer.valueOf(3587), ((Book) list.get(2)).getPages());
+    Assertions.assertEquals("Paris", ((Magazine) list.get(3)).getCity());
   }
 
   @Test
   void testDiscriminatorInNestedResultMap() throws Exception {
-    List<?> list = sqlMap.queryForList("getPersonDocuments");
-    assertEquals(3, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getPersonDocuments");
+    Assertions.assertEquals(3, list.size());
 
-    assertTrue(((PersonDocument) list.get(0)).getFavoriteDocument() instanceof Magazine);
-    assertTrue(((PersonDocument) list.get(1)).getFavoriteDocument() instanceof Book);
-    assertTrue(((PersonDocument) list.get(2)).getFavoriteDocument() instanceof Document);
+    Assertions.assertTrue(((PersonDocument) list.get(0)).getFavoriteDocument() instanceof Magazine);
+    Assertions.assertTrue(((PersonDocument) list.get(1)).getFavoriteDocument() instanceof Book);
+    Assertions.assertTrue(((PersonDocument) list.get(2)).getFavoriteDocument() instanceof Document);
 
   }
 
   @Test
   void testDiscriminatorWithNestedResultMap() throws Exception {
-    List<?> list = sqlMap.queryForList("getDocumentsWithAttributes");
-    assertEquals(6, list.size());
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getDocumentsWithAttributes");
+    Assertions.assertEquals(6, list.size());
 
-    assertTrue(list.get(0) instanceof Book);
+    Assertions.assertTrue(list.get(0) instanceof Book);
     Book b = (Book) list.get(0);
-    assertEquals(2, b.getAttributes().size());
+    Assertions.assertEquals(2, b.getAttributes().size());
 
-    assertTrue(list.get(1) instanceof Magazine);
-    Magazine m = (Magazine) list.get(1);
-    assertEquals(1, m.getAttributes().size());
+    Assertions.assertTrue(list.get(1) instanceof Magazine);
+    final Magazine m = (Magazine) list.get(1);
+    Assertions.assertEquals(1, m.getAttributes().size());
 
-    assertTrue(list.get(2) instanceof Book);
+    Assertions.assertTrue(list.get(2) instanceof Book);
     b = (Book) list.get(2);
-    assertEquals(2, b.getAttributes().size());
+    Assertions.assertEquals(2, b.getAttributes().size());
 
     Document d = (Document) list.get(3);
-    assertEquals(0, d.getAttributes().size());
+    Assertions.assertEquals(0, d.getAttributes().size());
 
     d = (Document) list.get(4);
-    assertEquals(0, d.getAttributes().size());
+    Assertions.assertEquals(0, d.getAttributes().size());
 
     d = (Document) list.get(5);
-    assertEquals(0, d.getAttributes().size());
+    Assertions.assertEquals(0, d.getAttributes().size());
   }
 }

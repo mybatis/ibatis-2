@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 package com.ibatis.sqlmap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ibatis.common.util.PaginatedList;
 import com.ibatis.sqlmap.client.SqlMapSession;
@@ -37,6 +30,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,186 +45,189 @@ class StatementTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
-    initScript("scripts/account-init.sql");
-    initScript("scripts/order-init.sql");
-    initScript("scripts/line_item-init.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig.xml", null);
+    BaseSqlMap.initScript("scripts/account-init.sql");
+    BaseSqlMap.initScript("scripts/order-init.sql");
+    BaseSqlMap.initScript("scripts/line_item-init.sql");
   }
 
   // OBJECT QUERY TESTS
 
   @Test
   void testExecuteQueryForObjectViaColumnName() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
-    assertAccount1(account);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
   @Test
   void testUserConnection() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
-    sqlMap.setUserConnection(conn);
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final DataSource ds = BaseSqlMap.sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
+    BaseSqlMap.sqlMap.setUserConnection(conn);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     conn.close();
-    assertAccount1(account);
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
+    this.assertAccount1(account);
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
   }
 
   @Test
   void testSessionUserConnection() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
-    SqlMapSession session = sqlMap.openSession(conn);
-    Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final DataSource ds = BaseSqlMap.sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
+    final SqlMapSession session = BaseSqlMap.sqlMap.openSession(conn);
+    final Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     session.close();
     conn.close();
-    assertAccount1(account);
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
+    this.assertAccount1(account);
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
   }
 
   @Test
   void testSessionUserConnectionFailures() throws SQLException {
-    DataSource ds = sqlMap.getDataSource();
-    Connection conn = ds.getConnection();
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
-    SqlMapSession session = sqlMap.openSession(conn);
+    final DataSource ds = BaseSqlMap.sqlMap.getDataSource();
+    final Connection conn = ds.getConnection();
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(null);
+    final SqlMapSession session = BaseSqlMap.sqlMap.openSession(conn);
 
     Exception expected = null;
     try {
       session.startTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
-    assertNotNull(expected, "Expected exception from startTransaction() was not detected.");
+    Assertions.assertNotNull(expected, "Expected exception from startTransaction() was not detected.");
     expected = null;
     try {
       session.commitTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
-    assertNotNull(expected, "Expected exception from commitTransaction() was not detected.");
+    Assertions.assertNotNull(expected, "Expected exception from commitTransaction() was not detected.");
     expected = null;
     try {
       session.endTransaction();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       expected = e;
     }
-    assertNotNull(expected, "Expected exception from endTransaction() was not detected.");
+    Assertions.assertNotNull(expected, "Expected exception from endTransaction() was not detected.");
     expected = null;
 
-    Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    final Account account = (Account) session.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
     session.close();
     conn.close();
-    assertAccount1(account);
-    ((SqlMapClientImpl) sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
+    this.assertAccount1(account);
+    ((SqlMapClientImpl) BaseSqlMap.sqlMap).getDelegate().getTxManager().getConfig().setDataSource(ds);
   }
 
   @Test
   void testExecuteQueryForObjectViaColumnIndex() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnIndex", Integer.valueOf(1));
-    assertAccount1(account);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnIndex", Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClass() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaResultClass", Integer.valueOf(1));
-    assertAccount1(account);
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaResultClass", Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClassIgnoreCaseTypeAliasCase() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaResultClassIgnoreCaseTypeAlias",
+    final Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaResultClassIgnoreCaseTypeAlias",
         Integer.valueOf(1));
-    assertAccount1(account);
+    this.assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectViaResultClassPlusOne() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
-    assertList(list);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAccountViaResultClassPlusOne", Integer.valueOf(1));
+    this.assertList(list);
   }
 
   @Test
   void testExecuteQueryForObjectAsHashMap() throws SQLException {
-    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMap", Integer.valueOf(1));
-    assertAccount1(account);
+    final Map<?, ?> account = (HashMap<?, ?>) BaseSqlMap.sqlMap.queryForObject("getAccountAsHashMap",
+        Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectAsHashMapResultClass() throws SQLException {
-    Map<?, ?> account = (HashMap<?, ?>) sqlMap.queryForObject("getAccountAsHashMapResultClass", Integer.valueOf(1));
-    assertAccount1(account);
+    final Map<?, ?> account = (HashMap<?, ?>) BaseSqlMap.sqlMap.queryForObject("getAccountAsHashMapResultClass",
+        Integer.valueOf(1));
+    this.assertAccount1(account);
   }
 
   @Test
   void testExecuteQueryForObjectWithSimpleResultClass() throws SQLException {
-    String email = (String) sqlMap.queryForObject("getEmailAddressViaResultClass", Integer.valueOf(1));
-    assertEquals("clinton.begin@ibatis.com", email);
+    final String email = (String) BaseSqlMap.sqlMap.queryForObject("getEmailAddressViaResultClass", Integer.valueOf(1));
+    Assertions.assertEquals("clinton.begin@ibatis.com", email);
   }
 
   @Test
   void testExecuteQueryForObjectWithSimpleResultMap() throws SQLException {
-    String email = (String) sqlMap.queryForObject("getEmailAddressViaResultMap", Integer.valueOf(1));
-    assertEquals("clinton.begin@ibatis.com", email);
+    final String email = (String) BaseSqlMap.sqlMap.queryForObject("getEmailAddressViaResultMap", Integer.valueOf(1));
+    Assertions.assertEquals("clinton.begin@ibatis.com", email);
   }
 
   @Test
   void testExecuteQueryForObjectWithResultObject() throws SQLException {
-    Account account = new Account();
-    Account testAccount = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1), account);
-    assertAccount1(account);
-    assertTrue(account == testAccount);
+    final Account account = new Account();
+    final Account testAccount = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName",
+        Integer.valueOf(1), account);
+    this.assertAccount1(account);
+    Assertions.assertTrue(account == testAccount);
   }
 
   @Test
   void testGetSubclass() throws SQLException {
     SuperAccount account = new SuperAccount();
     account.setId(1);
-    account = (SuperAccount) sqlMap.queryForObject("getSuperAccount", account);
-    assertAccount1(account);
+    account = (SuperAccount) BaseSqlMap.sqlMap.queryForObject("getSuperAccount", account);
+    this.assertAccount1(account);
   }
 
   // LIST QUERY TESTS
 
   @Test
   void testExecuteQueryForListWithResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaResultMap", null);
 
-    assertAccount1((Account) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(5, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Account) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Account) list.get(4)).getId());
 
   }
 
   @Test
   void testExecuteQueryWithCustomTypeHandler() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaCustomTypeHandler", null);
 
-    assertAccount1((Account) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(5, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Account) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Account) list.get(4)).getId());
 
-    assertFalse(((Account) list.get(0)).isCartOption());
-    assertFalse(((Account) list.get(1)).isCartOption());
-    assertTrue(((Account) list.get(2)).isCartOption());
-    assertTrue(((Account) list.get(3)).isCartOption());
-    assertTrue(((Account) list.get(4)).isCartOption());
+    Assertions.assertFalse(((Account) list.get(0)).isCartOption());
+    Assertions.assertFalse(((Account) list.get(1)).isCartOption());
+    Assertions.assertTrue(((Account) list.get(2)).isCartOption());
+    Assertions.assertTrue(((Account) list.get(3)).isCartOption());
+    Assertions.assertTrue(((Account) list.get(4)).isCartOption());
 
-    assertTrue(((Account) list.get(0)).isBannerOption());
-    assertTrue(((Account) list.get(1)).isBannerOption());
-    assertFalse(((Account) list.get(2)).isBannerOption());
-    assertFalse(((Account) list.get(3)).isBannerOption());
-    assertTrue(((Account) list.get(4)).isBannerOption());
+    Assertions.assertTrue(((Account) list.get(0)).isBannerOption());
+    Assertions.assertTrue(((Account) list.get(1)).isBannerOption());
+    Assertions.assertFalse(((Account) list.get(2)).isBannerOption());
+    Assertions.assertFalse(((Account) list.get(3)).isBannerOption());
+    Assertions.assertTrue(((Account) list.get(4)).isBannerOption());
   }
 
   /**
@@ -248,152 +245,152 @@ class StatementTest extends BaseSqlMap {
   void testExecuteQueryForPaginatedList() throws SQLException {
 
     // Get List of all 5
-    PaginatedList list = sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", null, 2);
+    PaginatedList list = BaseSqlMap.sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", null, 2);
 
     // Test initial state (page 0)
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test illegal previous page (no effect, state should be same)
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test next (page 1)
     list.nextPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test next (page 2 -last)
     list.nextPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
-    assertEquals(5, ((Account) list.get(0)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
+    Assertions.assertEquals(5, ((Account) list.get(0)).getId());
 
     // Test previous (page 1)
     list.previousPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test previous (page 0 -first)
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test goto (page 0)
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test goto (page 1)
     list.gotoPage(1);
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test goto (page 2)
     list.gotoPage(2);
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
-    assertEquals(5, ((Account) list.get(0)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
+    Assertions.assertEquals(5, ((Account) list.get(0)).getId());
 
     // Test illegal goto (page 0)
     list.gotoPage(3);
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
-    list = sqlMap.queryForPaginatedList("getNoAccountsViaResultMap", null, 2);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getNoAccountsViaResultMap", null, 2);
 
     // Test empty list
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test next
     list.nextPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test previous
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test previous
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
-    list = sqlMap.queryForPaginatedList("getFewAccountsViaResultMap", null, 2);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getFewAccountsViaResultMap", null, 2);
 
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test next
     list.nextPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test previous
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test previous
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test Even - Two Pages
     try {
-      initScript("scripts/more-account-records.sql");
-    } catch (Exception e) {
-      fail(e.toString());
+      BaseSqlMap.initScript("scripts/more-account-records.sql");
+    } catch (final Exception e) {
+      Assertions.fail(e.toString());
     }
 
-    list = sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", null, 5);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", null, 5);
 
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
     list.nextPage();
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
     list.isPreviousPageAvailable();
     list.previousPage();
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
   }
 
@@ -402,274 +399,274 @@ class StatementTest extends BaseSqlMap {
     // tests methods that don't require a parameter object
 
     // Get List of all 5
-    PaginatedList list = sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", 2);
+    PaginatedList list = BaseSqlMap.sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", 2);
 
     // Test initial state (page 0)
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test illegal previous page (no effect, state should be same)
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test next (page 1)
     list.nextPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test next (page 2 -last)
     list.nextPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
-    assertEquals(5, ((Account) list.get(0)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
+    Assertions.assertEquals(5, ((Account) list.get(0)).getId());
 
     // Test previous (page 1)
     list.previousPage();
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test previous (page 0 -first)
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertAccount1((Account) list.get(0));
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test goto (page 0)
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
 
     // Test goto (page 1)
     list.gotoPage(1);
-    assertTrue(list.isPreviousPageAvailable());
-    assertTrue(list.isNextPageAvailable());
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertTrue(list.isNextPageAvailable());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
 
     // Test goto (page 2)
     list.gotoPage(2);
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
-    assertEquals(5, ((Account) list.get(0)).getId());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
+    Assertions.assertEquals(5, ((Account) list.get(0)).getId());
 
     // Test illegal goto (page 0)
     list.gotoPage(3);
-    assertTrue(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertTrue(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
-    list = sqlMap.queryForPaginatedList("getNoAccountsViaResultMap", 2);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getNoAccountsViaResultMap", 2);
 
     // Test empty list
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test next
     list.nextPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test previous
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
     // Test previous
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(0, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(0, list.size());
 
-    list = sqlMap.queryForPaginatedList("getFewAccountsViaResultMap", 2);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getFewAccountsViaResultMap", 2);
 
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test next
     list.nextPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test previous
     list.previousPage();
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test previous
     list.gotoPage(0);
-    assertFalse(list.isPreviousPageAvailable());
-    assertFalse(list.isNextPageAvailable());
-    assertEquals(1, list.size());
+    Assertions.assertFalse(list.isPreviousPageAvailable());
+    Assertions.assertFalse(list.isNextPageAvailable());
+    Assertions.assertEquals(1, list.size());
 
     // Test Even - Two Pages
     try {
-      initScript("scripts/more-account-records.sql");
-    } catch (Exception e) {
-      fail(e.toString());
+      BaseSqlMap.initScript("scripts/more-account-records.sql");
+    } catch (final Exception e) {
+      Assertions.fail(e.toString());
     }
 
-    list = sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", 5);
+    list = BaseSqlMap.sqlMap.queryForPaginatedList("getAllAccountsViaResultMap", 5);
 
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
     list.nextPage();
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
     list.isPreviousPageAvailable();
     list.previousPage();
-    assertEquals(5, list.size());
+    Assertions.assertEquals(5, list.size());
 
   }
 
   @Test
   void testExecuteQueryForListWithResultMapWithDynamicElement() throws SQLException {
 
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "LIKE");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "LIKE");
 
-    assertAccount1((Account) list.get(0));
-    assertEquals(3, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(4, ((Account) list.get(2)).getId());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(3, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(2)).getId());
 
-    list = sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "=");
+    list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaResultMapWithDynamicElement", "=");
 
-    assertEquals(0, list.size());
+    Assertions.assertEquals(0, list.size());
 
   }
 
   @Test
   void testExecuteQueryForListResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultClass", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaResultClass", null);
 
-    assertAccount1((Account) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(5, list.size());
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Account) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Account) list.get(4)).getId());
   }
 
   @Test
   void testExecuteQueryForListWithHashMapResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsAsHashMapViaResultMap", null);
 
-    assertAccount1((Map<?, ?>) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("id"));
-    assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("id"));
-    assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("id"));
-    assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("id"));
-    assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("id"));
+    this.assertAccount1((Map<?, ?>) list.get(0));
+    Assertions.assertEquals(5, list.size());
+    Assertions.assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("id"));
+    Assertions.assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("id"));
+    Assertions.assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("id"));
+    Assertions.assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("id"));
+    Assertions.assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("id"));
   }
 
   @Test
   void testExecuteQueryForListWithHashMapResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsAsHashMapViaResultClass", null);
 
-    assertAccount1((Map<?, ?>) list.get(0));
-    assertEquals(5, list.size());
-    assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("ID"));
-    assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("ID"));
-    assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("ID"));
-    assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("ID"));
-    assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("ID"));
+    this.assertAccount1((Map<?, ?>) list.get(0));
+    Assertions.assertEquals(5, list.size());
+    Assertions.assertEquals(Integer.valueOf(1), ((Map<?, ?>) list.get(0)).get("ID"));
+    Assertions.assertEquals(Integer.valueOf(2), ((Map<?, ?>) list.get(1)).get("ID"));
+    Assertions.assertEquals(Integer.valueOf(3), ((Map<?, ?>) list.get(2)).get("ID"));
+    Assertions.assertEquals(Integer.valueOf(4), ((Map<?, ?>) list.get(3)).get("ID"));
+    Assertions.assertEquals(Integer.valueOf(5), ((Map<?, ?>) list.get(4)).get("ID"));
   }
 
   @Test
   void testExecuteQueryForListWithSimpleResultClass() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllEmailAddressesViaResultClass", null);
 
-    assertEquals("clinton.begin@ibatis.com", list.get(0));
-    assertEquals(5, list.size());
+    Assertions.assertEquals("clinton.begin@ibatis.com", list.get(0));
+    Assertions.assertEquals(5, list.size());
   }
 
   @Test
   void testExecuteQueryForListWithSimpleResultMap() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllEmailAddressesViaResultMap", null);
 
-    assertEquals("clinton.begin@ibatis.com", list.get(0));
-    assertEquals(5, list.size());
+    Assertions.assertEquals("clinton.begin@ibatis.com", list.get(0));
+    Assertions.assertEquals(5, list.size());
   }
 
   @Test
   void testExecuteQueryForListWithSkipAndMax() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllAccountsViaResultMap", null, 2, 2);
 
-    assertEquals(2, list.size());
-    assertEquals(3, ((Account) list.get(0)).getId());
-    assertEquals(4, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(2, list.size());
+    Assertions.assertEquals(3, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(1)).getId());
   }
 
   @Test
   void testExecuteQueryForListWithRowHandler() throws SQLException {
-    TestRowHandler handler = new TestRowHandler();
-    sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
-    List<Object> list = handler.getList();
-    assertEquals(5, handler.getIndex());
-    assertEquals(5, list.size());
-    assertAccount1((Account) list.get(0));
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
+    final TestRowHandler handler = new TestRowHandler();
+    BaseSqlMap.sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
+    final List<Object> list = handler.getList();
+    Assertions.assertEquals(5, handler.getIndex());
+    Assertions.assertEquals(5, list.size());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Account) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Account) list.get(4)).getId());
 
   }
 
   @Test
   void testExecuteQueryForListWithRowHandler2() throws SQLException {
     // tests method that does not require a parameter object
-    TestRowHandler handler = new TestRowHandler();
-    sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", handler);
-    List<Object> list = handler.getList();
-    assertEquals(5, handler.getIndex());
-    assertEquals(5, list.size());
-    assertAccount1((Account) list.get(0));
-    assertEquals(1, ((Account) list.get(0)).getId());
-    assertEquals(2, ((Account) list.get(1)).getId());
-    assertEquals(3, ((Account) list.get(2)).getId());
-    assertEquals(4, ((Account) list.get(3)).getId());
-    assertEquals(5, ((Account) list.get(4)).getId());
+    final TestRowHandler handler = new TestRowHandler();
+    BaseSqlMap.sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", handler);
+    final List<Object> list = handler.getList();
+    Assertions.assertEquals(5, handler.getIndex());
+    Assertions.assertEquals(5, list.size());
+    this.assertAccount1((Account) list.get(0));
+    Assertions.assertEquals(1, ((Account) list.get(0)).getId());
+    Assertions.assertEquals(2, ((Account) list.get(1)).getId());
+    Assertions.assertEquals(3, ((Account) list.get(2)).getId());
+    Assertions.assertEquals(4, ((Account) list.get(3)).getId());
+    Assertions.assertEquals(5, ((Account) list.get(4)).getId());
 
   }
 
   @Test
   void testLegacyExecuteQueryForListWithRowHandler() throws SQLException {
-    TestRowHandler handler = new TestRowHandler();
-    sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
-    assertEquals(5, handler.getIndex());
+    final TestRowHandler handler = new TestRowHandler();
+    BaseSqlMap.sqlMap.queryWithRowHandler("getAllAccountsViaResultMap", null, handler);
+    Assertions.assertEquals(5, handler.getIndex());
     /*
      * assertEquals(5, list.size()); assertAccount1((Account) list.get(0)); assertEquals(1, ((Account)
      * list.get(0)).getId()); assertEquals(2, ((Account) list.get(1)).getId()); assertEquals(3, ((Account)
@@ -682,34 +679,34 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testExecuteQueryForMap() throws SQLException {
-    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
+    final Map<?, ?> map = BaseSqlMap.sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName");
 
-    assertAccount1((Account) map.get("Begin"));
-    assertEquals(5, map.size());
-    assertEquals(1, ((Account) map.get("Begin")).getId());
-    assertEquals(2, ((Account) map.get("Smith")).getId());
-    assertEquals(3, ((Account) map.get("Jones")).getId());
-    assertEquals(4, ((Account) map.get("Jackson")).getId());
-    assertEquals(5, ((Account) map.get("Goodman")).getId());
+    this.assertAccount1((Account) map.get("Begin"));
+    Assertions.assertEquals(5, map.size());
+    Assertions.assertEquals(1, ((Account) map.get("Begin")).getId());
+    Assertions.assertEquals(2, ((Account) map.get("Smith")).getId());
+    Assertions.assertEquals(3, ((Account) map.get("Jones")).getId());
+    Assertions.assertEquals(4, ((Account) map.get("Jackson")).getId());
+    Assertions.assertEquals(5, ((Account) map.get("Goodman")).getId());
   }
 
   @Test
   void testExecuteQueryForMapWithValueProperty() throws SQLException {
-    Map<?, ?> map = sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
+    final Map<?, ?> map = BaseSqlMap.sqlMap.queryForMap("getAllAccountsViaResultClass", null, "lastName", "firstName");
 
-    assertEquals(5, map.size());
-    assertEquals("Clinton", map.get("Begin"));
-    assertEquals("Jim", map.get("Smith"));
-    assertEquals("Elizabeth", map.get("Jones"));
-    assertEquals("Bob", map.get("Jackson"));
-    assertEquals("&manda", map.get("Goodman"));
+    Assertions.assertEquals(5, map.size());
+    Assertions.assertEquals("Clinton", map.get("Begin"));
+    Assertions.assertEquals("Jim", map.get("Smith"));
+    Assertions.assertEquals("Elizabeth", map.get("Jones"));
+    Assertions.assertEquals("Bob", map.get("Jackson"));
+    Assertions.assertEquals("&manda", map.get("Goodman"));
   }
 
   // UPDATE TESTS
 
   @Test
   void testInsertGeneratedKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(10);
     item.setItemCode("blah");
@@ -717,22 +714,22 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItem", item);
+    final Object key = BaseSqlMap.sqlMap.insert("insertLineItem", item);
 
-    assertEquals(Integer.valueOf(99), key);
-    assertEquals(99, item.getId());
+    Assertions.assertEquals(Integer.valueOf(99), key);
+    Assertions.assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(10));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
-    assertNotNull(testItem);
-    assertEquals(10, testItem.getId());
+    final LineItem testItem = (LineItem) BaseSqlMap.sqlMap.queryForObject("getSpecificLineItem", param);
+    Assertions.assertNotNull(testItem);
+    Assertions.assertEquals(10, testItem.getId());
   }
 
   @Test
   void testInsertGeneratedKeyFailure() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(0);
     item.setItemCode("blah");
@@ -743,19 +740,19 @@ class StatementTest extends BaseSqlMap {
     Object key = Integer.valueOf(-1);
 
     try {
-      key = sqlMap.insert("insertLineItemOrDie", item);
-    } catch (SQLException e) {
+      key = BaseSqlMap.sqlMap.insert("insertLineItemOrDie", item);
+    } catch (final SQLException e) {
       // this is expected
     }
 
-    assertEquals(key, Integer.valueOf(-1)); // this should not be changed from above
-    assertEquals(0, item.getId()); // this should not be changed from above
+    Assertions.assertEquals(key, Integer.valueOf(-1)); // this should not be changed from above
+    Assertions.assertEquals(0, item.getId()); // this should not be changed from above
 
   }
 
   @Test
   void testInsertPreKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(10);
     item.setItemCode("blah");
@@ -763,23 +760,23 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItemPreKey", item);
+    final Object key = BaseSqlMap.sqlMap.insert("insertLineItemPreKey", item);
 
-    assertEquals(Integer.valueOf(99), key);
-    assertEquals(99, item.getId());
+    Assertions.assertEquals(Integer.valueOf(99), key);
+    Assertions.assertEquals(99, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(99));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
-    assertNotNull(testItem);
-    assertEquals(99, testItem.getId());
+    final LineItem testItem = (LineItem) BaseSqlMap.sqlMap.queryForObject("getSpecificLineItem", param);
+    Assertions.assertNotNull(testItem);
+    Assertions.assertEquals(99, testItem.getId());
 
   }
 
   @Test
   void testInsertNoKey() throws SQLException {
-    LineItem item = new LineItem();
+    final LineItem item = new LineItem();
 
     item.setId(100);
     item.setItemCode("blah");
@@ -787,53 +784,53 @@ class StatementTest extends BaseSqlMap {
     item.setPrice(new BigDecimal("44.00"));
     item.setQuantity(1);
 
-    Object key = sqlMap.insert("insertLineItemNoKey", item);
+    final Object key = BaseSqlMap.sqlMap.insert("insertLineItemNoKey", item);
 
-    assertNull(key);
-    assertEquals(100, item.getId());
+    Assertions.assertNull(key);
+    Assertions.assertEquals(100, item.getId());
 
-    Map<String, Integer> param = new HashMap<>();
+    final Map<String, Integer> param = new HashMap<>();
     param.put("orderId", Integer.valueOf(333));
     param.put("lineId", Integer.valueOf(100));
-    LineItem testItem = (LineItem) sqlMap.queryForObject("getSpecificLineItem", param);
-    assertNotNull(testItem);
-    assertEquals(100, testItem.getId());
+    final LineItem testItem = (LineItem) BaseSqlMap.sqlMap.queryForObject("getSpecificLineItem", param);
+    Assertions.assertNotNull(testItem);
+    Assertions.assertEquals(100, testItem.getId());
 
   }
 
   @Test
   void testExecuteUpdateWithParameterMap() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
 
     account.setId(6);
     account.setEmailAddress("new.clinton@ibatis.com");
     account.setBannerOption(true);
     account.setCartOption(true);
-    sqlMap.update("insertAccountViaParameterMap", account);
+    BaseSqlMap.sqlMap.update("insertAccountViaParameterMap", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(6));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(6));
 
-    assertEquals(true, account.isBannerOption());
-    assertEquals(true, account.isCartOption());
-    assertEquals("new.clinton@ibatis.com", account.getEmailAddress());
+    Assertions.assertEquals(true, account.isBannerOption());
+    Assertions.assertEquals(true, account.isCartOption());
+    Assertions.assertEquals("new.clinton@ibatis.com", account.getEmailAddress());
 
   }
 
   @Test
   void testExecuteUpdateWithInlineParameters() throws SQLException {
-    Account account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    Account account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
 
     account.setEmailAddress("new.clinton@ibatis.com");
     try {
-      sqlMap.startTransaction();
-      sqlMap.update("updateAccountViaInlineParameters", account);
-      sqlMap.commitTransaction();
+      BaseSqlMap.sqlMap.startTransaction();
+      BaseSqlMap.sqlMap.update("updateAccountViaInlineParameters", account);
+      BaseSqlMap.sqlMap.commitTransaction();
     } finally {
-      sqlMap.endTransaction();
+      BaseSqlMap.sqlMap.endTransaction();
     }
-    account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(1));
 
-    assertEquals("new.clinton@ibatis.com", account.getEmailAddress());
+    Assertions.assertEquals("new.clinton@ibatis.com", account.getEmailAddress());
 
   }
 
@@ -844,17 +841,17 @@ class StatementTest extends BaseSqlMap {
 
     boolean checkForInvalidTypeFailedAppropriately = false;
     try {
-      sqlMap.update("deleteAccount", new Object());
-    } catch (SQLException e) {
+      BaseSqlMap.sqlMap.update("deleteAccount", new Object());
+    } catch (final SQLException e) {
       checkForInvalidTypeFailedAppropriately = true;
     }
 
-    sqlMap.update("deleteAccount", account);
+    BaseSqlMap.sqlMap.update("deleteAccount", account);
 
-    account = (Account) sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(5));
+    account = (Account) BaseSqlMap.sqlMap.queryForObject("getAccountViaColumnName", Integer.valueOf(5));
 
-    assertNull(account);
-    assertTrue(checkForInvalidTypeFailedAppropriately);
+    Assertions.assertNull(account);
+    Assertions.assertTrue(checkForInvalidTypeFailedAppropriately);
   }
 
   /**
@@ -874,13 +871,13 @@ class StatementTest extends BaseSqlMap {
 
   @Test
   void testQueryDynamicSqlElement() throws SQLException {
-    List<?> list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_ID");
+    List<?> list = BaseSqlMap.sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_ID");
 
-    assertEquals("clinton.begin@ibatis.com", list.get(0));
+    Assertions.assertEquals("clinton.begin@ibatis.com", list.get(0));
 
-    list = sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_FIRST_NAME");
+    list = BaseSqlMap.sqlMap.queryForList("getDynamicOrderedEmailAddressesViaResultMap", "ACC_FIRST_NAME");
 
-    assertNull(list.get(0));
+    Assertions.assertNull(list.get(0));
 
   }
 
@@ -889,75 +886,75 @@ class StatementTest extends BaseSqlMap {
   class TestRowHandler implements RowHandler {
     private int index = 0;
 
-    private List<Object> list = new ArrayList<>();
+    private final List<Object> list = new ArrayList<>();
 
     @Override
-    public void handleRow(Object object) {
-      index++;
-      assertEquals(index, ((Account) object).getId());
-      list.add(object);
+    public void handleRow(final Object object) {
+      this.index++;
+      Assertions.assertEquals(this.index, ((Account) object).getId());
+      this.list.add(object);
     }
 
-    void handleRow(Object valueObject, List<Object> list) {
-      index++;
-      assertEquals(index, ((Account) valueObject).getId());
+    void handleRow(final Object valueObject, final List<Object> list) {
+      this.index++;
+      Assertions.assertEquals(this.index, ((Account) valueObject).getId());
       list.add(valueObject);
     }
 
     public int getIndex() {
-      return index;
+      return this.index;
     }
 
     public List<Object> getList() {
-      return list;
+      return this.list;
     }
 
   }
 
   @Test
   void testNestedResultMaps() throws SQLException {
-    List<?> list = sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
+    final List<?> list = BaseSqlMap.sqlMap.queryForList("getAllOrdersWithNestedResultMaps");
 
-    assertEquals(10, list.size());
+    Assertions.assertEquals(10, list.size());
 
     Order order = (Order) list.get(0);
-    assertEquals(1, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(1, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(1);
-    assertEquals(4, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(4, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(2);
-    assertEquals(3, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(3, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(3);
-    assertEquals(2, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(2, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(4);
-    assertEquals(5, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(5, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(5);
-    assertEquals(5, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(5, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(6);
-    assertEquals(4, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(4, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(7);
-    assertEquals(3, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(3, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(8);
-    assertEquals(2, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(2, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
 
     order = (Order) list.get(9);
-    assertEquals(1, order.getAccount().getId());
-    assertEquals(2, order.getLineItems().size());
+    Assertions.assertEquals(1, order.getAccount().getId());
+    Assertions.assertEquals(2, order.getLineItems().size());
   }
 }

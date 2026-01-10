@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2023 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,9 @@
  */
 package com.ibatis.sqlmap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +27,9 @@ class ResultObjectFactoryTest extends BaseSqlMap {
 
   @BeforeEach
   void setUp() throws Exception {
-    initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig_rof.xml", null);
-    initScript("scripts/jpetstore-hsqldb-schema.sql");
-    initScript("scripts/jpetstore-hsqldb-dataload.sql");
+    BaseSqlMap.initSqlMap("com/ibatis/sqlmap/maps/SqlMapConfig_rof.xml", null);
+    BaseSqlMap.initScript("scripts/jpetstore-hsqldb-schema.sql");
+    BaseSqlMap.initScript("scripts/jpetstore-hsqldb-dataload.sql");
   }
 
   /**
@@ -38,9 +37,9 @@ class ResultObjectFactoryTest extends BaseSqlMap {
    */
   @Test
   void testShouldDemonstrateThatTheObjectFactoryIsWorking() throws Exception {
-    List<?> results = sqlMap.queryForList("getAllItemsROF");
-    assertEquals(28, results.size());
-    assertEquals(Integer.valueOf(1), ((IItem) results.get(2)).getSupplier().getSupplierId());
+    final List<?> results = BaseSqlMap.sqlMap.queryForList("getAllItemsROF");
+    Assertions.assertEquals(28, results.size());
+    Assertions.assertEquals(Integer.valueOf(1), ((IItem) results.get(2)).getSupplier().getSupplierId());
   }
 
 }
