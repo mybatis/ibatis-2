@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenericProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">GenericProbe.java</span></div><h1>GenericProbe.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -61,29 +61,12 @@ public class GenericProbe extends BaseProbe {
 <span class="pc bpc" id="L61" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
 <span class="nc" id="L62">      return DOM_PROBE.getObject(object, name);</span>
     }
-<span class="pc bpc" id="L64" title="3 of 8 branches missed.">    if ((object instanceof List) || (object instanceof Object[]) || (object instanceof char[])</span>
-        || (object instanceof boolean[])) {
-<span class="fc" id="L66">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
+<span class="pc bpc" id="L64" title="9 of 20 branches missed.">    if (object instanceof List || object instanceof Object[] || object instanceof char[] || object instanceof boolean[]</span>
+        || object instanceof byte[] || object instanceof double[] || object instanceof float[]
+        || object instanceof int[] || object instanceof long[] || object instanceof short[]) {
+<span class="fc" id="L67">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
     }
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    if (object instanceof byte[]) {</span>
-<span class="nc" id="L69">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">    if (object instanceof double[]) {</span>
-<span class="nc" id="L72">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">    if (object instanceof float[]) {</span>
-<span class="nc" id="L75">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    if (object instanceof int[]) {</span>
-<span class="nc" id="L78">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">    if (object instanceof long[]) {</span>
-<span class="nc" id="L81">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">    if (object instanceof short[]) {</span>
-<span class="nc" id="L84">      return BEAN_PROBE.getIndexedProperty(object, name);</span>
-    }
-<span class="fc" id="L86">    return BEAN_PROBE.getObject(object, name);</span>
+<span class="fc" id="L69">    return BEAN_PROBE.getObject(object, name);</span>
   }
 
   /**
@@ -100,12 +83,12 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public void setObject(Object object, String name, Object value) {
-<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L104">      DOM_PROBE.setObject(object, name, value);</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L87">      DOM_PROBE.setObject(object, name, value);</span>
     } else {
-<span class="fc" id="L106">      BEAN_PROBE.setObject(object, name, value);</span>
+<span class="fc" id="L89">      BEAN_PROBE.setObject(object, name, value);</span>
     }
-<span class="fc" id="L108">  }</span>
+<span class="fc" id="L91">  }</span>
 
   /**
    * Gets an array of the readable properties in a Map or JavaBean
@@ -119,10 +102,10 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public String[] getReadablePropertyNames(Object object) {
-<span class="nc bnc" id="L122" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L123">      return DOM_PROBE.getReadablePropertyNames(object);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L106">      return DOM_PROBE.getReadablePropertyNames(object);</span>
     }
-<span class="nc" id="L125">    return BEAN_PROBE.getReadablePropertyNames(object);</span>
+<span class="nc" id="L108">    return BEAN_PROBE.getReadablePropertyNames(object);</span>
   }
 
   /**
@@ -137,10 +120,10 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-<span class="nc bnc" id="L140" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L141">      return DOM_PROBE.getWriteablePropertyNames(object);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L124">      return DOM_PROBE.getWriteablePropertyNames(object);</span>
     }
-<span class="nc" id="L143">    return BEAN_PROBE.getWriteablePropertyNames(object);</span>
+<span class="nc" id="L126">    return BEAN_PROBE.getWriteablePropertyNames(object);</span>
   }
 
   /**
@@ -157,13 +140,13 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public Class getPropertyTypeForSetter(Object object, String name) {
-<span class="fc bfc" id="L160" title="All 2 branches covered.">    if (object instanceof Class) {</span>
-<span class="fc" id="L161">      return getClassPropertyTypeForSetter((Class) object, name);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">    if (object instanceof Class) {</span>
+<span class="fc" id="L144">      return getClassPropertyTypeForSetter((Class) object, name);</span>
     }
-<span class="pc bpc" id="L163" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L164">      return DOM_PROBE.getPropertyTypeForSetter(object, name);</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L147">      return DOM_PROBE.getPropertyTypeForSetter(object, name);</span>
     }
-<span class="fc" id="L166">    return BEAN_PROBE.getPropertyTypeForSetter(object, name);</span>
+<span class="fc" id="L149">    return BEAN_PROBE.getPropertyTypeForSetter(object, name);</span>
   }
 
   /**
@@ -180,16 +163,16 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public Class getPropertyTypeForGetter(Object object, String name) {
-<span class="fc bfc" id="L183" title="All 2 branches covered.">    if (object instanceof Class) {</span>
-<span class="fc" id="L184">      return getClassPropertyTypeForGetter((Class) object, name);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">    if (object instanceof Class) {</span>
+<span class="fc" id="L167">      return getClassPropertyTypeForGetter((Class) object, name);</span>
     }
-<span class="pc bpc" id="L186" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L187">      return DOM_PROBE.getPropertyTypeForGetter(object, name);</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L170">      return DOM_PROBE.getPropertyTypeForGetter(object, name);</span>
     }
-<span class="fc bfc" id="L189" title="All 2 branches covered.">    if (name.indexOf('[') &gt; -1) {</span>
-<span class="fc" id="L190">      return BEAN_PROBE.getIndexedType(object, name);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">    if (name.indexOf('[') &gt; -1) {</span>
+<span class="fc" id="L173">      return BEAN_PROBE.getIndexedType(object, name);</span>
     }
-<span class="fc" id="L192">    return BEAN_PROBE.getPropertyTypeForGetter(object, name);</span>
+<span class="fc" id="L175">    return BEAN_PROBE.getPropertyTypeForGetter(object, name);</span>
   }
 
   /**
@@ -206,10 +189,10 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public boolean hasWritableProperty(Object object, String propertyName) {
-<span class="nc bnc" id="L209" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L210">      return DOM_PROBE.hasWritableProperty(object, propertyName);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L193">      return DOM_PROBE.hasWritableProperty(object, propertyName);</span>
     }
-<span class="nc" id="L212">    return BEAN_PROBE.hasWritableProperty(object, propertyName);</span>
+<span class="nc" id="L195">    return BEAN_PROBE.hasWritableProperty(object, propertyName);</span>
   }
 
   /**
@@ -226,27 +209,27 @@ public class GenericProbe extends BaseProbe {
    */
   @Override
   public boolean hasReadableProperty(Object object, String propertyName) {
-<span class="pc bpc" id="L229" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L230">      return DOM_PROBE.hasReadableProperty(object, propertyName);</span>
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L213">      return DOM_PROBE.hasReadableProperty(object, propertyName);</span>
     }
-<span class="fc" id="L232">    return BEAN_PROBE.hasReadableProperty(object, propertyName);</span>
+<span class="fc" id="L215">    return BEAN_PROBE.hasReadableProperty(object, propertyName);</span>
   }
 
   @Override
   protected void setProperty(Object object, String property, Object value) {
-<span class="nc bnc" id="L237" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L238">      DOM_PROBE.setProperty(object, property, value);</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L221">      DOM_PROBE.setProperty(object, property, value);</span>
     } else {
-<span class="nc" id="L240">      BEAN_PROBE.setProperty(object, property, value);</span>
+<span class="nc" id="L223">      BEAN_PROBE.setProperty(object, property, value);</span>
     }
-<span class="nc" id="L242">  }</span>
+<span class="nc" id="L225">  }</span>
 
   @Override
   protected Object getProperty(Object object, String property) {
-<span class="nc bnc" id="L246" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
-<span class="nc" id="L247">      return DOM_PROBE.getProperty(object, property);</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">    if (object instanceof org.w3c.dom.Document) {</span>
+<span class="nc" id="L230">      return DOM_PROBE.getProperty(object, property);</span>
     }
-<span class="nc" id="L249">    return BEAN_PROBE.getProperty(object, property);</span>
+<span class="nc" id="L232">    return BEAN_PROBE.getProperty(object, property);</span>
   }
 
   /**
@@ -261,21 +244,21 @@ public class GenericProbe extends BaseProbe {
    */
   private Class getClassPropertyTypeForGetter(Class type, String name) {
 
-<span class="pc bpc" id="L264" title="1 of 2 branches missed.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="nc" id="L265">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="nc bnc" id="L266" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
-<span class="nc" id="L267">        name = parser.nextToken();</span>
-<span class="nc bnc" id="L268" title="All 2 branches missed.">        if (Map.class.isAssignableFrom(type)) {</span>
-<span class="nc" id="L269">          type = Object.class;</span>
-<span class="nc" id="L270">          break;</span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="nc" id="L248">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">      while (parser.hasMoreTokens()) {</span>
+<span class="nc" id="L250">        name = parser.nextToken();</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        if (Map.class.isAssignableFrom(type)) {</span>
+<span class="nc" id="L252">          type = Object.class;</span>
+<span class="nc" id="L253">          break;</span>
         }
-<span class="nc" id="L272">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="nc" id="L255">        type = ClassInfo.getInstance(type).getGetterType(name);</span>
       }
-<span class="nc" id="L274">    } else {</span>
-<span class="fc" id="L275">      type = ClassInfo.getInstance(type).getGetterType(name);</span>
+<span class="nc" id="L257">    } else {</span>
+<span class="fc" id="L258">      type = ClassInfo.getInstance(type).getGetterType(name);</span>
     }
 
-<span class="fc" id="L278">    return type;</span>
+<span class="fc" id="L261">    return type;</span>
   }
 
   /**
@@ -290,21 +273,21 @@ public class GenericProbe extends BaseProbe {
    */
   private Class getClassPropertyTypeForSetter(Class type, String name) {
 
-<span class="fc bfc" id="L293" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
-<span class="fc" id="L294">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
-<span class="fc bfc" id="L295" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
-<span class="fc" id="L296">        name = parser.nextToken();</span>
-<span class="pc bpc" id="L297" title="1 of 2 branches missed.">        if (Map.class.isAssignableFrom(type)) {</span>
-<span class="nc" id="L298">          type = Object.class;</span>
-<span class="nc" id="L299">          break;</span>
+<span class="fc bfc" id="L276" title="All 2 branches covered.">    if (name.indexOf('.') &gt; -1) {</span>
+<span class="fc" id="L277">      StringTokenizer parser = new StringTokenizer(name, &quot;.&quot;);</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">      while (parser.hasMoreTokens()) {</span>
+<span class="fc" id="L279">        name = parser.nextToken();</span>
+<span class="pc bpc" id="L280" title="1 of 2 branches missed.">        if (Map.class.isAssignableFrom(type)) {</span>
+<span class="nc" id="L281">          type = Object.class;</span>
+<span class="nc" id="L282">          break;</span>
         }
-<span class="fc" id="L301">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc" id="L284">        type = ClassInfo.getInstance(type).getSetterType(name);</span>
       }
-<span class="fc" id="L303">    } else {</span>
-<span class="fc" id="L304">      type = ClassInfo.getInstance(type).getSetterType(name);</span>
+<span class="fc" id="L286">    } else {</span>
+<span class="fc" id="L287">      type = ClassInfo.getInstance(type).getSetterType(name);</span>
     }
 
-<span class="fc" id="L307">    return type;</span>
+<span class="fc" id="L290">    return type;</span>
   }
 
 }

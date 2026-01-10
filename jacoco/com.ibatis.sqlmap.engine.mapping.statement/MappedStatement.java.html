@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MappedStatement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.mapping.statement</a> &gt; <span class="el_source">MappedStatement.java</span></div><h1>MappedStatement.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -424,18 +424,16 @@ import org.w3c.dom.Document;
 <span class="fc bfc" id="L424" title="All 2 branches covered.">          if (!(newParam instanceof Document)) {</span>
 <span class="fc" id="L425">            newParam = stringToDocument((String) newParam);</span>
           }
-        } else {
-<span class="pc bpc" id="L428" title="1 of 2 branches missed.">          if (!Document.class.isAssignableFrom(newParam.getClass())) {</span>
-<span class="nc" id="L429">            throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + Document.class.getName()</span>
-<span class="nc" id="L430">                + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
-          }
+<span class="pc bpc" id="L427" title="1 of 2 branches missed.">        } else if (!Document.class.isAssignableFrom(newParam.getClass())) {</span>
+<span class="nc" id="L428">          throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + Document.class.getName()</span>
+<span class="nc" id="L429">              + &quot;' but found '&quot; + newParam.getClass().getName() + &quot;'.&quot;);</span>
         }
-<span class="fc bfc" id="L433" title="All 2 branches covered.">      } else if (!parameterClass.isAssignableFrom(newParam.getClass())) {</span>
-<span class="fc" id="L434">        throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + parameterClass.getName() + &quot;' but found '&quot;</span>
-<span class="fc" id="L435">            + newParam.getClass().getName() + &quot;'.&quot;);</span>
+<span class="fc bfc" id="L431" title="All 2 branches covered.">      } else if (!parameterClass.isAssignableFrom(newParam.getClass())) {</span>
+<span class="fc" id="L432">        throw new SQLException(&quot;Invalid parameter object type.  Expected '&quot; + parameterClass.getName() + &quot;' but found '&quot;</span>
+<span class="fc" id="L433">            + newParam.getClass().getName() + &quot;'.&quot;);</span>
       }
     }
-<span class="fc" id="L438">    return newParam;</span>
+<span class="fc" id="L436">    return newParam;</span>
   }
 
   /**
@@ -448,14 +446,14 @@ import org.w3c.dom.Document;
    */
   private Document stringToDocument(String s) {
     try {
-<span class="fc" id="L451">      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span>
-<span class="fc" id="L452">      documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
-<span class="fc" id="L453">      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
-<span class="fc" id="L454">      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, &quot;&quot;);</span>
-<span class="fc" id="L455">      DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();</span>
-<span class="fc" id="L456">      return documentBuilder.parse(new ReaderInputStream(new StringReader(s)));</span>
-<span class="nc" id="L457">    } catch (Exception e) {</span>
-<span class="nc" id="L458">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L449">      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L450">      documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
+<span class="fc" id="L451">      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
+<span class="fc" id="L452">      documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, &quot;&quot;);</span>
+<span class="fc" id="L453">      DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();</span>
+<span class="fc" id="L454">      return documentBuilder.parse(new ReaderInputStream(new StringReader(s)));</span>
+<span class="nc" id="L455">    } catch (Exception e) {</span>
+<span class="nc" id="L456">      throw new RuntimeException(&quot;Error occurred.  Cause: &quot; + e, e);</span>
     }
   }
 
@@ -465,7 +463,7 @@ import org.w3c.dom.Document;
    * @return the id
    */
   public String getId() {
-<span class="fc" id="L468">    return id;</span>
+<span class="fc" id="L466">    return id;</span>
   }
 
   /**
@@ -474,7 +472,7 @@ import org.w3c.dom.Document;
    * @return the result set type
    */
   public Integer getResultSetType() {
-<span class="fc" id="L477">    return resultSetType;</span>
+<span class="fc" id="L475">    return resultSetType;</span>
   }
 
   /**
@@ -484,8 +482,8 @@ import org.w3c.dom.Document;
    *          the new result set type
    */
   public void setResultSetType(Integer resultSetType) {
-<span class="nc" id="L487">    this.resultSetType = resultSetType;</span>
-<span class="nc" id="L488">  }</span>
+<span class="nc" id="L485">    this.resultSetType = resultSetType;</span>
+<span class="nc" id="L486">  }</span>
 
   /**
    * Gets the fetch size.
@@ -493,7 +491,7 @@ import org.w3c.dom.Document;
    * @return the fetch size
    */
   public Integer getFetchSize() {
-<span class="fc" id="L496">    return fetchSize;</span>
+<span class="fc" id="L494">    return fetchSize;</span>
   }
 
   /**
@@ -503,8 +501,8 @@ import org.w3c.dom.Document;
    *          the new fetch size
    */
   public void setFetchSize(Integer fetchSize) {
-<span class="nc" id="L506">    this.fetchSize = fetchSize;</span>
-<span class="nc" id="L507">  }</span>
+<span class="nc" id="L504">    this.fetchSize = fetchSize;</span>
+<span class="nc" id="L505">  }</span>
 
   /**
    * Sets the id.
@@ -513,8 +511,8 @@ import org.w3c.dom.Document;
    *          the new id
    */
   public void setId(String id) {
-<span class="fc" id="L516">    this.id = id;</span>
-<span class="fc" id="L517">  }</span>
+<span class="fc" id="L514">    this.id = id;</span>
+<span class="fc" id="L515">  }</span>
 
   /**
    * Gets the sql.
@@ -522,7 +520,7 @@ import org.w3c.dom.Document;
    * @return the sql
    */
   public Sql getSql() {
-<span class="fc" id="L525">    return sql;</span>
+<span class="fc" id="L523">    return sql;</span>
   }
 
   /**
@@ -532,8 +530,8 @@ import org.w3c.dom.Document;
    *          the new sql
    */
   public void setSql(Sql sql) {
-<span class="fc" id="L535">    this.sql = sql;</span>
-<span class="fc" id="L536">  }</span>
+<span class="fc" id="L533">    this.sql = sql;</span>
+<span class="fc" id="L534">  }</span>
 
   /**
    * Gets the result map.
@@ -541,7 +539,7 @@ import org.w3c.dom.Document;
    * @return the result map
    */
   public ResultMap getResultMap() {
-<span class="fc" id="L544">    return resultMap;</span>
+<span class="fc" id="L542">    return resultMap;</span>
   }
 
   /**
@@ -551,8 +549,8 @@ import org.w3c.dom.Document;
    *          the new result map
    */
   public void setResultMap(ResultMap resultMap) {
-<span class="fc" id="L554">    this.resultMap = resultMap;</span>
-<span class="fc" id="L555">  }</span>
+<span class="fc" id="L552">    this.resultMap = resultMap;</span>
+<span class="fc" id="L553">  }</span>
 
   /**
    * Gets the parameter map.
@@ -560,7 +558,7 @@ import org.w3c.dom.Document;
    * @return the parameter map
    */
   public ParameterMap getParameterMap() {
-<span class="fc" id="L563">    return parameterMap;</span>
+<span class="fc" id="L561">    return parameterMap;</span>
   }
 
   /**
@@ -570,8 +568,8 @@ import org.w3c.dom.Document;
    *          the new parameter map
    */
   public void setParameterMap(ParameterMap parameterMap) {
-<span class="fc" id="L573">    this.parameterMap = parameterMap;</span>
-<span class="fc" id="L574">  }</span>
+<span class="fc" id="L571">    this.parameterMap = parameterMap;</span>
+<span class="fc" id="L572">  }</span>
 
   /**
    * Gets the parameter class.
@@ -579,7 +577,7 @@ import org.w3c.dom.Document;
    * @return the parameter class
    */
   public Class getParameterClass() {
-<span class="fc" id="L582">    return parameterClass;</span>
+<span class="fc" id="L580">    return parameterClass;</span>
   }
 
   /**
@@ -589,8 +587,8 @@ import org.w3c.dom.Document;
    *          the new parameter class
    */
   public void setParameterClass(Class parameterClass) {
-<span class="fc" id="L592">    this.parameterClass = parameterClass;</span>
-<span class="fc" id="L593">  }</span>
+<span class="fc" id="L590">    this.parameterClass = parameterClass;</span>
+<span class="fc" id="L591">  }</span>
 
   /**
    * Gets the resource.
@@ -598,7 +596,7 @@ import org.w3c.dom.Document;
    * @return the resource
    */
   public String getResource() {
-<span class="fc" id="L601">    return resource;</span>
+<span class="fc" id="L599">    return resource;</span>
   }
 
   /**
@@ -608,8 +606,8 @@ import org.w3c.dom.Document;
    *          the new resource
    */
   public void setResource(String resource) {
-<span class="fc" id="L611">    this.resource = resource;</span>
-<span class="fc" id="L612">  }</span>
+<span class="fc" id="L609">    this.resource = resource;</span>
+<span class="fc" id="L610">  }</span>
 
   /**
    * Gets the cache key.
@@ -622,10 +620,10 @@ import org.w3c.dom.Document;
    * @return the cache key
    */
   public CacheKey getCacheKey(StatementScope statementScope, Object parameterObject) {
-<span class="fc" id="L625">    Sql sql = statementScope.getSql();</span>
-<span class="fc" id="L626">    ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);</span>
-<span class="fc" id="L627">    CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);</span>
-<span class="fc" id="L628">    cacheKey.update(id);</span>
+<span class="fc" id="L623">    Sql sql = statementScope.getSql();</span>
+<span class="fc" id="L624">    ParameterMap pmap = sql.getParameterMap(statementScope, parameterObject);</span>
+<span class="fc" id="L625">    CacheKey cacheKey = pmap.getCacheKey(statementScope, parameterObject);</span>
+<span class="fc" id="L626">    cacheKey.update(id);</span>
 
     // I am not sure how any clustered cache solution would ever have had any cache hits against
     // replicated objects. I could not make it happen
@@ -647,8 +645,8 @@ import org.w3c.dom.Document;
     // works on 1 machine, but fails across machines.
     // cacheKey.update(baseCacheKey);
 
-<span class="fc" id="L650">    cacheKey.update(sql.getSql(statementScope, parameterObject)); // Fixes bug 953001</span>
-<span class="fc" id="L651">    return cacheKey;</span>
+<span class="fc" id="L648">    cacheKey.update(sql.getSql(statementScope, parameterObject)); // Fixes bug 953001</span>
+<span class="fc" id="L649">    return cacheKey;</span>
   }
 
   /**
@@ -658,8 +656,8 @@ import org.w3c.dom.Document;
    *          the new base cache key
    */
   public void setBaseCacheKey(int base) {
-<span class="fc" id="L661">    this.baseCacheKey = base;</span>
-<span class="fc" id="L662">  }</span>
+<span class="fc" id="L659">    this.baseCacheKey = base;</span>
+<span class="fc" id="L660">  }</span>
 
   /**
    * Adds the execute listener.
@@ -668,17 +666,17 @@ import org.w3c.dom.Document;
    *          the listener
    */
   public void addExecuteListener(ExecuteListener listener) {
-<span class="fc" id="L671">    executeListeners.add(listener);</span>
-<span class="fc" id="L672">  }</span>
+<span class="fc" id="L669">    executeListeners.add(listener);</span>
+<span class="fc" id="L670">  }</span>
 
   /**
    * Notify listeners.
    */
   public void notifyListeners() {
-<span class="fc bfc" id="L678" title="All 2 branches covered.">    for (Object executeListener : executeListeners) {</span>
-<span class="fc" id="L679">      ((ExecuteListener) executeListener).onExecuteStatement(this);</span>
-<span class="fc" id="L680">    }</span>
-<span class="fc" id="L681">  }</span>
+<span class="fc bfc" id="L676" title="All 2 branches covered.">    for (Object executeListener : executeListeners) {</span>
+<span class="fc" id="L677">      ((ExecuteListener) executeListener).onExecuteStatement(this);</span>
+<span class="fc" id="L678">    }</span>
+<span class="fc" id="L679">  }</span>
 
   /**
    * Gets the sql executor.
@@ -686,7 +684,7 @@ import org.w3c.dom.Document;
    * @return the sql executor
    */
   public SqlExecutor getSqlExecutor() {
-<span class="fc" id="L689">    return sqlMapClient.getSqlExecutor();</span>
+<span class="fc" id="L687">    return sqlMapClient.getSqlExecutor();</span>
   }
 
   /**
@@ -695,7 +693,7 @@ import org.w3c.dom.Document;
    * @return the sql map client
    */
   public SqlMapClient getSqlMapClient() {
-<span class="nc" id="L698">    return sqlMapClient;</span>
+<span class="nc" id="L696">    return sqlMapClient;</span>
   }
 
   /**
@@ -705,8 +703,8 @@ import org.w3c.dom.Document;
    *          the new sql map client
    */
   public void setSqlMapClient(SqlMapClient sqlMapClient) {
-<span class="fc" id="L708">    this.sqlMapClient = (SqlMapClientImpl) sqlMapClient;</span>
-<span class="fc" id="L709">  }</span>
+<span class="fc" id="L706">    this.sqlMapClient = (SqlMapClientImpl) sqlMapClient;</span>
+<span class="fc" id="L707">  }</span>
 
   /**
    * Inits the request.
@@ -715,11 +713,11 @@ import org.w3c.dom.Document;
    *          the statement scope
    */
   public void initRequest(StatementScope statementScope) {
-<span class="fc" id="L718">    statementScope.setStatement(this);</span>
-<span class="fc" id="L719">    statementScope.setParameterMap(parameterMap);</span>
-<span class="fc" id="L720">    statementScope.setResultMap(resultMap);</span>
-<span class="fc" id="L721">    statementScope.setSql(sql);</span>
-<span class="fc" id="L722">  }</span>
+<span class="fc" id="L716">    statementScope.setStatement(this);</span>
+<span class="fc" id="L717">    statementScope.setParameterMap(parameterMap);</span>
+<span class="fc" id="L718">    statementScope.setResultMap(resultMap);</span>
+<span class="fc" id="L719">    statementScope.setSql(sql);</span>
+<span class="fc" id="L720">  }</span>
 
   /**
    * Gets the timeout.
@@ -727,7 +725,7 @@ import org.w3c.dom.Document;
    * @return the timeout
    */
   public Integer getTimeout() {
-<span class="fc" id="L730">    return timeout;</span>
+<span class="fc" id="L728">    return timeout;</span>
   }
 
   /**
@@ -737,8 +735,8 @@ import org.w3c.dom.Document;
    *          the new timeout
    */
   public void setTimeout(Integer timeout) {
-<span class="fc" id="L740">    this.timeout = timeout;</span>
-<span class="fc" id="L741">  }</span>
+<span class="fc" id="L738">    this.timeout = timeout;</span>
+<span class="fc" id="L739">  }</span>
 
   /**
    * Adds the result map.
@@ -747,11 +745,11 @@ import org.w3c.dom.Document;
    *          the result map
    */
   public void addResultMap(ResultMap resultMap) {
-<span class="fc" id="L750">    List&lt;ResultMap&gt; resultMapList = Arrays.asList(additionalResultMaps);</span>
-<span class="fc" id="L751">    resultMapList = new ArrayList&lt;&gt;(resultMapList);</span>
-<span class="fc" id="L752">    resultMapList.add(resultMap);</span>
-<span class="fc" id="L753">    additionalResultMaps = resultMapList.toArray(new ResultMap[resultMapList.size()]);</span>
-<span class="fc" id="L754">  }</span>
+<span class="fc" id="L748">    List&lt;ResultMap&gt; resultMapList = Arrays.asList(additionalResultMaps);</span>
+<span class="fc" id="L749">    resultMapList = new ArrayList&lt;&gt;(resultMapList);</span>
+<span class="fc" id="L750">    resultMapList.add(resultMap);</span>
+<span class="fc" id="L751">    additionalResultMaps = resultMapList.toArray(new ResultMap[resultMapList.size()]);</span>
+<span class="fc" id="L752">  }</span>
 
   /**
    * Checks for multiple result maps.
@@ -759,7 +757,7 @@ import org.w3c.dom.Document;
    * @return true, if successful
    */
   public boolean hasMultipleResultMaps() {
-<span class="fc bfc" id="L762" title="All 2 branches covered.">    return additionalResultMaps.length &gt; 0;</span>
+<span class="fc bfc" id="L760" title="All 2 branches covered.">    return additionalResultMaps.length &gt; 0;</span>
   }
 
   /**
@@ -768,7 +766,7 @@ import org.w3c.dom.Document;
    * @return the additional result maps
    */
   public ResultMap[] getAdditionalResultMaps() {
-<span class="fc" id="L771">    return additionalResultMaps;</span>
+<span class="fc" id="L769">    return additionalResultMaps;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

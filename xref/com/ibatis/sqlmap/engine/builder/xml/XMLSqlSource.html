@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../apidocs/com/ibatis/sqlmap/engine/builder/xml/XMLSqlSource.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2026 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -171,7 +171,7 @@
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">if</strong> (parentSqlTag.isPostParseRequired() || tag.getHandler() instanceof <a name="IterateTagHandler" href="../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateTagHandler.html#IterateTagHandler">IterateTagHandler</a>) {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>               tag.setPostParseRequired(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> ((dynamic instanceof <a name="DynamicSql" href="../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/DynamicSql.html#DynamicSql">DynamicSql</a>) &amp;&amp; (tag.getHandler() instanceof <a name="IterateTagHandler" href="../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateTagHandler.html#IterateTagHandler">IterateTagHandler</a>)) {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>           } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (dynamic instanceof <a name="DynamicSql" href="../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/DynamicSql.html#DynamicSql">DynamicSql</a> &amp;&amp; tag.getHandler() instanceof <a name="IterateTagHandler" href="../../../../../../com/ibatis/sqlmap/engine/mapping/sql/dynamic/elements/IterateTagHandler.html#IterateTagHandler">IterateTagHandler</a>) {
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             tag.setPostParseRequired(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>           }
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 

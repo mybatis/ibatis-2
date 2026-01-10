@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../../apidocs/com/ibatis/sqlmap/engine/mapping/sql/simple/SimpleDynamicSql.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2026 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -117,38 +117,37 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>       <strong class="jxr_keyword">if</strong> (ELEMENT_TOKEN.equals(lastToken)) {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">if</strong> (ELEMENT_TOKEN.equals(token)) {
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>           newSql.append(ELEMENT_TOKEN);
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>           token = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L114" href="#L114">114</a> 
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>           Object value = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>           <strong class="jxr_keyword">if</strong> (parameterObject != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>             <strong class="jxr_keyword">if</strong> (delegate.getTypeHandlerFactory().hasTypeHandler(parameterObject.getClass())) {
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>               value = parameterObject;
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>               value = PROBE.getObject(parameterObject, token);
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>             }
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>           }
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>           <strong class="jxr_keyword">if</strong> (value != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>             newSql.append(String.valueOf(value));
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>           }
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>           token = parser.nextToken();
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>           <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Unterminated dynamic element in sql ("</span> + sql + <span class="jxr_string">")."</span>);
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>           }
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>           token = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         }
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         newSql.append(token);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>       }
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>       lastToken = token;
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
-<a class="jxr_linenumber" name="L139" href="#L139">139</a> 
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">return</strong> newSql.toString();
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>   }
-<a class="jxr_linenumber" name="L142" href="#L142">142</a> 
-<a class="jxr_linenumber" name="L143" href="#L143">143</a> }
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>           Object value = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>           <strong class="jxr_keyword">if</strong> (parameterObject != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <strong class="jxr_keyword">if</strong> (delegate.getTypeHandlerFactory().hasTypeHandler(parameterObject.getClass())) {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>               value = parameterObject;
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>               value = PROBE.getObject(parameterObject, token);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>             }
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>           }
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>           <strong class="jxr_keyword">if</strong> (value != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>             newSql.append(String.valueOf(value));
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>           }
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> 
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>           token = parser.nextToken();
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>           <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Unterminated dynamic element in sql ("</span> + sql + <span class="jxr_string">")."</span>);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>           }
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         }
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         token = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>       } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!ELEMENT_TOKEN.equals(token)) {
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         newSql.append(token);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>       }
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> 
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>       lastToken = token;
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> 
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">return</strong> newSql.toString();
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>   }
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> }
 </pre>
 <hr/>
 <div id="footer">© 2004–2026 <a href="https://www.mybatis.org/">MyBatis.org</a></div>

@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../../apidocs/com/ibatis/sqlmap/engine/builder/xml/SqlMapParser.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2026 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -24,453 +24,393 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">package</strong> com.ibatis.sqlmap.engine.builder.xml;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.resources.Resources;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.Nodelet;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletException;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletParser;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletUtils;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.client.SqlMapException;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.cache.CacheController;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.CacheModelConfig;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.ParameterMapConfig;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.ResultMapConfig;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.DeleteStatement;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.InsertStatement;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.ProcedureStatement;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.SelectStatement;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.UpdateStatement;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> java.util.Properties;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.w3c.dom.Node;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * The Class SqlMapParser.</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="SqlMapParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapParser.html#SqlMapParser">SqlMapParser</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletException;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletParser;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.ibatis.common.xml.NodeletUtils;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.client.SqlMapException;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.cache.CacheController;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.CacheModelConfig;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.ParameterMapConfig;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.config.ResultMapConfig;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.DeleteStatement;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.InsertStatement;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.ProcedureStatement;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.SelectStatement;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> com.ibatis.sqlmap.engine.mapping.statement.UpdateStatement;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> java.util.Properties;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * The Class SqlMapParser.</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="SqlMapParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapParser.html#SqlMapParser">SqlMapParser</a> {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <em class="jxr_javadoccomment">/** The parser. */</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="NodeletParser" href="../../../../../../com/ibatis/common/xml/NodeletParser.html#NodeletParser">NodeletParser</a> parser;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>    <em class="jxr_javadoccomment">/** The parser. */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="NodeletParser" href="../../../../../../com/ibatis/common/xml/NodeletParser.html#NodeletParser">NodeletParser</a> parser;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>    <em class="jxr_javadoccomment">/** The state. */</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">private</strong> <a name="XmlParserState" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/XmlParserState.html#XmlParserState">XmlParserState</a> state;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>    <em class="jxr_javadoccomment">/** The state. */</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">private</strong> <a name="XmlParserState" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/XmlParserState.html#XmlParserState">XmlParserState</a> state;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>    <em class="jxr_javadoccomment">/** The statement parser. */</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">private</strong> <a name="SqlStatementParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlStatementParser.html#SqlStatementParser">SqlStatementParser</a> statementParser;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <em class="jxr_javadoccomment">/** The statement parser. */</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <strong class="jxr_keyword">private</strong> <a name="SqlStatementParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlStatementParser.html#SqlStatementParser">SqlStatementParser</a> statementParser;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * Instantiates a new sql map parser.</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   * @param state</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">   *          the state</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>    <strong class="jxr_keyword">public</strong> <a name="SqlMapParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapParser.html#SqlMapParser">SqlMapParser</a>(<a name="XmlParserState" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/XmlParserState.html#XmlParserState">XmlParserState</a> state) {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">this</strong>.parser = <strong class="jxr_keyword">new</strong> <a name="NodeletParser" href="../../../../../../com/ibatis/common/xml/NodeletParser.html#NodeletParser">NodeletParser</a>();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">this</strong>.state = state;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">   * Instantiates a new sql map parser.</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">   * @param state</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   *          the state</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>    <strong class="jxr_keyword">public</strong> <a name="SqlMapParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapParser.html#SqlMapParser">SqlMapParser</a>(<a name="XmlParserState" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/XmlParserState.html#XmlParserState">XmlParserState</a> state) {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">this</strong>.parser = <strong class="jxr_keyword">new</strong> <a name="NodeletParser" href="../../../../../../com/ibatis/common/xml/NodeletParser.html#NodeletParser">NodeletParser</a>();
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">this</strong>.state = state;
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      parser.setValidation(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      parser.setEntityResolver(<strong class="jxr_keyword">new</strong> <a name="SqlMapClasspathEntityResolver" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapClasspathEntityResolver.html#SqlMapClasspathEntityResolver">SqlMapClasspathEntityResolver</a>());
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      parser.setValidation(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      parser.setEntityResolver(<strong class="jxr_keyword">new</strong> <a name="SqlMapClasspathEntityResolver" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlMapClasspathEntityResolver.html#SqlMapClasspathEntityResolver">SqlMapClasspathEntityResolver</a>());
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      statementParser = <strong class="jxr_keyword">new</strong> <a name="SqlStatementParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlStatementParser.html#SqlStatementParser">SqlStatementParser</a>(<strong class="jxr_keyword">this</strong>.state);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      addSqlMapNodelets();
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      addSqlNodelets();
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      addTypeAliasNodelets();
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      addCacheModelNodelets();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      addParameterMapNodelets();
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      addResultMapNodelets();
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      addStatementNodelets();
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>    }
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   * Parses the.</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      statementParser = <strong class="jxr_keyword">new</strong> <a name="SqlStatementParser" href="../../../../../../com/ibatis/sqlmap/engine/builder/xml/SqlStatementParser.html#SqlStatementParser">SqlStatementParser</a>(<strong class="jxr_keyword">this</strong>.state);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      addSqlMapNodelets();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      addSqlNodelets();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      addTypeAliasNodelets();
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      addCacheModelNodelets();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      addParameterMapNodelets();
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      addResultMapNodelets();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      addStatementNodelets();
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>    }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   * Parses the.</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @param reader</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   *          the reader</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   * @param reader</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   *          the reader</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">   * @throws NodeletException</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">   *           the nodelet exception</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parse(Reader reader) <strong class="jxr_keyword">throws</strong> <a name="NodeletException" href="../../../../../../com/ibatis/common/xml/NodeletException.html#NodeletException">NodeletException</a> {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      parser.parse(reader);
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>    }
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">   * Parses the.</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   * @throws NodeletException</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   *           the nodelet exception</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parse(Reader reader) <strong class="jxr_keyword">throws</strong> <a name="NodeletException" href="../../../../../../com/ibatis/common/xml/NodeletException.html#NodeletException">NodeletException</a> {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      parser.parse(reader);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>    }
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">   * Parses the.</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">   * @param inputStream</em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">   *          the input stream</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">   * @param inputStream</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">   *          the input stream</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">   * @throws NodeletException</em>
-<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">   *           the nodelet exception</em>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parse(InputStream inputStream) <strong class="jxr_keyword">throws</strong> <a name="NodeletException" href="../../../../../../com/ibatis/common/xml/NodeletException.html#NodeletException">NodeletException</a> {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>     parser.parse(inputStream);
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>   }
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">   * Adds the sql map nodelets.</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addSqlMapNodelets() {
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         state.setNamespace(attributes.getProperty(<span class="jxr_string">"namespace"</span>));
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>       }
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     });
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>   }
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">   * Adds the sql nodelets.</em>
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addSqlNodelets() {
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/sql"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         String id = attributes.getProperty(<span class="jxr_string">"id"</span>);
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">if</strong> (state.isUseStatementNamespaces()) {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>           id = state.applyNamespace(id);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         }
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">if</strong> (state.getSqlIncludes().containsKey(id)) {
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Duplicate &lt;sql&gt;-include '"</span> + id + <span class="jxr_string">"' found."</span>);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>           state.getSqlIncludes().put(id, node);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         }
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>       }
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     });
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>   }
-<a class="jxr_linenumber" name="L137" href="#L137">137</a> 
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">   * Adds the type alias nodelets.</em>
-<a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeAliasNodelets() {
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/typeAlias"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>         Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         String alias = prop.getProperty(<span class="jxr_string">"alias"</span>);
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         String type = prop.getProperty(<span class="jxr_string">"type"</span>);
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>       }
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     });
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>   }
-<a class="jxr_linenumber" name="L151" href="#L151">151</a> 
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">   * Adds the cache model nodelets.</em>
-<a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addCacheModelNodelets() {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         String type = attributes.getProperty(<span class="jxr_string">"type"</span>);
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         String readOnlyAttr = attributes.getProperty(<span class="jxr_string">"readOnly"</span>);
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         Boolean readOnly = readOnlyAttr == <strong class="jxr_keyword">null</strong> || readOnlyAttr.isEmpty() ? <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             : Boolean.valueOf(<span class="jxr_string">"true"</span>.equals(readOnlyAttr));
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         String serializeAttr = attributes.getProperty(<span class="jxr_string">"serialize"</span>);
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         Boolean serialize = serializeAttr == <strong class="jxr_keyword">null</strong> || serializeAttr.isEmpty() ? <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>             : Boolean.valueOf(<span class="jxr_string">"true"</span>.equals(serializeAttr));
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         Class clazz = Resources.classForName(type);
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <strong class="jxr_keyword">if</strong> (readOnly == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>           readOnly = Boolean.TRUE;
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         }
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">if</strong> (serialize == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>           serialize = Boolean.FALSE;
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         }
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <a name="CacheModelConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a> cacheConfig = state.getConfig().newCacheModelConfig(id,
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             (<a name="CacheController" href="../../../../../../com/ibatis/sqlmap/engine/cache/CacheController.html#CacheController">CacheController</a>) Resources.instantiate(clazz), readOnly.booleanValue(), serialize.booleanValue());
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>         state.setCacheConfig(cacheConfig);
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>       }
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     });
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/end()"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         state.getCacheConfig().setControllerProperties(state.getCacheProps());
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>       }
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>     });
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/property"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the cache model properties."</span>);
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         String name = attributes.getProperty(<span class="jxr_string">"name"</span>);
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(<span class="jxr_string">"value"</span>), state.getGlobalProps());
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         state.getCacheProps().setProperty(name, value);
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>       }
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     });
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/flushOnExecute"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         String statement = childAttributes.getProperty(<span class="jxr_string">"statement"</span>);
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         state.getCacheConfig().addFlushTriggerStatement(statement);
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>       }
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     });
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/flushInterval"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>           <strong class="jxr_keyword">int</strong> milliseconds = childAttributes.getProperty(<span class="jxr_string">"milliseconds"</span>) == <strong class="jxr_keyword">null</strong> ? 0
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>               : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"milliseconds"</span>));
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>           <strong class="jxr_keyword">int</strong> seconds = childAttributes.getProperty(<span class="jxr_string">"seconds"</span>) == <strong class="jxr_keyword">null</strong> ? 0
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>               : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"seconds"</span>));
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>           <strong class="jxr_keyword">int</strong> minutes = childAttributes.getProperty(<span class="jxr_string">"minutes"</span>) == <strong class="jxr_keyword">null</strong> ? 0
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>               : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"minutes"</span>));
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>           <strong class="jxr_keyword">int</strong> hours = childAttributes.getProperty(<span class="jxr_string">"hours"</span>) == <strong class="jxr_keyword">null</strong> ? 0
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>               : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"hours"</span>));
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>           state.getCacheConfig().setFlushInterval(hours, minutes, seconds, milliseconds);
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>         } <strong class="jxr_keyword">catch</strong> (NumberFormatException e) {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error building cache in '"</span> + <span class="jxr_string">"resourceNAME"</span>
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>               + <span class="jxr_string">"'.  Flush interval milliseconds must be a valid long integer value.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>         }
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>       }
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     });
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>   }
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> <em class="jxr_javadoccomment">   * Adds the parameter map nodelets.</em>
-<a class="jxr_linenumber" name="L224" href="#L224">224</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addParameterMapNodelets() {
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap/end()"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>         state.getConfig().getErrorContext().setMoreInfo(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         state.getConfig().getErrorContext().setObjectId(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>         state.setParamConfig(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>       }
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     });
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>         String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         String parameterClassName = attributes.getProperty(<span class="jxr_string">"class"</span>);
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         parameterClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(parameterClassName);
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>           state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the parameter class."</span>);
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>           <a name="ParameterMapConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/ParameterMapConfig.html#ParameterMapConfig">ParameterMapConfig</a> paramConf = state.getConfig().newParameterMapConfig(id,
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>               Resources.classForName(parameterClassName));
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>           state.setParamConfig(paramConf);
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Error configuring ParameterMap.  Could not set ParameterClass.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>         }
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>       }
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>     });
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap/parameter"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         String propertyName = childAttributes.getProperty(<span class="jxr_string">"property"</span>);
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         String type = childAttributes.getProperty(<span class="jxr_string">"typeName"</span>);
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         String resultMap = state.applyNamespace(childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>));
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         String mode = childAttributes.getProperty(<span class="jxr_string">"mode"</span>);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         String numericScaleProp = childAttributes.getProperty(<span class="jxr_string">"numericScale"</span>);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">   * @throws NodeletException</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">   *           the nodelet exception</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parse(InputStream inputStream) <strong class="jxr_keyword">throws</strong> <a name="NodeletException" href="../../../../../../com/ibatis/common/xml/NodeletException.html#NodeletException">NodeletException</a> {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     parser.parse(inputStream);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>   }
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">   * Adds the sql map nodelets.</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addSqlMapNodelets() {
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>       state.setNamespace(attributes.getProperty(<span class="jxr_string">"namespace"</span>));
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     });
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>   }
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> 
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">   * Adds the sql nodelets.</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addSqlNodelets() {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/sql"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>       String id = attributes.getProperty(<span class="jxr_string">"id"</span>);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>       <strong class="jxr_keyword">if</strong> (state.isUseStatementNamespaces()) {
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         id = state.applyNamespace(id);
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>       }
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>       <strong class="jxr_keyword">if</strong> (state.getSqlIncludes().containsKey(id)) {
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Duplicate &lt;sql&gt;-include '"</span> + id + <span class="jxr_string">"' found."</span>);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>       }
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>       state.getSqlIncludes().put(id, node);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     });
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>   }
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">   * Adds the type alias nodelets.</em>
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeAliasNodelets() {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/typeAlias"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>       Properties prop = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>       String alias = prop.getProperty(<span class="jxr_string">"alias"</span>);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>       String type = prop.getProperty(<span class="jxr_string">"type"</span>);
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>       state.getConfig().getTypeHandlerFactory().putTypeAlias(alias, type);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     });
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>   }
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">   * Adds the cache model nodelets.</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addCacheModelNodelets() {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>       String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>       String type = attributes.getProperty(<span class="jxr_string">"type"</span>);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>       String readOnlyAttr = attributes.getProperty(<span class="jxr_string">"readOnly"</span>);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>       Boolean readOnly = readOnlyAttr == <strong class="jxr_keyword">null</strong> || readOnlyAttr.isEmpty() ? <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>           : Boolean.valueOf(<span class="jxr_string">"true"</span>.equals(readOnlyAttr));
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>       String serializeAttr = attributes.getProperty(<span class="jxr_string">"serialize"</span>);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>       Boolean serialize = serializeAttr == <strong class="jxr_keyword">null</strong> || serializeAttr.isEmpty() ? <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>           : Boolean.valueOf(<span class="jxr_string">"true"</span>.equals(serializeAttr));
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>       type = state.getConfig().getTypeHandlerFactory().resolveAlias(type);
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>       Class clazz = Resources.classForName(type);
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>       <strong class="jxr_keyword">if</strong> (readOnly == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         readOnly = Boolean.TRUE;
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>       }
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>       <strong class="jxr_keyword">if</strong> (serialize == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         serialize = Boolean.FALSE;
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>       }
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>       <a name="CacheModelConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/CacheModelConfig.html#CacheModelConfig">CacheModelConfig</a> cacheConfig = state.getConfig().newCacheModelConfig(id,
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>           (<a name="CacheController" href="../../../../../../com/ibatis/sqlmap/engine/cache/CacheController.html#CacheController">CacheController</a>) Resources.instantiate(clazz), readOnly.booleanValue(), serialize.booleanValue());
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>       state.setCacheConfig(cacheConfig);
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     });
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/end()"</span>,
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         node -&gt; state.getCacheConfig().setControllerProperties(state.getCacheProps()));
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/property"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>       state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the cache model properties."</span>);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>       String name = attributes.getProperty(<span class="jxr_string">"name"</span>);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>       String value = NodeletUtils.parsePropertyTokens(attributes.getProperty(<span class="jxr_string">"value"</span>), state.getGlobalProps());
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>       state.getCacheProps().setProperty(name, value);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     });
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/flushOnExecute"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>       String statement = childAttributes.getProperty(<span class="jxr_string">"statement"</span>);
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>       state.getCacheConfig().addFlushTriggerStatement(statement);
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     });
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/cacheModel/flushInterval"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         <strong class="jxr_keyword">int</strong> milliseconds = childAttributes.getProperty(<span class="jxr_string">"milliseconds"</span>) == <strong class="jxr_keyword">null</strong> ? 0
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>             : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"milliseconds"</span>));
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">int</strong> seconds = childAttributes.getProperty(<span class="jxr_string">"seconds"</span>) == <strong class="jxr_keyword">null</strong> ? 0
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"seconds"</span>));
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">int</strong> minutes = childAttributes.getProperty(<span class="jxr_string">"minutes"</span>) == <strong class="jxr_keyword">null</strong> ? 0
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"minutes"</span>));
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">int</strong> hours = childAttributes.getProperty(<span class="jxr_string">"hours"</span>) == <strong class="jxr_keyword">null</strong> ? 0
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>             : Integer.parseInt(childAttributes.getProperty(<span class="jxr_string">"hours"</span>));
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>         state.getCacheConfig().setFlushInterval(hours, minutes, seconds, milliseconds);
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>       } <strong class="jxr_keyword">catch</strong> (NumberFormatException e) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error building cache in '"</span> + <span class="jxr_string">"resourceNAME"</span>
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>             + <span class="jxr_string">"'.  Flush interval milliseconds must be a valid long integer value.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>       }
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     });
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>   }
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> 
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> <em class="jxr_javadoccomment">   * Adds the parameter map nodelets.</em>
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addParameterMapNodelets() {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap/end()"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>       state.getConfig().getErrorContext().setMoreInfo(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>       state.getConfig().getErrorContext().setObjectId(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>       state.setParamConfig(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     });
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>       String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>       String parameterClassName = attributes.getProperty(<span class="jxr_string">"class"</span>);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>       parameterClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(parameterClassName);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the parameter class."</span>);
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>         <a name="ParameterMapConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/ParameterMapConfig.html#ParameterMapConfig">ParameterMapConfig</a> paramConf = state.getConfig().newParameterMapConfig(id,
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>             Resources.classForName(parameterClassName));
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         state.setParamConfig(paramConf);
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="SqlMapException" href="../../../../../../com/ibatis/sqlmap/client/SqlMapException.html#SqlMapException">SqlMapException</a>(<span class="jxr_string">"Error configuring ParameterMap.  Could not set ParameterClass.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>       }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>     });
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/parameterMap/parameter"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>       String propertyName = childAttributes.getProperty(<span class="jxr_string">"property"</span>);
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>       String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>       String type = childAttributes.getProperty(<span class="jxr_string">"typeName"</span>);
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>       String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>       String resultMap = state.applyNamespace(childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>));
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>       String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>       String mode = childAttributes.getProperty(<span class="jxr_string">"mode"</span>);
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>       String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>       String numericScaleProp = childAttributes.getProperty(<span class="jxr_string">"numericScale"</span>);
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>       callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>       Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>       <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         typeHandlerImpl = Resources.instantiate(callback);
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>       }
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> 
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>       javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>       Class javaClass = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>           javaClass = Resources.classForName(javaType);
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>       } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting javaType on parameter mapping.  Cause: "</span> + e);
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>       }
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>       Integer numericScale = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>       <strong class="jxr_keyword">if</strong> (numericScaleProp != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         numericScale = Integer.valueOf(numericScaleProp);
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>       }
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>       state.getParamConfig().addParameterMapping(propertyName, javaClass, jdbcType, nullValue, mode, type, numericScale,
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>           typeHandlerImpl, resultMap);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     });
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>   }
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> 
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>         <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>           typeHandlerImpl = Resources.instantiate(callback);
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         }
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>         javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         Class javaClass = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>           <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             javaClass = Resources.classForName(javaType);
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>           }
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting javaType on parameter mapping.  Cause: "</span> + e);
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         }
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">   * Adds the result map nodelets.</em>
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addResultMapNodelets() {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/end()"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>       state.getConfig().getErrorContext().setMoreInfo(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>       state.getConfig().getErrorContext().setObjectId(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     });
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>       Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>       String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>       String resultClassName = attributes.getProperty(<span class="jxr_string">"class"</span>);
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>       String extended = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"extends"</span>));
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>       String xmlName = attributes.getProperty(<span class="jxr_string">"xmlName"</span>);
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>       String groupBy = attributes.getProperty(<span class="jxr_string">"groupBy"</span>);
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         Integer numericScale = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">if</strong> (numericScaleProp != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>           numericScale = Integer.valueOf(numericScaleProp);
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         }
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         state.getParamConfig().addParameterMapping(propertyName, javaClass, jdbcType, nullValue, mode, type,
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>             numericScale, typeHandlerImpl, resultMap);
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>       resultClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName);
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>       Class resultClass;
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result class."</span>);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         resultClass = Resources.classForName(resultClassName);
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error configuring Result.  Could not set ResultClass.  Cause: "</span> + e, e);
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>       }
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>     });
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>   }
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> 
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">   * Adds the result map nodelets.</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addResultMapNodelets() {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/end()"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>         state.getConfig().getErrorContext().setMoreInfo(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         state.getConfig().getErrorContext().setObjectId(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>       }
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>     });
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         Properties attributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         String id = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"id"</span>));
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>         String resultClassName = attributes.getProperty(<span class="jxr_string">"class"</span>);
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         String extended = state.applyNamespace(attributes.getProperty(<span class="jxr_string">"extends"</span>));
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         String xmlName = attributes.getProperty(<span class="jxr_string">"xmlName"</span>);
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         String groupBy = attributes.getProperty(<span class="jxr_string">"groupBy"</span>);
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         resultClassName = state.getConfig().getTypeHandlerFactory().resolveAlias(resultClassName);
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         Class resultClass;
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>           state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result class."</span>);
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>           resultClass = Resources.classForName(resultClassName);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error configuring Result.  Could not set ResultClass.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         }
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>         <a name="ResultMapConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/ResultMapConfig.html#ResultMapConfig">ResultMapConfig</a> resultConf = state.getConfig().newResultMapConfig(id, resultClass, groupBy, extended, xmlName);
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>         state.setResultConfig(resultConf);
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>       }
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>     });
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/result"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>         String propertyName = childAttributes.getProperty(<span class="jxr_string">"property"</span>);
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>         String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>         String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>         String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>         String columnName = childAttributes.getProperty(<span class="jxr_string">"column"</span>);
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>         String columnIndexProp = childAttributes.getProperty(<span class="jxr_string">"columnIndex"</span>);
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>         String statementName = childAttributes.getProperty(<span class="jxr_string">"select"</span>);
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>         String resultMapName = childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>);
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>         String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>         String notNullColumn = childAttributes.getProperty(<span class="jxr_string">"notNullColumn"</span>);
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>       <a name="ResultMapConfig" href="../../../../../../com/ibatis/sqlmap/engine/config/ResultMapConfig.html#ResultMapConfig">ResultMapConfig</a> resultConf = state.getConfig().newResultMapConfig(id, resultClass, groupBy, extended, xmlName);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>       state.setResultConfig(resultConf);
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     });
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/result"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>       String propertyName = childAttributes.getProperty(<span class="jxr_string">"property"</span>);
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>       String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>       String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>       String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>       String columnName = childAttributes.getProperty(<span class="jxr_string">"column"</span>);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>       String columnIndexProp = childAttributes.getProperty(<span class="jxr_string">"columnIndex"</span>);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>       String statementName = childAttributes.getProperty(<span class="jxr_string">"select"</span>);
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>       String resultMapName = childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>       String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>       String notNullColumn = childAttributes.getProperty(<span class="jxr_string">"notNullColumn"</span>);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> 
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>       state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping property type or name."</span>);
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>       Class javaClass = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>           javaClass = Resources.classForName(javaType);
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         }
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>       } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting java type on result discriminator mapping.  Cause: "</span> + e);
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>       }
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>       state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping typeHandler attribute '"</span> + callback
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>           + <span class="jxr_string">"' (must be a TypeHandler or TypeHandlerCallback implementation)."</span>);
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>       Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>         <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong> &amp;&amp; !callback.isEmpty()) {
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>           callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>           typeHandlerImpl = Resources.instantiate(callback);
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>         }
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error occurred during custom type handler configuration.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>       }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>       Integer columnIndex = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>       <strong class="jxr_keyword">if</strong> (columnIndexProp != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>           columnIndex = Integer.valueOf(columnIndexProp);
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error parsing column index.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>         }
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>       }
 <a class="jxr_linenumber" name="L333" href="#L333">333</a> 
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping property type or name."</span>);
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         Class javaClass = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>           javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>           <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>             javaClass = Resources.classForName(javaType);
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>           }
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>         } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting java type on result discriminator mapping.  Cause: "</span> + e);
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>         }
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping typeHandler attribute '"</span> + callback
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>             + <span class="jxr_string">"' (must be a TypeHandler or TypeHandlerCallback implementation)."</span>);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>         Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>           <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong> &amp;&amp; !callback.isEmpty()) {
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>             callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>             typeHandlerImpl = Resources.instantiate(callback);
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>           }
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error occurred during custom type handler configuration.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>         }
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>         Integer columnIndex = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         <strong class="jxr_keyword">if</strong> (columnIndexProp != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>           <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>             columnIndex = Integer.valueOf(columnIndexProp);
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>           } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error parsing column index.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>           }
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>         }
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>       state.getResultConfig().addResultMapping(propertyName, columnName, columnIndex, javaClass, jdbcType, nullValue,
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>           notNullColumn, statementName, resultMapName, typeHandlerImpl);
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>     });
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> 
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/discriminator/subMap"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>       String value = childAttributes.getProperty(<span class="jxr_string">"value"</span>);
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>       String resultMap = childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>       resultMap = state.applyNamespace(resultMap);
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>       state.getResultConfig().addDiscriminatorSubMap(value, resultMap);
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>     });
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> 
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/discriminator"</span>, node -&gt; {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>       Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>       String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>       String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>       String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>       String columnName = childAttributes.getProperty(<span class="jxr_string">"column"</span>);
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>       String columnIndexProp = childAttributes.getProperty(<span class="jxr_string">"columnIndex"</span>);
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>       String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>       state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the disriminator type or name."</span>);
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>       Class javaClass = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>         <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>           javaClass = Resources.classForName(javaType);
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>         }
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>       } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting java type on result discriminator mapping.  Cause: "</span> + e);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>       }
 <a class="jxr_linenumber" name="L365" href="#L365">365</a> 
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>         state.getResultConfig().addResultMapping(propertyName, columnName, columnIndex, javaClass, jdbcType, nullValue,
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>             notNullColumn, statementName, resultMapName, typeHandlerImpl);
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>       }
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>     });
-<a class="jxr_linenumber" name="L370" href="#L370">370</a> 
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/discriminator/subMap"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>         String value = childAttributes.getProperty(<span class="jxr_string">"value"</span>);
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>         String resultMap = childAttributes.getProperty(<span class="jxr_string">"resultMap"</span>);
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>         resultMap = state.applyNamespace(resultMap);
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>         state.getResultConfig().addDiscriminatorSubMap(value, resultMap);
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>       }
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>     });
-<a class="jxr_linenumber" name="L380" href="#L380">380</a> 
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/resultMap/discriminator"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         Properties childAttributes = NodeletUtils.parseAttributes(node, state.getGlobalProps());
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>         String nullValue = childAttributes.getProperty(<span class="jxr_string">"nullValue"</span>);
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         String jdbcType = childAttributes.getProperty(<span class="jxr_string">"jdbcType"</span>);
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>         String javaType = childAttributes.getProperty(<span class="jxr_string">"javaType"</span>);
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>         String columnName = childAttributes.getProperty(<span class="jxr_string">"column"</span>);
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>         String columnIndexProp = childAttributes.getProperty(<span class="jxr_string">"columnIndex"</span>);
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         String callback = childAttributes.getProperty(<span class="jxr_string">"typeHandler"</span>);
-<a class="jxr_linenumber" name="L390" href="#L390">390</a> 
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the disriminator type or name."</span>);
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>         Class javaClass = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>           javaType = state.getConfig().getTypeHandlerFactory().resolveAlias(javaType);
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>           <strong class="jxr_keyword">if</strong> (javaType != <strong class="jxr_keyword">null</strong> &amp;&amp; !javaType.isEmpty()) {
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>             javaClass = Resources.classForName(javaType);
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>           }
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error setting java type on result discriminator mapping.  Cause: "</span> + e);
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>         }
-<a class="jxr_linenumber" name="L401" href="#L401">401</a> 
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>         state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping discriminator typeHandler attribute '"</span>
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>             + callback + <span class="jxr_string">"' (must be a TypeHandlerCallback implementation)."</span>);
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>         Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>           <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong> &amp;&amp; !callback.isEmpty()) {
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>             callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>             typeHandlerImpl = Resources.instantiate(callback);
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>           }
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error occurred during custom type handler configuration.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         }
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>         Integer columnIndex = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>         <strong class="jxr_keyword">if</strong> (columnIndexProp != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>           <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>             columnIndex = Integer.valueOf(columnIndexProp);
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>           } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error parsing column index.  Cause: "</span> + e, e);
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>           }
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>         }
-<a class="jxr_linenumber" name="L422" href="#L422">422</a> 
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         state.getResultConfig().setDiscriminator(columnName, columnIndex, javaClass, jdbcType, nullValue,
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             typeHandlerImpl);
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>       }
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     });
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>   }
-<a class="jxr_linenumber" name="L428" href="#L428">428</a> 
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L430" href="#L430">430</a> <em class="jxr_javadoccomment">   * Adds the statement nodelets.</em>
-<a class="jxr_linenumber" name="L431" href="#L431">431</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addStatementNodelets() {
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/statement"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="MappedStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a>());
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>       }
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>     });
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/insert"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="InsertStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>());
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>       }
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>     });
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/update"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="UpdateStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/UpdateStatement.html#UpdateStatement">UpdateStatement</a>());
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>       }
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>     });
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/delete"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="DeleteStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/DeleteStatement.html#DeleteStatement">DeleteStatement</a>());
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>       }
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>     });
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/select"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="SelectStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectStatement.html#SelectStatement">SelectStatement</a>());
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>       }
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>     });
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/procedure"</span>, <strong class="jxr_keyword">new</strong> <a name="Nodelet" href="../../../../../../com/ibatis/common/xml/Nodelet.html#Nodelet">Nodelet</a>() {
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(Node node) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>         statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="ProcedureStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/ProcedureStatement.html#ProcedureStatement">ProcedureStatement</a>());
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>       }
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>     });
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>   }
-<a class="jxr_linenumber" name="L464" href="#L464">464</a> 
-<a class="jxr_linenumber" name="L465" href="#L465">465</a> }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>       state.getConfig().getErrorContext().setMoreInfo(<span class="jxr_string">"Check the result mapping discriminator typeHandler attribute '"</span>
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>           + callback + <span class="jxr_string">"' (must be a TypeHandlerCallback implementation)."</span>);
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>       Object typeHandlerImpl = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         <strong class="jxr_keyword">if</strong> (callback != <strong class="jxr_keyword">null</strong> &amp;&amp; !callback.isEmpty()) {
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>           callback = state.getConfig().getTypeHandlerFactory().resolveAlias(callback);
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>           typeHandlerImpl = Resources.instantiate(callback);
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         }
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error occurred during custom type handler configuration.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>       }
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> 
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>       Integer columnIndex = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>       <strong class="jxr_keyword">if</strong> (columnIndexProp != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>           columnIndex = Integer.valueOf(columnIndexProp);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Error parsing column index.  Cause: "</span> + e, e);
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         }
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>       }
+<a class="jxr_linenumber" name="L386" href="#L386">386</a> 
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>       state.getResultConfig().setDiscriminator(columnName, columnIndex, javaClass, jdbcType, nullValue,
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>           typeHandlerImpl);
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>     });
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>   }
+<a class="jxr_linenumber" name="L391" href="#L391">391</a> 
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L393" href="#L393">393</a> <em class="jxr_javadoccomment">   * Adds the statement nodelets.</em>
+<a class="jxr_linenumber" name="L394" href="#L394">394</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addStatementNodelets() {
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/statement"</span>, node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="MappedStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/MappedStatement.html#MappedStatement">MappedStatement</a>()));
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/insert"</span>, node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="InsertStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/InsertStatement.html#InsertStatement">InsertStatement</a>()));
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/update"</span>, node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="UpdateStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/UpdateStatement.html#UpdateStatement">UpdateStatement</a>()));
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/delete"</span>, node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="DeleteStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/DeleteStatement.html#DeleteStatement">DeleteStatement</a>()));
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/select"</span>, node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="SelectStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/SelectStatement.html#SelectStatement">SelectStatement</a>()));
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     parser.addNodelet(<span class="jxr_string">"/sqlMap/procedure"</span>,
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>         node -&gt; statementParser.parseGeneralStatement(node, <strong class="jxr_keyword">new</strong> <a name="ProcedureStatement" href="../../../../../../com/ibatis/sqlmap/engine/mapping/statement/ProcedureStatement.html#ProcedureStatement">ProcedureStatement</a>()));
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>   }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
+<a class="jxr_linenumber" name="L405" href="#L405">405</a> }
 </pre>
 <hr/>
 <div id="footer">© 2004–2026 <a href="https://www.mybatis.org/">MyBatis.org</a></div>

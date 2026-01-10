@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../apidocs/com/ibatis/common/beans/BaseProbe.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2026 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>        String name = indexedName.substring(0, indexedName.indexOf('['));
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>        <strong class="jxr_keyword">int</strong> i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>        Object list = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>        <strong class="jxr_keyword">if</strong> (<span class="jxr_string">""</span>.equals(name)) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>        <strong class="jxr_keyword">if</strong> (name.isEmpty()) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          list = object;
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>        } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          list = getProperty(object, name);
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>       String name = indexedName.substring(0, indexedName.indexOf('['));
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>       <strong class="jxr_keyword">int</strong> i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>       Object list = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>       <strong class="jxr_keyword">if</strong> (!<span class="jxr_string">""</span>.equals(name)) {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>       <strong class="jxr_keyword">if</strong> (!name.isEmpty()) {
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         list = getProperty(object, name);
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>       } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         list = object;

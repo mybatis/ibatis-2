@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultSqlExecutor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.sqlmap.engine.execution</a> &gt; <span class="el_source">DefaultSqlExecutor.java</span></div><h1>DefaultSqlExecutor.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -403,7 +403,7 @@ import java.util.Properties;
 <span class="fc" id="L403">        statementScope.setResultMap(statement.getResultMap());</span>
 <span class="fc" id="L404">      } else {</span>
 <span class="pc bpc" id="L405" title="1 of 2 branches missed.">        while (moveToNextResultsSafely(statementScope, ps)) {</span>
-          ;
+
         }
       }
     }
@@ -624,17 +624,18 @@ import java.util.Properties;
 <span class="fc bfc" id="L624" title="All 2 branches covered.">    for (int i = 0; i &lt; mappings.length; i++) {</span>
 <span class="fc" id="L625">      ParameterMapping mapping = mappings[i];</span>
 <span class="pc bpc" id="L626" title="1 of 2 branches missed.">      if (mapping.isOutputAllowed()) {</span>
-<span class="nc bnc" id="L627" title="All 4 branches missed.">        if (null != mapping.getTypeName() &amp;&amp; !mapping.getTypeName().equals(&quot;&quot;)) { // @added</span>
-<span class="nc" id="L628">          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());</span>
-<span class="nc bnc" id="L629" title="All 2 branches missed.">        } else if (mapping.getNumericScale() != null</span>
-<span class="nc bnc" id="L630" title="All 4 branches missed.">            &amp;&amp; (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {</span>
-<span class="nc" id="L631">          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getNumericScale().intValue());</span>
+<span class="nc bnc" id="L627" title="All 4 branches missed.">        if (null != mapping.getTypeName() &amp;&amp; !mapping.getTypeName().isEmpty()) {</span>
+          // @added
+<span class="nc" id="L629">          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getTypeName());</span>
+<span class="nc bnc" id="L630" title="All 2 branches missed.">        } else if (mapping.getNumericScale() != null</span>
+<span class="nc bnc" id="L631" title="All 4 branches missed.">            &amp;&amp; (mapping.getJdbcType() == Types.NUMERIC || mapping.getJdbcType() == Types.DECIMAL)) {</span>
+<span class="nc" id="L632">          cs.registerOutParameter(i + 1, mapping.getJdbcType(), mapping.getNumericScale().intValue());</span>
         } else {
-<span class="nc" id="L633">          cs.registerOutParameter(i + 1, mapping.getJdbcType());</span>
+<span class="nc" id="L634">          cs.registerOutParameter(i + 1, mapping.getJdbcType());</span>
         }
       }
     }
-<span class="fc" id="L637">  }</span>
+<span class="fc" id="L638">  }</span>
 
   /**
    * Handle output parameter results.
@@ -653,23 +654,23 @@ import java.util.Properties;
    */
   private void handleOutputParameterResults(StatementScope statementScope, ResultMap resultMap, ResultSet rs,
       RowHandlerCallback callback) throws SQLException {
-<span class="nc" id="L656">    ResultMap orig = statementScope.getResultMap();</span>
+<span class="nc" id="L657">    ResultMap orig = statementScope.getResultMap();</span>
     try {
-<span class="nc" id="L658">      statementScope.setResultSet(rs);</span>
-<span class="nc bnc" id="L659" title="All 2 branches missed.">      if (resultMap != null) {</span>
-<span class="nc" id="L660">        statementScope.setResultMap(resultMap);</span>
+<span class="nc" id="L659">      statementScope.setResultSet(rs);</span>
+<span class="nc bnc" id="L660" title="All 2 branches missed.">      if (resultMap != null) {</span>
+<span class="nc" id="L661">        statementScope.setResultMap(resultMap);</span>
 
         // Get Results
-<span class="nc bnc" id="L663" title="All 2 branches missed.">        while (rs.next()) {</span>
-<span class="nc" id="L664">          Object[] columnValues = resultMap.resolveSubMap(statementScope, rs).getResults(statementScope, rs);</span>
-<span class="nc" id="L665">          callback.handleResultObject(statementScope, columnValues, rs);</span>
-<span class="nc" id="L666">        }</span>
+<span class="nc bnc" id="L664" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L665">          Object[] columnValues = resultMap.resolveSubMap(statementScope, rs).getResults(statementScope, rs);</span>
+<span class="nc" id="L666">          callback.handleResultObject(statementScope, columnValues, rs);</span>
+<span class="nc" id="L667">        }</span>
       }
     } finally {
-<span class="nc" id="L669">      statementScope.setResultSet(null);</span>
-<span class="nc" id="L670">      statementScope.setResultMap(orig);</span>
+<span class="nc" id="L670">      statementScope.setResultSet(null);</span>
+<span class="nc" id="L671">      statementScope.setResultMap(orig);</span>
     }
-<span class="nc" id="L672">  }</span>
+<span class="nc" id="L673">  }</span>
 
   /**
    * Clean up any batches on the session
@@ -679,12 +680,12 @@ import java.util.Properties;
    */
   @Override
   public void cleanup(SessionScope sessionScope) {
-<span class="fc" id="L682">    Batch batch = (Batch) sessionScope.getBatch();</span>
-<span class="fc bfc" id="L683" title="All 2 branches covered.">    if (batch != null) {</span>
-<span class="fc" id="L684">      batch.cleanupBatch(sessionScope);</span>
-<span class="fc" id="L685">      sessionScope.setBatch(null);</span>
+<span class="fc" id="L683">    Batch batch = (Batch) sessionScope.getBatch();</span>
+<span class="fc bfc" id="L684" title="All 2 branches covered.">    if (batch != null) {</span>
+<span class="fc" id="L685">      batch.cleanupBatch(sessionScope);</span>
+<span class="fc" id="L686">      sessionScope.setBatch(null);</span>
     }
-<span class="fc" id="L687">  }</span>
+<span class="fc" id="L688">  }</span>
 
   /**
    * Prepare statement.
@@ -705,13 +706,13 @@ import java.util.Properties;
    */
   private PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
       throws SQLException {
-<span class="nc" id="L708">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
-<span class="nc bnc" id="L709" title="All 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
-<span class="nc" id="L710">      return sessionScope.getPreparedStatement(sql);</span>
+<span class="nc" id="L709">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
+<span class="nc bnc" id="L710" title="All 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
+<span class="nc" id="L711">      return sessionScope.getPreparedStatement(sql);</span>
     }
-<span class="nc" id="L712">    PreparedStatement ps = conn.prepareStatement(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);</span>
-<span class="nc" id="L713">    sessionScope.putPreparedStatement(delegate, sql, ps);</span>
-<span class="nc" id="L714">    return ps;</span>
+<span class="nc" id="L713">    PreparedStatement ps = conn.prepareStatement(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);</span>
+<span class="nc" id="L714">    sessionScope.putPreparedStatement(delegate, sql, ps);</span>
+<span class="nc" id="L715">    return ps;</span>
   }
 
   /**
@@ -733,13 +734,13 @@ import java.util.Properties;
    */
   private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql, Integer rsType)
       throws SQLException {
-<span class="nc" id="L736">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
-<span class="nc bnc" id="L737" title="All 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
-<span class="nc" id="L738">      return (CallableStatement) sessionScope.getPreparedStatement(sql);</span>
+<span class="nc" id="L737">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
+<span class="nc bnc" id="L738" title="All 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
+<span class="nc" id="L739">      return (CallableStatement) sessionScope.getPreparedStatement(sql);</span>
     }
-<span class="nc" id="L740">    CallableStatement cs = conn.prepareCall(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);</span>
-<span class="nc" id="L741">    sessionScope.putPreparedStatement(delegate, sql, cs);</span>
-<span class="nc" id="L742">    return cs;</span>
+<span class="nc" id="L741">    CallableStatement cs = conn.prepareCall(sql, rsType.intValue(), ResultSet.CONCUR_READ_ONLY);</span>
+<span class="nc" id="L742">    sessionScope.putPreparedStatement(delegate, sql, cs);</span>
+<span class="nc" id="L743">    return cs;</span>
   }
 
   /**
@@ -759,13 +760,13 @@ import java.util.Properties;
    */
   private static PreparedStatement prepareStatement(SessionScope sessionScope, Connection conn, String sql)
       throws SQLException {
-<span class="fc" id="L762">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
-<span class="fc bfc" id="L763" title="All 2 branches covered.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
-<span class="fc" id="L764">      return sessionScope.getPreparedStatement(sql);</span>
+<span class="fc" id="L763">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
+<span class="fc bfc" id="L764" title="All 2 branches covered.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
+<span class="fc" id="L765">      return sessionScope.getPreparedStatement(sql);</span>
     }
-<span class="fc" id="L766">    PreparedStatement ps = conn.prepareStatement(sql);</span>
-<span class="fc" id="L767">    sessionScope.putPreparedStatement(delegate, sql, ps);</span>
-<span class="fc" id="L768">    return ps;</span>
+<span class="fc" id="L767">    PreparedStatement ps = conn.prepareStatement(sql);</span>
+<span class="fc" id="L768">    sessionScope.putPreparedStatement(delegate, sql, ps);</span>
+<span class="fc" id="L769">    return ps;</span>
   }
 
   /**
@@ -784,13 +785,13 @@ import java.util.Properties;
    *           the SQL exception
    */
   private CallableStatement prepareCall(SessionScope sessionScope, Connection conn, String sql) throws SQLException {
-<span class="fc" id="L787">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
-<span class="pc bpc" id="L788" title="1 of 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
-<span class="nc" id="L789">      return (CallableStatement) sessionScope.getPreparedStatement(sql);</span>
+<span class="fc" id="L788">    SqlMapExecutorDelegate delegate = ((SqlMapClientImpl) sessionScope.getSqlMapExecutor()).getDelegate();</span>
+<span class="pc bpc" id="L789" title="1 of 2 branches missed.">    if (sessionScope.hasPreparedStatementFor(sql)) {</span>
+<span class="nc" id="L790">      return (CallableStatement) sessionScope.getPreparedStatement(sql);</span>
     }
-<span class="fc" id="L791">    CallableStatement cs = conn.prepareCall(sql);</span>
-<span class="fc" id="L792">    sessionScope.putPreparedStatement(delegate, sql, cs);</span>
-<span class="fc" id="L793">    return cs;</span>
+<span class="fc" id="L792">    CallableStatement cs = conn.prepareCall(sql);</span>
+<span class="fc" id="L793">    sessionScope.putPreparedStatement(delegate, sql, cs);</span>
+<span class="fc" id="L794">    return cs;</span>
   }
 
   /**
@@ -802,14 +803,14 @@ import java.util.Properties;
    *          the ps
    */
   private static void closeStatement(SessionScope sessionScope, PreparedStatement ps) {
-<span class="fc bfc" id="L805" title="All 4 branches covered.">    if (ps != null &amp;&amp; !sessionScope.hasPreparedStatement(ps)) {</span>
+<span class="fc bfc" id="L806" title="All 4 branches covered.">    if (ps != null &amp;&amp; !sessionScope.hasPreparedStatement(ps)) {</span>
       try {
-<span class="fc" id="L807">        ps.close();</span>
-<span class="nc" id="L808">      } catch (SQLException e) {</span>
+<span class="fc" id="L808">        ps.close();</span>
+<span class="nc" id="L809">      } catch (SQLException e) {</span>
         // ignore
-<span class="fc" id="L810">      }</span>
+<span class="fc" id="L811">      }</span>
     }
-<span class="fc" id="L812">  }</span>
+<span class="fc" id="L813">  }</span>
 
   /**
    * Close result set.
@@ -818,14 +819,14 @@ import java.util.Properties;
    *          the rs
    */
   private static void closeResultSet(ResultSet rs) {
-<span class="fc bfc" id="L821" title="All 2 branches covered.">    if (rs != null) {</span>
+<span class="fc bfc" id="L822" title="All 2 branches covered.">    if (rs != null) {</span>
       try {
-<span class="fc" id="L823">        rs.close();</span>
-<span class="nc" id="L824">      } catch (SQLException e) {</span>
+<span class="fc" id="L824">        rs.close();</span>
+<span class="nc" id="L825">      } catch (SQLException e) {</span>
         // ignore
-<span class="fc" id="L826">      }</span>
+<span class="fc" id="L827">      }</span>
     }
-<span class="fc" id="L828">  }</span>
+<span class="fc" id="L829">  }</span>
 
   /**
    * Sets the statement timeout.
@@ -839,10 +840,10 @@ import java.util.Properties;
    *           the SQL exception
    */
   private static void setStatementTimeout(MappedStatement mappedStatement, Statement statement) throws SQLException {
-<span class="pc bpc" id="L842" title="1 of 2 branches missed.">    if (mappedStatement.getTimeout() != null) {</span>
-<span class="nc" id="L843">      statement.setQueryTimeout(mappedStatement.getTimeout().intValue());</span>
+<span class="pc bpc" id="L843" title="1 of 2 branches missed.">    if (mappedStatement.getTimeout() != null) {</span>
+<span class="nc" id="L844">      statement.setQueryTimeout(mappedStatement.getTimeout().intValue());</span>
     }
-<span class="fc" id="L845">  }</span>
+<span class="fc" id="L846">  }</span>
 
   /**
    * The Class Batch.
@@ -853,10 +854,10 @@ import java.util.Properties;
     private String currentSql;
 
     /** The statement list. */
-<span class="fc" id="L856">    private List statementList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L857">    private List statementList = new ArrayList&lt;&gt;();</span>
 
     /** The batch result list. */
-<span class="fc" id="L859">    private List batchResultList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L860">    private List batchResultList = new ArrayList&lt;&gt;();</span>
 
     /** The size. */
     private int size;
@@ -864,9 +865,9 @@ import java.util.Properties;
     /**
      * Create a new batch.
      */
-<span class="fc" id="L867">    public Batch() {</span>
-<span class="fc" id="L868">      this.size = 0;</span>
-<span class="fc" id="L869">    }</span>
+<span class="fc" id="L868">    public Batch() {</span>
+<span class="fc" id="L869">      this.size = 0;</span>
+<span class="fc" id="L870">    }</span>
 
     /**
      * Getter for the batch size.
@@ -874,7 +875,7 @@ import java.util.Properties;
      * @return - the batch size
      */
     public int getSize() {
-<span class="nc" id="L877">      return size;</span>
+<span class="nc" id="L878">      return size;</span>
     }
 
     /**
@@ -894,21 +895,21 @@ import java.util.Properties;
      */
     public void addBatch(StatementScope statementScope, Connection conn, String sql, Object[] parameters)
         throws SQLException {
-<span class="fc" id="L897">      PreparedStatement ps = null;</span>
-<span class="fc bfc" id="L898" title="All 4 branches covered.">      if (currentSql != null &amp;&amp; currentSql.equals(sql)) {</span>
-<span class="fc" id="L899">        int last = statementList.size() - 1;</span>
-<span class="fc" id="L900">        ps = (PreparedStatement) statementList.get(last);</span>
-<span class="fc" id="L901">      } else {</span>
-<span class="fc" id="L902">        ps = prepareStatement(statementScope.getSession(), conn, sql);</span>
-<span class="fc" id="L903">        setStatementTimeout(statementScope.getStatement(), ps);</span>
-<span class="fc" id="L904">        currentSql = sql;</span>
-<span class="fc" id="L905">        statementList.add(ps);</span>
-<span class="fc" id="L906">        batchResultList.add(new BatchResult(statementScope.getStatement().getId(), sql));</span>
+<span class="fc" id="L898">      PreparedStatement ps = null;</span>
+<span class="fc bfc" id="L899" title="All 4 branches covered.">      if (currentSql != null &amp;&amp; currentSql.equals(sql)) {</span>
+<span class="fc" id="L900">        int last = statementList.size() - 1;</span>
+<span class="fc" id="L901">        ps = (PreparedStatement) statementList.get(last);</span>
+<span class="fc" id="L902">      } else {</span>
+<span class="fc" id="L903">        ps = prepareStatement(statementScope.getSession(), conn, sql);</span>
+<span class="fc" id="L904">        setStatementTimeout(statementScope.getStatement(), ps);</span>
+<span class="fc" id="L905">        currentSql = sql;</span>
+<span class="fc" id="L906">        statementList.add(ps);</span>
+<span class="fc" id="L907">        batchResultList.add(new BatchResult(statementScope.getStatement().getId(), sql));</span>
       }
-<span class="fc" id="L908">      statementScope.getParameterMap().setParameters(statementScope, ps, parameters);</span>
-<span class="fc" id="L909">      ps.addBatch();</span>
-<span class="fc" id="L910">      size++;</span>
-<span class="fc" id="L911">    }</span>
+<span class="fc" id="L909">      statementScope.getParameterMap().setParameters(statementScope, ps, parameters);</span>
+<span class="fc" id="L910">      ps.addBatch();</span>
+<span class="fc" id="L911">      size++;</span>
+<span class="fc" id="L912">    }</span>
 
     /**
      * TODO (Jeff Butler) - maybe this method should be deprecated in some release, and then removed in some even later
@@ -922,21 +923,21 @@ import java.util.Properties;
      *           - if the batch fails
      */
     public int executeBatch() throws SQLException {
-<span class="fc" id="L925">      int totalRowCount = 0;</span>
-<span class="fc bfc" id="L926" title="All 2 branches covered.">      for (Object element : statementList) {</span>
-<span class="fc" id="L927">        PreparedStatement ps = (PreparedStatement) element;</span>
-<span class="fc" id="L928">        int[] rowCounts = ps.executeBatch();</span>
-<span class="fc bfc" id="L929" title="All 2 branches covered.">        for (int j = 0; j &lt; rowCounts.length; j++) {</span>
-<span class="pc bpc" id="L930" title="1 of 2 branches missed.">          if (rowCounts[j] == Statement.SUCCESS_NO_INFO) {</span>
+<span class="fc" id="L926">      int totalRowCount = 0;</span>
+<span class="fc bfc" id="L927" title="All 2 branches covered.">      for (Object element : statementList) {</span>
+<span class="fc" id="L928">        PreparedStatement ps = (PreparedStatement) element;</span>
+<span class="fc" id="L929">        int[] rowCounts = ps.executeBatch();</span>
+<span class="fc bfc" id="L930" title="All 2 branches covered.">        for (int j = 0; j &lt; rowCounts.length; j++) {</span>
+<span class="pc bpc" id="L931" title="1 of 2 branches missed.">          if (rowCounts[j] == Statement.SUCCESS_NO_INFO) {</span>
             // do nothing
-<span class="pc bpc" id="L932" title="1 of 2 branches missed.">          } else if (rowCounts[j] == Statement.EXECUTE_FAILED) {</span>
-<span class="nc" id="L933">            throw new SQLException(&quot;The batched statement at index &quot; + j + &quot; failed to execute.&quot;);</span>
+<span class="pc bpc" id="L933" title="1 of 2 branches missed.">          } else if (rowCounts[j] == Statement.EXECUTE_FAILED) {</span>
+<span class="nc" id="L934">            throw new SQLException(&quot;The batched statement at index &quot; + j + &quot; failed to execute.&quot;);</span>
           } else {
-<span class="fc" id="L935">            totalRowCount += rowCounts[j];</span>
+<span class="fc" id="L936">            totalRowCount += rowCounts[j];</span>
           }
         }
-<span class="fc" id="L938">      }</span>
-<span class="fc" id="L939">      return totalRowCount;</span>
+<span class="fc" id="L939">      }</span>
+<span class="fc" id="L940">      return totalRowCount;</span>
     }
 
     /**
@@ -950,27 +951,27 @@ import java.util.Properties;
      *           if the driver throws BatchUpdateException
      */
     public List executeBatchDetailed() throws SQLException, BatchException {
-<span class="fc" id="L953">      List answer = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L954" title="All 2 branches covered.">      for (int i = 0, n = statementList.size(); i &lt; n; i++) {</span>
-<span class="fc" id="L955">        BatchResult br = (BatchResult) batchResultList.get(i);</span>
-<span class="fc" id="L956">        PreparedStatement ps = (PreparedStatement) statementList.get(i);</span>
+<span class="fc" id="L954">      List answer = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L955" title="All 2 branches covered.">      for (int i = 0, n = statementList.size(); i &lt; n; i++) {</span>
+<span class="fc" id="L956">        BatchResult br = (BatchResult) batchResultList.get(i);</span>
+<span class="fc" id="L957">        PreparedStatement ps = (PreparedStatement) statementList.get(i);</span>
         try {
-<span class="fc" id="L958">          br.setUpdateCounts(ps.executeBatch());</span>
-<span class="fc" id="L959">        } catch (BatchUpdateException e) {</span>
-<span class="fc" id="L960">          StringBuilder message = new StringBuilder();</span>
-<span class="fc" id="L961">          message.append(&quot;Sub batch number &quot;);</span>
-<span class="fc" id="L962">          message.append(i + 1);</span>
-<span class="fc" id="L963">          message.append(&quot; failed.&quot;);</span>
-<span class="pc bpc" id="L964" title="1 of 2 branches missed.">          if (i &gt; 0) {</span>
-<span class="fc" id="L965">            message.append(&quot; &quot;);</span>
-<span class="fc" id="L966">            message.append(i);</span>
-<span class="fc" id="L967">            message.append(&quot; prior sub batch(s) completed successfully, but will be rolled back.&quot;);</span>
+<span class="fc" id="L959">          br.setUpdateCounts(ps.executeBatch());</span>
+<span class="fc" id="L960">        } catch (BatchUpdateException e) {</span>
+<span class="fc" id="L961">          StringBuilder message = new StringBuilder();</span>
+<span class="fc" id="L962">          message.append(&quot;Sub batch number &quot;);</span>
+<span class="fc" id="L963">          message.append(i + 1);</span>
+<span class="fc" id="L964">          message.append(&quot; failed.&quot;);</span>
+<span class="pc bpc" id="L965" title="1 of 2 branches missed.">          if (i &gt; 0) {</span>
+<span class="fc" id="L966">            message.append(&quot; &quot;);</span>
+<span class="fc" id="L967">            message.append(i);</span>
+<span class="fc" id="L968">            message.append(&quot; prior sub batch(s) completed successfully, but will be rolled back.&quot;);</span>
           }
-<span class="fc" id="L969">          throw new BatchException(message.toString(), e, answer, br.getStatementId(), br.getSql());</span>
-<span class="fc" id="L970">        }</span>
-<span class="fc" id="L971">        answer.add(br);</span>
+<span class="fc" id="L970">          throw new BatchException(message.toString(), e, answer, br.getStatementId(), br.getSql());</span>
+<span class="fc" id="L971">        }</span>
+<span class="fc" id="L972">        answer.add(br);</span>
       }
-<span class="fc" id="L973">      return answer;</span>
+<span class="fc" id="L974">      return answer;</span>
     }
 
     /**
@@ -980,15 +981,15 @@ import java.util.Properties;
      *          the session scope
      */
     public void cleanupBatch(SessionScope sessionScope) {
-<span class="fc bfc" id="L983" title="All 2 branches covered.">      for (Object element : statementList) {</span>
-<span class="fc" id="L984">        PreparedStatement ps = (PreparedStatement) element;</span>
-<span class="fc" id="L985">        closeStatement(sessionScope, ps);</span>
-<span class="fc" id="L986">      }</span>
-<span class="fc" id="L987">      currentSql = null;</span>
-<span class="fc" id="L988">      statementList.clear();</span>
-<span class="fc" id="L989">      batchResultList.clear();</span>
-<span class="fc" id="L990">      size = 0;</span>
-<span class="fc" id="L991">    }</span>
+<span class="fc bfc" id="L984" title="All 2 branches covered.">      for (Object element : statementList) {</span>
+<span class="fc" id="L985">        PreparedStatement ps = (PreparedStatement) element;</span>
+<span class="fc" id="L986">        closeStatement(sessionScope, ps);</span>
+<span class="fc" id="L987">      }</span>
+<span class="fc" id="L988">      currentSql = null;</span>
+<span class="fc" id="L989">      statementList.clear();</span>
+<span class="fc" id="L990">      batchResultList.clear();</span>
+<span class="fc" id="L991">      size = 0;</span>
+<span class="fc" id="L992">    }</span>
   }
 
   /**
@@ -998,16 +999,16 @@ import java.util.Properties;
    *          the new up result object factory
    */
   private void setupResultObjectFactory(StatementScope statementScope) {
-<span class="fc" id="L1001">    SqlMapClientImpl client = (SqlMapClientImpl) statementScope.getSession().getSqlMapClient();</span>
-<span class="fc" id="L1002">    ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(),</span>
-<span class="fc" id="L1003">        statementScope.getStatement().getId());</span>
-<span class="fc" id="L1004">  }</span>
+<span class="fc" id="L1002">    SqlMapClientImpl client = (SqlMapClientImpl) statementScope.getSession().getSqlMapClient();</span>
+<span class="fc" id="L1003">    ResultObjectFactoryUtil.setupResultObjectFactory(client.getResultObjectFactory(),</span>
+<span class="fc" id="L1004">        statementScope.getStatement().getId());</span>
+<span class="fc" id="L1005">  }</span>
 
   /**
    * Cleanup result object factory.
    */
   private void cleanupResultObjectFactory() {
-<span class="fc" id="L1010">    ResultObjectFactoryUtil.cleanupResultObjectFactory();</span>
-<span class="fc" id="L1011">  }</span>
+<span class="fc" id="L1011">    ResultObjectFactoryUtil.cleanupResultObjectFactory();</span>
+<span class="fc" id="L1012">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
