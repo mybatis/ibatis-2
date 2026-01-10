@@ -114,7 +114,7 @@ mybatis2,com.ibatis.common.logging.nologging,NoLoggingImpl,9,0,0,0,7,0,6,0,6,0
 mybatis2,com.ibatis.sqlmap.engine.config,SqlMapConfiguration,56,452,11,27,14,115,9,37,0,27
 mybatis2,com.ibatis.sqlmap.engine.config,ResultMapConfig,45,328,13,29,10,76,10,15,0,4
 mybatis2,com.ibatis.sqlmap.engine.config,CacheModelConfig,17,129,2,2,4,33,3,4,1,4
-mybatis2,com.ibatis.sqlmap.engine.config,MappedStatementConfig,72,449,20,36,20,111,17,19,1,6
+mybatis2,com.ibatis.sqlmap.engine.config,MappedStatementConfig,70,449,18,36,20,111,16,19,1,6
 mybatis2,com.ibatis.sqlmap.engine.config,ParameterMapConfig,14,151,4,6,3,36,3,4,0,2
 mybatis2,com.ibatis.sqlmap.engine.mapping.sql.stat,StaticSql,0,22,0,0,0,7,0,5,0,5
 mybatis2,com.ibatis.sqlmap.engine.builder.xml,SqlMapClasspathEntityResolver,8,90,0,8,3,25,0,8,0,4

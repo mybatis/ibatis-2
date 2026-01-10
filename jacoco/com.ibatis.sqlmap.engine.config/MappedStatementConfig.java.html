@@ -132,7 +132,7 @@ public class MappedStatementConfig {
     }
 <span class="fc" id="L133">    statement.setId(id);</span>
 <span class="fc" id="L134">    statement.setResource(errorContext.getResource());</span>
-<span class="pc bpc" id="L135" title="3 of 4 branches missed.">    if (resultSetType != null &amp;&amp; resultSetType != null) {</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">    if (resultSetType != null) {</span>
 <span class="nc bnc" id="L136" title="All 4 branches missed.">      switch (resultSetType) {</span>
         case &quot;FORWARD_ONLY&quot;:
 <span class="nc" id="L138">          statement.setResultSetType(Integer.valueOf(ResultSet.TYPE_FORWARD_ONLY));</span>

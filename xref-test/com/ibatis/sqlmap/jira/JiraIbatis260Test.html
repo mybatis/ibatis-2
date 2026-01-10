@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../testapidocs/com/ibatis/sqlmap/jira/JiraIbatis260Test.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2025 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2004-2026 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -56,8 +56,8 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>    @BeforeEach
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      initSqlMap(<span class="jxr_string">"com/ibatis/sqlmap/maps/SqlMapConfig.xml"</span>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      initScript(<span class="jxr_string">"scripts/jira.sql"</span>);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      BaseSqlMap.initSqlMap(<span class="jxr_string">"com/ibatis/sqlmap/maps/SqlMapConfig.xml"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      BaseSqlMap.initScript(<span class="jxr_string">"scripts/jira.sql"</span>);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>    }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    <em class="jxr_javadoccomment">/**</em>
@@ -71,18 +71,18 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>    @Test
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>    <strong class="jxr_keyword">void</strong> testIbatis260Error1() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      List&lt;?&gt; groupedResult = sqlMap.queryForList(<span class="jxr_string">"getJira260GroupedResult"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">final</strong> List&lt;?&gt; groupedResult = BaseSqlMap.sqlMap.queryForList(<span class="jxr_string">"getJira260GroupedResult"</span>, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      HashMap&lt;String, Object&gt; test = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      Iterator&lt;?&gt; indexIterator = groupedResult.iterator();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">final</strong> HashMap&lt;String, Object&gt; test = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">final</strong> Iterator&lt;?&gt; indexIterator = groupedResult.iterator();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">while</strong> (indexIterator.hasNext()) {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>        <a name="ArticleIndex" href="../../../../testdomain/ArticleIndex.html#ArticleIndex">ArticleIndex</a> articleIndex = (<a name="ArticleIndex" href="../../../../testdomain/ArticleIndex.html#ArticleIndex">ArticleIndex</a>) indexIterator.next();
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>        Iterator&lt;?&gt; topicIterator = articleIndex.getTopics().iterator();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>        <strong class="jxr_keyword">final</strong> <a name="ArticleIndex" href="../../../../testdomain/ArticleIndex.html#ArticleIndex">ArticleIndex</a> articleIndex = (<a name="ArticleIndex" href="../../../../testdomain/ArticleIndex.html#ArticleIndex">ArticleIndex</a>) indexIterator.next();
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>        <strong class="jxr_keyword">final</strong> Iterator&lt;?&gt; topicIterator = articleIndex.getTopics().iterator();
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>        <strong class="jxr_keyword">while</strong> (topicIterator.hasNext()) {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <a name="Topic" href="../../../../testdomain/Topic.html#Topic">Topic</a> topic = (<a name="Topic" href="../../../../testdomain/Topic.html#Topic">Topic</a>) topicIterator.next();
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          Iterator&lt;?&gt; descriptionIterator = topic.getDescriptionList().iterator();
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">final</strong> <a name="Topic" href="../../../../testdomain/Topic.html#Topic">Topic</a> topic = (<a name="Topic" href="../../../../testdomain/Topic.html#Topic">Topic</a>) topicIterator.next();
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> Iterator&lt;?&gt; descriptionIterator = topic.getDescriptionList().iterator();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">while</strong> (descriptionIterator.hasNext()) {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>            <a name="TopicDescription" href="../../../../testdomain/TopicDescription.html#TopicDescription">TopicDescription</a> desc = (<a name="TopicDescription" href="../../../../testdomain/TopicDescription.html#TopicDescription">TopicDescription</a>) descriptionIterator.next();
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>            <strong class="jxr_keyword">final</strong> <a name="TopicDescription" href="../../../../testdomain/TopicDescription.html#TopicDescription">TopicDescription</a> desc = (<a name="TopicDescription" href="../../../../testdomain/TopicDescription.html#TopicDescription">TopicDescription</a>) descriptionIterator.next();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>            <em class="jxr_comment">// Put a flattened key in the hashMap</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>            test.put(articleIndex.getCategoryTitle() + <span class="jxr_string">"||"</span> + topic.getTopicTitle() + <span class="jxr_string">"||"</span> + desc.getDescription(), <strong class="jxr_keyword">null</strong>);
@@ -95,10 +95,10 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      <em class="jxr_comment">// the test case fails. If at the end the hashMap is not empty</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      <em class="jxr_comment">// the test case also fails.</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      String key = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      List&lt;?&gt; flatResult = sqlMap.queryForList(<span class="jxr_string">"getJira260FlatResult"</span>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      Iterator&lt;?&gt; iterator = flatResult.iterator();
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">final</strong> List&lt;?&gt; flatResult = BaseSqlMap.sqlMap.queryForList(<span class="jxr_string">"getJira260FlatResult"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>      <strong class="jxr_keyword">final</strong> Iterator&lt;?&gt; iterator = flatResult.iterator();
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">while</strong> (iterator.hasNext()) {
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>        <a name="ArticleIndexDenorm" href="../../../../testdomain/ArticleIndexDenorm.html#ArticleIndexDenorm">ArticleIndexDenorm</a> articleIndex = (<a name="ArticleIndexDenorm" href="../../../../testdomain/ArticleIndexDenorm.html#ArticleIndexDenorm">ArticleIndexDenorm</a>) iterator.next();
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>        <strong class="jxr_keyword">final</strong> <a name="ArticleIndexDenorm" href="../../../../testdomain/ArticleIndexDenorm.html#ArticleIndexDenorm">ArticleIndexDenorm</a> articleIndex = (<a name="ArticleIndexDenorm" href="../../../../testdomain/ArticleIndexDenorm.html#ArticleIndexDenorm">ArticleIndexDenorm</a>) iterator.next();
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>        key = articleIndex.getCategoryTitle() + <span class="jxr_string">"||"</span> + articleIndex.getTopicTitle() + <span class="jxr_string">"||"</span>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>            + articleIndex.getDescription();
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>        <strong class="jxr_keyword">if</strong> (!test.containsKey(key)) {
