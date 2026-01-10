@@ -40,7 +40,9 @@ import com.ibatis.sqlmap.engine.scope.ErrorContext;
 import com.ibatis.sqlmap.engine.transaction.TransactionManager;
 import com.ibatis.sqlmap.engine.transaction.external.ExternalTransactionConfig;
 import com.ibatis.sqlmap.engine.transaction.jdbc.JdbcTransactionConfig;
-import com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jta.JTANamespace;
+import com.ibatis.sqlmap.engine.transaction.jta.JakartaTransactionConfig;
+import com.ibatis.sqlmap.engine.transaction.jta.JavaxTransactionConfig;
 import com.ibatis.sqlmap.engine.type.CustomTypeHandler;
 import com.ibatis.sqlmap.engine.type.DomCollectionTypeMarker;
 import com.ibatis.sqlmap.engine.type.DomTypeMarker;
@@ -465,7 +467,8 @@ public class SqlMapConfiguration {
   private void registerDefaultTypeAliases() {
     // TRANSACTION ALIASES
     typeHandlerFactory.putTypeAlias("JDBC", JdbcTransactionConfig.class.getName());
-    typeHandlerFactory.putTypeAlias("JTA", JtaTransactionConfig.class.getName());
+    typeHandlerFactory.putTypeAlias("JTA", JTANamespace.JAKARTA_TRANSACTION_CLASS == null
+        ? JavaxTransactionConfig.class.getName() : JakartaTransactionConfig.class.getName());
     typeHandlerFactory.putTypeAlias("EXTERNAL", ExternalTransactionConfig.class.getName());
 
     // DATA SOURCE ALIASES
