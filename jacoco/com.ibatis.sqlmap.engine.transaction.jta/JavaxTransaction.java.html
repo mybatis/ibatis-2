@@ -35,7 +35,7 @@ import javax.transaction.UserTransaction;
 public class JavaxTransaction implements Transaction {
 
   /** The Constant connectionLog. */
-<span class="nc" id="L38">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+<span class="fc" id="L38">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
 
   /** The user transaction. */
   private UserTransaction userTransaction;
@@ -47,13 +47,13 @@ public class JavaxTransaction implements Transaction {
   private Connection connection;
 
   /** The isolation level. */
-<span class="nc" id="L50">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+<span class="fc" id="L50">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
 
   /** The commmitted. */
-<span class="nc" id="L53">  private boolean commmitted = false;</span>
+<span class="fc" id="L53">  private boolean commmitted = false;</span>
 
   /** The new transaction. */
-<span class="nc" id="L56">  private boolean newTransaction = false;</span>
+<span class="fc" id="L56">  private boolean newTransaction = false;</span>
 
   /**
    * Instantiates a new jta transaction.
@@ -68,18 +68,18 @@ public class JavaxTransaction implements Transaction {
    * @throws TransactionException
    *           the transaction exception
    */
-<span class="nc" id="L71">  public JavaxTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {</span>
+<span class="fc" id="L71">  public JavaxTransaction(UserTransaction utx, DataSource ds, int isolationLevel) throws TransactionException {</span>
     // Check parameters
-<span class="nc" id="L73">    userTransaction = utx;</span>
-<span class="nc" id="L74">    dataSource = ds;</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">    if (userTransaction == null) {</span>
-<span class="nc" id="L76">      throw new TransactionException(&quot;JtaTransaction initialization failed.  UserTransaction was null.&quot;);</span>
+<span class="fc" id="L73">    userTransaction = utx;</span>
+<span class="fc" id="L74">    dataSource = ds;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    if (userTransaction == null) {</span>
+<span class="fc" id="L76">      throw new TransactionException(&quot;JtaTransaction initialization failed.  UserTransaction was null.&quot;);</span>
     }
-<span class="nc bnc" id="L78" title="All 2 branches missed.">    if (dataSource == null) {</span>
-<span class="nc" id="L79">      throw new TransactionException(&quot;JtaTransaction initialization failed.  DataSource was null.&quot;);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">    if (dataSource == null) {</span>
+<span class="fc" id="L79">      throw new TransactionException(&quot;JtaTransaction initialization failed.  DataSource was null.&quot;);</span>
     }
-<span class="nc" id="L81">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
-<span class="nc" id="L82">  }</span>
+<span class="fc" id="L81">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="fc" id="L82">  }</span>
 
   /**
    * Inits the.
@@ -92,86 +92,86 @@ public class JavaxTransaction implements Transaction {
   private void init() throws TransactionException, SQLException {
     // Start JTA Transaction
     try {
-<span class="nc bnc" id="L95" title="All 2 branches missed.">      newTransaction = userTransaction.getStatus() == Status.STATUS_NO_TRANSACTION;</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">      if (newTransaction) {</span>
-<span class="nc" id="L97">        userTransaction.begin();</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">      newTransaction = userTransaction.getStatus() == Status.STATUS_NO_TRANSACTION;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">      if (newTransaction) {</span>
+<span class="fc" id="L97">        userTransaction.begin();</span>
       }
 <span class="nc" id="L99">    } catch (Exception e) {</span>
 <span class="nc" id="L100">      throw new TransactionException(&quot;JtaTransaction could not start transaction.  Cause: &quot;, e);</span>
-<span class="nc" id="L101">    }</span>
+<span class="fc" id="L101">    }</span>
 
     // Open JDBC Connection
-<span class="nc" id="L104">    connection = dataSource.getConnection();</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (connection == null) {</span>
+<span class="fc" id="L104">    connection = dataSource.getConnection();</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    if (connection == null) {</span>
 <span class="nc" id="L106">      throw new TransactionException(</span>
           &quot;JtaTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
     }
     // Isolation Level
-<span class="nc" id="L110">    isolationLevel.applyIsolationLevel(connection);</span>
+<span class="fc" id="L110">    isolationLevel.applyIsolationLevel(connection);</span>
     // AutoCommit
-<span class="nc bnc" id="L112" title="All 2 branches missed.">    if (connection.getAutoCommit()) {</span>
-<span class="nc" id="L113">      connection.setAutoCommit(false);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">    if (connection.getAutoCommit()) {</span>
+<span class="fc" id="L113">      connection.setAutoCommit(false);</span>
     }
     // Debug
-<span class="nc bnc" id="L116" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
 <span class="nc" id="L117">      connection = ConnectionLogProxy.newInstance(connection);</span>
     }
-<span class="nc" id="L119">  }</span>
+<span class="fc" id="L119">  }</span>
 
   @Override
   public void commit() throws SQLException, TransactionException {
-<span class="nc bnc" id="L123" title="All 2 branches missed.">    if (connection != null) {</span>
-<span class="nc bnc" id="L124" title="All 2 branches missed.">      if (commmitted) {</span>
-<span class="nc" id="L125">        throw new TransactionException(</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">    if (connection != null) {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">      if (commmitted) {</span>
+<span class="fc" id="L125">        throw new TransactionException(</span>
             &quot;JtaTransaction could not commit because this transaction has already been committed.&quot;);
       }
       try {
-<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (newTransaction) {</span>
-<span class="nc" id="L130">          userTransaction.commit();</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (newTransaction) {</span>
+<span class="fc" id="L130">          userTransaction.commit();</span>
         }
 <span class="nc" id="L132">      } catch (Exception e) {</span>
 <span class="nc" id="L133">        throw new TransactionException(&quot;JtaTransaction could not commit.  Cause: &quot;, e);</span>
-<span class="nc" id="L134">      }</span>
-<span class="nc" id="L135">      commmitted = true;</span>
+<span class="fc" id="L134">      }</span>
+<span class="fc" id="L135">      commmitted = true;</span>
     }
-<span class="nc" id="L137">  }</span>
+<span class="fc" id="L137">  }</span>
 
   @Override
   public void rollback() throws SQLException, TransactionException {
-<span class="nc bnc" id="L141" title="All 4 branches missed.">    if (connection != null &amp;&amp; !commmitted) {</span>
+<span class="pc bpc" id="L141" title="2 of 4 branches missed.">    if (connection != null &amp;&amp; !commmitted) {</span>
       try {
-<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (userTransaction != null) {</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">          if (newTransaction) {</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (userTransaction != null) {</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">          if (newTransaction) {</span>
 <span class="nc" id="L145">            userTransaction.rollback();</span>
           } else {
-<span class="nc" id="L147">            userTransaction.setRollbackOnly();</span>
+<span class="fc" id="L147">            userTransaction.setRollbackOnly();</span>
           }
         }
 <span class="nc" id="L150">      } catch (Exception e) {</span>
 <span class="nc" id="L151">        throw new TransactionException(&quot;JtaTransaction could not rollback.  Cause: &quot;, e);</span>
-<span class="nc" id="L152">      }</span>
+<span class="fc" id="L152">      }</span>
     }
-<span class="nc" id="L154">  }</span>
+<span class="fc" id="L154">  }</span>
 
   @Override
   public void close() throws SQLException, TransactionException {
-<span class="nc bnc" id="L158" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">    if (connection != null) {</span>
       try {
-<span class="nc" id="L160">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="fc" id="L160">        isolationLevel.restoreIsolationLevel(connection);</span>
       } finally {
-<span class="nc" id="L162">        connection.close();</span>
-<span class="nc" id="L163">        connection = null;</span>
+<span class="fc" id="L162">        connection.close();</span>
+<span class="fc" id="L163">        connection = null;</span>
       }
     }
-<span class="nc" id="L166">  }</span>
+<span class="fc" id="L166">  }</span>
 
   @Override
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="nc bnc" id="L170" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L171">      init();</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">    if (connection == null) {</span>
+<span class="fc" id="L171">      init();</span>
     }
-<span class="nc" id="L173">    return connection;</span>
+<span class="fc" id="L173">    return connection;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

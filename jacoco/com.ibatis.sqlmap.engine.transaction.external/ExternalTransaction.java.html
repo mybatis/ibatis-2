@@ -33,7 +33,7 @@ import javax.sql.DataSource;
 public class ExternalTransaction implements Transaction {
 
   /** The Constant connectionLog. */
-<span class="nc" id="L36">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
+<span class="fc" id="L36">  private static final Log connectionLog = LogFactory.getLog(Connection.class);</span>
 
   /** The data source. */
   private DataSource dataSource;
@@ -48,7 +48,7 @@ public class ExternalTransaction implements Transaction {
   private Connection connection;
 
   /** The isolation level. */
-<span class="nc" id="L51">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
+<span class="fc" id="L51">  private IsolationLevel isolationLevel = new IsolationLevel();</span>
 
   /**
    * Instantiates a new external transaction.
@@ -66,17 +66,17 @@ public class ExternalTransaction implements Transaction {
    *           the transaction exception
    */
   public ExternalTransaction(DataSource ds, boolean defaultAutoCommit, boolean setAutoCommitAllowed, int isolationLevel)
-<span class="nc" id="L69">      throws TransactionException {</span>
+<span class="fc" id="L69">      throws TransactionException {</span>
     // Check Parameters
-<span class="nc" id="L71">    dataSource = ds;</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">    if (dataSource == null) {</span>
-<span class="nc" id="L73">      throw new TransactionException(&quot;ExternalTransaction initialization failed.  DataSource was null.&quot;);</span>
+<span class="fc" id="L71">    dataSource = ds;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    if (dataSource == null) {</span>
+<span class="fc" id="L73">      throw new TransactionException(&quot;ExternalTransaction initialization failed.  DataSource was null.&quot;);</span>
     }
 
-<span class="nc" id="L76">    this.defaultAutoCommit = defaultAutoCommit;</span>
-<span class="nc" id="L77">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
-<span class="nc" id="L78">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
-<span class="nc" id="L79">  }</span>
+<span class="fc" id="L76">    this.defaultAutoCommit = defaultAutoCommit;</span>
+<span class="fc" id="L77">    this.setAutoCommitAllowed = setAutoCommitAllowed;</span>
+<span class="fc" id="L78">    this.isolationLevel.setIsolationLevel(isolationLevel);</span>
+<span class="fc" id="L79">  }</span>
 
   /**
    * Inits the.
@@ -88,50 +88,50 @@ public class ExternalTransaction implements Transaction {
    */
   private void init() throws SQLException, TransactionException {
     // Open JDBC Transaction
-<span class="nc" id="L91">    connection = dataSource.getConnection();</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L93">      throw new TransactionException(</span>
+<span class="fc" id="L91">    connection = dataSource.getConnection();</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">    if (connection == null) {</span>
+<span class="fc" id="L93">      throw new TransactionException(</span>
           &quot;ExternalTransaction could not start transaction.  Cause: The DataSource returned a null connection.&quot;);
     }
     // Isolation Level
-<span class="nc" id="L97">    isolationLevel.applyIsolationLevel(connection);</span>
+<span class="fc" id="L97">    isolationLevel.applyIsolationLevel(connection);</span>
     // AutoCommit
-<span class="nc bnc" id="L99" title="All 4 branches missed.">    if (setAutoCommitAllowed &amp;&amp; connection.getAutoCommit() != defaultAutoCommit) {</span>
-<span class="nc" id="L100">      connection.setAutoCommit(defaultAutoCommit);</span>
+<span class="pc bpc" id="L99" title="1 of 4 branches missed.">    if (setAutoCommitAllowed &amp;&amp; connection.getAutoCommit() != defaultAutoCommit) {</span>
+<span class="fc" id="L100">      connection.setAutoCommit(defaultAutoCommit);</span>
     }
     // Debug
-<span class="nc bnc" id="L103" title="All 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    if (connectionLog.isDebugEnabled()) {</span>
 <span class="nc" id="L104">      connection = ConnectionLogProxy.newInstance(connection);</span>
     }
-<span class="nc" id="L106">  }</span>
+<span class="fc" id="L106">  }</span>
 
   @Override
   public void commit() throws SQLException, TransactionException {
-<span class="nc" id="L110">  }</span>
+<span class="fc" id="L110">  }</span>
 
   @Override
   public void rollback() throws SQLException, TransactionException {
-<span class="nc" id="L114">  }</span>
+<span class="fc" id="L114">  }</span>
 
   @Override
   public void close() throws SQLException, TransactionException {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">    if (connection != null) {</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">    if (connection != null) {</span>
       try {
-<span class="nc" id="L120">        isolationLevel.restoreIsolationLevel(connection);</span>
+<span class="fc" id="L120">        isolationLevel.restoreIsolationLevel(connection);</span>
       } finally {
-<span class="nc" id="L122">        connection.close();</span>
-<span class="nc" id="L123">        connection = null;</span>
+<span class="fc" id="L122">        connection.close();</span>
+<span class="fc" id="L123">        connection = null;</span>
       }
     }
-<span class="nc" id="L126">  }</span>
+<span class="fc" id="L126">  }</span>
 
   @Override
   public Connection getConnection() throws SQLException, TransactionException {
-<span class="nc bnc" id="L130" title="All 2 branches missed.">    if (connection == null) {</span>
-<span class="nc" id="L131">      init();</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">    if (connection == null) {</span>
+<span class="fc" id="L131">      init();</span>
     }
-<span class="nc" id="L133">    return connection;</span>
+<span class="fc" id="L133">    return connection;</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

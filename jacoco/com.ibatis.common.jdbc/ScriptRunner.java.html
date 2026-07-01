@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScriptRunner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.jdbc</a> &gt; <span class="el_source">ScriptRunner.java</span></div><h1>ScriptRunner.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -59,13 +59,13 @@ public class ScriptRunner {
   private boolean autoCommit;
 
   /** The log writer. */
-<span class="pc" id="L62">  private PrintWriter logWriter = new PrintWriter(System.out);</span>
+<span class="fc" id="L62">  private PrintWriter logWriter = new PrintWriter(System.out);</span>
 
   /** The error log writer. */
-<span class="pc" id="L65">  private PrintWriter errorLogWriter = new PrintWriter(System.err);</span>
+<span class="fc" id="L65">  private PrintWriter errorLogWriter = new PrintWriter(System.err);</span>
 
   /** The delimiter. */
-<span class="pc" id="L68">  private String delimiter = DEFAULT_DELIMITER;</span>
+<span class="fc" id="L68">  private String delimiter = DEFAULT_DELIMITER;</span>
 
   /** The full line delimiter. */
   private boolean fullLineDelimiter;
@@ -95,9 +95,9 @@ public class ScriptRunner {
    *          the full line delimiter
    */
   public void setDelimiter(String delimiter, boolean fullLineDelimiter) {
-<span class="nc" id="L98">    this.delimiter = delimiter;</span>
-<span class="nc" id="L99">    this.fullLineDelimiter = fullLineDelimiter;</span>
-<span class="nc" id="L100">  }</span>
+<span class="fc" id="L98">    this.delimiter = delimiter;</span>
+<span class="fc" id="L99">    this.fullLineDelimiter = fullLineDelimiter;</span>
+<span class="fc" id="L100">  }</span>
 
   /**
    * Instantiates a new script runner.
@@ -116,14 +116,14 @@ public class ScriptRunner {
    *          the stop on error
    */
   public ScriptRunner(String driver, String url, String username, String password, boolean autoCommit,
-<span class="nc" id="L119">      boolean stopOnError) {</span>
-<span class="nc" id="L120">    this.driver = driver;</span>
-<span class="nc" id="L121">    this.url = url;</span>
-<span class="nc" id="L122">    this.username = username;</span>
-<span class="nc" id="L123">    this.password = password;</span>
-<span class="nc" id="L124">    this.autoCommit = autoCommit;</span>
-<span class="nc" id="L125">    this.stopOnError = stopOnError;</span>
-<span class="nc" id="L126">  }</span>
+<span class="fc" id="L119">      boolean stopOnError) {</span>
+<span class="fc" id="L120">    this.driver = driver;</span>
+<span class="fc" id="L121">    this.url = url;</span>
+<span class="fc" id="L122">    this.username = username;</span>
+<span class="fc" id="L123">    this.password = password;</span>
+<span class="fc" id="L124">    this.autoCommit = autoCommit;</span>
+<span class="fc" id="L125">    this.stopOnError = stopOnError;</span>
+<span class="fc" id="L126">  }</span>
 
   /**
    * Setter for logWriter property.
@@ -158,7 +158,7 @@ public class ScriptRunner {
    */
   public void runScript(Reader reader) throws IOException, SQLException {
     try {
-<span class="pc bpc" id="L161" title="1 of 2 branches missed.">      if (connection == null) {</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">      if (connection == null) {</span>
 <span class="nc" id="L162">        DriverManager.registerDriver((Driver) Resources.instantiate(driver));</span>
 <span class="nc" id="L163">        Connection conn = DriverManager.getConnection(url, username, password);</span>
         try {
@@ -182,8 +182,8 @@ public class ScriptRunner {
       }
 <span class="nc" id="L183">    } catch (IOException | SQLException e) {</span>
 <span class="nc" id="L184">      throw e;</span>
-<span class="nc" id="L185">    } catch (Exception e) {</span>
-<span class="nc" id="L186">      throw new RuntimeException(&quot;Error running script.  Cause: &quot; + e, e);</span>
+<span class="fc" id="L185">    } catch (Exception e) {</span>
+<span class="fc" id="L186">      throw new RuntimeException(&quot;Error running script.  Cause: &quot; + e, e);</span>
 <span class="fc" id="L187">    }</span>
 <span class="fc" id="L188">  }</span>
 
@@ -214,8 +214,8 @@ public class ScriptRunner {
 <span class="fc" id="L214">          println(trimmedLine);</span>
 <span class="pc bpc" id="L215" title="2 of 6 branches missed.">        } else if (trimmedLine.isEmpty() || trimmedLine.startsWith(&quot;//&quot;) || trimmedLine.startsWith(&quot;--&quot;)) {</span>
           // Do nothing
-<span class="pc bpc" id="L217" title="2 of 6 branches missed.">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter())</span>
-<span class="nc bnc" id="L218" title="All 2 branches missed.">            || fullLineDelimiter &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
+<span class="fc bfc" id="L217" title="All 6 branches covered.">        } else if (!fullLineDelimiter &amp;&amp; trimmedLine.endsWith(getDelimiter())</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">            || fullLineDelimiter &amp;&amp; trimmedLine.equals(getDelimiter())) {</span>
 <span class="fc" id="L219">          command.append(line.substring(0, line.lastIndexOf(getDelimiter())));</span>
 <span class="fc" id="L220">          command.append(&quot; &quot;);</span>
 <span class="fc" id="L221">          Statement statement = conn.createStatement();</span>
@@ -223,8 +223,8 @@ public class ScriptRunner {
 <span class="fc" id="L223">          println(command);</span>
 
 <span class="fc" id="L225">          boolean hasResults = false;</span>
-<span class="pc bpc" id="L226" title="1 of 2 branches missed.">          if (stopOnError) {</span>
-<span class="nc" id="L227">            hasResults = statement.execute(command.toString());</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">          if (stopOnError) {</span>
+<span class="fc" id="L227">            hasResults = statement.execute(command.toString());</span>
           } else {
             try {
 <span class="fc" id="L230">              statement.execute(command.toString());</span>
@@ -240,20 +240,20 @@ public class ScriptRunner {
           }
 
 <span class="fc" id="L242">          ResultSet rs = statement.getResultSet();</span>
-<span class="pc bpc" id="L243" title="3 of 4 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
-<span class="nc" id="L244">            ResultSetMetaData md = rs.getMetaData();</span>
-<span class="nc" id="L245">            int cols = md.getColumnCount();</span>
-<span class="nc bnc" id="L246" title="All 2 branches missed.">            for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L247">              String name = md.getColumnLabel(i + 1);</span>
-<span class="nc" id="L248">              print(name + &quot;\t&quot;);</span>
+<span class="pc bpc" id="L243" title="1 of 4 branches missed.">          if (hasResults &amp;&amp; rs != null) {</span>
+<span class="fc" id="L244">            ResultSetMetaData md = rs.getMetaData();</span>
+<span class="fc" id="L245">            int cols = md.getColumnCount();</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">            for (int i = 0; i &lt; cols; i++) {</span>
+<span class="fc" id="L247">              String name = md.getColumnLabel(i + 1);</span>
+<span class="fc" id="L248">              print(name + &quot;\t&quot;);</span>
             }
-<span class="nc" id="L250">            println(&quot;&quot;);</span>
-<span class="nc bnc" id="L251" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc bnc" id="L252" title="All 2 branches missed.">              for (int i = 0; i &lt; cols; i++) {</span>
-<span class="nc" id="L253">                String value = rs.getString(i + 1);</span>
-<span class="nc" id="L254">                print(value + &quot;\t&quot;);</span>
+<span class="fc" id="L250">            println(&quot;&quot;);</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">              for (int i = 0; i &lt; cols; i++) {</span>
+<span class="fc" id="L253">                String value = rs.getString(i + 1);</span>
+<span class="fc" id="L254">                print(value + &quot;\t&quot;);</span>
               }
-<span class="nc" id="L256">              println(&quot;&quot;);</span>
+<span class="fc" id="L256">              println(&quot;&quot;);</span>
             }
           }
 
@@ -299,10 +299,10 @@ public class ScriptRunner {
    *          the o
    */
   private void print(Object o) {
-<span class="nc bnc" id="L302" title="All 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L303">      System.out.print(o);</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
+<span class="fc" id="L303">      System.out.print(o);</span>
     }
-<span class="nc" id="L305">  }</span>
+<span class="fc" id="L305">  }</span>
 
   /**
    * Println.
@@ -311,8 +311,8 @@ public class ScriptRunner {
    *          the o
    */
   private void println(Object o) {
-<span class="pc bpc" id="L314" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L315">      logWriter.println(o);</span>
+<span class="fc bfc" id="L314" title="All 2 branches covered.">    if (logWriter != null) {</span>
+<span class="fc" id="L315">      logWriter.println(o);</span>
     }
 <span class="fc" id="L317">  }</span>
 
@@ -323,8 +323,8 @@ public class ScriptRunner {
    *          the o
    */
   private void printlnError(Object o) {
-<span class="pc bpc" id="L326" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L327">      errorLogWriter.println(o);</span>
+<span class="fc bfc" id="L326" title="All 2 branches covered.">    if (errorLogWriter != null) {</span>
+<span class="fc" id="L327">      errorLogWriter.println(o);</span>
     }
 <span class="fc" id="L329">  }</span>
 
@@ -332,13 +332,13 @@ public class ScriptRunner {
    * Flush.
    */
   private void flush() {
-<span class="pc bpc" id="L335" title="1 of 2 branches missed.">    if (logWriter != null) {</span>
-<span class="nc" id="L336">      logWriter.flush();</span>
+<span class="fc bfc" id="L335" title="All 2 branches covered.">    if (logWriter != null) {</span>
+<span class="fc" id="L336">      logWriter.flush();</span>
     }
-<span class="pc bpc" id="L338" title="1 of 2 branches missed.">    if (errorLogWriter != null) {</span>
-<span class="nc" id="L339">      errorLogWriter.flush();</span>
+<span class="fc bfc" id="L338" title="All 2 branches covered.">    if (errorLogWriter != null) {</span>
+<span class="fc" id="L339">      errorLogWriter.flush();</span>
     }
 <span class="fc" id="L341">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComplexBeanProbe.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis2</a> &gt; <a href="index.source.html" class="el_package">com.ibatis.common.beans</a> &gt; <span class="el_source">ComplexBeanProbe.java</span></div><h1>ComplexBeanProbe.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2004-2025 the original author or authors.
+ * Copyright 2004-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class ComplexBeanProbe extends BaseProbe {
    */
   @Override
   public String[] getReadablePropertyNames(Object object) {
-<span class="nc" id="L54">    return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();</span>
+<span class="fc" id="L54">    return ClassInfo.getInstance(object.getClass()).getReadablePropertyNames();</span>
   }
 
   /**
@@ -64,7 +64,7 @@ public class ComplexBeanProbe extends BaseProbe {
    */
   @Override
   public String[] getWriteablePropertyNames(Object object) {
-<span class="nc" id="L67">    return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();</span>
+<span class="fc" id="L67">    return ClassInfo.getInstance(object.getClass()).getWriteablePropertyNames();</span>
   }
 
   /**
@@ -354,8 +354,8 @@ public class ComplexBeanProbe extends BaseProbe {
 
       }
 <span class="fc" id="L356">      return value;</span>
-<span class="nc" id="L357">    } catch (ProbeException e) {</span>
-<span class="nc" id="L358">      throw e;</span>
+<span class="fc" id="L357">    } catch (ProbeException e) {</span>
+<span class="fc" id="L358">      throw e;</span>
 <span class="nc" id="L359">    } catch (Throwable t) {</span>
 <span class="nc bnc" id="L360" title="All 2 branches missed.">      if (object == null) {</span>
 <span class="nc" id="L361">        throw new ProbeException(&quot;Could not get property '&quot; + name + &quot;' from null reference.  Cause: &quot; + t.toString(),</span>
@@ -370,8 +370,8 @@ public class ComplexBeanProbe extends BaseProbe {
   protected void setProperty(Object object, String name, Object value) {
 <span class="fc" id="L371">    ClassInfo classCache = ClassInfo.getInstance(object.getClass());</span>
     try {
-<span class="pc bpc" id="L373" title="1 of 2 branches missed.">      if (name.indexOf('[') &gt; -1) {</span>
-<span class="nc" id="L374">        setIndexedProperty(object, name, value);</span>
+<span class="fc bfc" id="L373" title="All 2 branches covered.">      if (name.indexOf('[') &gt; -1) {</span>
+<span class="fc" id="L374">        setIndexedProperty(object, name, value);</span>
 <span class="fc bfc" id="L375" title="All 2 branches covered.">      } else if (object instanceof Map) {</span>
 <span class="fc" id="L376">        ((Map) object).put(name, value);</span>
       } else {
@@ -397,4 +397,4 @@ public class ComplexBeanProbe extends BaseProbe {
 <span class="fc" id="L397">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

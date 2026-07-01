@@ -94,22 +94,22 @@ import java.util.List;
 <span class="fc" id="L94">        value = ((List) list).get(i);</span>
 <span class="fc bfc" id="L95" title="All 2 branches covered.">      } else if (list instanceof Object[]) {</span>
 <span class="fc" id="L96">        value = ((Object[]) list)[i];</span>
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">      } else if (list instanceof char[]) {</span>
-<span class="nc" id="L98">        value = Character.valueOf(((char[]) list)[i]);</span>
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">      } else if (list instanceof boolean[]) {</span>
-<span class="nc" id="L100">        value = Boolean.valueOf(((boolean[]) list)[i]);</span>
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">      } else if (list instanceof byte[]) {</span>
-<span class="nc" id="L102">        value = Byte.valueOf(((byte[]) list)[i]);</span>
-<span class="pc bpc" id="L103" title="1 of 2 branches missed.">      } else if (list instanceof double[]) {</span>
-<span class="nc" id="L104">        value = Double.valueOf(((double[]) list)[i]);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">      } else if (list instanceof char[]) {</span>
+<span class="fc" id="L98">        value = Character.valueOf(((char[]) list)[i]);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">      } else if (list instanceof boolean[]) {</span>
+<span class="fc" id="L100">        value = Boolean.valueOf(((boolean[]) list)[i]);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">      } else if (list instanceof byte[]) {</span>
+<span class="fc" id="L102">        value = Byte.valueOf(((byte[]) list)[i]);</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">      } else if (list instanceof double[]) {</span>
+<span class="fc" id="L104">        value = Double.valueOf(((double[]) list)[i]);</span>
 <span class="fc bfc" id="L105" title="All 2 branches covered.">      } else if (list instanceof float[]) {</span>
 <span class="fc" id="L106">        value = Float.valueOf(((float[]) list)[i]);</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">      } else if (list instanceof int[]) {</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">      } else if (list instanceof int[]) {</span>
 <span class="fc" id="L108">        value = Integer.valueOf(((int[]) list)[i]);</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">      } else if (list instanceof long[]) {</span>
-<span class="nc" id="L110">        value = Long.valueOf(((long[]) list)[i]);</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">      } else if (list instanceof short[]) {</span>
-<span class="nc" id="L112">        value = Short.valueOf(((short[]) list)[i]);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">      } else if (list instanceof long[]) {</span>
+<span class="fc" id="L110">        value = Long.valueOf(((long[]) list)[i]);</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">      } else if (list instanceof short[]) {</span>
+<span class="fc" id="L112">        value = Short.valueOf(((short[]) list)[i]);</span>
       } else {
 <span class="nc" id="L114">        throw new ProbeException(</span>
 <span class="nc" id="L115">            &quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName() + &quot; class is not a List or Array.&quot;);</span>
@@ -117,8 +117,8 @@ import java.util.List;
 
 <span class="nc" id="L118">    } catch (ProbeException e) {</span>
 <span class="nc" id="L119">      throw e;</span>
-<span class="nc" id="L120">    } catch (Exception e) {</span>
-<span class="nc" id="L121">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
+<span class="fc" id="L120">    } catch (Exception e) {</span>
+<span class="fc" id="L121">      throw new ProbeException(&quot;Error getting ordinal list from JavaBean. Cause &quot; + e, e);</span>
 <span class="fc" id="L122">    }</span>
 
 <span class="fc" id="L124">    return value;</span>
@@ -195,29 +195,29 @@ import java.util.List;
   protected void setIndexedProperty(Object object, String indexedName, Object value) {
 
     try {
-<span class="nc" id="L198">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
-<span class="nc" id="L199">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
-<span class="nc" id="L200">      Object list = getProperty(object, name);</span>
-<span class="nc bnc" id="L201" title="All 2 branches missed.">      if (list instanceof List) {</span>
-<span class="nc" id="L202">        ((List) list).set(i, value);</span>
-<span class="nc bnc" id="L203" title="All 2 branches missed.">      } else if (list instanceof Object[]) {</span>
-<span class="nc" id="L204">        ((Object[]) list)[i] = value;</span>
-<span class="nc bnc" id="L205" title="All 2 branches missed.">      } else if (list instanceof char[]) {</span>
-<span class="nc" id="L206">        ((char[]) list)[i] = ((Character) value).charValue();</span>
-<span class="nc bnc" id="L207" title="All 2 branches missed.">      } else if (list instanceof boolean[]) {</span>
-<span class="nc" id="L208">        ((boolean[]) list)[i] = ((Boolean) value).booleanValue();</span>
-<span class="nc bnc" id="L209" title="All 2 branches missed.">      } else if (list instanceof byte[]) {</span>
-<span class="nc" id="L210">        ((byte[]) list)[i] = ((Byte) value).byteValue();</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">      } else if (list instanceof double[]) {</span>
-<span class="nc" id="L212">        ((double[]) list)[i] = ((Double) value).doubleValue();</span>
-<span class="nc bnc" id="L213" title="All 2 branches missed.">      } else if (list instanceof float[]) {</span>
-<span class="nc" id="L214">        ((float[]) list)[i] = ((Float) value).floatValue();</span>
-<span class="nc bnc" id="L215" title="All 2 branches missed.">      } else if (list instanceof int[]) {</span>
-<span class="nc" id="L216">        ((int[]) list)[i] = ((Integer) value).intValue();</span>
-<span class="nc bnc" id="L217" title="All 2 branches missed.">      } else if (list instanceof long[]) {</span>
-<span class="nc" id="L218">        ((long[]) list)[i] = ((Long) value).longValue();</span>
-<span class="nc bnc" id="L219" title="All 2 branches missed.">      } else if (list instanceof short[]) {</span>
-<span class="nc" id="L220">        ((short[]) list)[i] = ((Short) value).shortValue();</span>
+<span class="fc" id="L198">      String name = indexedName.substring(0, indexedName.indexOf('['));</span>
+<span class="fc" id="L199">      int i = Integer.parseInt(indexedName.substring(indexedName.indexOf('[') + 1, indexedName.indexOf(']')));</span>
+<span class="fc" id="L200">      Object list = getProperty(object, name);</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">      if (list instanceof List) {</span>
+<span class="fc" id="L202">        ((List) list).set(i, value);</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">      } else if (list instanceof Object[]) {</span>
+<span class="fc" id="L204">        ((Object[]) list)[i] = value;</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">      } else if (list instanceof char[]) {</span>
+<span class="fc" id="L206">        ((char[]) list)[i] = ((Character) value).charValue();</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">      } else if (list instanceof boolean[]) {</span>
+<span class="fc" id="L208">        ((boolean[]) list)[i] = ((Boolean) value).booleanValue();</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">      } else if (list instanceof byte[]) {</span>
+<span class="fc" id="L210">        ((byte[]) list)[i] = ((Byte) value).byteValue();</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">      } else if (list instanceof double[]) {</span>
+<span class="fc" id="L212">        ((double[]) list)[i] = ((Double) value).doubleValue();</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">      } else if (list instanceof float[]) {</span>
+<span class="fc" id="L214">        ((float[]) list)[i] = ((Float) value).floatValue();</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">      } else if (list instanceof int[]) {</span>
+<span class="fc" id="L216">        ((int[]) list)[i] = ((Integer) value).intValue();</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">      } else if (list instanceof long[]) {</span>
+<span class="fc" id="L218">        ((long[]) list)[i] = ((Long) value).longValue();</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">      } else if (list instanceof short[]) {</span>
+<span class="fc" id="L220">        ((short[]) list)[i] = ((Short) value).shortValue();</span>
       } else {
 <span class="nc" id="L222">        throw new ProbeException(</span>
 <span class="nc" id="L223">            &quot;The '&quot; + name + &quot;' property of the &quot; + object.getClass().getName() + &quot; class is not a List or Array.&quot;);</span>
@@ -226,7 +226,7 @@ import java.util.List;
 <span class="nc" id="L226">      throw e;</span>
 <span class="nc" id="L227">    } catch (Exception e) {</span>
 <span class="nc" id="L228">      throw new ProbeException(&quot;Error getting ordinal value from JavaBean. Cause &quot; + e, e);</span>
-<span class="nc" id="L229">    }</span>
-<span class="nc" id="L230">  }</span>
+<span class="fc" id="L229">    }</span>
+<span class="fc" id="L230">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

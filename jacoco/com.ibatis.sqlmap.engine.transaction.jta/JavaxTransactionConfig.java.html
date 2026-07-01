@@ -30,14 +30,14 @@ import javax.transaction.UserTransaction;
 /**
  * The Class JtaTransactionConfig.
  */
-<span class="nc" id="L33">public class JavaxTransactionConfig extends BaseTransactionConfig {</span>
+<span class="fc" id="L33">public class JavaxTransactionConfig extends BaseTransactionConfig {</span>
 
   /** The user transaction. */
   private UserTransaction userTransaction;
 
   @Override
   public Transaction newTransaction(int transactionIsolation) throws SQLException, TransactionException {
-<span class="nc" id="L40">    return new JavaxTransaction(userTransaction, dataSource, transactionIsolation);</span>
+<span class="fc" id="L40">    return new JavaxTransaction(userTransaction, dataSource, transactionIsolation);</span>
   }
 
   /**
@@ -56,8 +56,8 @@ import javax.transaction.UserTransaction;
    *          the new user transaction
    */
   public void setUserTransaction(UserTransaction userTransaction) {
-<span class="nc" id="L59">    this.userTransaction = userTransaction;</span>
-<span class="nc" id="L60">  }</span>
+<span class="fc" id="L59">    this.userTransaction = userTransaction;</span>
+<span class="fc" id="L60">  }</span>
 
   @Override
   public void setProperties(Properties props) throws SQLException, TransactionException {
@@ -73,4 +73,4 @@ import javax.transaction.UserTransaction;
 <span class="nc" id="L73">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
